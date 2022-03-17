@@ -80,15 +80,37 @@ func Provider() tfbridge.ProviderInfo {
 		Repository: "https://github.com/pulumiverse/pulumi-unifi",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
 		GitHubOrg: "paultyng",
-		Config:    map[string]*tfbridge.SchemaInfo{
-			// Add any required configuration here, or remove the example below if
-			// no additional points are required.
-			// "region": {
-			// 	Type: tfbridge.MakeType("region", "Region"),
-			// 	Default: &tfbridge.DefaultInfo{
-			// 		EnvVars: []string{"AWS_REGION", "AWS_DEFAULT_REGION"},
-			// 	},
-			// },
+		Config: map[string]*tfbridge.SchemaInfo{
+			"username": {
+				Type: tfbridge.MakeType(mainPkg, mainMod, "username"),
+				Default: &tfbridge.DefaultInfo{
+					EnvVars: []string{"UNIFI_USERNAME"},
+				},
+			},
+			"password": {
+				Type: tfbridge.MakeType(mainPkg, mainMod, "password"),
+				Default: &tfbridge.DefaultInfo{
+					EnvVars: []string{"UNIFI_PASSWORD"},
+				},
+			},
+			"api_url": {
+				Type: tfbridge.MakeType(mainPkg, mainMod, "api_url"),
+				Default: &tfbridge.DefaultInfo{
+					EnvVars: []string{"UNIFI_API"},
+				},
+			},
+			"site": {
+				Type: tfbridge.MakeType(mainPkg, mainMod, "site"),
+				Default: &tfbridge.DefaultInfo{
+					EnvVars: []string{"UNIFI_SITE"},
+				},
+			},
+			"allow_insecure": {
+				Type: tfbridge.MakeType(mainPkg, mainMod, "allow_insecure"),
+				Default: &tfbridge.DefaultInfo{
+					EnvVars: []string{"UNIFI_INSECURE"},
+				},
+			},
 		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
