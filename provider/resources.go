@@ -82,31 +82,26 @@ func Provider() tfbridge.ProviderInfo {
 		GitHubOrg: "paultyng",
 		Config: map[string]*tfbridge.SchemaInfo{
 			"username": {
-				Type: tfbridge.MakeType(mainPkg, mainMod, "username"),
 				Default: &tfbridge.DefaultInfo{
 					EnvVars: []string{"UNIFI_USERNAME"},
 				},
 			},
 			"password": {
-				Type: tfbridge.MakeType(mainPkg, mainMod, "password"),
 				Default: &tfbridge.DefaultInfo{
 					EnvVars: []string{"UNIFI_PASSWORD"},
 				},
 			},
 			"api_url": {
-				Type: tfbridge.MakeType(mainPkg, mainMod, "api_url"),
 				Default: &tfbridge.DefaultInfo{
 					EnvVars: []string{"UNIFI_API"},
 				},
 			},
 			"site": {
-				Type: tfbridge.MakeType(mainPkg, mainMod, "site"),
 				Default: &tfbridge.DefaultInfo{
 					EnvVars: []string{"UNIFI_SITE"},
 				},
 			},
 			"allow_insecure": {
-				Type: tfbridge.MakeType(mainPkg, mainMod, "allow_insecure"),
 				Default: &tfbridge.DefaultInfo{
 					EnvVars: []string{"UNIFI_INSECURE"},
 				},

@@ -19,7 +19,6 @@
         "variables": {
             "allowInsecure": {
                 "type": "boolean",
-                "$ref": "#/types/unifi:index:allow_insecure",
                 "description": "Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local\nAPI without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.\n",
                 "defaultInfo": {
                     "environment": [
@@ -29,7 +28,6 @@
             },
             "apiUrl": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:api_url",
                 "description": "URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the\npath (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more\nstandard controller paths.\n",
                 "defaultInfo": {
                     "environment": [
@@ -39,7 +37,6 @@
             },
             "password": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:password",
                 "description": "Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.\n",
                 "defaultInfo": {
                     "environment": [
@@ -49,7 +46,6 @@
             },
             "site": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:site",
                 "description": "The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.\nDefault: `default`\n",
                 "defaultInfo": {
                     "environment": [
@@ -59,7 +55,6 @@
             },
             "username": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:username",
                 "description": "Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.\n",
                 "defaultInfo": {
                     "environment": [
@@ -199,34 +194,28 @@
         "properties": {
             "allowInsecure": {
                 "type": "boolean",
-                "$ref": "#/types/unifi:index:allow_insecure",
                 "description": "Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local\nAPI without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.\n"
             },
             "apiUrl": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:api_url",
                 "description": "URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the\npath (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more\nstandard controller paths.\n"
             },
             "password": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:password",
                 "description": "Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.\n"
             },
             "site": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:site",
                 "description": "The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.\nDefault: `default`\n"
             },
             "username": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:username",
                 "description": "Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.\n"
             }
         },
         "inputProperties": {
             "allowInsecure": {
                 "type": "boolean",
-                "$ref": "#/types/unifi:index:allow_insecure",
                 "description": "Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local\nAPI without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.\n",
                 "defaultInfo": {
                     "environment": [
@@ -236,7 +225,6 @@
             },
             "apiUrl": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:api_url",
                 "description": "URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the\npath (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more\nstandard controller paths.\n",
                 "defaultInfo": {
                     "environment": [
@@ -246,7 +234,6 @@
             },
             "password": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:password",
                 "description": "Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.\n",
                 "defaultInfo": {
                     "environment": [
@@ -256,7 +243,6 @@
             },
             "site": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:site",
                 "description": "The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.\nDefault: `default`\n",
                 "defaultInfo": {
                     "environment": [
@@ -266,7 +252,6 @@
             },
             "username": {
                 "type": "string",
-                "$ref": "#/types/unifi:index:username",
                 "description": "Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.\n",
                 "defaultInfo": {
                     "environment": [
