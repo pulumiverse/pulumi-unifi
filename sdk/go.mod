@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz/sdk
+module github.com/pulumiverse/pulumi-unifi/sdk
 
 go 1.16
 
