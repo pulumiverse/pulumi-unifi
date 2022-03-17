@@ -18,8 +18,9 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/paultyng/terraform-provider-unifi/shim"
+	provider "github.com/paultyng/terraform-provider-unifi/shim"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumiverse/pulumi-unifi/provider/pkg/version"
@@ -45,7 +46,7 @@ func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) erro
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := shimv2.NewProvider(shim.NewProvider())
+	p := shimv2.NewProvider(provider.NewProvider())
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
@@ -53,7 +54,7 @@ func Provider() tfbridge.ProviderInfo {
 		Name: "unifi",
 		// DisplayName is a way to be able to change the casing of the provider
 		// name when being displayed on the Pulumi registry
-		DisplayName: "",
+		DisplayName: "Unifi",
 		// The default publisher for all packages is Pulumi.
 		// Change this to your personal name (or a company name) that you
 		// would like to be shown in the Pulumi Registry if this package is published
@@ -64,21 +65,21 @@ func Provider() tfbridge.ProviderInfo {
 		//
 		// You may host a logo on a domain you control or add an SVG logo for your package
 		// in your repository and use the raw content URL for that file as your logo URL.
-		LogoURL: "",
+		LogoURL: "https://raw.githubusercontent.com/pulumiverse/.github/main/assets/mascot.png",
 		// PluginDownloadURL is an optional URL used to download the Provider
 		// for use in Pulumi programs
 		// e.g https://github.com/org/pulumi-provider-name/releases/
 		PluginDownloadURL: "",
-		Description:       "A Pulumi package for creating and managing unifi cloud resources.",
+		Description:       "A Pulumi package for creating and managing Unifi network resources.",
 		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
 		// For all available categories, see `Keywords` in
 		// https://www.pulumi.com/docs/guides/pulumi-packages/schema/#package.
-		Keywords:   []string{"pulumi", "unifi", "category/cloud"},
+		Keywords:   []string{"pulumi", "unifi", "category/network"},
 		License:    "Apache-2.0",
-		Homepage:   "https://www.pulumi.com",
+		Homepage:   "https://github.com/pulumiverse",
 		Repository: "https://github.com/pulumiverse/pulumi-unifi",
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg: "",
+		GitHubOrg: "paultyng",
 		Config:    map[string]*tfbridge.SchemaInfo{
 			// Add any required configuration here, or remove the example below if
 			// no additional points are required.
@@ -90,24 +91,29 @@ func Provider() tfbridge.ProviderInfo {
 			// },
 		},
 		PreConfigureCallback: preConfigureCallback,
-		Resources:            map[string]*tfbridge.ResourceInfo{
-			// Map each resource in the Terraform provider to a Pulumi type. Two examples
-			// are below - the single line form is the common case. The multi-line form is
-			// needed only if you wish to override types or other default options.
-			//
-			// "aws_iam_role": {Tok: tfbridge.MakeResource(mainMod, "IamRole")}
-			//
-			// "aws_acm_certificate": {
-			// 	Tok: tfbridge.MakeResource(mainMod, "Certificate"),
-			// 	Fields: map[string]*tfbridge.SchemaInfo{
-			// 		"tags": {Type: tfbridge.MakeType(mainPkg, "Tags")},
-			// 	},
-			// },
+		Resources: map[string]*tfbridge.ResourceInfo{
+			"unifi_device":         {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Device")},
+			"unifi_dynamic_dns":    {Tok: tfbridge.MakeResource(mainPkg, mainMod, "DynamicDNS")},
+			"unifi_firewall_group": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "FirewallGroup")},
+			"unifi_firewall_rule":  {Tok: tfbridge.MakeResource(mainPkg, mainMod, "FirewallRule")},
+			"unifi_network":        {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Network")},
+			"unifi_port_forward":   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PortForward")},
+			"unifi_port_profile":   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "PortProfile")},
+			"unifi_setting_mgmt":   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "SettingMgmt")},
+			"unifi_setting_usg":    {Tok: tfbridge.MakeResource(mainPkg, mainMod, "SettingUSG")},
+			"unifi_site":           {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Site")},
+			"unifi_static_route":   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "StaticRoute")},
+			"unifi_user":           {Tok: tfbridge.MakeResource(mainPkg, mainMod, "User")},
+			"unifi_user_group":     {Tok: tfbridge.MakeResource(mainPkg, mainMod, "UserGroup")},
+			"unifi_wlan":           {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Wlan")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			// Map each resource in the Terraform provider to a Pulumi function. An example
-			// is below.
-			// "aws_ami": {Tok: tfbridge.MakeDataSource(mainMod, "getAmi")},
+			"unifi_ap_group":       {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getApGroup")},
+			"unifi_network":        {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getNetwork")},
+			"unifi_port_profile":   {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getPortProfile")},
+			"unifi_radius_profile": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getRadiusProfile")},
+			"unifi_user":           {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getUser")},
+			"unifi_user_group":     {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getUserGroup")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			// List any npm dependencies and their versions
