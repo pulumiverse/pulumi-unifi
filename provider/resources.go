@@ -69,7 +69,7 @@ func Provider() tfbridge.ProviderInfo {
 		// PluginDownloadURL is an optional URL used to download the Provider
 		// for use in Pulumi programs
 		// e.g https://github.com/org/pulumi-provider-name/releases/
-		PluginDownloadURL: "",
+		PluginDownloadURL: "https://github.com/pulumiverse/pulumi-unifi/releases/download/${VERSION}",
 		Description:       "A Pulumi package for creating and managing Unifi network resources.",
 		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
 		// For all available categories, see `Keywords` in
@@ -78,6 +78,7 @@ func Provider() tfbridge.ProviderInfo {
 		License:    "Apache-2.0",
 		Homepage:   "https://github.com/pulumiverse",
 		Repository: "https://github.com/pulumiverse/pulumi-unifi",
+
 		// The GitHub Org for the provider - defaults to `terraform-providers`
 		GitHubOrg: "paultyng",
 		Config: map[string]*tfbridge.SchemaInfo{
@@ -152,10 +153,11 @@ func Provider() tfbridge.ProviderInfo {
 			Requires: map[string]string{
 				"pulumi": ">=3.0.0,<4.0.0",
 			},
+			PackageName: "pulumiverse_unifi",
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/pulumi/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/pulumiverse/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
@@ -166,6 +168,7 @@ func Provider() tfbridge.ProviderInfo {
 			PackageReferences: map[string]string{
 				"Pulumi": "3.*",
 			},
+			RootNamespace: "Pulumiverse",
 		},
 	}
 
