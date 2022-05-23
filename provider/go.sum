@@ -710,8 +710,8 @@ github.com/pulumi/pulumi-terraform-bridge/v3 v3.21.0/go.mod h1:/hmAhDQorKTW29yyM
 github.com/pulumi/pulumi/pkg/v3 v3.30.0 h1:tdhcndy6pc+aV76wC76r+i5Z5E5nUvc78JaNyeA66JY=
 github.com/pulumi/pulumi/pkg/v3 v3.30.0/go.mod h1:U1BGP/1QmebZE35OfFAT96zN2lhexAktkGLAbnAv+lI=
 github.com/pulumi/pulumi/sdk/v3 v3.30.0/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
-github.com/pulumi/pulumi/sdk/v3 v3.32.1 h1:g7bcNmaL1/gKHFL35cWLpMad0GSIWAcj/1KDK0hy7bU=
-github.com/pulumi/pulumi/sdk/v3 v3.32.1/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
+github.com/pulumi/pulumi/sdk/v3 v3.33.1 h1:CCJdxK91D0ycuAIBV94xmCZQXeoSdRmKwe3rEvjtrVg=
+github.com/pulumi/pulumi/sdk/v3 v3.33.1/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
 github.com/pulumi/terraform-diff-reader v0.0.0-20201211191010-ad4715e9285e h1:Dik4Qe/+xguB8JagPyXNlbOnRiXGmq/PSPQTGunYnTk=
 github.com/pulumi/terraform-diff-reader v0.0.0-20201211191010-ad4715e9285e/go.mod h1:sZ9FUzGO+yM41hsQHs/yIcj/Y993qMdBxBU5mpDmAfQ=
 github.com/pulumi/terraform-plugin-sdk/v2 v2.0.0-20211230170131-3a7c83bfab87 h1:Reqyb/CbcDwThvBRzA62H7cvuCqgTJuGNt+F6mnmXJ4=
