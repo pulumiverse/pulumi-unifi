@@ -540,6 +540,181 @@ func (o PortProfileOutput) ToPortProfileOutputWithContext(ctx context.Context) P
 	return o
 }
 
+// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+func (o PortProfileOutput) Autoneg() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.Autoneg }).(pulumi.BoolPtrOutput)
+}
+
+// The type of 802.1X control to use. Can be `auto`, `forceAuthorized`, `forceUnauthorized`, `macBased` or `multiHost`. Defaults to `forceAuthorized`.
+func (o PortProfileOutput) Dot1xCtrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringPtrOutput { return v.Dot1xCtrl }).(pulumi.StringPtrOutput)
+}
+
+// The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
+func (o PortProfileOutput) Dot1xIdleTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.Dot1xIdleTimeout }).(pulumi.IntPtrOutput)
+}
+
+// The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
+func (o PortProfileOutput) EgressRateLimitKbps() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.EgressRateLimitKbps }).(pulumi.IntPtrOutput)
+}
+
+// Enable egress rate limiting for the port profile. Defaults to `false`.
+func (o PortProfileOutput) EgressRateLimitKbpsEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.EgressRateLimitKbpsEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+func (o PortProfileOutput) Forward() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringPtrOutput { return v.Forward }).(pulumi.StringPtrOutput)
+}
+
+// Enable full duplex for the port profile. Defaults to `false`.
+func (o PortProfileOutput) FullDuplex() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.FullDuplex }).(pulumi.BoolPtrOutput)
+}
+
+// Enable port isolation for the port profile. Defaults to `false`.
+func (o PortProfileOutput) Isolation() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.Isolation }).(pulumi.BoolPtrOutput)
+}
+
+// Enable LLDP-MED for the port profile. Defaults to `true`.
+func (o PortProfileOutput) LldpmedEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.LldpmedEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Enable LLDP-MED topology change notifications for the port profile.
+func (o PortProfileOutput) LldpmedNotifyEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.LldpmedNotifyEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// The name of the port profile.
+func (o PortProfileOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The ID of network to use as the main network on the port profile.
+func (o PortProfileOutput) NativeNetworkconfId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringPtrOutput { return v.NativeNetworkconfId }).(pulumi.StringPtrOutput)
+}
+
+// The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+func (o PortProfileOutput) OpMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringPtrOutput { return v.OpMode }).(pulumi.StringPtrOutput)
+}
+
+// The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
+func (o PortProfileOutput) PoeMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringPtrOutput { return v.PoeMode }).(pulumi.StringPtrOutput)
+}
+
+// Enable port security for the port profile. Defaults to `false`.
+func (o PortProfileOutput) PortSecurityEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.PortSecurityEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// The MAC addresses associated with the port security for the port profile.
+func (o PortProfileOutput) PortSecurityMacAddresses() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringArrayOutput { return v.PortSecurityMacAddresses }).(pulumi.StringArrayOutput)
+}
+
+// The priority queue 1 level for the port profile. Can be between 0 and 100.
+func (o PortProfileOutput) PriorityQueue1Level() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.PriorityQueue1Level }).(pulumi.IntPtrOutput)
+}
+
+// The priority queue 2 level for the port profile. Can be between 0 and 100.
+func (o PortProfileOutput) PriorityQueue2Level() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.PriorityQueue2Level }).(pulumi.IntPtrOutput)
+}
+
+// The priority queue 3 level for the port profile. Can be between 0 and 100.
+func (o PortProfileOutput) PriorityQueue3Level() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.PriorityQueue3Level }).(pulumi.IntPtrOutput)
+}
+
+// The priority queue 4 level for the port profile. Can be between 0 and 100.
+func (o PortProfileOutput) PriorityQueue4Level() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.PriorityQueue4Level }).(pulumi.IntPtrOutput)
+}
+
+// The name of the site to associate the port profile with.
+func (o PortProfileOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
+func (o PortProfileOutput) Speed() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.Speed }).(pulumi.IntPtrOutput)
+}
+
+// Enable broadcast Storm Control for the port profile. Defaults to `false`.
+func (o PortProfileOutput) StormctrlBcastEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.StormctrlBcastEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// The broadcast Storm Control level for the port profile. Can be between 0 and 100.
+func (o PortProfileOutput) StormctrlBcastLevel() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.StormctrlBcastLevel }).(pulumi.IntPtrOutput)
+}
+
+// The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
+func (o PortProfileOutput) StormctrlBcastRate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.StormctrlBcastRate }).(pulumi.IntPtrOutput)
+}
+
+// Enable multicast Storm Control for the port profile. Defaults to `false`.
+func (o PortProfileOutput) StormctrlMcastEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.StormctrlMcastEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// The multicast Storm Control level for the port profile. Can be between 0 and 100.
+func (o PortProfileOutput) StormctrlMcastLevel() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.StormctrlMcastLevel }).(pulumi.IntPtrOutput)
+}
+
+// The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+func (o PortProfileOutput) StormctrlMcastRate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.StormctrlMcastRate }).(pulumi.IntPtrOutput)
+}
+
+// The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
+func (o PortProfileOutput) StormctrlType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringPtrOutput { return v.StormctrlType }).(pulumi.StringPtrOutput)
+}
+
+// Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+func (o PortProfileOutput) StormctrlUcastEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.StormctrlUcastEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
+func (o PortProfileOutput) StormctrlUcastLevel() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.StormctrlUcastLevel }).(pulumi.IntPtrOutput)
+}
+
+// The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+func (o PortProfileOutput) StormctrlUcastRate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.IntPtrOutput { return v.StormctrlUcastRate }).(pulumi.IntPtrOutput)
+}
+
+// Enable spanning tree protocol on the port profile. Defaults to `true`.
+func (o PortProfileOutput) StpPortMode() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.BoolPtrOutput { return v.StpPortMode }).(pulumi.BoolPtrOutput)
+}
+
+// The IDs of networks to tag traffic with for the port profile.
+func (o PortProfileOutput) TaggedNetworkconfIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringArrayOutput { return v.TaggedNetworkconfIds }).(pulumi.StringArrayOutput)
+}
+
+// The ID of network to use as the voice network on the port profile.
+func (o PortProfileOutput) VoiceNetworkconfId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortProfile) pulumi.StringPtrOutput { return v.VoiceNetworkconfId }).(pulumi.StringPtrOutput)
+}
+
 type PortProfileArrayOutput struct{ *pulumi.OutputState }
 
 func (PortProfileArrayOutput) ElementType() reflect.Type {

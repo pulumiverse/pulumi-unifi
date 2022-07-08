@@ -253,6 +253,41 @@ func (o DynamicDNSOutput) ToDynamicDNSOutputWithContext(ctx context.Context) Dyn
 	return o
 }
 
+// The host name to update in the dynamic DNS service.
+func (o DynamicDNSOutput) HostName() pulumi.StringOutput {
+	return o.ApplyT(func(v *DynamicDNS) pulumi.StringOutput { return v.HostName }).(pulumi.StringOutput)
+}
+
+// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+func (o DynamicDNSOutput) Interface() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DynamicDNS) pulumi.StringPtrOutput { return v.Interface }).(pulumi.StringPtrOutput)
+}
+
+// The server for the dynamic DNS service.
+func (o DynamicDNSOutput) Login() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DynamicDNS) pulumi.StringPtrOutput { return v.Login }).(pulumi.StringPtrOutput)
+}
+
+// The server for the dynamic DNS service.
+func (o DynamicDNSOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DynamicDNS) pulumi.StringPtrOutput { return v.Password }).(pulumi.StringPtrOutput)
+}
+
+// The server for the dynamic DNS service.
+func (o DynamicDNSOutput) Server() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DynamicDNS) pulumi.StringPtrOutput { return v.Server }).(pulumi.StringPtrOutput)
+}
+
+// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+func (o DynamicDNSOutput) Service() pulumi.StringOutput {
+	return o.ApplyT(func(v *DynamicDNS) pulumi.StringOutput { return v.Service }).(pulumi.StringOutput)
+}
+
+// The name of the site to associate the dynamic DNS with.
+func (o DynamicDNSOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *DynamicDNS) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
 type DynamicDNSArrayOutput struct{ *pulumi.OutputState }
 
 func (DynamicDNSArrayOutput) ElementType() reflect.Type {

@@ -529,6 +529,161 @@ func (o NetworkOutput) ToNetworkOutputWithContext(ctx context.Context) NetworkOu
 	return o
 }
 
+// Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
+func (o NetworkOutput) DhcpDns() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringArrayOutput { return v.DhcpDns }).(pulumi.StringArrayOutput)
+}
+
+// Specifies whether DHCP is enabled or not on this network.
+func (o NetworkOutput) DhcpEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.DhcpEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+func (o NetworkOutput) DhcpLease() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.DhcpLease }).(pulumi.IntPtrOutput)
+}
+
+// Specifies whether DHCP relay is enabled or not on this network.
+func (o NetworkOutput) DhcpRelayEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.DhcpRelayEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// The IPv4 address where the DHCP range of addresses starts.
+func (o NetworkOutput) DhcpStart() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.DhcpStart }).(pulumi.StringPtrOutput)
+}
+
+// The IPv4 address where the DHCP range of addresses stops.
+func (o NetworkOutput) DhcpStop() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.DhcpStop }).(pulumi.StringPtrOutput)
+}
+
+// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
+func (o NetworkOutput) DhcpdBootEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.DhcpdBootEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies the file to PXE boot from on the dhcpd*boot*server.
+func (o NetworkOutput) DhcpdBootFilename() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.DhcpdBootFilename }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the IPv4 address of a TFTP server to network boot from.
+func (o NetworkOutput) DhcpdBootServer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.DhcpdBootServer }).(pulumi.StringPtrOutput)
+}
+
+// The domain name of this network.
+func (o NetworkOutput) DomainName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.DomainName }).(pulumi.StringPtrOutput)
+}
+
+// Specifies whether IGMP snooping is enabled or not.
+func (o NetworkOutput) IgmpSnooping() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.IgmpSnooping }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies which type of IPv6 connection to use. Defaults to `none`.
+func (o NetworkOutput) Ipv6InterfaceType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6InterfaceType }).(pulumi.StringPtrOutput)
+}
+
+// Specifies which WAN interface to use for IPv6 PD.
+func (o NetworkOutput) Ipv6PdInterface() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6PdInterface }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the IPv6 Prefix ID.
+func (o NetworkOutput) Ipv6PdPrefixid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6PdPrefixid }).(pulumi.StringPtrOutput)
+}
+
+// Specifies whether to enable router advertisements or not.
+func (o NetworkOutput) Ipv6RaEnable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.Ipv6RaEnable }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+func (o NetworkOutput) Ipv6StaticSubnet() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6StaticSubnet }).(pulumi.StringPtrOutput)
+}
+
+// The name of the network.
+func (o NetworkOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The group of the network. Defaults to `LAN`.
+func (o NetworkOutput) NetworkGroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.NetworkGroup }).(pulumi.StringPtrOutput)
+}
+
+// The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
+func (o NetworkOutput) Purpose() pulumi.StringOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringOutput { return v.Purpose }).(pulumi.StringOutput)
+}
+
+// The name of the site to associate the network with.
+func (o NetworkOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// The subnet of the network. Must be a valid CIDR address.
+func (o NetworkOutput) Subnet() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Subnet }).(pulumi.StringPtrOutput)
+}
+
+// The VLAN ID of the network.
+func (o NetworkOutput) VlanId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.VlanId }).(pulumi.IntPtrOutput)
+}
+
+// DNS servers IPs of the WAN.
+func (o NetworkOutput) WanDns() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringArrayOutput { return v.WanDns }).(pulumi.StringArrayOutput)
+}
+
+// Specifies the WAN egress quality of service. Defaults to `0`.
+func (o NetworkOutput) WanEgressQos() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.WanEgressQos }).(pulumi.IntPtrOutput)
+}
+
+// The IPv4 gateway of the WAN.
+func (o NetworkOutput) WanGateway() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanGateway }).(pulumi.StringPtrOutput)
+}
+
+// The IPv4 address of the WAN.
+func (o NetworkOutput) WanIp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanIp }).(pulumi.StringPtrOutput)
+}
+
+// The IPv4 netmask of the WAN.
+func (o NetworkOutput) WanNetmask() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanNetmask }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
+func (o NetworkOutput) WanNetworkgroup() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanNetworkgroup }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
+func (o NetworkOutput) WanType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanType }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the IPV4 WAN username.
+func (o NetworkOutput) WanUsername() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanUsername }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the IPV4 WAN password.
+func (o NetworkOutput) XWanPassword() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.XWanPassword }).(pulumi.StringPtrOutput)
+}
+
 type NetworkArrayOutput struct{ *pulumi.OutputState }
 
 func (NetworkArrayOutput) ElementType() reflect.Type {

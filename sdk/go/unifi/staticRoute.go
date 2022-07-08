@@ -272,6 +272,41 @@ func (o StaticRouteOutput) ToStaticRouteOutputWithContext(ctx context.Context) S
 	return o
 }
 
+// The distance of the static route.
+func (o StaticRouteOutput) Distance() pulumi.IntOutput {
+	return o.ApplyT(func(v *StaticRoute) pulumi.IntOutput { return v.Distance }).(pulumi.IntOutput)
+}
+
+// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+func (o StaticRouteOutput) Interface() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StaticRoute) pulumi.StringPtrOutput { return v.Interface }).(pulumi.StringPtrOutput)
+}
+
+// The name of the static route.
+func (o StaticRouteOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *StaticRoute) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The network subnet address.
+func (o StaticRouteOutput) Network() pulumi.StringOutput {
+	return o.ApplyT(func(v *StaticRoute) pulumi.StringOutput { return v.Network }).(pulumi.StringOutput)
+}
+
+// The next hop of the static route (only valid for `nexthop-route` type).
+func (o StaticRouteOutput) NextHop() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StaticRoute) pulumi.StringPtrOutput { return v.NextHop }).(pulumi.StringPtrOutput)
+}
+
+// The name of the site to associate the static route with.
+func (o StaticRouteOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *StaticRoute) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+func (o StaticRouteOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *StaticRoute) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
+}
+
 type StaticRouteArrayOutput struct{ *pulumi.OutputState }
 
 func (StaticRouteArrayOutput) ElementType() reflect.Type {

@@ -24,6 +24,6 @@
     },
     "pulumi": {
         "resource": true,
-        "pluginDownloadURL": "https://github.com/pulumiverse/pulumi-unifi/releases/download/${VERSION}"
+        "server": "https://github.com/pulumiverse/pulumi-unifi/releases/download/${VERSION}"
     }
 }

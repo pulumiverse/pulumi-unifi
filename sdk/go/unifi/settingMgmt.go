@@ -219,6 +219,26 @@ func (o SettingMgmtOutput) ToSettingMgmtOutputWithContext(ctx context.Context) S
 	return o
 }
 
+// Automatically upgrade device firmware.
+func (o SettingMgmtOutput) AutoUpgrade() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SettingMgmt) pulumi.BoolPtrOutput { return v.AutoUpgrade }).(pulumi.BoolPtrOutput)
+}
+
+// The name of the site to associate the settings with.
+func (o SettingMgmtOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *SettingMgmt) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// Enable SSH authentication.
+func (o SettingMgmtOutput) SshEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *SettingMgmt) pulumi.BoolPtrOutput { return v.SshEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// SSH key.
+func (o SettingMgmtOutput) SshKeys() SettingMgmtSshKeyArrayOutput {
+	return o.ApplyT(func(v *SettingMgmt) SettingMgmtSshKeyArrayOutput { return v.SshKeys }).(SettingMgmtSshKeyArrayOutput)
+}
+
 type SettingMgmtArrayOutput struct{ *pulumi.OutputState }
 
 func (SettingMgmtArrayOutput) ElementType() reflect.Type {

@@ -206,6 +206,16 @@ func (o SiteOutput) ToSiteOutputWithContext(ctx context.Context) SiteOutput {
 	return o
 }
 
+// The description of the site.
+func (o SiteOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *Site) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
+}
+
+// The name of the site.
+func (o SiteOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Site) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
 type SiteArrayOutput struct{ *pulumi.OutputState }
 
 func (SiteArrayOutput) ElementType() reflect.Type {

@@ -430,6 +430,121 @@ func (o FirewallRuleOutput) ToFirewallRuleOutputWithContext(ctx context.Context)
 	return o
 }
 
+// The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
+func (o FirewallRuleOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringOutput { return v.Action }).(pulumi.StringOutput)
+}
+
+// The destination address of the firewall rule.
+func (o FirewallRuleOutput) DstAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.DstAddress }).(pulumi.StringPtrOutput)
+}
+
+// The destination firewall group IDs of the firewall rule.
+func (o FirewallRuleOutput) DstFirewallGroupIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringArrayOutput { return v.DstFirewallGroupIds }).(pulumi.StringArrayOutput)
+}
+
+// The destination network ID of the firewall rule.
+func (o FirewallRuleOutput) DstNetworkId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.DstNetworkId }).(pulumi.StringPtrOutput)
+}
+
+// The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+func (o FirewallRuleOutput) DstNetworkType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.DstNetworkType }).(pulumi.StringPtrOutput)
+}
+
+// The destination port of the firewall rule.
+func (o FirewallRuleOutput) DstPort() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.DstPort }).(pulumi.StringPtrOutput)
+}
+
+// ICMP type name.
+func (o FirewallRuleOutput) IcmpTypename() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.IcmpTypename }).(pulumi.StringPtrOutput)
+}
+
+// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
+func (o FirewallRuleOutput) IpSec() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.IpSec }).(pulumi.StringPtrOutput)
+}
+
+// Enable logging for the firewall rule.
+func (o FirewallRuleOutput) Logging() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.BoolPtrOutput { return v.Logging }).(pulumi.BoolPtrOutput)
+}
+
+// The name of the firewall rule.
+func (o FirewallRuleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The protocol of the rule.
+func (o FirewallRuleOutput) Protocol() pulumi.StringOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringOutput { return v.Protocol }).(pulumi.StringOutput)
+}
+
+// The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
+func (o FirewallRuleOutput) RuleIndex() pulumi.IntOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.IntOutput { return v.RuleIndex }).(pulumi.IntOutput)
+}
+
+// The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
+func (o FirewallRuleOutput) Ruleset() pulumi.StringOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringOutput { return v.Ruleset }).(pulumi.StringOutput)
+}
+
+// The name of the site to associate the firewall rule with.
+func (o FirewallRuleOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// The source address for the firewall rule.
+func (o FirewallRuleOutput) SrcAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.SrcAddress }).(pulumi.StringPtrOutput)
+}
+
+// The source firewall group IDs for the firewall rule.
+func (o FirewallRuleOutput) SrcFirewallGroupIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringArrayOutput { return v.SrcFirewallGroupIds }).(pulumi.StringArrayOutput)
+}
+
+// The source MAC address of the firewall rule.
+func (o FirewallRuleOutput) SrcMac() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.SrcMac }).(pulumi.StringPtrOutput)
+}
+
+// The source network ID for the firewall rule.
+func (o FirewallRuleOutput) SrcNetworkId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.SrcNetworkId }).(pulumi.StringPtrOutput)
+}
+
+// The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+func (o FirewallRuleOutput) SrcNetworkType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.StringPtrOutput { return v.SrcNetworkType }).(pulumi.StringPtrOutput)
+}
+
+// Match where the state is established.
+func (o FirewallRuleOutput) StateEstablished() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.BoolPtrOutput { return v.StateEstablished }).(pulumi.BoolPtrOutput)
+}
+
+// Match where the state is invalid.
+func (o FirewallRuleOutput) StateInvalid() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.BoolPtrOutput { return v.StateInvalid }).(pulumi.BoolPtrOutput)
+}
+
+// Match where the state is new.
+func (o FirewallRuleOutput) StateNew() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.BoolPtrOutput { return v.StateNew }).(pulumi.BoolPtrOutput)
+}
+
+// Match where the state is related.
+func (o FirewallRuleOutput) StateRelated() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FirewallRule) pulumi.BoolPtrOutput { return v.StateRelated }).(pulumi.BoolPtrOutput)
+}
+
 type FirewallRuleArrayOutput struct{ *pulumi.OutputState }
 
 func (FirewallRuleArrayOutput) ElementType() reflect.Type {
