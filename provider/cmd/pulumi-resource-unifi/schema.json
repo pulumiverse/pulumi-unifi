@@ -12,7 +12,7 @@
     "attribution": "This Pulumi package is based on the [`unifi` Terraform Provider](https://github.com/paultyng/terraform-provider-unifi).",
     "repository": "https://github.com/pulumiverse/pulumi-unifi",
     "logoUrl": "https://raw.githubusercontent.com/pulumiverse/.github/main/assets/mascot.png",
-    "pluginDownloadURL": "https://github.com/pulumiverse/pulumi-unifi/releases/download/${VERSION}",
+    "pluginDownloadURL": "github://api.github.com/pulumiverse",
     "publisher": "Pulumiverse",
     "meta": {
         "moduleFormat": "(.*)(?:/[^/]*)"
