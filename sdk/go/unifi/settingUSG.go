@@ -209,6 +209,36 @@ func (o SettingUSGOutput) ToSettingUSGOutputWithContext(ctx context.Context) Set
 	return o
 }
 
+// The DHCP relay servers.
+func (o SettingUSGOutput) DhcpRelayServers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *SettingUSG) pulumi.StringArrayOutput { return v.DhcpRelayServers }).(pulumi.StringArrayOutput)
+}
+
+// Whether the guest firewall log is enabled.
+func (o SettingUSGOutput) FirewallGuestDefaultLog() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SettingUSG) pulumi.BoolOutput { return v.FirewallGuestDefaultLog }).(pulumi.BoolOutput)
+}
+
+// Whether the LAN firewall log is enabled.
+func (o SettingUSGOutput) FirewallLanDefaultLog() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SettingUSG) pulumi.BoolOutput { return v.FirewallLanDefaultLog }).(pulumi.BoolOutput)
+}
+
+// Whether the WAN firewall log is enabled.
+func (o SettingUSGOutput) FirewallWanDefaultLog() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SettingUSG) pulumi.BoolOutput { return v.FirewallWanDefaultLog }).(pulumi.BoolOutput)
+}
+
+// Whether multicast DNS is enabled.
+func (o SettingUSGOutput) MulticastDnsEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *SettingUSG) pulumi.BoolOutput { return v.MulticastDnsEnabled }).(pulumi.BoolOutput)
+}
+
+// The name of the site to associate the settings with.
+func (o SettingUSGOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *SettingUSG) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
 type SettingUSGArrayOutput struct{ *pulumi.OutputState }
 
 func (SettingUSGArrayOutput) ElementType() reflect.Type {

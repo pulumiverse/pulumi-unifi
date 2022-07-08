@@ -223,6 +223,26 @@ func (o FirewallGroupOutput) ToFirewallGroupOutputWithContext(ctx context.Contex
 	return o
 }
 
+// The members of the firewall group.
+func (o FirewallGroupOutput) Members() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *FirewallGroup) pulumi.StringArrayOutput { return v.Members }).(pulumi.StringArrayOutput)
+}
+
+// The name of the firewall group.
+func (o FirewallGroupOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *FirewallGroup) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The name of the site to associate the firewall group with.
+func (o FirewallGroupOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *FirewallGroup) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+func (o FirewallGroupOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *FirewallGroup) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
+}
+
 type FirewallGroupArrayOutput struct{ *pulumi.OutputState }
 
 func (FirewallGroupArrayOutput) ElementType() reflect.Type {

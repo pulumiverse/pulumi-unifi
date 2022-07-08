@@ -133,6 +133,29 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
+// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
+// path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
+// standard controller paths.
+func (o ProviderOutput) ApiUrl() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiUrl }).(pulumi.StringPtrOutput)
+}
+
+// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
+func (o ProviderOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Password }).(pulumi.StringPtrOutput)
+}
+
+// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
+// Default: `default`
+func (o ProviderOutput) Site() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Site }).(pulumi.StringPtrOutput)
+}
+
+// Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
+func (o ProviderOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Username }).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderInput)(nil)).Elem(), &Provider{})
 	pulumi.RegisterOutputType(ProviderOutput{})

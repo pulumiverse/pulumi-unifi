@@ -468,6 +468,126 @@ func (o WlanOutput) ToWlanOutputWithContext(ctx context.Context) WlanOutput {
 	return o
 }
 
+// IDs of the AP groups to use for this network.
+func (o WlanOutput) ApGroupIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringArrayOutput { return v.ApGroupIds }).(pulumi.StringArrayOutput)
+}
+
+// Indicates whether or not to hide the SSID from broadcast.
+func (o WlanOutput) HideSsid() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.HideSsid }).(pulumi.BoolPtrOutput)
+}
+
+// Indicates that this is a guest WLAN and should use guest behaviors.
+func (o WlanOutput) IsGuest() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.IsGuest }).(pulumi.BoolPtrOutput)
+}
+
+// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+func (o WlanOutput) L2Isolation() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.L2Isolation }).(pulumi.BoolPtrOutput)
+}
+
+// Indicates whether or not the MAC filter is turned of for the network.
+func (o WlanOutput) MacFilterEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.MacFilterEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// List of MAC addresses to filter (only valid if `macFilterEnabled` is `true`).
+func (o WlanOutput) MacFilterLists() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringArrayOutput { return v.MacFilterLists }).(pulumi.StringArrayOutput)
+}
+
+// MAC address filter policy (only valid if `macFilterEnabled` is `true`). Defaults to `deny`.
+func (o WlanOutput) MacFilterPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.MacFilterPolicy }).(pulumi.StringPtrOutput)
+}
+
+// Set minimum data rate control for 2G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.
+func (o WlanOutput) MinimumDataRate2gKbps() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.IntPtrOutput { return v.MinimumDataRate2gKbps }).(pulumi.IntPtrOutput)
+}
+
+// Set minimum data rate control for 5G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.
+func (o WlanOutput) MinimumDataRate5gKbps() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.IntPtrOutput { return v.MinimumDataRate5gKbps }).(pulumi.IntPtrOutput)
+}
+
+// Indicates whether or not Multicast Enhance is turned of for the network.
+func (o WlanOutput) MulticastEnhance() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.MulticastEnhance }).(pulumi.BoolPtrOutput)
+}
+
+// The SSID of the network.
+func (o WlanOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// ID of the network for this SSID
+func (o WlanOutput) NetworkId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.NetworkId }).(pulumi.StringPtrOutput)
+}
+
+// Connect high performance clients to 5 GHz only Defaults to `true`.
+func (o WlanOutput) No2ghzOui() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.No2ghzOui }).(pulumi.BoolPtrOutput)
+}
+
+// The passphrase for the network, this is only required if `security` is not set to `open`.
+func (o WlanOutput) Passphrase() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.Passphrase }).(pulumi.StringPtrOutput)
+}
+
+// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
+func (o WlanOutput) PmfMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.PmfMode }).(pulumi.StringPtrOutput)
+}
+
+// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `getRadiusProfile` data source.
+func (o WlanOutput) RadiusProfileId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.RadiusProfileId }).(pulumi.StringPtrOutput)
+}
+
+// Start and stop schedules for the WLAN
+func (o WlanOutput) Schedules() WlanScheduleArrayOutput {
+	return o.ApplyT(func(v *Wlan) WlanScheduleArrayOutput { return v.Schedules }).(WlanScheduleArrayOutput)
+}
+
+// The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
+func (o WlanOutput) Security() pulumi.StringOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringOutput { return v.Security }).(pulumi.StringOutput)
+}
+
+// The name of the site to associate the wlan with.
+func (o WlanOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+func (o WlanOutput) Uapsd() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.Uapsd }).(pulumi.BoolPtrOutput)
+}
+
+// ID of the user group to use for this network.
+func (o WlanOutput) UserGroupId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringOutput { return v.UserGroupId }).(pulumi.StringOutput)
+}
+
+// Radio band your WiFi network will use.
+func (o WlanOutput) WlanBand() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.WlanBand }).(pulumi.StringPtrOutput)
+}
+
+// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
+func (o WlanOutput) Wpa3Support() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.Wpa3Support }).(pulumi.BoolPtrOutput)
+}
+
+// Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3Support` must be true).
+func (o WlanOutput) Wpa3Transition() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.Wpa3Transition }).(pulumi.BoolPtrOutput)
+}
+
 type WlanArrayOutput struct{ *pulumi.OutputState }
 
 func (WlanArrayOutput) ElementType() reflect.Type {

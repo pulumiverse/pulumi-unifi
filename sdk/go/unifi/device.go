@@ -246,6 +246,31 @@ func (o DeviceOutput) ToDeviceOutputWithContext(ctx context.Context) DeviceOutpu
 	return o
 }
 
+// Specifies whether this device should be disabled.
+func (o DeviceOutput) Disabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Device) pulumi.BoolOutput { return v.Disabled }).(pulumi.BoolOutput)
+}
+
+// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
+func (o DeviceOutput) Mac() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Mac }).(pulumi.StringOutput)
+}
+
+// The name of the device.
+func (o DeviceOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Settings overrides for specific switch ports.
+func (o DeviceOutput) PortOverrides() DevicePortOverrideArrayOutput {
+	return o.ApplyT(func(v *Device) DevicePortOverrideArrayOutput { return v.PortOverrides }).(DevicePortOverrideArrayOutput)
+}
+
+// The name of the site to associate the device with.
+func (o DeviceOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
 type DeviceArrayOutput struct{ *pulumi.OutputState }
 
 func (DeviceArrayOutput) ElementType() reflect.Type {

@@ -259,6 +259,58 @@ func (o PortForwardOutput) ToPortForwardOutputWithContext(ctx context.Context) P
 	return o
 }
 
+// The destination port for the forwarding.
+func (o PortForwardOutput) DstPort() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.StringPtrOutput { return v.DstPort }).(pulumi.StringPtrOutput)
+}
+
+// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+//
+// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+func (o PortForwardOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.BoolPtrOutput { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// The IPv4 address to forward traffic to.
+func (o PortForwardOutput) FwdIp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.StringPtrOutput { return v.FwdIp }).(pulumi.StringPtrOutput)
+}
+
+// The port to forward traffic to.
+func (o PortForwardOutput) FwdPort() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.StringPtrOutput { return v.FwdPort }).(pulumi.StringPtrOutput)
+}
+
+// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+func (o PortForwardOutput) Log() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.BoolPtrOutput { return v.Log }).(pulumi.BoolPtrOutput)
+}
+
+// The name of the port forwarding rule.
+func (o PortForwardOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+func (o PortForwardOutput) PortForwardInterface() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.StringPtrOutput { return v.PortForwardInterface }).(pulumi.StringPtrOutput)
+}
+
+// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+func (o PortForwardOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.StringPtrOutput { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
+// The name of the site to associate the port forwarding rule with.
+func (o PortForwardOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+func (o PortForwardOutput) SrcIp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PortForward) pulumi.StringPtrOutput { return v.SrcIp }).(pulumi.StringPtrOutput)
+}
+
 type PortForwardArrayOutput struct{ *pulumi.OutputState }
 
 func (PortForwardArrayOutput) ElementType() reflect.Type {

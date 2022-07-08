@@ -221,6 +221,26 @@ func (o UserGroupOutput) ToUserGroupOutputWithContext(ctx context.Context) UserG
 	return o
 }
 
+// The name of the user group.
+func (o UserGroupOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *UserGroup) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The QOS maximum download rate. Defaults to `-1`.
+func (o UserGroupOutput) QosRateMaxDown() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *UserGroup) pulumi.IntPtrOutput { return v.QosRateMaxDown }).(pulumi.IntPtrOutput)
+}
+
+// The QOS maximum upload rate. Defaults to `-1`.
+func (o UserGroupOutput) QosRateMaxUp() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *UserGroup) pulumi.IntPtrOutput { return v.QosRateMaxUp }).(pulumi.IntPtrOutput)
+}
+
+// The name of the site to associate the user group with.
+func (o UserGroupOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *UserGroup) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
 type UserGroupArrayOutput struct{ *pulumi.OutputState }
 
 func (UserGroupArrayOutput) ElementType() reflect.Type {

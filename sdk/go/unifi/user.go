@@ -303,6 +303,71 @@ func (o UserOutput) ToUserOutputWithContext(ctx context.Context) UserOutput {
 	return o
 }
 
+// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+func (o UserOutput) AllowExisting() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.BoolPtrOutput { return v.AllowExisting }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies whether this user should be blocked from the network.
+func (o UserOutput) Blocked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.BoolPtrOutput { return v.Blocked }).(pulumi.BoolPtrOutput)
+}
+
+// Override the device fingerprint.
+func (o UserOutput) DevIdOverride() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.IntPtrOutput { return v.DevIdOverride }).(pulumi.IntPtrOutput)
+}
+
+// A fixed IPv4 address for this user.
+func (o UserOutput) FixedIp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.FixedIp }).(pulumi.StringPtrOutput)
+}
+
+// The hostname of the user.
+func (o UserOutput) Hostname() pulumi.StringOutput {
+	return o.ApplyT(func(v *User) pulumi.StringOutput { return v.Hostname }).(pulumi.StringOutput)
+}
+
+// The IP address of the user.
+func (o UserOutput) Ip() pulumi.StringOutput {
+	return o.ApplyT(func(v *User) pulumi.StringOutput { return v.Ip }).(pulumi.StringOutput)
+}
+
+// The MAC address of the user.
+func (o UserOutput) Mac() pulumi.StringOutput {
+	return o.ApplyT(func(v *User) pulumi.StringOutput { return v.Mac }).(pulumi.StringOutput)
+}
+
+// The name of the user.
+func (o UserOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *User) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// The network ID for this user.
+func (o UserOutput) NetworkId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.NetworkId }).(pulumi.StringPtrOutput)
+}
+
+// A note with additional information for the user.
+func (o UserOutput) Note() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.Note }).(pulumi.StringPtrOutput)
+}
+
+// The name of the site to associate the user with.
+func (o UserOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v *User) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+func (o UserOutput) SkipForgetOnDestroy() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.BoolPtrOutput { return v.SkipForgetOnDestroy }).(pulumi.BoolPtrOutput)
+}
+
+// The user group ID for the user.
+func (o UserOutput) UserGroupId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.UserGroupId }).(pulumi.StringPtrOutput)
+}
+
 type UserArrayOutput struct{ *pulumi.OutputState }
 
 func (UserArrayOutput) ElementType() reflect.Type {
