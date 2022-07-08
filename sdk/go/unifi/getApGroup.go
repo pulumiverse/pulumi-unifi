@@ -11,28 +11,6 @@ import (
 )
 
 // `getApGroup` data source can be used to retrieve the ID for an AP group by name.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi-unifi/sdk/go/unifi"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := unifi.GetApGroup(ctx, nil, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 func GetApGroup(ctx *pulumi.Context, args *GetApGroupArgs, opts ...pulumi.InvokeOption) (*GetApGroupResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv GetApGroupResult

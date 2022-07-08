@@ -10,56 +10,6 @@ using Pulumi;
 
 namespace Pulumiverse.Unifi
 {
-    /// <summary>
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumi.Unifi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var disabled = Output.Create(Unifi.GetPortProfile.InvokeAsync(new Unifi.GetPortProfileArgs
-    ///         {
-    ///             Name = "Disabled",
-    ///         }));
-    ///         var poe = new Unifi.PortProfile("poe", new Unifi.PortProfileArgs
-    ///         {
-    ///             Forward = "customize",
-    ///             NativeNetworkconfId = @var.Native_network_id,
-    ///             TaggedNetworkconfIds = 
-    ///             {
-    ///                 @var.Some_vlan_network_id,
-    ///             },
-    ///             PoeMode = "auto",
-    ///         });
-    ///         var us24Poe = new Unifi.Device("us24Poe", new Unifi.DeviceArgs
-    ///         {
-    ///             Mac = "01:23:45:67:89:AB",
-    ///             PortOverrides = 
-    ///             {
-    ///                 new Unifi.Inputs.DevicePortOverrideArgs
-    ///                 {
-    ///                     Number = 1,
-    ///                     Name = "port w/ poe",
-    ///                     PortProfileId = poe.Id,
-    ///                 },
-    ///                 new Unifi.Inputs.DevicePortOverrideArgs
-    ///                 {
-    ///                     Number = 2,
-    ///                     Name = "disabled",
-    ///                     PortProfileId = disabled.Apply(disabled =&gt; disabled.Id),
-    ///                 },
-    ///             },
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// </summary>
     [UnifiResourceType("unifi:index/device:Device")]
     public partial class Device : Pulumi.CustomResource
     {

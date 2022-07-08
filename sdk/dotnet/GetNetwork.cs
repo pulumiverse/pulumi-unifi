@@ -14,74 +14,12 @@ namespace Pulumiverse.Unifi
     {
         /// <summary>
         /// `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var lanNetwork = Output.Create(Unifi.GetNetwork.InvokeAsync(new Unifi.GetNetworkArgs
-        ///         {
-        ///             Name = "LAN",
-        ///         }));
-        ///         var myDevice = Output.Create(Unifi.GetUser.InvokeAsync(new Unifi.GetUserArgs
-        ///         {
-        ///             Mac = "01:23:45:67:89:ab",
-        ///         }));
-        ///         var myNetwork = myDevice.Apply(myDevice =&gt; Output.Create(Unifi.GetNetwork.InvokeAsync(new Unifi.GetNetworkArgs
-        ///         {
-        ///             Id = myDevice.NetworkId,
-        ///         })));
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetNetworkResult> InvokeAsync(GetNetworkArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetNetworkResult>("unifi:index/getNetwork:getNetwork", args ?? new GetNetworkArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var lanNetwork = Output.Create(Unifi.GetNetwork.InvokeAsync(new Unifi.GetNetworkArgs
-        ///         {
-        ///             Name = "LAN",
-        ///         }));
-        ///         var myDevice = Output.Create(Unifi.GetUser.InvokeAsync(new Unifi.GetUserArgs
-        ///         {
-        ///             Mac = "01:23:45:67:89:ab",
-        ///         }));
-        ///         var myNetwork = myDevice.Apply(myDevice =&gt; Output.Create(Unifi.GetNetwork.InvokeAsync(new Unifi.GetNetworkArgs
-        ///         {
-        ///             Id = myDevice.NetworkId,
-        ///         })));
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetNetworkResult> Invoke(GetNetworkInvokeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetNetworkResult>("unifi:index/getNetwork:getNetwork", args ?? new GetNetworkInvokeArgs(), options.WithDefaults());

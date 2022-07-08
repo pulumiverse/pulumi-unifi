@@ -14,58 +14,12 @@ namespace Pulumiverse.Unifi
     {
         /// <summary>
         /// `unifi.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var client = Output.Create(Unifi.GetUser.InvokeAsync(new Unifi.GetUserArgs
-        ///         {
-        ///             Mac = "01:23:45:67:89:ab",
-        ///         }));
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetUserResult> InvokeAsync(GetUserArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetUserResult>("unifi:index/getUser:getUser", args ?? new GetUserArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var client = Output.Create(Unifi.GetUser.InvokeAsync(new Unifi.GetUserArgs
-        ///         {
-        ///             Mac = "01:23:45:67:89:ab",
-        ///         }));
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetUserResult> Invoke(GetUserInvokeArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetUserResult>("unifi:index/getUser:getUser", args ?? new GetUserInvokeArgs(), options.WithDefaults());

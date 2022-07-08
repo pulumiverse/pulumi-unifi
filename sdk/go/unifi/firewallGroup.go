@@ -12,33 +12,6 @@ import (
 )
 
 // `FirewallGroup` manages groups of addresses or ports for use in firewall rules (`FirewallRule`).
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
-// 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		cfg := config.New(ctx, "")
-// 		laptopIps := cfg.Require("laptopIps")
-// 		_, err := unifi.NewFirewallGroup(ctx, "canPrint", &unifi.FirewallGroupArgs{
-// 			Type:    pulumi.String("address-group"),
-// 			Members: laptopIps,
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 type FirewallGroup struct {
 	pulumi.CustomResourceState
 

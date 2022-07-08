@@ -11,28 +11,6 @@ import (
 )
 
 // `PortProfile` data source can be used to retrieve the ID for a port profile by name.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi-unifi/sdk/go/unifi"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := unifi.LookupPortProfile(ctx, nil, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 func LookupPortProfile(ctx *pulumi.Context, args *LookupPortProfileArgs, opts ...pulumi.InvokeOption) (*LookupPortProfileResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv LookupPortProfileResult

@@ -12,30 +12,6 @@ namespace Pulumiverse.Unifi
 {
     /// <summary>
     /// `unifi.SettingMgmt` manages settings for a unifi site.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var exampleSite = new Unifi.Site("exampleSite", new Unifi.SiteArgs
-    ///         {
-    ///             Description = "example",
-    ///         });
-    ///         var exampleSettingMgmt = new Unifi.SettingMgmt("exampleSettingMgmt", new Unifi.SettingMgmtArgs
-    ///         {
-    ///             Site = exampleSite.Name,
-    ///             AutoUpgrade = true,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/settingMgmt:SettingMgmt")]
     public partial class SettingMgmt : Pulumi.CustomResource

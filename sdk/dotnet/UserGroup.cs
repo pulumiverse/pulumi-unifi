@@ -13,27 +13,6 @@ namespace Pulumiverse.Unifi
     /// <summary>
     /// `unifi.UserGroup` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
     /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var wifi = new Unifi.UserGroup("wifi", new Unifi.UserGroupArgs
-    ///         {
-    ///             QosRateMaxDown = 2000,
-    ///             QosRateMaxUp = 10,
-    ///         });
-    ///         // 10kbps
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
     /// ## Import
     /// 
     /// # import using the ID

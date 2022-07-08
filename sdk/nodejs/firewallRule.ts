@@ -7,23 +7,6 @@ import * as utilities from "./utilities";
 /**
  * `unifi.FirewallRule` manages an individual firewall rule on the gateway.
  *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const config = new pulumi.Config();
- * const ipAddress = config.require("ipAddress");
- * const dropAll = new unifi.FirewallRule("dropAll", {
- *     action: "drop",
- *     ruleset: "LAN_IN",
- *     ruleIndex: 2011,
- *     protocol: "all",
- *     dstAddress: ipAddress,
- * });
- * ```
- *
  * ## Import
  *
  * # import using the ID from the controller API/UI

@@ -184,35 +184,7 @@ class Device(pulumi.CustomResource):
                  site: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_unifi as unifi
-        import pulumiverse_unifi as unifi
-
-        disabled = unifi.get_port_profile(name="Disabled")
-        poe = unifi.PortProfile("poe",
-            forward="customize",
-            native_networkconf_id=var["native_network_id"],
-            tagged_networkconf_ids=[var["some_vlan_network_id"]],
-            poe_mode="auto")
-        us24_poe = unifi.Device("us24Poe",
-            mac="01:23:45:67:89:AB",
-            port_overrides=[
-                unifi.DevicePortOverrideArgs(
-                    number=1,
-                    name="port w/ poe",
-                    port_profile_id=poe.id,
-                ),
-                unifi.DevicePortOverrideArgs(
-                    number=2,
-                    name="disabled",
-                    port_profile_id=disabled.id,
-                ),
-            ])
-        ```
-
+        Create a Device resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] mac: The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
@@ -227,35 +199,7 @@ class Device(pulumi.CustomResource):
                  args: Optional[DeviceArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_unifi as unifi
-        import pulumiverse_unifi as unifi
-
-        disabled = unifi.get_port_profile(name="Disabled")
-        poe = unifi.PortProfile("poe",
-            forward="customize",
-            native_networkconf_id=var["native_network_id"],
-            tagged_networkconf_ids=[var["some_vlan_network_id"]],
-            poe_mode="auto")
-        us24_poe = unifi.Device("us24Poe",
-            mac="01:23:45:67:89:AB",
-            port_overrides=[
-                unifi.DevicePortOverrideArgs(
-                    number=1,
-                    name="port w/ poe",
-                    port_profile_id=poe.id,
-                ),
-                unifi.DevicePortOverrideArgs(
-                    number=2,
-                    name="disabled",
-                    port_profile_id=disabled.id,
-                ),
-            ])
-        ```
-
+        Create a Device resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param DeviceArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -276,16 +220,9 @@ class Device(pulumi.CustomResource):
                  port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  __props__=None):
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        else:
-            opts = copy.copy(opts)
+        opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
-        if opts.version is None:
-            opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')

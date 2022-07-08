@@ -74,15 +74,6 @@ def get_ap_group(name: Optional[str] = None,
     """
     `get_ap_group` data source can be used to retrieve the ID for an AP group by name.
 
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    default = unifi.get_ap_group()
-    ```
-
 
     :param str name: The name of the AP group to look up, leave blank to look up the default AP group.
     :param str site: The name of the site the AP group is associated with.
@@ -90,12 +81,7 @@ def get_ap_group(name: Optional[str] = None,
     __args__ = dict()
     __args__['name'] = name
     __args__['site'] = site
-    if opts is None:
-        opts = pulumi.InvokeOptions()
-    if opts.version is None:
-        opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('unifi:index/getApGroup:getApGroup', __args__, opts=opts, typ=GetApGroupResult).value
 
     return AwaitableGetApGroupResult(
@@ -110,15 +96,6 @@ def get_ap_group_output(name: Optional[pulumi.Input[Optional[str]]] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetApGroupResult]:
     """
     `get_ap_group` data source can be used to retrieve the ID for an AP group by name.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    default = unifi.get_ap_group()
-    ```
 
 
     :param str name: The name of the AP group to look up, leave blank to look up the default AP group.

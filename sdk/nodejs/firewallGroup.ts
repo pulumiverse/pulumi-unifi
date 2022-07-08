@@ -6,20 +6,6 @@ import * as utilities from "./utilities";
 
 /**
  * `unifi.FirewallGroup` manages groups of addresses or ports for use in firewall rules (`unifi.FirewallRule`).
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const config = new pulumi.Config();
- * const laptopIps = config.requireObject("laptopIps");
- * const canPrint = new unifi.FirewallGroup("canPrint", {
- *     type: "address-group",
- *     members: laptopIps,
- * });
- * ```
  */
 export class FirewallGroup extends pulumi.CustomResource {
     /**

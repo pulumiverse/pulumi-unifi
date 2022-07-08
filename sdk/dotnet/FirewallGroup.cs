@@ -12,28 +12,6 @@ namespace Pulumiverse.Unifi
 {
     /// <summary>
     /// `unifi.FirewallGroup` manages groups of addresses or ports for use in firewall rules (`unifi.FirewallRule`).
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var config = new Config();
-    ///         var laptopIps = config.RequireObject&lt;dynamic&gt;("laptopIps");
-    ///         var canPrint = new Unifi.FirewallGroup("canPrint", new Unifi.FirewallGroupArgs
-    ///         {
-    ///             Type = "address-group",
-    ///             Members = laptopIps,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/firewallGroup:FirewallGroup")]
     public partial class FirewallGroup : Pulumi.CustomResource

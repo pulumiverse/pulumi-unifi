@@ -8,20 +8,6 @@ import * as utilities from "./utilities";
  * `unifi.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
  *
  * Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const test = new unifi.User("test", {
- *     mac: "01:23:45:67:89:AB",
- *     note: "my note",
- *     fixedIp: "10.0.0.50",
- *     networkId: unifi_network.my_vlan.id,
- * });
- * ```
  */
 export class User extends pulumi.CustomResource {
     /**

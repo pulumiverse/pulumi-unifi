@@ -12,33 +12,6 @@ import (
 )
 
 // `DynamicDNS` manages dynamic DNS settings for different providers.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := unifi.NewDynamicDNS(ctx, "test", &unifi.DynamicDNSArgs{
-// 			Service:  pulumi.String("dyndns"),
-// 			HostName: pulumi.String("my-network.example.com"),
-// 			Server:   pulumi.String("domains.google.com"),
-// 			Login:    pulumi.Any(_var.Dns_login),
-// 			Password: pulumi.Any(_var.Dns_password),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 type DynamicDNS struct {
 	pulumi.CustomResourceState
 

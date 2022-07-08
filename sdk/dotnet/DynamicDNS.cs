@@ -12,29 +12,6 @@ namespace Pulumiverse.Unifi
 {
     /// <summary>
     /// `unifi.DynamicDNS` manages dynamic DNS settings for different providers.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var test = new Unifi.DynamicDNS("test", new Unifi.DynamicDNSArgs
-    ///         {
-    ///             Service = "dyndns",
-    ///             HostName = "my-network.example.com",
-    ///             Server = "domains.google.com",
-    ///             Login = @var.Dns_login,
-    ///             Password = @var.Dns_password,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/dynamicDNS:DynamicDNS")]
     public partial class DynamicDNS : Pulumi.CustomResource

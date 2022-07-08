@@ -11,30 +11,6 @@ import (
 )
 
 // `User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi-unifi/sdk/go/unifi"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := unifi.LookupUser(ctx, &GetUserArgs{
-// 			Mac: "01:23:45:67:89:ab",
-// 		}, nil)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 func LookupUser(ctx *pulumi.Context, args *LookupUserArgs, opts ...pulumi.InvokeOption) (*LookupUserResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv LookupUserResult

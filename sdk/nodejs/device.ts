@@ -5,40 +5,6 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs } from "./types";
 import * as utilities from "./utilities";
 
-/**
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumi/unifi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const disabled = unifi.getPortProfile({
- *     name: "Disabled",
- * });
- * const poe = new unifi.PortProfile("poe", {
- *     forward: "customize",
- *     nativeNetworkconfId: _var.native_network_id,
- *     taggedNetworkconfIds: [_var.some_vlan_network_id],
- *     poeMode: "auto",
- * });
- * const us24Poe = new unifi.Device("us24Poe", {
- *     mac: "01:23:45:67:89:AB",
- *     portOverrides: [
- *         {
- *             number: 1,
- *             name: "port w/ poe",
- *             portProfileId: poe.id,
- *         },
- *         {
- *             number: 2,
- *             name: "disabled",
- *             portProfileId: disabled.then(disabled => disabled.id),
- *         },
- *     ],
- * });
- * ```
- */
 export class Device extends pulumi.CustomResource {
     /**
      * Get an existing Device resource's state with the given name, ID, and optional extra

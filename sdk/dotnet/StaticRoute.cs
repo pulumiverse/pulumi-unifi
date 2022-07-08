@@ -12,41 +12,6 @@ namespace Pulumiverse.Unifi
 {
     /// <summary>
     /// `unifi.StaticRoute` manages a static route.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var nexthop = new Unifi.StaticRoute("nexthop", new Unifi.StaticRouteArgs
-    ///         {
-    ///             Type = "nexthop-route",
-    ///             Network = "172.17.0.0/16",
-    ///             Distance = 1,
-    ///             NextHop = "172.16.0.1",
-    ///         });
-    ///         var blackhole = new Unifi.StaticRoute("blackhole", new Unifi.StaticRouteArgs
-    ///         {
-    ///             Type = "blackhole",
-    ///             Network = @var.Blackhole_cidr,
-    ///             Distance = 1,
-    ///         });
-    ///         var @interface = new Unifi.StaticRoute("interface", new Unifi.StaticRouteArgs
-    ///         {
-    ///             Type = "interface-route",
-    ///             Network = @var.Wan2_cidr,
-    ///             Distance = 1,
-    ///             Interface = "WAN2",
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/staticRoute:StaticRoute")]
     public partial class StaticRoute : Pulumi.CustomResource
