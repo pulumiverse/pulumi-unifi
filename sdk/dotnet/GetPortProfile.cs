@@ -14,52 +14,12 @@ namespace Pulumiverse.Unifi
     {
         /// <summary>
         /// `unifi.PortProfile` data source can be used to retrieve the ID for a port profile by name.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var all = Output.Create(Unifi.GetPortProfile.InvokeAsync());
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetPortProfileResult> InvokeAsync(GetPortProfileArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetPortProfileResult>("unifi:index/getPortProfile:getPortProfile", args ?? new GetPortProfileArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.PortProfile` data source can be used to retrieve the ID for a port profile by name.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
-        /// 
-        /// class MyStack : Stack
-        /// {
-        ///     public MyStack()
-        ///     {
-        ///         var all = Output.Create(Unifi.GetPortProfile.InvokeAsync());
-        ///     }
-        /// 
-        /// }
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetPortProfileResult> Invoke(GetPortProfileInvokeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetPortProfileResult>("unifi:index/getPortProfile:getPortProfile", args ?? new GetPortProfileInvokeArgs(), options.WithDefaults());

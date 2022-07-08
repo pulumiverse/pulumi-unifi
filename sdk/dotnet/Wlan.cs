@@ -13,49 +13,6 @@ namespace Pulumiverse.Unifi
     /// <summary>
     /// `unifi.Wlan` manages a WiFi network / SSID.
     /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumi.Unifi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var config = new Config();
-    ///         var vlanId = config.GetNumber("vlanId") ?? 10;
-    ///         var defaultApGroup = Output.Create(Unifi.GetApGroup.InvokeAsync());
-    ///         var defaultUserGroup = Output.Create(Unifi.GetUserGroup.InvokeAsync());
-    ///         var vlan = new Unifi.Network("vlan", new Unifi.NetworkArgs
-    ///         {
-    ///             Purpose = "corporate",
-    ///             Subnet = "10.0.0.1/24",
-    ///             VlanId = vlanId,
-    ///             DhcpStart = "10.0.0.6",
-    ///             DhcpStop = "10.0.0.254",
-    ///             DhcpEnabled = true,
-    ///         });
-    ///         var wifi = new Unifi.Wlan("wifi", new Unifi.WlanArgs
-    ///         {
-    ///             Passphrase = "12345678",
-    ///             Security = "wpapsk",
-    ///             Wpa3Support = true,
-    ///             Wpa3Transition = true,
-    ///             PmfMode = "optional",
-    ///             NetworkId = vlan.Id,
-    ///             ApGroupIds = 
-    ///             {
-    ///                 defaultApGroup.Apply(defaultApGroup =&gt; defaultApGroup.Id),
-    ///             },
-    ///             UserGroupId = defaultUserGroup.Apply(defaultUserGroup =&gt; defaultUserGroup.Id),
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
     /// ## Import
     /// 
     /// # import from provider configured site

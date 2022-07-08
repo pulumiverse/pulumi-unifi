@@ -791,22 +791,6 @@ class FirewallRule(pulumi.CustomResource):
         """
         `FirewallRule` manages an individual firewall rule on the gateway.
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        ip_address = config.require("ipAddress")
-        drop_all = unifi.FirewallRule("dropAll",
-            action="drop",
-            ruleset="LAN_IN",
-            rule_index=2011,
-            protocol="all",
-            dst_address=ip_address)
-        ```
-
         ## Import
 
         # import using the ID from the controller API/UI
@@ -849,22 +833,6 @@ class FirewallRule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `FirewallRule` manages an individual firewall rule on the gateway.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        ip_address = config.require("ipAddress")
-        drop_all = unifi.FirewallRule("dropAll",
-            action="drop",
-            ruleset="LAN_IN",
-            rule_index=2011,
-            protocol="all",
-            dst_address=ip_address)
-        ```
 
         ## Import
 
@@ -913,16 +881,9 @@ class FirewallRule(pulumi.CustomResource):
                  state_new: Optional[pulumi.Input[bool]] = None,
                  state_related: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        else:
-            opts = copy.copy(opts)
+        opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
-        if opts.version is None:
-            opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')

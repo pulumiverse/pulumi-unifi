@@ -13,36 +13,6 @@ import (
 
 // `FirewallRule` manages an individual firewall rule on the gateway.
 //
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
-// 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		cfg := config.New(ctx, "")
-// 		ipAddress := cfg.Require("ipAddress")
-// 		_, err := unifi.NewFirewallRule(ctx, "dropAll", &unifi.FirewallRuleArgs{
-// 			Action:     pulumi.String("drop"),
-// 			Ruleset:    pulumi.String("LAN_IN"),
-// 			RuleIndex:  pulumi.Int(2011),
-// 			Protocol:   pulumi.String("all"),
-// 			DstAddress: pulumi.String(ipAddress),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
-//
 // ## Import
 //
 // # import using the ID from the controller API/UI

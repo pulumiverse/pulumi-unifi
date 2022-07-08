@@ -828,37 +828,6 @@ class Wlan(pulumi.CustomResource):
         """
         `Wlan` manages a WiFi network / SSID.
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_unifi as unifi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        vlan_id = config.get_float("vlanId")
-        if vlan_id is None:
-            vlan_id = 10
-        default_ap_group = unifi.get_ap_group()
-        default_user_group = unifi.get_user_group()
-        vlan = unifi.Network("vlan",
-            purpose="corporate",
-            subnet="10.0.0.1/24",
-            vlan_id=vlan_id,
-            dhcp_start="10.0.0.6",
-            dhcp_stop="10.0.0.254",
-            dhcp_enabled=True)
-        wifi = unifi.Wlan("wifi",
-            passphrase="12345678",
-            security="wpapsk",
-            wpa3_support=True,
-            wpa3_transition=True,
-            pmf_mode="optional",
-            network_id=vlan.id,
-            ap_group_ids=[default_ap_group.id],
-            user_group_id=default_user_group.id)
-        ```
-
         ## Import
 
         # import from provider configured site
@@ -908,37 +877,6 @@ class Wlan(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `Wlan` manages a WiFi network / SSID.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_unifi as unifi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        vlan_id = config.get_float("vlanId")
-        if vlan_id is None:
-            vlan_id = 10
-        default_ap_group = unifi.get_ap_group()
-        default_user_group = unifi.get_user_group()
-        vlan = unifi.Network("vlan",
-            purpose="corporate",
-            subnet="10.0.0.1/24",
-            vlan_id=vlan_id,
-            dhcp_start="10.0.0.6",
-            dhcp_stop="10.0.0.254",
-            dhcp_enabled=True)
-        wifi = unifi.Wlan("wifi",
-            passphrase="12345678",
-            security="wpapsk",
-            wpa3_support=True,
-            wpa3_transition=True,
-            pmf_mode="optional",
-            network_id=vlan.id,
-            ap_group_ids=[default_ap_group.id],
-            user_group_id=default_user_group.id)
-        ```
 
         ## Import
 
@@ -994,16 +932,9 @@ class Wlan(pulumi.CustomResource):
                  wpa3_support: Optional[pulumi.Input[bool]] = None,
                  wpa3_transition: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        else:
-            opts = copy.copy(opts)
+        opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
-        if opts.version is None:
-            opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')

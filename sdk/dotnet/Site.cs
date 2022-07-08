@@ -13,25 +13,6 @@ namespace Pulumiverse.Unifi
     /// <summary>
     /// `unifi.Site` manages Unifi sites
     /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var mysite = new Unifi.Site("mysite", new Unifi.SiteArgs
-    ///         {
-    ///             Description = "mysite",
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
     /// ## Import
     /// 
     /// # import using the API/UI ID

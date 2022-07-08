@@ -265,20 +265,6 @@ class DynamicDNS(pulumi.CustomResource):
         """
         `DynamicDNS` manages dynamic DNS settings for different providers.
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        test = unifi.DynamicDNS("test",
-            service="dyndns",
-            host_name="my-network.example.com",
-            server="domains.google.com",
-            login=var["dns_login"],
-            password=var["dns_password"])
-        ```
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] host_name: The host name to update in the dynamic DNS service.
@@ -297,20 +283,6 @@ class DynamicDNS(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `DynamicDNS` manages dynamic DNS settings for different providers.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        test = unifi.DynamicDNS("test",
-            service="dyndns",
-            host_name="my-network.example.com",
-            server="domains.google.com",
-            login=var["dns_login"],
-            password=var["dns_password"])
-        ```
 
         :param str resource_name: The name of the resource.
         :param DynamicDNSArgs args: The arguments to use to populate this resource's properties.
@@ -335,16 +307,9 @@ class DynamicDNS(pulumi.CustomResource):
                  service: Optional[pulumi.Input[str]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  __props__=None):
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        else:
-            opts = copy.copy(opts)
+        opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
-        if opts.version is None:
-            opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')

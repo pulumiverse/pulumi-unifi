@@ -170,18 +170,6 @@ class SettingMgmt(pulumi.CustomResource):
         """
         `SettingMgmt` manages settings for a unifi site.
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        example_site = unifi.Site("exampleSite", description="example")
-        example_setting_mgmt = unifi.SettingMgmt("exampleSettingMgmt",
-            site=example_site.name,
-            auto_upgrade=True)
-        ```
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] auto_upgrade: Automatically upgrade device firmware.
@@ -197,18 +185,6 @@ class SettingMgmt(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `SettingMgmt` manages settings for a unifi site.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        example_site = unifi.Site("exampleSite", description="example")
-        example_setting_mgmt = unifi.SettingMgmt("exampleSettingMgmt",
-            site=example_site.name,
-            auto_upgrade=True)
-        ```
 
         :param str resource_name: The name of the resource.
         :param SettingMgmtArgs args: The arguments to use to populate this resource's properties.
@@ -230,16 +206,9 @@ class SettingMgmt(pulumi.CustomResource):
                  ssh_enabled: Optional[pulumi.Input[bool]] = None,
                  ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SettingMgmtSshKeyArgs']]]]] = None,
                  __props__=None):
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        else:
-            opts = copy.copy(opts)
+        opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
-        if opts.version is None:
-            opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')

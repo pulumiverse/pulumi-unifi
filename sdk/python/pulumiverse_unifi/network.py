@@ -1058,33 +1058,6 @@ class Network(pulumi.CustomResource):
         """
         `Network` manages WAN/LAN/VLAN networks.
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        vlan_id = config.get_float("vlanId")
-        if vlan_id is None:
-            vlan_id = 10
-        vlan = unifi.Network("vlan",
-            purpose="corporate",
-            subnet="10.0.0.1/24",
-            vlan_id=vlan_id,
-            dhcp_start="10.0.0.6",
-            dhcp_stop="10.0.0.254",
-            dhcp_enabled=True)
-        wan = unifi.Network("wan",
-            purpose="wan",
-            wan_networkgroup="WAN",
-            wan_type="pppoe",
-            wan_ip="192.168.1.1",
-            wan_egress_qos=1,
-            wan_username="username",
-            x_wan_password="password")
-        ```
-
         ## Import
 
         # import from provider configured site
@@ -1147,33 +1120,6 @@ class Network(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `Network` manages WAN/LAN/VLAN networks.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        vlan_id = config.get_float("vlanId")
-        if vlan_id is None:
-            vlan_id = 10
-        vlan = unifi.Network("vlan",
-            purpose="corporate",
-            subnet="10.0.0.1/24",
-            vlan_id=vlan_id,
-            dhcp_start="10.0.0.6",
-            dhcp_stop="10.0.0.254",
-            dhcp_enabled=True)
-        wan = unifi.Network("wan",
-            purpose="wan",
-            wan_networkgroup="WAN",
-            wan_type="pppoe",
-            wan_ip="192.168.1.1",
-            wan_egress_qos=1,
-            wan_username="username",
-            x_wan_password="password")
-        ```
 
         ## Import
 
@@ -1242,16 +1188,9 @@ class Network(pulumi.CustomResource):
                  wan_username: Optional[pulumi.Input[str]] = None,
                  x_wan_password: Optional[pulumi.Input[str]] = None,
                  __props__=None):
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        else:
-            opts = copy.copy(opts)
+        opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
-        if opts.version is None:
-            opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')

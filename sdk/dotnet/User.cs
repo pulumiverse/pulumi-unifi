@@ -14,28 +14,6 @@ namespace Pulumiverse.Unifi
     /// `unifi.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
     /// 
     /// Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var test = new Unifi.User("test", new Unifi.UserArgs
-    ///         {
-    ///             Mac = "01:23:45:67:89:AB",
-    ///             Note = "my note",
-    ///             FixedIp = "10.0.0.50",
-    ///             NetworkId = unifi_network.My_vlan.Id,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/user:User")]
     public partial class User : Pulumi.CustomResource

@@ -13,31 +13,6 @@ namespace Pulumiverse.Unifi
     /// <summary>
     /// `unifi.FirewallRule` manages an individual firewall rule on the gateway.
     /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var config = new Config();
-    ///         var ipAddress = config.Require("ipAddress");
-    ///         var dropAll = new Unifi.FirewallRule("dropAll", new Unifi.FirewallRuleArgs
-    ///         {
-    ///             Action = "drop",
-    ///             Ruleset = "LAN_IN",
-    ///             RuleIndex = 2011,
-    ///             Protocol = "all",
-    ///             DstAddress = ipAddress,
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
-    /// 
     /// ## Import
     /// 
     /// # import using the ID from the controller API/UI

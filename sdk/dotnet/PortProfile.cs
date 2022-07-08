@@ -12,37 +12,6 @@ namespace Pulumiverse.Unifi
 {
     /// <summary>
     /// `unifi.PortProfile` manages a port profile for use on network switches.
-    /// 
-    /// ## Example Usage
-    /// 
-    /// ```csharp
-    /// using Pulumi;
-    /// using Unifi = Pulumiverse.Unifi;
-    /// 
-    /// class MyStack : Stack
-    /// {
-    ///     public MyStack()
-    ///     {
-    ///         var config = new Config();
-    ///         var vlanId = config.GetNumber("vlanId") ?? 10;
-    ///         var vlan = new Unifi.Network("vlan", new Unifi.NetworkArgs
-    ///         {
-    ///             Purpose = "corporate",
-    ///             Subnet = "10.0.0.1/24",
-    ///             VlanId = vlanId,
-    ///             DhcpStart = "10.0.0.6",
-    ///             DhcpStop = "10.0.0.254",
-    ///             DhcpEnabled = true,
-    ///         });
-    ///         var poeDisabled = new Unifi.PortProfile("poeDisabled", new Unifi.PortProfileArgs
-    ///         {
-    ///             NativeNetworkconfId = vlan.Id,
-    ///             PoeMode = "off",
-    ///         });
-    ///     }
-    /// 
-    /// }
-    /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/portProfile:PortProfile")]
     public partial class PortProfile : Pulumi.CustomResource

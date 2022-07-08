@@ -6,23 +6,6 @@ import * as utilities from "./utilities";
 
 /**
  * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumi/unifi";
- *
- * const lanNetwork = unifi.getNetwork({
- *     name: "LAN",
- * });
- * const myDevice = unifi.getUser({
- *     mac: "01:23:45:67:89:ab",
- * });
- * const myNetwork = myDevice.then(myDevice => unifi.getNetwork({
- *     id: myDevice.networkId,
- * }));
- * ```
  */
 export function getNetwork(args?: GetNetworkArgs, opts?: pulumi.InvokeOptions): Promise<GetNetworkResult> {
     args = args || {};

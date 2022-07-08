@@ -411,17 +411,6 @@ def get_network(id: Optional[str] = None,
     """
     `Network` data source can be used to retrieve settings for a network by name or ID.
 
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    lan_network = unifi.get_network(name="LAN")
-    my_device = unifi.get_user(mac="01:23:45:67:89:ab")
-    my_network = unifi.get_network(id=my_device.network_id)
-    ```
-
 
     :param str id: The ID of the network.
     :param str name: The name of the network.
@@ -431,12 +420,7 @@ def get_network(id: Optional[str] = None,
     __args__['id'] = id
     __args__['name'] = name
     __args__['site'] = site
-    if opts is None:
-        opts = pulumi.InvokeOptions()
-    if opts.version is None:
-        opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
+    opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke('unifi:index/getNetwork:getNetwork', __args__, opts=opts, typ=GetNetworkResult).value
 
     return AwaitableGetNetworkResult(
@@ -480,17 +464,6 @@ def get_network_output(id: Optional[pulumi.Input[Optional[str]]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetNetworkResult]:
     """
     `Network` data source can be used to retrieve settings for a network by name or ID.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    lan_network = unifi.get_network(name="LAN")
-    my_device = unifi.get_user(mac="01:23:45:67:89:ab")
-    my_network = unifi.get_network(id=my_device.network_id)
-    ```
 
 
     :param str id: The ID of the network.

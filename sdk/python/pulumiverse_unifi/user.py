@@ -432,19 +432,6 @@ class User(pulumi.CustomResource):
 
         Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
 
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        test = unifi.User("test",
-            mac="01:23:45:67:89:AB",
-            note="my note",
-            fixed_ip="10.0.0.50",
-            network_id=unifi_network["my_vlan"]["id"])
-        ```
-
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] allow_existing: Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
@@ -469,19 +456,6 @@ class User(pulumi.CustomResource):
         `User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
 
         Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        test = unifi.User("test",
-            mac="01:23:45:67:89:AB",
-            note="my note",
-            fixed_ip="10.0.0.50",
-            network_id=unifi_network["my_vlan"]["id"])
-        ```
 
         :param str resource_name: The name of the resource.
         :param UserArgs args: The arguments to use to populate this resource's properties.
@@ -510,16 +484,9 @@ class User(pulumi.CustomResource):
                  skip_forget_on_destroy: Optional[pulumi.Input[bool]] = None,
                  user_group_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
-        if opts is None:
-            opts = pulumi.ResourceOptions()
-        else:
-            opts = copy.copy(opts)
+        opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
-        if opts.version is None:
-            opts.version = _utilities.get_version()
-        if opts.plugin_download_url is None:
-            opts.plugin_download_url = _utilities.get_plugin_download_url()
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')

@@ -14,32 +14,6 @@ import (
 // `User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
 //
 // Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-// 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-// )
-//
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := unifi.NewUser(ctx, "test", &unifi.UserArgs{
-// 			Mac:       pulumi.String("01:23:45:67:89:AB"),
-// 			Note:      pulumi.String("my note"),
-// 			FixedIp:   pulumi.String("10.0.0.50"),
-// 			NetworkId: pulumi.Any(unifi_network.My_vlan.Id),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
-// ```
 type User struct {
 	pulumi.CustomResourceState
 
