@@ -3,15 +3,7 @@ archives:
   name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
 before:
   hooks:
-  - make tfgen
-blobs:
-- bucket: dl.briggs.work
-  endpoint: https://s3.nl-ams.scw.cloud
-  folder: pulumi/releases/plugins/
-  region: nl-ams
-  ids:
-  - archive
-  provider: s3
+  - make provider
 builds:
 - binary: pulumi-resource-unifi
   dir: provider
