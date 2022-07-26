@@ -24,6 +24,7 @@
     },
     "pulumi": {
         "resource": true,
+        "name": "unifi",
         "server": "github://api.github.com/pulumiverse"
     }
 }
