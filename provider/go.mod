@@ -147,9 +147,9 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/posener/complete v1.2.1 // indirect
-	github.com/pulumi/pulumi-java/pkg v0.4.0 // indirect
-	github.com/pulumi/pulumi-yaml v0.5.2 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.35.3 // indirect
+	github.com/pulumi/pulumi-java/pkg v0.4.2-0.20220706212453-8046ed6407d4 // indirect
+	github.com/pulumi/pulumi-yaml v0.5.3 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.36.0 // indirect
 	github.com/pulumi/terraform-diff-reader v0.0.0-20201211191010-ad4715e9285e // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rjeczalik/notify v0.9.2 // indirect
