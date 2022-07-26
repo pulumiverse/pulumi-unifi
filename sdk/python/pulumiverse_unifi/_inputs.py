@@ -11,7 +11,6 @@ from . import _utilities
 
 __all__ = [
     'DevicePortOverrideArgs',
-    'SettingMgmtSshKeyArgs',
     'WlanScheduleArgs',
 ]
 
@@ -67,75 +66,6 @@ class DevicePortOverrideArgs:
     @port_profile_id.setter
     def port_profile_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "port_profile_id", value)
-
-
-@pulumi.input_type
-class SettingMgmtSshKeyArgs:
-    def __init__(__self__, *,
-                 name: pulumi.Input[str],
-                 type: pulumi.Input[str],
-                 comment: Optional[pulumi.Input[str]] = None,
-                 key: Optional[pulumi.Input[str]] = None):
-        """
-        :param pulumi.Input[str] name: Name of SSH key.
-        :param pulumi.Input[str] type: Type of SSH key, e.g. ssh-rsa.
-        :param pulumi.Input[str] comment: Comment.
-        :param pulumi.Input[str] key: Public SSH key.
-        """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "type", type)
-        if comment is not None:
-            pulumi.set(__self__, "comment", comment)
-        if key is not None:
-            pulumi.set(__self__, "key", key)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        Name of SSH key.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def type(self) -> pulumi.Input[str]:
-        """
-        Type of SSH key, e.g. ssh-rsa.
-        """
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: pulumi.Input[str]):
-        pulumi.set(self, "type", value)
-
-    @property
-    @pulumi.getter
-    def comment(self) -> Optional[pulumi.Input[str]]:
-        """
-        Comment.
-        """
-        return pulumi.get(self, "comment")
-
-    @comment.setter
-    def comment(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "comment", value)
-
-    @property
-    @pulumi.getter
-    def key(self) -> Optional[pulumi.Input[str]]:
-        """
-        Public SSH key.
-        """
-        return pulumi.get(self, "key")
-
-    @key.setter
-    def key(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "key", value)
 
 
 @pulumi.input_type

@@ -111,42 +111,7 @@
         ]
     },
     "types": {
-        "unifi:index/DevicePortOverride:DevicePortOverride": {
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "Human-readable name of the port.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "number": {
-                    "type": "integer",
-                    "description": "Switch port number.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "portProfileId": {
-                    "type": "string",
-                    "description": "ID of the Port Profile used on this port.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                }
-            },
-            "type": "object",
-            "required": [
-                "number"
-            ]
-        },
-        "unifi:index/SettingMgmtSshKey:SettingMgmtSshKey": {
+        "unifi:Setting/MgmtSshKey:MgmtSshKey": {
             "properties": {
                 "comment": {
                     "type": "string",
@@ -189,6 +154,41 @@
             "required": [
                 "name",
                 "type"
+            ]
+        },
+        "unifi:index/DevicePortOverride:DevicePortOverride": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Human-readable name of the port.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "number": {
+                    "type": "integer",
+                    "description": "Switch port number.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "portProfileId": {
+                    "type": "string",
+                    "description": "ID of the Port Profile used on this port.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "number"
             ]
         },
         "unifi:index/WlanSchedule:WlanSchedule": {
@@ -302,207 +302,8 @@
         }
     },
     "resources": {
-        "unifi:index/device:Device": {
-            "properties": {
-                "disabled": {
-                    "type": "boolean",
-                    "description": "Specifies whether this device should be disabled.\n"
-                },
-                "mac": {
-                    "type": "string",
-                    "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the device.\n"
-                },
-                "portOverrides": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
-                    },
-                    "description": "Settings overrides for specific switch ports.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the device with.\n"
-                }
-            },
-            "required": [
-                "disabled",
-                "mac",
-                "name",
-                "site"
-            ],
-            "inputProperties": {
-                "mac": {
-                    "type": "string",
-                    "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
-                    "willReplaceOnChanges": true
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the device.\n"
-                },
-                "portOverrides": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
-                    },
-                    "description": "Settings overrides for specific switch ports.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the device with.\n",
-                    "willReplaceOnChanges": true
-                }
-            },
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering Device resources.\n",
-                "properties": {
-                    "disabled": {
-                        "type": "boolean",
-                        "description": "Specifies whether this device should be disabled.\n"
-                    },
-                    "mac": {
-                        "type": "string",
-                        "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the device.\n"
-                    },
-                    "portOverrides": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
-                        },
-                        "description": "Settings overrides for specific switch ports.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the device with.\n",
-                        "willReplaceOnChanges": true
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/dynamicDNS:DynamicDNS": {
-            "description": "`unifi.DynamicDNS` manages dynamic DNS settings for different providers.\n",
-            "properties": {
-                "hostName": {
-                    "type": "string",
-                    "description": "The host name to update in the dynamic DNS service.\n"
-                },
-                "interface": {
-                    "type": "string",
-                    "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n"
-                },
-                "login": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "password": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "server": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "service": {
-                    "type": "string",
-                    "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the dynamic DNS with.\n"
-                }
-            },
-            "required": [
-                "hostName",
-                "service",
-                "site"
-            ],
-            "inputProperties": {
-                "hostName": {
-                    "type": "string",
-                    "description": "The host name to update in the dynamic DNS service.\n"
-                },
-                "interface": {
-                    "type": "string",
-                    "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n",
-                    "willReplaceOnChanges": true
-                },
-                "login": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "password": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "server": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "service": {
-                    "type": "string",
-                    "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n",
-                    "willReplaceOnChanges": true
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the dynamic DNS with.\n",
-                    "willReplaceOnChanges": true
-                }
-            },
-            "requiredInputs": [
-                "hostName",
-                "service"
-            ],
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering DynamicDNS resources.\n",
-                "properties": {
-                    "hostName": {
-                        "type": "string",
-                        "description": "The host name to update in the dynamic DNS service.\n"
-                    },
-                    "interface": {
-                        "type": "string",
-                        "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "login": {
-                        "type": "string",
-                        "description": "The server for the dynamic DNS service.\n"
-                    },
-                    "password": {
-                        "type": "string",
-                        "description": "The server for the dynamic DNS service.\n"
-                    },
-                    "server": {
-                        "type": "string",
-                        "description": "The server for the dynamic DNS service.\n"
-                    },
-                    "service": {
-                        "type": "string",
-                        "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the dynamic DNS with.\n",
-                        "willReplaceOnChanges": true
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/firewallGroup:FirewallGroup": {
-            "description": "`unifi.FirewallGroup` manages groups of addresses or ports for use in firewall rules (`unifi.FirewallRule`).\n",
+        "unifi:Firewall/group:Group": {
+            "description": "`unifi.Firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.Firewall.Rule`).\n",
             "properties": {
                 "members": {
                     "type": "array",
@@ -557,7 +358,7 @@
                 "type"
             ],
             "stateInputs": {
-                "description": "Input properties used for looking up and filtering FirewallGroup resources.\n",
+                "description": "Input properties used for looking up and filtering Group resources.\n",
                 "properties": {
                     "members": {
                         "type": "array",
@@ -583,8 +384,8 @@
                 "type": "object"
             }
         },
-        "unifi:index/firewallRule:FirewallRule": {
-            "description": "`unifi.FirewallRule` manages an individual firewall rule on the gateway.\n\n\n## Import\n\n# import using the ID from the controller API/UI\n\n```sh\n $ pulumi import unifi:index/firewallRule:FirewallRule my_rule 5f7080eb6b8969064f80494f\n```\n\n ",
+        "unifi:Firewall/rule:Rule": {
+            "description": "`unifi.Firewall.Rule` manages an individual firewall rule on the gateway.\n\n\n## Import\n\n# import using the ID from the controller API/UI\n\n```sh\n $ pulumi import unifi:Firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f\n```\n\n ",
             "properties": {
                 "action": {
                     "type": "string",
@@ -801,7 +602,7 @@
                 "ruleset"
             ],
             "stateInputs": {
-                "description": "Input properties used for looking up and filtering FirewallRule resources.\n",
+                "description": "Input properties used for looking up and filtering Rule resources.\n",
                 "properties": {
                     "action": {
                         "type": "string",
@@ -901,6 +702,1225 @@
                     "stateRelated": {
                         "type": "boolean",
                         "description": "Match where the state is related.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:IAM/group:Group": {
+            "description": "`unifi.IAM.Group` manages a user group (called \"client group\" in the UI), which can be used to limit bandwidth for groups of users.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst wifi = new unifi.IAM.Group(\"wifi\", {\n    qosRateMaxDown: 2000, // 2mbps\n    qosRateMaxUp: 10, // 10kbps\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the ID\n\n```sh\n $ pulumi import unifi:IAM/group:Group wifi 5fe6261995fe130013456a36\n```\n\n ",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the user group.\n"
+                },
+                "qosRateMaxDown": {
+                    "type": "integer",
+                    "description": "The QOS maximum download rate. Defaults to `-1`.\n"
+                },
+                "qosRateMaxUp": {
+                    "type": "integer",
+                    "description": "The QOS maximum upload rate. Defaults to `-1`.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the user group with.\n"
+                }
+            },
+            "required": [
+                "name",
+                "site"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the user group.\n"
+                },
+                "qosRateMaxDown": {
+                    "type": "integer",
+                    "description": "The QOS maximum download rate. Defaults to `-1`.\n"
+                },
+                "qosRateMaxUp": {
+                    "type": "integer",
+                    "description": "The QOS maximum upload rate. Defaults to `-1`.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the user group with.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Group resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the user group.\n"
+                    },
+                    "qosRateMaxDown": {
+                        "type": "integer",
+                        "description": "The QOS maximum download rate. Defaults to `-1`.\n"
+                    },
+                    "qosRateMaxUp": {
+                        "type": "integer",
+                        "description": "The QOS maximum upload rate. Defaults to `-1`.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the user group with.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:IAM/user:User": {
+            "description": "`unifi.IAM.User` manages a user (or \"client\" in the UI) of the network, these are identified by unique MAC addresses.\n\nUsers are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.\n",
+            "properties": {
+                "allowExisting": {
+                    "type": "boolean",
+                    "description": "Specifies whether this resource should just take over control of an existing user. Defaults to `true`.\n"
+                },
+                "blocked": {
+                    "type": "boolean",
+                    "description": "Specifies whether this user should be blocked from the network.\n"
+                },
+                "devIdOverride": {
+                    "type": "integer",
+                    "description": "Override the device fingerprint.\n"
+                },
+                "fixedIp": {
+                    "type": "string",
+                    "description": "A fixed IPv4 address for this user.\n"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "The hostname of the user.\n"
+                },
+                "ip": {
+                    "type": "string",
+                    "description": "The IP address of the user.\n"
+                },
+                "mac": {
+                    "type": "string",
+                    "description": "The MAC address of the user.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the user.\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "The network ID for this user.\n"
+                },
+                "note": {
+                    "type": "string",
+                    "description": "A note with additional information for the user.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the user with.\n"
+                },
+                "skipForgetOnDestroy": {
+                    "type": "boolean",
+                    "description": "Specifies whether this resource should tell the controller to \"forget\" the user on destroy. Defaults to `false`.\n"
+                },
+                "userGroupId": {
+                    "type": "string",
+                    "description": "The user group ID for the user.\n"
+                }
+            },
+            "required": [
+                "hostname",
+                "ip",
+                "mac",
+                "name",
+                "site"
+            ],
+            "inputProperties": {
+                "allowExisting": {
+                    "type": "boolean",
+                    "description": "Specifies whether this resource should just take over control of an existing user. Defaults to `true`.\n"
+                },
+                "blocked": {
+                    "type": "boolean",
+                    "description": "Specifies whether this user should be blocked from the network.\n"
+                },
+                "devIdOverride": {
+                    "type": "integer",
+                    "description": "Override the device fingerprint.\n"
+                },
+                "fixedIp": {
+                    "type": "string",
+                    "description": "A fixed IPv4 address for this user.\n"
+                },
+                "mac": {
+                    "type": "string",
+                    "description": "The MAC address of the user.\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the user.\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "The network ID for this user.\n"
+                },
+                "note": {
+                    "type": "string",
+                    "description": "A note with additional information for the user.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the user with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "skipForgetOnDestroy": {
+                    "type": "boolean",
+                    "description": "Specifies whether this resource should tell the controller to \"forget\" the user on destroy. Defaults to `false`.\n"
+                },
+                "userGroupId": {
+                    "type": "string",
+                    "description": "The user group ID for the user.\n"
+                }
+            },
+            "requiredInputs": [
+                "mac"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering User resources.\n",
+                "properties": {
+                    "allowExisting": {
+                        "type": "boolean",
+                        "description": "Specifies whether this resource should just take over control of an existing user. Defaults to `true`.\n"
+                    },
+                    "blocked": {
+                        "type": "boolean",
+                        "description": "Specifies whether this user should be blocked from the network.\n"
+                    },
+                    "devIdOverride": {
+                        "type": "integer",
+                        "description": "Override the device fingerprint.\n"
+                    },
+                    "fixedIp": {
+                        "type": "string",
+                        "description": "A fixed IPv4 address for this user.\n"
+                    },
+                    "hostname": {
+                        "type": "string",
+                        "description": "The hostname of the user.\n"
+                    },
+                    "ip": {
+                        "type": "string",
+                        "description": "The IP address of the user.\n"
+                    },
+                    "mac": {
+                        "type": "string",
+                        "description": "The MAC address of the user.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the user.\n"
+                    },
+                    "networkId": {
+                        "type": "string",
+                        "description": "The network ID for this user.\n"
+                    },
+                    "note": {
+                        "type": "string",
+                        "description": "A note with additional information for the user.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the user with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "skipForgetOnDestroy": {
+                        "type": "boolean",
+                        "description": "Specifies whether this resource should tell the controller to \"forget\" the user on destroy. Defaults to `false`.\n"
+                    },
+                    "userGroupId": {
+                        "type": "string",
+                        "description": "The user group ID for the user.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:Port/forward:Forward": {
+            "description": "`unifi.Port.Forward` manages a port forwarding rule on the gateway.\n",
+            "properties": {
+                "dstPort": {
+                    "type": "string",
+                    "description": "The destination port for the forwarding.\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
+                    "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
+                },
+                "fwdIp": {
+                    "type": "string",
+                    "description": "The IPv4 address to forward traffic to.\n"
+                },
+                "fwdPort": {
+                    "type": "string",
+                    "description": "The port to forward traffic to.\n"
+                },
+                "log": {
+                    "type": "boolean",
+                    "description": "Specifies whether to log forwarded traffic or not. Defaults to `false`.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the port forwarding rule.\n"
+                },
+                "portForwardInterface": {
+                    "type": "string",
+                    "description": "The port forwarding interface. Can be `wan`, `wan2`, or `both`.\n"
+                },
+                "protocol": {
+                    "type": "string",
+                    "description": "The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the port forwarding rule with.\n"
+                },
+                "srcIp": {
+                    "type": "string",
+                    "description": "The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.\n"
+                }
+            },
+            "required": [
+                "name",
+                "site"
+            ],
+            "inputProperties": {
+                "dstPort": {
+                    "type": "string",
+                    "description": "The destination port for the forwarding.\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
+                    "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
+                },
+                "fwdIp": {
+                    "type": "string",
+                    "description": "The IPv4 address to forward traffic to.\n"
+                },
+                "fwdPort": {
+                    "type": "string",
+                    "description": "The port to forward traffic to.\n"
+                },
+                "log": {
+                    "type": "boolean",
+                    "description": "Specifies whether to log forwarded traffic or not. Defaults to `false`.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the port forwarding rule.\n"
+                },
+                "portForwardInterface": {
+                    "type": "string",
+                    "description": "The port forwarding interface. Can be `wan`, `wan2`, or `both`.\n"
+                },
+                "protocol": {
+                    "type": "string",
+                    "description": "The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the port forwarding rule with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "srcIp": {
+                    "type": "string",
+                    "description": "The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Forward resources.\n",
+                "properties": {
+                    "dstPort": {
+                        "type": "string",
+                        "description": "The destination port for the forwarding.\n"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
+                        "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
+                    },
+                    "fwdIp": {
+                        "type": "string",
+                        "description": "The IPv4 address to forward traffic to.\n"
+                    },
+                    "fwdPort": {
+                        "type": "string",
+                        "description": "The port to forward traffic to.\n"
+                    },
+                    "log": {
+                        "type": "boolean",
+                        "description": "Specifies whether to log forwarded traffic or not. Defaults to `false`.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the port forwarding rule.\n"
+                    },
+                    "portForwardInterface": {
+                        "type": "string",
+                        "description": "The port forwarding interface. Can be `wan`, `wan2`, or `both`.\n"
+                    },
+                    "protocol": {
+                        "type": "string",
+                        "description": "The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the port forwarding rule with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "srcIp": {
+                        "type": "string",
+                        "description": "The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:Port/profile:Profile": {
+            "description": "`unifi.Port.Profile` manages a port profile for use on network switches.\n",
+            "properties": {
+                "autoneg": {
+                    "type": "boolean",
+                    "description": "Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.\n"
+                },
+                "dot1xCtrl": {
+                    "type": "string",
+                    "description": "The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.\n"
+                },
+                "dot1xIdleTimeout": {
+                    "type": "integer",
+                    "description": "The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.\n"
+                },
+                "egressRateLimitKbps": {
+                    "type": "integer",
+                    "description": "The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.\n"
+                },
+                "egressRateLimitKbpsEnabled": {
+                    "type": "boolean",
+                    "description": "Enable egress rate limiting for the port profile. Defaults to `false`.\n"
+                },
+                "forward": {
+                    "type": "string",
+                    "description": "The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.\n"
+                },
+                "fullDuplex": {
+                    "type": "boolean",
+                    "description": "Enable full duplex for the port profile. Defaults to `false`.\n"
+                },
+                "isolation": {
+                    "type": "boolean",
+                    "description": "Enable port isolation for the port profile. Defaults to `false`.\n"
+                },
+                "lldpmedEnabled": {
+                    "type": "boolean",
+                    "description": "Enable LLDP-MED for the port profile. Defaults to `true`.\n"
+                },
+                "lldpmedNotifyEnabled": {
+                    "type": "boolean",
+                    "description": "Enable LLDP-MED topology change notifications for the port profile.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the port profile.\n"
+                },
+                "nativeNetworkconfId": {
+                    "type": "string",
+                    "description": "The ID of network to use as the main network on the port profile.\n"
+                },
+                "opMode": {
+                    "type": "string",
+                    "description": "The operation mode for the port profile. Can only be `switch` Defaults to `switch`.\n"
+                },
+                "poeMode": {
+                    "type": "string",
+                    "description": "The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.\n"
+                },
+                "portSecurityEnabled": {
+                    "type": "boolean",
+                    "description": "Enable port security for the port profile. Defaults to `false`.\n"
+                },
+                "portSecurityMacAddresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The MAC addresses associated with the port security for the port profile.\n"
+                },
+                "priorityQueue1Level": {
+                    "type": "integer",
+                    "description": "The priority queue 1 level for the port profile. Can be between 0 and 100.\n"
+                },
+                "priorityQueue2Level": {
+                    "type": "integer",
+                    "description": "The priority queue 2 level for the port profile. Can be between 0 and 100.\n"
+                },
+                "priorityQueue3Level": {
+                    "type": "integer",
+                    "description": "The priority queue 3 level for the port profile. Can be between 0 and 100.\n"
+                },
+                "priorityQueue4Level": {
+                    "type": "integer",
+                    "description": "The priority queue 4 level for the port profile. Can be between 0 and 100.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the port profile with.\n"
+                },
+                "speed": {
+                    "type": "integer",
+                    "description": "The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`\n"
+                },
+                "stormctrlBcastEnabled": {
+                    "type": "boolean",
+                    "description": "Enable broadcast Storm Control for the port profile. Defaults to `false`.\n"
+                },
+                "stormctrlBcastLevel": {
+                    "type": "integer",
+                    "description": "The broadcast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                },
+                "stormctrlBcastRate": {
+                    "type": "integer",
+                    "description": "The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                },
+                "stormctrlMcastEnabled": {
+                    "type": "boolean",
+                    "description": "Enable multicast Storm Control for the port profile. Defaults to `false`.\n"
+                },
+                "stormctrlMcastLevel": {
+                    "type": "integer",
+                    "description": "The multicast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                },
+                "stormctrlMcastRate": {
+                    "type": "integer",
+                    "description": "The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                },
+                "stormctrlType": {
+                    "type": "string",
+                    "description": "The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.\n"
+                },
+                "stormctrlUcastEnabled": {
+                    "type": "boolean",
+                    "description": "Enable unknown unicast Storm Control for the port profile. Defaults to `false`.\n"
+                },
+                "stormctrlUcastLevel": {
+                    "type": "integer",
+                    "description": "The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                },
+                "stormctrlUcastRate": {
+                    "type": "integer",
+                    "description": "The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                },
+                "stpPortMode": {
+                    "type": "boolean",
+                    "description": "Enable spanning tree protocol on the port profile. Defaults to `true`.\n"
+                },
+                "taggedNetworkconfIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of networks to tag traffic with for the port profile.\n"
+                },
+                "voiceNetworkconfId": {
+                    "type": "string",
+                    "description": "The ID of network to use as the voice network on the port profile.\n"
+                }
+            },
+            "required": [
+                "name",
+                "site"
+            ],
+            "inputProperties": {
+                "autoneg": {
+                    "type": "boolean",
+                    "description": "Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.\n"
+                },
+                "dot1xCtrl": {
+                    "type": "string",
+                    "description": "The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.\n"
+                },
+                "dot1xIdleTimeout": {
+                    "type": "integer",
+                    "description": "The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.\n"
+                },
+                "egressRateLimitKbps": {
+                    "type": "integer",
+                    "description": "The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.\n"
+                },
+                "egressRateLimitKbpsEnabled": {
+                    "type": "boolean",
+                    "description": "Enable egress rate limiting for the port profile. Defaults to `false`.\n"
+                },
+                "forward": {
+                    "type": "string",
+                    "description": "The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.\n"
+                },
+                "fullDuplex": {
+                    "type": "boolean",
+                    "description": "Enable full duplex for the port profile. Defaults to `false`.\n"
+                },
+                "isolation": {
+                    "type": "boolean",
+                    "description": "Enable port isolation for the port profile. Defaults to `false`.\n"
+                },
+                "lldpmedEnabled": {
+                    "type": "boolean",
+                    "description": "Enable LLDP-MED for the port profile. Defaults to `true`.\n"
+                },
+                "lldpmedNotifyEnabled": {
+                    "type": "boolean",
+                    "description": "Enable LLDP-MED topology change notifications for the port profile.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the port profile.\n"
+                },
+                "nativeNetworkconfId": {
+                    "type": "string",
+                    "description": "The ID of network to use as the main network on the port profile.\n"
+                },
+                "opMode": {
+                    "type": "string",
+                    "description": "The operation mode for the port profile. Can only be `switch` Defaults to `switch`.\n"
+                },
+                "poeMode": {
+                    "type": "string",
+                    "description": "The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.\n"
+                },
+                "portSecurityEnabled": {
+                    "type": "boolean",
+                    "description": "Enable port security for the port profile. Defaults to `false`.\n"
+                },
+                "portSecurityMacAddresses": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The MAC addresses associated with the port security for the port profile.\n"
+                },
+                "priorityQueue1Level": {
+                    "type": "integer",
+                    "description": "The priority queue 1 level for the port profile. Can be between 0 and 100.\n"
+                },
+                "priorityQueue2Level": {
+                    "type": "integer",
+                    "description": "The priority queue 2 level for the port profile. Can be between 0 and 100.\n"
+                },
+                "priorityQueue3Level": {
+                    "type": "integer",
+                    "description": "The priority queue 3 level for the port profile. Can be between 0 and 100.\n"
+                },
+                "priorityQueue4Level": {
+                    "type": "integer",
+                    "description": "The priority queue 4 level for the port profile. Can be between 0 and 100.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the port profile with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "speed": {
+                    "type": "integer",
+                    "description": "The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`\n"
+                },
+                "stormctrlBcastEnabled": {
+                    "type": "boolean",
+                    "description": "Enable broadcast Storm Control for the port profile. Defaults to `false`.\n"
+                },
+                "stormctrlBcastLevel": {
+                    "type": "integer",
+                    "description": "The broadcast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                },
+                "stormctrlBcastRate": {
+                    "type": "integer",
+                    "description": "The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                },
+                "stormctrlMcastEnabled": {
+                    "type": "boolean",
+                    "description": "Enable multicast Storm Control for the port profile. Defaults to `false`.\n"
+                },
+                "stormctrlMcastLevel": {
+                    "type": "integer",
+                    "description": "The multicast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                },
+                "stormctrlMcastRate": {
+                    "type": "integer",
+                    "description": "The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                },
+                "stormctrlType": {
+                    "type": "string",
+                    "description": "The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.\n"
+                },
+                "stormctrlUcastEnabled": {
+                    "type": "boolean",
+                    "description": "Enable unknown unicast Storm Control for the port profile. Defaults to `false`.\n"
+                },
+                "stormctrlUcastLevel": {
+                    "type": "integer",
+                    "description": "The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                },
+                "stormctrlUcastRate": {
+                    "type": "integer",
+                    "description": "The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                },
+                "stpPortMode": {
+                    "type": "boolean",
+                    "description": "Enable spanning tree protocol on the port profile. Defaults to `true`.\n"
+                },
+                "taggedNetworkconfIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The IDs of networks to tag traffic with for the port profile.\n"
+                },
+                "voiceNetworkconfId": {
+                    "type": "string",
+                    "description": "The ID of network to use as the voice network on the port profile.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Profile resources.\n",
+                "properties": {
+                    "autoneg": {
+                        "type": "boolean",
+                        "description": "Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.\n"
+                    },
+                    "dot1xCtrl": {
+                        "type": "string",
+                        "description": "The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.\n"
+                    },
+                    "dot1xIdleTimeout": {
+                        "type": "integer",
+                        "description": "The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.\n"
+                    },
+                    "egressRateLimitKbps": {
+                        "type": "integer",
+                        "description": "The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.\n"
+                    },
+                    "egressRateLimitKbpsEnabled": {
+                        "type": "boolean",
+                        "description": "Enable egress rate limiting for the port profile. Defaults to `false`.\n"
+                    },
+                    "forward": {
+                        "type": "string",
+                        "description": "The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.\n"
+                    },
+                    "fullDuplex": {
+                        "type": "boolean",
+                        "description": "Enable full duplex for the port profile. Defaults to `false`.\n"
+                    },
+                    "isolation": {
+                        "type": "boolean",
+                        "description": "Enable port isolation for the port profile. Defaults to `false`.\n"
+                    },
+                    "lldpmedEnabled": {
+                        "type": "boolean",
+                        "description": "Enable LLDP-MED for the port profile. Defaults to `true`.\n"
+                    },
+                    "lldpmedNotifyEnabled": {
+                        "type": "boolean",
+                        "description": "Enable LLDP-MED topology change notifications for the port profile.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the port profile.\n"
+                    },
+                    "nativeNetworkconfId": {
+                        "type": "string",
+                        "description": "The ID of network to use as the main network on the port profile.\n"
+                    },
+                    "opMode": {
+                        "type": "string",
+                        "description": "The operation mode for the port profile. Can only be `switch` Defaults to `switch`.\n"
+                    },
+                    "poeMode": {
+                        "type": "string",
+                        "description": "The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.\n"
+                    },
+                    "portSecurityEnabled": {
+                        "type": "boolean",
+                        "description": "Enable port security for the port profile. Defaults to `false`.\n"
+                    },
+                    "portSecurityMacAddresses": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The MAC addresses associated with the port security for the port profile.\n"
+                    },
+                    "priorityQueue1Level": {
+                        "type": "integer",
+                        "description": "The priority queue 1 level for the port profile. Can be between 0 and 100.\n"
+                    },
+                    "priorityQueue2Level": {
+                        "type": "integer",
+                        "description": "The priority queue 2 level for the port profile. Can be between 0 and 100.\n"
+                    },
+                    "priorityQueue3Level": {
+                        "type": "integer",
+                        "description": "The priority queue 3 level for the port profile. Can be between 0 and 100.\n"
+                    },
+                    "priorityQueue4Level": {
+                        "type": "integer",
+                        "description": "The priority queue 4 level for the port profile. Can be between 0 and 100.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the port profile with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "speed": {
+                        "type": "integer",
+                        "description": "The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`\n"
+                    },
+                    "stormctrlBcastEnabled": {
+                        "type": "boolean",
+                        "description": "Enable broadcast Storm Control for the port profile. Defaults to `false`.\n"
+                    },
+                    "stormctrlBcastLevel": {
+                        "type": "integer",
+                        "description": "The broadcast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                    },
+                    "stormctrlBcastRate": {
+                        "type": "integer",
+                        "description": "The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                    },
+                    "stormctrlMcastEnabled": {
+                        "type": "boolean",
+                        "description": "Enable multicast Storm Control for the port profile. Defaults to `false`.\n"
+                    },
+                    "stormctrlMcastLevel": {
+                        "type": "integer",
+                        "description": "The multicast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                    },
+                    "stormctrlMcastRate": {
+                        "type": "integer",
+                        "description": "The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                    },
+                    "stormctrlType": {
+                        "type": "string",
+                        "description": "The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.\n"
+                    },
+                    "stormctrlUcastEnabled": {
+                        "type": "boolean",
+                        "description": "Enable unknown unicast Storm Control for the port profile. Defaults to `false`.\n"
+                    },
+                    "stormctrlUcastLevel": {
+                        "type": "integer",
+                        "description": "The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.\n"
+                    },
+                    "stormctrlUcastRate": {
+                        "type": "integer",
+                        "description": "The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
+                    },
+                    "stpPortMode": {
+                        "type": "boolean",
+                        "description": "Enable spanning tree protocol on the port profile. Defaults to `true`.\n"
+                    },
+                    "taggedNetworkconfIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The IDs of networks to tag traffic with for the port profile.\n"
+                    },
+                    "voiceNetworkconfId": {
+                        "type": "string",
+                        "description": "The ID of network to use as the voice network on the port profile.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:Setting/mgmt:Mgmt": {
+            "description": "`unifi.Setting.Mgmt` manages settings for a unifi site.\n",
+            "properties": {
+                "autoUpgrade": {
+                    "type": "boolean",
+                    "description": "Automatically upgrade device firmware.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the settings with.\n"
+                },
+                "sshEnabled": {
+                    "type": "boolean",
+                    "description": "Enable SSH authentication.\n"
+                },
+                "sshKeys": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:Setting/MgmtSshKey:MgmtSshKey"
+                    },
+                    "description": "SSH key.\n"
+                }
+            },
+            "required": [
+                "site"
+            ],
+            "inputProperties": {
+                "autoUpgrade": {
+                    "type": "boolean",
+                    "description": "Automatically upgrade device firmware.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the settings with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "sshEnabled": {
+                    "type": "boolean",
+                    "description": "Enable SSH authentication.\n"
+                },
+                "sshKeys": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:Setting/MgmtSshKey:MgmtSshKey"
+                    },
+                    "description": "SSH key.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Mgmt resources.\n",
+                "properties": {
+                    "autoUpgrade": {
+                        "type": "boolean",
+                        "description": "Automatically upgrade device firmware.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the settings with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "sshEnabled": {
+                        "type": "boolean",
+                        "description": "Enable SSH authentication.\n"
+                    },
+                    "sshKeys": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/unifi:Setting/MgmtSshKey:MgmtSshKey"
+                        },
+                        "description": "SSH key.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:Setting/uSG:USG": {
+            "description": "`unifi.Setting.USG` manages settings for a Unifi Security Gateway.\n",
+            "properties": {
+                "dhcpRelayServers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The DHCP relay servers.\n"
+                },
+                "firewallGuestDefaultLog": {
+                    "type": "boolean",
+                    "description": "Whether the guest firewall log is enabled.\n"
+                },
+                "firewallLanDefaultLog": {
+                    "type": "boolean",
+                    "description": "Whether the LAN firewall log is enabled.\n"
+                },
+                "firewallWanDefaultLog": {
+                    "type": "boolean",
+                    "description": "Whether the WAN firewall log is enabled.\n"
+                },
+                "multicastDnsEnabled": {
+                    "type": "boolean",
+                    "description": "Whether multicast DNS is enabled.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the settings with.\n"
+                }
+            },
+            "required": [
+                "dhcpRelayServers",
+                "firewallGuestDefaultLog",
+                "firewallLanDefaultLog",
+                "firewallWanDefaultLog",
+                "multicastDnsEnabled",
+                "site"
+            ],
+            "inputProperties": {
+                "dhcpRelayServers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "The DHCP relay servers.\n"
+                },
+                "firewallGuestDefaultLog": {
+                    "type": "boolean",
+                    "description": "Whether the guest firewall log is enabled.\n"
+                },
+                "firewallLanDefaultLog": {
+                    "type": "boolean",
+                    "description": "Whether the LAN firewall log is enabled.\n"
+                },
+                "firewallWanDefaultLog": {
+                    "type": "boolean",
+                    "description": "Whether the WAN firewall log is enabled.\n"
+                },
+                "multicastDnsEnabled": {
+                    "type": "boolean",
+                    "description": "Whether multicast DNS is enabled.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the settings with.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering USG resources.\n",
+                "properties": {
+                    "dhcpRelayServers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The DHCP relay servers.\n"
+                    },
+                    "firewallGuestDefaultLog": {
+                        "type": "boolean",
+                        "description": "Whether the guest firewall log is enabled.\n"
+                    },
+                    "firewallLanDefaultLog": {
+                        "type": "boolean",
+                        "description": "Whether the LAN firewall log is enabled.\n"
+                    },
+                    "firewallWanDefaultLog": {
+                        "type": "boolean",
+                        "description": "Whether the WAN firewall log is enabled.\n"
+                    },
+                    "multicastDnsEnabled": {
+                        "type": "boolean",
+                        "description": "Whether multicast DNS is enabled.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the settings with.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:index/device:Device": {
+            "properties": {
+                "disabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether this device should be disabled.\n"
+                },
+                "mac": {
+                    "type": "string",
+                    "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the device.\n"
+                },
+                "portOverrides": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
+                    },
+                    "description": "Settings overrides for specific switch ports.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the device with.\n"
+                }
+            },
+            "required": [
+                "disabled",
+                "mac",
+                "name",
+                "site"
+            ],
+            "inputProperties": {
+                "mac": {
+                    "type": "string",
+                    "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the device.\n"
+                },
+                "portOverrides": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
+                    },
+                    "description": "Settings overrides for specific switch ports.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the device with.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Device resources.\n",
+                "properties": {
+                    "disabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether this device should be disabled.\n"
+                    },
+                    "mac": {
+                        "type": "string",
+                        "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the device.\n"
+                    },
+                    "portOverrides": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
+                        },
+                        "description": "Settings overrides for specific switch ports.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the device with.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:index/dynamicDNS:DynamicDNS": {
+            "description": "`unifi.DynamicDNS` manages dynamic DNS settings for different providers.\n",
+            "properties": {
+                "hostName": {
+                    "type": "string",
+                    "description": "The host name to update in the dynamic DNS service.\n"
+                },
+                "interface": {
+                    "type": "string",
+                    "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n"
+                },
+                "login": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "server": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "service": {
+                    "type": "string",
+                    "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the dynamic DNS with.\n"
+                }
+            },
+            "required": [
+                "hostName",
+                "service",
+                "site"
+            ],
+            "inputProperties": {
+                "hostName": {
+                    "type": "string",
+                    "description": "The host name to update in the dynamic DNS service.\n"
+                },
+                "interface": {
+                    "type": "string",
+                    "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n",
+                    "willReplaceOnChanges": true
+                },
+                "login": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "server": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "service": {
+                    "type": "string",
+                    "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n",
+                    "willReplaceOnChanges": true
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the dynamic DNS with.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "hostName",
+                "service"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DynamicDNS resources.\n",
+                "properties": {
+                    "hostName": {
+                        "type": "string",
+                        "description": "The host name to update in the dynamic DNS service.\n"
+                    },
+                    "interface": {
+                        "type": "string",
+                        "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "login": {
+                        "type": "string",
+                        "description": "The server for the dynamic DNS service.\n"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "The server for the dynamic DNS service.\n"
+                    },
+                    "server": {
+                        "type": "string",
+                        "description": "The server for the dynamic DNS service.\n"
+                    },
+                    "service": {
+                        "type": "string",
+                        "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the dynamic DNS with.\n",
+                        "willReplaceOnChanges": true
                     }
                 },
                 "type": "object"
@@ -1321,784 +2341,6 @@
                 "type": "object"
             }
         },
-        "unifi:index/portForward:PortForward": {
-            "description": "`unifi.PortForward` manages a port forwarding rule on the gateway.\n",
-            "properties": {
-                "dstPort": {
-                    "type": "string",
-                    "description": "The destination port for the forwarding.\n"
-                },
-                "enabled": {
-                    "type": "boolean",
-                    "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
-                    "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
-                },
-                "fwdIp": {
-                    "type": "string",
-                    "description": "The IPv4 address to forward traffic to.\n"
-                },
-                "fwdPort": {
-                    "type": "string",
-                    "description": "The port to forward traffic to.\n"
-                },
-                "log": {
-                    "type": "boolean",
-                    "description": "Specifies whether to log forwarded traffic or not. Defaults to `false`.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the port forwarding rule.\n"
-                },
-                "portForwardInterface": {
-                    "type": "string",
-                    "description": "The port forwarding interface. Can be `wan`, `wan2`, or `both`.\n"
-                },
-                "protocol": {
-                    "type": "string",
-                    "description": "The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the port forwarding rule with.\n"
-                },
-                "srcIp": {
-                    "type": "string",
-                    "description": "The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.\n"
-                }
-            },
-            "required": [
-                "name",
-                "site"
-            ],
-            "inputProperties": {
-                "dstPort": {
-                    "type": "string",
-                    "description": "The destination port for the forwarding.\n"
-                },
-                "enabled": {
-                    "type": "boolean",
-                    "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
-                    "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
-                },
-                "fwdIp": {
-                    "type": "string",
-                    "description": "The IPv4 address to forward traffic to.\n"
-                },
-                "fwdPort": {
-                    "type": "string",
-                    "description": "The port to forward traffic to.\n"
-                },
-                "log": {
-                    "type": "boolean",
-                    "description": "Specifies whether to log forwarded traffic or not. Defaults to `false`.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the port forwarding rule.\n"
-                },
-                "portForwardInterface": {
-                    "type": "string",
-                    "description": "The port forwarding interface. Can be `wan`, `wan2`, or `both`.\n"
-                },
-                "protocol": {
-                    "type": "string",
-                    "description": "The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the port forwarding rule with.\n",
-                    "willReplaceOnChanges": true
-                },
-                "srcIp": {
-                    "type": "string",
-                    "description": "The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.\n"
-                }
-            },
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering PortForward resources.\n",
-                "properties": {
-                    "dstPort": {
-                        "type": "string",
-                        "description": "The destination port for the forwarding.\n"
-                    },
-                    "enabled": {
-                        "type": "boolean",
-                        "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
-                        "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
-                    },
-                    "fwdIp": {
-                        "type": "string",
-                        "description": "The IPv4 address to forward traffic to.\n"
-                    },
-                    "fwdPort": {
-                        "type": "string",
-                        "description": "The port to forward traffic to.\n"
-                    },
-                    "log": {
-                        "type": "boolean",
-                        "description": "Specifies whether to log forwarded traffic or not. Defaults to `false`.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the port forwarding rule.\n"
-                    },
-                    "portForwardInterface": {
-                        "type": "string",
-                        "description": "The port forwarding interface. Can be `wan`, `wan2`, or `both`.\n"
-                    },
-                    "protocol": {
-                        "type": "string",
-                        "description": "The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the port forwarding rule with.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "srcIp": {
-                        "type": "string",
-                        "description": "The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/portProfile:PortProfile": {
-            "description": "`unifi.PortProfile` manages a port profile for use on network switches.\n",
-            "properties": {
-                "autoneg": {
-                    "type": "boolean",
-                    "description": "Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.\n"
-                },
-                "dot1xCtrl": {
-                    "type": "string",
-                    "description": "The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.\n"
-                },
-                "dot1xIdleTimeout": {
-                    "type": "integer",
-                    "description": "The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.\n"
-                },
-                "egressRateLimitKbps": {
-                    "type": "integer",
-                    "description": "The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.\n"
-                },
-                "egressRateLimitKbpsEnabled": {
-                    "type": "boolean",
-                    "description": "Enable egress rate limiting for the port profile. Defaults to `false`.\n"
-                },
-                "forward": {
-                    "type": "string",
-                    "description": "The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.\n"
-                },
-                "fullDuplex": {
-                    "type": "boolean",
-                    "description": "Enable full duplex for the port profile. Defaults to `false`.\n"
-                },
-                "isolation": {
-                    "type": "boolean",
-                    "description": "Enable port isolation for the port profile. Defaults to `false`.\n"
-                },
-                "lldpmedEnabled": {
-                    "type": "boolean",
-                    "description": "Enable LLDP-MED for the port profile. Defaults to `true`.\n"
-                },
-                "lldpmedNotifyEnabled": {
-                    "type": "boolean",
-                    "description": "Enable LLDP-MED topology change notifications for the port profile.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the port profile.\n"
-                },
-                "nativeNetworkconfId": {
-                    "type": "string",
-                    "description": "The ID of network to use as the main network on the port profile.\n"
-                },
-                "opMode": {
-                    "type": "string",
-                    "description": "The operation mode for the port profile. Can only be `switch` Defaults to `switch`.\n"
-                },
-                "poeMode": {
-                    "type": "string",
-                    "description": "The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.\n"
-                },
-                "portSecurityEnabled": {
-                    "type": "boolean",
-                    "description": "Enable port security for the port profile. Defaults to `false`.\n"
-                },
-                "portSecurityMacAddresses": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The MAC addresses associated with the port security for the port profile.\n"
-                },
-                "priorityQueue1Level": {
-                    "type": "integer",
-                    "description": "The priority queue 1 level for the port profile. Can be between 0 and 100.\n"
-                },
-                "priorityQueue2Level": {
-                    "type": "integer",
-                    "description": "The priority queue 2 level for the port profile. Can be between 0 and 100.\n"
-                },
-                "priorityQueue3Level": {
-                    "type": "integer",
-                    "description": "The priority queue 3 level for the port profile. Can be between 0 and 100.\n"
-                },
-                "priorityQueue4Level": {
-                    "type": "integer",
-                    "description": "The priority queue 4 level for the port profile. Can be between 0 and 100.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the port profile with.\n"
-                },
-                "speed": {
-                    "type": "integer",
-                    "description": "The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`\n"
-                },
-                "stormctrlBcastEnabled": {
-                    "type": "boolean",
-                    "description": "Enable broadcast Storm Control for the port profile. Defaults to `false`.\n"
-                },
-                "stormctrlBcastLevel": {
-                    "type": "integer",
-                    "description": "The broadcast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                },
-                "stormctrlBcastRate": {
-                    "type": "integer",
-                    "description": "The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                },
-                "stormctrlMcastEnabled": {
-                    "type": "boolean",
-                    "description": "Enable multicast Storm Control for the port profile. Defaults to `false`.\n"
-                },
-                "stormctrlMcastLevel": {
-                    "type": "integer",
-                    "description": "The multicast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                },
-                "stormctrlMcastRate": {
-                    "type": "integer",
-                    "description": "The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                },
-                "stormctrlType": {
-                    "type": "string",
-                    "description": "The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.\n"
-                },
-                "stormctrlUcastEnabled": {
-                    "type": "boolean",
-                    "description": "Enable unknown unicast Storm Control for the port profile. Defaults to `false`.\n"
-                },
-                "stormctrlUcastLevel": {
-                    "type": "integer",
-                    "description": "The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                },
-                "stormctrlUcastRate": {
-                    "type": "integer",
-                    "description": "The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                },
-                "stpPortMode": {
-                    "type": "boolean",
-                    "description": "Enable spanning tree protocol on the port profile. Defaults to `true`.\n"
-                },
-                "taggedNetworkconfIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The IDs of networks to tag traffic with for the port profile.\n"
-                },
-                "voiceNetworkconfId": {
-                    "type": "string",
-                    "description": "The ID of network to use as the voice network on the port profile.\n"
-                }
-            },
-            "required": [
-                "name",
-                "site"
-            ],
-            "inputProperties": {
-                "autoneg": {
-                    "type": "boolean",
-                    "description": "Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.\n"
-                },
-                "dot1xCtrl": {
-                    "type": "string",
-                    "description": "The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.\n"
-                },
-                "dot1xIdleTimeout": {
-                    "type": "integer",
-                    "description": "The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.\n"
-                },
-                "egressRateLimitKbps": {
-                    "type": "integer",
-                    "description": "The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.\n"
-                },
-                "egressRateLimitKbpsEnabled": {
-                    "type": "boolean",
-                    "description": "Enable egress rate limiting for the port profile. Defaults to `false`.\n"
-                },
-                "forward": {
-                    "type": "string",
-                    "description": "The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.\n"
-                },
-                "fullDuplex": {
-                    "type": "boolean",
-                    "description": "Enable full duplex for the port profile. Defaults to `false`.\n"
-                },
-                "isolation": {
-                    "type": "boolean",
-                    "description": "Enable port isolation for the port profile. Defaults to `false`.\n"
-                },
-                "lldpmedEnabled": {
-                    "type": "boolean",
-                    "description": "Enable LLDP-MED for the port profile. Defaults to `true`.\n"
-                },
-                "lldpmedNotifyEnabled": {
-                    "type": "boolean",
-                    "description": "Enable LLDP-MED topology change notifications for the port profile.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the port profile.\n"
-                },
-                "nativeNetworkconfId": {
-                    "type": "string",
-                    "description": "The ID of network to use as the main network on the port profile.\n"
-                },
-                "opMode": {
-                    "type": "string",
-                    "description": "The operation mode for the port profile. Can only be `switch` Defaults to `switch`.\n"
-                },
-                "poeMode": {
-                    "type": "string",
-                    "description": "The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.\n"
-                },
-                "portSecurityEnabled": {
-                    "type": "boolean",
-                    "description": "Enable port security for the port profile. Defaults to `false`.\n"
-                },
-                "portSecurityMacAddresses": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The MAC addresses associated with the port security for the port profile.\n"
-                },
-                "priorityQueue1Level": {
-                    "type": "integer",
-                    "description": "The priority queue 1 level for the port profile. Can be between 0 and 100.\n"
-                },
-                "priorityQueue2Level": {
-                    "type": "integer",
-                    "description": "The priority queue 2 level for the port profile. Can be between 0 and 100.\n"
-                },
-                "priorityQueue3Level": {
-                    "type": "integer",
-                    "description": "The priority queue 3 level for the port profile. Can be between 0 and 100.\n"
-                },
-                "priorityQueue4Level": {
-                    "type": "integer",
-                    "description": "The priority queue 4 level for the port profile. Can be between 0 and 100.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the port profile with.\n",
-                    "willReplaceOnChanges": true
-                },
-                "speed": {
-                    "type": "integer",
-                    "description": "The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`\n"
-                },
-                "stormctrlBcastEnabled": {
-                    "type": "boolean",
-                    "description": "Enable broadcast Storm Control for the port profile. Defaults to `false`.\n"
-                },
-                "stormctrlBcastLevel": {
-                    "type": "integer",
-                    "description": "The broadcast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                },
-                "stormctrlBcastRate": {
-                    "type": "integer",
-                    "description": "The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                },
-                "stormctrlMcastEnabled": {
-                    "type": "boolean",
-                    "description": "Enable multicast Storm Control for the port profile. Defaults to `false`.\n"
-                },
-                "stormctrlMcastLevel": {
-                    "type": "integer",
-                    "description": "The multicast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                },
-                "stormctrlMcastRate": {
-                    "type": "integer",
-                    "description": "The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                },
-                "stormctrlType": {
-                    "type": "string",
-                    "description": "The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.\n"
-                },
-                "stormctrlUcastEnabled": {
-                    "type": "boolean",
-                    "description": "Enable unknown unicast Storm Control for the port profile. Defaults to `false`.\n"
-                },
-                "stormctrlUcastLevel": {
-                    "type": "integer",
-                    "description": "The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                },
-                "stormctrlUcastRate": {
-                    "type": "integer",
-                    "description": "The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                },
-                "stpPortMode": {
-                    "type": "boolean",
-                    "description": "Enable spanning tree protocol on the port profile. Defaults to `true`.\n"
-                },
-                "taggedNetworkconfIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The IDs of networks to tag traffic with for the port profile.\n"
-                },
-                "voiceNetworkconfId": {
-                    "type": "string",
-                    "description": "The ID of network to use as the voice network on the port profile.\n"
-                }
-            },
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering PortProfile resources.\n",
-                "properties": {
-                    "autoneg": {
-                        "type": "boolean",
-                        "description": "Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.\n"
-                    },
-                    "dot1xCtrl": {
-                        "type": "string",
-                        "description": "The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.\n"
-                    },
-                    "dot1xIdleTimeout": {
-                        "type": "integer",
-                        "description": "The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.\n"
-                    },
-                    "egressRateLimitKbps": {
-                        "type": "integer",
-                        "description": "The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.\n"
-                    },
-                    "egressRateLimitKbpsEnabled": {
-                        "type": "boolean",
-                        "description": "Enable egress rate limiting for the port profile. Defaults to `false`.\n"
-                    },
-                    "forward": {
-                        "type": "string",
-                        "description": "The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.\n"
-                    },
-                    "fullDuplex": {
-                        "type": "boolean",
-                        "description": "Enable full duplex for the port profile. Defaults to `false`.\n"
-                    },
-                    "isolation": {
-                        "type": "boolean",
-                        "description": "Enable port isolation for the port profile. Defaults to `false`.\n"
-                    },
-                    "lldpmedEnabled": {
-                        "type": "boolean",
-                        "description": "Enable LLDP-MED for the port profile. Defaults to `true`.\n"
-                    },
-                    "lldpmedNotifyEnabled": {
-                        "type": "boolean",
-                        "description": "Enable LLDP-MED topology change notifications for the port profile.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the port profile.\n"
-                    },
-                    "nativeNetworkconfId": {
-                        "type": "string",
-                        "description": "The ID of network to use as the main network on the port profile.\n"
-                    },
-                    "opMode": {
-                        "type": "string",
-                        "description": "The operation mode for the port profile. Can only be `switch` Defaults to `switch`.\n"
-                    },
-                    "poeMode": {
-                        "type": "string",
-                        "description": "The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.\n"
-                    },
-                    "portSecurityEnabled": {
-                        "type": "boolean",
-                        "description": "Enable port security for the port profile. Defaults to `false`.\n"
-                    },
-                    "portSecurityMacAddresses": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "The MAC addresses associated with the port security for the port profile.\n"
-                    },
-                    "priorityQueue1Level": {
-                        "type": "integer",
-                        "description": "The priority queue 1 level for the port profile. Can be between 0 and 100.\n"
-                    },
-                    "priorityQueue2Level": {
-                        "type": "integer",
-                        "description": "The priority queue 2 level for the port profile. Can be between 0 and 100.\n"
-                    },
-                    "priorityQueue3Level": {
-                        "type": "integer",
-                        "description": "The priority queue 3 level for the port profile. Can be between 0 and 100.\n"
-                    },
-                    "priorityQueue4Level": {
-                        "type": "integer",
-                        "description": "The priority queue 4 level for the port profile. Can be between 0 and 100.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the port profile with.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "speed": {
-                        "type": "integer",
-                        "description": "The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`\n"
-                    },
-                    "stormctrlBcastEnabled": {
-                        "type": "boolean",
-                        "description": "Enable broadcast Storm Control for the port profile. Defaults to `false`.\n"
-                    },
-                    "stormctrlBcastLevel": {
-                        "type": "integer",
-                        "description": "The broadcast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                    },
-                    "stormctrlBcastRate": {
-                        "type": "integer",
-                        "description": "The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                    },
-                    "stormctrlMcastEnabled": {
-                        "type": "boolean",
-                        "description": "Enable multicast Storm Control for the port profile. Defaults to `false`.\n"
-                    },
-                    "stormctrlMcastLevel": {
-                        "type": "integer",
-                        "description": "The multicast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                    },
-                    "stormctrlMcastRate": {
-                        "type": "integer",
-                        "description": "The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                    },
-                    "stormctrlType": {
-                        "type": "string",
-                        "description": "The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.\n"
-                    },
-                    "stormctrlUcastEnabled": {
-                        "type": "boolean",
-                        "description": "Enable unknown unicast Storm Control for the port profile. Defaults to `false`.\n"
-                    },
-                    "stormctrlUcastLevel": {
-                        "type": "integer",
-                        "description": "The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.\n"
-                    },
-                    "stormctrlUcastRate": {
-                        "type": "integer",
-                        "description": "The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.\n"
-                    },
-                    "stpPortMode": {
-                        "type": "boolean",
-                        "description": "Enable spanning tree protocol on the port profile. Defaults to `true`.\n"
-                    },
-                    "taggedNetworkconfIds": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "The IDs of networks to tag traffic with for the port profile.\n"
-                    },
-                    "voiceNetworkconfId": {
-                        "type": "string",
-                        "description": "The ID of network to use as the voice network on the port profile.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/settingMgmt:SettingMgmt": {
-            "description": "`unifi.SettingMgmt` manages settings for a unifi site.\n",
-            "properties": {
-                "autoUpgrade": {
-                    "type": "boolean",
-                    "description": "Automatically upgrade device firmware.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the settings with.\n"
-                },
-                "sshEnabled": {
-                    "type": "boolean",
-                    "description": "Enable SSH authentication.\n"
-                },
-                "sshKeys": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/unifi:index/SettingMgmtSshKey:SettingMgmtSshKey"
-                    },
-                    "description": "SSH key.\n"
-                }
-            },
-            "required": [
-                "site"
-            ],
-            "inputProperties": {
-                "autoUpgrade": {
-                    "type": "boolean",
-                    "description": "Automatically upgrade device firmware.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the settings with.\n",
-                    "willReplaceOnChanges": true
-                },
-                "sshEnabled": {
-                    "type": "boolean",
-                    "description": "Enable SSH authentication.\n"
-                },
-                "sshKeys": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/unifi:index/SettingMgmtSshKey:SettingMgmtSshKey"
-                    },
-                    "description": "SSH key.\n"
-                }
-            },
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering SettingMgmt resources.\n",
-                "properties": {
-                    "autoUpgrade": {
-                        "type": "boolean",
-                        "description": "Automatically upgrade device firmware.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the settings with.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "sshEnabled": {
-                        "type": "boolean",
-                        "description": "Enable SSH authentication.\n"
-                    },
-                    "sshKeys": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/types/unifi:index/SettingMgmtSshKey:SettingMgmtSshKey"
-                        },
-                        "description": "SSH key.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/settingUSG:SettingUSG": {
-            "description": "`unifi.SettingUSG` manages settings for a Unifi Security Gateway.\n",
-            "properties": {
-                "dhcpRelayServers": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The DHCP relay servers.\n"
-                },
-                "firewallGuestDefaultLog": {
-                    "type": "boolean",
-                    "description": "Whether the guest firewall log is enabled.\n"
-                },
-                "firewallLanDefaultLog": {
-                    "type": "boolean",
-                    "description": "Whether the LAN firewall log is enabled.\n"
-                },
-                "firewallWanDefaultLog": {
-                    "type": "boolean",
-                    "description": "Whether the WAN firewall log is enabled.\n"
-                },
-                "multicastDnsEnabled": {
-                    "type": "boolean",
-                    "description": "Whether multicast DNS is enabled.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the settings with.\n"
-                }
-            },
-            "required": [
-                "dhcpRelayServers",
-                "firewallGuestDefaultLog",
-                "firewallLanDefaultLog",
-                "firewallWanDefaultLog",
-                "multicastDnsEnabled",
-                "site"
-            ],
-            "inputProperties": {
-                "dhcpRelayServers": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The DHCP relay servers.\n"
-                },
-                "firewallGuestDefaultLog": {
-                    "type": "boolean",
-                    "description": "Whether the guest firewall log is enabled.\n"
-                },
-                "firewallLanDefaultLog": {
-                    "type": "boolean",
-                    "description": "Whether the LAN firewall log is enabled.\n"
-                },
-                "firewallWanDefaultLog": {
-                    "type": "boolean",
-                    "description": "Whether the WAN firewall log is enabled.\n"
-                },
-                "multicastDnsEnabled": {
-                    "type": "boolean",
-                    "description": "Whether multicast DNS is enabled.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the settings with.\n",
-                    "willReplaceOnChanges": true
-                }
-            },
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering SettingUSG resources.\n",
-                "properties": {
-                    "dhcpRelayServers": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "The DHCP relay servers.\n"
-                    },
-                    "firewallGuestDefaultLog": {
-                        "type": "boolean",
-                        "description": "Whether the guest firewall log is enabled.\n"
-                    },
-                    "firewallLanDefaultLog": {
-                        "type": "boolean",
-                        "description": "Whether the LAN firewall log is enabled.\n"
-                    },
-                    "firewallWanDefaultLog": {
-                        "type": "boolean",
-                        "description": "Whether the WAN firewall log is enabled.\n"
-                    },
-                    "multicastDnsEnabled": {
-                        "type": "boolean",
-                        "description": "Whether multicast DNS is enabled.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the settings with.\n",
-                        "willReplaceOnChanges": true
-                    }
-                },
-                "type": "object"
-            }
-        },
         "unifi:index/site:Site": {
             "description": "`unifi.Site` manages Unifi sites\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst mysite = new unifi.Site(\"mysite\", {\n    description: \"mysite\",\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the API/UI ID\n\n```sh\n $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36\n```\n\n # import using the name (short ID)\n\n```sh\n $ pulumi import unifi:index/site:Site mysite vq98kwez\n```\n\n ",
             "properties": {
@@ -2245,248 +2487,6 @@
                     "type": {
                         "type": "string",
                         "description": "The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/user:User": {
-            "description": "`unifi.User` manages a user (or \"client\" in the UI) of the network, these are identified by unique MAC addresses.\n\nUsers are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.\n",
-            "properties": {
-                "allowExisting": {
-                    "type": "boolean",
-                    "description": "Specifies whether this resource should just take over control of an existing user. Defaults to `true`.\n"
-                },
-                "blocked": {
-                    "type": "boolean",
-                    "description": "Specifies whether this user should be blocked from the network.\n"
-                },
-                "devIdOverride": {
-                    "type": "integer",
-                    "description": "Override the device fingerprint.\n"
-                },
-                "fixedIp": {
-                    "type": "string",
-                    "description": "A fixed IPv4 address for this user.\n"
-                },
-                "hostname": {
-                    "type": "string",
-                    "description": "The hostname of the user.\n"
-                },
-                "ip": {
-                    "type": "string",
-                    "description": "The IP address of the user.\n"
-                },
-                "mac": {
-                    "type": "string",
-                    "description": "The MAC address of the user.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the user.\n"
-                },
-                "networkId": {
-                    "type": "string",
-                    "description": "The network ID for this user.\n"
-                },
-                "note": {
-                    "type": "string",
-                    "description": "A note with additional information for the user.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the user with.\n"
-                },
-                "skipForgetOnDestroy": {
-                    "type": "boolean",
-                    "description": "Specifies whether this resource should tell the controller to \"forget\" the user on destroy. Defaults to `false`.\n"
-                },
-                "userGroupId": {
-                    "type": "string",
-                    "description": "The user group ID for the user.\n"
-                }
-            },
-            "required": [
-                "hostname",
-                "ip",
-                "mac",
-                "name",
-                "site"
-            ],
-            "inputProperties": {
-                "allowExisting": {
-                    "type": "boolean",
-                    "description": "Specifies whether this resource should just take over control of an existing user. Defaults to `true`.\n"
-                },
-                "blocked": {
-                    "type": "boolean",
-                    "description": "Specifies whether this user should be blocked from the network.\n"
-                },
-                "devIdOverride": {
-                    "type": "integer",
-                    "description": "Override the device fingerprint.\n"
-                },
-                "fixedIp": {
-                    "type": "string",
-                    "description": "A fixed IPv4 address for this user.\n"
-                },
-                "mac": {
-                    "type": "string",
-                    "description": "The MAC address of the user.\n",
-                    "willReplaceOnChanges": true
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the user.\n"
-                },
-                "networkId": {
-                    "type": "string",
-                    "description": "The network ID for this user.\n"
-                },
-                "note": {
-                    "type": "string",
-                    "description": "A note with additional information for the user.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the user with.\n",
-                    "willReplaceOnChanges": true
-                },
-                "skipForgetOnDestroy": {
-                    "type": "boolean",
-                    "description": "Specifies whether this resource should tell the controller to \"forget\" the user on destroy. Defaults to `false`.\n"
-                },
-                "userGroupId": {
-                    "type": "string",
-                    "description": "The user group ID for the user.\n"
-                }
-            },
-            "requiredInputs": [
-                "mac"
-            ],
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering User resources.\n",
-                "properties": {
-                    "allowExisting": {
-                        "type": "boolean",
-                        "description": "Specifies whether this resource should just take over control of an existing user. Defaults to `true`.\n"
-                    },
-                    "blocked": {
-                        "type": "boolean",
-                        "description": "Specifies whether this user should be blocked from the network.\n"
-                    },
-                    "devIdOverride": {
-                        "type": "integer",
-                        "description": "Override the device fingerprint.\n"
-                    },
-                    "fixedIp": {
-                        "type": "string",
-                        "description": "A fixed IPv4 address for this user.\n"
-                    },
-                    "hostname": {
-                        "type": "string",
-                        "description": "The hostname of the user.\n"
-                    },
-                    "ip": {
-                        "type": "string",
-                        "description": "The IP address of the user.\n"
-                    },
-                    "mac": {
-                        "type": "string",
-                        "description": "The MAC address of the user.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the user.\n"
-                    },
-                    "networkId": {
-                        "type": "string",
-                        "description": "The network ID for this user.\n"
-                    },
-                    "note": {
-                        "type": "string",
-                        "description": "A note with additional information for the user.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the user with.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "skipForgetOnDestroy": {
-                        "type": "boolean",
-                        "description": "Specifies whether this resource should tell the controller to \"forget\" the user on destroy. Defaults to `false`.\n"
-                    },
-                    "userGroupId": {
-                        "type": "string",
-                        "description": "The user group ID for the user.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/userGroup:UserGroup": {
-            "description": "`unifi.UserGroup` manages a user group (called \"client group\" in the UI), which can be used to limit bandwidth for groups of users.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst wifi = new unifi.UserGroup(\"wifi\", {\n    qosRateMaxDown: 2000, // 2mbps\n    qosRateMaxUp: 10, // 10kbps\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the ID\n\n```sh\n $ pulumi import unifi:index/userGroup:UserGroup wifi 5fe6261995fe130013456a36\n```\n\n ",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "The name of the user group.\n"
-                },
-                "qosRateMaxDown": {
-                    "type": "integer",
-                    "description": "The QOS maximum download rate. Defaults to `-1`.\n"
-                },
-                "qosRateMaxUp": {
-                    "type": "integer",
-                    "description": "The QOS maximum upload rate. Defaults to `-1`.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the user group with.\n"
-                }
-            },
-            "required": [
-                "name",
-                "site"
-            ],
-            "inputProperties": {
-                "name": {
-                    "type": "string",
-                    "description": "The name of the user group.\n"
-                },
-                "qosRateMaxDown": {
-                    "type": "integer",
-                    "description": "The QOS maximum download rate. Defaults to `-1`.\n"
-                },
-                "qosRateMaxUp": {
-                    "type": "integer",
-                    "description": "The QOS maximum upload rate. Defaults to `-1`.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the user group with.\n",
-                    "willReplaceOnChanges": true
-                }
-            },
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering UserGroup resources.\n",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the user group.\n"
-                    },
-                    "qosRateMaxDown": {
-                        "type": "integer",
-                        "description": "The QOS maximum download rate. Defaults to `-1`.\n"
-                    },
-                    "qosRateMaxUp": {
-                        "type": "integer",
-                        "description": "The QOS maximum upload rate. Defaults to `-1`.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the user group with.\n",
-                        "willReplaceOnChanges": true
                     }
                 },
                 "type": "object"
@@ -2834,6 +2834,180 @@
         }
     },
     "functions": {
+        "unifi:IAM/getGroup:getGroup": {
+            "description": "`unifi.IAM.Group` data source can be used to retrieve the ID for a user group by name.\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getGroup.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the user group to look up. Defaults to `Default`.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the user group is associated with.\n"
+                    }
+                },
+                "type": "object"
+            },
+            "outputs": {
+                "description": "A collection of values returned by getGroup.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this AP group.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the user group to look up. Defaults to `Default`.\n"
+                    },
+                    "qosRateMaxDown": {
+                        "type": "integer"
+                    },
+                    "qosRateMaxUp": {
+                        "type": "integer"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the user group is associated with.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "qosRateMaxDown",
+                    "qosRateMaxUp",
+                    "site"
+                ]
+            }
+        },
+        "unifi:IAM/getUser:getUser": {
+            "description": "`unifi.IAM.User` retrieves properties of a user (or \"client\" in the UI) of the network by MAC address.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst client = pulumi.output(unifi.IAM.getUser({\n    mac: \"01:23:45:67:89:ab\",\n}));\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getUser.\n",
+                "properties": {
+                    "mac": {
+                        "type": "string",
+                        "description": "The MAC address of the user.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the user is associated with.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "mac"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getUser.\n",
+                "properties": {
+                    "blocked": {
+                        "type": "boolean",
+                        "description": "Specifies whether this user should be blocked from the network.\n"
+                    },
+                    "devIdOverride": {
+                        "type": "integer",
+                        "description": "Override the device fingerprint.\n"
+                    },
+                    "fixedIp": {
+                        "type": "string",
+                        "description": "fixed IPv4 address set for this user.\n"
+                    },
+                    "hostname": {
+                        "type": "string",
+                        "description": "The hostname of the user.\n"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of the user.\n"
+                    },
+                    "ip": {
+                        "type": "string",
+                        "description": "The IP address of the user.\n"
+                    },
+                    "mac": {
+                        "type": "string",
+                        "description": "The MAC address of the user.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the user.\n"
+                    },
+                    "networkId": {
+                        "type": "string",
+                        "description": "The network ID for this user.\n"
+                    },
+                    "note": {
+                        "type": "string",
+                        "description": "A note with additional information for the user.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the user is associated with.\n"
+                    },
+                    "userGroupId": {
+                        "type": "string",
+                        "description": "The user group ID for the user.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "blocked",
+                    "devIdOverride",
+                    "fixedIp",
+                    "hostname",
+                    "id",
+                    "ip",
+                    "mac",
+                    "name",
+                    "networkId",
+                    "note",
+                    "site",
+                    "userGroupId"
+                ]
+            }
+        },
+        "unifi:Port/getProfile:getProfile": {
+            "description": "`unifi.Port.Profile` data source can be used to retrieve the ID for a port profile by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst all = pulumi.output(unifi.Port.getProfile());\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getProfile.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the port profile to look up. Defaults to `All`.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the port profile is associated with.\n"
+                    }
+                },
+                "type": "object"
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProfile.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this port profile.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the port profile to look up. Defaults to `All`.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the port profile is associated with.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "site"
+                ]
+            }
+        },
         "unifi:index/getApGroup:getApGroup": {
             "description": "`unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst defaultApGroup = pulumi.output(unifi.getApGroup());\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
@@ -3063,45 +3237,6 @@
                 ]
             }
         },
-        "unifi:index/getPortProfile:getPortProfile": {
-            "description": "`unifi.PortProfile` data source can be used to retrieve the ID for a port profile by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst all = pulumi.output(unifi.getPortProfile());\n```\n{{% /example %}}\n{{% /examples %}}",
-            "inputs": {
-                "description": "A collection of arguments for invoking getPortProfile.\n",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the port profile to look up. Defaults to `All`.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site the port profile is associated with.\n"
-                    }
-                },
-                "type": "object"
-            },
-            "outputs": {
-                "description": "A collection of values returned by getPortProfile.\n",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of this port profile.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the port profile to look up. Defaults to `All`.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site the port profile is associated with.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "id",
-                    "site"
-                ]
-            }
-        },
         "unifi:index/getRadiusProfile:getRadiusProfile": {
             "description": "`unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.\n",
             "inputs": {
@@ -3137,141 +3272,6 @@
                 "type": "object",
                 "required": [
                     "id",
-                    "site"
-                ]
-            }
-        },
-        "unifi:index/getUser:getUser": {
-            "description": "`unifi.User` retrieves properties of a user (or \"client\" in the UI) of the network by MAC address.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst client = pulumi.output(unifi.getUser({\n    mac: \"01:23:45:67:89:ab\",\n}));\n```\n{{% /example %}}\n{{% /examples %}}",
-            "inputs": {
-                "description": "A collection of arguments for invoking getUser.\n",
-                "properties": {
-                    "mac": {
-                        "type": "string",
-                        "description": "The MAC address of the user.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site the user is associated with.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "mac"
-                ]
-            },
-            "outputs": {
-                "description": "A collection of values returned by getUser.\n",
-                "properties": {
-                    "blocked": {
-                        "type": "boolean",
-                        "description": "Specifies whether this user should be blocked from the network.\n"
-                    },
-                    "devIdOverride": {
-                        "type": "integer",
-                        "description": "Override the device fingerprint.\n"
-                    },
-                    "fixedIp": {
-                        "type": "string",
-                        "description": "fixed IPv4 address set for this user.\n"
-                    },
-                    "hostname": {
-                        "type": "string",
-                        "description": "The hostname of the user.\n"
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of the user.\n"
-                    },
-                    "ip": {
-                        "type": "string",
-                        "description": "The IP address of the user.\n"
-                    },
-                    "mac": {
-                        "type": "string",
-                        "description": "The MAC address of the user.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the user.\n"
-                    },
-                    "networkId": {
-                        "type": "string",
-                        "description": "The network ID for this user.\n"
-                    },
-                    "note": {
-                        "type": "string",
-                        "description": "A note with additional information for the user.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site the user is associated with.\n"
-                    },
-                    "userGroupId": {
-                        "type": "string",
-                        "description": "The user group ID for the user.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "blocked",
-                    "devIdOverride",
-                    "fixedIp",
-                    "hostname",
-                    "id",
-                    "ip",
-                    "mac",
-                    "name",
-                    "networkId",
-                    "note",
-                    "site",
-                    "userGroupId"
-                ]
-            }
-        },
-        "unifi:index/getUserGroup:getUserGroup": {
-            "description": "`unifi.UserGroup` data source can be used to retrieve the ID for a user group by name.\n",
-            "inputs": {
-                "description": "A collection of arguments for invoking getUserGroup.\n",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the user group to look up. Defaults to `Default`.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site the user group is associated with.\n"
-                    }
-                },
-                "type": "object"
-            },
-            "outputs": {
-                "description": "A collection of values returned by getUserGroup.\n",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of this AP group.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the user group to look up. Defaults to `Default`.\n"
-                    },
-                    "qosRateMaxDown": {
-                        "type": "integer"
-                    },
-                    "qosRateMaxUp": {
-                        "type": "integer"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site the user group is associated with.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "id",
-                    "qosRateMaxDown",
-                    "qosRateMaxUp",
                     "site"
                 ]
             }

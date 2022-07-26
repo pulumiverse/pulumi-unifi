@@ -24,28 +24,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Device{}
 	case "unifi:index/dynamicDNS:DynamicDNS":
 		r = &DynamicDNS{}
-	case "unifi:index/firewallGroup:FirewallGroup":
-		r = &FirewallGroup{}
-	case "unifi:index/firewallRule:FirewallRule":
-		r = &FirewallRule{}
 	case "unifi:index/network:Network":
 		r = &Network{}
-	case "unifi:index/portForward:PortForward":
-		r = &PortForward{}
-	case "unifi:index/portProfile:PortProfile":
-		r = &PortProfile{}
-	case "unifi:index/settingMgmt:SettingMgmt":
-		r = &SettingMgmt{}
-	case "unifi:index/settingUSG:SettingUSG":
-		r = &SettingUSG{}
 	case "unifi:index/site:Site":
 		r = &Site{}
 	case "unifi:index/staticRoute:StaticRoute":
 		r = &StaticRoute{}
-	case "unifi:index/user:User":
-		r = &User{}
-	case "unifi:index/userGroup:UserGroup":
-		r = &UserGroup{}
 	case "unifi:index/wlan:Wlan":
 		r = &Wlan{}
 	default:
@@ -88,37 +72,7 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"unifi",
-		"index/firewallGroup",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"unifi",
-		"index/firewallRule",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"unifi",
 		"index/network",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"unifi",
-		"index/portForward",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"unifi",
-		"index/portProfile",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"unifi",
-		"index/settingMgmt",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"unifi",
-		"index/settingUSG",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -129,16 +83,6 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"unifi",
 		"index/staticRoute",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"unifi",
-		"index/user",
-		&module{version},
-	)
-	pulumi.RegisterResourceModule(
-		"unifi",
-		"index/userGroup",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
