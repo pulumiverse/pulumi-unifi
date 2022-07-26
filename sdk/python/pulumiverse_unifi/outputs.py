@@ -11,7 +11,6 @@ from . import _utilities
 
 __all__ = [
     'DevicePortOverride',
-    'SettingMgmtSshKey',
     'WlanSchedule',
 ]
 
@@ -72,59 +71,6 @@ class DevicePortOverride(dict):
         ID of the Port Profile used on this port.
         """
         return pulumi.get(self, "port_profile_id")
-
-
-@pulumi.output_type
-class SettingMgmtSshKey(dict):
-    def __init__(__self__, *,
-                 name: str,
-                 type: str,
-                 comment: Optional[str] = None,
-                 key: Optional[str] = None):
-        """
-        :param str name: Name of SSH key.
-        :param str type: Type of SSH key, e.g. ssh-rsa.
-        :param str comment: Comment.
-        :param str key: Public SSH key.
-        """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "type", type)
-        if comment is not None:
-            pulumi.set(__self__, "comment", comment)
-        if key is not None:
-            pulumi.set(__self__, "key", key)
-
-    @property
-    @pulumi.getter
-    def name(self) -> str:
-        """
-        Name of SSH key.
-        """
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter
-    def type(self) -> str:
-        """
-        Type of SSH key, e.g. ssh-rsa.
-        """
-        return pulumi.get(self, "type")
-
-    @property
-    @pulumi.getter
-    def comment(self) -> Optional[str]:
-        """
-        Comment.
-        """
-        return pulumi.get(self, "comment")
-
-    @property
-    @pulumi.getter
-    def key(self) -> Optional[str]:
-        """
-        Public SSH key.
-        """
-        return pulumi.get(self, "key")
 
 
 @pulumi.output_type
