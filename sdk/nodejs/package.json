@@ -25,6 +25,6 @@
     "pulumi": {
         "resource": true,
         "name": "unifi",
-        "server": "https://github.com/pulumiverse/pulumi-unifi/releases/download/${VERSION}"
+        "server": "github://api.github.com/pulumiverse"
     }
 }
