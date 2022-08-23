@@ -19,25 +19,6 @@ export interface DevicePortOverride {
     portProfileId?: string;
 }
 
-export interface SettingMgmtSshKey {
-    /**
-     * Comment.
-     */
-    comment?: string;
-    /**
-     * Public SSH key.
-     */
-    key?: string;
-    /**
-     * Name of SSH key.
-     */
-    name: string;
-    /**
-     * Type of SSH key, e.g. ssh-rsa.
-     */
-    type: string;
-}
-
 export interface WlanSchedule {
     /**
      * Time of day to end the block.
@@ -53,3 +34,24 @@ export interface WlanSchedule {
     dayOfWeek: string;
 }
 
+export namespace setting {
+    export interface MgmtSshKey {
+        /**
+         * Comment.
+         */
+        comment?: string;
+        /**
+         * Public SSH key.
+         */
+        key?: string;
+        /**
+         * Name of SSH key.
+         */
+        name: string;
+        /**
+         * Type of SSH key, e.g. ssh-rsa.
+         */
+        type: string;
+    }
+
+}

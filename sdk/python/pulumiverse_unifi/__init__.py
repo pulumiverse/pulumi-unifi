@@ -7,24 +7,13 @@ import typing
 # Export this package's modules as members:
 from .device import *
 from .dynamic_dns import *
-from .firewall_group import *
-from .firewall_rule import *
 from .get_ap_group import *
 from .get_network import *
-from .get_port_profile import *
 from .get_radius_profile import *
-from .get_user import *
-from .get_user_group import *
 from .network import *
-from .port_forward import *
-from .port_profile import *
 from .provider import *
-from .setting_mgmt import *
-from .setting_usg import *
 from .site import *
 from .static_route import *
-from .user import *
-from .user_group import *
 from .wlan import *
 from ._inputs import *
 from . import outputs
@@ -33,12 +22,56 @@ from . import outputs
 if typing.TYPE_CHECKING:
     import pulumiverse_unifi.config as __config
     config = __config
+    import pulumiverse_unifi.firewall as __firewall
+    firewall = __firewall
+    import pulumiverse_unifi.iam as __iam
+    iam = __iam
+    import pulumiverse_unifi.port as __port
+    port = __port
+    import pulumiverse_unifi.setting as __setting
+    setting = __setting
 else:
     config = _utilities.lazy_import('pulumiverse_unifi.config')
+    firewall = _utilities.lazy_import('pulumiverse_unifi.firewall')
+    iam = _utilities.lazy_import('pulumiverse_unifi.iam')
+    port = _utilities.lazy_import('pulumiverse_unifi.port')
+    setting = _utilities.lazy_import('pulumiverse_unifi.setting')
 
 _utilities.register(
     resource_modules="""
 [
+ {
+  "pkg": "unifi",
+  "mod": "firewall/group",
+  "fqn": "pulumiverse_unifi.firewall",
+  "classes": {
+   "unifi:firewall/group:Group": "Group"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "firewall/rule",
+  "fqn": "pulumiverse_unifi.firewall",
+  "classes": {
+   "unifi:firewall/rule:Rule": "Rule"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "iam/group",
+  "fqn": "pulumiverse_unifi.iam",
+  "classes": {
+   "unifi:iam/group:Group": "Group"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "iam/user",
+  "fqn": "pulumiverse_unifi.iam",
+  "classes": {
+   "unifi:iam/user:User": "User"
+  }
+ },
  {
   "pkg": "unifi",
   "mod": "index/device",
@@ -57,58 +90,10 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
-  "mod": "index/firewallGroup",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/firewallGroup:FirewallGroup": "FirewallGroup"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "index/firewallRule",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/firewallRule:FirewallRule": "FirewallRule"
-  }
- },
- {
-  "pkg": "unifi",
   "mod": "index/network",
   "fqn": "pulumiverse_unifi",
   "classes": {
    "unifi:index/network:Network": "Network"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "index/portForward",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/portForward:PortForward": "PortForward"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "index/portProfile",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/portProfile:PortProfile": "PortProfile"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "index/settingMgmt",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/settingMgmt:SettingMgmt": "SettingMgmt"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "index/settingUSG",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/settingUSG:SettingUSG": "SettingUSG"
   }
  },
  {
@@ -129,26 +114,42 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
-  "mod": "index/user",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/user:User": "User"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "index/userGroup",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/userGroup:UserGroup": "UserGroup"
-  }
- },
- {
-  "pkg": "unifi",
   "mod": "index/wlan",
   "fqn": "pulumiverse_unifi",
   "classes": {
    "unifi:index/wlan:Wlan": "Wlan"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "port/forward",
+  "fqn": "pulumiverse_unifi.port",
+  "classes": {
+   "unifi:port/forward:Forward": "Forward"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "port/profile",
+  "fqn": "pulumiverse_unifi.port",
+  "classes": {
+   "unifi:port/profile:Profile": "Profile"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/mgmt",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/mgmt:Mgmt": "Mgmt"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/uSG",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/uSG:USG": "USG"
   }
  }
 ]

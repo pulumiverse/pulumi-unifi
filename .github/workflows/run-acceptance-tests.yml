@@ -87,14 +87,14 @@ jobs:
         dotnetversion:
         - 3.1.301
         goversion:
-        - 1.18.x
+        - 1.19.x
         language:
         - nodejs
         - python
         - dotnet
         - go
         nodeversion:
-        - 14.x
+        - 16.x
         pythonversion:
         - "3.7"
   comment-notification:
@@ -180,9 +180,9 @@ jobs:
         dotnetversion:
         - 3.1.301
         goversion:
-        - 1.18.x
+        - 1.19.x
         nodeversion:
-        - 14.x
+        - 16.x
         pythonversion:
         - "3.7"
   test:
@@ -261,14 +261,14 @@ jobs:
         dotnetversion:
         - 3.1.301
         goversion:
-        - 1.18.x
+        - 1.19.x
         language:
         - nodejs
         - python
         - dotnet
         - go
         nodeversion:
-        - 14.x
+        - 16.x
         pythonversion:
         - "3.7"
 name: run-acceptance-tests

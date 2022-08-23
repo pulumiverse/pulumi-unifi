@@ -19,25 +19,6 @@ export interface DevicePortOverride {
     portProfileId?: pulumi.Input<string>;
 }
 
-export interface SettingMgmtSshKey {
-    /**
-     * Comment.
-     */
-    comment?: pulumi.Input<string>;
-    /**
-     * Public SSH key.
-     */
-    key?: pulumi.Input<string>;
-    /**
-     * Name of SSH key.
-     */
-    name: pulumi.Input<string>;
-    /**
-     * Type of SSH key, e.g. ssh-rsa.
-     */
-    type: pulumi.Input<string>;
-}
-
 export interface WlanSchedule {
     /**
      * Time of day to end the block.
@@ -51,4 +32,24 @@ export interface WlanSchedule {
      * Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
      */
     dayOfWeek: pulumi.Input<string>;
+}
+export namespace setting {
+    export interface MgmtSshKey {
+        /**
+         * Comment.
+         */
+        comment?: pulumi.Input<string>;
+        /**
+         * Public SSH key.
+         */
+        key?: pulumi.Input<string>;
+        /**
+         * Name of SSH key.
+         */
+        name: pulumi.Input<string>;
+        /**
+         * Type of SSH key, e.g. ssh-rsa.
+         */
+        type: pulumi.Input<string>;
+    }
 }

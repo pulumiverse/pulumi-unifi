@@ -22,7 +22,7 @@ type DevicePortOverride struct {
 // DevicePortOverrideInput is an input type that accepts DevicePortOverrideArgs and DevicePortOverrideOutput values.
 // You can construct a concrete instance of `DevicePortOverrideInput` via:
 //
-//          DevicePortOverrideArgs{...}
+//	DevicePortOverrideArgs{...}
 type DevicePortOverrideInput interface {
 	pulumi.Input
 
@@ -54,7 +54,7 @@ func (i DevicePortOverrideArgs) ToDevicePortOverrideOutputWithContext(ctx contex
 // DevicePortOverrideArrayInput is an input type that accepts DevicePortOverrideArray and DevicePortOverrideArrayOutput values.
 // You can construct a concrete instance of `DevicePortOverrideArrayInput` via:
 //
-//          DevicePortOverrideArray{ DevicePortOverrideArgs{...} }
+//	DevicePortOverrideArray{ DevicePortOverrideArgs{...} }
 type DevicePortOverrideArrayInput interface {
 	pulumi.Input
 
@@ -125,130 +125,6 @@ func (o DevicePortOverrideArrayOutput) Index(i pulumi.IntInput) DevicePortOverri
 	}).(DevicePortOverrideOutput)
 }
 
-type SettingMgmtSshKey struct {
-	// Comment.
-	Comment *string `pulumi:"comment"`
-	// Public SSH key.
-	Key *string `pulumi:"key"`
-	// Name of SSH key.
-	Name string `pulumi:"name"`
-	// Type of SSH key, e.g. ssh-rsa.
-	Type string `pulumi:"type"`
-}
-
-// SettingMgmtSshKeyInput is an input type that accepts SettingMgmtSshKeyArgs and SettingMgmtSshKeyOutput values.
-// You can construct a concrete instance of `SettingMgmtSshKeyInput` via:
-//
-//          SettingMgmtSshKeyArgs{...}
-type SettingMgmtSshKeyInput interface {
-	pulumi.Input
-
-	ToSettingMgmtSshKeyOutput() SettingMgmtSshKeyOutput
-	ToSettingMgmtSshKeyOutputWithContext(context.Context) SettingMgmtSshKeyOutput
-}
-
-type SettingMgmtSshKeyArgs struct {
-	// Comment.
-	Comment pulumi.StringPtrInput `pulumi:"comment"`
-	// Public SSH key.
-	Key pulumi.StringPtrInput `pulumi:"key"`
-	// Name of SSH key.
-	Name pulumi.StringInput `pulumi:"name"`
-	// Type of SSH key, e.g. ssh-rsa.
-	Type pulumi.StringInput `pulumi:"type"`
-}
-
-func (SettingMgmtSshKeyArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SettingMgmtSshKey)(nil)).Elem()
-}
-
-func (i SettingMgmtSshKeyArgs) ToSettingMgmtSshKeyOutput() SettingMgmtSshKeyOutput {
-	return i.ToSettingMgmtSshKeyOutputWithContext(context.Background())
-}
-
-func (i SettingMgmtSshKeyArgs) ToSettingMgmtSshKeyOutputWithContext(ctx context.Context) SettingMgmtSshKeyOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SettingMgmtSshKeyOutput)
-}
-
-// SettingMgmtSshKeyArrayInput is an input type that accepts SettingMgmtSshKeyArray and SettingMgmtSshKeyArrayOutput values.
-// You can construct a concrete instance of `SettingMgmtSshKeyArrayInput` via:
-//
-//          SettingMgmtSshKeyArray{ SettingMgmtSshKeyArgs{...} }
-type SettingMgmtSshKeyArrayInput interface {
-	pulumi.Input
-
-	ToSettingMgmtSshKeyArrayOutput() SettingMgmtSshKeyArrayOutput
-	ToSettingMgmtSshKeyArrayOutputWithContext(context.Context) SettingMgmtSshKeyArrayOutput
-}
-
-type SettingMgmtSshKeyArray []SettingMgmtSshKeyInput
-
-func (SettingMgmtSshKeyArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]SettingMgmtSshKey)(nil)).Elem()
-}
-
-func (i SettingMgmtSshKeyArray) ToSettingMgmtSshKeyArrayOutput() SettingMgmtSshKeyArrayOutput {
-	return i.ToSettingMgmtSshKeyArrayOutputWithContext(context.Background())
-}
-
-func (i SettingMgmtSshKeyArray) ToSettingMgmtSshKeyArrayOutputWithContext(ctx context.Context) SettingMgmtSshKeyArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SettingMgmtSshKeyArrayOutput)
-}
-
-type SettingMgmtSshKeyOutput struct{ *pulumi.OutputState }
-
-func (SettingMgmtSshKeyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SettingMgmtSshKey)(nil)).Elem()
-}
-
-func (o SettingMgmtSshKeyOutput) ToSettingMgmtSshKeyOutput() SettingMgmtSshKeyOutput {
-	return o
-}
-
-func (o SettingMgmtSshKeyOutput) ToSettingMgmtSshKeyOutputWithContext(ctx context.Context) SettingMgmtSshKeyOutput {
-	return o
-}
-
-// Comment.
-func (o SettingMgmtSshKeyOutput) Comment() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SettingMgmtSshKey) *string { return v.Comment }).(pulumi.StringPtrOutput)
-}
-
-// Public SSH key.
-func (o SettingMgmtSshKeyOutput) Key() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SettingMgmtSshKey) *string { return v.Key }).(pulumi.StringPtrOutput)
-}
-
-// Name of SSH key.
-func (o SettingMgmtSshKeyOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v SettingMgmtSshKey) string { return v.Name }).(pulumi.StringOutput)
-}
-
-// Type of SSH key, e.g. ssh-rsa.
-func (o SettingMgmtSshKeyOutput) Type() pulumi.StringOutput {
-	return o.ApplyT(func(v SettingMgmtSshKey) string { return v.Type }).(pulumi.StringOutput)
-}
-
-type SettingMgmtSshKeyArrayOutput struct{ *pulumi.OutputState }
-
-func (SettingMgmtSshKeyArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]SettingMgmtSshKey)(nil)).Elem()
-}
-
-func (o SettingMgmtSshKeyArrayOutput) ToSettingMgmtSshKeyArrayOutput() SettingMgmtSshKeyArrayOutput {
-	return o
-}
-
-func (o SettingMgmtSshKeyArrayOutput) ToSettingMgmtSshKeyArrayOutputWithContext(ctx context.Context) SettingMgmtSshKeyArrayOutput {
-	return o
-}
-
-func (o SettingMgmtSshKeyArrayOutput) Index(i pulumi.IntInput) SettingMgmtSshKeyOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SettingMgmtSshKey {
-		return vs[0].([]SettingMgmtSshKey)[vs[1].(int)]
-	}).(SettingMgmtSshKeyOutput)
-}
-
 type WlanSchedule struct {
 	// Time of day to end the block.
 	BlockEnd string `pulumi:"blockEnd"`
@@ -261,7 +137,7 @@ type WlanSchedule struct {
 // WlanScheduleInput is an input type that accepts WlanScheduleArgs and WlanScheduleOutput values.
 // You can construct a concrete instance of `WlanScheduleInput` via:
 //
-//          WlanScheduleArgs{...}
+//	WlanScheduleArgs{...}
 type WlanScheduleInput interface {
 	pulumi.Input
 
@@ -293,7 +169,7 @@ func (i WlanScheduleArgs) ToWlanScheduleOutputWithContext(ctx context.Context) W
 // WlanScheduleArrayInput is an input type that accepts WlanScheduleArray and WlanScheduleArrayOutput values.
 // You can construct a concrete instance of `WlanScheduleArrayInput` via:
 //
-//          WlanScheduleArray{ WlanScheduleArgs{...} }
+//	WlanScheduleArray{ WlanScheduleArgs{...} }
 type WlanScheduleArrayInput interface {
 	pulumi.Input
 
@@ -367,14 +243,10 @@ func (o WlanScheduleArrayOutput) Index(i pulumi.IntInput) WlanScheduleOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePortOverrideInput)(nil)).Elem(), DevicePortOverrideArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePortOverrideArrayInput)(nil)).Elem(), DevicePortOverrideArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SettingMgmtSshKeyInput)(nil)).Elem(), SettingMgmtSshKeyArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SettingMgmtSshKeyArrayInput)(nil)).Elem(), SettingMgmtSshKeyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WlanScheduleInput)(nil)).Elem(), WlanScheduleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WlanScheduleArrayInput)(nil)).Elem(), WlanScheduleArray{})
 	pulumi.RegisterOutputType(DevicePortOverrideOutput{})
 	pulumi.RegisterOutputType(DevicePortOverrideArrayOutput{})
-	pulumi.RegisterOutputType(SettingMgmtSshKeyOutput{})
-	pulumi.RegisterOutputType(SettingMgmtSshKeyArrayOutput{})
 	pulumi.RegisterOutputType(WlanScheduleOutput{})
 	pulumi.RegisterOutputType(WlanScheduleArrayOutput{})
 }

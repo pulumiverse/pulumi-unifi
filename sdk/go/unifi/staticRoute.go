@@ -168,7 +168,7 @@ func (i *StaticRoute) ToStaticRouteOutputWithContext(ctx context.Context) Static
 // StaticRouteArrayInput is an input type that accepts StaticRouteArray and StaticRouteArrayOutput values.
 // You can construct a concrete instance of `StaticRouteArrayInput` via:
 //
-//          StaticRouteArray{ StaticRouteArgs{...} }
+//	StaticRouteArray{ StaticRouteArgs{...} }
 type StaticRouteArrayInput interface {
 	pulumi.Input
 
@@ -193,7 +193,7 @@ func (i StaticRouteArray) ToStaticRouteArrayOutputWithContext(ctx context.Contex
 // StaticRouteMapInput is an input type that accepts StaticRouteMap and StaticRouteMapOutput values.
 // You can construct a concrete instance of `StaticRouteMapInput` via:
 //
-//          StaticRouteMap{ "key": StaticRouteArgs{...} }
+//	StaticRouteMap{ "key": StaticRouteArgs{...} }
 type StaticRouteMapInput interface {
 	pulumi.Input
 
