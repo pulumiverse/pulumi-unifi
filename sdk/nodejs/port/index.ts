@@ -17,14 +17,14 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "unifi:Port/forward:Forward":
+            case "unifi:port/forward:Forward":
                 return new Forward(name, <any>undefined, { urn })
-            case "unifi:Port/profile:Profile":
+            case "unifi:port/profile:Profile":
                 return new Profile(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("unifi", "Port/forward", _module)
-pulumi.runtime.registerResourceModule("unifi", "Port/profile", _module)
+pulumi.runtime.registerResourceModule("unifi", "port/forward", _module)
+pulumi.runtime.registerResourceModule("unifi", "port/profile", _module)

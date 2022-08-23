@@ -166,14 +166,14 @@ class Group(pulumi.CustomResource):
                  site: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        `IAM.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
+        `iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
 
         ## Import
 
         # import using the ID
 
         ```sh
-         $ pulumi import unifi:IAM/group:Group wifi 5fe6261995fe130013456a36
+         $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
         ```
 
         :param str resource_name: The name of the resource.
@@ -190,14 +190,14 @@ class Group(pulumi.CustomResource):
                  args: Optional[GroupArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `IAM.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
+        `iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
 
         ## Import
 
         # import using the ID
 
         ```sh
-         $ pulumi import unifi:IAM/group:Group wifi 5fe6261995fe130013456a36
+         $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
         ```
 
         :param str resource_name: The name of the resource.
@@ -233,7 +233,7 @@ class Group(pulumi.CustomResource):
             __props__.__dict__["qos_rate_max_up"] = qos_rate_max_up
             __props__.__dict__["site"] = site
         super(Group, __self__).__init__(
-            'unifi:IAM/group:Group',
+            'unifi:iam/group:Group',
             resource_name,
             __props__,
             opts)

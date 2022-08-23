@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.IAM.Group` data source can be used to retrieve the ID for a user group by name.
+ * `unifi.iam.Group` data source can be used to retrieve the ID for a user group by name.
  */
 export function getGroup(args?: GetGroupArgs, opts?: pulumi.InvokeOptions): Promise<GetGroupResult> {
     args = args || {};
@@ -14,7 +14,7 @@ export function getGroup(args?: GetGroupArgs, opts?: pulumi.InvokeOptions): Prom
     }
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-    return pulumi.runtime.invoke("unifi:IAM/getGroup:getGroup", {
+    return pulumi.runtime.invoke("unifi:iam/getGroup:getGroup", {
         "name": args.name,
         "site": args.site,
     }, opts);

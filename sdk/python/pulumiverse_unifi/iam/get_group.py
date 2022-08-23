@@ -90,7 +90,7 @@ def get_group(name: Optional[str] = None,
               site: Optional[str] = None,
               opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetGroupResult:
     """
-    `IAM.Group` data source can be used to retrieve the ID for a user group by name.
+    `iam.Group` data source can be used to retrieve the ID for a user group by name.
 
 
     :param str name: The name of the user group to look up. Defaults to `Default`.
@@ -100,7 +100,7 @@ def get_group(name: Optional[str] = None,
     __args__['name'] = name
     __args__['site'] = site
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke('unifi:IAM/getGroup:getGroup', __args__, opts=opts, typ=GetGroupResult).value
+    __ret__ = pulumi.runtime.invoke('unifi:iam/getGroup:getGroup', __args__, opts=opts, typ=GetGroupResult).value
 
     return AwaitableGetGroupResult(
         id=__ret__.id,
@@ -115,7 +115,7 @@ def get_group_output(name: Optional[pulumi.Input[Optional[str]]] = None,
                      site: Optional[pulumi.Input[Optional[str]]] = None,
                      opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetGroupResult]:
     """
-    `IAM.Group` data source can be used to retrieve the ID for a user group by name.
+    `iam.Group` data source can be used to retrieve the ID for a user group by name.
 
 
     :param str name: The name of the user group to look up. Defaults to `Default`.

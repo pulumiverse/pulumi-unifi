@@ -1189,7 +1189,7 @@ class Profile(pulumi.CustomResource):
                  voice_networkconf_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        `Port.Profile` manages a port profile for use on network switches.
+        `port.Profile` manages a port profile for use on network switches.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1236,7 +1236,7 @@ class Profile(pulumi.CustomResource):
                  args: Optional[ProfileArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Port.Profile` manages a port profile for use on network switches.
+        `port.Profile` manages a port profile for use on network switches.
 
         :param str resource_name: The name of the resource.
         :param ProfileArgs args: The arguments to use to populate this resource's properties.
@@ -1333,7 +1333,7 @@ class Profile(pulumi.CustomResource):
             __props__.__dict__["tagged_networkconf_ids"] = tagged_networkconf_ids
             __props__.__dict__["voice_networkconf_id"] = voice_networkconf_id
         super(Profile, __self__).__init__(
-            'unifi:Port/profile:Profile',
+            'unifi:port/profile:Profile',
             resource_name,
             __props__,
             opts)

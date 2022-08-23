@@ -6,7 +6,7 @@ import { input as inputs, output as outputs } from "../types";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.Setting.Mgmt` manages settings for a unifi site.
+ * `unifi.setting.Mgmt` manages settings for a unifi site.
  */
 export class Mgmt extends pulumi.CustomResource {
     /**
@@ -23,7 +23,7 @@ export class Mgmt extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:Setting/mgmt:Mgmt';
+    public static readonly __pulumiType = 'unifi:setting/mgmt:Mgmt';
 
     /**
      * Returns true if the given object is an instance of Mgmt.  This is designed to work even
@@ -51,7 +51,7 @@ export class Mgmt extends pulumi.CustomResource {
     /**
      * SSH key.
      */
-    public readonly sshKeys!: pulumi.Output<outputs.Setting.MgmtSshKey[] | undefined>;
+    public readonly sshKeys!: pulumi.Output<outputs.setting.MgmtSshKey[] | undefined>;
 
     /**
      * Create a Mgmt resource with the given unique name, arguments, and options.
@@ -101,7 +101,7 @@ export interface MgmtState {
     /**
      * SSH key.
      */
-    sshKeys?: pulumi.Input<pulumi.Input<inputs.Setting.MgmtSshKey>[]>;
+    sshKeys?: pulumi.Input<pulumi.Input<inputs.setting.MgmtSshKey>[]>;
 }
 
 /**
@@ -123,5 +123,5 @@ export interface MgmtArgs {
     /**
      * SSH key.
      */
-    sshKeys?: pulumi.Input<pulumi.Input<inputs.Setting.MgmtSshKey>[]>;
+    sshKeys?: pulumi.Input<pulumi.Input<inputs.setting.MgmtSshKey>[]>;
 }

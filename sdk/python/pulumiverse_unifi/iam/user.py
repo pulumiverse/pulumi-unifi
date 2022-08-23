@@ -428,7 +428,7 @@ class User(pulumi.CustomResource):
                  user_group_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        `IAM.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
+        `iam.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
 
         Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
 
@@ -453,7 +453,7 @@ class User(pulumi.CustomResource):
                  args: UserArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `IAM.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
+        `iam.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
 
         Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
 
@@ -508,7 +508,7 @@ class User(pulumi.CustomResource):
             __props__.__dict__["hostname"] = None
             __props__.__dict__["ip"] = None
         super(User, __self__).__init__(
-            'unifi:IAM/user:User',
+            'unifi:iam/user:User',
             resource_name,
             __props__,
             opts)

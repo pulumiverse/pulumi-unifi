@@ -5,14 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.Firewall.Rule` manages an individual firewall rule on the gateway.
+ * `unifi.firewall.Rule` manages an individual firewall rule on the gateway.
  *
  * ## Import
  *
  * # import using the ID from the controller API/UI
  *
  * ```sh
- *  $ pulumi import unifi:Firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+ *  $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
  * ```
  */
 export class Rule extends pulumi.CustomResource {
@@ -30,7 +30,7 @@ export class Rule extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:Firewall/rule:Rule';
+    public static readonly __pulumiType = 'unifi:firewall/rule:Rule';
 
     /**
      * Returns true if the given object is an instance of Rule.  This is designed to work even

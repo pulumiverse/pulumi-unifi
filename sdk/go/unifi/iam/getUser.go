@@ -10,11 +10,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `IAM.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+// `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
 func LookupUser(ctx *pulumi.Context, args *LookupUserArgs, opts ...pulumi.InvokeOption) (*LookupUserResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv LookupUserResult
-	err := ctx.Invoke("unifi:IAM/getUser:getUser", args, &rv, opts...)
+	err := ctx.Invoke("unifi:iam/getUser:getUser", args, &rv, opts...)
 	if err != nil {
 		return nil, err
 	}

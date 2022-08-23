@@ -18,13 +18,17 @@ import (
 // # import using the API/UI ID
 //
 // ```sh
-//  $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
+//
+//	$ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
+//
 // ```
 //
 // # import using the name (short ID)
 //
 // ```sh
-//  $ pulumi import unifi:index/site:Site mysite vq98kwez
+//
+//	$ pulumi import unifi:index/site:Site mysite vq98kwez
+//
 // ```
 type Site struct {
 	pulumi.CustomResourceState
@@ -122,7 +126,7 @@ func (i *Site) ToSiteOutputWithContext(ctx context.Context) SiteOutput {
 // SiteArrayInput is an input type that accepts SiteArray and SiteArrayOutput values.
 // You can construct a concrete instance of `SiteArrayInput` via:
 //
-//          SiteArray{ SiteArgs{...} }
+//	SiteArray{ SiteArgs{...} }
 type SiteArrayInput interface {
 	pulumi.Input
 
@@ -147,7 +151,7 @@ func (i SiteArray) ToSiteArrayOutputWithContext(ctx context.Context) SiteArrayOu
 // SiteMapInput is an input type that accepts SiteMap and SiteMapOutput values.
 // You can construct a concrete instance of `SiteMapInput` via:
 //
-//          SiteMap{ "key": SiteArgs{...} }
+//	SiteMap{ "key": SiteArgs{...} }
 type SiteMapInput interface {
 	pulumi.Input
 

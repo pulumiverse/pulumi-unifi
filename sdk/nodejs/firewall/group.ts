@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.Firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.Firewall.Rule`).
+ * `unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).
  */
 export class Group extends pulumi.CustomResource {
     /**
@@ -22,7 +22,7 @@ export class Group extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:Firewall/group:Group';
+    public static readonly __pulumiType = 'unifi:firewall/group:Group';
 
     /**
      * Returns true if the given object is an instance of Group.  This is designed to work even

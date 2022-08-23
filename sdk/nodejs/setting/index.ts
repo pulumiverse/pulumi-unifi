@@ -16,14 +16,14 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "unifi:Setting/mgmt:Mgmt":
+            case "unifi:setting/mgmt:Mgmt":
                 return new Mgmt(name, <any>undefined, { urn })
-            case "unifi:Setting/uSG:USG":
+            case "unifi:setting/uSG:USG":
                 return new USG(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("unifi", "Setting/mgmt", _module)
-pulumi.runtime.registerResourceModule("unifi", "Setting/uSG", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/mgmt", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/uSG", _module)

@@ -18,14 +18,14 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "unifi:IAM/group:Group":
+            case "unifi:iam/group:Group":
                 return new Group(name, <any>undefined, { urn })
-            case "unifi:IAM/user:User":
+            case "unifi:iam/user:User":
                 return new User(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("unifi", "IAM/group", _module)
-pulumi.runtime.registerResourceModule("unifi", "IAM/user", _module)
+pulumi.runtime.registerResourceModule("unifi", "iam/group", _module)
+pulumi.runtime.registerResourceModule("unifi", "iam/user", _module)

@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.Setting.USG` manages settings for a Unifi Security Gateway.
+ * `unifi.setting.USG` manages settings for a Unifi Security Gateway.
  */
 export class USG extends pulumi.CustomResource {
     /**
@@ -22,7 +22,7 @@ export class USG extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:Setting/uSG:USG';
+    public static readonly __pulumiType = 'unifi:setting/uSG:USG';
 
     /**
      * Returns true if the given object is an instance of USG.  This is designed to work even

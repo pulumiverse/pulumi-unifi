@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `Port.Profile` manages a port profile for use on network switches.
+// `port.Profile` manages a port profile for use on network switches.
 type Profile struct {
 	pulumi.CustomResourceState
 
@@ -95,7 +95,7 @@ func NewProfile(ctx *pulumi.Context,
 
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Profile
-	err := ctx.RegisterResource("unifi:Port/profile:Profile", name, args, &resource, opts...)
+	err := ctx.RegisterResource("unifi:port/profile:Profile", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +107,7 @@ func NewProfile(ctx *pulumi.Context,
 func GetProfile(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *ProfileState, opts ...pulumi.ResourceOption) (*Profile, error) {
 	var resource Profile
-	err := ctx.ReadResource("unifi:Port/profile:Profile", name, id, state, &resource, opts...)
+	err := ctx.ReadResource("unifi:port/profile:Profile", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -438,7 +438,7 @@ func (i *Profile) ToProfileOutputWithContext(ctx context.Context) ProfileOutput 
 // ProfileArrayInput is an input type that accepts ProfileArray and ProfileArrayOutput values.
 // You can construct a concrete instance of `ProfileArrayInput` via:
 //
-//          ProfileArray{ ProfileArgs{...} }
+//	ProfileArray{ ProfileArgs{...} }
 type ProfileArrayInput interface {
 	pulumi.Input
 
@@ -463,7 +463,7 @@ func (i ProfileArray) ToProfileArrayOutputWithContext(ctx context.Context) Profi
 // ProfileMapInput is an input type that accepts ProfileMap and ProfileMapOutput values.
 // You can construct a concrete instance of `ProfileMapInput` via:
 //
-//          ProfileMap{ "key": ProfileArgs{...} }
+//	ProfileMap{ "key": ProfileArgs{...} }
 type ProfileMapInput interface {
 	pulumi.Input
 

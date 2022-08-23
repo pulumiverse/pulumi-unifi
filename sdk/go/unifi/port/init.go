@@ -21,9 +21,9 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
-	case "unifi:Port/forward:Forward":
+	case "unifi:port/forward:Forward":
 		r = &Forward{}
-	case "unifi:Port/profile:Profile":
+	case "unifi:port/profile:Profile":
 		r = &Profile{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
@@ -40,12 +40,12 @@ func init() {
 	}
 	pulumi.RegisterResourceModule(
 		"unifi",
-		"Port/forward",
+		"port/forward",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"unifi",
-		"Port/profile",
+		"port/profile",
 		&module{version},
 	)
 }

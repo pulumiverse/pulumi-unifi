@@ -168,7 +168,7 @@ class Mgmt(pulumi.CustomResource):
                  ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['MgmtSshKeyArgs']]]]] = None,
                  __props__=None):
         """
-        `Setting.Mgmt` manages settings for a unifi site.
+        `setting.Mgmt` manages settings for a unifi site.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -184,7 +184,7 @@ class Mgmt(pulumi.CustomResource):
                  args: Optional[MgmtArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Setting.Mgmt` manages settings for a unifi site.
+        `setting.Mgmt` manages settings for a unifi site.
 
         :param str resource_name: The name of the resource.
         :param MgmtArgs args: The arguments to use to populate this resource's properties.
@@ -219,7 +219,7 @@ class Mgmt(pulumi.CustomResource):
             __props__.__dict__["ssh_enabled"] = ssh_enabled
             __props__.__dict__["ssh_keys"] = ssh_keys
         super(Mgmt, __self__).__init__(
-            'unifi:Setting/mgmt:Mgmt',
+            'unifi:setting/mgmt:Mgmt',
             resource_name,
             __props__,
             opts)

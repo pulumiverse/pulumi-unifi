@@ -10,11 +10,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `Port.Profile` data source can be used to retrieve the ID for a port profile by name.
+// `port.Profile` data source can be used to retrieve the ID for a port profile by name.
 func LookupProfile(ctx *pulumi.Context, args *LookupProfileArgs, opts ...pulumi.InvokeOption) (*LookupProfileResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv LookupProfileResult
-	err := ctx.Invoke("unifi:Port/getProfile:getProfile", args, &rv, opts...)
+	err := ctx.Invoke("unifi:port/getProfile:getProfile", args, &rv, opts...)
 	if err != nil {
 		return nil, err
 	}

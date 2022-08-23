@@ -21,9 +21,9 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
-	case "unifi:Firewall/group:Group":
+	case "unifi:firewall/group:Group":
 		r = &Group{}
-	case "unifi:Firewall/rule:Rule":
+	case "unifi:firewall/rule:Rule":
 		r = &Rule{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
@@ -40,12 +40,12 @@ func init() {
 	}
 	pulumi.RegisterResourceModule(
 		"unifi",
-		"Firewall/group",
+		"firewall/group",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"unifi",
-		"Firewall/rule",
+		"firewall/rule",
 		&module{version},
 	)
 }

@@ -11,11 +11,11 @@ using Pulumi;
 namespace Pulumiverse.Unifi.IAM
 {
     /// <summary>
-    /// `unifi.IAM.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
+    /// `unifi.iam.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
     /// 
     /// Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
     /// </summary>
-    [UnifiResourceType("unifi:IAM/user:User")]
+    [UnifiResourceType("unifi:iam/user:User")]
     public partial class User : Pulumi.CustomResource
     {
         /// <summary>
@@ -105,12 +105,12 @@ namespace Pulumiverse.Unifi.IAM
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public User(string name, UserArgs args, CustomResourceOptions? options = null)
-            : base("unifi:IAM/user:User", name, args ?? new UserArgs(), MakeResourceOptions(options, ""))
+            : base("unifi:iam/user:User", name, args ?? new UserArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private User(string name, Input<string> id, UserState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:IAM/user:User", name, state, MakeResourceOptions(options, id))
+            : base("unifi:iam/user:User", name, state, MakeResourceOptions(options, id))
         {
         }
 

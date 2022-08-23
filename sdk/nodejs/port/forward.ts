@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.Port.Forward` manages a port forwarding rule on the gateway.
+ * `unifi.port.Forward` manages a port forwarding rule on the gateway.
  */
 export class Forward extends pulumi.CustomResource {
     /**
@@ -22,7 +22,7 @@ export class Forward extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:Port/forward:Forward';
+    public static readonly __pulumiType = 'unifi:port/forward:Forward';
 
     /**
      * Returns true if the given object is an instance of Forward.  This is designed to work even

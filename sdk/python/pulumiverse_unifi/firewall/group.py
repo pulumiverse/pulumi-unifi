@@ -164,7 +164,7 @@ class Group(pulumi.CustomResource):
                  type: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        `Firewall.Group` manages groups of addresses or ports for use in firewall rules (`Firewall.Rule`).
+        `firewall.Group` manages groups of addresses or ports for use in firewall rules (`firewall.Rule`).
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -180,7 +180,7 @@ class Group(pulumi.CustomResource):
                  args: GroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Firewall.Group` manages groups of addresses or ports for use in firewall rules (`Firewall.Rule`).
+        `firewall.Group` manages groups of addresses or ports for use in firewall rules (`firewall.Rule`).
 
         :param str resource_name: The name of the resource.
         :param GroupArgs args: The arguments to use to populate this resource's properties.
@@ -219,7 +219,7 @@ class Group(pulumi.CustomResource):
                 raise TypeError("Missing required property 'type'")
             __props__.__dict__["type"] = type
         super(Group, __self__).__init__(
-            'unifi:Firewall/group:Group',
+            'unifi:firewall/group:Group',
             resource_name,
             __props__,
             opts)

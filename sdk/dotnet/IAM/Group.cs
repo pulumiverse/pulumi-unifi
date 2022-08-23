@@ -11,17 +11,17 @@ using Pulumi;
 namespace Pulumiverse.Unifi.IAM
 {
     /// <summary>
-    /// `unifi.IAM.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
+    /// `unifi.iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
     /// 
     /// ## Import
     /// 
     /// # import using the ID
     /// 
     /// ```sh
-    ///  $ pulumi import unifi:IAM/group:Group wifi 5fe6261995fe130013456a36
+    ///  $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
     /// ```
     /// </summary>
-    [UnifiResourceType("unifi:IAM/group:Group")]
+    [UnifiResourceType("unifi:iam/group:Group")]
     public partial class Group : Pulumi.CustomResource
     {
         /// <summary>
@@ -57,12 +57,12 @@ namespace Pulumiverse.Unifi.IAM
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Group(string name, GroupArgs? args = null, CustomResourceOptions? options = null)
-            : base("unifi:IAM/group:Group", name, args ?? new GroupArgs(), MakeResourceOptions(options, ""))
+            : base("unifi:iam/group:Group", name, args ?? new GroupArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Group(string name, Input<string> id, GroupState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:IAM/group:Group", name, state, MakeResourceOptions(options, id))
+            : base("unifi:iam/group:Group", name, state, MakeResourceOptions(options, id))
         {
         }
 

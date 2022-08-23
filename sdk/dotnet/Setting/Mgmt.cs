@@ -11,9 +11,9 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Setting
 {
     /// <summary>
-    /// `unifi.Setting.Mgmt` manages settings for a unifi site.
+    /// `unifi.setting.Mgmt` manages settings for a unifi site.
     /// </summary>
-    [UnifiResourceType("unifi:Setting/mgmt:Mgmt")]
+    [UnifiResourceType("unifi:setting/mgmt:Mgmt")]
     public partial class Mgmt : Pulumi.CustomResource
     {
         /// <summary>
@@ -49,12 +49,12 @@ namespace Pulumiverse.Unifi.Setting
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Mgmt(string name, MgmtArgs? args = null, CustomResourceOptions? options = null)
-            : base("unifi:Setting/mgmt:Mgmt", name, args ?? new MgmtArgs(), MakeResourceOptions(options, ""))
+            : base("unifi:setting/mgmt:Mgmt", name, args ?? new MgmtArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Mgmt(string name, Input<string> id, MgmtState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:Setting/mgmt:Mgmt", name, state, MakeResourceOptions(options, id))
+            : base("unifi:setting/mgmt:Mgmt", name, state, MakeResourceOptions(options, id))
         {
         }
 

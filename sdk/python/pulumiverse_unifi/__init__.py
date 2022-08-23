@@ -42,66 +42,34 @@ _utilities.register(
 [
  {
   "pkg": "unifi",
-  "mod": "Firewall/group",
+  "mod": "firewall/group",
   "fqn": "pulumiverse_unifi.firewall",
   "classes": {
-   "unifi:Firewall/group:Group": "Group"
+   "unifi:firewall/group:Group": "Group"
   }
  },
  {
   "pkg": "unifi",
-  "mod": "Firewall/rule",
+  "mod": "firewall/rule",
   "fqn": "pulumiverse_unifi.firewall",
   "classes": {
-   "unifi:Firewall/rule:Rule": "Rule"
+   "unifi:firewall/rule:Rule": "Rule"
   }
  },
  {
   "pkg": "unifi",
-  "mod": "IAM/group",
+  "mod": "iam/group",
   "fqn": "pulumiverse_unifi.iam",
   "classes": {
-   "unifi:IAM/group:Group": "Group"
+   "unifi:iam/group:Group": "Group"
   }
  },
  {
   "pkg": "unifi",
-  "mod": "IAM/user",
+  "mod": "iam/user",
   "fqn": "pulumiverse_unifi.iam",
   "classes": {
-   "unifi:IAM/user:User": "User"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "Port/forward",
-  "fqn": "pulumiverse_unifi.port",
-  "classes": {
-   "unifi:Port/forward:Forward": "Forward"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "Port/profile",
-  "fqn": "pulumiverse_unifi.port",
-  "classes": {
-   "unifi:Port/profile:Profile": "Profile"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "Setting/mgmt",
-  "fqn": "pulumiverse_unifi.setting",
-  "classes": {
-   "unifi:Setting/mgmt:Mgmt": "Mgmt"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "Setting/uSG",
-  "fqn": "pulumiverse_unifi.setting",
-  "classes": {
-   "unifi:Setting/uSG:USG": "USG"
+   "unifi:iam/user:User": "User"
   }
  },
  {
@@ -150,6 +118,38 @@ _utilities.register(
   "fqn": "pulumiverse_unifi",
   "classes": {
    "unifi:index/wlan:Wlan": "Wlan"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "port/forward",
+  "fqn": "pulumiverse_unifi.port",
+  "classes": {
+   "unifi:port/forward:Forward": "Forward"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "port/profile",
+  "fqn": "pulumiverse_unifi.port",
+  "classes": {
+   "unifi:port/profile:Profile": "Profile"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/mgmt",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/mgmt:Mgmt": "Mgmt"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/uSG",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/uSG:USG": "USG"
   }
  }
 ]

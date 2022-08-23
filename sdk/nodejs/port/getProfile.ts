@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.Port.Profile` data source can be used to retrieve the ID for a port profile by name.
+ * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
  *
  * ## Example Usage
  *
@@ -13,7 +13,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumi/unifi";
  *
- * const all = pulumi.output(unifi.Port.getProfile());
+ * const all = pulumi.output(unifi.port.getProfile());
  * ```
  */
 export function getProfile(args?: GetProfileArgs, opts?: pulumi.InvokeOptions): Promise<GetProfileResult> {
@@ -23,7 +23,7 @@ export function getProfile(args?: GetProfileArgs, opts?: pulumi.InvokeOptions): 
     }
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-    return pulumi.runtime.invoke("unifi:Port/getProfile:getProfile", {
+    return pulumi.runtime.invoke("unifi:port/getProfile:getProfile", {
         "name": args.name,
         "site": args.site,
     }, opts);

@@ -232,7 +232,7 @@ class USG(pulumi.CustomResource):
                  site: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        `Setting.USG` manages settings for a Unifi Security Gateway.
+        `setting.USG` manages settings for a Unifi Security Gateway.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -250,7 +250,7 @@ class USG(pulumi.CustomResource):
                  args: Optional[USGArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Setting.USG` manages settings for a Unifi Security Gateway.
+        `setting.USG` manages settings for a Unifi Security Gateway.
 
         :param str resource_name: The name of the resource.
         :param USGArgs args: The arguments to use to populate this resource's properties.
@@ -289,7 +289,7 @@ class USG(pulumi.CustomResource):
             __props__.__dict__["multicast_dns_enabled"] = multicast_dns_enabled
             __props__.__dict__["site"] = site
         super(USG, __self__).__init__(
-            'unifi:Setting/uSG:USG',
+            'unifi:setting/uSG:USG',
             resource_name,
             __props__,
             opts)

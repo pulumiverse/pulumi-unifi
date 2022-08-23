@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `Setting.Mgmt` manages settings for a unifi site.
+// `setting.Mgmt` manages settings for a unifi site.
 type Mgmt struct {
 	pulumi.CustomResourceState
 
@@ -33,7 +33,7 @@ func NewMgmt(ctx *pulumi.Context,
 
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Mgmt
-	err := ctx.RegisterResource("unifi:Setting/mgmt:Mgmt", name, args, &resource, opts...)
+	err := ctx.RegisterResource("unifi:setting/mgmt:Mgmt", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func NewMgmt(ctx *pulumi.Context,
 func GetMgmt(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *MgmtState, opts ...pulumi.ResourceOption) (*Mgmt, error) {
 	var resource Mgmt
-	err := ctx.ReadResource("unifi:Setting/mgmt:Mgmt", name, id, state, &resource, opts...)
+	err := ctx.ReadResource("unifi:setting/mgmt:Mgmt", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +128,7 @@ func (i *Mgmt) ToMgmtOutputWithContext(ctx context.Context) MgmtOutput {
 // MgmtArrayInput is an input type that accepts MgmtArray and MgmtArrayOutput values.
 // You can construct a concrete instance of `MgmtArrayInput` via:
 //
-//          MgmtArray{ MgmtArgs{...} }
+//	MgmtArray{ MgmtArgs{...} }
 type MgmtArrayInput interface {
 	pulumi.Input
 
@@ -153,7 +153,7 @@ func (i MgmtArray) ToMgmtArrayOutputWithContext(ctx context.Context) MgmtArrayOu
 // MgmtMapInput is an input type that accepts MgmtMap and MgmtMapOutput values.
 // You can construct a concrete instance of `MgmtMapInput` via:
 //
-//          MgmtMap{ "key": MgmtArgs{...} }
+//	MgmtMap{ "key": MgmtArgs{...} }
 type MgmtMapInput interface {
 	pulumi.Input
 

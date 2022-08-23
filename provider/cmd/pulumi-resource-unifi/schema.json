@@ -309,7 +309,7 @@
         }
     },
     "resources": {
-        "unifi:firewall:Group": {
+        "unifi:firewall/group:Group": {
             "description": "`unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).\n",
             "properties": {
                 "members": {
@@ -391,8 +391,8 @@
                 "type": "object"
             }
         },
-        "unifi:firewall:Rule": {
-            "description": "`unifi.firewall.Rule` manages an individual firewall rule on the gateway.\n\n\n## Import\n\n# import using the ID from the controller API/UI\n\n```sh\n $ pulumi import unifi:firewall:Rule my_rule 5f7080eb6b8969064f80494f\n```\n\n ",
+        "unifi:firewall/rule:Rule": {
+            "description": "`unifi.firewall.Rule` manages an individual firewall rule on the gateway.\n\n\n## Import\n\n# import using the ID from the controller API/UI\n\n```sh\n $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f\n```\n\n ",
             "properties": {
                 "action": {
                     "type": "string",
@@ -714,8 +714,8 @@
                 "type": "object"
             }
         },
-        "unifi:iam:Group": {
-            "description": "`unifi.iam.Group` manages a user group (called \"client group\" in the UI), which can be used to limit bandwidth for groups of users.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst wifi = new unifi.iam.Group(\"wifi\", {\n    qosRateMaxDown: 2000, // 2mbps\n    qosRateMaxUp: 10, // 10kbps\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the ID\n\n```sh\n $ pulumi import unifi:iam:Group wifi 5fe6261995fe130013456a36\n```\n\n ",
+        "unifi:iam/group:Group": {
+            "description": "`unifi.iam.Group` manages a user group (called \"client group\" in the UI), which can be used to limit bandwidth for groups of users.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst wifi = new unifi.iam.Group(\"wifi\", {\n    qosRateMaxDown: 2000, // 2mbps\n    qosRateMaxUp: 10, // 10kbps\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the ID\n\n```sh\n $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36\n```\n\n ",
             "properties": {
                 "name": {
                     "type": "string",
@@ -781,7 +781,7 @@
                 "type": "object"
             }
         },
-        "unifi:iam:User": {
+        "unifi:iam/user:User": {
             "description": "`unifi.iam.User` manages a user (or \"client\" in the UI) of the network, these are identified by unique MAC addresses.\n\nUsers are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.\n",
             "properties": {
                 "allowExisting": {
@@ -956,7 +956,7 @@
                 "type": "object"
             }
         },
-        "unifi:index:Device": {
+        "unifi:index/device:Device": {
             "properties": {
                 "disabled": {
                     "type": "boolean",
@@ -1043,7 +1043,7 @@
                 "type": "object"
             }
         },
-        "unifi:index:DynamicDNS": {
+        "unifi:index/dynamicDNS:DynamicDNS": {
             "description": "`unifi.DynamicDNS` manages dynamic DNS settings for different providers.\n",
             "properties": {
                 "hostName": {
@@ -1155,8 +1155,8 @@
                 "type": "object"
             }
         },
-        "unifi:index:Network": {
-            "description": "`unifi.Network` manages WAN/LAN/VLAN networks.\n\n\n## Import\n\n# import from provider configured site\n\n```sh\n $ pulumi import unifi:index:Network mynetwork 5dc28e5e9106d105bdc87217\n```\n\n # import from another site\n\n```sh\n $ pulumi import unifi:index:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217\n```\n\n # import network by name\n\n```sh\n $ pulumi import unifi:index:Network mynetwork name=LAN\n```\n\n ",
+        "unifi:index/network:Network": {
+            "description": "`unifi.Network` manages WAN/LAN/VLAN networks.\n\n\n## Import\n\n# import from provider configured site\n\n```sh\n $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217\n```\n\n # import from another site\n\n```sh\n $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217\n```\n\n # import network by name\n\n```sh\n $ pulumi import unifi:index/network:Network mynetwork name=LAN\n```\n\n ",
             "properties": {
                 "dhcpDns": {
                     "type": "array",
@@ -1570,8 +1570,8 @@
                 "type": "object"
             }
         },
-        "unifi:index:Site": {
-            "description": "`unifi.Site` manages Unifi sites\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst mysite = new unifi.Site(\"mysite\", {\n    description: \"mysite\",\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the API/UI ID\n\n```sh\n $ pulumi import unifi:index:Site mysite 5fe6261995fe130013456a36\n```\n\n # import using the name (short ID)\n\n```sh\n $ pulumi import unifi:index:Site mysite vq98kwez\n```\n\n ",
+        "unifi:index/site:Site": {
+            "description": "`unifi.Site` manages Unifi sites\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst mysite = new unifi.Site(\"mysite\", {\n    description: \"mysite\",\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the API/UI ID\n\n```sh\n $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36\n```\n\n # import using the name (short ID)\n\n```sh\n $ pulumi import unifi:index/site:Site mysite vq98kwez\n```\n\n ",
             "properties": {
                 "description": {
                     "type": "string",
@@ -1610,7 +1610,7 @@
                 "type": "object"
             }
         },
-        "unifi:index:StaticRoute": {
+        "unifi:index/staticRoute:StaticRoute": {
             "description": "`unifi.StaticRoute` manages a static route.\n",
             "properties": {
                 "distance": {
@@ -1721,8 +1721,8 @@
                 "type": "object"
             }
         },
-        "unifi:index:Wlan": {
-            "description": "`unifi.Wlan` manages a WiFi network / SSID.\n\n\n## Import\n\n# import from provider configured site\n\n```sh\n $ pulumi import unifi:index:Wlan mywlan 5dc28e5e9106d105bdc87217\n```\n\n # import from another site\n\n```sh\n $ pulumi import unifi:index:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217\n```\n\n ",
+        "unifi:index/wlan:Wlan": {
+            "description": "`unifi.Wlan` manages a WiFi network / SSID.\n\n\n## Import\n\n# import from provider configured site\n\n```sh\n $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217\n```\n\n # import from another site\n\n```sh\n $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217\n```\n\n ",
             "properties": {
                 "apGroupIds": {
                     "type": "array",
@@ -2061,7 +2061,7 @@
                 "type": "object"
             }
         },
-        "unifi:port:Forward": {
+        "unifi:port/forward:Forward": {
             "description": "`unifi.port.Forward` manages a port forwarding rule on the gateway.\n",
             "properties": {
                 "dstPort": {
@@ -2203,7 +2203,7 @@
                 "type": "object"
             }
         },
-        "unifi:port:Profile": {
+        "unifi:port/profile:Profile": {
             "description": "`unifi.port.Profile` manages a port profile for use on network switches.\n",
             "properties": {
                 "autoneg": {
@@ -2660,7 +2660,7 @@
                 "type": "object"
             }
         },
-        "unifi:setting:Mgmt": {
+        "unifi:setting/mgmt:Mgmt": {
             "description": "`unifi.setting.Mgmt` manages settings for a unifi site.\n",
             "properties": {
                 "autoUpgrade": {
@@ -2735,7 +2735,7 @@
                 "type": "object"
             }
         },
-        "unifi:setting:USG": {
+        "unifi:setting/uSG:USG": {
             "description": "`unifi.setting.USG` manages settings for a Unifi Security Gateway.\n",
             "properties": {
                 "dhcpRelayServers": {
@@ -2841,7 +2841,7 @@
         }
     },
     "functions": {
-        "unifi:iam:getGroup": {
+        "unifi:iam/getGroup:getGroup": {
             "description": "`unifi.iam.Group` data source can be used to retrieve the ID for a user group by name.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getGroup.\n",
@@ -2888,7 +2888,7 @@
                 ]
             }
         },
-        "unifi:iam:getUser": {
+        "unifi:iam/getUser:getUser": {
             "description": "`unifi.iam.User` retrieves properties of a user (or \"client\" in the UI) of the network by MAC address.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst client = pulumi.output(unifi.iam.getUser({\n    mac: \"01:23:45:67:89:ab\",\n}));\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getUser.\n",
@@ -2976,7 +2976,7 @@
                 ]
             }
         },
-        "unifi:index:getApGroup": {
+        "unifi:index/getApGroup:getApGroup": {
             "description": "`unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst defaultApGroup = pulumi.output(unifi.getApGroup());\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getApGroup.\n",
@@ -3015,7 +3015,7 @@
                 ]
             }
         },
-        "unifi:index:getNetwork": {
+        "unifi:index/getNetwork:getNetwork": {
             "description": "`unifi.Network` data source can be used to retrieve settings for a network by name or ID.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getNetwork.\n",
@@ -3205,7 +3205,7 @@
                 ]
             }
         },
-        "unifi:index:getRadiusProfile": {
+        "unifi:index/getRadiusProfile:getRadiusProfile": {
             "description": "`unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getRadiusProfile.\n",
@@ -3244,7 +3244,7 @@
                 ]
             }
         },
-        "unifi:port:getProfile": {
+        "unifi:port/getProfile:getProfile": {
             "description": "`unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst all = pulumi.output(unifi.port.getProfile());\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getProfile.\n",

@@ -370,7 +370,7 @@ class Forward(pulumi.CustomResource):
                  src_ip: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        `Port.Forward` manages a port forwarding rule on the gateway.
+        `port.Forward` manages a port forwarding rule on the gateway.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -392,7 +392,7 @@ class Forward(pulumi.CustomResource):
                  args: Optional[ForwardArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Port.Forward` manages a port forwarding rule on the gateway.
+        `port.Forward` manages a port forwarding rule on the gateway.
 
         :param str resource_name: The name of the resource.
         :param ForwardArgs args: The arguments to use to populate this resource's properties.
@@ -442,7 +442,7 @@ class Forward(pulumi.CustomResource):
             __props__.__dict__["site"] = site
             __props__.__dict__["src_ip"] = src_ip
         super(Forward, __self__).__init__(
-            'unifi:Port/forward:Forward',
+            'unifi:port/forward:Forward',
             resource_name,
             __props__,
             opts)

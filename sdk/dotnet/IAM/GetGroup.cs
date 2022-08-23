@@ -13,16 +13,16 @@ namespace Pulumiverse.Unifi.IAM
     public static class GetGroup
     {
         /// <summary>
-        /// `unifi.IAM.Group` data source can be used to retrieve the ID for a user group by name.
+        /// `unifi.iam.Group` data source can be used to retrieve the ID for a user group by name.
         /// </summary>
         public static Task<GetGroupResult> InvokeAsync(GetGroupArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetGroupResult>("unifi:IAM/getGroup:getGroup", args ?? new GetGroupArgs(), options.WithDefaults());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetGroupResult>("unifi:iam/getGroup:getGroup", args ?? new GetGroupArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.IAM.Group` data source can be used to retrieve the ID for a user group by name.
+        /// `unifi.iam.Group` data source can be used to retrieve the ID for a user group by name.
         /// </summary>
         public static Output<GetGroupResult> Invoke(GetGroupInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetGroupResult>("unifi:IAM/getGroup:getGroup", args ?? new GetGroupInvokeArgs(), options.WithDefaults());
+            => Pulumi.Deployment.Instance.Invoke<GetGroupResult>("unifi:iam/getGroup:getGroup", args ?? new GetGroupInvokeArgs(), options.WithDefaults());
     }
 
 

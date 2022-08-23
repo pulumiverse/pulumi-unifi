@@ -11,17 +11,17 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Firewall
 {
     /// <summary>
-    /// `unifi.Firewall.Rule` manages an individual firewall rule on the gateway.
+    /// `unifi.firewall.Rule` manages an individual firewall rule on the gateway.
     /// 
     /// ## Import
     /// 
     /// # import using the ID from the controller API/UI
     /// 
     /// ```sh
-    ///  $ pulumi import unifi:Firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+    ///  $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
     /// ```
     /// </summary>
-    [UnifiResourceType("unifi:Firewall/rule:Rule")]
+    [UnifiResourceType("unifi:firewall/rule:Rule")]
     public partial class Rule : Pulumi.CustomResource
     {
         /// <summary>
@@ -171,12 +171,12 @@ namespace Pulumiverse.Unifi.Firewall
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Rule(string name, RuleArgs args, CustomResourceOptions? options = null)
-            : base("unifi:Firewall/rule:Rule", name, args ?? new RuleArgs(), MakeResourceOptions(options, ""))
+            : base("unifi:firewall/rule:Rule", name, args ?? new RuleArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Rule(string name, Input<string> id, RuleState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:Firewall/rule:Rule", name, state, MakeResourceOptions(options, id))
+            : base("unifi:firewall/rule:Rule", name, state, MakeResourceOptions(options, id))
         {
         }
 

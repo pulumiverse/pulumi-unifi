@@ -24,7 +24,7 @@ type MgmtSshKey struct {
 // MgmtSshKeyInput is an input type that accepts MgmtSshKeyArgs and MgmtSshKeyOutput values.
 // You can construct a concrete instance of `MgmtSshKeyInput` via:
 //
-//          MgmtSshKeyArgs{...}
+//	MgmtSshKeyArgs{...}
 type MgmtSshKeyInput interface {
 	pulumi.Input
 
@@ -58,7 +58,7 @@ func (i MgmtSshKeyArgs) ToMgmtSshKeyOutputWithContext(ctx context.Context) MgmtS
 // MgmtSshKeyArrayInput is an input type that accepts MgmtSshKeyArray and MgmtSshKeyArrayOutput values.
 // You can construct a concrete instance of `MgmtSshKeyArrayInput` via:
 //
-//          MgmtSshKeyArray{ MgmtSshKeyArgs{...} }
+//	MgmtSshKeyArray{ MgmtSshKeyArgs{...} }
 type MgmtSshKeyArrayInput interface {
 	pulumi.Input
 

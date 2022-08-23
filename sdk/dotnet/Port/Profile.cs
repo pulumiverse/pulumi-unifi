@@ -11,9 +11,9 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Port
 {
     /// <summary>
-    /// `unifi.Port.Profile` manages a port profile for use on network switches.
+    /// `unifi.port.Profile` manages a port profile for use on network switches.
     /// </summary>
-    [UnifiResourceType("unifi:Port/profile:Profile")]
+    [UnifiResourceType("unifi:port/profile:Profile")]
     public partial class Profile : Pulumi.CustomResource
     {
         /// <summary>
@@ -235,12 +235,12 @@ namespace Pulumiverse.Unifi.Port
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Profile(string name, ProfileArgs? args = null, CustomResourceOptions? options = null)
-            : base("unifi:Port/profile:Profile", name, args ?? new ProfileArgs(), MakeResourceOptions(options, ""))
+            : base("unifi:port/profile:Profile", name, args ?? new ProfileArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Profile(string name, Input<string> id, ProfileState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:Port/profile:Profile", name, state, MakeResourceOptions(options, id))
+            : base("unifi:port/profile:Profile", name, state, MakeResourceOptions(options, id))
         {
         }
 

@@ -180,7 +180,7 @@ def get_user(mac: Optional[str] = None,
              site: Optional[str] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetUserResult:
     """
-    `IAM.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+    `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
 
 
     :param str mac: The MAC address of the user.
@@ -190,7 +190,7 @@ def get_user(mac: Optional[str] = None,
     __args__['mac'] = mac
     __args__['site'] = site
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke('unifi:IAM/getUser:getUser', __args__, opts=opts, typ=GetUserResult).value
+    __ret__ = pulumi.runtime.invoke('unifi:iam/getUser:getUser', __args__, opts=opts, typ=GetUserResult).value
 
     return AwaitableGetUserResult(
         blocked=__ret__.blocked,
@@ -212,7 +212,7 @@ def get_user_output(mac: Optional[pulumi.Input[str]] = None,
                     site: Optional[pulumi.Input[Optional[str]]] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetUserResult]:
     """
-    `IAM.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+    `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
 
 
     :param str mac: The MAC address of the user.

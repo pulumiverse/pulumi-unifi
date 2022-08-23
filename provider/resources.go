@@ -50,6 +50,9 @@ var namespaceMap = map[string]string{
 func unifiMember(moduleTitle string, fn string, mem string) tokens.ModuleMember {
 	moduleName := strings.ToLower(moduleTitle)
 	namespaceMap[moduleName] = moduleTitle
+	if fn != "" {
+		moduleName += "/" + fn
+	}
 	return tokens.ModuleMember(mainPkg + ":" + moduleName + ":" + mem)
 }
 

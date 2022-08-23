@@ -21,9 +21,9 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
-	case "unifi:Setting/mgmt:Mgmt":
+	case "unifi:setting/mgmt:Mgmt":
 		r = &Mgmt{}
-	case "unifi:Setting/uSG:USG":
+	case "unifi:setting/uSG:USG":
 		r = &USG{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
@@ -40,12 +40,12 @@ func init() {
 	}
 	pulumi.RegisterResourceModule(
 		"unifi",
-		"Setting/mgmt",
+		"setting/mgmt",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"unifi",
-		"Setting/uSG",
+		"setting/uSG",
 		&module{version},
 	)
 }

@@ -11,14 +11,16 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `Firewall.Rule` manages an individual firewall rule on the gateway.
+// `firewall.Rule` manages an individual firewall rule on the gateway.
 //
 // ## Import
 //
 // # import using the ID from the controller API/UI
 //
 // ```sh
-//  $ pulumi import unifi:Firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+//
+//	$ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+//
 // ```
 type Rule struct {
 	pulumi.CustomResourceState
@@ -92,7 +94,7 @@ func NewRule(ctx *pulumi.Context,
 	}
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Rule
-	err := ctx.RegisterResource("unifi:Firewall/rule:Rule", name, args, &resource, opts...)
+	err := ctx.RegisterResource("unifi:firewall/rule:Rule", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +106,7 @@ func NewRule(ctx *pulumi.Context,
 func GetRule(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *RuleState, opts ...pulumi.ResourceOption) (*Rule, error) {
 	var resource Rule
-	err := ctx.ReadResource("unifi:Firewall/rule:Rule", name, id, state, &resource, opts...)
+	err := ctx.ReadResource("unifi:firewall/rule:Rule", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -339,7 +341,7 @@ func (i *Rule) ToRuleOutputWithContext(ctx context.Context) RuleOutput {
 // RuleArrayInput is an input type that accepts RuleArray and RuleArrayOutput values.
 // You can construct a concrete instance of `RuleArrayInput` via:
 //
-//          RuleArray{ RuleArgs{...} }
+//	RuleArray{ RuleArgs{...} }
 type RuleArrayInput interface {
 	pulumi.Input
 
@@ -364,7 +366,7 @@ func (i RuleArray) ToRuleArrayOutputWithContext(ctx context.Context) RuleArrayOu
 // RuleMapInput is an input type that accepts RuleMap and RuleMapOutput values.
 // You can construct a concrete instance of `RuleMapInput` via:
 //
-//          RuleMap{ "key": RuleArgs{...} }
+//	RuleMap{ "key": RuleArgs{...} }
 type RuleMapInput interface {
 	pulumi.Input
 

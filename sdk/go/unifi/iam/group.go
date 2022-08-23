@@ -10,14 +10,16 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `IAM.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
+// `iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
 //
 // ## Import
 //
 // # import using the ID
 //
 // ```sh
-//  $ pulumi import unifi:IAM/group:Group wifi 5fe6261995fe130013456a36
+//
+//	$ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
+//
 // ```
 type Group struct {
 	pulumi.CustomResourceState
@@ -41,7 +43,7 @@ func NewGroup(ctx *pulumi.Context,
 
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Group
-	err := ctx.RegisterResource("unifi:IAM/group:Group", name, args, &resource, opts...)
+	err := ctx.RegisterResource("unifi:iam/group:Group", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +55,7 @@ func NewGroup(ctx *pulumi.Context,
 func GetGroup(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *GroupState, opts ...pulumi.ResourceOption) (*Group, error) {
 	var resource Group
-	err := ctx.ReadResource("unifi:IAM/group:Group", name, id, state, &resource, opts...)
+	err := ctx.ReadResource("unifi:iam/group:Group", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -136,7 +138,7 @@ func (i *Group) ToGroupOutputWithContext(ctx context.Context) GroupOutput {
 // GroupArrayInput is an input type that accepts GroupArray and GroupArrayOutput values.
 // You can construct a concrete instance of `GroupArrayInput` via:
 //
-//          GroupArray{ GroupArgs{...} }
+//	GroupArray{ GroupArgs{...} }
 type GroupArrayInput interface {
 	pulumi.Input
 
@@ -161,7 +163,7 @@ func (i GroupArray) ToGroupArrayOutputWithContext(ctx context.Context) GroupArra
 // GroupMapInput is an input type that accepts GroupMap and GroupMapOutput values.
 // You can construct a concrete instance of `GroupMapInput` via:
 //
-//          GroupMap{ "key": GroupArgs{...} }
+//	GroupMap{ "key": GroupArgs{...} }
 type GroupMapInput interface {
 	pulumi.Input
 

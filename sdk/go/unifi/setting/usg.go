@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `Setting.USG` manages settings for a Unifi Security Gateway.
+// `setting.USG` manages settings for a Unifi Security Gateway.
 type USG struct {
 	pulumi.CustomResourceState
 
@@ -37,7 +37,7 @@ func NewUSG(ctx *pulumi.Context,
 
 	opts = pkgResourceDefaultOpts(opts)
 	var resource USG
-	err := ctx.RegisterResource("unifi:Setting/uSG:USG", name, args, &resource, opts...)
+	err := ctx.RegisterResource("unifi:setting/uSG:USG", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +49,7 @@ func NewUSG(ctx *pulumi.Context,
 func GetUSG(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *USGState, opts ...pulumi.ResourceOption) (*USG, error) {
 	var resource USG
-	err := ctx.ReadResource("unifi:Setting/uSG:USG", name, id, state, &resource, opts...)
+	err := ctx.ReadResource("unifi:setting/uSG:USG", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +148,7 @@ func (i *USG) ToUSGOutputWithContext(ctx context.Context) USGOutput {
 // USGArrayInput is an input type that accepts USGArray and USGArrayOutput values.
 // You can construct a concrete instance of `USGArrayInput` via:
 //
-//          USGArray{ USGArgs{...} }
+//	USGArray{ USGArgs{...} }
 type USGArrayInput interface {
 	pulumi.Input
 
@@ -173,7 +173,7 @@ func (i USGArray) ToUSGArrayOutputWithContext(ctx context.Context) USGArrayOutpu
 // USGMapInput is an input type that accepts USGMap and USGMapOutput values.
 // You can construct a concrete instance of `USGMapInput` via:
 //
-//          USGMap{ "key": USGArgs{...} }
+//	USGMap{ "key": USGArgs{...} }
 type USGMapInput interface {
 	pulumi.Input
 

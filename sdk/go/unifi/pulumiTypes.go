@@ -22,7 +22,7 @@ type DevicePortOverride struct {
 // DevicePortOverrideInput is an input type that accepts DevicePortOverrideArgs and DevicePortOverrideOutput values.
 // You can construct a concrete instance of `DevicePortOverrideInput` via:
 //
-//          DevicePortOverrideArgs{...}
+//	DevicePortOverrideArgs{...}
 type DevicePortOverrideInput interface {
 	pulumi.Input
 
@@ -54,7 +54,7 @@ func (i DevicePortOverrideArgs) ToDevicePortOverrideOutputWithContext(ctx contex
 // DevicePortOverrideArrayInput is an input type that accepts DevicePortOverrideArray and DevicePortOverrideArrayOutput values.
 // You can construct a concrete instance of `DevicePortOverrideArrayInput` via:
 //
-//          DevicePortOverrideArray{ DevicePortOverrideArgs{...} }
+//	DevicePortOverrideArray{ DevicePortOverrideArgs{...} }
 type DevicePortOverrideArrayInput interface {
 	pulumi.Input
 
@@ -137,7 +137,7 @@ type WlanSchedule struct {
 // WlanScheduleInput is an input type that accepts WlanScheduleArgs and WlanScheduleOutput values.
 // You can construct a concrete instance of `WlanScheduleInput` via:
 //
-//          WlanScheduleArgs{...}
+//	WlanScheduleArgs{...}
 type WlanScheduleInput interface {
 	pulumi.Input
 
@@ -169,7 +169,7 @@ func (i WlanScheduleArgs) ToWlanScheduleOutputWithContext(ctx context.Context) W
 // WlanScheduleArrayInput is an input type that accepts WlanScheduleArray and WlanScheduleArrayOutput values.
 // You can construct a concrete instance of `WlanScheduleArrayInput` via:
 //
-//          WlanScheduleArray{ WlanScheduleArgs{...} }
+//	WlanScheduleArray{ WlanScheduleArgs{...} }
 type WlanScheduleArrayInput interface {
 	pulumi.Input
 

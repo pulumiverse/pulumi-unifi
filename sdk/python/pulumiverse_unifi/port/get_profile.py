@@ -72,7 +72,7 @@ def get_profile(name: Optional[str] = None,
                 site: Optional[str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProfileResult:
     """
-    `Port.Profile` data source can be used to retrieve the ID for a port profile by name.
+    `port.Profile` data source can be used to retrieve the ID for a port profile by name.
 
 
     :param str name: The name of the port profile to look up. Defaults to `All`.
@@ -82,7 +82,7 @@ def get_profile(name: Optional[str] = None,
     __args__['name'] = name
     __args__['site'] = site
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke('unifi:Port/getProfile:getProfile', __args__, opts=opts, typ=GetProfileResult).value
+    __ret__ = pulumi.runtime.invoke('unifi:port/getProfile:getProfile', __args__, opts=opts, typ=GetProfileResult).value
 
     return AwaitableGetProfileResult(
         id=__ret__.id,
@@ -95,7 +95,7 @@ def get_profile_output(name: Optional[pulumi.Input[Optional[str]]] = None,
                        site: Optional[pulumi.Input[Optional[str]]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProfileResult]:
     """
-    `Port.Profile` data source can be used to retrieve the ID for a port profile by name.
+    `port.Profile` data source can be used to retrieve the ID for a port profile by name.
 
 
     :param str name: The name of the port profile to look up. Defaults to `All`.

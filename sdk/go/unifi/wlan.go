@@ -18,13 +18,17 @@ import (
 // # import from provider configured site
 //
 // ```sh
-//  $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+//
+//	$ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+//
 // ```
 //
 // # import from another site
 //
 // ```sh
-//  $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+//
+//	$ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+//
 // ```
 type Wlan struct {
 	pulumi.CustomResourceState
@@ -349,7 +353,7 @@ func (i *Wlan) ToWlanOutputWithContext(ctx context.Context) WlanOutput {
 // WlanArrayInput is an input type that accepts WlanArray and WlanArrayOutput values.
 // You can construct a concrete instance of `WlanArrayInput` via:
 //
-//          WlanArray{ WlanArgs{...} }
+//	WlanArray{ WlanArgs{...} }
 type WlanArrayInput interface {
 	pulumi.Input
 
@@ -374,7 +378,7 @@ func (i WlanArray) ToWlanArrayOutputWithContext(ctx context.Context) WlanArrayOu
 // WlanMapInput is an input type that accepts WlanMap and WlanMapOutput values.
 // You can construct a concrete instance of `WlanMapInput` via:
 //
-//          WlanMap{ "key": WlanArgs{...} }
+//	WlanMap{ "key": WlanArgs{...} }
 type WlanMapInput interface {
 	pulumi.Input
 

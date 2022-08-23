@@ -11,9 +11,9 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Setting
 {
     /// <summary>
-    /// `unifi.Setting.USG` manages settings for a Unifi Security Gateway.
+    /// `unifi.setting.USG` manages settings for a Unifi Security Gateway.
     /// </summary>
-    [UnifiResourceType("unifi:Setting/uSG:USG")]
+    [UnifiResourceType("unifi:setting/uSG:USG")]
     public partial class USG : Pulumi.CustomResource
     {
         /// <summary>
@@ -61,12 +61,12 @@ namespace Pulumiverse.Unifi.Setting
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public USG(string name, USGArgs? args = null, CustomResourceOptions? options = null)
-            : base("unifi:Setting/uSG:USG", name, args ?? new USGArgs(), MakeResourceOptions(options, ""))
+            : base("unifi:setting/uSG:USG", name, args ?? new USGArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private USG(string name, Input<string> id, USGState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:Setting/uSG:USG", name, state, MakeResourceOptions(options, id))
+            : base("unifi:setting/uSG:USG", name, state, MakeResourceOptions(options, id))
         {
         }
 

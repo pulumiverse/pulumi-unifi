@@ -10,11 +10,11 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `IAM.Group` data source can be used to retrieve the ID for a user group by name.
+// `iam.Group` data source can be used to retrieve the ID for a user group by name.
 func LookupGroup(ctx *pulumi.Context, args *LookupGroupArgs, opts ...pulumi.InvokeOption) (*LookupGroupResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv LookupGroupResult
-	err := ctx.Invoke("unifi:IAM/getGroup:getGroup", args, &rv, opts...)
+	err := ctx.Invoke("unifi:iam/getGroup:getGroup", args, &rv, opts...)
 	if err != nil {
 		return nil, err
 	}

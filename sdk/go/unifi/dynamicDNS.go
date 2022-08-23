@@ -165,7 +165,7 @@ func (i *DynamicDNS) ToDynamicDNSOutputWithContext(ctx context.Context) DynamicD
 // DynamicDNSArrayInput is an input type that accepts DynamicDNSArray and DynamicDNSArrayOutput values.
 // You can construct a concrete instance of `DynamicDNSArrayInput` via:
 //
-//          DynamicDNSArray{ DynamicDNSArgs{...} }
+//	DynamicDNSArray{ DynamicDNSArgs{...} }
 type DynamicDNSArrayInput interface {
 	pulumi.Input
 
@@ -190,7 +190,7 @@ func (i DynamicDNSArray) ToDynamicDNSArrayOutputWithContext(ctx context.Context)
 // DynamicDNSMapInput is an input type that accepts DynamicDNSMap and DynamicDNSMapOutput values.
 // You can construct a concrete instance of `DynamicDNSMapInput` via:
 //
-//          DynamicDNSMap{ "key": DynamicDNSArgs{...} }
+//	DynamicDNSMap{ "key": DynamicDNSArgs{...} }
 type DynamicDNSMapInput interface {
 	pulumi.Input
 

@@ -11,9 +11,9 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Port
 {
     /// <summary>
-    /// `unifi.Port.Forward` manages a port forwarding rule on the gateway.
+    /// `unifi.port.Forward` manages a port forwarding rule on the gateway.
     /// </summary>
-    [UnifiResourceType("unifi:Port/forward:Forward")]
+    [UnifiResourceType("unifi:port/forward:Forward")]
     public partial class Forward : Pulumi.CustomResource
     {
         /// <summary>
@@ -85,12 +85,12 @@ namespace Pulumiverse.Unifi.Port
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Forward(string name, ForwardArgs? args = null, CustomResourceOptions? options = null)
-            : base("unifi:Port/forward:Forward", name, args ?? new ForwardArgs(), MakeResourceOptions(options, ""))
+            : base("unifi:port/forward:Forward", name, args ?? new ForwardArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Forward(string name, Input<string> id, ForwardState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:Port/forward:Forward", name, state, MakeResourceOptions(options, id))
+            : base("unifi:port/forward:Forward", name, state, MakeResourceOptions(options, id))
         {
         }
 

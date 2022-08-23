@@ -33,7 +33,7 @@ export interface WlanSchedule {
      */
     dayOfWeek: pulumi.Input<string>;
 }
-export namespace Setting {
+export namespace setting {
     export interface MgmtSshKey {
         /**
          * Comment.

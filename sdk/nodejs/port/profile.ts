@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.Port.Profile` manages a port profile for use on network switches.
+ * `unifi.port.Profile` manages a port profile for use on network switches.
  */
 export class Profile extends pulumi.CustomResource {
     /**
@@ -22,7 +22,7 @@ export class Profile extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:Port/profile:Profile';
+    public static readonly __pulumiType = 'unifi:port/profile:Profile';
 
     /**
      * Returns true if the given object is an instance of Profile.  This is designed to work even

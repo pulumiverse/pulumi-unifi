@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.IAM.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
+ * `unifi.iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
  *
  * ## Example Usage
  *
@@ -13,7 +13,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumi/unifi";
  *
- * const wifi = new unifi.IAM.Group("wifi", {
+ * const wifi = new unifi.iam.Group("wifi", {
  *     qosRateMaxDown: 2000, // 2mbps
  *     qosRateMaxUp: 10, // 10kbps
  * });
@@ -24,7 +24,7 @@ import * as utilities from "../utilities";
  * # import using the ID
  *
  * ```sh
- *  $ pulumi import unifi:IAM/group:Group wifi 5fe6261995fe130013456a36
+ *  $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
  * ```
  */
 export class Group extends pulumi.CustomResource {
@@ -42,7 +42,7 @@ export class Group extends pulumi.CustomResource {
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:IAM/group:Group';
+    public static readonly __pulumiType = 'unifi:iam/group:Group';
 
     /**
      * Returns true if the given object is an instance of Group.  This is designed to work even

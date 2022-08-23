@@ -34,7 +34,7 @@ export interface WlanSchedule {
     dayOfWeek: string;
 }
 
-export namespace Setting {
+export namespace setting {
     export interface MgmtSshKey {
         /**
          * Comment.

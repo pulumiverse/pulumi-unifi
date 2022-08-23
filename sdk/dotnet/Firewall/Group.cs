@@ -11,9 +11,9 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Firewall
 {
     /// <summary>
-    /// `unifi.Firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.Firewall.Rule`).
+    /// `unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).
     /// </summary>
-    [UnifiResourceType("unifi:Firewall/group:Group")]
+    [UnifiResourceType("unifi:firewall/group:Group")]
     public partial class Group : Pulumi.CustomResource
     {
         /// <summary>
@@ -49,12 +49,12 @@ namespace Pulumiverse.Unifi.Firewall
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Group(string name, GroupArgs args, CustomResourceOptions? options = null)
-            : base("unifi:Firewall/group:Group", name, args ?? new GroupArgs(), MakeResourceOptions(options, ""))
+            : base("unifi:firewall/group:Group", name, args ?? new GroupArgs(), MakeResourceOptions(options, ""))
         {
         }
 
         private Group(string name, Input<string> id, GroupState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:Firewall/group:Group", name, state, MakeResourceOptions(options, id))
+            : base("unifi:firewall/group:Group", name, state, MakeResourceOptions(options, id))
         {
         }
 

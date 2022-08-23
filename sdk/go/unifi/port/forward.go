@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `Port.Forward` manages a port forwarding rule on the gateway.
+// `port.Forward` manages a port forwarding rule on the gateway.
 type Forward struct {
 	pulumi.CustomResourceState
 
@@ -47,7 +47,7 @@ func NewForward(ctx *pulumi.Context,
 
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Forward
-	err := ctx.RegisterResource("unifi:Port/forward:Forward", name, args, &resource, opts...)
+	err := ctx.RegisterResource("unifi:port/forward:Forward", name, args, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func NewForward(ctx *pulumi.Context,
 func GetForward(ctx *pulumi.Context,
 	name string, id pulumi.IDInput, state *ForwardState, opts ...pulumi.ResourceOption) (*Forward, error) {
 	var resource Forward
-	err := ctx.ReadResource("unifi:Port/forward:Forward", name, id, state, &resource, opts...)
+	err := ctx.ReadResource("unifi:port/forward:Forward", name, id, state, &resource, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -198,7 +198,7 @@ func (i *Forward) ToForwardOutputWithContext(ctx context.Context) ForwardOutput 
 // ForwardArrayInput is an input type that accepts ForwardArray and ForwardArrayOutput values.
 // You can construct a concrete instance of `ForwardArrayInput` via:
 //
-//          ForwardArray{ ForwardArgs{...} }
+//	ForwardArray{ ForwardArgs{...} }
 type ForwardArrayInput interface {
 	pulumi.Input
 
@@ -223,7 +223,7 @@ func (i ForwardArray) ToForwardArrayOutputWithContext(ctx context.Context) Forwa
 // ForwardMapInput is an input type that accepts ForwardMap and ForwardMapOutput values.
 // You can construct a concrete instance of `ForwardMapInput` via:
 //
-//          ForwardMap{ "key": ForwardArgs{...} }
+//	ForwardMap{ "key": ForwardArgs{...} }
 type ForwardMapInput interface {
 	pulumi.Input
 

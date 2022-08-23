@@ -16,14 +16,14 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "unifi:Firewall/group:Group":
+            case "unifi:firewall/group:Group":
                 return new Group(name, <any>undefined, { urn })
-            case "unifi:Firewall/rule:Rule":
+            case "unifi:firewall/rule:Rule":
                 return new Rule(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("unifi", "Firewall/group", _module)
-pulumi.runtime.registerResourceModule("unifi", "Firewall/rule", _module)
+pulumi.runtime.registerResourceModule("unifi", "firewall/group", _module)
+pulumi.runtime.registerResourceModule("unifi", "firewall/rule", _module)

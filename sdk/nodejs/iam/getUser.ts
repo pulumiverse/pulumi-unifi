@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.IAM.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+ * `unifi.iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
  *
  * ## Example Usage
  *
@@ -13,7 +13,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumi/unifi";
  *
- * const client = pulumi.output(unifi.IAM.getUser({
+ * const client = pulumi.output(unifi.iam.getUser({
  *     mac: "01:23:45:67:89:ab",
  * }));
  * ```
@@ -24,7 +24,7 @@ export function getUser(args: GetUserArgs, opts?: pulumi.InvokeOptions): Promise
     }
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-    return pulumi.runtime.invoke("unifi:IAM/getUser:getUser", {
+    return pulumi.runtime.invoke("unifi:iam/getUser:getUser", {
         "mac": args.mac,
         "site": args.site,
     }, opts);

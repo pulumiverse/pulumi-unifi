@@ -789,14 +789,14 @@ class Rule(pulumi.CustomResource):
                  state_related: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        `Firewall.Rule` manages an individual firewall rule on the gateway.
+        `firewall.Rule` manages an individual firewall rule on the gateway.
 
         ## Import
 
         # import using the ID from the controller API/UI
 
         ```sh
-         $ pulumi import unifi:Firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+         $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
         ```
 
         :param str resource_name: The name of the resource.
@@ -832,14 +832,14 @@ class Rule(pulumi.CustomResource):
                  args: RuleArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Firewall.Rule` manages an individual firewall rule on the gateway.
+        `firewall.Rule` manages an individual firewall rule on the gateway.
 
         ## Import
 
         # import using the ID from the controller API/UI
 
         ```sh
-         $ pulumi import unifi:Firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+         $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
         ```
 
         :param str resource_name: The name of the resource.
@@ -921,7 +921,7 @@ class Rule(pulumi.CustomResource):
             __props__.__dict__["state_new"] = state_new
             __props__.__dict__["state_related"] = state_related
         super(Rule, __self__).__init__(
-            'unifi:Firewall/rule:Rule',
+            'unifi:firewall/rule:Rule',
             resource_name,
             __props__,
             opts)

@@ -13,16 +13,16 @@ namespace Pulumiverse.Unifi.Port
     public static class GetProfile
     {
         /// <summary>
-        /// `unifi.Port.Profile` data source can be used to retrieve the ID for a port profile by name.
+        /// `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
         /// </summary>
         public static Task<GetProfileResult> InvokeAsync(GetProfileArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetProfileResult>("unifi:Port/getProfile:getProfile", args ?? new GetProfileArgs(), options.WithDefaults());
+            => Pulumi.Deployment.Instance.InvokeAsync<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.Port.Profile` data source can be used to retrieve the ID for a port profile by name.
+        /// `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
         /// </summary>
         public static Output<GetProfileResult> Invoke(GetProfileInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetProfileResult>("unifi:Port/getProfile:getProfile", args ?? new GetProfileInvokeArgs(), options.WithDefaults());
+            => Pulumi.Deployment.Instance.Invoke<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileInvokeArgs(), options.WithDefaults());
     }
 
 
