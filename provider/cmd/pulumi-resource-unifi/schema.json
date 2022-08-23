@@ -20,7 +20,14 @@
     "language": {
         "csharp": {
             "compatibility": "tfbridge20",
-            "namespaces": null,
+            "namespaces": {
+                "firewall": "Firewall",
+                "iam": "IAM",
+                "index": "index",
+                "port": "Port",
+                "setting": "Setting",
+                "unifi": "Unifi"
+            },
             "packageReferences": {
                 "Pulumi": "3.*"
             },
@@ -111,51 +118,6 @@
         ]
     },
     "types": {
-        "unifi:Setting/MgmtSshKey:MgmtSshKey": {
-            "properties": {
-                "comment": {
-                    "type": "string",
-                    "description": "Comment.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "key": {
-                    "type": "string",
-                    "description": "Public SSH key.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "name": {
-                    "type": "string",
-                    "description": "Name of SSH key.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "type": {
-                    "type": "string",
-                    "description": "Type of SSH key, e.g. ssh-rsa.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                }
-            },
-            "type": "object",
-            "required": [
-                "name",
-                "type"
-            ]
-        },
         "unifi:index/DevicePortOverride:DevicePortOverride": {
             "properties": {
                 "name": {
@@ -226,6 +188,51 @@
                 "blockEnd",
                 "blockStart",
                 "dayOfWeek"
+            ]
+        },
+        "unifi:setting/MgmtSshKey:MgmtSshKey": {
+            "properties": {
+                "comment": {
+                    "type": "string",
+                    "description": "Comment.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "key": {
+                    "type": "string",
+                    "description": "Public SSH key.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of SSH key.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type of SSH key, e.g. ssh-rsa.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "type"
             ]
         }
     },
@@ -302,8 +309,8 @@
         }
     },
     "resources": {
-        "unifi:Firewall/group:Group": {
-            "description": "`unifi.Firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.Firewall.Rule`).\n",
+        "unifi:firewall:Group": {
+            "description": "`unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).\n",
             "properties": {
                 "members": {
                     "type": "array",
@@ -384,8 +391,8 @@
                 "type": "object"
             }
         },
-        "unifi:Firewall/rule:Rule": {
-            "description": "`unifi.Firewall.Rule` manages an individual firewall rule on the gateway.\n\n\n## Import\n\n# import using the ID from the controller API/UI\n\n```sh\n $ pulumi import unifi:Firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f\n```\n\n ",
+        "unifi:firewall:Rule": {
+            "description": "`unifi.firewall.Rule` manages an individual firewall rule on the gateway.\n\n\n## Import\n\n# import using the ID from the controller API/UI\n\n```sh\n $ pulumi import unifi:firewall:Rule my_rule 5f7080eb6b8969064f80494f\n```\n\n ",
             "properties": {
                 "action": {
                     "type": "string",
@@ -707,8 +714,8 @@
                 "type": "object"
             }
         },
-        "unifi:IAM/group:Group": {
-            "description": "`unifi.IAM.Group` manages a user group (called \"client group\" in the UI), which can be used to limit bandwidth for groups of users.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst wifi = new unifi.IAM.Group(\"wifi\", {\n    qosRateMaxDown: 2000, // 2mbps\n    qosRateMaxUp: 10, // 10kbps\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the ID\n\n```sh\n $ pulumi import unifi:IAM/group:Group wifi 5fe6261995fe130013456a36\n```\n\n ",
+        "unifi:iam:Group": {
+            "description": "`unifi.iam.Group` manages a user group (called \"client group\" in the UI), which can be used to limit bandwidth for groups of users.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst wifi = new unifi.iam.Group(\"wifi\", {\n    qosRateMaxDown: 2000, // 2mbps\n    qosRateMaxUp: 10, // 10kbps\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the ID\n\n```sh\n $ pulumi import unifi:iam:Group wifi 5fe6261995fe130013456a36\n```\n\n ",
             "properties": {
                 "name": {
                     "type": "string",
@@ -774,8 +781,8 @@
                 "type": "object"
             }
         },
-        "unifi:IAM/user:User": {
-            "description": "`unifi.IAM.User` manages a user (or \"client\" in the UI) of the network, these are identified by unique MAC addresses.\n\nUsers are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.\n",
+        "unifi:iam:User": {
+            "description": "`unifi.iam.User` manages a user (or \"client\" in the UI) of the network, these are identified by unique MAC addresses.\n\nUsers are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.\n",
             "properties": {
                 "allowExisting": {
                     "type": "boolean",
@@ -949,8 +956,1113 @@
                 "type": "object"
             }
         },
-        "unifi:Port/forward:Forward": {
-            "description": "`unifi.Port.Forward` manages a port forwarding rule on the gateway.\n",
+        "unifi:index:Device": {
+            "properties": {
+                "disabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether this device should be disabled.\n"
+                },
+                "mac": {
+                    "type": "string",
+                    "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the device.\n"
+                },
+                "portOverrides": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
+                    },
+                    "description": "Settings overrides for specific switch ports.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the device with.\n"
+                }
+            },
+            "required": [
+                "disabled",
+                "mac",
+                "name",
+                "site"
+            ],
+            "inputProperties": {
+                "mac": {
+                    "type": "string",
+                    "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
+                    "willReplaceOnChanges": true
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the device.\n"
+                },
+                "portOverrides": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
+                    },
+                    "description": "Settings overrides for specific switch ports.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the device with.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Device resources.\n",
+                "properties": {
+                    "disabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether this device should be disabled.\n"
+                    },
+                    "mac": {
+                        "type": "string",
+                        "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the device.\n"
+                    },
+                    "portOverrides": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
+                        },
+                        "description": "Settings overrides for specific switch ports.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the device with.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:index:DynamicDNS": {
+            "description": "`unifi.DynamicDNS` manages dynamic DNS settings for different providers.\n",
+            "properties": {
+                "hostName": {
+                    "type": "string",
+                    "description": "The host name to update in the dynamic DNS service.\n"
+                },
+                "interface": {
+                    "type": "string",
+                    "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n"
+                },
+                "login": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "server": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "service": {
+                    "type": "string",
+                    "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the dynamic DNS with.\n"
+                }
+            },
+            "required": [
+                "hostName",
+                "service",
+                "site"
+            ],
+            "inputProperties": {
+                "hostName": {
+                    "type": "string",
+                    "description": "The host name to update in the dynamic DNS service.\n"
+                },
+                "interface": {
+                    "type": "string",
+                    "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n",
+                    "willReplaceOnChanges": true
+                },
+                "login": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "server": {
+                    "type": "string",
+                    "description": "The server for the dynamic DNS service.\n"
+                },
+                "service": {
+                    "type": "string",
+                    "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n",
+                    "willReplaceOnChanges": true
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the dynamic DNS with.\n",
+                    "willReplaceOnChanges": true
+                }
+            },
+            "requiredInputs": [
+                "hostName",
+                "service"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering DynamicDNS resources.\n",
+                "properties": {
+                    "hostName": {
+                        "type": "string",
+                        "description": "The host name to update in the dynamic DNS service.\n"
+                    },
+                    "interface": {
+                        "type": "string",
+                        "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "login": {
+                        "type": "string",
+                        "description": "The server for the dynamic DNS service.\n"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "The server for the dynamic DNS service.\n"
+                    },
+                    "server": {
+                        "type": "string",
+                        "description": "The server for the dynamic DNS service.\n"
+                    },
+                    "service": {
+                        "type": "string",
+                        "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the dynamic DNS with.\n",
+                        "willReplaceOnChanges": true
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:index:Network": {
+            "description": "`unifi.Network` manages WAN/LAN/VLAN networks.\n\n\n## Import\n\n# import from provider configured site\n\n```sh\n $ pulumi import unifi:index:Network mynetwork 5dc28e5e9106d105bdc87217\n```\n\n # import from another site\n\n```sh\n $ pulumi import unifi:index:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217\n```\n\n # import network by name\n\n```sh\n $ pulumi import unifi:index:Network mynetwork name=LAN\n```\n\n ",
+            "properties": {
+                "dhcpDns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.\n"
+                },
+                "dhcpEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether DHCP is enabled or not on this network.\n"
+                },
+                "dhcpLease": {
+                    "type": "integer",
+                    "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
+                },
+                "dhcpRelayEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether DHCP relay is enabled or not on this network.\n"
+                },
+                "dhcpStart": {
+                    "type": "string",
+                    "description": "The IPv4 address where the DHCP range of addresses starts.\n"
+                },
+                "dhcpStop": {
+                    "type": "string",
+                    "description": "The IPv4 address where the DHCP range of addresses stops.\n"
+                },
+                "dhcpdBootEnabled": {
+                    "type": "boolean",
+                    "description": "Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.\n"
+                },
+                "dhcpdBootFilename": {
+                    "type": "string",
+                    "description": "Specifies the file to PXE boot from on the dhcpd*boot*server.\n"
+                },
+                "dhcpdBootServer": {
+                    "type": "string",
+                    "description": "Specifies the IPv4 address of a TFTP server to network boot from.\n"
+                },
+                "domainName": {
+                    "type": "string",
+                    "description": "The domain name of this network.\n"
+                },
+                "igmpSnooping": {
+                    "type": "boolean",
+                    "description": "Specifies whether IGMP snooping is enabled or not.\n"
+                },
+                "ipv6InterfaceType": {
+                    "type": "string",
+                    "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
+                },
+                "ipv6PdInterface": {
+                    "type": "string",
+                    "description": "Specifies which WAN interface to use for IPv6 PD.\n"
+                },
+                "ipv6PdPrefixid": {
+                    "type": "string",
+                    "description": "Specifies the IPv6 Prefix ID.\n"
+                },
+                "ipv6RaEnable": {
+                    "type": "boolean",
+                    "description": "Specifies whether to enable router advertisements or not.\n"
+                },
+                "ipv6StaticSubnet": {
+                    "type": "string",
+                    "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the network.\n"
+                },
+                "networkGroup": {
+                    "type": "string",
+                    "description": "The group of the network. Defaults to `LAN`.\n"
+                },
+                "purpose": {
+                    "type": "string",
+                    "description": "The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the network with.\n"
+                },
+                "subnet": {
+                    "type": "string",
+                    "description": "The subnet of the network. Must be a valid CIDR address.\n"
+                },
+                "vlanId": {
+                    "type": "integer",
+                    "description": "The VLAN ID of the network.\n"
+                },
+                "wanDns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "DNS servers IPs of the WAN.\n"
+                },
+                "wanEgressQos": {
+                    "type": "integer",
+                    "description": "Specifies the WAN egress quality of service. Defaults to `0`.\n"
+                },
+                "wanGateway": {
+                    "type": "string",
+                    "description": "The IPv4 gateway of the WAN.\n"
+                },
+                "wanIp": {
+                    "type": "string",
+                    "description": "The IPv4 address of the WAN.\n"
+                },
+                "wanNetmask": {
+                    "type": "string",
+                    "description": "The IPv4 netmask of the WAN.\n"
+                },
+                "wanNetworkgroup": {
+                    "type": "string",
+                    "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
+                },
+                "wanType": {
+                    "type": "string",
+                    "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
+                },
+                "wanUsername": {
+                    "type": "string",
+                    "description": "Specifies the IPV4 WAN username.\n"
+                },
+                "xWanPassword": {
+                    "type": "string",
+                    "description": "Specifies the IPV4 WAN password.\n"
+                }
+            },
+            "required": [
+                "name",
+                "purpose",
+                "site"
+            ],
+            "inputProperties": {
+                "dhcpDns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.\n"
+                },
+                "dhcpEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether DHCP is enabled or not on this network.\n"
+                },
+                "dhcpLease": {
+                    "type": "integer",
+                    "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
+                },
+                "dhcpRelayEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether DHCP relay is enabled or not on this network.\n"
+                },
+                "dhcpStart": {
+                    "type": "string",
+                    "description": "The IPv4 address where the DHCP range of addresses starts.\n"
+                },
+                "dhcpStop": {
+                    "type": "string",
+                    "description": "The IPv4 address where the DHCP range of addresses stops.\n"
+                },
+                "dhcpdBootEnabled": {
+                    "type": "boolean",
+                    "description": "Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.\n"
+                },
+                "dhcpdBootFilename": {
+                    "type": "string",
+                    "description": "Specifies the file to PXE boot from on the dhcpd*boot*server.\n"
+                },
+                "dhcpdBootServer": {
+                    "type": "string",
+                    "description": "Specifies the IPv4 address of a TFTP server to network boot from.\n"
+                },
+                "domainName": {
+                    "type": "string",
+                    "description": "The domain name of this network.\n"
+                },
+                "igmpSnooping": {
+                    "type": "boolean",
+                    "description": "Specifies whether IGMP snooping is enabled or not.\n"
+                },
+                "ipv6InterfaceType": {
+                    "type": "string",
+                    "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
+                },
+                "ipv6PdInterface": {
+                    "type": "string",
+                    "description": "Specifies which WAN interface to use for IPv6 PD.\n"
+                },
+                "ipv6PdPrefixid": {
+                    "type": "string",
+                    "description": "Specifies the IPv6 Prefix ID.\n"
+                },
+                "ipv6RaEnable": {
+                    "type": "boolean",
+                    "description": "Specifies whether to enable router advertisements or not.\n"
+                },
+                "ipv6StaticSubnet": {
+                    "type": "string",
+                    "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the network.\n"
+                },
+                "networkGroup": {
+                    "type": "string",
+                    "description": "The group of the network. Defaults to `LAN`.\n"
+                },
+                "purpose": {
+                    "type": "string",
+                    "description": "The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.\n",
+                    "willReplaceOnChanges": true
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the network with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "subnet": {
+                    "type": "string",
+                    "description": "The subnet of the network. Must be a valid CIDR address.\n"
+                },
+                "vlanId": {
+                    "type": "integer",
+                    "description": "The VLAN ID of the network.\n"
+                },
+                "wanDns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "DNS servers IPs of the WAN.\n"
+                },
+                "wanEgressQos": {
+                    "type": "integer",
+                    "description": "Specifies the WAN egress quality of service. Defaults to `0`.\n"
+                },
+                "wanGateway": {
+                    "type": "string",
+                    "description": "The IPv4 gateway of the WAN.\n"
+                },
+                "wanIp": {
+                    "type": "string",
+                    "description": "The IPv4 address of the WAN.\n"
+                },
+                "wanNetmask": {
+                    "type": "string",
+                    "description": "The IPv4 netmask of the WAN.\n"
+                },
+                "wanNetworkgroup": {
+                    "type": "string",
+                    "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
+                },
+                "wanType": {
+                    "type": "string",
+                    "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
+                },
+                "wanUsername": {
+                    "type": "string",
+                    "description": "Specifies the IPV4 WAN username.\n"
+                },
+                "xWanPassword": {
+                    "type": "string",
+                    "description": "Specifies the IPV4 WAN password.\n"
+                }
+            },
+            "requiredInputs": [
+                "purpose"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Network resources.\n",
+                "properties": {
+                    "dhcpDns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.\n"
+                    },
+                    "dhcpEnabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether DHCP is enabled or not on this network.\n"
+                    },
+                    "dhcpLease": {
+                        "type": "integer",
+                        "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
+                    },
+                    "dhcpRelayEnabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether DHCP relay is enabled or not on this network.\n"
+                    },
+                    "dhcpStart": {
+                        "type": "string",
+                        "description": "The IPv4 address where the DHCP range of addresses starts.\n"
+                    },
+                    "dhcpStop": {
+                        "type": "string",
+                        "description": "The IPv4 address where the DHCP range of addresses stops.\n"
+                    },
+                    "dhcpdBootEnabled": {
+                        "type": "boolean",
+                        "description": "Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.\n"
+                    },
+                    "dhcpdBootFilename": {
+                        "type": "string",
+                        "description": "Specifies the file to PXE boot from on the dhcpd*boot*server.\n"
+                    },
+                    "dhcpdBootServer": {
+                        "type": "string",
+                        "description": "Specifies the IPv4 address of a TFTP server to network boot from.\n"
+                    },
+                    "domainName": {
+                        "type": "string",
+                        "description": "The domain name of this network.\n"
+                    },
+                    "igmpSnooping": {
+                        "type": "boolean",
+                        "description": "Specifies whether IGMP snooping is enabled or not.\n"
+                    },
+                    "ipv6InterfaceType": {
+                        "type": "string",
+                        "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
+                    },
+                    "ipv6PdInterface": {
+                        "type": "string",
+                        "description": "Specifies which WAN interface to use for IPv6 PD.\n"
+                    },
+                    "ipv6PdPrefixid": {
+                        "type": "string",
+                        "description": "Specifies the IPv6 Prefix ID.\n"
+                    },
+                    "ipv6RaEnable": {
+                        "type": "boolean",
+                        "description": "Specifies whether to enable router advertisements or not.\n"
+                    },
+                    "ipv6StaticSubnet": {
+                        "type": "string",
+                        "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the network.\n"
+                    },
+                    "networkGroup": {
+                        "type": "string",
+                        "description": "The group of the network. Defaults to `LAN`.\n"
+                    },
+                    "purpose": {
+                        "type": "string",
+                        "description": "The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the network with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "subnet": {
+                        "type": "string",
+                        "description": "The subnet of the network. Must be a valid CIDR address.\n"
+                    },
+                    "vlanId": {
+                        "type": "integer",
+                        "description": "The VLAN ID of the network.\n"
+                    },
+                    "wanDns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "DNS servers IPs of the WAN.\n"
+                    },
+                    "wanEgressQos": {
+                        "type": "integer",
+                        "description": "Specifies the WAN egress quality of service. Defaults to `0`.\n"
+                    },
+                    "wanGateway": {
+                        "type": "string",
+                        "description": "The IPv4 gateway of the WAN.\n"
+                    },
+                    "wanIp": {
+                        "type": "string",
+                        "description": "The IPv4 address of the WAN.\n"
+                    },
+                    "wanNetmask": {
+                        "type": "string",
+                        "description": "The IPv4 netmask of the WAN.\n"
+                    },
+                    "wanNetworkgroup": {
+                        "type": "string",
+                        "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
+                    },
+                    "wanType": {
+                        "type": "string",
+                        "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
+                    },
+                    "wanUsername": {
+                        "type": "string",
+                        "description": "Specifies the IPV4 WAN username.\n"
+                    },
+                    "xWanPassword": {
+                        "type": "string",
+                        "description": "Specifies the IPV4 WAN password.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:index:Site": {
+            "description": "`unifi.Site` manages Unifi sites\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst mysite = new unifi.Site(\"mysite\", {\n    description: \"mysite\",\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the API/UI ID\n\n```sh\n $ pulumi import unifi:index:Site mysite 5fe6261995fe130013456a36\n```\n\n # import using the name (short ID)\n\n```sh\n $ pulumi import unifi:index:Site mysite vq98kwez\n```\n\n ",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "The description of the site.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the site.\n"
+                }
+            },
+            "required": [
+                "description",
+                "name"
+            ],
+            "inputProperties": {
+                "description": {
+                    "type": "string",
+                    "description": "The description of the site.\n"
+                }
+            },
+            "requiredInputs": [
+                "description"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Site resources.\n",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the site.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the site.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:index:StaticRoute": {
+            "description": "`unifi.StaticRoute` manages a static route.\n",
+            "properties": {
+                "distance": {
+                    "type": "integer",
+                    "description": "The distance of the static route.\n"
+                },
+                "interface": {
+                    "type": "string",
+                    "description": "The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the static route.\n"
+                },
+                "network": {
+                    "type": "string",
+                    "description": "The network subnet address.\n"
+                },
+                "nextHop": {
+                    "type": "string",
+                    "description": "The next hop of the static route (only valid for `nexthop-route` type).\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the static route with.\n"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.\n"
+                }
+            },
+            "required": [
+                "distance",
+                "name",
+                "network",
+                "site",
+                "type"
+            ],
+            "inputProperties": {
+                "distance": {
+                    "type": "integer",
+                    "description": "The distance of the static route.\n"
+                },
+                "interface": {
+                    "type": "string",
+                    "description": "The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the static route.\n"
+                },
+                "network": {
+                    "type": "string",
+                    "description": "The network subnet address.\n"
+                },
+                "nextHop": {
+                    "type": "string",
+                    "description": "The next hop of the static route (only valid for `nexthop-route` type).\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the static route with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "type": {
+                    "type": "string",
+                    "description": "The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.\n"
+                }
+            },
+            "requiredInputs": [
+                "distance",
+                "network",
+                "type"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering StaticRoute resources.\n",
+                "properties": {
+                    "distance": {
+                        "type": "integer",
+                        "description": "The distance of the static route.\n"
+                    },
+                    "interface": {
+                        "type": "string",
+                        "description": "The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the static route.\n"
+                    },
+                    "network": {
+                        "type": "string",
+                        "description": "The network subnet address.\n"
+                    },
+                    "nextHop": {
+                        "type": "string",
+                        "description": "The next hop of the static route (only valid for `nexthop-route` type).\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the static route with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:index:Wlan": {
+            "description": "`unifi.Wlan` manages a WiFi network / SSID.\n\n\n## Import\n\n# import from provider configured site\n\n```sh\n $ pulumi import unifi:index:Wlan mywlan 5dc28e5e9106d105bdc87217\n```\n\n # import from another site\n\n```sh\n $ pulumi import unifi:index:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217\n```\n\n ",
+            "properties": {
+                "apGroupIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IDs of the AP groups to use for this network.\n"
+                },
+                "hideSsid": {
+                    "type": "boolean",
+                    "description": "Indicates whether or not to hide the SSID from broadcast.\n"
+                },
+                "isGuest": {
+                    "type": "boolean",
+                    "description": "Indicates that this is a guest WLAN and should use guest behaviors.\n"
+                },
+                "l2Isolation": {
+                    "type": "boolean",
+                    "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
+                },
+                "macFilterEnabled": {
+                    "type": "boolean",
+                    "description": "Indicates whether or not the MAC filter is turned of for the network.\n"
+                },
+                "macFilterLists": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).\n"
+                },
+                "macFilterPolicy": {
+                    "type": "string",
+                    "description": "MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.\n"
+                },
+                "minimumDataRate2gKbps": {
+                    "type": "integer",
+                    "description": "Set minimum data rate control for 2G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
+                },
+                "minimumDataRate5gKbps": {
+                    "type": "integer",
+                    "description": "Set minimum data rate control for 5G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
+                },
+                "multicastEnhance": {
+                    "type": "boolean",
+                    "description": "Indicates whether or not Multicast Enhance is turned of for the network.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The SSID of the network.\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "ID of the network for this SSID\n"
+                },
+                "no2ghzOui": {
+                    "type": "boolean",
+                    "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
+                },
+                "passphrase": {
+                    "type": "string",
+                    "description": "The passphrase for the network, this is only required if `security` is not set to `open`.\n"
+                },
+                "pmfMode": {
+                    "type": "string",
+                    "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
+                },
+                "radiusProfileId": {
+                    "type": "string",
+                    "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
+                },
+                "schedules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/WlanSchedule:WlanSchedule"
+                    },
+                    "description": "Start and stop schedules for the WLAN\n"
+                },
+                "security": {
+                    "type": "string",
+                    "description": "The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the wlan with.\n"
+                },
+                "uapsd": {
+                    "type": "boolean",
+                    "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
+                },
+                "userGroupId": {
+                    "type": "string",
+                    "description": "ID of the user group to use for this network.\n"
+                },
+                "wlanBand": {
+                    "type": "string",
+                    "description": "Radio band your WiFi network will use.\n"
+                },
+                "wpa3Support": {
+                    "type": "boolean",
+                    "description": "Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).\n"
+                },
+                "wpa3Transition": {
+                    "type": "boolean",
+                    "description": "Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).\n"
+                }
+            },
+            "required": [
+                "name",
+                "security",
+                "site",
+                "userGroupId"
+            ],
+            "inputProperties": {
+                "apGroupIds": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "IDs of the AP groups to use for this network.\n"
+                },
+                "hideSsid": {
+                    "type": "boolean",
+                    "description": "Indicates whether or not to hide the SSID from broadcast.\n"
+                },
+                "isGuest": {
+                    "type": "boolean",
+                    "description": "Indicates that this is a guest WLAN and should use guest behaviors.\n"
+                },
+                "l2Isolation": {
+                    "type": "boolean",
+                    "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
+                },
+                "macFilterEnabled": {
+                    "type": "boolean",
+                    "description": "Indicates whether or not the MAC filter is turned of for the network.\n"
+                },
+                "macFilterLists": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).\n"
+                },
+                "macFilterPolicy": {
+                    "type": "string",
+                    "description": "MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.\n"
+                },
+                "minimumDataRate2gKbps": {
+                    "type": "integer",
+                    "description": "Set minimum data rate control for 2G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
+                },
+                "minimumDataRate5gKbps": {
+                    "type": "integer",
+                    "description": "Set minimum data rate control for 5G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
+                },
+                "multicastEnhance": {
+                    "type": "boolean",
+                    "description": "Indicates whether or not Multicast Enhance is turned of for the network.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The SSID of the network.\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "ID of the network for this SSID\n"
+                },
+                "no2ghzOui": {
+                    "type": "boolean",
+                    "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
+                },
+                "passphrase": {
+                    "type": "string",
+                    "description": "The passphrase for the network, this is only required if `security` is not set to `open`.\n"
+                },
+                "pmfMode": {
+                    "type": "string",
+                    "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
+                },
+                "radiusProfileId": {
+                    "type": "string",
+                    "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
+                },
+                "schedules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/WlanSchedule:WlanSchedule"
+                    },
+                    "description": "Start and stop schedules for the WLAN\n"
+                },
+                "security": {
+                    "type": "string",
+                    "description": "The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the wlan with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "uapsd": {
+                    "type": "boolean",
+                    "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
+                },
+                "userGroupId": {
+                    "type": "string",
+                    "description": "ID of the user group to use for this network.\n"
+                },
+                "wlanBand": {
+                    "type": "string",
+                    "description": "Radio band your WiFi network will use.\n"
+                },
+                "wpa3Support": {
+                    "type": "boolean",
+                    "description": "Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).\n"
+                },
+                "wpa3Transition": {
+                    "type": "boolean",
+                    "description": "Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).\n"
+                }
+            },
+            "requiredInputs": [
+                "security",
+                "userGroupId"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Wlan resources.\n",
+                "properties": {
+                    "apGroupIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "IDs of the AP groups to use for this network.\n"
+                    },
+                    "hideSsid": {
+                        "type": "boolean",
+                        "description": "Indicates whether or not to hide the SSID from broadcast.\n"
+                    },
+                    "isGuest": {
+                        "type": "boolean",
+                        "description": "Indicates that this is a guest WLAN and should use guest behaviors.\n"
+                    },
+                    "l2Isolation": {
+                        "type": "boolean",
+                        "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
+                    },
+                    "macFilterEnabled": {
+                        "type": "boolean",
+                        "description": "Indicates whether or not the MAC filter is turned of for the network.\n"
+                    },
+                    "macFilterLists": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).\n"
+                    },
+                    "macFilterPolicy": {
+                        "type": "string",
+                        "description": "MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.\n"
+                    },
+                    "minimumDataRate2gKbps": {
+                        "type": "integer",
+                        "description": "Set minimum data rate control for 2G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
+                    },
+                    "minimumDataRate5gKbps": {
+                        "type": "integer",
+                        "description": "Set minimum data rate control for 5G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
+                    },
+                    "multicastEnhance": {
+                        "type": "boolean",
+                        "description": "Indicates whether or not Multicast Enhance is turned of for the network.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The SSID of the network.\n"
+                    },
+                    "networkId": {
+                        "type": "string",
+                        "description": "ID of the network for this SSID\n"
+                    },
+                    "no2ghzOui": {
+                        "type": "boolean",
+                        "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
+                    },
+                    "passphrase": {
+                        "type": "string",
+                        "description": "The passphrase for the network, this is only required if `security` is not set to `open`.\n"
+                    },
+                    "pmfMode": {
+                        "type": "string",
+                        "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
+                    },
+                    "radiusProfileId": {
+                        "type": "string",
+                        "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
+                    },
+                    "schedules": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/unifi:index/WlanSchedule:WlanSchedule"
+                        },
+                        "description": "Start and stop schedules for the WLAN\n"
+                    },
+                    "security": {
+                        "type": "string",
+                        "description": "The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the wlan with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "uapsd": {
+                        "type": "boolean",
+                        "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
+                    },
+                    "userGroupId": {
+                        "type": "string",
+                        "description": "ID of the user group to use for this network.\n"
+                    },
+                    "wlanBand": {
+                        "type": "string",
+                        "description": "Radio band your WiFi network will use.\n"
+                    },
+                    "wpa3Support": {
+                        "type": "boolean",
+                        "description": "Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).\n"
+                    },
+                    "wpa3Transition": {
+                        "type": "boolean",
+                        "description": "Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:port:Forward": {
+            "description": "`unifi.port.Forward` manages a port forwarding rule on the gateway.\n",
             "properties": {
                 "dstPort": {
                     "type": "string",
@@ -1091,8 +2203,8 @@
                 "type": "object"
             }
         },
-        "unifi:Port/profile:Profile": {
-            "description": "`unifi.Port.Profile` manages a port profile for use on network switches.\n",
+        "unifi:port:Profile": {
+            "description": "`unifi.port.Profile` manages a port profile for use on network switches.\n",
             "properties": {
                 "autoneg": {
                     "type": "boolean",
@@ -1548,8 +2660,8 @@
                 "type": "object"
             }
         },
-        "unifi:Setting/mgmt:Mgmt": {
-            "description": "`unifi.Setting.Mgmt` manages settings for a unifi site.\n",
+        "unifi:setting:Mgmt": {
+            "description": "`unifi.setting.Mgmt` manages settings for a unifi site.\n",
             "properties": {
                 "autoUpgrade": {
                     "type": "boolean",
@@ -1566,7 +2678,7 @@
                 "sshKeys": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/unifi:Setting/MgmtSshKey:MgmtSshKey"
+                        "$ref": "#/types/unifi:setting/MgmtSshKey:MgmtSshKey"
                     },
                     "description": "SSH key.\n"
                 }
@@ -1591,7 +2703,7 @@
                 "sshKeys": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/types/unifi:Setting/MgmtSshKey:MgmtSshKey"
+                        "$ref": "#/types/unifi:setting/MgmtSshKey:MgmtSshKey"
                     },
                     "description": "SSH key.\n"
                 }
@@ -1615,7 +2727,7 @@
                     "sshKeys": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/types/unifi:Setting/MgmtSshKey:MgmtSshKey"
+                            "$ref": "#/types/unifi:setting/MgmtSshKey:MgmtSshKey"
                         },
                         "description": "SSH key.\n"
                     }
@@ -1623,8 +2735,8 @@
                 "type": "object"
             }
         },
-        "unifi:Setting/uSG:USG": {
-            "description": "`unifi.Setting.USG` manages settings for a Unifi Security Gateway.\n",
+        "unifi:setting:USG": {
+            "description": "`unifi.setting.USG` manages settings for a Unifi Security Gateway.\n",
             "properties": {
                 "dhcpRelayServers": {
                     "type": "array",
@@ -1726,1116 +2838,11 @@
                 },
                 "type": "object"
             }
-        },
-        "unifi:index/device:Device": {
-            "properties": {
-                "disabled": {
-                    "type": "boolean",
-                    "description": "Specifies whether this device should be disabled.\n"
-                },
-                "mac": {
-                    "type": "string",
-                    "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the device.\n"
-                },
-                "portOverrides": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
-                    },
-                    "description": "Settings overrides for specific switch ports.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the device with.\n"
-                }
-            },
-            "required": [
-                "disabled",
-                "mac",
-                "name",
-                "site"
-            ],
-            "inputProperties": {
-                "mac": {
-                    "type": "string",
-                    "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
-                    "willReplaceOnChanges": true
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the device.\n"
-                },
-                "portOverrides": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
-                    },
-                    "description": "Settings overrides for specific switch ports.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the device with.\n",
-                    "willReplaceOnChanges": true
-                }
-            },
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering Device resources.\n",
-                "properties": {
-                    "disabled": {
-                        "type": "boolean",
-                        "description": "Specifies whether this device should be disabled.\n"
-                    },
-                    "mac": {
-                        "type": "string",
-                        "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the device.\n"
-                    },
-                    "portOverrides": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/types/unifi:index/DevicePortOverride:DevicePortOverride"
-                        },
-                        "description": "Settings overrides for specific switch ports.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the device with.\n",
-                        "willReplaceOnChanges": true
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/dynamicDNS:DynamicDNS": {
-            "description": "`unifi.DynamicDNS` manages dynamic DNS settings for different providers.\n",
-            "properties": {
-                "hostName": {
-                    "type": "string",
-                    "description": "The host name to update in the dynamic DNS service.\n"
-                },
-                "interface": {
-                    "type": "string",
-                    "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n"
-                },
-                "login": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "password": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "server": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "service": {
-                    "type": "string",
-                    "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the dynamic DNS with.\n"
-                }
-            },
-            "required": [
-                "hostName",
-                "service",
-                "site"
-            ],
-            "inputProperties": {
-                "hostName": {
-                    "type": "string",
-                    "description": "The host name to update in the dynamic DNS service.\n"
-                },
-                "interface": {
-                    "type": "string",
-                    "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n",
-                    "willReplaceOnChanges": true
-                },
-                "login": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "password": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "server": {
-                    "type": "string",
-                    "description": "The server for the dynamic DNS service.\n"
-                },
-                "service": {
-                    "type": "string",
-                    "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n",
-                    "willReplaceOnChanges": true
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the dynamic DNS with.\n",
-                    "willReplaceOnChanges": true
-                }
-            },
-            "requiredInputs": [
-                "hostName",
-                "service"
-            ],
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering DynamicDNS resources.\n",
-                "properties": {
-                    "hostName": {
-                        "type": "string",
-                        "description": "The host name to update in the dynamic DNS service.\n"
-                    },
-                    "interface": {
-                        "type": "string",
-                        "description": "The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "login": {
-                        "type": "string",
-                        "description": "The server for the dynamic DNS service.\n"
-                    },
-                    "password": {
-                        "type": "string",
-                        "description": "The server for the dynamic DNS service.\n"
-                    },
-                    "server": {
-                        "type": "string",
-                        "description": "The server for the dynamic DNS service.\n"
-                    },
-                    "service": {
-                        "type": "string",
-                        "description": "The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the dynamic DNS with.\n",
-                        "willReplaceOnChanges": true
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/network:Network": {
-            "description": "`unifi.Network` manages WAN/LAN/VLAN networks.\n\n\n## Import\n\n# import from provider configured site\n\n```sh\n $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217\n```\n\n # import from another site\n\n```sh\n $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217\n```\n\n # import network by name\n\n```sh\n $ pulumi import unifi:index/network:Network mynetwork name=LAN\n```\n\n ",
-            "properties": {
-                "dhcpDns": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.\n"
-                },
-                "dhcpEnabled": {
-                    "type": "boolean",
-                    "description": "Specifies whether DHCP is enabled or not on this network.\n"
-                },
-                "dhcpLease": {
-                    "type": "integer",
-                    "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
-                },
-                "dhcpRelayEnabled": {
-                    "type": "boolean",
-                    "description": "Specifies whether DHCP relay is enabled or not on this network.\n"
-                },
-                "dhcpStart": {
-                    "type": "string",
-                    "description": "The IPv4 address where the DHCP range of addresses starts.\n"
-                },
-                "dhcpStop": {
-                    "type": "string",
-                    "description": "The IPv4 address where the DHCP range of addresses stops.\n"
-                },
-                "dhcpdBootEnabled": {
-                    "type": "boolean",
-                    "description": "Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.\n"
-                },
-                "dhcpdBootFilename": {
-                    "type": "string",
-                    "description": "Specifies the file to PXE boot from on the dhcpd*boot*server.\n"
-                },
-                "dhcpdBootServer": {
-                    "type": "string",
-                    "description": "Specifies the IPv4 address of a TFTP server to network boot from.\n"
-                },
-                "domainName": {
-                    "type": "string",
-                    "description": "The domain name of this network.\n"
-                },
-                "igmpSnooping": {
-                    "type": "boolean",
-                    "description": "Specifies whether IGMP snooping is enabled or not.\n"
-                },
-                "ipv6InterfaceType": {
-                    "type": "string",
-                    "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
-                },
-                "ipv6PdInterface": {
-                    "type": "string",
-                    "description": "Specifies which WAN interface to use for IPv6 PD.\n"
-                },
-                "ipv6PdPrefixid": {
-                    "type": "string",
-                    "description": "Specifies the IPv6 Prefix ID.\n"
-                },
-                "ipv6RaEnable": {
-                    "type": "boolean",
-                    "description": "Specifies whether to enable router advertisements or not.\n"
-                },
-                "ipv6StaticSubnet": {
-                    "type": "string",
-                    "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the network.\n"
-                },
-                "networkGroup": {
-                    "type": "string",
-                    "description": "The group of the network. Defaults to `LAN`.\n"
-                },
-                "purpose": {
-                    "type": "string",
-                    "description": "The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the network with.\n"
-                },
-                "subnet": {
-                    "type": "string",
-                    "description": "The subnet of the network. Must be a valid CIDR address.\n"
-                },
-                "vlanId": {
-                    "type": "integer",
-                    "description": "The VLAN ID of the network.\n"
-                },
-                "wanDns": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "DNS servers IPs of the WAN.\n"
-                },
-                "wanEgressQos": {
-                    "type": "integer",
-                    "description": "Specifies the WAN egress quality of service. Defaults to `0`.\n"
-                },
-                "wanGateway": {
-                    "type": "string",
-                    "description": "The IPv4 gateway of the WAN.\n"
-                },
-                "wanIp": {
-                    "type": "string",
-                    "description": "The IPv4 address of the WAN.\n"
-                },
-                "wanNetmask": {
-                    "type": "string",
-                    "description": "The IPv4 netmask of the WAN.\n"
-                },
-                "wanNetworkgroup": {
-                    "type": "string",
-                    "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
-                },
-                "wanType": {
-                    "type": "string",
-                    "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
-                },
-                "wanUsername": {
-                    "type": "string",
-                    "description": "Specifies the IPV4 WAN username.\n"
-                },
-                "xWanPassword": {
-                    "type": "string",
-                    "description": "Specifies the IPV4 WAN password.\n"
-                }
-            },
-            "required": [
-                "name",
-                "purpose",
-                "site"
-            ],
-            "inputProperties": {
-                "dhcpDns": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.\n"
-                },
-                "dhcpEnabled": {
-                    "type": "boolean",
-                    "description": "Specifies whether DHCP is enabled or not on this network.\n"
-                },
-                "dhcpLease": {
-                    "type": "integer",
-                    "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
-                },
-                "dhcpRelayEnabled": {
-                    "type": "boolean",
-                    "description": "Specifies whether DHCP relay is enabled or not on this network.\n"
-                },
-                "dhcpStart": {
-                    "type": "string",
-                    "description": "The IPv4 address where the DHCP range of addresses starts.\n"
-                },
-                "dhcpStop": {
-                    "type": "string",
-                    "description": "The IPv4 address where the DHCP range of addresses stops.\n"
-                },
-                "dhcpdBootEnabled": {
-                    "type": "boolean",
-                    "description": "Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.\n"
-                },
-                "dhcpdBootFilename": {
-                    "type": "string",
-                    "description": "Specifies the file to PXE boot from on the dhcpd*boot*server.\n"
-                },
-                "dhcpdBootServer": {
-                    "type": "string",
-                    "description": "Specifies the IPv4 address of a TFTP server to network boot from.\n"
-                },
-                "domainName": {
-                    "type": "string",
-                    "description": "The domain name of this network.\n"
-                },
-                "igmpSnooping": {
-                    "type": "boolean",
-                    "description": "Specifies whether IGMP snooping is enabled or not.\n"
-                },
-                "ipv6InterfaceType": {
-                    "type": "string",
-                    "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
-                },
-                "ipv6PdInterface": {
-                    "type": "string",
-                    "description": "Specifies which WAN interface to use for IPv6 PD.\n"
-                },
-                "ipv6PdPrefixid": {
-                    "type": "string",
-                    "description": "Specifies the IPv6 Prefix ID.\n"
-                },
-                "ipv6RaEnable": {
-                    "type": "boolean",
-                    "description": "Specifies whether to enable router advertisements or not.\n"
-                },
-                "ipv6StaticSubnet": {
-                    "type": "string",
-                    "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the network.\n"
-                },
-                "networkGroup": {
-                    "type": "string",
-                    "description": "The group of the network. Defaults to `LAN`.\n"
-                },
-                "purpose": {
-                    "type": "string",
-                    "description": "The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.\n",
-                    "willReplaceOnChanges": true
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the network with.\n",
-                    "willReplaceOnChanges": true
-                },
-                "subnet": {
-                    "type": "string",
-                    "description": "The subnet of the network. Must be a valid CIDR address.\n"
-                },
-                "vlanId": {
-                    "type": "integer",
-                    "description": "The VLAN ID of the network.\n"
-                },
-                "wanDns": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "DNS servers IPs of the WAN.\n"
-                },
-                "wanEgressQos": {
-                    "type": "integer",
-                    "description": "Specifies the WAN egress quality of service. Defaults to `0`.\n"
-                },
-                "wanGateway": {
-                    "type": "string",
-                    "description": "The IPv4 gateway of the WAN.\n"
-                },
-                "wanIp": {
-                    "type": "string",
-                    "description": "The IPv4 address of the WAN.\n"
-                },
-                "wanNetmask": {
-                    "type": "string",
-                    "description": "The IPv4 netmask of the WAN.\n"
-                },
-                "wanNetworkgroup": {
-                    "type": "string",
-                    "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
-                },
-                "wanType": {
-                    "type": "string",
-                    "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
-                },
-                "wanUsername": {
-                    "type": "string",
-                    "description": "Specifies the IPV4 WAN username.\n"
-                },
-                "xWanPassword": {
-                    "type": "string",
-                    "description": "Specifies the IPV4 WAN password.\n"
-                }
-            },
-            "requiredInputs": [
-                "purpose"
-            ],
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering Network resources.\n",
-                "properties": {
-                    "dhcpDns": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.\n"
-                    },
-                    "dhcpEnabled": {
-                        "type": "boolean",
-                        "description": "Specifies whether DHCP is enabled or not on this network.\n"
-                    },
-                    "dhcpLease": {
-                        "type": "integer",
-                        "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
-                    },
-                    "dhcpRelayEnabled": {
-                        "type": "boolean",
-                        "description": "Specifies whether DHCP relay is enabled or not on this network.\n"
-                    },
-                    "dhcpStart": {
-                        "type": "string",
-                        "description": "The IPv4 address where the DHCP range of addresses starts.\n"
-                    },
-                    "dhcpStop": {
-                        "type": "string",
-                        "description": "The IPv4 address where the DHCP range of addresses stops.\n"
-                    },
-                    "dhcpdBootEnabled": {
-                        "type": "boolean",
-                        "description": "Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.\n"
-                    },
-                    "dhcpdBootFilename": {
-                        "type": "string",
-                        "description": "Specifies the file to PXE boot from on the dhcpd*boot*server.\n"
-                    },
-                    "dhcpdBootServer": {
-                        "type": "string",
-                        "description": "Specifies the IPv4 address of a TFTP server to network boot from.\n"
-                    },
-                    "domainName": {
-                        "type": "string",
-                        "description": "The domain name of this network.\n"
-                    },
-                    "igmpSnooping": {
-                        "type": "boolean",
-                        "description": "Specifies whether IGMP snooping is enabled or not.\n"
-                    },
-                    "ipv6InterfaceType": {
-                        "type": "string",
-                        "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
-                    },
-                    "ipv6PdInterface": {
-                        "type": "string",
-                        "description": "Specifies which WAN interface to use for IPv6 PD.\n"
-                    },
-                    "ipv6PdPrefixid": {
-                        "type": "string",
-                        "description": "Specifies the IPv6 Prefix ID.\n"
-                    },
-                    "ipv6RaEnable": {
-                        "type": "boolean",
-                        "description": "Specifies whether to enable router advertisements or not.\n"
-                    },
-                    "ipv6StaticSubnet": {
-                        "type": "string",
-                        "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the network.\n"
-                    },
-                    "networkGroup": {
-                        "type": "string",
-                        "description": "The group of the network. Defaults to `LAN`.\n"
-                    },
-                    "purpose": {
-                        "type": "string",
-                        "description": "The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the network with.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "subnet": {
-                        "type": "string",
-                        "description": "The subnet of the network. Must be a valid CIDR address.\n"
-                    },
-                    "vlanId": {
-                        "type": "integer",
-                        "description": "The VLAN ID of the network.\n"
-                    },
-                    "wanDns": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "DNS servers IPs of the WAN.\n"
-                    },
-                    "wanEgressQos": {
-                        "type": "integer",
-                        "description": "Specifies the WAN egress quality of service. Defaults to `0`.\n"
-                    },
-                    "wanGateway": {
-                        "type": "string",
-                        "description": "The IPv4 gateway of the WAN.\n"
-                    },
-                    "wanIp": {
-                        "type": "string",
-                        "description": "The IPv4 address of the WAN.\n"
-                    },
-                    "wanNetmask": {
-                        "type": "string",
-                        "description": "The IPv4 netmask of the WAN.\n"
-                    },
-                    "wanNetworkgroup": {
-                        "type": "string",
-                        "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
-                    },
-                    "wanType": {
-                        "type": "string",
-                        "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
-                    },
-                    "wanUsername": {
-                        "type": "string",
-                        "description": "Specifies the IPV4 WAN username.\n"
-                    },
-                    "xWanPassword": {
-                        "type": "string",
-                        "description": "Specifies the IPV4 WAN password.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/site:Site": {
-            "description": "`unifi.Site` manages Unifi sites\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst mysite = new unifi.Site(\"mysite\", {\n    description: \"mysite\",\n});\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\n# import using the API/UI ID\n\n```sh\n $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36\n```\n\n # import using the name (short ID)\n\n```sh\n $ pulumi import unifi:index/site:Site mysite vq98kwez\n```\n\n ",
-            "properties": {
-                "description": {
-                    "type": "string",
-                    "description": "The description of the site.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the site.\n"
-                }
-            },
-            "required": [
-                "description",
-                "name"
-            ],
-            "inputProperties": {
-                "description": {
-                    "type": "string",
-                    "description": "The description of the site.\n"
-                }
-            },
-            "requiredInputs": [
-                "description"
-            ],
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering Site resources.\n",
-                "properties": {
-                    "description": {
-                        "type": "string",
-                        "description": "The description of the site.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the site.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/staticRoute:StaticRoute": {
-            "description": "`unifi.StaticRoute` manages a static route.\n",
-            "properties": {
-                "distance": {
-                    "type": "integer",
-                    "description": "The distance of the static route.\n"
-                },
-                "interface": {
-                    "type": "string",
-                    "description": "The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the static route.\n"
-                },
-                "network": {
-                    "type": "string",
-                    "description": "The network subnet address.\n"
-                },
-                "nextHop": {
-                    "type": "string",
-                    "description": "The next hop of the static route (only valid for `nexthop-route` type).\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the static route with.\n"
-                },
-                "type": {
-                    "type": "string",
-                    "description": "The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.\n"
-                }
-            },
-            "required": [
-                "distance",
-                "name",
-                "network",
-                "site",
-                "type"
-            ],
-            "inputProperties": {
-                "distance": {
-                    "type": "integer",
-                    "description": "The distance of the static route.\n"
-                },
-                "interface": {
-                    "type": "string",
-                    "description": "The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the static route.\n"
-                },
-                "network": {
-                    "type": "string",
-                    "description": "The network subnet address.\n"
-                },
-                "nextHop": {
-                    "type": "string",
-                    "description": "The next hop of the static route (only valid for `nexthop-route` type).\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the static route with.\n",
-                    "willReplaceOnChanges": true
-                },
-                "type": {
-                    "type": "string",
-                    "description": "The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.\n"
-                }
-            },
-            "requiredInputs": [
-                "distance",
-                "network",
-                "type"
-            ],
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering StaticRoute resources.\n",
-                "properties": {
-                    "distance": {
-                        "type": "integer",
-                        "description": "The distance of the static route.\n"
-                    },
-                    "interface": {
-                        "type": "string",
-                        "description": "The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the static route.\n"
-                    },
-                    "network": {
-                        "type": "string",
-                        "description": "The network subnet address.\n"
-                    },
-                    "nextHop": {
-                        "type": "string",
-                        "description": "The next hop of the static route (only valid for `nexthop-route` type).\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the static route with.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "type": {
-                        "type": "string",
-                        "description": "The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.\n"
-                    }
-                },
-                "type": "object"
-            }
-        },
-        "unifi:index/wlan:Wlan": {
-            "description": "`unifi.Wlan` manages a WiFi network / SSID.\n\n\n## Import\n\n# import from provider configured site\n\n```sh\n $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217\n```\n\n # import from another site\n\n```sh\n $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217\n```\n\n ",
-            "properties": {
-                "apGroupIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "IDs of the AP groups to use for this network.\n"
-                },
-                "hideSsid": {
-                    "type": "boolean",
-                    "description": "Indicates whether or not to hide the SSID from broadcast.\n"
-                },
-                "isGuest": {
-                    "type": "boolean",
-                    "description": "Indicates that this is a guest WLAN and should use guest behaviors.\n"
-                },
-                "l2Isolation": {
-                    "type": "boolean",
-                    "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
-                },
-                "macFilterEnabled": {
-                    "type": "boolean",
-                    "description": "Indicates whether or not the MAC filter is turned of for the network.\n"
-                },
-                "macFilterLists": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).\n"
-                },
-                "macFilterPolicy": {
-                    "type": "string",
-                    "description": "MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.\n"
-                },
-                "minimumDataRate2gKbps": {
-                    "type": "integer",
-                    "description": "Set minimum data rate control for 2G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
-                },
-                "minimumDataRate5gKbps": {
-                    "type": "integer",
-                    "description": "Set minimum data rate control for 5G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
-                },
-                "multicastEnhance": {
-                    "type": "boolean",
-                    "description": "Indicates whether or not Multicast Enhance is turned of for the network.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The SSID of the network.\n"
-                },
-                "networkId": {
-                    "type": "string",
-                    "description": "ID of the network for this SSID\n"
-                },
-                "no2ghzOui": {
-                    "type": "boolean",
-                    "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
-                },
-                "passphrase": {
-                    "type": "string",
-                    "description": "The passphrase for the network, this is only required if `security` is not set to `open`.\n"
-                },
-                "pmfMode": {
-                    "type": "string",
-                    "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
-                },
-                "radiusProfileId": {
-                    "type": "string",
-                    "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
-                },
-                "schedules": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/unifi:index/WlanSchedule:WlanSchedule"
-                    },
-                    "description": "Start and stop schedules for the WLAN\n"
-                },
-                "security": {
-                    "type": "string",
-                    "description": "The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the wlan with.\n"
-                },
-                "uapsd": {
-                    "type": "boolean",
-                    "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
-                },
-                "userGroupId": {
-                    "type": "string",
-                    "description": "ID of the user group to use for this network.\n"
-                },
-                "wlanBand": {
-                    "type": "string",
-                    "description": "Radio band your WiFi network will use.\n"
-                },
-                "wpa3Support": {
-                    "type": "boolean",
-                    "description": "Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).\n"
-                },
-                "wpa3Transition": {
-                    "type": "boolean",
-                    "description": "Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).\n"
-                }
-            },
-            "required": [
-                "name",
-                "security",
-                "site",
-                "userGroupId"
-            ],
-            "inputProperties": {
-                "apGroupIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "IDs of the AP groups to use for this network.\n"
-                },
-                "hideSsid": {
-                    "type": "boolean",
-                    "description": "Indicates whether or not to hide the SSID from broadcast.\n"
-                },
-                "isGuest": {
-                    "type": "boolean",
-                    "description": "Indicates that this is a guest WLAN and should use guest behaviors.\n"
-                },
-                "l2Isolation": {
-                    "type": "boolean",
-                    "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
-                },
-                "macFilterEnabled": {
-                    "type": "boolean",
-                    "description": "Indicates whether or not the MAC filter is turned of for the network.\n"
-                },
-                "macFilterLists": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).\n"
-                },
-                "macFilterPolicy": {
-                    "type": "string",
-                    "description": "MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.\n"
-                },
-                "minimumDataRate2gKbps": {
-                    "type": "integer",
-                    "description": "Set minimum data rate control for 2G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
-                },
-                "minimumDataRate5gKbps": {
-                    "type": "integer",
-                    "description": "Set minimum data rate control for 5G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
-                },
-                "multicastEnhance": {
-                    "type": "boolean",
-                    "description": "Indicates whether or not Multicast Enhance is turned of for the network.\n"
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The SSID of the network.\n"
-                },
-                "networkId": {
-                    "type": "string",
-                    "description": "ID of the network for this SSID\n"
-                },
-                "no2ghzOui": {
-                    "type": "boolean",
-                    "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
-                },
-                "passphrase": {
-                    "type": "string",
-                    "description": "The passphrase for the network, this is only required if `security` is not set to `open`.\n"
-                },
-                "pmfMode": {
-                    "type": "string",
-                    "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
-                },
-                "radiusProfileId": {
-                    "type": "string",
-                    "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
-                },
-                "schedules": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/unifi:index/WlanSchedule:WlanSchedule"
-                    },
-                    "description": "Start and stop schedules for the WLAN\n"
-                },
-                "security": {
-                    "type": "string",
-                    "description": "The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.\n"
-                },
-                "site": {
-                    "type": "string",
-                    "description": "The name of the site to associate the wlan with.\n",
-                    "willReplaceOnChanges": true
-                },
-                "uapsd": {
-                    "type": "boolean",
-                    "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
-                },
-                "userGroupId": {
-                    "type": "string",
-                    "description": "ID of the user group to use for this network.\n"
-                },
-                "wlanBand": {
-                    "type": "string",
-                    "description": "Radio band your WiFi network will use.\n"
-                },
-                "wpa3Support": {
-                    "type": "boolean",
-                    "description": "Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).\n"
-                },
-                "wpa3Transition": {
-                    "type": "boolean",
-                    "description": "Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).\n"
-                }
-            },
-            "requiredInputs": [
-                "security",
-                "userGroupId"
-            ],
-            "stateInputs": {
-                "description": "Input properties used for looking up and filtering Wlan resources.\n",
-                "properties": {
-                    "apGroupIds": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "IDs of the AP groups to use for this network.\n"
-                    },
-                    "hideSsid": {
-                        "type": "boolean",
-                        "description": "Indicates whether or not to hide the SSID from broadcast.\n"
-                    },
-                    "isGuest": {
-                        "type": "boolean",
-                        "description": "Indicates that this is a guest WLAN and should use guest behaviors.\n"
-                    },
-                    "l2Isolation": {
-                        "type": "boolean",
-                        "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
-                    },
-                    "macFilterEnabled": {
-                        "type": "boolean",
-                        "description": "Indicates whether or not the MAC filter is turned of for the network.\n"
-                    },
-                    "macFilterLists": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).\n"
-                    },
-                    "macFilterPolicy": {
-                        "type": "string",
-                        "description": "MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.\n"
-                    },
-                    "minimumDataRate2gKbps": {
-                        "type": "integer",
-                        "description": "Set minimum data rate control for 2G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
-                    },
-                    "minimumDataRate5gKbps": {
-                        "type": "integer",
-                        "description": "Set minimum data rate control for 5G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.\n"
-                    },
-                    "multicastEnhance": {
-                        "type": "boolean",
-                        "description": "Indicates whether or not Multicast Enhance is turned of for the network.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The SSID of the network.\n"
-                    },
-                    "networkId": {
-                        "type": "string",
-                        "description": "ID of the network for this SSID\n"
-                    },
-                    "no2ghzOui": {
-                        "type": "boolean",
-                        "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
-                    },
-                    "passphrase": {
-                        "type": "string",
-                        "description": "The passphrase for the network, this is only required if `security` is not set to `open`.\n"
-                    },
-                    "pmfMode": {
-                        "type": "string",
-                        "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
-                    },
-                    "radiusProfileId": {
-                        "type": "string",
-                        "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
-                    },
-                    "schedules": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/types/unifi:index/WlanSchedule:WlanSchedule"
-                        },
-                        "description": "Start and stop schedules for the WLAN\n"
-                    },
-                    "security": {
-                        "type": "string",
-                        "description": "The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site to associate the wlan with.\n",
-                        "willReplaceOnChanges": true
-                    },
-                    "uapsd": {
-                        "type": "boolean",
-                        "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
-                    },
-                    "userGroupId": {
-                        "type": "string",
-                        "description": "ID of the user group to use for this network.\n"
-                    },
-                    "wlanBand": {
-                        "type": "string",
-                        "description": "Radio band your WiFi network will use.\n"
-                    },
-                    "wpa3Support": {
-                        "type": "boolean",
-                        "description": "Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).\n"
-                    },
-                    "wpa3Transition": {
-                        "type": "boolean",
-                        "description": "Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).\n"
-                    }
-                },
-                "type": "object"
-            }
         }
     },
     "functions": {
-        "unifi:IAM/getGroup:getGroup": {
-            "description": "`unifi.IAM.Group` data source can be used to retrieve the ID for a user group by name.\n",
+        "unifi:iam:getGroup": {
+            "description": "`unifi.iam.Group` data source can be used to retrieve the ID for a user group by name.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getGroup.\n",
                 "properties": {
@@ -2881,8 +2888,8 @@
                 ]
             }
         },
-        "unifi:IAM/getUser:getUser": {
-            "description": "`unifi.IAM.User` retrieves properties of a user (or \"client\" in the UI) of the network by MAC address.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst client = pulumi.output(unifi.IAM.getUser({\n    mac: \"01:23:45:67:89:ab\",\n}));\n```\n{{% /example %}}\n{{% /examples %}}",
+        "unifi:iam:getUser": {
+            "description": "`unifi.iam.User` retrieves properties of a user (or \"client\" in the UI) of the network by MAC address.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst client = pulumi.output(unifi.iam.getUser({\n    mac: \"01:23:45:67:89:ab\",\n}));\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getUser.\n",
                 "properties": {
@@ -2969,46 +2976,7 @@
                 ]
             }
         },
-        "unifi:Port/getProfile:getProfile": {
-            "description": "`unifi.Port.Profile` data source can be used to retrieve the ID for a port profile by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst all = pulumi.output(unifi.Port.getProfile());\n```\n{{% /example %}}\n{{% /examples %}}",
-            "inputs": {
-                "description": "A collection of arguments for invoking getProfile.\n",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the port profile to look up. Defaults to `All`.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site the port profile is associated with.\n"
-                    }
-                },
-                "type": "object"
-            },
-            "outputs": {
-                "description": "A collection of values returned by getProfile.\n",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The ID of this port profile.\n"
-                    },
-                    "name": {
-                        "type": "string",
-                        "description": "The name of the port profile to look up. Defaults to `All`.\n"
-                    },
-                    "site": {
-                        "type": "string",
-                        "description": "The name of the site the port profile is associated with.\n"
-                    }
-                },
-                "type": "object",
-                "required": [
-                    "id",
-                    "site"
-                ]
-            }
-        },
-        "unifi:index/getApGroup:getApGroup": {
+        "unifi:index:getApGroup": {
             "description": "`unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst defaultApGroup = pulumi.output(unifi.getApGroup());\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getApGroup.\n",
@@ -3047,7 +3015,7 @@
                 ]
             }
         },
-        "unifi:index/getNetwork:getNetwork": {
+        "unifi:index:getNetwork": {
             "description": "`unifi.Network` data source can be used to retrieve settings for a network by name or ID.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getNetwork.\n",
@@ -3237,7 +3205,7 @@
                 ]
             }
         },
-        "unifi:index/getRadiusProfile:getRadiusProfile": {
+        "unifi:index:getRadiusProfile": {
             "description": "`unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getRadiusProfile.\n",
@@ -3267,6 +3235,45 @@
                     "site": {
                         "type": "string",
                         "description": "The name of the site the radius profile is associated with.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "site"
+                ]
+            }
+        },
+        "unifi:port:getProfile": {
+            "description": "`unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst all = pulumi.output(unifi.port.getProfile());\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getProfile.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the port profile to look up. Defaults to `All`.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the port profile is associated with.\n"
+                    }
+                },
+                "type": "object"
+            },
+            "outputs": {
+                "description": "A collection of values returned by getProfile.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this port profile.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the port profile to look up. Defaults to `All`.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the port profile is associated with.\n"
                     }
                 },
                 "type": "object",

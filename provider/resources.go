@@ -17,12 +17,15 @@ package unifi
 import (
 	"fmt"
 	"path/filepath"
+	"strings"
+	"unicode"
 
 	provider "github.com/paultyng/terraform-provider-unifi/shim"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumiverse/pulumi-unifi/provider/pkg/version"
 )
 
@@ -32,8 +35,45 @@ const (
 	// registries for nodejs and python:
 	mainPkg = "unifi"
 	// modules:
-	mainMod = "index" // the unifi module
+	mainMod     = "index" // the unifi module
+	firewallMod = "Firewall"
+	portMod     = "Port"
+	settingMod  = "Setting"
+	iamMod      = "IAM"
 )
+
+var namespaceMap = map[string]string{
+	mainPkg: "Unifi",
+}
+
+// unifiMember manufactures a type token for the IBM package and the given module, file name, and type.
+func unifiMember(moduleTitle string, fn string, mem string) tokens.ModuleMember {
+	moduleName := strings.ToLower(moduleTitle)
+	namespaceMap[moduleName] = moduleTitle
+	return tokens.ModuleMember(mainPkg + ":" + moduleName + ":" + mem)
+}
+
+// unifiType manufactures a type token for the IBM package and the given module, file name, and type.
+func unifiType(mod string, fn string, typ string) tokens.Type {
+	return tokens.Type(unifiMember(mod, fn, typ))
+}
+
+// unifiTypeDefaultFile manufactures a standard resource token given a module and resource name.
+func unifiTypeDefaultFile(mod string, typ string) tokens.Type {
+	fn := string(unicode.ToLower(rune(typ[0]))) + typ[1:]
+	return unifiType(mod, fn, typ)
+}
+
+// unifiDataSource manufactures a standard resource token given a module and resource name.
+func unifiDataSource(mod string, res string) tokens.ModuleMember {
+	fn := string(unicode.ToLower(rune(res[0]))) + res[1:]
+	return unifiMember(mod, fn, res)
+}
+
+// unifiResource manufactures a standard resource token given a module and resource name.
+func unifiResource(mod string, res string) tokens.Type {
+	return unifiTypeDefaultFile(mod, res)
+}
 
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.
 // It should validate that the provider can be configured, and provide actionable errors in the case
@@ -110,28 +150,28 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"unifi_device":         {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Device")},
-			"unifi_dynamic_dns":    {Tok: tfbridge.MakeResource(mainPkg, mainMod, "DynamicDNS")},
-			"unifi_firewall_group": {Tok: tfbridge.MakeResource(mainPkg, "Firewall", "Group")},
-			"unifi_firewall_rule":  {Tok: tfbridge.MakeResource(mainPkg, "Firewall", "Rule")},
-			"unifi_network":        {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Network")},
-			"unifi_port_forward":   {Tok: tfbridge.MakeResource(mainPkg, "Port", "Forward")},
-			"unifi_port_profile":   {Tok: tfbridge.MakeResource(mainPkg, "Port", "Profile")},
-			"unifi_setting_mgmt":   {Tok: tfbridge.MakeResource(mainPkg, "Setting", "Mgmt")},
-			"unifi_setting_usg":    {Tok: tfbridge.MakeResource(mainPkg, "Setting", "USG")},
-			"unifi_site":           {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Site")},
-			"unifi_static_route":   {Tok: tfbridge.MakeResource(mainPkg, mainMod, "StaticRoute")},
-			"unifi_user":           {Tok: tfbridge.MakeResource(mainPkg, "IAM", "User")},
-			"unifi_user_group":     {Tok: tfbridge.MakeResource(mainPkg, "IAM", "Group")},
-			"unifi_wlan":           {Tok: tfbridge.MakeResource(mainPkg, mainMod, "Wlan")},
+			"unifi_device":         {Tok: unifiResource(mainMod, "Device")},
+			"unifi_dynamic_dns":    {Tok: unifiResource(mainMod, "DynamicDNS")},
+			"unifi_firewall_group": {Tok: unifiResource(firewallMod, "Group")},
+			"unifi_firewall_rule":  {Tok: unifiResource(firewallMod, "Rule")},
+			"unifi_network":        {Tok: unifiResource(mainMod, "Network")},
+			"unifi_port_forward":   {Tok: unifiResource(portMod, "Forward")},
+			"unifi_port_profile":   {Tok: unifiResource(portMod, "Profile")},
+			"unifi_setting_mgmt":   {Tok: unifiResource(settingMod, "Mgmt")},
+			"unifi_setting_usg":    {Tok: unifiResource(settingMod, "USG")},
+			"unifi_site":           {Tok: unifiResource(mainMod, "Site")},
+			"unifi_static_route":   {Tok: unifiResource(mainMod, "StaticRoute")},
+			"unifi_user":           {Tok: unifiResource(iamMod, "User")},
+			"unifi_user_group":     {Tok: unifiResource(iamMod, "Group")},
+			"unifi_wlan":           {Tok: unifiResource(mainMod, "Wlan")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			"unifi_ap_group":       {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getApGroup")},
-			"unifi_network":        {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getNetwork")},
-			"unifi_port_profile":   {Tok: tfbridge.MakeDataSource(mainPkg, "Port", "getProfile")},
-			"unifi_radius_profile": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getRadiusProfile")},
-			"unifi_user":           {Tok: tfbridge.MakeDataSource(mainPkg, "IAM", "getUser")},
-			"unifi_user_group":     {Tok: tfbridge.MakeDataSource(mainPkg, "IAM", "getGroup")},
+			"unifi_ap_group":       {Tok: unifiDataSource(mainMod, "getApGroup")},
+			"unifi_network":        {Tok: unifiDataSource(mainMod, "getNetwork")},
+			"unifi_port_profile":   {Tok: unifiDataSource(portMod, "getProfile")},
+			"unifi_radius_profile": {Tok: unifiDataSource(mainMod, "getRadiusProfile")},
+			"unifi_user":           {Tok: unifiDataSource(iamMod, "getUser")},
+			"unifi_user_group":     {Tok: unifiDataSource(iamMod, "getGroup")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: "@pulumiverse/unifi",
@@ -169,6 +209,7 @@ func Provider() tfbridge.ProviderInfo {
 				"Pulumi": "3.*",
 			},
 			RootNamespace: "Pulumiverse",
+			Namespaces:    namespaceMap,
 		},
 	}
 
