@@ -115,5 +115,12 @@ install_java_sdk::
 
 install_sdks:: install_dotnet_sdk install_python_sdk install_nodejs_sdk install_java_sdk
 
+test_setup::
+	docker compose up -d unifi
+	docker compose up bootstrap
+
+test_teardown::
+	docker compose down
+
 test::
 	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
