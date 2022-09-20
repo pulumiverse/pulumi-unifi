@@ -1,3 +1,3 @@
 module github.com/pulumiverse/pulumi-unifi/examples
 
-go 1.16
+go 1.19
