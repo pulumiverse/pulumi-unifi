@@ -11,6 +11,51 @@ import (
 )
 
 // `port.Profile` manages a port profile for use on network switches.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			cfg := config.New(ctx, "")
+//			vlanId := 10
+//			if param := cfg.GetFloat64("vlanId"); param != 0 {
+//				vlanId = param
+//			}
+//			vlan, err := unifi.NewNetwork(ctx, "vlan", &unifi.NetworkArgs{
+//				Purpose:     pulumi.String("corporate"),
+//				Subnet:      pulumi.String("10.0.0.1/24"),
+//				VlanId:      pulumi.Float64(vlanId),
+//				DhcpStart:   pulumi.String("10.0.0.6"),
+//				DhcpStop:    pulumi.String("10.0.0.254"),
+//				DhcpEnabled: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = port.NewProfile(ctx, "poeDisabled", &port.ProfileArgs{
+//				NativeNetworkconfId: vlan.ID(),
+//				PoeMode:             pulumi.String("off"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Profile struct {
 	pulumi.CustomResourceState
 

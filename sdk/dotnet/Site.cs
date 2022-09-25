@@ -13,6 +13,23 @@ namespace Pulumiverse.Unifi
     /// <summary>
     /// `unifi.Site` manages Unifi sites
     /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var mysite = new Unifi.Site("mysite", new()
+    ///     {
+    ///         Description = "mysite",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// # import using the API/UI ID
@@ -28,7 +45,7 @@ namespace Pulumiverse.Unifi
     /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/site:Site")]
-    public partial class Site : Pulumi.CustomResource
+    public partial class Site : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The description of the site.
@@ -87,7 +104,7 @@ namespace Pulumiverse.Unifi
         }
     }
 
-    public sealed class SiteArgs : Pulumi.ResourceArgs
+    public sealed class SiteArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The description of the site.
@@ -98,9 +115,10 @@ namespace Pulumiverse.Unifi
         public SiteArgs()
         {
         }
+        public static new SiteArgs Empty => new SiteArgs();
     }
 
-    public sealed class SiteState : Pulumi.ResourceArgs
+    public sealed class SiteState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The description of the site.
@@ -117,5 +135,6 @@ namespace Pulumiverse.Unifi
         public SiteState()
         {
         }
+        public static new SiteState Empty => new SiteState();
     }
 }

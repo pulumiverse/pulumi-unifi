@@ -10,6 +10,62 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi-unifi/sdk/go/unifi/port"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			disabled, err := port.LookupProfile(ctx, &port.LookupProfileArgs{
+//				Name: pulumi.StringRef("Disabled"),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			poe, err := port.NewProfile(ctx, "poe", &port.ProfileArgs{
+//				Forward:             pulumi.String("customize"),
+//				NativeNetworkconfId: pulumi.Any(_var.Native_network_id),
+//				TaggedNetworkconfIds: pulumi.StringArray{
+//					pulumi.Any(_var.Some_vlan_network_id),
+//				},
+//				PoeMode: pulumi.String("auto"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.NewDevice(ctx, "us24Poe", &unifi.DeviceArgs{
+//				Mac: pulumi.String("01:23:45:67:89:AB"),
+//				PortOverrides: DevicePortOverrideArray{
+//					&DevicePortOverrideArgs{
+//						Number:        pulumi.Int(1),
+//						Name:          pulumi.String("port w/ poe"),
+//						PortProfileId: poe.ID(),
+//					},
+//					&DevicePortOverrideArgs{
+//						Number:        pulumi.Int(2),
+//						Name:          pulumi.String("disabled"),
+//						PortProfileId: pulumi.String(disabled.Id),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Device struct {
 	pulumi.CustomResourceState
 

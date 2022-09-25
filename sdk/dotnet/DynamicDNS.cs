@@ -12,9 +12,30 @@ namespace Pulumiverse.Unifi
 {
     /// <summary>
     /// `unifi.DynamicDNS` manages dynamic DNS settings for different providers.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var test = new Unifi.DynamicDNS("test", new()
+    ///     {
+    ///         Service = "dyndns",
+    ///         HostName = "my-network.example.com",
+    ///         Server = "domains.google.com",
+    ///         Login = @var.Dns_login,
+    ///         Password = @var.Dns_password,
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/dynamicDNS:DynamicDNS")]
-    public partial class DynamicDNS : Pulumi.CustomResource
+    public partial class DynamicDNS : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The host name to update in the dynamic DNS service.
@@ -103,7 +124,7 @@ namespace Pulumiverse.Unifi
         }
     }
 
-    public sealed class DynamicDNSArgs : Pulumi.ResourceArgs
+    public sealed class DynamicDNSArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The host name to update in the dynamic DNS service.
@@ -150,9 +171,10 @@ namespace Pulumiverse.Unifi
         public DynamicDNSArgs()
         {
         }
+        public static new DynamicDNSArgs Empty => new DynamicDNSArgs();
     }
 
-    public sealed class DynamicDNSState : Pulumi.ResourceArgs
+    public sealed class DynamicDNSState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The host name to update in the dynamic DNS service.
@@ -199,5 +221,6 @@ namespace Pulumiverse.Unifi
         public DynamicDNSState()
         {
         }
+        public static new DynamicDNSState Empty => new DynamicDNSState();
     }
 }

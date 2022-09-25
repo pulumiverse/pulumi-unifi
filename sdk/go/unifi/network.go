@@ -13,6 +13,55 @@ import (
 
 // `Network` manages WAN/LAN/VLAN networks.
 //
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			cfg := config.New(ctx, "")
+//			vlanId := 10
+//			if param := cfg.GetFloat64("vlanId"); param != 0 {
+//				vlanId = param
+//			}
+//			_, err := unifi.NewNetwork(ctx, "vlan", &unifi.NetworkArgs{
+//				Purpose:     pulumi.String("corporate"),
+//				Subnet:      pulumi.String("10.0.0.1/24"),
+//				VlanId:      pulumi.Float64(vlanId),
+//				DhcpStart:   pulumi.String("10.0.0.6"),
+//				DhcpStop:    pulumi.String("10.0.0.254"),
+//				DhcpEnabled: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.NewNetwork(ctx, "wan", &unifi.NetworkArgs{
+//				Purpose:         pulumi.String("wan"),
+//				WanNetworkgroup: pulumi.String("WAN"),
+//				WanType:         pulumi.String("pppoe"),
+//				WanIp:           pulumi.String("192.168.1.1"),
+//				WanEgressQos:    pulumi.Int(1),
+//				WanUsername:     pulumi.String("username"),
+//				XWanPassword:    pulumi.String("password"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Import
 //
 // # import from provider configured site

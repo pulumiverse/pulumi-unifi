@@ -14,19 +14,61 @@ namespace Pulumiverse.Unifi.IAM
     {
         /// <summary>
         /// `unifi.iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using Pulumi;
+        /// using Unifi = Pulumi.Unifi;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var client = Unifi.IAM.GetUser.Invoke(new()
+        ///     {
+        ///         Mac = "01:23:45:67:89:ab",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
         /// </summary>
         public static Task<GetUserResult> InvokeAsync(GetUserArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetUserResult>("unifi:iam/getUser:getUser", args ?? new GetUserArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using Pulumi;
+        /// using Unifi = Pulumi.Unifi;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var client = Unifi.IAM.GetUser.Invoke(new()
+        ///     {
+        ///         Mac = "01:23:45:67:89:ab",
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
         /// </summary>
         public static Output<GetUserResult> Invoke(GetUserInvokeArgs args, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetUserResult>("unifi:iam/getUser:getUser", args ?? new GetUserInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetUserArgs : Pulumi.InvokeArgs
+    public sealed class GetUserArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The MAC address of the user.
@@ -43,9 +85,10 @@ namespace Pulumiverse.Unifi.IAM
         public GetUserArgs()
         {
         }
+        public static new GetUserArgs Empty => new GetUserArgs();
     }
 
-    public sealed class GetUserInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetUserInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The MAC address of the user.
@@ -62,6 +105,7 @@ namespace Pulumiverse.Unifi.IAM
         public GetUserInvokeArgs()
         {
         }
+        public static new GetUserInvokeArgs Empty => new GetUserInvokeArgs();
     }
 
 

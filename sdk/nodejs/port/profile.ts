@@ -6,6 +6,28 @@ import * as utilities from "../utilities";
 
 /**
  * `unifi.port.Profile` manages a port profile for use on network switches.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const config = new pulumi.Config();
+ * const vlanId = config.getNumber("vlanId") || 10;
+ * const vlan = new unifi.Network("vlan", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.0.1/24",
+ *     vlanId: vlanId,
+ *     dhcpStart: "10.0.0.6",
+ *     dhcpStop: "10.0.0.254",
+ *     dhcpEnabled: true,
+ * });
+ * const poeDisabled = new unifi.port.Profile("poeDisabled", {
+ *     nativeNetworkconfId: vlan.id,
+ *     poeMode: "off",
+ * });
+ * ```
  */
 export class Profile extends pulumi.CustomResource {
     /**

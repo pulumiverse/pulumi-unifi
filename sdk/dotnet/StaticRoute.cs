@@ -12,9 +12,44 @@ namespace Pulumiverse.Unifi
 {
     /// <summary>
     /// `unifi.StaticRoute` manages a static route.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var nexthop = new Unifi.StaticRoute("nexthop", new()
+    ///     {
+    ///         Type = "nexthop-route",
+    ///         Network = "172.17.0.0/16",
+    ///         Distance = 1,
+    ///         NextHop = "172.16.0.1",
+    ///     });
+    /// 
+    ///     var blackhole = new Unifi.StaticRoute("blackhole", new()
+    ///     {
+    ///         Type = "blackhole",
+    ///         Network = @var.Blackhole_cidr,
+    ///         Distance = 1,
+    ///     });
+    /// 
+    ///     var @interface = new Unifi.StaticRoute("interface", new()
+    ///     {
+    ///         Type = "interface-route",
+    ///         Network = @var.Wan2_cidr,
+    ///         Distance = 1,
+    ///         Interface = "WAN2",
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/staticRoute:StaticRoute")]
-    public partial class StaticRoute : Pulumi.CustomResource
+    public partial class StaticRoute : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The distance of the static route.
@@ -103,7 +138,7 @@ namespace Pulumiverse.Unifi
         }
     }
 
-    public sealed class StaticRouteArgs : Pulumi.ResourceArgs
+    public sealed class StaticRouteArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The distance of the static route.
@@ -150,9 +185,10 @@ namespace Pulumiverse.Unifi
         public StaticRouteArgs()
         {
         }
+        public static new StaticRouteArgs Empty => new StaticRouteArgs();
     }
 
-    public sealed class StaticRouteState : Pulumi.ResourceArgs
+    public sealed class StaticRouteState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The distance of the static route.
@@ -199,5 +235,6 @@ namespace Pulumiverse.Unifi
         public StaticRouteState()
         {
         }
+        public static new StaticRouteState Empty => new StaticRouteState();
     }
 }

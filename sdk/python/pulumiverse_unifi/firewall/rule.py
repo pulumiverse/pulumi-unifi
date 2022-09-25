@@ -791,6 +791,22 @@ class Rule(pulumi.CustomResource):
         """
         `firewall.Rule` manages an individual firewall rule on the gateway.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        ip_address = config.require("ipAddress")
+        drop_all = unifi.firewall.Rule("dropAll",
+            action="drop",
+            ruleset="LAN_IN",
+            rule_index=2011,
+            protocol="all",
+            dst_address=ip_address)
+        ```
+
         ## Import
 
         # import using the ID from the controller API/UI
@@ -833,6 +849,22 @@ class Rule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `firewall.Rule` manages an individual firewall rule on the gateway.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        ip_address = config.require("ipAddress")
+        drop_all = unifi.firewall.Rule("dropAll",
+            action="drop",
+            ruleset="LAN_IN",
+            rule_index=2011,
+            protocol="all",
+            dst_address=ip_address)
+        ```
 
         ## Import
 

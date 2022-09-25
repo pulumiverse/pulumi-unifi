@@ -264,6 +264,28 @@ class StaticRoute(pulumi.CustomResource):
         """
         `StaticRoute` manages a static route.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        nexthop = unifi.StaticRoute("nexthop",
+            type="nexthop-route",
+            network="172.17.0.0/16",
+            distance=1,
+            next_hop="172.16.0.1")
+        blackhole = unifi.StaticRoute("blackhole",
+            type="blackhole",
+            network=var["blackhole_cidr"],
+            distance=1)
+        interface = unifi.StaticRoute("interface",
+            type="interface-route",
+            network=var["wan2_cidr"],
+            distance=1,
+            interface="WAN2")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] distance: The distance of the static route.
@@ -282,6 +304,28 @@ class StaticRoute(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `StaticRoute` manages a static route.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        nexthop = unifi.StaticRoute("nexthop",
+            type="nexthop-route",
+            network="172.17.0.0/16",
+            distance=1,
+            next_hop="172.16.0.1")
+        blackhole = unifi.StaticRoute("blackhole",
+            type="blackhole",
+            network=var["blackhole_cidr"],
+            distance=1)
+        interface = unifi.StaticRoute("interface",
+            type="interface-route",
+            network=var["wan2_cidr"],
+            distance=1,
+            interface="WAN2")
+        ```
 
         :param str resource_name: The name of the resource.
         :param StaticRouteArgs args: The arguments to use to populate this resource's properties.

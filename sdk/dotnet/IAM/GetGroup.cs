@@ -26,7 +26,7 @@ namespace Pulumiverse.Unifi.IAM
     }
 
 
-    public sealed class GetGroupArgs : Pulumi.InvokeArgs
+    public sealed class GetGroupArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name of the user group to look up. Defaults to `Default`.
@@ -43,9 +43,10 @@ namespace Pulumiverse.Unifi.IAM
         public GetGroupArgs()
         {
         }
+        public static new GetGroupArgs Empty => new GetGroupArgs();
     }
 
-    public sealed class GetGroupInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetGroupInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name of the user group to look up. Defaults to `Default`.
@@ -62,6 +63,7 @@ namespace Pulumiverse.Unifi.IAM
         public GetGroupInvokeArgs()
         {
         }
+        public static new GetGroupInvokeArgs Empty => new GetGroupInvokeArgs();
     }
 
 

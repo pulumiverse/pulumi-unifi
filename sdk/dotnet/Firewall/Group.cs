@@ -12,9 +12,29 @@ namespace Pulumiverse.Unifi.Firewall
 {
     /// <summary>
     /// `unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var config = new Config();
+    ///     var laptopIps = config.RequireObject&lt;dynamic&gt;("laptopIps");
+    ///     var canPrint = new Unifi.Firewall.Group("canPrint", new()
+    ///     {
+    ///         Type = "address-group",
+    ///         Members = laptopIps,
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [UnifiResourceType("unifi:firewall/group:Group")]
-    public partial class Group : Pulumi.CustomResource
+    public partial class Group : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The members of the firewall group.
@@ -85,7 +105,7 @@ namespace Pulumiverse.Unifi.Firewall
         }
     }
 
-    public sealed class GroupArgs : Pulumi.ResourceArgs
+    public sealed class GroupArgs : global::Pulumi.ResourceArgs
     {
         [Input("members", required: true)]
         private InputList<string>? _members;
@@ -120,9 +140,10 @@ namespace Pulumiverse.Unifi.Firewall
         public GroupArgs()
         {
         }
+        public static new GroupArgs Empty => new GroupArgs();
     }
 
-    public sealed class GroupState : Pulumi.ResourceArgs
+    public sealed class GroupState : global::Pulumi.ResourceArgs
     {
         [Input("members")]
         private InputList<string>? _members;
@@ -157,5 +178,6 @@ namespace Pulumiverse.Unifi.Firewall
         public GroupState()
         {
         }
+        public static new GroupState Empty => new GroupState();
     }
 }

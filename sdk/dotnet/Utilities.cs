@@ -75,7 +75,7 @@ namespace Pulumiverse.Unifi
         }
     }
 
-    internal sealed class UnifiResourceTypeAttribute : Pulumi.ResourceTypeAttribute
+    internal sealed class UnifiResourceTypeAttribute : global::Pulumi.ResourceTypeAttribute
     {
         public UnifiResourceTypeAttribute(string type) : base(type, Utilities.Version)
         {

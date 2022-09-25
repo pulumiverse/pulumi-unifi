@@ -12,6 +12,52 @@ import (
 )
 
 // `StaticRoute` manages a static route.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := unifi.NewStaticRoute(ctx, "nexthop", &unifi.StaticRouteArgs{
+//				Type:     pulumi.String("nexthop-route"),
+//				Network:  pulumi.String("172.17.0.0/16"),
+//				Distance: pulumi.Int(1),
+//				NextHop:  pulumi.String("172.16.0.1"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.NewStaticRoute(ctx, "blackhole", &unifi.StaticRouteArgs{
+//				Type:     pulumi.String("blackhole"),
+//				Network:  pulumi.Any(_var.Blackhole_cidr),
+//				Distance: pulumi.Int(1),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.NewStaticRoute(ctx, "interface", &unifi.StaticRouteArgs{
+//				Type:      pulumi.String("interface-route"),
+//				Network:   pulumi.Any(_var.Wan2_cidr),
+//				Distance:  pulumi.Int(1),
+//				Interface: pulumi.String("WAN2"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type StaticRoute struct {
 	pulumi.CustomResourceState
 

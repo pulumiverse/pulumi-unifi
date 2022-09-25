@@ -170,6 +170,18 @@ class Mgmt(pulumi.CustomResource):
         """
         `setting.Mgmt` manages settings for a unifi site.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example_site = unifi.Site("exampleSite", description="example")
+        example_mgmt = unifi.setting.Mgmt("exampleMgmt",
+            site=example_site.name,
+            auto_upgrade=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] auto_upgrade: Automatically upgrade device firmware.
@@ -185,6 +197,18 @@ class Mgmt(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `setting.Mgmt` manages settings for a unifi site.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example_site = unifi.Site("exampleSite", description="example")
+        example_mgmt = unifi.setting.Mgmt("exampleMgmt",
+            site=example_site.name,
+            auto_upgrade=True)
+        ```
 
         :param str resource_name: The name of the resource.
         :param MgmtArgs args: The arguments to use to populate this resource's properties.

@@ -17,7 +17,7 @@ namespace Pulumiverse.Unifi
     /// [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
     /// </summary>
     [UnifiResourceType("pulumi:providers:unifi")]
-    public partial class Provider : Pulumi.ProviderResource
+    public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
         /// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
@@ -73,7 +73,7 @@ namespace Pulumiverse.Unifi
         }
     }
 
-    public sealed class ProviderArgs : Pulumi.ResourceArgs
+    public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
@@ -117,5 +117,6 @@ namespace Pulumiverse.Unifi
             Site = Utilities.GetEnv("UNIFI_SITE");
             Username = Utilities.GetEnv("UNIFI_USERNAME");
         }
+        public static new ProviderArgs Empty => new ProviderArgs();
     }
 }

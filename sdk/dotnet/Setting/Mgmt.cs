@@ -12,9 +12,32 @@ namespace Pulumiverse.Unifi.Setting
 {
     /// <summary>
     /// `unifi.setting.Mgmt` manages settings for a unifi site.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var exampleSite = new Unifi.Site("exampleSite", new()
+    ///     {
+    ///         Description = "example",
+    ///     });
+    /// 
+    ///     var exampleMgmt = new Unifi.Setting.Mgmt("exampleMgmt", new()
+    ///     {
+    ///         Site = exampleSite.Name,
+    ///         AutoUpgrade = true,
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [UnifiResourceType("unifi:setting/mgmt:Mgmt")]
-    public partial class Mgmt : Pulumi.CustomResource
+    public partial class Mgmt : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Automatically upgrade device firmware.
@@ -85,7 +108,7 @@ namespace Pulumiverse.Unifi.Setting
         }
     }
 
-    public sealed class MgmtArgs : Pulumi.ResourceArgs
+    public sealed class MgmtArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Automatically upgrade device firmware.
@@ -120,9 +143,10 @@ namespace Pulumiverse.Unifi.Setting
         public MgmtArgs()
         {
         }
+        public static new MgmtArgs Empty => new MgmtArgs();
     }
 
-    public sealed class MgmtState : Pulumi.ResourceArgs
+    public sealed class MgmtState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Automatically upgrade device firmware.
@@ -157,5 +181,6 @@ namespace Pulumiverse.Unifi.Setting
         public MgmtState()
         {
         }
+        public static new MgmtState Empty => new MgmtState();
     }
 }

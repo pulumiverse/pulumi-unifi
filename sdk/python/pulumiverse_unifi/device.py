@@ -184,7 +184,35 @@ class Device(pulumi.CustomResource):
                  site: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
-        Create a Device resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_unifi as unifi
+        import pulumiverse_unifi as unifi
+
+        disabled = unifi.port.get_profile(name="Disabled")
+        poe = unifi.port.Profile("poe",
+            forward="customize",
+            native_networkconf_id=var["native_network_id"],
+            tagged_networkconf_ids=[var["some_vlan_network_id"]],
+            poe_mode="auto")
+        us24_poe = unifi.Device("us24Poe",
+            mac="01:23:45:67:89:AB",
+            port_overrides=[
+                unifi.DevicePortOverrideArgs(
+                    number=1,
+                    name="port w/ poe",
+                    port_profile_id=poe.id,
+                ),
+                unifi.DevicePortOverrideArgs(
+                    number=2,
+                    name="disabled",
+                    port_profile_id=disabled.id,
+                ),
+            ])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] mac: The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
@@ -199,7 +227,35 @@ class Device(pulumi.CustomResource):
                  args: Optional[DeviceArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Device resource with the given unique name, props, and options.
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_unifi as unifi
+        import pulumiverse_unifi as unifi
+
+        disabled = unifi.port.get_profile(name="Disabled")
+        poe = unifi.port.Profile("poe",
+            forward="customize",
+            native_networkconf_id=var["native_network_id"],
+            tagged_networkconf_ids=[var["some_vlan_network_id"]],
+            poe_mode="auto")
+        us24_poe = unifi.Device("us24Poe",
+            mac="01:23:45:67:89:AB",
+            port_overrides=[
+                unifi.DevicePortOverrideArgs(
+                    number=1,
+                    name="port w/ poe",
+                    port_profile_id=poe.id,
+                ),
+                unifi.DevicePortOverrideArgs(
+                    number=2,
+                    name="disabled",
+                    port_profile_id=disabled.id,
+                ),
+            ])
+        ```
+
         :param str resource_name: The name of the resource.
         :param DeviceArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

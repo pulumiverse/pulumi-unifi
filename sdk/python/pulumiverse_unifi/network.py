@@ -1058,6 +1058,33 @@ class Network(pulumi.CustomResource):
         """
         `Network` manages WAN/LAN/VLAN networks.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_float("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        wan = unifi.Network("wan",
+            purpose="wan",
+            wan_networkgroup="WAN",
+            wan_type="pppoe",
+            wan_ip="192.168.1.1",
+            wan_egress_qos=1,
+            wan_username="username",
+            x_wan_password="password")
+        ```
+
         ## Import
 
         # import from provider configured site
@@ -1120,6 +1147,33 @@ class Network(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `Network` manages WAN/LAN/VLAN networks.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_float("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        wan = unifi.Network("wan",
+            purpose="wan",
+            wan_networkgroup="WAN",
+            wan_type="pppoe",
+            wan_ip="192.168.1.1",
+            wan_egress_qos=1,
+            wan_username="username",
+            x_wan_password="password")
+        ```
 
         ## Import
 

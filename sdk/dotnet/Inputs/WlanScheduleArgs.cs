@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Inputs
 {
 
-    public sealed class WlanScheduleArgs : Pulumi.ResourceArgs
+    public sealed class WlanScheduleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Time of day to end the block.
@@ -34,5 +34,6 @@ namespace Pulumiverse.Unifi.Inputs
         public WlanScheduleArgs()
         {
         }
+        public static new WlanScheduleArgs Empty => new WlanScheduleArgs();
     }
 }

@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Inputs
 {
 
-    public sealed class DevicePortOverrideArgs : Pulumi.ResourceArgs
+    public sealed class DevicePortOverrideArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Human-readable name of the port.
@@ -34,5 +34,6 @@ namespace Pulumiverse.Unifi.Inputs
         public DevicePortOverrideArgs()
         {
         }
+        public static new DevicePortOverrideArgs Empty => new DevicePortOverrideArgs();
     }
 }

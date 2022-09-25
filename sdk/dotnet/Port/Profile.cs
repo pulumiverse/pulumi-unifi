@@ -12,9 +12,39 @@ namespace Pulumiverse.Unifi.Port
 {
     /// <summary>
     /// `unifi.port.Profile` manages a port profile for use on network switches.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var config = new Config();
+    ///     var vlanId = config.GetNumber("vlanId") ?? 10;
+    ///     var vlan = new Unifi.Network("vlan", new()
+    ///     {
+    ///         Purpose = "corporate",
+    ///         Subnet = "10.0.0.1/24",
+    ///         VlanId = vlanId,
+    ///         DhcpStart = "10.0.0.6",
+    ///         DhcpStop = "10.0.0.254",
+    ///         DhcpEnabled = true,
+    ///     });
+    /// 
+    ///     var poeDisabled = new Unifi.Port.Profile("poeDisabled", new()
+    ///     {
+    ///         NativeNetworkconfId = vlan.Id,
+    ///         PoeMode = "off",
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [UnifiResourceType("unifi:port/profile:Profile")]
-    public partial class Profile : Pulumi.CustomResource
+    public partial class Profile : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
@@ -271,7 +301,7 @@ namespace Pulumiverse.Unifi.Port
         }
     }
 
-    public sealed class ProfileArgs : Pulumi.ResourceArgs
+    public sealed class ProfileArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
@@ -498,9 +528,10 @@ namespace Pulumiverse.Unifi.Port
         public ProfileArgs()
         {
         }
+        public static new ProfileArgs Empty => new ProfileArgs();
     }
 
-    public sealed class ProfileState : Pulumi.ResourceArgs
+    public sealed class ProfileState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
@@ -727,5 +758,6 @@ namespace Pulumiverse.Unifi.Port
         public ProfileState()
         {
         }
+        public static new ProfileState Empty => new ProfileState();
     }
 }
