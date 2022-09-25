@@ -5,12 +5,16 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 // Export members:
-export * from "./mgmt";
-export * from "./usg";
+export { MgmtArgs, MgmtState } from "./mgmt";
+export type Mgmt = import("./mgmt").Mgmt;
+export const Mgmt: typeof import("./mgmt").Mgmt = null as any;
 
-// Import resources to register:
-import { Mgmt } from "./mgmt";
-import { USG } from "./usg";
+export { USGArgs, USGState } from "./usg";
+export type USG = import("./usg").USG;
+export const USG: typeof import("./usg").USG = null as any;
+
+utilities.lazyLoad(exports, ["Mgmt"], () => require("./mgmt"));
+utilities.lazyLoad(exports, ["USG"], () => require("./usg"));
 
 const _module = {
     version: utilities.getVersion(),

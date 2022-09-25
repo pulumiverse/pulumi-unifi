@@ -5,13 +5,21 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 // Export members:
-export * from "./forward";
-export * from "./getProfile";
-export * from "./profile";
+export { ForwardArgs, ForwardState } from "./forward";
+export type Forward = import("./forward").Forward;
+export const Forward: typeof import("./forward").Forward = null as any;
 
-// Import resources to register:
-import { Forward } from "./forward";
-import { Profile } from "./profile";
+export { GetProfileArgs, GetProfileResult, GetProfileOutputArgs } from "./getProfile";
+export const getProfile: typeof import("./getProfile").getProfile = null as any;
+export const getProfileOutput: typeof import("./getProfile").getProfileOutput = null as any;
+
+export { ProfileArgs, ProfileState } from "./profile";
+export type Profile = import("./profile").Profile;
+export const Profile: typeof import("./profile").Profile = null as any;
+
+utilities.lazyLoad(exports, ["Forward"], () => require("./forward"));
+utilities.lazyLoad(exports, ["getProfile","getProfileOutput"], () => require("./getProfile"));
+utilities.lazyLoad(exports, ["Profile"], () => require("./profile"));
 
 const _module = {
     version: utilities.getVersion(),

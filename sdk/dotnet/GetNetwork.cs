@@ -47,7 +47,7 @@ namespace Pulumiverse.Unifi
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetNetworkResult> InvokeAsync(GetNetworkArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetNetworkResult>("unifi:index/getNetwork:getNetwork", args ?? new GetNetworkArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetNetworkResult>("unifi:index/getNetwork:getNetwork", args ?? new GetNetworkArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
@@ -84,7 +84,7 @@ namespace Pulumiverse.Unifi
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetNetworkResult> Invoke(GetNetworkInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetNetworkResult>("unifi:index/getNetwork:getNetwork", args ?? new GetNetworkInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetNetworkResult>("unifi:index/getNetwork:getNetwork", args ?? new GetNetworkInvokeArgs(), options.WithDefaults());
     }
 
 

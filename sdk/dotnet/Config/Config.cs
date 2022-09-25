@@ -30,7 +30,7 @@ namespace Pulumiverse.Unifi
             }
         }
 
-        private static readonly Pulumi.Config __config = new Pulumi.Config("unifi");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("unifi");
 
         private static readonly __Value<bool?> _allowInsecure = new __Value<bool?>(() => __config.GetBoolean("allowInsecure") ?? Utilities.GetEnvBoolean("UNIFI_INSECURE"));
         /// <summary>
