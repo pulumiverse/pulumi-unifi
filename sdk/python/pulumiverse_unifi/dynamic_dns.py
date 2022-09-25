@@ -265,6 +265,20 @@ class DynamicDNS(pulumi.CustomResource):
         """
         `DynamicDNS` manages dynamic DNS settings for different providers.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        test = unifi.DynamicDNS("test",
+            service="dyndns",
+            host_name="my-network.example.com",
+            server="domains.google.com",
+            login=var["dns_login"],
+            password=var["dns_password"])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] host_name: The host name to update in the dynamic DNS service.
@@ -283,6 +297,20 @@ class DynamicDNS(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `DynamicDNS` manages dynamic DNS settings for different providers.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        test = unifi.DynamicDNS("test",
+            service="dyndns",
+            host_name="my-network.example.com",
+            server="domains.google.com",
+            login=var["dns_login"],
+            password=var["dns_password"])
+        ```
 
         :param str resource_name: The name of the resource.
         :param DynamicDNSArgs args: The arguments to use to populate this resource's properties.

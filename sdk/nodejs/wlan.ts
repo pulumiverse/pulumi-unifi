@@ -8,6 +8,37 @@ import * as utilities from "./utilities";
 /**
  * `unifi.Wlan` manages a WiFi network / SSID.
  *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumi/unifi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const config = new pulumi.Config();
+ * const vlanId = config.getNumber("vlanId") || 10;
+ * const defaultApGroup = unifi.getApGroup({});
+ * const defaultGroup = unifi.iam.getGroup({});
+ * const vlan = new unifi.Network("vlan", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.0.1/24",
+ *     vlanId: vlanId,
+ *     dhcpStart: "10.0.0.6",
+ *     dhcpStop: "10.0.0.254",
+ *     dhcpEnabled: true,
+ * });
+ * const wifi = new unifi.Wlan("wifi", {
+ *     passphrase: "12345678",
+ *     security: "wpapsk",
+ *     wpa3Support: true,
+ *     wpa3Transition: true,
+ *     pmfMode: "optional",
+ *     networkId: vlan.id,
+ *     apGroupIds: [defaultApGroup.then(defaultApGroup => defaultApGroup.id)],
+ *     userGroupId: defaultGroup.then(defaultGroup => defaultGroup.id),
+ * });
+ * ```
+ *
  * ## Import
  *
  * # import from provider configured site

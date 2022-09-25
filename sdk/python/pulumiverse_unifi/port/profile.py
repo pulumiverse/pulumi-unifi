@@ -1191,6 +1191,28 @@ class Profile(pulumi.CustomResource):
         """
         `port.Profile` manages a port profile for use on network switches.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_float("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        poe_disabled = unifi.port.Profile("poeDisabled",
+            native_networkconf_id=vlan.id,
+            poe_mode="off")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] autoneg: Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
@@ -1237,6 +1259,28 @@ class Profile(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `port.Profile` manages a port profile for use on network switches.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_float("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        poe_disabled = unifi.port.Profile("poeDisabled",
+            native_networkconf_id=vlan.id,
+            poe_mode="off")
+        ```
 
         :param str resource_name: The name of the resource.
         :param ProfileArgs args: The arguments to use to populate this resource's properties.

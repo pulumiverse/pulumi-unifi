@@ -74,6 +74,15 @@ def get_ap_group(name: Optional[str] = None,
     """
     `get_ap_group` data source can be used to retrieve the ID for an AP group by name.
 
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    default = unifi.get_ap_group()
+    ```
+
 
     :param str name: The name of the AP group to look up, leave blank to look up the default AP group.
     :param str site: The name of the site the AP group is associated with.
@@ -96,6 +105,15 @@ def get_ap_group_output(name: Optional[pulumi.Input[Optional[str]]] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetApGroupResult]:
     """
     `get_ap_group` data source can be used to retrieve the ID for an AP group by name.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    default = unifi.get_ap_group()
+    ```
 
 
     :param str name: The name of the AP group to look up, leave blank to look up the default AP group.

@@ -13,6 +13,68 @@ import (
 
 // `Wlan` manages a WiFi network / SSID.
 //
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi-unifi/sdk/go/unifi/iam"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			cfg := config.New(ctx, "")
+//			vlanId := 10
+//			if param := cfg.GetFloat64("vlanId"); param != 0 {
+//				vlanId = param
+//			}
+//			defaultApGroup, err := unifi.GetApGroup(ctx, nil, nil)
+//			if err != nil {
+//				return err
+//			}
+//			defaultGroup, err := iam.LookupGroup(ctx, nil, nil)
+//			if err != nil {
+//				return err
+//			}
+//			vlan, err := unifi.NewNetwork(ctx, "vlan", &unifi.NetworkArgs{
+//				Purpose:     pulumi.String("corporate"),
+//				Subnet:      pulumi.String("10.0.0.1/24"),
+//				VlanId:      pulumi.Float64(vlanId),
+//				DhcpStart:   pulumi.String("10.0.0.6"),
+//				DhcpStop:    pulumi.String("10.0.0.254"),
+//				DhcpEnabled: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.NewWlan(ctx, "wifi", &unifi.WlanArgs{
+//				Passphrase:     pulumi.String("12345678"),
+//				Security:       pulumi.String("wpapsk"),
+//				Wpa3Support:    pulumi.Bool(true),
+//				Wpa3Transition: pulumi.Bool(true),
+//				PmfMode:        pulumi.String("optional"),
+//				NetworkId:      vlan.ID(),
+//				ApGroupIds: pulumi.StringArray{
+//					pulumi.String(defaultApGroup.Id),
+//				},
+//				UserGroupId: pulumi.String(defaultGroup.Id),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
 // ## Import
 //
 // # import from provider configured site

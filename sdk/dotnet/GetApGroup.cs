@@ -14,19 +14,55 @@ namespace Pulumiverse.Unifi
     {
         /// <summary>
         /// `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using Pulumi;
+        /// using Unifi = Pulumi.Unifi;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var @default = Unifi.GetApGroup.Invoke();
+        /// 
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
         /// </summary>
         public static Task<GetApGroupResult> InvokeAsync(GetApGroupArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.InvokeAsync<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using Pulumi;
+        /// using Unifi = Pulumi.Unifi;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var @default = Unifi.GetApGroup.Invoke();
+        /// 
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
         /// </summary>
         public static Output<GetApGroupResult> Invoke(GetApGroupInvokeArgs? args = null, InvokeOptions? options = null)
             => Pulumi.Deployment.Instance.Invoke<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetApGroupArgs : Pulumi.InvokeArgs
+    public sealed class GetApGroupArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name of the AP group to look up, leave blank to look up the default AP group.
@@ -43,9 +79,10 @@ namespace Pulumiverse.Unifi
         public GetApGroupArgs()
         {
         }
+        public static new GetApGroupArgs Empty => new GetApGroupArgs();
     }
 
-    public sealed class GetApGroupInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetApGroupInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name of the AP group to look up, leave blank to look up the default AP group.
@@ -62,6 +99,7 @@ namespace Pulumiverse.Unifi
         public GetApGroupInvokeArgs()
         {
         }
+        public static new GetApGroupInvokeArgs Empty => new GetApGroupInvokeArgs();
     }
 
 

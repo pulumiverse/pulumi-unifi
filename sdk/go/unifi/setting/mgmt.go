@@ -11,6 +11,40 @@ import (
 )
 
 // `setting.Mgmt` manages settings for a unifi site.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleSite, err := unifi.NewSite(ctx, "exampleSite", &unifi.SiteArgs{
+//				Description: pulumi.String("example"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = setting.NewMgmt(ctx, "exampleMgmt", &setting.MgmtArgs{
+//				Site:        exampleSite.Name,
+//				AutoUpgrade: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Mgmt struct {
 	pulumi.CustomResourceState
 

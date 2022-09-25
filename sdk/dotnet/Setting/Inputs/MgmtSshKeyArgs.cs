@@ -11,7 +11,7 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Setting.Inputs
 {
 
-    public sealed class MgmtSshKeyArgs : Pulumi.ResourceArgs
+    public sealed class MgmtSshKeyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Comment.
@@ -40,5 +40,6 @@ namespace Pulumiverse.Unifi.Setting.Inputs
         public MgmtSshKeyArgs()
         {
         }
+        public static new MgmtSshKeyArgs Empty => new MgmtSshKeyArgs();
     }
 }

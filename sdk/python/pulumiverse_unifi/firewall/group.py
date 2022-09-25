@@ -166,6 +166,19 @@ class Group(pulumi.CustomResource):
         """
         `firewall.Group` manages groups of addresses or ports for use in firewall rules (`firewall.Rule`).
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        laptop_ips = config.require_object("laptopIps")
+        can_print = unifi.firewall.Group("canPrint",
+            type="address-group",
+            members=laptop_ips)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] members: The members of the firewall group.
@@ -181,6 +194,19 @@ class Group(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `firewall.Group` manages groups of addresses or ports for use in firewall rules (`firewall.Rule`).
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        laptop_ips = config.require_object("laptopIps")
+        can_print = unifi.firewall.Group("canPrint",
+            type="address-group",
+            members=laptop_ips)
+        ```
 
         :param str resource_name: The name of the resource.
         :param GroupArgs args: The arguments to use to populate this resource's properties.

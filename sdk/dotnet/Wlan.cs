@@ -13,6 +13,50 @@ namespace Pulumiverse.Unifi
     /// <summary>
     /// `unifi.Wlan` manages a WiFi network / SSID.
     /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumi.Unifi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var config = new Config();
+    ///     var vlanId = config.GetNumber("vlanId") ?? 10;
+    ///     var defaultApGroup = Unifi.GetApGroup.Invoke();
+    /// 
+    ///     var defaultGroup = Unifi.IAM.GetGroup.Invoke();
+    /// 
+    ///     var vlan = new Unifi.Network("vlan", new()
+    ///     {
+    ///         Purpose = "corporate",
+    ///         Subnet = "10.0.0.1/24",
+    ///         VlanId = vlanId,
+    ///         DhcpStart = "10.0.0.6",
+    ///         DhcpStop = "10.0.0.254",
+    ///         DhcpEnabled = true,
+    ///     });
+    /// 
+    ///     var wifi = new Unifi.Wlan("wifi", new()
+    ///     {
+    ///         Passphrase = "12345678",
+    ///         Security = "wpapsk",
+    ///         Wpa3Support = true,
+    ///         Wpa3Transition = true,
+    ///         PmfMode = "optional",
+    ///         NetworkId = vlan.Id,
+    ///         ApGroupIds = new[]
+    ///         {
+    ///             defaultApGroup.Apply(getApGroupResult =&gt; getApGroupResult.Id),
+    ///         },
+    ///         UserGroupId = defaultGroup.Apply(getGroupResult =&gt; getGroupResult.Id),
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// # import from provider configured site
@@ -28,7 +72,7 @@ namespace Pulumiverse.Unifi
     /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/wlan:Wlan")]
-    public partial class Wlan : Pulumi.CustomResource
+    public partial class Wlan : global::Pulumi.CustomResource
     {
         /// <summary>
         /// IDs of the AP groups to use for this network.
@@ -219,7 +263,7 @@ namespace Pulumiverse.Unifi
         }
     }
 
-    public sealed class WlanArgs : Pulumi.ResourceArgs
+    public sealed class WlanArgs : global::Pulumi.ResourceArgs
     {
         [Input("apGroupIds")]
         private InputList<string>? _apGroupIds;
@@ -386,9 +430,10 @@ namespace Pulumiverse.Unifi
         public WlanArgs()
         {
         }
+        public static new WlanArgs Empty => new WlanArgs();
     }
 
-    public sealed class WlanState : Pulumi.ResourceArgs
+    public sealed class WlanState : global::Pulumi.ResourceArgs
     {
         [Input("apGroupIds")]
         private InputList<string>? _apGroupIds;
@@ -555,5 +600,6 @@ namespace Pulumiverse.Unifi
         public WlanState()
         {
         }
+        public static new WlanState Empty => new WlanState();
     }
 }

@@ -7,6 +7,33 @@ import * as utilities from "./utilities";
 /**
  * `unifi.Network` manages WAN/LAN/VLAN networks.
  *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const config = new pulumi.Config();
+ * const vlanId = config.getNumber("vlanId") || 10;
+ * const vlan = new unifi.Network("vlan", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.0.1/24",
+ *     vlanId: vlanId,
+ *     dhcpStart: "10.0.0.6",
+ *     dhcpStop: "10.0.0.254",
+ *     dhcpEnabled: true,
+ * });
+ * const wan = new unifi.Network("wan", {
+ *     purpose: "wan",
+ *     wanNetworkgroup: "WAN",
+ *     wanType: "pppoe",
+ *     wanIp: "192.168.1.1",
+ *     wanEgressQos: 1,
+ *     wanUsername: "username",
+ *     xWanPassword: "password",
+ * });
+ * ```
+ *
  * ## Import
  *
  * # import from provider configured site

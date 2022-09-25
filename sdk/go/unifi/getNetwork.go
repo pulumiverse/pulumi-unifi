@@ -11,6 +11,46 @@ import (
 )
 
 // `Network` data source can be used to retrieve settings for a network by name or ID.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi-unifi/sdk/go/unifi/iam"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := unifi.LookupNetwork(ctx, &GetNetworkArgs{
+//				Name: pulumi.StringRef("LAN"),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			myDevice, err := iam.LookupUser(ctx, &iam.LookupUserArgs{
+//				Mac: "01:23:45:67:89:ab",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.LookupNetwork(ctx, &GetNetworkArgs{
+//				Id: pulumi.StringRef(myDevice.NetworkId),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupNetwork(ctx *pulumi.Context, args *LookupNetworkArgs, opts ...pulumi.InvokeOption) (*LookupNetworkResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv LookupNetworkResult

@@ -7,6 +7,19 @@ import * as utilities from "../utilities";
 
 /**
  * `unifi.setting.Mgmt` manages settings for a unifi site.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const exampleSite = new unifi.Site("exampleSite", {description: "example"});
+ * const exampleMgmt = new unifi.setting.Mgmt("exampleMgmt", {
+ *     site: exampleSite.name,
+ *     autoUpgrade: true,
+ * });
+ * ```
  */
 export class Mgmt extends pulumi.CustomResource {
     /**

@@ -84,6 +84,15 @@ class Site(pulumi.CustomResource):
         """
         `Site` manages Unifi sites
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        mysite = unifi.Site("mysite", description="mysite")
+        ```
+
         ## Import
 
         # import using the API/UI ID
@@ -110,6 +119,15 @@ class Site(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `Site` manages Unifi sites
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        mysite = unifi.Site("mysite", description="mysite")
+        ```
 
         ## Import
 

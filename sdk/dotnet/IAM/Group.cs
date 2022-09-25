@@ -13,6 +13,25 @@ namespace Pulumiverse.Unifi.IAM
     /// <summary>
     /// `unifi.iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
     /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var wifi = new Unifi.IAM.Group("wifi", new()
+    ///     {
+    ///         QosRateMaxDown = 2000,
+    ///         QosRateMaxUp = 10,
+    ///     });
+    /// 
+    ///     // 10kbps
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// # import using the ID
@@ -22,7 +41,7 @@ namespace Pulumiverse.Unifi.IAM
     /// ```
     /// </summary>
     [UnifiResourceType("unifi:iam/group:Group")]
-    public partial class Group : Pulumi.CustomResource
+    public partial class Group : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The name of the user group.
@@ -93,7 +112,7 @@ namespace Pulumiverse.Unifi.IAM
         }
     }
 
-    public sealed class GroupArgs : Pulumi.ResourceArgs
+    public sealed class GroupArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the user group.
@@ -122,9 +141,10 @@ namespace Pulumiverse.Unifi.IAM
         public GroupArgs()
         {
         }
+        public static new GroupArgs Empty => new GroupArgs();
     }
 
-    public sealed class GroupState : Pulumi.ResourceArgs
+    public sealed class GroupState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The name of the user group.
@@ -153,5 +173,6 @@ namespace Pulumiverse.Unifi.IAM
         public GroupState()
         {
         }
+        public static new GroupState Empty => new GroupState();
     }
 }

@@ -14,7 +14,7 @@ namespace Pulumiverse.Unifi.Setting
     /// `unifi.setting.USG` manages settings for a Unifi Security Gateway.
     /// </summary>
     [UnifiResourceType("unifi:setting/uSG:USG")]
-    public partial class USG : Pulumi.CustomResource
+    public partial class USG : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The DHCP relay servers.
@@ -97,7 +97,7 @@ namespace Pulumiverse.Unifi.Setting
         }
     }
 
-    public sealed class USGArgs : Pulumi.ResourceArgs
+    public sealed class USGArgs : global::Pulumi.ResourceArgs
     {
         [Input("dhcpRelayServers")]
         private InputList<string>? _dhcpRelayServers;
@@ -144,9 +144,10 @@ namespace Pulumiverse.Unifi.Setting
         public USGArgs()
         {
         }
+        public static new USGArgs Empty => new USGArgs();
     }
 
-    public sealed class USGState : Pulumi.ResourceArgs
+    public sealed class USGState : global::Pulumi.ResourceArgs
     {
         [Input("dhcpRelayServers")]
         private InputList<string>? _dhcpRelayServers;
@@ -193,5 +194,6 @@ namespace Pulumiverse.Unifi.Setting
         public USGState()
         {
         }
+        public static new USGState Empty => new USGState();
     }
 }

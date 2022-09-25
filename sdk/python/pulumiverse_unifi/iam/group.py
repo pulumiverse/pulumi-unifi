@@ -168,6 +168,18 @@ class Group(pulumi.CustomResource):
         """
         `iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        wifi = unifi.iam.Group("wifi",
+            qos_rate_max_down=2000,
+            qos_rate_max_up=10)
+        # 10kbps
+        ```
+
         ## Import
 
         # import using the ID
@@ -191,6 +203,18 @@ class Group(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        wifi = unifi.iam.Group("wifi",
+            qos_rate_max_down=2000,
+            qos_rate_max_up=10)
+        # 10kbps
+        ```
 
         ## Import
 

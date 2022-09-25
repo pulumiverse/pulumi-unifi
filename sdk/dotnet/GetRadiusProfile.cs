@@ -26,7 +26,7 @@ namespace Pulumiverse.Unifi
     }
 
 
-    public sealed class GetRadiusProfileArgs : Pulumi.InvokeArgs
+    public sealed class GetRadiusProfileArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name of the RADIUS profile to look up. Defaults to `Default`.
@@ -43,9 +43,10 @@ namespace Pulumiverse.Unifi
         public GetRadiusProfileArgs()
         {
         }
+        public static new GetRadiusProfileArgs Empty => new GetRadiusProfileArgs();
     }
 
-    public sealed class GetRadiusProfileInvokeArgs : Pulumi.InvokeArgs
+    public sealed class GetRadiusProfileInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name of the RADIUS profile to look up. Defaults to `Default`.
@@ -62,6 +63,7 @@ namespace Pulumiverse.Unifi
         public GetRadiusProfileInvokeArgs()
         {
         }
+        public static new GetRadiusProfileInvokeArgs Empty => new GetRadiusProfileInvokeArgs();
     }
 
 

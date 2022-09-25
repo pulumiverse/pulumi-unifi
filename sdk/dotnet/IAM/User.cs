@@ -14,9 +14,29 @@ namespace Pulumiverse.Unifi.IAM
     /// `unifi.iam.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
     /// 
     /// Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
+    /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var test = new Unifi.IAM.User("test", new()
+    ///     {
+    ///         Mac = "01:23:45:67:89:AB",
+    ///         Note = "my note",
+    ///         FixedIp = "10.0.0.50",
+    ///         NetworkId = unifi_network.My_vlan.Id,
+    ///     });
+    /// 
+    /// });
+    /// ```
     /// </summary>
     [UnifiResourceType("unifi:iam/user:User")]
-    public partial class User : Pulumi.CustomResource
+    public partial class User : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
@@ -141,7 +161,7 @@ namespace Pulumiverse.Unifi.IAM
         }
     }
 
-    public sealed class UserArgs : Pulumi.ResourceArgs
+    public sealed class UserArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
@@ -212,9 +232,10 @@ namespace Pulumiverse.Unifi.IAM
         public UserArgs()
         {
         }
+        public static new UserArgs Empty => new UserArgs();
     }
 
-    public sealed class UserState : Pulumi.ResourceArgs
+    public sealed class UserState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
@@ -297,5 +318,6 @@ namespace Pulumiverse.Unifi.IAM
         public UserState()
         {
         }
+        public static new UserState Empty => new UserState();
     }
 }

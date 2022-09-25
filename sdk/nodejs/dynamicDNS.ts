@@ -6,6 +6,21 @@ import * as utilities from "./utilities";
 
 /**
  * `unifi.DynamicDNS` manages dynamic DNS settings for different providers.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const test = new unifi.DynamicDNS("test", {
+ *     service: "dyndns",
+ *     hostName: "my-network.example.com",
+ *     server: "domains.google.com",
+ *     login: _var.dns_login,
+ *     password: _var.dns_password,
+ * });
+ * ```
  */
 export class DynamicDNS extends pulumi.CustomResource {
     /**

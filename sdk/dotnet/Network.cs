@@ -13,6 +13,41 @@ namespace Pulumiverse.Unifi
     /// <summary>
     /// `unifi.Network` manages WAN/LAN/VLAN networks.
     /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var config = new Config();
+    ///     var vlanId = config.GetNumber("vlanId") ?? 10;
+    ///     var vlan = new Unifi.Network("vlan", new()
+    ///     {
+    ///         Purpose = "corporate",
+    ///         Subnet = "10.0.0.1/24",
+    ///         VlanId = vlanId,
+    ///         DhcpStart = "10.0.0.6",
+    ///         DhcpStop = "10.0.0.254",
+    ///         DhcpEnabled = true,
+    ///     });
+    /// 
+    ///     var wan = new Unifi.Network("wan", new()
+    ///     {
+    ///         Purpose = "wan",
+    ///         WanNetworkgroup = "WAN",
+    ///         WanType = "pppoe",
+    ///         WanIp = "192.168.1.1",
+    ///         WanEgressQos = 1,
+    ///         WanUsername = "username",
+    ///         XWanPassword = "password",
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// # import from provider configured site
@@ -34,7 +69,7 @@ namespace Pulumiverse.Unifi
     /// ```
     /// </summary>
     [UnifiResourceType("unifi:index/network:Network")]
-    public partial class Network : Pulumi.CustomResource
+    public partial class Network : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
@@ -267,7 +302,7 @@ namespace Pulumiverse.Unifi
         }
     }
 
-    public sealed class NetworkArgs : Pulumi.ResourceArgs
+    public sealed class NetworkArgs : global::Pulumi.ResourceArgs
     {
         [Input("dhcpDns")]
         private InputList<string>? _dhcpDns;
@@ -470,9 +505,10 @@ namespace Pulumiverse.Unifi
         public NetworkArgs()
         {
         }
+        public static new NetworkArgs Empty => new NetworkArgs();
     }
 
-    public sealed class NetworkState : Pulumi.ResourceArgs
+    public sealed class NetworkState : global::Pulumi.ResourceArgs
     {
         [Input("dhcpDns")]
         private InputList<string>? _dhcpDns;
@@ -675,5 +711,6 @@ namespace Pulumiverse.Unifi
         public NetworkState()
         {
         }
+        public static new NetworkState Empty => new NetworkState();
     }
 }

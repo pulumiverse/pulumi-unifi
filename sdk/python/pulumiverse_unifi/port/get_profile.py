@@ -74,6 +74,15 @@ def get_profile(name: Optional[str] = None,
     """
     `port.Profile` data source can be used to retrieve the ID for a port profile by name.
 
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    all = unifi.port.get_profile()
+    ```
+
 
     :param str name: The name of the port profile to look up. Defaults to `All`.
     :param str site: The name of the site the port profile is associated with.
@@ -96,6 +105,15 @@ def get_profile_output(name: Optional[pulumi.Input[Optional[str]]] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetProfileResult]:
     """
     `port.Profile` data source can be used to retrieve the ID for a port profile by name.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    all = unifi.port.get_profile()
+    ```
 
 
     :param str name: The name of the port profile to look up. Defaults to `All`.

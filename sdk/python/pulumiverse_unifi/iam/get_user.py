@@ -182,6 +182,15 @@ def get_user(mac: Optional[str] = None,
     """
     `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
 
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    client = unifi.iam.get_user(mac="01:23:45:67:89:ab")
+    ```
+
 
     :param str mac: The MAC address of the user.
     :param str site: The name of the site the user is associated with.
@@ -213,6 +222,15 @@ def get_user_output(mac: Optional[pulumi.Input[str]] = None,
                     opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetUserResult]:
     """
     `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    client = unifi.iam.get_user(mac="01:23:45:67:89:ab")
+    ```
 
 
     :param str mac: The MAC address of the user.

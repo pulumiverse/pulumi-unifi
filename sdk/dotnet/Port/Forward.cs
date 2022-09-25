@@ -14,7 +14,7 @@ namespace Pulumiverse.Unifi.Port
     /// `unifi.port.Forward` manages a port forwarding rule on the gateway.
     /// </summary>
     [UnifiResourceType("unifi:port/forward:Forward")]
-    public partial class Forward : Pulumi.CustomResource
+    public partial class Forward : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The destination port for the forwarding.
@@ -121,7 +121,7 @@ namespace Pulumiverse.Unifi.Port
         }
     }
 
-    public sealed class ForwardArgs : Pulumi.ResourceArgs
+    public sealed class ForwardArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The destination port for the forwarding.
@@ -186,9 +186,10 @@ namespace Pulumiverse.Unifi.Port
         public ForwardArgs()
         {
         }
+        public static new ForwardArgs Empty => new ForwardArgs();
     }
 
-    public sealed class ForwardState : Pulumi.ResourceArgs
+    public sealed class ForwardState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The destination port for the forwarding.
@@ -253,5 +254,6 @@ namespace Pulumiverse.Unifi.Port
         public ForwardState()
         {
         }
+        public static new ForwardState Empty => new ForwardState();
     }
 }

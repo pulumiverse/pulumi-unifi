@@ -828,6 +828,37 @@ class Wlan(pulumi.CustomResource):
         """
         `Wlan` manages a WiFi network / SSID.
 
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_unifi as unifi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_float("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        default_ap_group = unifi.get_ap_group()
+        default_group = unifi.iam.get_group()
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        wifi = unifi.Wlan("wifi",
+            passphrase="12345678",
+            security="wpapsk",
+            wpa3_support=True,
+            wpa3_transition=True,
+            pmf_mode="optional",
+            network_id=vlan.id,
+            ap_group_ids=[default_ap_group.id],
+            user_group_id=default_group.id)
+        ```
+
         ## Import
 
         # import from provider configured site
@@ -877,6 +908,37 @@ class Wlan(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         `Wlan` manages a WiFi network / SSID.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumi_unifi as unifi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_float("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        default_ap_group = unifi.get_ap_group()
+        default_group = unifi.iam.get_group()
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        wifi = unifi.Wlan("wifi",
+            passphrase="12345678",
+            security="wpapsk",
+            wpa3_support=True,
+            wpa3_transition=True,
+            pmf_mode="optional",
+            network_id=vlan.id,
+            ap_group_ids=[default_ap_group.id],
+            user_group_id=default_group.id)
+        ```
 
         ## Import
 

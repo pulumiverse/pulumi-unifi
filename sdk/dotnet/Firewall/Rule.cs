@@ -13,6 +13,29 @@ namespace Pulumiverse.Unifi.Firewall
     /// <summary>
     /// `unifi.firewall.Rule` manages an individual firewall rule on the gateway.
     /// 
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var config = new Config();
+    ///     var ipAddress = config.Require("ipAddress");
+    ///     var dropAll = new Unifi.Firewall.Rule("dropAll", new()
+    ///     {
+    ///         Action = "drop",
+    ///         Ruleset = "LAN_IN",
+    ///         RuleIndex = 2011,
+    ///         Protocol = "all",
+    ///         DstAddress = ipAddress,
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// 
     /// ## Import
     /// 
     /// # import using the ID from the controller API/UI
@@ -22,7 +45,7 @@ namespace Pulumiverse.Unifi.Firewall
     /// ```
     /// </summary>
     [UnifiResourceType("unifi:firewall/rule:Rule")]
-    public partial class Rule : Pulumi.CustomResource
+    public partial class Rule : global::Pulumi.CustomResource
     {
         /// <summary>
         /// The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
@@ -207,7 +230,7 @@ namespace Pulumiverse.Unifi.Firewall
         }
     }
 
-    public sealed class RuleArgs : Pulumi.ResourceArgs
+    public sealed class RuleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
@@ -362,9 +385,10 @@ namespace Pulumiverse.Unifi.Firewall
         public RuleArgs()
         {
         }
+        public static new RuleArgs Empty => new RuleArgs();
     }
 
-    public sealed class RuleState : Pulumi.ResourceArgs
+    public sealed class RuleState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
@@ -519,5 +543,6 @@ namespace Pulumiverse.Unifi.Firewall
         public RuleState()
         {
         }
+        public static new RuleState Empty => new RuleState();
     }
 }

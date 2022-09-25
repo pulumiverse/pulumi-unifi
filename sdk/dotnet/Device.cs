@@ -10,8 +10,58 @@ using Pulumi;
 
 namespace Pulumiverse.Unifi
 {
+    /// <summary>
+    /// ## Example Usage
+    /// 
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Unifi = Pulumi.Unifi;
+    /// using Unifi = Pulumiverse.Unifi;
+    /// 
+    /// return await Deployment.RunAsync(() =&gt; 
+    /// {
+    ///     var disabled = Unifi.Port.GetProfile.Invoke(new()
+    ///     {
+    ///         Name = "Disabled",
+    ///     });
+    /// 
+    ///     var poe = new Unifi.Port.Profile("poe", new()
+    ///     {
+    ///         Forward = "customize",
+    ///         NativeNetworkconfId = @var.Native_network_id,
+    ///         TaggedNetworkconfIds = new[]
+    ///         {
+    ///             @var.Some_vlan_network_id,
+    ///         },
+    ///         PoeMode = "auto",
+    ///     });
+    /// 
+    ///     var us24Poe = new Unifi.Device("us24Poe", new()
+    ///     {
+    ///         Mac = "01:23:45:67:89:AB",
+    ///         PortOverrides = new[]
+    ///         {
+    ///             new Unifi.Inputs.DevicePortOverrideArgs
+    ///             {
+    ///                 Number = 1,
+    ///                 Name = "port w/ poe",
+    ///                 PortProfileId = poe.Id,
+    ///             },
+    ///             new Unifi.Inputs.DevicePortOverrideArgs
+    ///             {
+    ///                 Number = 2,
+    ///                 Name = "disabled",
+    ///                 PortProfileId = disabled.Apply(getProfileResult =&gt; getProfileResult.Id),
+    ///             },
+    ///         },
+    ///     });
+    /// 
+    /// });
+    /// ```
+    /// </summary>
     [UnifiResourceType("unifi:index/device:Device")]
-    public partial class Device : Pulumi.CustomResource
+    public partial class Device : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Specifies whether this device should be disabled.
@@ -88,7 +138,7 @@ namespace Pulumiverse.Unifi
         }
     }
 
-    public sealed class DeviceArgs : Pulumi.ResourceArgs
+    public sealed class DeviceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
@@ -123,9 +173,10 @@ namespace Pulumiverse.Unifi
         public DeviceArgs()
         {
         }
+        public static new DeviceArgs Empty => new DeviceArgs();
     }
 
-    public sealed class DeviceState : Pulumi.ResourceArgs
+    public sealed class DeviceState : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Specifies whether this device should be disabled.
@@ -166,5 +217,6 @@ namespace Pulumiverse.Unifi
         public DeviceState()
         {
         }
+        public static new DeviceState Empty => new DeviceState();
     }
 }
