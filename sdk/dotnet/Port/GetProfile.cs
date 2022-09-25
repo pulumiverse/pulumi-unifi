@@ -34,7 +34,7 @@ namespace Pulumiverse.Unifi.Port
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetProfileResult> InvokeAsync(GetProfileArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
@@ -58,7 +58,7 @@ namespace Pulumiverse.Unifi.Port
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetProfileResult> Invoke(GetProfileInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileInvokeArgs(), options.WithDefaults());
     }
 
 

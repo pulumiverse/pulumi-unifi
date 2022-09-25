@@ -5,12 +5,16 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 // Export members:
-export * from "./group";
-export * from "./rule";
+export { GroupArgs, GroupState } from "./group";
+export type Group = import("./group").Group;
+export const Group: typeof import("./group").Group = null as any;
 
-// Import resources to register:
-import { Group } from "./group";
-import { Rule } from "./rule";
+export { RuleArgs, RuleState } from "./rule";
+export type Rule = import("./rule").Rule;
+export const Rule: typeof import("./rule").Rule = null as any;
+
+utilities.lazyLoad(exports, ["Group"], () => require("./group"));
+utilities.lazyLoad(exports, ["Rule"], () => require("./rule"));
 
 const _module = {
     version: utilities.getVersion(),

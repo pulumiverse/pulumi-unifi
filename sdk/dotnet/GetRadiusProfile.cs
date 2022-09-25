@@ -16,13 +16,13 @@ namespace Pulumiverse.Unifi
         /// `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
         /// </summary>
         public static Task<GetRadiusProfileResult> InvokeAsync(GetRadiusProfileArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetRadiusProfileResult>("unifi:index/getRadiusProfile:getRadiusProfile", args ?? new GetRadiusProfileArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetRadiusProfileResult>("unifi:index/getRadiusProfile:getRadiusProfile", args ?? new GetRadiusProfileArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
         /// </summary>
         public static Output<GetRadiusProfileResult> Invoke(GetRadiusProfileInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetRadiusProfileResult>("unifi:index/getRadiusProfile:getRadiusProfile", args ?? new GetRadiusProfileInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetRadiusProfileResult>("unifi:index/getRadiusProfile:getRadiusProfile", args ?? new GetRadiusProfileInvokeArgs(), options.WithDefaults());
     }
 
 

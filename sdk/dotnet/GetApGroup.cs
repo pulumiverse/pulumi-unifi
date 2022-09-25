@@ -34,7 +34,7 @@ namespace Pulumiverse.Unifi
         /// {{% /examples %}}
         /// </summary>
         public static Task<GetApGroupResult> InvokeAsync(GetApGroupArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupArgs(), options.WithDefaults());
 
         /// <summary>
         /// `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
@@ -58,7 +58,7 @@ namespace Pulumiverse.Unifi
         /// {{% /examples %}}
         /// </summary>
         public static Output<GetApGroupResult> Invoke(GetApGroupInvokeArgs? args = null, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupInvokeArgs(), options.WithDefaults());
     }
 
 
