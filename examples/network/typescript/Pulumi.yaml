@@ -1,0 +1,3 @@
+name: unifi-network-example
+description: A minimal TypeScript Pulumi program
+runtime: nodejs
