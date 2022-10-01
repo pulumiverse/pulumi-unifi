@@ -13,6 +13,10 @@ TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
 VERSION         := $(shell pulumictl get version)
 
+export UNIFI_API      ?= https://localhost:8443
+export UNIFI_USERNAME ?= pulumi-unifi-admin
+export UNIFI_PASSWORD ?= pulumi-unifi-password
+
 TESTPARALLELISM := 10
 
 WORKING_DIR     := $(shell pwd)
@@ -123,4 +127,4 @@ test_teardown::
 	docker compose down
 
 test::
-	cd examples && go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h
+	cd examples && UNIFI_INSECURE=true go test -v -tags=all -parallel ${TESTPARALLELISM} -timeout 2h

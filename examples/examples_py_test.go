@@ -14,9 +14,17 @@ func getPythonBaseOptions(t *testing.T) integration.ProgramTestOptions {
 	base := getBaseOptions()
 	basePython := base.With(integration.ProgramTestOptions{
 		Dependencies: []string{
-			filepath.Join("..", "sdk", "python", "bin"),
+			filepath.Join("..", "sdk", "python"),
 		},
 	})
 
 	return basePython
+}
+
+func TestNetworkExamplePython(t *testing.T) {
+    test := getPythonBaseOptions(t).
+        With(integration.ProgramTestOptions{
+            Dir: filepath.Join(getCwd(t), "network", "python"),
+        })
+    integration.ProgramTest(t, &test)
 }
