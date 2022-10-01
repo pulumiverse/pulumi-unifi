@@ -25,4 +25,5 @@ Use `pulumi config set unifi:<option> (--secret)`.
 |-----|------|------|----|
 | `username`| `UNIFI_USERNAME` | Required | Unifi user name |
 | `password`| `UNIFI_PASSWORD` | Required (Secret) | Unifi Password |
-| `api_url`| `UNIFI_API` | Required | Unifi user name |
+| `api_url` | `UNIFI_API` | Required | Unifi user name |
+| `allowInsecure` | `UNIFI_INSECURE` | Optional | Do not check HTTPS certificate |
