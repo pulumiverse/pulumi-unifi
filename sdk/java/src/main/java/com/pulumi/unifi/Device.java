@@ -17,6 +17,65 @@ import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
+/**
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.port.PortFunctions;
+ * import com.pulumi.unifi.port.inputs.GetProfileArgs;
+ * import com.pulumi.unifi.port.Profile;
+ * import com.pulumi.unifi.port.ProfileArgs;
+ * import com.pulumi.unifi.Device;
+ * import com.pulumi.unifi.DeviceArgs;
+ * import com.pulumi.unifi.inputs.DevicePortOverrideArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var disabled = PortFunctions.getProfile(GetProfileArgs.builder()
+ *             .name(&#34;Disabled&#34;)
+ *             .build());
+ * 
+ *         var poe = new Profile(&#34;poe&#34;, ProfileArgs.builder()        
+ *             .forward(&#34;customize&#34;)
+ *             .nativeNetworkconfId(var_.native_network_id())
+ *             .taggedNetworkconfIds(var_.some_vlan_network_id())
+ *             .poeMode(&#34;auto&#34;)
+ *             .build());
+ * 
+ *         var us24Poe = new Device(&#34;us24Poe&#34;, DeviceArgs.builder()        
+ *             .mac(&#34;01:23:45:67:89:AB&#34;)
+ *             .portOverrides(            
+ *                 DevicePortOverrideArgs.builder()
+ *                     .number(1)
+ *                     .name(&#34;port w/ poe&#34;)
+ *                     .portProfileId(poe.id())
+ *                     .build(),
+ *                 DevicePortOverrideArgs.builder()
+ *                     .number(2)
+ *                     .name(&#34;disabled&#34;)
+ *                     .portProfileId(disabled.applyValue(getProfileResult -&gt; getProfileResult.id()))
+ *                     .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
+ */
 @ResourceType(type="unifi:index/device:Device")
 public class Device extends com.pulumi.resources.CustomResource {
     /**

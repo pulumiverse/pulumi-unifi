@@ -21,6 +21,39 @@ import javax.annotation.Nullable;
  * 
  * Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.iam.User;
+ * import com.pulumi.unifi.iam.UserArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var test = new User(&#34;test&#34;, UserArgs.builder()        
+ *             .mac(&#34;01:23:45:67:89:AB&#34;)
+ *             .note(&#34;my note&#34;)
+ *             .fixedIp(&#34;10.0.0.50&#34;)
+ *             .networkId(unifi_network.my_vlan().id())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:iam/user:User")
 public class User extends com.pulumi.resources.CustomResource {

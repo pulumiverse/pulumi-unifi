@@ -19,10 +19,39 @@ import javax.annotation.Nullable;
  * `unifi.iam.Group` manages a user group (called &#34;client group&#34; in the UI), which can be used to limit bandwidth for groups of users.
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.iam.Group;
+ * import com.pulumi.unifi.iam.GroupArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var wifi = new Group(&#34;wifi&#34;, GroupArgs.builder()        
+ *             .qosRateMaxDown(2000)
+ *             .qosRateMaxUp(10)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  * ## Import
  * 
- * # import using the ID
+ * import using the ID
  * 
  * ```sh
  *  $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36

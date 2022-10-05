@@ -20,6 +20,43 @@ import javax.annotation.Nullable;
 /**
  * `unifi.setting.Mgmt` manages settings for a unifi site.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.Site;
+ * import com.pulumi.unifi.SiteArgs;
+ * import com.pulumi.unifi.setting.Mgmt;
+ * import com.pulumi.unifi.setting.MgmtArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var exampleSite = new Site(&#34;exampleSite&#34;, SiteArgs.builder()        
+ *             .description(&#34;example&#34;)
+ *             .build());
+ * 
+ *         var exampleMgmt = new Mgmt(&#34;exampleMgmt&#34;, MgmtArgs.builder()        
+ *             .site(exampleSite.name())
+ *             .autoUpgrade(true)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:setting/mgmt:Mgmt")
 public class Mgmt extends com.pulumi.resources.CustomResource {

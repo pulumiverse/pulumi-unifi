@@ -21,15 +21,73 @@ import javax.annotation.Nullable;
 /**
  * `unifi.Wlan` manages a WiFi network / SSID.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.UnifiFunctions;
+ * import com.pulumi.unifi.inputs.GetApGroupArgs;
+ * import com.pulumi.unifi.iam.IamFunctions;
+ * import com.pulumi.unifi.iam.inputs.GetGroupArgs;
+ * import com.pulumi.unifi.Network;
+ * import com.pulumi.unifi.NetworkArgs;
+ * import com.pulumi.unifi.Wlan;
+ * import com.pulumi.unifi.WlanArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var vlanId = config.get(&#34;vlanId&#34;).orElse(10);
+ *         final var defaultApGroup = UnifiFunctions.getApGroup();
+ * 
+ *         final var defaultGroup = IamFunctions.getGroup();
+ * 
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *             .purpose(&#34;corporate&#34;)
+ *             .subnet(&#34;10.0.0.1/24&#34;)
+ *             .vlanId(vlanId)
+ *             .dhcpStart(&#34;10.0.0.6&#34;)
+ *             .dhcpStop(&#34;10.0.0.254&#34;)
+ *             .dhcpEnabled(true)
+ *             .build());
+ * 
+ *         var wifi = new Wlan(&#34;wifi&#34;, WlanArgs.builder()        
+ *             .passphrase(&#34;12345678&#34;)
+ *             .security(&#34;wpapsk&#34;)
+ *             .wpa3Support(true)
+ *             .wpa3Transition(true)
+ *             .pmfMode(&#34;optional&#34;)
+ *             .networkId(vlan.id())
+ *             .apGroupIds(defaultApGroup.applyValue(getApGroupResult -&gt; getApGroupResult.id()))
+ *             .userGroupId(defaultGroup.applyValue(getGroupResult -&gt; getGroupResult.id()))
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
- * # import from provider configured site
+ * import from provider configured site
  * 
  * ```sh
  *  $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
  * ```
  * 
- * # import from another site
+ *  import from another site
  * 
  * ```sh
  *  $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
@@ -407,6 +465,9 @@ public class Wlan extends com.pulumi.resources.CustomResource {
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .additionalSecretOutputs(List.of(
+                "passphrase"
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

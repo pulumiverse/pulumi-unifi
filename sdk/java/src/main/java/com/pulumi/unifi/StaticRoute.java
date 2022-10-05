@@ -18,6 +18,52 @@ import javax.annotation.Nullable;
 /**
  * `unifi.StaticRoute` manages a static route.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.StaticRoute;
+ * import com.pulumi.unifi.StaticRouteArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var nexthop = new StaticRoute(&#34;nexthop&#34;, StaticRouteArgs.builder()        
+ *             .type(&#34;nexthop-route&#34;)
+ *             .network(&#34;172.17.0.0/16&#34;)
+ *             .distance(1)
+ *             .nextHop(&#34;172.16.0.1&#34;)
+ *             .build());
+ * 
+ *         var blackhole = new StaticRoute(&#34;blackhole&#34;, StaticRouteArgs.builder()        
+ *             .type(&#34;blackhole&#34;)
+ *             .network(var_.blackhole_cidr())
+ *             .distance(1)
+ *             .build());
+ * 
+ *         var interface_ = new StaticRoute(&#34;interface&#34;, StaticRouteArgs.builder()        
+ *             .type(&#34;interface-route&#34;)
+ *             .network(var_.wan2_cidr())
+ *             .distance(1)
+ *             .interface_(&#34;WAN2&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:index/staticRoute:StaticRoute")
 public class StaticRoute extends com.pulumi.resources.CustomResource {

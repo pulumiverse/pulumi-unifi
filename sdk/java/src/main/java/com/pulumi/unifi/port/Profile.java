@@ -20,6 +20,50 @@ import javax.annotation.Nullable;
 /**
  * `unifi.port.Profile` manages a port profile for use on network switches.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.Network;
+ * import com.pulumi.unifi.NetworkArgs;
+ * import com.pulumi.unifi.port.Profile;
+ * import com.pulumi.unifi.port.ProfileArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var vlanId = config.get(&#34;vlanId&#34;).orElse(10);
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *             .purpose(&#34;corporate&#34;)
+ *             .subnet(&#34;10.0.0.1/24&#34;)
+ *             .vlanId(vlanId)
+ *             .dhcpStart(&#34;10.0.0.6&#34;)
+ *             .dhcpStop(&#34;10.0.0.254&#34;)
+ *             .dhcpEnabled(true)
+ *             .build());
+ * 
+ *         var poeDisabled = new Profile(&#34;poeDisabled&#34;, ProfileArgs.builder()        
+ *             .nativeNetworkconfId(vlan.id())
+ *             .poeMode(&#34;off&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:port/profile:Profile")
 public class Profile extends com.pulumi.resources.CustomResource {

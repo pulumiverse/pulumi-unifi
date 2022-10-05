@@ -50,19 +50,19 @@ namespace Pulumiverse.Unifi
     /// 
     /// ## Import
     /// 
-    /// # import from provider configured site
+    /// import from provider configured site
     /// 
     /// ```sh
     ///  $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
     /// ```
     /// 
-    /// # import from another site
+    ///  import from another site
     /// 
     /// ```sh
     ///  $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
     /// ```
     /// 
-    /// # import network by name
+    ///  import network by name
     /// 
     /// ```sh
     ///  $ pulumi import unifi:index/network:Network mynetwork name=LAN

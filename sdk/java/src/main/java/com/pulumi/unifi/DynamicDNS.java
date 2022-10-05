@@ -11,11 +11,46 @@ import com.pulumi.unifi.DynamicDNSArgs;
 import com.pulumi.unifi.Utilities;
 import com.pulumi.unifi.inputs.DynamicDNSState;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
  * `unifi.DynamicDNS` manages dynamic DNS settings for different providers.
+ * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.DynamicDNS;
+ * import com.pulumi.unifi.DynamicDNSArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var test = new DynamicDNS(&#34;test&#34;, DynamicDNSArgs.builder()        
+ *             .service(&#34;dyndns&#34;)
+ *             .hostName(&#34;my-network.example.com&#34;)
+ *             .server(&#34;domains.google.com&#34;)
+ *             .login(var_.dns_login())
+ *             .password(var_.dns_password())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="unifi:index/dynamicDNS:DynamicDNS")
@@ -151,6 +186,9 @@ public class DynamicDNS extends com.pulumi.resources.CustomResource {
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .additionalSecretOutputs(List.of(
+                "password"
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

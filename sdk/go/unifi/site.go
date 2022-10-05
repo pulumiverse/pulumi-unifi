@@ -41,7 +41,7 @@ import (
 //
 // ## Import
 //
-// # import using the API/UI ID
+// import using the API/UI ID
 //
 // ```sh
 //
@@ -49,7 +49,7 @@ import (
 //
 // ```
 //
-// # import using the name (short ID)
+//	import using the name (short ID)
 //
 // ```sh
 //

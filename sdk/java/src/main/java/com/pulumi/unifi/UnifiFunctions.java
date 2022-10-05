@@ -24,6 +24,32 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetApGroupArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var default = UnifiFunctions.getApGroup();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetApGroupResult> getApGroup() {
@@ -33,6 +59,32 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetApGroupArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var default = UnifiFunctions.getApGroup();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetApGroupResult> getApGroupPlain() {
@@ -42,6 +94,32 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetApGroupArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var default = UnifiFunctions.getApGroup();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetApGroupResult> getApGroup(GetApGroupArgs args) {
@@ -51,6 +129,32 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetApGroupArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var default = UnifiFunctions.getApGroup();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetApGroupResult> getApGroupPlain(GetApGroupPlainArgs args) {
@@ -60,6 +164,32 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetApGroupArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var default = UnifiFunctions.getApGroup();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetApGroupResult> getApGroup(GetApGroupArgs args, InvokeOptions options) {
@@ -69,6 +199,32 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetApGroupArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var default = UnifiFunctions.getApGroup();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetApGroupResult> getApGroupPlain(GetApGroupPlainArgs args, InvokeOptions options) {
@@ -77,12 +233,92 @@ public final class UnifiFunctions {
     /**
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
+     * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetNetworkArgs;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .name(&#34;LAN&#34;)
+     *             .build());
+     * 
+     *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *         final var myNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .id(myDevice.applyValue(getUserResult -&gt; getUserResult.networkId()))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetNetworkResult> getNetwork() {
         return getNetwork(GetNetworkArgs.Empty, InvokeOptions.Empty);
     }
     /**
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
+     * 
+     * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetNetworkArgs;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .name(&#34;LAN&#34;)
+     *             .build());
+     * 
+     *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *         final var myNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .id(myDevice.applyValue(getUserResult -&gt; getUserResult.networkId()))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetNetworkResult> getNetworkPlain() {
@@ -91,12 +327,92 @@ public final class UnifiFunctions {
     /**
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
+     * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetNetworkArgs;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .name(&#34;LAN&#34;)
+     *             .build());
+     * 
+     *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *         final var myNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .id(myDevice.applyValue(getUserResult -&gt; getUserResult.networkId()))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetNetworkResult> getNetwork(GetNetworkArgs args) {
         return getNetwork(args, InvokeOptions.Empty);
     }
     /**
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
+     * 
+     * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetNetworkArgs;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .name(&#34;LAN&#34;)
+     *             .build());
+     * 
+     *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *         final var myNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .id(myDevice.applyValue(getUserResult -&gt; getUserResult.networkId()))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetNetworkResult> getNetworkPlain(GetNetworkPlainArgs args) {
@@ -105,12 +421,92 @@ public final class UnifiFunctions {
     /**
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
+     * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetNetworkArgs;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .name(&#34;LAN&#34;)
+     *             .build());
+     * 
+     *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *         final var myNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .id(myDevice.applyValue(getUserResult -&gt; getUserResult.networkId()))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
+     * 
      */
     public static Output<GetNetworkResult> getNetwork(GetNetworkArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("unifi:index/getNetwork:getNetwork", TypeShape.of(GetNetworkResult.class), args, Utilities.withVersion(options));
     }
     /**
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
+     * 
+     * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.UnifiFunctions;
+     * import com.pulumi.unifi.inputs.GetNetworkArgs;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .name(&#34;LAN&#34;)
+     *             .build());
+     * 
+     *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *         final var myNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
+     *             .id(myDevice.applyValue(getUserResult -&gt; getUserResult.networkId()))
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetNetworkResult> getNetworkPlain(GetNetworkPlainArgs args, InvokeOptions options) {

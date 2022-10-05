@@ -95,13 +95,13 @@ class Site(pulumi.CustomResource):
 
         ## Import
 
-        # import using the API/UI ID
+        import using the API/UI ID
 
         ```sh
          $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
         ```
 
-        # import using the name (short ID)
+         import using the name (short ID)
 
         ```sh
          $ pulumi import unifi:index/site:Site mysite vq98kwez
@@ -131,13 +131,13 @@ class Site(pulumi.CustomResource):
 
         ## Import
 
-        # import using the API/UI ID
+        import using the API/UI ID
 
         ```sh
          $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
         ```
 
-        # import using the name (short ID)
+         import using the name (short ID)
 
         ```sh
          $ pulumi import unifi:index/site:Site mysite vq98kwez

@@ -20,21 +20,68 @@ import javax.annotation.Nullable;
 /**
  * `unifi.Network` manages WAN/LAN/VLAN networks.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.Network;
+ * import com.pulumi.unifi.NetworkArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var vlanId = config.get(&#34;vlanId&#34;).orElse(10);
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *             .purpose(&#34;corporate&#34;)
+ *             .subnet(&#34;10.0.0.1/24&#34;)
+ *             .vlanId(vlanId)
+ *             .dhcpStart(&#34;10.0.0.6&#34;)
+ *             .dhcpStop(&#34;10.0.0.254&#34;)
+ *             .dhcpEnabled(true)
+ *             .build());
+ * 
+ *         var wan = new Network(&#34;wan&#34;, NetworkArgs.builder()        
+ *             .purpose(&#34;wan&#34;)
+ *             .wanNetworkgroup(&#34;WAN&#34;)
+ *             .wanType(&#34;pppoe&#34;)
+ *             .wanIp(&#34;192.168.1.1&#34;)
+ *             .wanEgressQos(1)
+ *             .wanUsername(&#34;username&#34;)
+ *             .xWanPassword(&#34;password&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
- * # import from provider configured site
+ * import from provider configured site
  * 
  * ```sh
  *  $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
  * ```
  * 
- * # import from another site
+ *  import from another site
  * 
  * ```sh
  *  $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
  * ```
  * 
- * # import network by name
+ *  import network by name
  * 
  * ```sh
  *  $ pulumi import unifi:index/network:Network mynetwork name=LAN

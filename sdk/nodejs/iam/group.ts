@@ -21,7 +21,7 @@ import * as utilities from "../utilities";
  *
  * ## Import
  *
- * # import using the ID
+ * import using the ID
  *
  * ```sh
  *  $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36

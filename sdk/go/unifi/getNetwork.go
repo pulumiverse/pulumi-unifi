@@ -19,7 +19,6 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-unifi/sdk/go/unifi/iam"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"

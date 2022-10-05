@@ -20,9 +20,45 @@ import javax.annotation.Nullable;
 /**
  * `unifi.firewall.Rule` manages an individual firewall rule on the gateway.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.firewall.Rule;
+ * import com.pulumi.unifi.firewall.RuleArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var ipAddress = config.get(&#34;ipAddress&#34;);
+ *         var dropAll = new Rule(&#34;dropAll&#34;, RuleArgs.builder()        
+ *             .action(&#34;drop&#34;)
+ *             .ruleset(&#34;LAN_IN&#34;)
+ *             .ruleIndex(2011)
+ *             .protocol(&#34;all&#34;)
+ *             .dstAddress(ipAddress)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
- * # import using the ID from the controller API/UI
+ * import using the ID from the controller API/UI
  * 
  * ```sh
  *  $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f

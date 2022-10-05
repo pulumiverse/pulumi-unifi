@@ -42,13 +42,13 @@ import * as utilities from "./utilities";
  *
  * ## Import
  *
- * # import from provider configured site
+ * import from provider configured site
  *
  * ```sh
  *  $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
  * ```
  *
- * # import from another site
+ *  import from another site
  *
  * ```sh
  *  $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
@@ -237,7 +237,7 @@ export class Wlan extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["networkId"] = args ? args.networkId : undefined;
             resourceInputs["no2ghzOui"] = args ? args.no2ghzOui : undefined;
-            resourceInputs["passphrase"] = args ? args.passphrase : undefined;
+            resourceInputs["passphrase"] = args?.passphrase ? pulumi.secret(args.passphrase) : undefined;
             resourceInputs["pmfMode"] = args ? args.pmfMode : undefined;
             resourceInputs["radiusProfileId"] = args ? args.radiusProfileId : undefined;
             resourceInputs["schedules"] = args ? args.schedules : undefined;
@@ -250,6 +250,8 @@ export class Wlan extends pulumi.CustomResource {
             resourceInputs["wpa3Transition"] = args ? args.wpa3Transition : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["passphrase"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Wlan.__pulumiType, name, resourceInputs, opts);
     }
 }
