@@ -17,6 +17,40 @@ import javax.annotation.Nullable;
 /**
  * `unifi.DynamicDNS` manages dynamic DNS settings for different providers.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.DynamicDNS;
+ * import com.pulumi.unifi.DynamicDNSArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var test = new DynamicDNS(&#34;test&#34;, DynamicDNSArgs.builder()        
+ *             .service(&#34;dyndns&#34;)
+ *             .hostName(&#34;my-network.example.com&#34;)
+ *             .server(&#34;domains.google.com&#34;)
+ *             .login(var_.dns_login())
+ *             .password(var_.dns_password())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:index/dynamicDNS:DynamicDNS")
 public class DynamicDNS extends com.pulumi.resources.CustomResource {
@@ -24,7 +58,7 @@ public class DynamicDNS extends com.pulumi.resources.CustomResource {
      * The host name to update in the dynamic DNS service.
      * 
      */
-    @Export(name="hostName", type=String.class, parameters={})
+    @Export(name="hostName", refs={String.class}, tree="[0]")
     private Output<String> hostName;
 
     /**
@@ -38,7 +72,7 @@ public class DynamicDNS extends com.pulumi.resources.CustomResource {
      * The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
      * 
      */
-    @Export(name="interface", type=String.class, parameters={})
+    @Export(name="interface", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> interface_;
 
     /**
@@ -52,7 +86,7 @@ public class DynamicDNS extends com.pulumi.resources.CustomResource {
      * The server for the dynamic DNS service.
      * 
      */
-    @Export(name="login", type=String.class, parameters={})
+    @Export(name="login", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> login;
 
     /**
@@ -66,7 +100,7 @@ public class DynamicDNS extends com.pulumi.resources.CustomResource {
      * The server for the dynamic DNS service.
      * 
      */
-    @Export(name="password", type=String.class, parameters={})
+    @Export(name="password", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> password;
 
     /**
@@ -80,7 +114,7 @@ public class DynamicDNS extends com.pulumi.resources.CustomResource {
      * The server for the dynamic DNS service.
      * 
      */
-    @Export(name="server", type=String.class, parameters={})
+    @Export(name="server", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> server;
 
     /**
@@ -94,7 +128,7 @@ public class DynamicDNS extends com.pulumi.resources.CustomResource {
      * The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
      * 
      */
-    @Export(name="service", type=String.class, parameters={})
+    @Export(name="service", refs={String.class}, tree="[0]")
     private Output<String> service;
 
     /**
@@ -108,7 +142,7 @@ public class DynamicDNS extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the dynamic DNS with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**

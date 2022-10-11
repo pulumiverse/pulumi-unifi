@@ -18,6 +18,32 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.port.PortFunctions;
+     * import com.pulumi.unifi.port.inputs.GetProfileArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var all = PortFunctions.getProfile();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetProfileResult> getProfile() {
@@ -27,6 +53,32 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.port.PortFunctions;
+     * import com.pulumi.unifi.port.inputs.GetProfileArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var all = PortFunctions.getProfile();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetProfileResult> getProfilePlain() {
@@ -36,6 +88,32 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.port.PortFunctions;
+     * import com.pulumi.unifi.port.inputs.GetProfileArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var all = PortFunctions.getProfile();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetProfileResult> getProfile(GetProfileArgs args) {
@@ -45,6 +123,32 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.port.PortFunctions;
+     * import com.pulumi.unifi.port.inputs.GetProfileArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var all = PortFunctions.getProfile();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetProfileResult> getProfilePlain(GetProfilePlainArgs args) {
@@ -54,6 +158,32 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.port.PortFunctions;
+     * import com.pulumi.unifi.port.inputs.GetProfileArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var all = PortFunctions.getProfile();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetProfileResult> getProfile(GetProfileArgs args, InvokeOptions options) {
@@ -63,6 +193,32 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.port.PortFunctions;
+     * import com.pulumi.unifi.port.inputs.GetProfileArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var all = PortFunctions.getProfile();
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetProfileResult> getProfilePlain(GetProfilePlainArgs args, InvokeOptions options) {

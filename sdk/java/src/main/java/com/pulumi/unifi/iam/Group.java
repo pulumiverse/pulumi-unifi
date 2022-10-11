@@ -19,6 +19,35 @@ import javax.annotation.Nullable;
  * `unifi.iam.Group` manages a user group (called &#34;client group&#34; in the UI), which can be used to limit bandwidth for groups of users.
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.iam.Group;
+ * import com.pulumi.unifi.iam.GroupArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var wifi = new Group(&#34;wifi&#34;, GroupArgs.builder()        
+ *             .qosRateMaxDown(2000)
+ *             .qosRateMaxUp(10)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  * ## Import
  * 
@@ -35,7 +64,7 @@ public class Group extends com.pulumi.resources.CustomResource {
      * The name of the user group.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -49,7 +78,7 @@ public class Group extends com.pulumi.resources.CustomResource {
      * The QOS maximum download rate. Defaults to `-1`.
      * 
      */
-    @Export(name="qosRateMaxDown", type=Integer.class, parameters={})
+    @Export(name="qosRateMaxDown", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> qosRateMaxDown;
 
     /**
@@ -63,7 +92,7 @@ public class Group extends com.pulumi.resources.CustomResource {
      * The QOS maximum upload rate. Defaults to `-1`.
      * 
      */
-    @Export(name="qosRateMaxUp", type=Integer.class, parameters={})
+    @Export(name="qosRateMaxUp", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> qosRateMaxUp;
 
     /**
@@ -77,7 +106,7 @@ public class Group extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the user group with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**

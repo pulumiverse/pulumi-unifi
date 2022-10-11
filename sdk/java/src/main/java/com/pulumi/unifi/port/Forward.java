@@ -25,7 +25,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * The destination port for the forwarding.
      * 
      */
-    @Export(name="dstPort", type=String.class, parameters={})
+    @Export(name="dstPort", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dstPort;
 
     /**
@@ -43,7 +43,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * 
      */
     @Deprecated /* This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration. */
-    @Export(name="enabled", type=Boolean.class, parameters={})
+    @Export(name="enabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> enabled;
 
     /**
@@ -57,7 +57,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * The IPv4 address to forward traffic to.
      * 
      */
-    @Export(name="fwdIp", type=String.class, parameters={})
+    @Export(name="fwdIp", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> fwdIp;
 
     /**
@@ -71,7 +71,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * The port to forward traffic to.
      * 
      */
-    @Export(name="fwdPort", type=String.class, parameters={})
+    @Export(name="fwdPort", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> fwdPort;
 
     /**
@@ -85,7 +85,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * Specifies whether to log forwarded traffic or not. Defaults to `false`.
      * 
      */
-    @Export(name="log", type=Boolean.class, parameters={})
+    @Export(name="log", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> log;
 
     /**
@@ -99,7 +99,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * The name of the port forwarding rule.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -113,7 +113,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * The port forwarding interface. Can be `wan`, `wan2`, or `both`.
      * 
      */
-    @Export(name="portForwardInterface", type=String.class, parameters={})
+    @Export(name="portForwardInterface", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> portForwardInterface;
 
     /**
@@ -127,7 +127,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
      * 
      */
-    @Export(name="protocol", type=String.class, parameters={})
+    @Export(name="protocol", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> protocol;
 
     /**
@@ -141,7 +141,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the port forwarding rule with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -155,7 +155,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
      * The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
      * 
      */
-    @Export(name="srcIp", type=String.class, parameters={})
+    @Export(name="srcIp", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> srcIp;
 
     /**

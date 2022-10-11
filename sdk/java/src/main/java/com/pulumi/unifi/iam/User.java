@@ -21,6 +21,39 @@ import javax.annotation.Nullable;
  * 
  * Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.iam.User;
+ * import com.pulumi.unifi.iam.UserArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var test = new User(&#34;test&#34;, UserArgs.builder()        
+ *             .mac(&#34;01:23:45:67:89:AB&#34;)
+ *             .note(&#34;my note&#34;)
+ *             .fixedIp(&#34;10.0.0.50&#34;)
+ *             .networkId(unifi_network.my_vlan().id())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:iam/user:User")
 public class User extends com.pulumi.resources.CustomResource {
@@ -28,7 +61,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
      * 
      */
-    @Export(name="allowExisting", type=Boolean.class, parameters={})
+    @Export(name="allowExisting", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> allowExisting;
 
     /**
@@ -42,7 +75,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * Specifies whether this user should be blocked from the network.
      * 
      */
-    @Export(name="blocked", type=Boolean.class, parameters={})
+    @Export(name="blocked", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> blocked;
 
     /**
@@ -56,7 +89,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * Override the device fingerprint.
      * 
      */
-    @Export(name="devIdOverride", type=Integer.class, parameters={})
+    @Export(name="devIdOverride", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> devIdOverride;
 
     /**
@@ -70,7 +103,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * A fixed IPv4 address for this user.
      * 
      */
-    @Export(name="fixedIp", type=String.class, parameters={})
+    @Export(name="fixedIp", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> fixedIp;
 
     /**
@@ -84,7 +117,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * The hostname of the user.
      * 
      */
-    @Export(name="hostname", type=String.class, parameters={})
+    @Export(name="hostname", refs={String.class}, tree="[0]")
     private Output<String> hostname;
 
     /**
@@ -98,7 +131,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * The IP address of the user.
      * 
      */
-    @Export(name="ip", type=String.class, parameters={})
+    @Export(name="ip", refs={String.class}, tree="[0]")
     private Output<String> ip;
 
     /**
@@ -112,7 +145,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * The MAC address of the user.
      * 
      */
-    @Export(name="mac", type=String.class, parameters={})
+    @Export(name="mac", refs={String.class}, tree="[0]")
     private Output<String> mac;
 
     /**
@@ -126,7 +159,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * The name of the user.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -140,7 +173,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * The network ID for this user.
      * 
      */
-    @Export(name="networkId", type=String.class, parameters={})
+    @Export(name="networkId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> networkId;
 
     /**
@@ -154,7 +187,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * A note with additional information for the user.
      * 
      */
-    @Export(name="note", type=String.class, parameters={})
+    @Export(name="note", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> note;
 
     /**
@@ -168,7 +201,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the user with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -182,7 +215,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * Specifies whether this resource should tell the controller to &#34;forget&#34; the user on destroy. Defaults to `false`.
      * 
      */
-    @Export(name="skipForgetOnDestroy", type=Boolean.class, parameters={})
+    @Export(name="skipForgetOnDestroy", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> skipForgetOnDestroy;
 
     /**
@@ -196,7 +229,7 @@ public class User extends com.pulumi.resources.CustomResource {
      * The user group ID for the user.
      * 
      */
-    @Export(name="userGroupId", type=String.class, parameters={})
+    @Export(name="userGroupId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> userGroupId;
 
     /**

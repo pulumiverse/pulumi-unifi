@@ -17,6 +17,34 @@ import javax.annotation.Nullable;
  * `unifi.Site` manages Unifi sites
  * 
  * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.Site;
+ * import com.pulumi.unifi.SiteArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var mysite = new Site(&#34;mysite&#34;, SiteArgs.builder()        
+ *             .description(&#34;mysite&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  * ## Import
  * 
@@ -39,7 +67,7 @@ public class Site extends com.pulumi.resources.CustomResource {
      * The description of the site.
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output<String> description;
 
     /**
@@ -53,7 +81,7 @@ public class Site extends com.pulumi.resources.CustomResource {
      * The name of the site.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**

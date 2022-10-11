@@ -17,6 +17,39 @@ import javax.annotation.Nullable;
 /**
  * `unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.firewall.Group;
+ * import com.pulumi.unifi.firewall.GroupArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var laptopIps = config.get(&#34;laptopIps&#34;);
+ *         var canPrint = new Group(&#34;canPrint&#34;, GroupArgs.builder()        
+ *             .type(&#34;address-group&#34;)
+ *             .members(laptopIps)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:firewall/group:Group")
 public class Group extends com.pulumi.resources.CustomResource {
@@ -24,7 +57,7 @@ public class Group extends com.pulumi.resources.CustomResource {
      * The members of the firewall group.
      * 
      */
-    @Export(name="members", type=List.class, parameters={String.class})
+    @Export(name="members", refs={List.class,String.class}, tree="[0,1]")
     private Output<List<String>> members;
 
     /**
@@ -38,7 +71,7 @@ public class Group extends com.pulumi.resources.CustomResource {
      * The name of the firewall group.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -52,7 +85,7 @@ public class Group extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the firewall group with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -66,7 +99,7 @@ public class Group extends com.pulumi.resources.CustomResource {
      * The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
      * 
      */
-    @Export(name="type", type=String.class, parameters={})
+    @Export(name="type", refs={String.class}, tree="[0]")
     private Output<String> type;
 
     /**

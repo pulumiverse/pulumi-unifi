@@ -21,6 +21,64 @@ import javax.annotation.Nullable;
 /**
  * `unifi.Wlan` manages a WiFi network / SSID.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.UnifiFunctions;
+ * import com.pulumi.unifi.inputs.GetApGroupArgs;
+ * import com.pulumi.unifi.iam.IamFunctions;
+ * import com.pulumi.unifi.iam.inputs.GetGroupArgs;
+ * import com.pulumi.unifi.Network;
+ * import com.pulumi.unifi.NetworkArgs;
+ * import com.pulumi.unifi.Wlan;
+ * import com.pulumi.unifi.WlanArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var vlanId = config.get(&#34;vlanId&#34;).orElse(10);
+ *         final var defaultApGroup = UnifiFunctions.getApGroup();
+ * 
+ *         final var defaultGroup = IamFunctions.getGroup();
+ * 
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *             .purpose(&#34;corporate&#34;)
+ *             .subnet(&#34;10.0.0.1/24&#34;)
+ *             .vlanId(vlanId)
+ *             .dhcpStart(&#34;10.0.0.6&#34;)
+ *             .dhcpStop(&#34;10.0.0.254&#34;)
+ *             .dhcpEnabled(true)
+ *             .build());
+ * 
+ *         var wifi = new Wlan(&#34;wifi&#34;, WlanArgs.builder()        
+ *             .passphrase(&#34;12345678&#34;)
+ *             .security(&#34;wpapsk&#34;)
+ *             .wpa3Support(true)
+ *             .wpa3Transition(true)
+ *             .pmfMode(&#34;optional&#34;)
+ *             .networkId(vlan.id())
+ *             .apGroupIds(defaultApGroup.applyValue(getApGroupResult -&gt; getApGroupResult.id()))
+ *             .userGroupId(defaultGroup.applyValue(getGroupResult -&gt; getGroupResult.id()))
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
  * # import from provider configured site
@@ -42,7 +100,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * IDs of the AP groups to use for this network.
      * 
      */
-    @Export(name="apGroupIds", type=List.class, parameters={String.class})
+    @Export(name="apGroupIds", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> apGroupIds;
 
     /**
@@ -56,7 +114,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Indicates whether or not to hide the SSID from broadcast.
      * 
      */
-    @Export(name="hideSsid", type=Boolean.class, parameters={})
+    @Export(name="hideSsid", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> hideSsid;
 
     /**
@@ -70,7 +128,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Indicates that this is a guest WLAN and should use guest behaviors.
      * 
      */
-    @Export(name="isGuest", type=Boolean.class, parameters={})
+    @Export(name="isGuest", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> isGuest;
 
     /**
@@ -84,7 +142,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Isolates stations on layer 2 (ethernet) level Defaults to `false`.
      * 
      */
-    @Export(name="l2Isolation", type=Boolean.class, parameters={})
+    @Export(name="l2Isolation", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> l2Isolation;
 
     /**
@@ -98,7 +156,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Indicates whether or not the MAC filter is turned of for the network.
      * 
      */
-    @Export(name="macFilterEnabled", type=Boolean.class, parameters={})
+    @Export(name="macFilterEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> macFilterEnabled;
 
     /**
@@ -112,7 +170,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
      * 
      */
-    @Export(name="macFilterLists", type=List.class, parameters={String.class})
+    @Export(name="macFilterLists", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> macFilterLists;
 
     /**
@@ -126,7 +184,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
      * 
      */
-    @Export(name="macFilterPolicy", type=String.class, parameters={})
+    @Export(name="macFilterPolicy", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> macFilterPolicy;
 
     /**
@@ -140,7 +198,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Set minimum data rate control for 2G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.
      * 
      */
-    @Export(name="minimumDataRate2gKbps", type=Integer.class, parameters={})
+    @Export(name="minimumDataRate2gKbps", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> minimumDataRate2gKbps;
 
     /**
@@ -154,7 +212,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Set minimum data rate control for 5G devices, in Kbps. Use `0` to disable minimum data rates. Valid values are: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`.
      * 
      */
-    @Export(name="minimumDataRate5gKbps", type=Integer.class, parameters={})
+    @Export(name="minimumDataRate5gKbps", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> minimumDataRate5gKbps;
 
     /**
@@ -168,7 +226,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Indicates whether or not Multicast Enhance is turned of for the network.
      * 
      */
-    @Export(name="multicastEnhance", type=Boolean.class, parameters={})
+    @Export(name="multicastEnhance", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> multicastEnhance;
 
     /**
@@ -182,7 +240,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * The SSID of the network.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -196,7 +254,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * ID of the network for this SSID
      * 
      */
-    @Export(name="networkId", type=String.class, parameters={})
+    @Export(name="networkId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> networkId;
 
     /**
@@ -210,7 +268,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Connect high performance clients to 5 GHz only Defaults to `true`.
      * 
      */
-    @Export(name="no2ghzOui", type=Boolean.class, parameters={})
+    @Export(name="no2ghzOui", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> no2ghzOui;
 
     /**
@@ -224,7 +282,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * The passphrase for the network, this is only required if `security` is not set to `open`.
      * 
      */
-    @Export(name="passphrase", type=String.class, parameters={})
+    @Export(name="passphrase", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> passphrase;
 
     /**
@@ -238,7 +296,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
      * 
      */
-    @Export(name="pmfMode", type=String.class, parameters={})
+    @Export(name="pmfMode", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> pmfMode;
 
     /**
@@ -252,7 +310,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
      * 
      */
-    @Export(name="radiusProfileId", type=String.class, parameters={})
+    @Export(name="radiusProfileId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> radiusProfileId;
 
     /**
@@ -266,7 +324,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Start and stop schedules for the WLAN
      * 
      */
-    @Export(name="schedules", type=List.class, parameters={WlanSchedule.class})
+    @Export(name="schedules", refs={List.class,WlanSchedule.class}, tree="[0,1]")
     private Output</* @Nullable */ List<WlanSchedule>> schedules;
 
     /**
@@ -280,7 +338,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
      * 
      */
-    @Export(name="security", type=String.class, parameters={})
+    @Export(name="security", refs={String.class}, tree="[0]")
     private Output<String> security;
 
     /**
@@ -294,7 +352,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the wlan with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -308,7 +366,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
      * 
      */
-    @Export(name="uapsd", type=Boolean.class, parameters={})
+    @Export(name="uapsd", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> uapsd;
 
     /**
@@ -322,7 +380,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * ID of the user group to use for this network.
      * 
      */
-    @Export(name="userGroupId", type=String.class, parameters={})
+    @Export(name="userGroupId", refs={String.class}, tree="[0]")
     private Output<String> userGroupId;
 
     /**
@@ -336,7 +394,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Radio band your WiFi network will use.
      * 
      */
-    @Export(name="wlanBand", type=String.class, parameters={})
+    @Export(name="wlanBand", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> wlanBand;
 
     /**
@@ -350,7 +408,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
      * 
      */
-    @Export(name="wpa3Support", type=Boolean.class, parameters={})
+    @Export(name="wpa3Support", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> wpa3Support;
 
     /**
@@ -364,7 +422,7 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      * Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
      * 
      */
-    @Export(name="wpa3Transition", type=Boolean.class, parameters={})
+    @Export(name="wpa3Transition", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> wpa3Transition;
 
     /**

@@ -20,6 +20,50 @@ import javax.annotation.Nullable;
 /**
  * `unifi.port.Profile` manages a port profile for use on network switches.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.Network;
+ * import com.pulumi.unifi.NetworkArgs;
+ * import com.pulumi.unifi.port.Profile;
+ * import com.pulumi.unifi.port.ProfileArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var vlanId = config.get(&#34;vlanId&#34;).orElse(10);
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *             .purpose(&#34;corporate&#34;)
+ *             .subnet(&#34;10.0.0.1/24&#34;)
+ *             .vlanId(vlanId)
+ *             .dhcpStart(&#34;10.0.0.6&#34;)
+ *             .dhcpStop(&#34;10.0.0.254&#34;)
+ *             .dhcpEnabled(true)
+ *             .build());
+ * 
+ *         var poeDisabled = new Profile(&#34;poeDisabled&#34;, ProfileArgs.builder()        
+ *             .nativeNetworkconfId(vlan.id())
+ *             .poeMode(&#34;off&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:port/profile:Profile")
 public class Profile extends com.pulumi.resources.CustomResource {
@@ -27,7 +71,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
      * 
      */
-    @Export(name="autoneg", type=Boolean.class, parameters={})
+    @Export(name="autoneg", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> autoneg;
 
     /**
@@ -41,7 +85,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
      * 
      */
-    @Export(name="dot1xCtrl", type=String.class, parameters={})
+    @Export(name="dot1xCtrl", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dot1xCtrl;
 
     /**
@@ -55,7 +99,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
      * 
      */
-    @Export(name="dot1xIdleTimeout", type=Integer.class, parameters={})
+    @Export(name="dot1xIdleTimeout", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> dot1xIdleTimeout;
 
     /**
@@ -69,7 +113,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
      * 
      */
-    @Export(name="egressRateLimitKbps", type=Integer.class, parameters={})
+    @Export(name="egressRateLimitKbps", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> egressRateLimitKbps;
 
     /**
@@ -83,7 +127,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable egress rate limiting for the port profile. Defaults to `false`.
      * 
      */
-    @Export(name="egressRateLimitKbpsEnabled", type=Boolean.class, parameters={})
+    @Export(name="egressRateLimitKbpsEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> egressRateLimitKbpsEnabled;
 
     /**
@@ -97,7 +141,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
      * 
      */
-    @Export(name="forward", type=String.class, parameters={})
+    @Export(name="forward", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> forward;
 
     /**
@@ -111,7 +155,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable full duplex for the port profile. Defaults to `false`.
      * 
      */
-    @Export(name="fullDuplex", type=Boolean.class, parameters={})
+    @Export(name="fullDuplex", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> fullDuplex;
 
     /**
@@ -125,7 +169,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable port isolation for the port profile. Defaults to `false`.
      * 
      */
-    @Export(name="isolation", type=Boolean.class, parameters={})
+    @Export(name="isolation", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> isolation;
 
     /**
@@ -139,7 +183,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable LLDP-MED for the port profile. Defaults to `true`.
      * 
      */
-    @Export(name="lldpmedEnabled", type=Boolean.class, parameters={})
+    @Export(name="lldpmedEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> lldpmedEnabled;
 
     /**
@@ -153,7 +197,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable LLDP-MED topology change notifications for the port profile.
      * 
      */
-    @Export(name="lldpmedNotifyEnabled", type=Boolean.class, parameters={})
+    @Export(name="lldpmedNotifyEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> lldpmedNotifyEnabled;
 
     /**
@@ -167,7 +211,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The name of the port profile.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -181,7 +225,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The ID of network to use as the main network on the port profile.
      * 
      */
-    @Export(name="nativeNetworkconfId", type=String.class, parameters={})
+    @Export(name="nativeNetworkconfId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> nativeNetworkconfId;
 
     /**
@@ -195,7 +239,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
      * 
      */
-    @Export(name="opMode", type=String.class, parameters={})
+    @Export(name="opMode", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> opMode;
 
     /**
@@ -209,7 +253,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
      * 
      */
-    @Export(name="poeMode", type=String.class, parameters={})
+    @Export(name="poeMode", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> poeMode;
 
     /**
@@ -223,7 +267,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable port security for the port profile. Defaults to `false`.
      * 
      */
-    @Export(name="portSecurityEnabled", type=Boolean.class, parameters={})
+    @Export(name="portSecurityEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> portSecurityEnabled;
 
     /**
@@ -237,7 +281,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The MAC addresses associated with the port security for the port profile.
      * 
      */
-    @Export(name="portSecurityMacAddresses", type=List.class, parameters={String.class})
+    @Export(name="portSecurityMacAddresses", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> portSecurityMacAddresses;
 
     /**
@@ -251,7 +295,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The priority queue 1 level for the port profile. Can be between 0 and 100.
      * 
      */
-    @Export(name="priorityQueue1Level", type=Integer.class, parameters={})
+    @Export(name="priorityQueue1Level", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> priorityQueue1Level;
 
     /**
@@ -265,7 +309,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The priority queue 2 level for the port profile. Can be between 0 and 100.
      * 
      */
-    @Export(name="priorityQueue2Level", type=Integer.class, parameters={})
+    @Export(name="priorityQueue2Level", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> priorityQueue2Level;
 
     /**
@@ -279,7 +323,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The priority queue 3 level for the port profile. Can be between 0 and 100.
      * 
      */
-    @Export(name="priorityQueue3Level", type=Integer.class, parameters={})
+    @Export(name="priorityQueue3Level", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> priorityQueue3Level;
 
     /**
@@ -293,7 +337,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The priority queue 4 level for the port profile. Can be between 0 and 100.
      * 
      */
-    @Export(name="priorityQueue4Level", type=Integer.class, parameters={})
+    @Export(name="priorityQueue4Level", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> priorityQueue4Level;
 
     /**
@@ -307,7 +351,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the port profile with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -321,7 +365,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
      * 
      */
-    @Export(name="speed", type=Integer.class, parameters={})
+    @Export(name="speed", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> speed;
 
     /**
@@ -335,7 +379,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable broadcast Storm Control for the port profile. Defaults to `false`.
      * 
      */
-    @Export(name="stormctrlBcastEnabled", type=Boolean.class, parameters={})
+    @Export(name="stormctrlBcastEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> stormctrlBcastEnabled;
 
     /**
@@ -349,7 +393,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The broadcast Storm Control level for the port profile. Can be between 0 and 100.
      * 
      */
-    @Export(name="stormctrlBcastLevel", type=Integer.class, parameters={})
+    @Export(name="stormctrlBcastLevel", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> stormctrlBcastLevel;
 
     /**
@@ -363,7 +407,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
      * 
      */
-    @Export(name="stormctrlBcastRate", type=Integer.class, parameters={})
+    @Export(name="stormctrlBcastRate", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> stormctrlBcastRate;
 
     /**
@@ -377,7 +421,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable multicast Storm Control for the port profile. Defaults to `false`.
      * 
      */
-    @Export(name="stormctrlMcastEnabled", type=Boolean.class, parameters={})
+    @Export(name="stormctrlMcastEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> stormctrlMcastEnabled;
 
     /**
@@ -391,7 +435,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The multicast Storm Control level for the port profile. Can be between 0 and 100.
      * 
      */
-    @Export(name="stormctrlMcastLevel", type=Integer.class, parameters={})
+    @Export(name="stormctrlMcastLevel", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> stormctrlMcastLevel;
 
     /**
@@ -405,7 +449,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
      * 
      */
-    @Export(name="stormctrlMcastRate", type=Integer.class, parameters={})
+    @Export(name="stormctrlMcastRate", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> stormctrlMcastRate;
 
     /**
@@ -419,7 +463,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
      * 
      */
-    @Export(name="stormctrlType", type=String.class, parameters={})
+    @Export(name="stormctrlType", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> stormctrlType;
 
     /**
@@ -433,7 +477,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
      * 
      */
-    @Export(name="stormctrlUcastEnabled", type=Boolean.class, parameters={})
+    @Export(name="stormctrlUcastEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> stormctrlUcastEnabled;
 
     /**
@@ -447,7 +491,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
      * 
      */
-    @Export(name="stormctrlUcastLevel", type=Integer.class, parameters={})
+    @Export(name="stormctrlUcastLevel", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> stormctrlUcastLevel;
 
     /**
@@ -461,7 +505,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
      * 
      */
-    @Export(name="stormctrlUcastRate", type=Integer.class, parameters={})
+    @Export(name="stormctrlUcastRate", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> stormctrlUcastRate;
 
     /**
@@ -475,7 +519,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * Enable spanning tree protocol on the port profile. Defaults to `true`.
      * 
      */
-    @Export(name="stpPortMode", type=Boolean.class, parameters={})
+    @Export(name="stpPortMode", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> stpPortMode;
 
     /**
@@ -489,7 +533,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The IDs of networks to tag traffic with for the port profile.
      * 
      */
-    @Export(name="taggedNetworkconfIds", type=List.class, parameters={String.class})
+    @Export(name="taggedNetworkconfIds", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> taggedNetworkconfIds;
 
     /**
@@ -503,7 +547,7 @@ public class Profile extends com.pulumi.resources.CustomResource {
      * The ID of network to use as the voice network on the port profile.
      * 
      */
-    @Export(name="voiceNetworkconfId", type=String.class, parameters={})
+    @Export(name="voiceNetworkconfId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> voiceNetworkconfId;
 
     /**

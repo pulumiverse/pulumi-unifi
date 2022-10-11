@@ -20,6 +20,43 @@ import javax.annotation.Nullable;
 /**
  * `unifi.setting.Mgmt` manages settings for a unifi site.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.Site;
+ * import com.pulumi.unifi.SiteArgs;
+ * import com.pulumi.unifi.setting.Mgmt;
+ * import com.pulumi.unifi.setting.MgmtArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var exampleSite = new Site(&#34;exampleSite&#34;, SiteArgs.builder()        
+ *             .description(&#34;example&#34;)
+ *             .build());
+ * 
+ *         var exampleMgmt = new Mgmt(&#34;exampleMgmt&#34;, MgmtArgs.builder()        
+ *             .site(exampleSite.name())
+ *             .autoUpgrade(true)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:setting/mgmt:Mgmt")
 public class Mgmt extends com.pulumi.resources.CustomResource {
@@ -27,7 +64,7 @@ public class Mgmt extends com.pulumi.resources.CustomResource {
      * Automatically upgrade device firmware.
      * 
      */
-    @Export(name="autoUpgrade", type=Boolean.class, parameters={})
+    @Export(name="autoUpgrade", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> autoUpgrade;
 
     /**
@@ -41,7 +78,7 @@ public class Mgmt extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the settings with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -55,7 +92,7 @@ public class Mgmt extends com.pulumi.resources.CustomResource {
      * Enable SSH authentication.
      * 
      */
-    @Export(name="sshEnabled", type=Boolean.class, parameters={})
+    @Export(name="sshEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> sshEnabled;
 
     /**
@@ -69,7 +106,7 @@ public class Mgmt extends com.pulumi.resources.CustomResource {
      * SSH key.
      * 
      */
-    @Export(name="sshKeys", type=List.class, parameters={MgmtSshKey.class})
+    @Export(name="sshKeys", refs={List.class,MgmtSshKey.class}, tree="[0,1]")
     private Output</* @Nullable */ List<MgmtSshKey>> sshKeys;
 
     /**

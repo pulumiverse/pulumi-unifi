@@ -63,6 +63,34 @@ public final class IamFunctions {
      * `unifi.iam.User` retrieves properties of a user (or &#34;client&#34; in the UI) of the network by MAC address.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var client = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetUserResult> getUser(GetUserArgs args) {
@@ -72,6 +100,34 @@ public final class IamFunctions {
      * `unifi.iam.User` retrieves properties of a user (or &#34;client&#34; in the UI) of the network by MAC address.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var client = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetUserResult> getUserPlain(GetUserPlainArgs args) {
@@ -81,6 +137,34 @@ public final class IamFunctions {
      * `unifi.iam.User` retrieves properties of a user (or &#34;client&#34; in the UI) of the network by MAC address.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var client = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static Output<GetUserResult> getUser(GetUserArgs args, InvokeOptions options) {
@@ -90,6 +174,34 @@ public final class IamFunctions {
      * `unifi.iam.User` retrieves properties of a user (or &#34;client&#34; in the UI) of the network by MAC address.
      * 
      * ## Example Usage
+     * ```java
+     * package generated_program;
+     * 
+     * import com.pulumi.Context;
+     * import com.pulumi.Pulumi;
+     * import com.pulumi.core.Output;
+     * import com.pulumi.unifi.iam.IamFunctions;
+     * import com.pulumi.unifi.iam.inputs.GetUserArgs;
+     * import java.util.List;
+     * import java.util.ArrayList;
+     * import java.util.Map;
+     * import java.io.File;
+     * import java.nio.file.Files;
+     * import java.nio.file.Paths;
+     * 
+     * public class App {
+     *     public static void main(String[] args) {
+     *         Pulumi.run(App::stack);
+     *     }
+     * 
+     *     public static void stack(Context ctx) {
+     *         final var client = IamFunctions.getUser(GetUserArgs.builder()
+     *             .mac(&#34;01:23:45:67:89:ab&#34;)
+     *             .build());
+     * 
+     *     }
+     * }
+     * ```
      * 
      */
     public static CompletableFuture<GetUserResult> getUserPlain(GetUserPlainArgs args, InvokeOptions options) {

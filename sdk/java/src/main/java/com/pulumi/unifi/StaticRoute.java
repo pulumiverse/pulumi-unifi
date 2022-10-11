@@ -18,6 +18,52 @@ import javax.annotation.Nullable;
 /**
  * `unifi.StaticRoute` manages a static route.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.StaticRoute;
+ * import com.pulumi.unifi.StaticRouteArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var nexthop = new StaticRoute(&#34;nexthop&#34;, StaticRouteArgs.builder()        
+ *             .type(&#34;nexthop-route&#34;)
+ *             .network(&#34;172.17.0.0/16&#34;)
+ *             .distance(1)
+ *             .nextHop(&#34;172.16.0.1&#34;)
+ *             .build());
+ * 
+ *         var blackhole = new StaticRoute(&#34;blackhole&#34;, StaticRouteArgs.builder()        
+ *             .type(&#34;blackhole&#34;)
+ *             .network(var_.blackhole_cidr())
+ *             .distance(1)
+ *             .build());
+ * 
+ *         var interface_ = new StaticRoute(&#34;interface&#34;, StaticRouteArgs.builder()        
+ *             .type(&#34;interface-route&#34;)
+ *             .network(var_.wan2_cidr())
+ *             .distance(1)
+ *             .interface_(&#34;WAN2&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  */
 @ResourceType(type="unifi:index/staticRoute:StaticRoute")
 public class StaticRoute extends com.pulumi.resources.CustomResource {
@@ -25,7 +71,7 @@ public class StaticRoute extends com.pulumi.resources.CustomResource {
      * The distance of the static route.
      * 
      */
-    @Export(name="distance", type=Integer.class, parameters={})
+    @Export(name="distance", refs={Integer.class}, tree="[0]")
     private Output<Integer> distance;
 
     /**
@@ -39,7 +85,7 @@ public class StaticRoute extends com.pulumi.resources.CustomResource {
      * The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
      * 
      */
-    @Export(name="interface", type=String.class, parameters={})
+    @Export(name="interface", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> interface_;
 
     /**
@@ -53,7 +99,7 @@ public class StaticRoute extends com.pulumi.resources.CustomResource {
      * The name of the static route.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -67,7 +113,7 @@ public class StaticRoute extends com.pulumi.resources.CustomResource {
      * The network subnet address.
      * 
      */
-    @Export(name="network", type=String.class, parameters={})
+    @Export(name="network", refs={String.class}, tree="[0]")
     private Output<String> network;
 
     /**
@@ -81,7 +127,7 @@ public class StaticRoute extends com.pulumi.resources.CustomResource {
      * The next hop of the static route (only valid for `nexthop-route` type).
      * 
      */
-    @Export(name="nextHop", type=String.class, parameters={})
+    @Export(name="nextHop", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> nextHop;
 
     /**
@@ -95,7 +141,7 @@ public class StaticRoute extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the static route with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -109,7 +155,7 @@ public class StaticRoute extends com.pulumi.resources.CustomResource {
      * The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
      * 
      */
-    @Export(name="type", type=String.class, parameters={})
+    @Export(name="type", refs={String.class}, tree="[0]")
     private Output<String> type;
 
     /**

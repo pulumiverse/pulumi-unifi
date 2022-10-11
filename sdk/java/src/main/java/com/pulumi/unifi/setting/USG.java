@@ -25,7 +25,7 @@ public class USG extends com.pulumi.resources.CustomResource {
      * The DHCP relay servers.
      * 
      */
-    @Export(name="dhcpRelayServers", type=List.class, parameters={String.class})
+    @Export(name="dhcpRelayServers", refs={List.class,String.class}, tree="[0,1]")
     private Output<List<String>> dhcpRelayServers;
 
     /**
@@ -39,7 +39,7 @@ public class USG extends com.pulumi.resources.CustomResource {
      * Whether the guest firewall log is enabled.
      * 
      */
-    @Export(name="firewallGuestDefaultLog", type=Boolean.class, parameters={})
+    @Export(name="firewallGuestDefaultLog", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> firewallGuestDefaultLog;
 
     /**
@@ -53,7 +53,7 @@ public class USG extends com.pulumi.resources.CustomResource {
      * Whether the LAN firewall log is enabled.
      * 
      */
-    @Export(name="firewallLanDefaultLog", type=Boolean.class, parameters={})
+    @Export(name="firewallLanDefaultLog", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> firewallLanDefaultLog;
 
     /**
@@ -67,7 +67,7 @@ public class USG extends com.pulumi.resources.CustomResource {
      * Whether the WAN firewall log is enabled.
      * 
      */
-    @Export(name="firewallWanDefaultLog", type=Boolean.class, parameters={})
+    @Export(name="firewallWanDefaultLog", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> firewallWanDefaultLog;
 
     /**
@@ -81,7 +81,7 @@ public class USG extends com.pulumi.resources.CustomResource {
      * Whether multicast DNS is enabled.
      * 
      */
-    @Export(name="multicastDnsEnabled", type=Boolean.class, parameters={})
+    @Export(name="multicastDnsEnabled", refs={Boolean.class}, tree="[0]")
     private Output<Boolean> multicastDnsEnabled;
 
     /**
@@ -95,7 +95,7 @@ public class USG extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the settings with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**

@@ -20,6 +20,53 @@ import javax.annotation.Nullable;
 /**
  * `unifi.Network` manages WAN/LAN/VLAN networks.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.Network;
+ * import com.pulumi.unifi.NetworkArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var vlanId = config.get(&#34;vlanId&#34;).orElse(10);
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *             .purpose(&#34;corporate&#34;)
+ *             .subnet(&#34;10.0.0.1/24&#34;)
+ *             .vlanId(vlanId)
+ *             .dhcpStart(&#34;10.0.0.6&#34;)
+ *             .dhcpStop(&#34;10.0.0.254&#34;)
+ *             .dhcpEnabled(true)
+ *             .build());
+ * 
+ *         var wan = new Network(&#34;wan&#34;, NetworkArgs.builder()        
+ *             .purpose(&#34;wan&#34;)
+ *             .wanNetworkgroup(&#34;WAN&#34;)
+ *             .wanType(&#34;pppoe&#34;)
+ *             .wanIp(&#34;192.168.1.1&#34;)
+ *             .wanEgressQos(1)
+ *             .wanUsername(&#34;username&#34;)
+ *             .xWanPassword(&#34;password&#34;)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
  * # import from provider configured site
@@ -47,7 +94,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
      * 
      */
-    @Export(name="dhcpDns", type=List.class, parameters={String.class})
+    @Export(name="dhcpDns", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> dhcpDns;
 
     /**
@@ -61,7 +108,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies whether DHCP is enabled or not on this network.
      * 
      */
-    @Export(name="dhcpEnabled", type=Boolean.class, parameters={})
+    @Export(name="dhcpEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> dhcpEnabled;
 
     /**
@@ -75,7 +122,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the lease time for DHCP addresses. Defaults to `86400`.
      * 
      */
-    @Export(name="dhcpLease", type=Integer.class, parameters={})
+    @Export(name="dhcpLease", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> dhcpLease;
 
     /**
@@ -89,7 +136,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies whether DHCP relay is enabled or not on this network.
      * 
      */
-    @Export(name="dhcpRelayEnabled", type=Boolean.class, parameters={})
+    @Export(name="dhcpRelayEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> dhcpRelayEnabled;
 
     /**
@@ -103,7 +150,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The IPv4 address where the DHCP range of addresses starts.
      * 
      */
-    @Export(name="dhcpStart", type=String.class, parameters={})
+    @Export(name="dhcpStart", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dhcpStart;
 
     /**
@@ -117,7 +164,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The IPv4 address where the DHCP range of addresses stops.
      * 
      */
-    @Export(name="dhcpStop", type=String.class, parameters={})
+    @Export(name="dhcpStop", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dhcpStop;
 
     /**
@@ -131,7 +178,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
      * 
      */
-    @Export(name="dhcpdBootEnabled", type=Boolean.class, parameters={})
+    @Export(name="dhcpdBootEnabled", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> dhcpdBootEnabled;
 
     /**
@@ -145,7 +192,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the file to PXE boot from on the dhcpd*boot*server.
      * 
      */
-    @Export(name="dhcpdBootFilename", type=String.class, parameters={})
+    @Export(name="dhcpdBootFilename", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dhcpdBootFilename;
 
     /**
@@ -159,7 +206,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the IPv4 address of a TFTP server to network boot from.
      * 
      */
-    @Export(name="dhcpdBootServer", type=String.class, parameters={})
+    @Export(name="dhcpdBootServer", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dhcpdBootServer;
 
     /**
@@ -173,7 +220,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The domain name of this network.
      * 
      */
-    @Export(name="domainName", type=String.class, parameters={})
+    @Export(name="domainName", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> domainName;
 
     /**
@@ -187,7 +234,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies whether IGMP snooping is enabled or not.
      * 
      */
-    @Export(name="igmpSnooping", type=Boolean.class, parameters={})
+    @Export(name="igmpSnooping", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> igmpSnooping;
 
     /**
@@ -201,7 +248,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies which type of IPv6 connection to use. Defaults to `none`.
      * 
      */
-    @Export(name="ipv6InterfaceType", type=String.class, parameters={})
+    @Export(name="ipv6InterfaceType", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipv6InterfaceType;
 
     /**
@@ -215,7 +262,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies which WAN interface to use for IPv6 PD.
      * 
      */
-    @Export(name="ipv6PdInterface", type=String.class, parameters={})
+    @Export(name="ipv6PdInterface", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipv6PdInterface;
 
     /**
@@ -229,7 +276,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the IPv6 Prefix ID.
      * 
      */
-    @Export(name="ipv6PdPrefixid", type=String.class, parameters={})
+    @Export(name="ipv6PdPrefixid", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipv6PdPrefixid;
 
     /**
@@ -243,7 +290,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies whether to enable router advertisements or not.
      * 
      */
-    @Export(name="ipv6RaEnable", type=Boolean.class, parameters={})
+    @Export(name="ipv6RaEnable", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> ipv6RaEnable;
 
     /**
@@ -257,7 +304,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the static IPv6 subnet when ipv6*interface*type is &#39;static&#39;.
      * 
      */
-    @Export(name="ipv6StaticSubnet", type=String.class, parameters={})
+    @Export(name="ipv6StaticSubnet", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipv6StaticSubnet;
 
     /**
@@ -271,7 +318,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The name of the network.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -285,7 +332,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The group of the network. Defaults to `LAN`.
      * 
      */
-    @Export(name="networkGroup", type=String.class, parameters={})
+    @Export(name="networkGroup", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> networkGroup;
 
     /**
@@ -299,7 +346,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
      * 
      */
-    @Export(name="purpose", type=String.class, parameters={})
+    @Export(name="purpose", refs={String.class}, tree="[0]")
     private Output<String> purpose;
 
     /**
@@ -313,7 +360,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the network with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -327,7 +374,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The subnet of the network. Must be a valid CIDR address.
      * 
      */
-    @Export(name="subnet", type=String.class, parameters={})
+    @Export(name="subnet", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> subnet;
 
     /**
@@ -341,7 +388,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The VLAN ID of the network.
      * 
      */
-    @Export(name="vlanId", type=Integer.class, parameters={})
+    @Export(name="vlanId", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> vlanId;
 
     /**
@@ -355,7 +402,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * DNS servers IPs of the WAN.
      * 
      */
-    @Export(name="wanDns", type=List.class, parameters={String.class})
+    @Export(name="wanDns", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> wanDns;
 
     /**
@@ -369,7 +416,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the WAN egress quality of service. Defaults to `0`.
      * 
      */
-    @Export(name="wanEgressQos", type=Integer.class, parameters={})
+    @Export(name="wanEgressQos", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> wanEgressQos;
 
     /**
@@ -383,7 +430,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The IPv4 gateway of the WAN.
      * 
      */
-    @Export(name="wanGateway", type=String.class, parameters={})
+    @Export(name="wanGateway", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> wanGateway;
 
     /**
@@ -397,7 +444,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The IPv4 address of the WAN.
      * 
      */
-    @Export(name="wanIp", type=String.class, parameters={})
+    @Export(name="wanIp", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> wanIp;
 
     /**
@@ -411,7 +458,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * The IPv4 netmask of the WAN.
      * 
      */
-    @Export(name="wanNetmask", type=String.class, parameters={})
+    @Export(name="wanNetmask", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> wanNetmask;
 
     /**
@@ -425,7 +472,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
      * 
      */
-    @Export(name="wanNetworkgroup", type=String.class, parameters={})
+    @Export(name="wanNetworkgroup", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> wanNetworkgroup;
 
     /**
@@ -439,7 +486,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
      * 
      */
-    @Export(name="wanType", type=String.class, parameters={})
+    @Export(name="wanType", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> wanType;
 
     /**
@@ -453,7 +500,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the IPV4 WAN username.
      * 
      */
-    @Export(name="wanUsername", type=String.class, parameters={})
+    @Export(name="wanUsername", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> wanUsername;
 
     /**
@@ -467,7 +514,7 @@ public class Network extends com.pulumi.resources.CustomResource {
      * Specifies the IPV4 WAN password.
      * 
      */
-    @Export(name="xWanPassword", type=String.class, parameters={})
+    @Export(name="xWanPassword", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> xWanPassword;
 
     /**

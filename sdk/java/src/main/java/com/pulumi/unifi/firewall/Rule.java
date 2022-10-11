@@ -20,6 +20,42 @@ import javax.annotation.Nullable;
 /**
  * `unifi.firewall.Rule` manages an individual firewall rule on the gateway.
  * 
+ * ## Example Usage
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.unifi.firewall.Rule;
+ * import com.pulumi.unifi.firewall.RuleArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         final var config = ctx.config();
+ *         final var ipAddress = config.get(&#34;ipAddress&#34;);
+ *         var dropAll = new Rule(&#34;dropAll&#34;, RuleArgs.builder()        
+ *             .action(&#34;drop&#34;)
+ *             .ruleset(&#34;LAN_IN&#34;)
+ *             .ruleIndex(2011)
+ *             .protocol(&#34;all&#34;)
+ *             .dstAddress(ipAddress)
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * 
  * ## Import
  * 
  * # import using the ID from the controller API/UI
@@ -35,7 +71,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
      * 
      */
-    @Export(name="action", type=String.class, parameters={})
+    @Export(name="action", refs={String.class}, tree="[0]")
     private Output<String> action;
 
     /**
@@ -49,7 +85,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The destination address of the firewall rule.
      * 
      */
-    @Export(name="dstAddress", type=String.class, parameters={})
+    @Export(name="dstAddress", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dstAddress;
 
     /**
@@ -63,7 +99,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The destination firewall group IDs of the firewall rule.
      * 
      */
-    @Export(name="dstFirewallGroupIds", type=List.class, parameters={String.class})
+    @Export(name="dstFirewallGroupIds", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> dstFirewallGroupIds;
 
     /**
@@ -77,7 +113,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The destination network ID of the firewall rule.
      * 
      */
-    @Export(name="dstNetworkId", type=String.class, parameters={})
+    @Export(name="dstNetworkId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dstNetworkId;
 
     /**
@@ -91,7 +127,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
      * 
      */
-    @Export(name="dstNetworkType", type=String.class, parameters={})
+    @Export(name="dstNetworkType", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dstNetworkType;
 
     /**
@@ -105,7 +141,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The destination port of the firewall rule.
      * 
      */
-    @Export(name="dstPort", type=String.class, parameters={})
+    @Export(name="dstPort", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> dstPort;
 
     /**
@@ -119,7 +155,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * ICMP type name.
      * 
      */
-    @Export(name="icmpTypename", type=String.class, parameters={})
+    @Export(name="icmpTypename", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> icmpTypename;
 
     /**
@@ -133,7 +169,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
      * 
      */
-    @Export(name="ipSec", type=String.class, parameters={})
+    @Export(name="ipSec", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipSec;
 
     /**
@@ -147,7 +183,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * Enable logging for the firewall rule.
      * 
      */
-    @Export(name="logging", type=Boolean.class, parameters={})
+    @Export(name="logging", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> logging;
 
     /**
@@ -161,7 +197,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The name of the firewall rule.
      * 
      */
-    @Export(name="name", type=String.class, parameters={})
+    @Export(name="name", refs={String.class}, tree="[0]")
     private Output<String> name;
 
     /**
@@ -175,7 +211,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The protocol of the rule.
      * 
      */
-    @Export(name="protocol", type=String.class, parameters={})
+    @Export(name="protocol", refs={String.class}, tree="[0]")
     private Output<String> protocol;
 
     /**
@@ -189,7 +225,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The index of the rule. Must be &gt;= 2000 &lt; 3000 or &gt;= 4000 &lt; 5000.
      * 
      */
-    @Export(name="ruleIndex", type=Integer.class, parameters={})
+    @Export(name="ruleIndex", refs={Integer.class}, tree="[0]")
     private Output<Integer> ruleIndex;
 
     /**
@@ -203,7 +239,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
      * 
      */
-    @Export(name="ruleset", type=String.class, parameters={})
+    @Export(name="ruleset", refs={String.class}, tree="[0]")
     private Output<String> ruleset;
 
     /**
@@ -217,7 +253,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The name of the site to associate the firewall rule with.
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output<String> site;
 
     /**
@@ -231,7 +267,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The source address for the firewall rule.
      * 
      */
-    @Export(name="srcAddress", type=String.class, parameters={})
+    @Export(name="srcAddress", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> srcAddress;
 
     /**
@@ -245,7 +281,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The source firewall group IDs for the firewall rule.
      * 
      */
-    @Export(name="srcFirewallGroupIds", type=List.class, parameters={String.class})
+    @Export(name="srcFirewallGroupIds", refs={List.class,String.class}, tree="[0,1]")
     private Output</* @Nullable */ List<String>> srcFirewallGroupIds;
 
     /**
@@ -259,7 +295,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The source MAC address of the firewall rule.
      * 
      */
-    @Export(name="srcMac", type=String.class, parameters={})
+    @Export(name="srcMac", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> srcMac;
 
     /**
@@ -273,7 +309,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The source network ID for the firewall rule.
      * 
      */
-    @Export(name="srcNetworkId", type=String.class, parameters={})
+    @Export(name="srcNetworkId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> srcNetworkId;
 
     /**
@@ -287,7 +323,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
      * 
      */
-    @Export(name="srcNetworkType", type=String.class, parameters={})
+    @Export(name="srcNetworkType", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> srcNetworkType;
 
     /**
@@ -301,7 +337,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * Match where the state is established.
      * 
      */
-    @Export(name="stateEstablished", type=Boolean.class, parameters={})
+    @Export(name="stateEstablished", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> stateEstablished;
 
     /**
@@ -315,7 +351,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * Match where the state is invalid.
      * 
      */
-    @Export(name="stateInvalid", type=Boolean.class, parameters={})
+    @Export(name="stateInvalid", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> stateInvalid;
 
     /**
@@ -329,7 +365,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * Match where the state is new.
      * 
      */
-    @Export(name="stateNew", type=Boolean.class, parameters={})
+    @Export(name="stateNew", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> stateNew;
 
     /**
@@ -343,7 +379,7 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * Match where the state is related.
      * 
      */
-    @Export(name="stateRelated", type=Boolean.class, parameters={})
+    @Export(name="stateRelated", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> stateRelated;
 
     /**

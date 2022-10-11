@@ -28,7 +28,7 @@ public class Provider extends com.pulumi.resources.ProviderResource {
      * standard controller paths.
      * 
      */
-    @Export(name="apiUrl", type=String.class, parameters={})
+    @Export(name="apiUrl", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiUrl;
 
     /**
@@ -44,7 +44,7 @@ public class Provider extends com.pulumi.resources.ProviderResource {
      * Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
      * 
      */
-    @Export(name="password", type=String.class, parameters={})
+    @Export(name="password", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> password;
 
     /**
@@ -59,7 +59,7 @@ public class Provider extends com.pulumi.resources.ProviderResource {
      * Default: `default`
      * 
      */
-    @Export(name="site", type=String.class, parameters={})
+    @Export(name="site", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> site;
 
     /**
@@ -74,7 +74,7 @@ public class Provider extends com.pulumi.resources.ProviderResource {
      * Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
      * 
      */
-    @Export(name="username", type=String.class, parameters={})
+    @Export(name="username", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> username;
 
     /**
