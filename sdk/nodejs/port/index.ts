@@ -8,18 +8,18 @@ import * as utilities from "../utilities";
 export { ForwardArgs, ForwardState } from "./forward";
 export type Forward = import("./forward").Forward;
 export const Forward: typeof import("./forward").Forward = null as any;
+utilities.lazyLoad(exports, ["Forward"], () => require("./forward"));
 
 export { GetProfileArgs, GetProfileResult, GetProfileOutputArgs } from "./getProfile";
 export const getProfile: typeof import("./getProfile").getProfile = null as any;
 export const getProfileOutput: typeof import("./getProfile").getProfileOutput = null as any;
+utilities.lazyLoad(exports, ["getProfile","getProfileOutput"], () => require("./getProfile"));
 
 export { ProfileArgs, ProfileState } from "./profile";
 export type Profile = import("./profile").Profile;
 export const Profile: typeof import("./profile").Profile = null as any;
-
-utilities.lazyLoad(exports, ["Forward"], () => require("./forward"));
-utilities.lazyLoad(exports, ["getProfile","getProfileOutput"], () => require("./getProfile"));
 utilities.lazyLoad(exports, ["Profile"], () => require("./profile"));
+
 
 const _module = {
     version: utilities.getVersion(),

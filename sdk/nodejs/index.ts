@@ -8,53 +8,53 @@ import * as utilities from "./utilities";
 export { DeviceArgs, DeviceState } from "./device";
 export type Device = import("./device").Device;
 export const Device: typeof import("./device").Device = null as any;
+utilities.lazyLoad(exports, ["Device"], () => require("./device"));
 
 export { DynamicDNSArgs, DynamicDNSState } from "./dynamicDNS";
 export type DynamicDNS = import("./dynamicDNS").DynamicDNS;
 export const DynamicDNS: typeof import("./dynamicDNS").DynamicDNS = null as any;
+utilities.lazyLoad(exports, ["DynamicDNS"], () => require("./dynamicDNS"));
 
 export { GetApGroupArgs, GetApGroupResult, GetApGroupOutputArgs } from "./getApGroup";
 export const getApGroup: typeof import("./getApGroup").getApGroup = null as any;
 export const getApGroupOutput: typeof import("./getApGroup").getApGroupOutput = null as any;
+utilities.lazyLoad(exports, ["getApGroup","getApGroupOutput"], () => require("./getApGroup"));
 
 export { GetNetworkArgs, GetNetworkResult, GetNetworkOutputArgs } from "./getNetwork";
 export const getNetwork: typeof import("./getNetwork").getNetwork = null as any;
 export const getNetworkOutput: typeof import("./getNetwork").getNetworkOutput = null as any;
+utilities.lazyLoad(exports, ["getNetwork","getNetworkOutput"], () => require("./getNetwork"));
 
 export { GetRadiusProfileArgs, GetRadiusProfileResult, GetRadiusProfileOutputArgs } from "./getRadiusProfile";
 export const getRadiusProfile: typeof import("./getRadiusProfile").getRadiusProfile = null as any;
 export const getRadiusProfileOutput: typeof import("./getRadiusProfile").getRadiusProfileOutput = null as any;
+utilities.lazyLoad(exports, ["getRadiusProfile","getRadiusProfileOutput"], () => require("./getRadiusProfile"));
 
 export { NetworkArgs, NetworkState } from "./network";
 export type Network = import("./network").Network;
 export const Network: typeof import("./network").Network = null as any;
+utilities.lazyLoad(exports, ["Network"], () => require("./network"));
 
 export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
+utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
 export { SiteArgs, SiteState } from "./site";
 export type Site = import("./site").Site;
 export const Site: typeof import("./site").Site = null as any;
+utilities.lazyLoad(exports, ["Site"], () => require("./site"));
 
 export { StaticRouteArgs, StaticRouteState } from "./staticRoute";
 export type StaticRoute = import("./staticRoute").StaticRoute;
 export const StaticRoute: typeof import("./staticRoute").StaticRoute = null as any;
+utilities.lazyLoad(exports, ["StaticRoute"], () => require("./staticRoute"));
 
 export { WlanArgs, WlanState } from "./wlan";
 export type Wlan = import("./wlan").Wlan;
 export const Wlan: typeof import("./wlan").Wlan = null as any;
-
-utilities.lazyLoad(exports, ["Device"], () => require("./device"));
-utilities.lazyLoad(exports, ["DynamicDNS"], () => require("./dynamicDNS"));
-utilities.lazyLoad(exports, ["getApGroup","getApGroupOutput"], () => require("./getApGroup"));
-utilities.lazyLoad(exports, ["getNetwork","getNetworkOutput"], () => require("./getNetwork"));
-utilities.lazyLoad(exports, ["getRadiusProfile","getRadiusProfileOutput"], () => require("./getRadiusProfile"));
-utilities.lazyLoad(exports, ["Network"], () => require("./network"));
-utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
-utilities.lazyLoad(exports, ["Site"], () => require("./site"));
-utilities.lazyLoad(exports, ["StaticRoute"], () => require("./staticRoute"));
 utilities.lazyLoad(exports, ["Wlan"], () => require("./wlan"));
+
 
 // Export sub-modules:
 import * as config from "./config";

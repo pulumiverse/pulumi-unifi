@@ -19,7 +19,6 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-unifi/sdk/go/unifi/port"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port"
 //
@@ -27,7 +26,7 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := port.LookupProfile(ctx, nil, nil)
+//			_, err = port.LookupProfile(ctx, nil, nil)
 //			if err != nil {
 //				return err
 //			}

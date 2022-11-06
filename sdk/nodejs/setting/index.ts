@@ -8,13 +8,13 @@ import * as utilities from "../utilities";
 export { MgmtArgs, MgmtState } from "./mgmt";
 export type Mgmt = import("./mgmt").Mgmt;
 export const Mgmt: typeof import("./mgmt").Mgmt = null as any;
+utilities.lazyLoad(exports, ["Mgmt"], () => require("./mgmt"));
 
 export { USGArgs, USGState } from "./usg";
 export type USG = import("./usg").USG;
 export const USG: typeof import("./usg").USG = null as any;
-
-utilities.lazyLoad(exports, ["Mgmt"], () => require("./mgmt"));
 utilities.lazyLoad(exports, ["USG"], () => require("./usg"));
+
 
 const _module = {
     version: utilities.getVersion(),

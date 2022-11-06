@@ -20,7 +20,6 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-unifi/sdk/go/unifi/iam"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
@@ -31,7 +30,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			cfg := config.New(ctx, "")
-//			vlanId := 10
+//			vlanId := float64(10)
 //			if param := cfg.GetFloat64("vlanId"); param != 0 {
 //				vlanId = param
 //			}

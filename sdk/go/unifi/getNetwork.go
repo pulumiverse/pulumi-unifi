@@ -19,7 +19,6 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-unifi/sdk/go/unifi/iam"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"
@@ -28,7 +27,7 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := unifi.LookupNetwork(ctx, &GetNetworkArgs{
+//			_, err = unifi.LookupNetwork(ctx, &GetNetworkArgs{
 //				Name: pulumi.StringRef("LAN"),
 //			}, nil)
 //			if err != nil {

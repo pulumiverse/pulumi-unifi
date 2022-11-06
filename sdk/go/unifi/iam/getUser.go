@@ -19,7 +19,6 @@ import (
 //
 // import (
 //
-//	"github.com/pulumi/pulumi-unifi/sdk/go/unifi/iam"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"
 //
@@ -27,7 +26,7 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := iam.LookupUser(ctx, &iam.LookupUserArgs{
+//			_, err = iam.LookupUser(ctx, &iam.LookupUserArgs{
 //				Mac: "01:23:45:67:89:ab",
 //			}, nil)
 //			if err != nil {
