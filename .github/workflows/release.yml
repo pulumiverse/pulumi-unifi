@@ -4,8 +4,8 @@ env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
   PROVIDER: unifi
-  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-  PULUMI_API: https://api.pulumi.com
+  PULUMI_ACCESS_TOKEN: "LOCAL_TOKEN"
+  PULUMI_API: file://~
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   PULUMI_TEST_OWNER: "lbrlabs"
@@ -274,6 +274,11 @@ jobs:
     name: test
     needs: build_sdk
     runs-on: ubuntu-latest
+    env:
+      UNIFI_INSECURE: true
+      UNIFI_API: https://localhost:8443
+      UNIFI_USERNAME: pulumi-unifi-admin
+      UNIFI_PASSWORD: pulumi-unifi-password
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
@@ -334,8 +339,13 @@ jobs:
         pip3 install pipenv
     - name: Install dependencies
       run: make install_${{ matrix.language}}_sdk
+    - name: Bootstrap controller
+      run: make test_setup
     - name: Run tests
       run: cd examples && go test -v -count=1 -cover -timeout 2h -tags=${{ matrix.language}} -parallel 4 .
+    - name: Shutdown controller
+      if: ${{ always() }}
+      run: make test_teardown
     strategy:
       fail-fast: true
       matrix:
