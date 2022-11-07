@@ -1,3 +1,13 @@
+name: release
+"on":
+  push:
+    tags:
+    - v*.*.*
+    - '!v*.*.*-**'
+
+permissions:
+  contents: write
+
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -8,10 +18,11 @@ env:
   PULUMI_API: file://~
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
-  PULUMI_TEST_OWNER: "lbrlabs"
+  PULUMI_TEST_OWNER: "pulumiverse"
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
   PYPI_USERNAME: "__token__"
   TRAVIS_OS_NAME: linux
+
 jobs:
   build_sdk:
     name: build_sdk
@@ -19,15 +30,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+      with:
+        # https://github.com/actions/checkout#Fetch-all-history-for-all-tags-and-branches
+        fetch-depth: 0
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: jaxxstorm/scripts
         ref: third_party
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v2
       with:
@@ -362,9 +374,3 @@ jobs:
         - 16.x
         pythonversion:
         - "3.7"
-name: release
-"on":
-  push:
-    tags:
-    - v*.*.*
-    - '!v*.*.*-**'
