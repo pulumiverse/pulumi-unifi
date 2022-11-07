@@ -26,7 +26,7 @@ import * as utilities from "../utilities";
  *
  * ## Import
  *
- * # import using the ID from the controller API/UI
+ * import using the ID from the controller API/UI
  *
  * ```sh
  *  $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f

@@ -41,7 +41,7 @@ import (
 //
 // ## Import
 //
-// # import using the ID
+// import using the ID
 //
 // ```sh
 //

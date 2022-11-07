@@ -74,6 +74,13 @@ func NewDynamicDNS(ctx *pulumi.Context,
 	if args.Service == nil {
 		return nil, errors.New("invalid value for required argument 'Service'")
 	}
+	if args.Password != nil {
+		args.Password = pulumi.ToSecret(args.Password).(pulumi.StringPtrOutput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"password",
+	})
+	opts = append(opts, secrets)
 	opts = pkgResourceDefaultOpts(opts)
 	var resource DynamicDNS
 	err := ctx.RegisterResource("unifi:index/dynamicDNS:DynamicDNS", name, args, &resource, opts...)

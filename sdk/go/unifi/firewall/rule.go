@@ -48,7 +48,7 @@ import (
 //
 // ## Import
 //
-// # import using the ID from the controller API/UI
+// import using the ID from the controller API/UI
 //
 // ```sh
 //

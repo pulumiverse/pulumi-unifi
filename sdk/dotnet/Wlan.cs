@@ -59,13 +59,13 @@ namespace Pulumiverse.Unifi
     /// 
     /// ## Import
     /// 
-    /// # import from provider configured site
+    /// import from provider configured site
     /// 
     /// ```sh
     ///  $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
     /// ```
     /// 
-    /// # import from another site
+    ///  import from another site
     /// 
     /// ```sh
     ///  $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
@@ -242,6 +242,10 @@ namespace Pulumiverse.Unifi
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "passphrase",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -355,11 +359,21 @@ namespace Pulumiverse.Unifi
         [Input("no2ghzOui")]
         public Input<bool>? No2ghzOui { get; set; }
 
+        [Input("passphrase")]
+        private Input<string>? _passphrase;
+
         /// <summary>
         /// The passphrase for the network, this is only required if `security` is not set to `open`.
         /// </summary>
-        [Input("passphrase")]
-        public Input<string>? Passphrase { get; set; }
+        public Input<string>? Passphrase
+        {
+            get => _passphrase;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _passphrase = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
@@ -525,11 +539,21 @@ namespace Pulumiverse.Unifi
         [Input("no2ghzOui")]
         public Input<bool>? No2ghzOui { get; set; }
 
+        [Input("passphrase")]
+        private Input<string>? _passphrase;
+
         /// <summary>
         /// The passphrase for the network, this is only required if `security` is not set to `open`.
         /// </summary>
-        [Input("passphrase")]
-        public Input<string>? Passphrase { get; set; }
+        public Input<string>? Passphrase
+        {
+            get => _passphrase;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _passphrase = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
