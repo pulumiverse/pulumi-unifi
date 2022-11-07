@@ -38,6 +38,9 @@
             "generateResourceContainerTypes": true,
             "importBasePath": "github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
         },
+        "java": {
+            "basePackage": "com.pulumiverse"
+        },
         "nodejs": {
             "compatibility": "tfbridge20",
             "dependencies": {

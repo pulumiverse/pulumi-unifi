@@ -214,6 +214,9 @@ func Provider() tfbridge.ProviderInfo {
 			RootNamespace: "Pulumiverse",
 			Namespaces:    namespaceMap,
 		},
+		Java: &tfbridge.JavaInfo{
+			BasePackage: "com.pulumiverse",
+		},
 	}
 
 	prov.SetAutonaming(255, "-")
