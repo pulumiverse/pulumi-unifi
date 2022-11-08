@@ -861,13 +861,13 @@ class Wlan(pulumi.CustomResource):
 
         ## Import
 
-        # import from provider configured site
+        import from provider configured site
 
         ```sh
          $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
         ```
 
-        # import from another site
+         import from another site
 
         ```sh
          $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
@@ -942,13 +942,13 @@ class Wlan(pulumi.CustomResource):
 
         ## Import
 
-        # import from provider configured site
+        import from provider configured site
 
         ```sh
          $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
         ```
 
-        # import from another site
+         import from another site
 
         ```sh
          $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
@@ -1015,7 +1015,7 @@ class Wlan(pulumi.CustomResource):
             __props__.__dict__["name"] = name
             __props__.__dict__["network_id"] = network_id
             __props__.__dict__["no2ghz_oui"] = no2ghz_oui
-            __props__.__dict__["passphrase"] = passphrase
+            __props__.__dict__["passphrase"] = None if passphrase is None else pulumi.Output.secret(passphrase)
             __props__.__dict__["pmf_mode"] = pmf_mode
             __props__.__dict__["radius_profile_id"] = radius_profile_id
             __props__.__dict__["schedules"] = schedules
@@ -1030,6 +1030,8 @@ class Wlan(pulumi.CustomResource):
             __props__.__dict__["wlan_band"] = wlan_band
             __props__.__dict__["wpa3_support"] = wpa3_support
             __props__.__dict__["wpa3_transition"] = wpa3_transition
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["passphrase"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Wlan, __self__).__init__(
             'unifi:index/wlan:Wlan',
             resource_name,

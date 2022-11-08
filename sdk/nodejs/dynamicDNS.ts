@@ -110,12 +110,14 @@ export class DynamicDNS extends pulumi.CustomResource {
             resourceInputs["hostName"] = args ? args.hostName : undefined;
             resourceInputs["interface"] = args ? args.interface : undefined;
             resourceInputs["login"] = args ? args.login : undefined;
-            resourceInputs["password"] = args ? args.password : undefined;
+            resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
             resourceInputs["server"] = args ? args.server : undefined;
             resourceInputs["service"] = args ? args.service : undefined;
             resourceInputs["site"] = args ? args.site : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["password"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(DynamicDNS.__pulumiType, name, resourceInputs, opts);
     }
 }

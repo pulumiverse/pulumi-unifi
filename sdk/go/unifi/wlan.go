@@ -76,7 +76,7 @@ import (
 //
 // ## Import
 //
-// # import from provider configured site
+// import from provider configured site
 //
 // ```sh
 //
@@ -84,7 +84,7 @@ import (
 //
 // ```
 //
-// # import from another site
+//	import from another site
 //
 // ```sh
 //
@@ -157,6 +157,13 @@ func NewWlan(ctx *pulumi.Context,
 	if args.UserGroupId == nil {
 		return nil, errors.New("invalid value for required argument 'UserGroupId'")
 	}
+	if args.Passphrase != nil {
+		args.Passphrase = pulumi.ToSecret(args.Passphrase).(pulumi.StringPtrOutput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"passphrase",
+	})
+	opts = append(opts, secrets)
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Wlan
 	err := ctx.RegisterResource("unifi:index/wlan:Wlan", name, args, &resource, opts...)

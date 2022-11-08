@@ -81,13 +81,13 @@ import javax.annotation.Nullable;
  * 
  * ## Import
  * 
- * # import from provider configured site
+ * import from provider configured site
  * 
  * ```sh
  *  $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
  * ```
  * 
- * # import from another site
+ *  import from another site
  * 
  * ```sh
  *  $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
@@ -465,6 +465,9 @@ public class Wlan extends com.pulumi.resources.CustomResource {
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .additionalSecretOutputs(List.of(
+                "passphrase"
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

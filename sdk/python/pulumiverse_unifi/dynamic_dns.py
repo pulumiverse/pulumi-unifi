@@ -348,12 +348,14 @@ class DynamicDNS(pulumi.CustomResource):
             __props__.__dict__["host_name"] = host_name
             __props__.__dict__["interface"] = interface
             __props__.__dict__["login"] = login
-            __props__.__dict__["password"] = password
+            __props__.__dict__["password"] = None if password is None else pulumi.Output.secret(password)
             __props__.__dict__["server"] = server
             if service is None and not opts.urn:
                 raise TypeError("Missing required property 'service'")
             __props__.__dict__["service"] = service
             __props__.__dict__["site"] = site
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["password"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(DynamicDNS, __self__).__init__(
             'unifi:index/dynamicDNS:DynamicDNS',
             resource_name,
