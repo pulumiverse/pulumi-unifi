@@ -19,15 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+      with:
+        # https://github.com/actions/checkout#Fetch-all-history-for-all-tags-and-branches
+        fetch-depth: 0
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: jaxxstorm/scripts
         ref: third_party
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v2
       with:
@@ -97,15 +98,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+      with:
+        # https://github.com/actions/checkout#Fetch-all-history-for-all-tags-and-branches
+        fetch-depth: 0
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: jaxxstorm/scripts
         ref: third_party
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v2
       with:
@@ -164,9 +166,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
+      uses: actions/checkout@v3
+      with:
+        # https://github.com/actions/checkout#Fetch-all-history-for-all-tags-and-branches
+        fetch-depth: 0
     - name: Install Go
       uses: actions/setup-go@v2
       with:
@@ -202,15 +205,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+      with:
+        # https://github.com/actions/checkout#Fetch-all-history-for-all-tags-and-branches
+        fetch-depth: 0
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: jaxxstorm/scripts
         ref: third_party
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v2
       with:
@@ -282,15 +286,16 @@ jobs:
       UNIFI_PASSWORD: pulumi-unifi-password
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+      with:
+        # https://github.com/actions/checkout#Fetch-all-history-for-all-tags-and-branches
+        fetch-depth: 0
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: jaxxstorm/scripts
         ref: third_party
-    - name: Unshallow clone for tags
-      run: git fetch --prune --unshallow --tags
     - name: Install Go
       uses: actions/setup-go@v2
       with:
