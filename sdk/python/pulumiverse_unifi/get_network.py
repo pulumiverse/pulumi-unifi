@@ -21,7 +21,7 @@ class GetNetworkResult:
     """
     A collection of values returned by getNetwork.
     """
-    def __init__(__self__, dhcp_dns=None, dhcp_enabled=None, dhcp_lease=None, dhcp_start=None, dhcp_stop=None, dhcpd_boot_enabled=None, dhcpd_boot_filename=None, dhcpd_boot_server=None, domain_name=None, id=None, igmp_snooping=None, ipv6_interface_type=None, ipv6_pd_interface=None, ipv6_pd_prefixid=None, ipv6_ra_enable=None, ipv6_static_subnet=None, name=None, network_group=None, purpose=None, site=None, subnet=None, vlan_id=None, wan_dns=None, wan_egress_qos=None, wan_gateway=None, wan_ip=None, wan_netmask=None, wan_networkgroup=None, wan_type=None, wan_username=None, x_wan_password=None):
+    def __init__(__self__, dhcp_dns=None, dhcp_enabled=None, dhcp_lease=None, dhcp_start=None, dhcp_stop=None, dhcp_v6_dns=None, dhcp_v6_dns_auto=None, dhcp_v6_enabled=None, dhcp_v6_lease=None, dhcp_v6_start=None, dhcp_v6_stop=None, dhcpd_boot_enabled=None, dhcpd_boot_filename=None, dhcpd_boot_server=None, domain_name=None, id=None, igmp_snooping=None, ipv6_interface_type=None, ipv6_pd_interface=None, ipv6_pd_prefixid=None, ipv6_pd_start=None, ipv6_pd_stop=None, ipv6_ra_enable=None, ipv6_ra_preferred_lifetime=None, ipv6_ra_priority=None, ipv6_ra_valid_lifetime=None, ipv6_static_subnet=None, name=None, network_group=None, purpose=None, site=None, subnet=None, vlan_id=None, wan_dhcp_v6_pd_size=None, wan_dns=None, wan_egress_qos=None, wan_gateway=None, wan_gateway_v6=None, wan_ip=None, wan_ipv6=None, wan_netmask=None, wan_networkgroup=None, wan_prefixlen=None, wan_type=None, wan_type_v6=None, wan_username=None, x_wan_password=None):
         if dhcp_dns and not isinstance(dhcp_dns, list):
             raise TypeError("Expected argument 'dhcp_dns' to be a list")
         pulumi.set(__self__, "dhcp_dns", dhcp_dns)
@@ -37,6 +37,24 @@ class GetNetworkResult:
         if dhcp_stop and not isinstance(dhcp_stop, str):
             raise TypeError("Expected argument 'dhcp_stop' to be a str")
         pulumi.set(__self__, "dhcp_stop", dhcp_stop)
+        if dhcp_v6_dns and not isinstance(dhcp_v6_dns, list):
+            raise TypeError("Expected argument 'dhcp_v6_dns' to be a list")
+        pulumi.set(__self__, "dhcp_v6_dns", dhcp_v6_dns)
+        if dhcp_v6_dns_auto and not isinstance(dhcp_v6_dns_auto, bool):
+            raise TypeError("Expected argument 'dhcp_v6_dns_auto' to be a bool")
+        pulumi.set(__self__, "dhcp_v6_dns_auto", dhcp_v6_dns_auto)
+        if dhcp_v6_enabled and not isinstance(dhcp_v6_enabled, bool):
+            raise TypeError("Expected argument 'dhcp_v6_enabled' to be a bool")
+        pulumi.set(__self__, "dhcp_v6_enabled", dhcp_v6_enabled)
+        if dhcp_v6_lease and not isinstance(dhcp_v6_lease, int):
+            raise TypeError("Expected argument 'dhcp_v6_lease' to be a int")
+        pulumi.set(__self__, "dhcp_v6_lease", dhcp_v6_lease)
+        if dhcp_v6_start and not isinstance(dhcp_v6_start, str):
+            raise TypeError("Expected argument 'dhcp_v6_start' to be a str")
+        pulumi.set(__self__, "dhcp_v6_start", dhcp_v6_start)
+        if dhcp_v6_stop and not isinstance(dhcp_v6_stop, str):
+            raise TypeError("Expected argument 'dhcp_v6_stop' to be a str")
+        pulumi.set(__self__, "dhcp_v6_stop", dhcp_v6_stop)
         if dhcpd_boot_enabled and not isinstance(dhcpd_boot_enabled, bool):
             raise TypeError("Expected argument 'dhcpd_boot_enabled' to be a bool")
         pulumi.set(__self__, "dhcpd_boot_enabled", dhcpd_boot_enabled)
@@ -64,9 +82,24 @@ class GetNetworkResult:
         if ipv6_pd_prefixid and not isinstance(ipv6_pd_prefixid, str):
             raise TypeError("Expected argument 'ipv6_pd_prefixid' to be a str")
         pulumi.set(__self__, "ipv6_pd_prefixid", ipv6_pd_prefixid)
+        if ipv6_pd_start and not isinstance(ipv6_pd_start, str):
+            raise TypeError("Expected argument 'ipv6_pd_start' to be a str")
+        pulumi.set(__self__, "ipv6_pd_start", ipv6_pd_start)
+        if ipv6_pd_stop and not isinstance(ipv6_pd_stop, str):
+            raise TypeError("Expected argument 'ipv6_pd_stop' to be a str")
+        pulumi.set(__self__, "ipv6_pd_stop", ipv6_pd_stop)
         if ipv6_ra_enable and not isinstance(ipv6_ra_enable, bool):
             raise TypeError("Expected argument 'ipv6_ra_enable' to be a bool")
         pulumi.set(__self__, "ipv6_ra_enable", ipv6_ra_enable)
+        if ipv6_ra_preferred_lifetime and not isinstance(ipv6_ra_preferred_lifetime, int):
+            raise TypeError("Expected argument 'ipv6_ra_preferred_lifetime' to be a int")
+        pulumi.set(__self__, "ipv6_ra_preferred_lifetime", ipv6_ra_preferred_lifetime)
+        if ipv6_ra_priority and not isinstance(ipv6_ra_priority, str):
+            raise TypeError("Expected argument 'ipv6_ra_priority' to be a str")
+        pulumi.set(__self__, "ipv6_ra_priority", ipv6_ra_priority)
+        if ipv6_ra_valid_lifetime and not isinstance(ipv6_ra_valid_lifetime, int):
+            raise TypeError("Expected argument 'ipv6_ra_valid_lifetime' to be a int")
+        pulumi.set(__self__, "ipv6_ra_valid_lifetime", ipv6_ra_valid_lifetime)
         if ipv6_static_subnet and not isinstance(ipv6_static_subnet, str):
             raise TypeError("Expected argument 'ipv6_static_subnet' to be a str")
         pulumi.set(__self__, "ipv6_static_subnet", ipv6_static_subnet)
@@ -88,6 +121,9 @@ class GetNetworkResult:
         if vlan_id and not isinstance(vlan_id, int):
             raise TypeError("Expected argument 'vlan_id' to be a int")
         pulumi.set(__self__, "vlan_id", vlan_id)
+        if wan_dhcp_v6_pd_size and not isinstance(wan_dhcp_v6_pd_size, int):
+            raise TypeError("Expected argument 'wan_dhcp_v6_pd_size' to be a int")
+        pulumi.set(__self__, "wan_dhcp_v6_pd_size", wan_dhcp_v6_pd_size)
         if wan_dns and not isinstance(wan_dns, list):
             raise TypeError("Expected argument 'wan_dns' to be a list")
         pulumi.set(__self__, "wan_dns", wan_dns)
@@ -97,18 +133,30 @@ class GetNetworkResult:
         if wan_gateway and not isinstance(wan_gateway, str):
             raise TypeError("Expected argument 'wan_gateway' to be a str")
         pulumi.set(__self__, "wan_gateway", wan_gateway)
+        if wan_gateway_v6 and not isinstance(wan_gateway_v6, str):
+            raise TypeError("Expected argument 'wan_gateway_v6' to be a str")
+        pulumi.set(__self__, "wan_gateway_v6", wan_gateway_v6)
         if wan_ip and not isinstance(wan_ip, str):
             raise TypeError("Expected argument 'wan_ip' to be a str")
         pulumi.set(__self__, "wan_ip", wan_ip)
+        if wan_ipv6 and not isinstance(wan_ipv6, str):
+            raise TypeError("Expected argument 'wan_ipv6' to be a str")
+        pulumi.set(__self__, "wan_ipv6", wan_ipv6)
         if wan_netmask and not isinstance(wan_netmask, str):
             raise TypeError("Expected argument 'wan_netmask' to be a str")
         pulumi.set(__self__, "wan_netmask", wan_netmask)
         if wan_networkgroup and not isinstance(wan_networkgroup, str):
             raise TypeError("Expected argument 'wan_networkgroup' to be a str")
         pulumi.set(__self__, "wan_networkgroup", wan_networkgroup)
+        if wan_prefixlen and not isinstance(wan_prefixlen, int):
+            raise TypeError("Expected argument 'wan_prefixlen' to be a int")
+        pulumi.set(__self__, "wan_prefixlen", wan_prefixlen)
         if wan_type and not isinstance(wan_type, str):
             raise TypeError("Expected argument 'wan_type' to be a str")
         pulumi.set(__self__, "wan_type", wan_type)
+        if wan_type_v6 and not isinstance(wan_type_v6, str):
+            raise TypeError("Expected argument 'wan_type_v6' to be a str")
+        pulumi.set(__self__, "wan_type_v6", wan_type_v6)
         if wan_username and not isinstance(wan_username, str):
             raise TypeError("Expected argument 'wan_username' to be a str")
         pulumi.set(__self__, "wan_username", wan_username)
@@ -155,6 +203,54 @@ class GetNetworkResult:
         The IPv4 address where the DHCP range of addresses stops.
         """
         return pulumi.get(self, "dhcp_stop")
+
+    @property
+    @pulumi.getter(name="dhcpV6Dns")
+    def dhcp_v6_dns(self) -> Sequence[str]:
+        """
+        Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        """
+        return pulumi.get(self, "dhcp_v6_dns")
+
+    @property
+    @pulumi.getter(name="dhcpV6DnsAuto")
+    def dhcp_v6_dns_auto(self) -> bool:
+        """
+        Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise
+        """
+        return pulumi.get(self, "dhcp_v6_dns_auto")
+
+    @property
+    @pulumi.getter(name="dhcpV6Enabled")
+    def dhcp_v6_enabled(self) -> bool:
+        """
+        Enable stateful DHCPv6 for static configuration.
+        """
+        return pulumi.get(self, "dhcp_v6_enabled")
+
+    @property
+    @pulumi.getter(name="dhcpV6Lease")
+    def dhcp_v6_lease(self) -> int:
+        """
+        Specifies the lease time for DHCPv6 addresses.
+        """
+        return pulumi.get(self, "dhcp_v6_lease")
+
+    @property
+    @pulumi.getter(name="dhcpV6Start")
+    def dhcp_v6_start(self) -> str:
+        """
+        Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        """
+        return pulumi.get(self, "dhcp_v6_start")
+
+    @property
+    @pulumi.getter(name="dhcpV6Stop")
+    def dhcp_v6_stop(self) -> str:
+        """
+        End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        """
+        return pulumi.get(self, "dhcp_v6_stop")
 
     @property
     @pulumi.getter(name="dhcpdBootEnabled")
@@ -208,7 +304,7 @@ class GetNetworkResult:
     @pulumi.getter(name="ipv6InterfaceType")
     def ipv6_interface_type(self) -> str:
         """
-        Specifies which type of IPv6 connection to use.
+        Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
         """
         return pulumi.get(self, "ipv6_interface_type")
 
@@ -216,7 +312,7 @@ class GetNetworkResult:
     @pulumi.getter(name="ipv6PdInterface")
     def ipv6_pd_interface(self) -> str:
         """
-        Specifies which WAN interface is used for IPv6 Prefix Delegation.
+        Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
         """
         return pulumi.get(self, "ipv6_pd_interface")
 
@@ -229,12 +325,52 @@ class GetNetworkResult:
         return pulumi.get(self, "ipv6_pd_prefixid")
 
     @property
+    @pulumi.getter(name="ipv6PdStart")
+    def ipv6_pd_start(self) -> str:
+        """
+        Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        """
+        return pulumi.get(self, "ipv6_pd_start")
+
+    @property
+    @pulumi.getter(name="ipv6PdStop")
+    def ipv6_pd_stop(self) -> str:
+        """
+        End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        """
+        return pulumi.get(self, "ipv6_pd_stop")
+
+    @property
     @pulumi.getter(name="ipv6RaEnable")
     def ipv6_ra_enable(self) -> bool:
         """
         Specifies whether to enable router advertisements or not.
         """
         return pulumi.get(self, "ipv6_ra_enable")
+
+    @property
+    @pulumi.getter(name="ipv6RaPreferredLifetime")
+    def ipv6_ra_preferred_lifetime(self) -> int:
+        """
+        Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime`
+        """
+        return pulumi.get(self, "ipv6_ra_preferred_lifetime")
+
+    @property
+    @pulumi.getter(name="ipv6RaPriority")
+    def ipv6_ra_priority(self) -> str:
+        """
+        IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        """
+        return pulumi.get(self, "ipv6_ra_priority")
+
+    @property
+    @pulumi.getter(name="ipv6RaValidLifetime")
+    def ipv6_ra_valid_lifetime(self) -> int:
+        """
+        Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`.
+        """
+        return pulumi.get(self, "ipv6_ra_valid_lifetime")
 
     @property
     @pulumi.getter(name="ipv6StaticSubnet")
@@ -293,6 +429,14 @@ class GetNetworkResult:
         return pulumi.get(self, "vlan_id")
 
     @property
+    @pulumi.getter(name="wanDhcpV6PdSize")
+    def wan_dhcp_v6_pd_size(self) -> int:
+        """
+        Specifies the IPv6 prefix size to request from ISP. Must be a number between 48 and 64.
+        """
+        return pulumi.get(self, "wan_dhcp_v6_pd_size")
+
+    @property
     @pulumi.getter(name="wanDns")
     def wan_dns(self) -> Sequence[str]:
         """
@@ -317,12 +461,28 @@ class GetNetworkResult:
         return pulumi.get(self, "wan_gateway")
 
     @property
+    @pulumi.getter(name="wanGatewayV6")
+    def wan_gateway_v6(self) -> str:
+        """
+        The IPv6 gateway of the WAN.
+        """
+        return pulumi.get(self, "wan_gateway_v6")
+
+    @property
     @pulumi.getter(name="wanIp")
     def wan_ip(self) -> str:
         """
         The IPv4 address of the WAN.
         """
         return pulumi.get(self, "wan_ip")
+
+    @property
+    @pulumi.getter(name="wanIpv6")
+    def wan_ipv6(self) -> str:
+        """
+        The IPv6 address of the WAN.
+        """
+        return pulumi.get(self, "wan_ipv6")
 
     @property
     @pulumi.getter(name="wanNetmask")
@@ -341,12 +501,28 @@ class GetNetworkResult:
         return pulumi.get(self, "wan_networkgroup")
 
     @property
+    @pulumi.getter(name="wanPrefixlen")
+    def wan_prefixlen(self) -> int:
+        """
+        The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        """
+        return pulumi.get(self, "wan_prefixlen")
+
+    @property
     @pulumi.getter(name="wanType")
     def wan_type(self) -> str:
         """
         Specifies the IPV4 WAN connection type. One of either `disabled`, `static`, `dhcp`, or `pppoe`.
         """
         return pulumi.get(self, "wan_type")
+
+    @property
+    @pulumi.getter(name="wanTypeV6")
+    def wan_type_v6(self) -> str:
+        """
+        Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        """
+        return pulumi.get(self, "wan_type_v6")
 
     @property
     @pulumi.getter(name="wanUsername")
@@ -376,6 +552,12 @@ class AwaitableGetNetworkResult(GetNetworkResult):
             dhcp_lease=self.dhcp_lease,
             dhcp_start=self.dhcp_start,
             dhcp_stop=self.dhcp_stop,
+            dhcp_v6_dns=self.dhcp_v6_dns,
+            dhcp_v6_dns_auto=self.dhcp_v6_dns_auto,
+            dhcp_v6_enabled=self.dhcp_v6_enabled,
+            dhcp_v6_lease=self.dhcp_v6_lease,
+            dhcp_v6_start=self.dhcp_v6_start,
+            dhcp_v6_stop=self.dhcp_v6_stop,
             dhcpd_boot_enabled=self.dhcpd_boot_enabled,
             dhcpd_boot_filename=self.dhcpd_boot_filename,
             dhcpd_boot_server=self.dhcpd_boot_server,
@@ -385,7 +567,12 @@ class AwaitableGetNetworkResult(GetNetworkResult):
             ipv6_interface_type=self.ipv6_interface_type,
             ipv6_pd_interface=self.ipv6_pd_interface,
             ipv6_pd_prefixid=self.ipv6_pd_prefixid,
+            ipv6_pd_start=self.ipv6_pd_start,
+            ipv6_pd_stop=self.ipv6_pd_stop,
             ipv6_ra_enable=self.ipv6_ra_enable,
+            ipv6_ra_preferred_lifetime=self.ipv6_ra_preferred_lifetime,
+            ipv6_ra_priority=self.ipv6_ra_priority,
+            ipv6_ra_valid_lifetime=self.ipv6_ra_valid_lifetime,
             ipv6_static_subnet=self.ipv6_static_subnet,
             name=self.name,
             network_group=self.network_group,
@@ -393,13 +580,18 @@ class AwaitableGetNetworkResult(GetNetworkResult):
             site=self.site,
             subnet=self.subnet,
             vlan_id=self.vlan_id,
+            wan_dhcp_v6_pd_size=self.wan_dhcp_v6_pd_size,
             wan_dns=self.wan_dns,
             wan_egress_qos=self.wan_egress_qos,
             wan_gateway=self.wan_gateway,
+            wan_gateway_v6=self.wan_gateway_v6,
             wan_ip=self.wan_ip,
+            wan_ipv6=self.wan_ipv6,
             wan_netmask=self.wan_netmask,
             wan_networkgroup=self.wan_networkgroup,
+            wan_prefixlen=self.wan_prefixlen,
             wan_type=self.wan_type,
+            wan_type_v6=self.wan_type_v6,
             wan_username=self.wan_username,
             x_wan_password=self.x_wan_password)
 
@@ -417,7 +609,7 @@ def get_network(id: Optional[str] = None,
     import pulumi
     import pulumi_unifi as unifi
 
-    lan_network = unifi.get_network(name="LAN")
+    lan_network = unifi.get_network(name="Default")
     my_device = unifi.iam.get_user(mac="01:23:45:67:89:ab")
     my_network = unifi.get_network(id=my_device.network_id)
     ```
@@ -440,6 +632,12 @@ def get_network(id: Optional[str] = None,
         dhcp_lease=__ret__.dhcp_lease,
         dhcp_start=__ret__.dhcp_start,
         dhcp_stop=__ret__.dhcp_stop,
+        dhcp_v6_dns=__ret__.dhcp_v6_dns,
+        dhcp_v6_dns_auto=__ret__.dhcp_v6_dns_auto,
+        dhcp_v6_enabled=__ret__.dhcp_v6_enabled,
+        dhcp_v6_lease=__ret__.dhcp_v6_lease,
+        dhcp_v6_start=__ret__.dhcp_v6_start,
+        dhcp_v6_stop=__ret__.dhcp_v6_stop,
         dhcpd_boot_enabled=__ret__.dhcpd_boot_enabled,
         dhcpd_boot_filename=__ret__.dhcpd_boot_filename,
         dhcpd_boot_server=__ret__.dhcpd_boot_server,
@@ -449,7 +647,12 @@ def get_network(id: Optional[str] = None,
         ipv6_interface_type=__ret__.ipv6_interface_type,
         ipv6_pd_interface=__ret__.ipv6_pd_interface,
         ipv6_pd_prefixid=__ret__.ipv6_pd_prefixid,
+        ipv6_pd_start=__ret__.ipv6_pd_start,
+        ipv6_pd_stop=__ret__.ipv6_pd_stop,
         ipv6_ra_enable=__ret__.ipv6_ra_enable,
+        ipv6_ra_preferred_lifetime=__ret__.ipv6_ra_preferred_lifetime,
+        ipv6_ra_priority=__ret__.ipv6_ra_priority,
+        ipv6_ra_valid_lifetime=__ret__.ipv6_ra_valid_lifetime,
         ipv6_static_subnet=__ret__.ipv6_static_subnet,
         name=__ret__.name,
         network_group=__ret__.network_group,
@@ -457,13 +660,18 @@ def get_network(id: Optional[str] = None,
         site=__ret__.site,
         subnet=__ret__.subnet,
         vlan_id=__ret__.vlan_id,
+        wan_dhcp_v6_pd_size=__ret__.wan_dhcp_v6_pd_size,
         wan_dns=__ret__.wan_dns,
         wan_egress_qos=__ret__.wan_egress_qos,
         wan_gateway=__ret__.wan_gateway,
+        wan_gateway_v6=__ret__.wan_gateway_v6,
         wan_ip=__ret__.wan_ip,
+        wan_ipv6=__ret__.wan_ipv6,
         wan_netmask=__ret__.wan_netmask,
         wan_networkgroup=__ret__.wan_networkgroup,
+        wan_prefixlen=__ret__.wan_prefixlen,
         wan_type=__ret__.wan_type,
+        wan_type_v6=__ret__.wan_type_v6,
         wan_username=__ret__.wan_username,
         x_wan_password=__ret__.x_wan_password)
 
@@ -482,7 +690,7 @@ def get_network_output(id: Optional[pulumi.Input[Optional[str]]] = None,
     import pulumi
     import pulumi_unifi as unifi
 
-    lan_network = unifi.get_network(name="LAN")
+    lan_network = unifi.get_network(name="Default")
     my_device = unifi.iam.get_user(mac="01:23:45:67:89:ab")
     my_network = unifi.get_network(id=my_device.network_id)
     ```

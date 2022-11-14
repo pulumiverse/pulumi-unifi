@@ -14,7 +14,7 @@ import * as utilities from "./utilities";
  * import * as unifi from "@pulumi/unifi";
  *
  * const lanNetwork = unifi.getNetwork({
- *     name: "LAN",
+ *     name: "Default",
  * });
  * const myDevice = unifi.iam.getUser({
  *     mac: "01:23:45:67:89:ab",
@@ -81,6 +81,30 @@ export interface GetNetworkResult {
      */
     readonly dhcpStop: string;
     /**
+     * Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+     */
+    readonly dhcpV6Dns: string[];
+    /**
+     * Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise
+     */
+    readonly dhcpV6DnsAuto: boolean;
+    /**
+     * Enable stateful DHCPv6 for static configuration.
+     */
+    readonly dhcpV6Enabled: boolean;
+    /**
+     * Specifies the lease time for DHCPv6 addresses.
+     */
+    readonly dhcpV6Lease: number;
+    /**
+     * Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     */
+    readonly dhcpV6Start: string;
+    /**
+     * End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     */
+    readonly dhcpV6Stop: string;
+    /**
      * Toggles on the DHCP boot options. will be set to true if you have dhcpd*boot*filename, and dhcpd*boot*server set.
      */
     readonly dhcpdBootEnabled: boolean;
@@ -105,11 +129,11 @@ export interface GetNetworkResult {
      */
     readonly igmpSnooping: boolean;
     /**
-     * Specifies which type of IPv6 connection to use.
+     * Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
      */
     readonly ipv6InterfaceType: string;
     /**
-     * Specifies which WAN interface is used for IPv6 Prefix Delegation.
+     * Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      */
     readonly ipv6PdInterface: string;
     /**
@@ -117,9 +141,29 @@ export interface GetNetworkResult {
      */
     readonly ipv6PdPrefixid: string;
     /**
+     * Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     */
+    readonly ipv6PdStart: string;
+    /**
+     * End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     */
+    readonly ipv6PdStop: string;
+    /**
      * Specifies whether to enable router advertisements or not.
      */
     readonly ipv6RaEnable: boolean;
+    /**
+     * Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime`
+     */
+    readonly ipv6RaPreferredLifetime: number;
+    /**
+     * IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     */
+    readonly ipv6RaPriority: string;
+    /**
+     * Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`.
+     */
+    readonly ipv6RaValidLifetime: number;
     /**
      * Specifies the static IPv6 subnet (when ipv6*interface*type is 'static').
      */
@@ -149,6 +193,10 @@ export interface GetNetworkResult {
      */
     readonly vlanId: number;
     /**
+     * Specifies the IPv6 prefix size to request from ISP. Must be a number between 48 and 64.
+     */
+    readonly wanDhcpV6PdSize: number;
+    /**
      * DNS servers IPs of the WAN.
      */
     readonly wanDns: string[];
@@ -161,9 +209,17 @@ export interface GetNetworkResult {
      */
     readonly wanGateway: string;
     /**
+     * The IPv6 gateway of the WAN.
+     */
+    readonly wanGatewayV6: string;
+    /**
      * The IPv4 address of the WAN.
      */
     readonly wanIp: string;
+    /**
+     * The IPv6 address of the WAN.
+     */
+    readonly wanIpv6: string;
     /**
      * The IPv4 netmask of the WAN.
      */
@@ -173,9 +229,17 @@ export interface GetNetworkResult {
      */
     readonly wanNetworkgroup: string;
     /**
+     * The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     */
+    readonly wanPrefixlen: number;
+    /**
      * Specifies the IPV4 WAN connection type. One of either `disabled`, `static`, `dhcp`, or `pppoe`.
      */
     readonly wanType: string;
+    /**
+     * Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     */
+    readonly wanTypeV6: string;
     /**
      * Specifies the IPV4 WAN username.
      */

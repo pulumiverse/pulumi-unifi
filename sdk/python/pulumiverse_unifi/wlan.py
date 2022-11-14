@@ -59,7 +59,7 @@ class WlanArgs:
         :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only Defaults to `true`.
         :param pulumi.Input[str] passphrase: The passphrase for the network, this is only required if `security` is not set to `open`.
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
-        :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `get_radius_profile` data source.
+        :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         :param pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
         :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
@@ -322,7 +322,7 @@ class WlanArgs:
     @pulumi.getter(name="radiusProfileId")
     def radius_profile_id(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `get_radius_profile` data source.
+        ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         """
         return pulumi.get(self, "radius_profile_id")
 
@@ -447,7 +447,7 @@ class _WlanState:
         :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only Defaults to `true`.
         :param pulumi.Input[str] passphrase: The passphrase for the network, this is only required if `security` is not set to `open`.
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
-        :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `get_radius_profile` data source.
+        :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         :param pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
@@ -690,7 +690,7 @@ class _WlanState:
     @pulumi.getter(name="radiusProfileId")
     def radius_profile_id(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `get_radius_profile` data source.
+        ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         """
         return pulumi.get(self, "radius_profile_id")
 
@@ -890,7 +890,7 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only Defaults to `true`.
         :param pulumi.Input[str] passphrase: The passphrase for the network, this is only required if `security` is not set to `open`.
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
-        :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `get_radius_profile` data source.
+        :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
@@ -1088,7 +1088,7 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only Defaults to `true`.
         :param pulumi.Input[str] passphrase: The passphrase for the network, this is only required if `security` is not set to `open`.
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
-        :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `get_radius_profile` data source.
+        :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
@@ -1252,7 +1252,7 @@ class Wlan(pulumi.CustomResource):
     @pulumi.getter(name="radiusProfileId")
     def radius_profile_id(self) -> pulumi.Output[Optional[str]]:
         """
-        ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `get_radius_profile` data source.
+        ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         """
         return pulumi.get(self, "radius_profile_id")
 

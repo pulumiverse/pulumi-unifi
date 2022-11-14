@@ -8,18 +8,49 @@ import com.pulumi.core.TypeShape;
 import com.pulumi.deployment.Deployment;
 import com.pulumi.deployment.InvokeOptions;
 import com.pulumiverse.unifi.Utilities;
+import com.pulumiverse.unifi.inputs.GetAccountArgs;
+import com.pulumiverse.unifi.inputs.GetAccountPlainArgs;
 import com.pulumiverse.unifi.inputs.GetApGroupArgs;
 import com.pulumiverse.unifi.inputs.GetApGroupPlainArgs;
 import com.pulumiverse.unifi.inputs.GetNetworkArgs;
 import com.pulumiverse.unifi.inputs.GetNetworkPlainArgs;
 import com.pulumiverse.unifi.inputs.GetRadiusProfileArgs;
 import com.pulumiverse.unifi.inputs.GetRadiusProfilePlainArgs;
+import com.pulumiverse.unifi.outputs.GetAccountResult;
 import com.pulumiverse.unifi.outputs.GetApGroupResult;
 import com.pulumiverse.unifi.outputs.GetNetworkResult;
 import com.pulumiverse.unifi.outputs.GetRadiusProfileResult;
 import java.util.concurrent.CompletableFuture;
 
 public final class UnifiFunctions {
+    /**
+     * `unifi.Account` data source can be used to retrieve RADIUS user accounts
+     * 
+     */
+    public static Output<GetAccountResult> getAccount(GetAccountArgs args) {
+        return getAccount(args, InvokeOptions.Empty);
+    }
+    /**
+     * `unifi.Account` data source can be used to retrieve RADIUS user accounts
+     * 
+     */
+    public static CompletableFuture<GetAccountResult> getAccountPlain(GetAccountPlainArgs args) {
+        return getAccountPlain(args, InvokeOptions.Empty);
+    }
+    /**
+     * `unifi.Account` data source can be used to retrieve RADIUS user accounts
+     * 
+     */
+    public static Output<GetAccountResult> getAccount(GetAccountArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invoke("unifi:index/getAccount:getAccount", TypeShape.of(GetAccountResult.class), args, Utilities.withVersion(options));
+    }
+    /**
+     * `unifi.Account` data source can be used to retrieve RADIUS user accounts
+     * 
+     */
+    public static CompletableFuture<GetAccountResult> getAccountPlain(GetAccountPlainArgs args, InvokeOptions options) {
+        return Deployment.getInstance().invokeAsync("unifi:index/getAccount:getAccount", TypeShape.of(GetAccountResult.class), args, Utilities.withVersion(options));
+    }
     /**
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
@@ -258,7 +289,7 @@ public final class UnifiFunctions {
      * 
      *     public static void stack(Context ctx) {
      *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
-     *             .name(&#34;LAN&#34;)
+     *             .name(&#34;Default&#34;)
      *             .build());
      * 
      *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
@@ -305,7 +336,7 @@ public final class UnifiFunctions {
      * 
      *     public static void stack(Context ctx) {
      *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
-     *             .name(&#34;LAN&#34;)
+     *             .name(&#34;Default&#34;)
      *             .build());
      * 
      *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
@@ -352,7 +383,7 @@ public final class UnifiFunctions {
      * 
      *     public static void stack(Context ctx) {
      *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
-     *             .name(&#34;LAN&#34;)
+     *             .name(&#34;Default&#34;)
      *             .build());
      * 
      *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
@@ -399,7 +430,7 @@ public final class UnifiFunctions {
      * 
      *     public static void stack(Context ctx) {
      *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
-     *             .name(&#34;LAN&#34;)
+     *             .name(&#34;Default&#34;)
      *             .build());
      * 
      *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
@@ -446,7 +477,7 @@ public final class UnifiFunctions {
      * 
      *     public static void stack(Context ctx) {
      *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
-     *             .name(&#34;LAN&#34;)
+     *             .name(&#34;Default&#34;)
      *             .build());
      * 
      *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
@@ -493,7 +524,7 @@ public final class UnifiFunctions {
      * 
      *     public static void stack(Context ctx) {
      *         final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()
-     *             .name(&#34;LAN&#34;)
+     *             .name(&#34;Default&#34;)
      *             .build());
      * 
      *         final var myDevice = IamFunctions.getUser(GetUserArgs.builder()
@@ -513,42 +544,42 @@ public final class UnifiFunctions {
         return Deployment.getInstance().invokeAsync("unifi:index/getNetwork:getNetwork", TypeShape.of(GetNetworkResult.class), args, Utilities.withVersion(options));
     }
     /**
-     * `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+     * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
      * 
      */
     public static Output<GetRadiusProfileResult> getRadiusProfile() {
         return getRadiusProfile(GetRadiusProfileArgs.Empty, InvokeOptions.Empty);
     }
     /**
-     * `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+     * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
      * 
      */
     public static CompletableFuture<GetRadiusProfileResult> getRadiusProfilePlain() {
         return getRadiusProfilePlain(GetRadiusProfilePlainArgs.Empty, InvokeOptions.Empty);
     }
     /**
-     * `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+     * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
      * 
      */
     public static Output<GetRadiusProfileResult> getRadiusProfile(GetRadiusProfileArgs args) {
         return getRadiusProfile(args, InvokeOptions.Empty);
     }
     /**
-     * `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+     * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
      * 
      */
     public static CompletableFuture<GetRadiusProfileResult> getRadiusProfilePlain(GetRadiusProfilePlainArgs args) {
         return getRadiusProfilePlain(args, InvokeOptions.Empty);
     }
     /**
-     * `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+     * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
      * 
      */
     public static Output<GetRadiusProfileResult> getRadiusProfile(GetRadiusProfileArgs args, InvokeOptions options) {
         return Deployment.getInstance().invoke("unifi:index/getRadiusProfile:getRadiusProfile", TypeShape.of(GetRadiusProfileResult.class), args, Utilities.withVersion(options));
     }
     /**
-     * `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+     * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
      * 
      */
     public static CompletableFuture<GetRadiusProfileResult> getRadiusProfilePlain(GetRadiusProfilePlainArgs args, InvokeOptions options) {

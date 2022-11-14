@@ -20,19 +20,57 @@ export interface DevicePortOverride {
     portProfileId?: pulumi.Input<string>;
 }
 
+export interface RadiusProfileAcctServer {
+    /**
+     * IP address of accounting service server.
+     */
+    ip: pulumi.Input<string>;
+    /**
+     * Port of accounting service. Defaults to `1813`.
+     */
+    port?: pulumi.Input<number>;
+    /**
+     * RADIUS secret.
+     */
+    xsecret: pulumi.Input<string>;
+}
+
+export interface RadiusProfileAuthServer {
+    /**
+     * IP address of authentication service server.
+     */
+    ip: pulumi.Input<string>;
+    /**
+     * Port of authentication service. Defaults to `1812`.
+     */
+    port?: pulumi.Input<number>;
+    /**
+     * RADIUS secret.
+     */
+    xsecret: pulumi.Input<string>;
+}
+
 export interface WlanSchedule {
-    /**
-     * Time of day to end the block.
-     */
-    blockEnd: pulumi.Input<string>;
-    /**
-     * Time of day to start the block.
-     */
-    blockStart: pulumi.Input<string>;
     /**
      * Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
      */
     dayOfWeek: pulumi.Input<string>;
+    /**
+     * Length of the block in minutes.
+     */
+    duration: pulumi.Input<number>;
+    /**
+     * Name of the block.
+     */
+    name?: pulumi.Input<string>;
+    /**
+     * Start hour for the block (0-23).
+     */
+    startHour: pulumi.Input<number>;
+    /**
+     * Start minute for the block (0-59). Defaults to `0`.
+     */
+    startMinute?: pulumi.Input<number>;
 }
 export namespace setting {
     export interface MgmtSshKey {

@@ -30,14 +30,14 @@ public final class GetRadiusProfilePlainArgs extends com.pulumi.resources.Invoke
     }
 
     /**
-     * The name of the site the radius profile is associated with.
+     * The name of the site the RADIUS profile is associated with.
      * 
      */
     @Import(name="site")
     private @Nullable String site;
 
     /**
-     * @return The name of the site the radius profile is associated with.
+     * @return The name of the site the RADIUS profile is associated with.
      * 
      */
     public Optional<String> site() {
@@ -81,7 +81,7 @@ public final class GetRadiusProfilePlainArgs extends com.pulumi.resources.Invoke
         }
 
         /**
-         * @param site The name of the site the radius profile is associated with.
+         * @param site The name of the site the RADIUS profile is associated with.
          * 
          * @return builder
          * 

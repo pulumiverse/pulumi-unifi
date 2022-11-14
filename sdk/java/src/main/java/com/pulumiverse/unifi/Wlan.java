@@ -307,14 +307,14 @@ public class Wlan extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.pmfMode);
     }
     /**
-     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      * 
      */
     @Export(name="radiusProfileId", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> radiusProfileId;
 
     /**
-     * @return ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+     * @return ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      * 
      */
     public Output<Optional<String>> radiusProfileId() {

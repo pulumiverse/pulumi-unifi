@@ -23,6 +23,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "unifi:setting/mgmt:Mgmt":
 		r = &Mgmt{}
+	case "unifi:setting/radius:Radius":
+		r = &Radius{}
 	case "unifi:setting/uSG:USG":
 		r = &USG{}
 	default:
@@ -41,6 +43,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"unifi",
 		"setting/mgmt",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/radius",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

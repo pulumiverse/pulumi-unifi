@@ -38,6 +38,36 @@ public final class GetNetworkResult {
      */
     private String dhcpStop;
     /**
+     * @return Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+     * 
+     */
+    private List<String> dhcpV6Dns;
+    /**
+     * @return Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise
+     * 
+     */
+    private Boolean dhcpV6DnsAuto;
+    /**
+     * @return Enable stateful DHCPv6 for static configuration.
+     * 
+     */
+    private Boolean dhcpV6Enabled;
+    /**
+     * @return Specifies the lease time for DHCPv6 addresses.
+     * 
+     */
+    private Integer dhcpV6Lease;
+    /**
+     * @return Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    private String dhcpV6Start;
+    /**
+     * @return End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    private String dhcpV6Stop;
+    /**
      * @return Toggles on the DHCP boot options. will be set to true if you have dhcpd*boot*filename, and dhcpd*boot*server set.
      * 
      */
@@ -68,12 +98,12 @@ public final class GetNetworkResult {
      */
     private Boolean igmpSnooping;
     /**
-     * @return Specifies which type of IPv6 connection to use.
+     * @return Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
      * 
      */
     private String ipv6InterfaceType;
     /**
-     * @return Specifies which WAN interface is used for IPv6 Prefix Delegation.
+     * @return Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      * 
      */
     private String ipv6PdInterface;
@@ -83,10 +113,35 @@ public final class GetNetworkResult {
      */
     private String ipv6PdPrefixid;
     /**
+     * @return Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    private String ipv6PdStart;
+    /**
+     * @return End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    private String ipv6PdStop;
+    /**
      * @return Specifies whether to enable router advertisements or not.
      * 
      */
     private Boolean ipv6RaEnable;
+    /**
+     * @return Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime`
+     * 
+     */
+    private Integer ipv6RaPreferredLifetime;
+    /**
+     * @return IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     * 
+     */
+    private String ipv6RaPriority;
+    /**
+     * @return Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`.
+     * 
+     */
+    private Integer ipv6RaValidLifetime;
     /**
      * @return Specifies the static IPv6 subnet (when ipv6*interface*type is &#39;static&#39;).
      * 
@@ -123,6 +178,11 @@ public final class GetNetworkResult {
      */
     private Integer vlanId;
     /**
+     * @return Specifies the IPv6 prefix size to request from ISP. Must be a number between 48 and 64.
+     * 
+     */
+    private Integer wanDhcpV6PdSize;
+    /**
      * @return DNS servers IPs of the WAN.
      * 
      */
@@ -138,10 +198,20 @@ public final class GetNetworkResult {
      */
     private String wanGateway;
     /**
+     * @return The IPv6 gateway of the WAN.
+     * 
+     */
+    private String wanGatewayV6;
+    /**
      * @return The IPv4 address of the WAN.
      * 
      */
     private String wanIp;
+    /**
+     * @return The IPv6 address of the WAN.
+     * 
+     */
+    private String wanIpv6;
     /**
      * @return The IPv4 netmask of the WAN.
      * 
@@ -153,10 +223,20 @@ public final class GetNetworkResult {
      */
     private String wanNetworkgroup;
     /**
+     * @return The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     * 
+     */
+    private Integer wanPrefixlen;
+    /**
      * @return Specifies the IPV4 WAN connection type. One of either `disabled`, `static`, `dhcp`, or `pppoe`.
      * 
      */
     private String wanType;
+    /**
+     * @return Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     * 
+     */
+    private String wanTypeV6;
     /**
      * @return Specifies the IPV4 WAN username.
      * 
@@ -205,6 +285,48 @@ public final class GetNetworkResult {
         return this.dhcpStop;
     }
     /**
+     * @return Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+     * 
+     */
+    public List<String> dhcpV6Dns() {
+        return this.dhcpV6Dns;
+    }
+    /**
+     * @return Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise
+     * 
+     */
+    public Boolean dhcpV6DnsAuto() {
+        return this.dhcpV6DnsAuto;
+    }
+    /**
+     * @return Enable stateful DHCPv6 for static configuration.
+     * 
+     */
+    public Boolean dhcpV6Enabled() {
+        return this.dhcpV6Enabled;
+    }
+    /**
+     * @return Specifies the lease time for DHCPv6 addresses.
+     * 
+     */
+    public Integer dhcpV6Lease() {
+        return this.dhcpV6Lease;
+    }
+    /**
+     * @return Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    public String dhcpV6Start() {
+        return this.dhcpV6Start;
+    }
+    /**
+     * @return End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    public String dhcpV6Stop() {
+        return this.dhcpV6Stop;
+    }
+    /**
      * @return Toggles on the DHCP boot options. will be set to true if you have dhcpd*boot*filename, and dhcpd*boot*server set.
      * 
      */
@@ -247,14 +369,14 @@ public final class GetNetworkResult {
         return this.igmpSnooping;
     }
     /**
-     * @return Specifies which type of IPv6 connection to use.
+     * @return Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
      * 
      */
     public String ipv6InterfaceType() {
         return this.ipv6InterfaceType;
     }
     /**
-     * @return Specifies which WAN interface is used for IPv6 Prefix Delegation.
+     * @return Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      * 
      */
     public String ipv6PdInterface() {
@@ -268,11 +390,46 @@ public final class GetNetworkResult {
         return this.ipv6PdPrefixid;
     }
     /**
+     * @return Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    public String ipv6PdStart() {
+        return this.ipv6PdStart;
+    }
+    /**
+     * @return End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    public String ipv6PdStop() {
+        return this.ipv6PdStop;
+    }
+    /**
      * @return Specifies whether to enable router advertisements or not.
      * 
      */
     public Boolean ipv6RaEnable() {
         return this.ipv6RaEnable;
+    }
+    /**
+     * @return Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime`
+     * 
+     */
+    public Integer ipv6RaPreferredLifetime() {
+        return this.ipv6RaPreferredLifetime;
+    }
+    /**
+     * @return IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     * 
+     */
+    public String ipv6RaPriority() {
+        return this.ipv6RaPriority;
+    }
+    /**
+     * @return Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`.
+     * 
+     */
+    public Integer ipv6RaValidLifetime() {
+        return this.ipv6RaValidLifetime;
     }
     /**
      * @return Specifies the static IPv6 subnet (when ipv6*interface*type is &#39;static&#39;).
@@ -324,6 +481,13 @@ public final class GetNetworkResult {
         return this.vlanId;
     }
     /**
+     * @return Specifies the IPv6 prefix size to request from ISP. Must be a number between 48 and 64.
+     * 
+     */
+    public Integer wanDhcpV6PdSize() {
+        return this.wanDhcpV6PdSize;
+    }
+    /**
      * @return DNS servers IPs of the WAN.
      * 
      */
@@ -345,11 +509,25 @@ public final class GetNetworkResult {
         return this.wanGateway;
     }
     /**
+     * @return The IPv6 gateway of the WAN.
+     * 
+     */
+    public String wanGatewayV6() {
+        return this.wanGatewayV6;
+    }
+    /**
      * @return The IPv4 address of the WAN.
      * 
      */
     public String wanIp() {
         return this.wanIp;
+    }
+    /**
+     * @return The IPv6 address of the WAN.
+     * 
+     */
+    public String wanIpv6() {
+        return this.wanIpv6;
     }
     /**
      * @return The IPv4 netmask of the WAN.
@@ -366,11 +544,25 @@ public final class GetNetworkResult {
         return this.wanNetworkgroup;
     }
     /**
+     * @return The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     * 
+     */
+    public Integer wanPrefixlen() {
+        return this.wanPrefixlen;
+    }
+    /**
      * @return Specifies the IPV4 WAN connection type. One of either `disabled`, `static`, `dhcp`, or `pppoe`.
      * 
      */
     public String wanType() {
         return this.wanType;
+    }
+    /**
+     * @return Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     * 
+     */
+    public String wanTypeV6() {
+        return this.wanTypeV6;
     }
     /**
      * @return Specifies the IPV4 WAN username.
@@ -401,6 +593,12 @@ public final class GetNetworkResult {
         private Integer dhcpLease;
         private String dhcpStart;
         private String dhcpStop;
+        private List<String> dhcpV6Dns;
+        private Boolean dhcpV6DnsAuto;
+        private Boolean dhcpV6Enabled;
+        private Integer dhcpV6Lease;
+        private String dhcpV6Start;
+        private String dhcpV6Stop;
         private Boolean dhcpdBootEnabled;
         private String dhcpdBootFilename;
         private String dhcpdBootServer;
@@ -410,7 +608,12 @@ public final class GetNetworkResult {
         private String ipv6InterfaceType;
         private String ipv6PdInterface;
         private String ipv6PdPrefixid;
+        private String ipv6PdStart;
+        private String ipv6PdStop;
         private Boolean ipv6RaEnable;
+        private Integer ipv6RaPreferredLifetime;
+        private String ipv6RaPriority;
+        private Integer ipv6RaValidLifetime;
         private String ipv6StaticSubnet;
         private String name;
         private String networkGroup;
@@ -418,13 +621,18 @@ public final class GetNetworkResult {
         private String site;
         private String subnet;
         private Integer vlanId;
+        private Integer wanDhcpV6PdSize;
         private List<String> wanDns;
         private Integer wanEgressQos;
         private String wanGateway;
+        private String wanGatewayV6;
         private String wanIp;
+        private String wanIpv6;
         private String wanNetmask;
         private String wanNetworkgroup;
+        private Integer wanPrefixlen;
         private String wanType;
+        private String wanTypeV6;
         private String wanUsername;
         private String xWanPassword;
         public Builder() {}
@@ -435,6 +643,12 @@ public final class GetNetworkResult {
     	      this.dhcpLease = defaults.dhcpLease;
     	      this.dhcpStart = defaults.dhcpStart;
     	      this.dhcpStop = defaults.dhcpStop;
+    	      this.dhcpV6Dns = defaults.dhcpV6Dns;
+    	      this.dhcpV6DnsAuto = defaults.dhcpV6DnsAuto;
+    	      this.dhcpV6Enabled = defaults.dhcpV6Enabled;
+    	      this.dhcpV6Lease = defaults.dhcpV6Lease;
+    	      this.dhcpV6Start = defaults.dhcpV6Start;
+    	      this.dhcpV6Stop = defaults.dhcpV6Stop;
     	      this.dhcpdBootEnabled = defaults.dhcpdBootEnabled;
     	      this.dhcpdBootFilename = defaults.dhcpdBootFilename;
     	      this.dhcpdBootServer = defaults.dhcpdBootServer;
@@ -444,7 +658,12 @@ public final class GetNetworkResult {
     	      this.ipv6InterfaceType = defaults.ipv6InterfaceType;
     	      this.ipv6PdInterface = defaults.ipv6PdInterface;
     	      this.ipv6PdPrefixid = defaults.ipv6PdPrefixid;
+    	      this.ipv6PdStart = defaults.ipv6PdStart;
+    	      this.ipv6PdStop = defaults.ipv6PdStop;
     	      this.ipv6RaEnable = defaults.ipv6RaEnable;
+    	      this.ipv6RaPreferredLifetime = defaults.ipv6RaPreferredLifetime;
+    	      this.ipv6RaPriority = defaults.ipv6RaPriority;
+    	      this.ipv6RaValidLifetime = defaults.ipv6RaValidLifetime;
     	      this.ipv6StaticSubnet = defaults.ipv6StaticSubnet;
     	      this.name = defaults.name;
     	      this.networkGroup = defaults.networkGroup;
@@ -452,13 +671,18 @@ public final class GetNetworkResult {
     	      this.site = defaults.site;
     	      this.subnet = defaults.subnet;
     	      this.vlanId = defaults.vlanId;
+    	      this.wanDhcpV6PdSize = defaults.wanDhcpV6PdSize;
     	      this.wanDns = defaults.wanDns;
     	      this.wanEgressQos = defaults.wanEgressQos;
     	      this.wanGateway = defaults.wanGateway;
+    	      this.wanGatewayV6 = defaults.wanGatewayV6;
     	      this.wanIp = defaults.wanIp;
+    	      this.wanIpv6 = defaults.wanIpv6;
     	      this.wanNetmask = defaults.wanNetmask;
     	      this.wanNetworkgroup = defaults.wanNetworkgroup;
+    	      this.wanPrefixlen = defaults.wanPrefixlen;
     	      this.wanType = defaults.wanType;
+    	      this.wanTypeV6 = defaults.wanTypeV6;
     	      this.wanUsername = defaults.wanUsername;
     	      this.xWanPassword = defaults.xWanPassword;
         }
@@ -489,6 +713,39 @@ public final class GetNetworkResult {
         @CustomType.Setter
         public Builder dhcpStop(String dhcpStop) {
             this.dhcpStop = Objects.requireNonNull(dhcpStop);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder dhcpV6Dns(List<String> dhcpV6Dns) {
+            this.dhcpV6Dns = Objects.requireNonNull(dhcpV6Dns);
+            return this;
+        }
+        public Builder dhcpV6Dns(String... dhcpV6Dns) {
+            return dhcpV6Dns(List.of(dhcpV6Dns));
+        }
+        @CustomType.Setter
+        public Builder dhcpV6DnsAuto(Boolean dhcpV6DnsAuto) {
+            this.dhcpV6DnsAuto = Objects.requireNonNull(dhcpV6DnsAuto);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder dhcpV6Enabled(Boolean dhcpV6Enabled) {
+            this.dhcpV6Enabled = Objects.requireNonNull(dhcpV6Enabled);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder dhcpV6Lease(Integer dhcpV6Lease) {
+            this.dhcpV6Lease = Objects.requireNonNull(dhcpV6Lease);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder dhcpV6Start(String dhcpV6Start) {
+            this.dhcpV6Start = Objects.requireNonNull(dhcpV6Start);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder dhcpV6Stop(String dhcpV6Stop) {
+            this.dhcpV6Stop = Objects.requireNonNull(dhcpV6Stop);
             return this;
         }
         @CustomType.Setter
@@ -537,8 +794,33 @@ public final class GetNetworkResult {
             return this;
         }
         @CustomType.Setter
+        public Builder ipv6PdStart(String ipv6PdStart) {
+            this.ipv6PdStart = Objects.requireNonNull(ipv6PdStart);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder ipv6PdStop(String ipv6PdStop) {
+            this.ipv6PdStop = Objects.requireNonNull(ipv6PdStop);
+            return this;
+        }
+        @CustomType.Setter
         public Builder ipv6RaEnable(Boolean ipv6RaEnable) {
             this.ipv6RaEnable = Objects.requireNonNull(ipv6RaEnable);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder ipv6RaPreferredLifetime(Integer ipv6RaPreferredLifetime) {
+            this.ipv6RaPreferredLifetime = Objects.requireNonNull(ipv6RaPreferredLifetime);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder ipv6RaPriority(String ipv6RaPriority) {
+            this.ipv6RaPriority = Objects.requireNonNull(ipv6RaPriority);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder ipv6RaValidLifetime(Integer ipv6RaValidLifetime) {
+            this.ipv6RaValidLifetime = Objects.requireNonNull(ipv6RaValidLifetime);
             return this;
         }
         @CustomType.Setter
@@ -577,6 +859,11 @@ public final class GetNetworkResult {
             return this;
         }
         @CustomType.Setter
+        public Builder wanDhcpV6PdSize(Integer wanDhcpV6PdSize) {
+            this.wanDhcpV6PdSize = Objects.requireNonNull(wanDhcpV6PdSize);
+            return this;
+        }
+        @CustomType.Setter
         public Builder wanDns(List<String> wanDns) {
             this.wanDns = Objects.requireNonNull(wanDns);
             return this;
@@ -595,8 +882,18 @@ public final class GetNetworkResult {
             return this;
         }
         @CustomType.Setter
+        public Builder wanGatewayV6(String wanGatewayV6) {
+            this.wanGatewayV6 = Objects.requireNonNull(wanGatewayV6);
+            return this;
+        }
+        @CustomType.Setter
         public Builder wanIp(String wanIp) {
             this.wanIp = Objects.requireNonNull(wanIp);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder wanIpv6(String wanIpv6) {
+            this.wanIpv6 = Objects.requireNonNull(wanIpv6);
             return this;
         }
         @CustomType.Setter
@@ -610,8 +907,18 @@ public final class GetNetworkResult {
             return this;
         }
         @CustomType.Setter
+        public Builder wanPrefixlen(Integer wanPrefixlen) {
+            this.wanPrefixlen = Objects.requireNonNull(wanPrefixlen);
+            return this;
+        }
+        @CustomType.Setter
         public Builder wanType(String wanType) {
             this.wanType = Objects.requireNonNull(wanType);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder wanTypeV6(String wanTypeV6) {
+            this.wanTypeV6 = Objects.requireNonNull(wanTypeV6);
             return this;
         }
         @CustomType.Setter
@@ -631,6 +938,12 @@ public final class GetNetworkResult {
             o.dhcpLease = dhcpLease;
             o.dhcpStart = dhcpStart;
             o.dhcpStop = dhcpStop;
+            o.dhcpV6Dns = dhcpV6Dns;
+            o.dhcpV6DnsAuto = dhcpV6DnsAuto;
+            o.dhcpV6Enabled = dhcpV6Enabled;
+            o.dhcpV6Lease = dhcpV6Lease;
+            o.dhcpV6Start = dhcpV6Start;
+            o.dhcpV6Stop = dhcpV6Stop;
             o.dhcpdBootEnabled = dhcpdBootEnabled;
             o.dhcpdBootFilename = dhcpdBootFilename;
             o.dhcpdBootServer = dhcpdBootServer;
@@ -640,7 +953,12 @@ public final class GetNetworkResult {
             o.ipv6InterfaceType = ipv6InterfaceType;
             o.ipv6PdInterface = ipv6PdInterface;
             o.ipv6PdPrefixid = ipv6PdPrefixid;
+            o.ipv6PdStart = ipv6PdStart;
+            o.ipv6PdStop = ipv6PdStop;
             o.ipv6RaEnable = ipv6RaEnable;
+            o.ipv6RaPreferredLifetime = ipv6RaPreferredLifetime;
+            o.ipv6RaPriority = ipv6RaPriority;
+            o.ipv6RaValidLifetime = ipv6RaValidLifetime;
             o.ipv6StaticSubnet = ipv6StaticSubnet;
             o.name = name;
             o.networkGroup = networkGroup;
@@ -648,13 +966,18 @@ public final class GetNetworkResult {
             o.site = site;
             o.subnet = subnet;
             o.vlanId = vlanId;
+            o.wanDhcpV6PdSize = wanDhcpV6PdSize;
             o.wanDns = wanDns;
             o.wanEgressQos = wanEgressQos;
             o.wanGateway = wanGateway;
+            o.wanGatewayV6 = wanGatewayV6;
             o.wanIp = wanIp;
+            o.wanIpv6 = wanIpv6;
             o.wanNetmask = wanNetmask;
             o.wanNetworkgroup = wanNetworkgroup;
+            o.wanPrefixlen = wanPrefixlen;
             o.wanType = wanType;
+            o.wanTypeV6 = wanTypeV6;
             o.wanUsername = wanUsername;
             o.xWanPassword = xWanPassword;
             return o;

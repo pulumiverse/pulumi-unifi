@@ -4,48 +4,75 @@
 package com.pulumiverse.unifi.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 @CustomType
 public final class WlanSchedule {
-    /**
-     * @return Time of day to end the block.
-     * 
-     */
-    private String blockEnd;
-    /**
-     * @return Time of day to start the block.
-     * 
-     */
-    private String blockStart;
     /**
      * @return Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
      * 
      */
     private String dayOfWeek;
+    /**
+     * @return Length of the block in minutes.
+     * 
+     */
+    private Integer duration;
+    /**
+     * @return Name of the block.
+     * 
+     */
+    private @Nullable String name;
+    /**
+     * @return Start hour for the block (0-23).
+     * 
+     */
+    private Integer startHour;
+    /**
+     * @return Start minute for the block (0-59). Defaults to `0`.
+     * 
+     */
+    private @Nullable Integer startMinute;
 
     private WlanSchedule() {}
-    /**
-     * @return Time of day to end the block.
-     * 
-     */
-    public String blockEnd() {
-        return this.blockEnd;
-    }
-    /**
-     * @return Time of day to start the block.
-     * 
-     */
-    public String blockStart() {
-        return this.blockStart;
-    }
     /**
      * @return Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
      * 
      */
     public String dayOfWeek() {
         return this.dayOfWeek;
+    }
+    /**
+     * @return Length of the block in minutes.
+     * 
+     */
+    public Integer duration() {
+        return this.duration;
+    }
+    /**
+     * @return Name of the block.
+     * 
+     */
+    public Optional<String> name() {
+        return Optional.ofNullable(this.name);
+    }
+    /**
+     * @return Start hour for the block (0-23).
+     * 
+     */
+    public Integer startHour() {
+        return this.startHour;
+    }
+    /**
+     * @return Start minute for the block (0-59). Defaults to `0`.
+     * 
+     */
+    public Optional<Integer> startMinute() {
+        return Optional.ofNullable(this.startMinute);
     }
 
     public static Builder builder() {
@@ -57,37 +84,53 @@ public final class WlanSchedule {
     }
     @CustomType.Builder
     public static final class Builder {
-        private String blockEnd;
-        private String blockStart;
         private String dayOfWeek;
+        private Integer duration;
+        private @Nullable String name;
+        private Integer startHour;
+        private @Nullable Integer startMinute;
         public Builder() {}
         public Builder(WlanSchedule defaults) {
     	      Objects.requireNonNull(defaults);
-    	      this.blockEnd = defaults.blockEnd;
-    	      this.blockStart = defaults.blockStart;
     	      this.dayOfWeek = defaults.dayOfWeek;
+    	      this.duration = defaults.duration;
+    	      this.name = defaults.name;
+    	      this.startHour = defaults.startHour;
+    	      this.startMinute = defaults.startMinute;
         }
 
-        @CustomType.Setter
-        public Builder blockEnd(String blockEnd) {
-            this.blockEnd = Objects.requireNonNull(blockEnd);
-            return this;
-        }
-        @CustomType.Setter
-        public Builder blockStart(String blockStart) {
-            this.blockStart = Objects.requireNonNull(blockStart);
-            return this;
-        }
         @CustomType.Setter
         public Builder dayOfWeek(String dayOfWeek) {
             this.dayOfWeek = Objects.requireNonNull(dayOfWeek);
             return this;
         }
+        @CustomType.Setter
+        public Builder duration(Integer duration) {
+            this.duration = Objects.requireNonNull(duration);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder name(@Nullable String name) {
+            this.name = name;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder startHour(Integer startHour) {
+            this.startHour = Objects.requireNonNull(startHour);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder startMinute(@Nullable Integer startMinute) {
+            this.startMinute = startMinute;
+            return this;
+        }
         public WlanSchedule build() {
             final var o = new WlanSchedule();
-            o.blockEnd = blockEnd;
-            o.blockStart = blockStart;
             o.dayOfWeek = dayOfWeek;
+            o.duration = duration;
+            o.name = name;
+            o.startHour = startHour;
+            o.startMinute = startMinute;
             return o;
         }
     }

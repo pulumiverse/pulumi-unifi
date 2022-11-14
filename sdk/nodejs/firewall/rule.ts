@@ -69,6 +69,10 @@ export class Rule extends pulumi.CustomResource {
      */
     public readonly dstAddress!: pulumi.Output<string | undefined>;
     /**
+     * The IPv6 destination address of the firewall rule.
+     */
+    public readonly dstAddressIpv6!: pulumi.Output<string | undefined>;
+    /**
      * The destination firewall group IDs of the firewall rule.
      */
     public readonly dstFirewallGroupIds!: pulumi.Output<string[] | undefined>;
@@ -89,6 +93,10 @@ export class Rule extends pulumi.CustomResource {
      */
     public readonly icmpTypename!: pulumi.Output<string | undefined>;
     /**
+     * ICMPv6 type name.
+     */
+    public readonly icmpV6Typename!: pulumi.Output<string | undefined>;
+    /**
      * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
      */
     public readonly ipSec!: pulumi.Output<string | undefined>;
@@ -103,7 +111,11 @@ export class Rule extends pulumi.CustomResource {
     /**
      * The protocol of the rule.
      */
-    public readonly protocol!: pulumi.Output<string>;
+    public readonly protocol!: pulumi.Output<string | undefined>;
+    /**
+     * The IPv6 protocol of the rule.
+     */
+    public readonly protocolV6!: pulumi.Output<string | undefined>;
     /**
      * The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
      */
@@ -120,6 +132,10 @@ export class Rule extends pulumi.CustomResource {
      * The source address for the firewall rule.
      */
     public readonly srcAddress!: pulumi.Output<string | undefined>;
+    /**
+     * The IPv6 source address for the firewall rule.
+     */
+    public readonly srcAddressIpv6!: pulumi.Output<string | undefined>;
     /**
      * The source firewall group IDs for the firewall rule.
      */
@@ -168,19 +184,23 @@ export class Rule extends pulumi.CustomResource {
             const state = argsOrState as RuleState | undefined;
             resourceInputs["action"] = state ? state.action : undefined;
             resourceInputs["dstAddress"] = state ? state.dstAddress : undefined;
+            resourceInputs["dstAddressIpv6"] = state ? state.dstAddressIpv6 : undefined;
             resourceInputs["dstFirewallGroupIds"] = state ? state.dstFirewallGroupIds : undefined;
             resourceInputs["dstNetworkId"] = state ? state.dstNetworkId : undefined;
             resourceInputs["dstNetworkType"] = state ? state.dstNetworkType : undefined;
             resourceInputs["dstPort"] = state ? state.dstPort : undefined;
             resourceInputs["icmpTypename"] = state ? state.icmpTypename : undefined;
+            resourceInputs["icmpV6Typename"] = state ? state.icmpV6Typename : undefined;
             resourceInputs["ipSec"] = state ? state.ipSec : undefined;
             resourceInputs["logging"] = state ? state.logging : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["protocol"] = state ? state.protocol : undefined;
+            resourceInputs["protocolV6"] = state ? state.protocolV6 : undefined;
             resourceInputs["ruleIndex"] = state ? state.ruleIndex : undefined;
             resourceInputs["ruleset"] = state ? state.ruleset : undefined;
             resourceInputs["site"] = state ? state.site : undefined;
             resourceInputs["srcAddress"] = state ? state.srcAddress : undefined;
+            resourceInputs["srcAddressIpv6"] = state ? state.srcAddressIpv6 : undefined;
             resourceInputs["srcFirewallGroupIds"] = state ? state.srcFirewallGroupIds : undefined;
             resourceInputs["srcMac"] = state ? state.srcMac : undefined;
             resourceInputs["srcNetworkId"] = state ? state.srcNetworkId : undefined;
@@ -194,9 +214,6 @@ export class Rule extends pulumi.CustomResource {
             if ((!args || args.action === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'action'");
             }
-            if ((!args || args.protocol === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'protocol'");
-            }
             if ((!args || args.ruleIndex === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'ruleIndex'");
             }
@@ -205,19 +222,23 @@ export class Rule extends pulumi.CustomResource {
             }
             resourceInputs["action"] = args ? args.action : undefined;
             resourceInputs["dstAddress"] = args ? args.dstAddress : undefined;
+            resourceInputs["dstAddressIpv6"] = args ? args.dstAddressIpv6 : undefined;
             resourceInputs["dstFirewallGroupIds"] = args ? args.dstFirewallGroupIds : undefined;
             resourceInputs["dstNetworkId"] = args ? args.dstNetworkId : undefined;
             resourceInputs["dstNetworkType"] = args ? args.dstNetworkType : undefined;
             resourceInputs["dstPort"] = args ? args.dstPort : undefined;
             resourceInputs["icmpTypename"] = args ? args.icmpTypename : undefined;
+            resourceInputs["icmpV6Typename"] = args ? args.icmpV6Typename : undefined;
             resourceInputs["ipSec"] = args ? args.ipSec : undefined;
             resourceInputs["logging"] = args ? args.logging : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["protocol"] = args ? args.protocol : undefined;
+            resourceInputs["protocolV6"] = args ? args.protocolV6 : undefined;
             resourceInputs["ruleIndex"] = args ? args.ruleIndex : undefined;
             resourceInputs["ruleset"] = args ? args.ruleset : undefined;
             resourceInputs["site"] = args ? args.site : undefined;
             resourceInputs["srcAddress"] = args ? args.srcAddress : undefined;
+            resourceInputs["srcAddressIpv6"] = args ? args.srcAddressIpv6 : undefined;
             resourceInputs["srcFirewallGroupIds"] = args ? args.srcFirewallGroupIds : undefined;
             resourceInputs["srcMac"] = args ? args.srcMac : undefined;
             resourceInputs["srcNetworkId"] = args ? args.srcNetworkId : undefined;
@@ -245,6 +266,10 @@ export interface RuleState {
      */
     dstAddress?: pulumi.Input<string>;
     /**
+     * The IPv6 destination address of the firewall rule.
+     */
+    dstAddressIpv6?: pulumi.Input<string>;
+    /**
      * The destination firewall group IDs of the firewall rule.
      */
     dstFirewallGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
@@ -265,6 +290,10 @@ export interface RuleState {
      */
     icmpTypename?: pulumi.Input<string>;
     /**
+     * ICMPv6 type name.
+     */
+    icmpV6Typename?: pulumi.Input<string>;
+    /**
      * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
      */
     ipSec?: pulumi.Input<string>;
@@ -281,6 +310,10 @@ export interface RuleState {
      */
     protocol?: pulumi.Input<string>;
     /**
+     * The IPv6 protocol of the rule.
+     */
+    protocolV6?: pulumi.Input<string>;
+    /**
      * The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
      */
     ruleIndex?: pulumi.Input<number>;
@@ -296,6 +329,10 @@ export interface RuleState {
      * The source address for the firewall rule.
      */
     srcAddress?: pulumi.Input<string>;
+    /**
+     * The IPv6 source address for the firewall rule.
+     */
+    srcAddressIpv6?: pulumi.Input<string>;
     /**
      * The source firewall group IDs for the firewall rule.
      */
@@ -343,6 +380,10 @@ export interface RuleArgs {
      */
     dstAddress?: pulumi.Input<string>;
     /**
+     * The IPv6 destination address of the firewall rule.
+     */
+    dstAddressIpv6?: pulumi.Input<string>;
+    /**
      * The destination firewall group IDs of the firewall rule.
      */
     dstFirewallGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
@@ -363,6 +404,10 @@ export interface RuleArgs {
      */
     icmpTypename?: pulumi.Input<string>;
     /**
+     * ICMPv6 type name.
+     */
+    icmpV6Typename?: pulumi.Input<string>;
+    /**
      * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
      */
     ipSec?: pulumi.Input<string>;
@@ -377,7 +422,11 @@ export interface RuleArgs {
     /**
      * The protocol of the rule.
      */
-    protocol: pulumi.Input<string>;
+    protocol?: pulumi.Input<string>;
+    /**
+     * The IPv6 protocol of the rule.
+     */
+    protocolV6?: pulumi.Input<string>;
     /**
      * The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
      */
@@ -394,6 +443,10 @@ export interface RuleArgs {
      * The source address for the firewall rule.
      */
     srcAddress?: pulumi.Input<string>;
+    /**
+     * The IPv6 source address for the firewall rule.
+     */
+    srcAddressIpv6?: pulumi.Input<string>;
     /**
      * The source firewall group IDs for the firewall rule.
      */

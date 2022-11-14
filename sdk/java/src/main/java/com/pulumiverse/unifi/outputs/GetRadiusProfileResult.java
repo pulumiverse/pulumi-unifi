@@ -22,7 +22,7 @@ public final class GetRadiusProfileResult {
      */
     private @Nullable String name;
     /**
-     * @return The name of the site the radius profile is associated with.
+     * @return The name of the site the RADIUS profile is associated with.
      * 
      */
     private String site;
@@ -43,7 +43,7 @@ public final class GetRadiusProfileResult {
         return Optional.ofNullable(this.name);
     }
     /**
-     * @return The name of the site the radius profile is associated with.
+     * @return The name of the site the RADIUS profile is associated with.
      * 
      */
     public String site() {

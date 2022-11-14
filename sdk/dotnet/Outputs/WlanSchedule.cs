@@ -15,29 +15,43 @@ namespace Pulumiverse.Unifi.Outputs
     public sealed class WlanSchedule
     {
         /// <summary>
-        /// Time of day to end the block.
-        /// </summary>
-        public readonly string BlockEnd;
-        /// <summary>
-        /// Time of day to start the block.
-        /// </summary>
-        public readonly string BlockStart;
-        /// <summary>
         /// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
         /// </summary>
         public readonly string DayOfWeek;
+        /// <summary>
+        /// Length of the block in minutes.
+        /// </summary>
+        public readonly int Duration;
+        /// <summary>
+        /// Name of the block.
+        /// </summary>
+        public readonly string? Name;
+        /// <summary>
+        /// Start hour for the block (0-23).
+        /// </summary>
+        public readonly int StartHour;
+        /// <summary>
+        /// Start minute for the block (0-59). Defaults to `0`.
+        /// </summary>
+        public readonly int? StartMinute;
 
         [OutputConstructor]
         private WlanSchedule(
-            string blockEnd,
+            string dayOfWeek,
 
-            string blockStart,
+            int duration,
 
-            string dayOfWeek)
+            string? name,
+
+            int startHour,
+
+            int? startMinute)
         {
-            BlockEnd = blockEnd;
-            BlockStart = blockStart;
             DayOfWeek = dayOfWeek;
+            Duration = duration;
+            Name = name;
+            StartHour = startHour;
+            StartMinute = startMinute;
         }
     }
 }

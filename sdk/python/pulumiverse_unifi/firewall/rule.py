@@ -15,20 +15,24 @@ __all__ = ['RuleArgs', 'Rule']
 class RuleArgs:
     def __init__(__self__, *,
                  action: pulumi.Input[str],
-                 protocol: pulumi.Input[str],
                  rule_index: pulumi.Input[int],
                  ruleset: pulumi.Input[str],
                  dst_address: Optional[pulumi.Input[str]] = None,
+                 dst_address_ipv6: Optional[pulumi.Input[str]] = None,
                  dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  dst_network_id: Optional[pulumi.Input[str]] = None,
                  dst_network_type: Optional[pulumi.Input[str]] = None,
                  dst_port: Optional[pulumi.Input[str]] = None,
                  icmp_typename: Optional[pulumi.Input[str]] = None,
+                 icmp_v6_typename: Optional[pulumi.Input[str]] = None,
                  ip_sec: Optional[pulumi.Input[str]] = None,
                  logging: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 protocol: Optional[pulumi.Input[str]] = None,
+                 protocol_v6: Optional[pulumi.Input[str]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  src_address: Optional[pulumi.Input[str]] = None,
+                 src_address_ipv6: Optional[pulumi.Input[str]] = None,
                  src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  src_mac: Optional[pulumi.Input[str]] = None,
                  src_network_id: Optional[pulumi.Input[str]] = None,
@@ -40,20 +44,24 @@ class RuleArgs:
         """
         The set of arguments for constructing a Rule resource.
         :param pulumi.Input[str] action: The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
-        :param pulumi.Input[str] protocol: The protocol of the rule.
         :param pulumi.Input[int] rule_index: The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
         :param pulumi.Input[str] ruleset: The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
         :param pulumi.Input[str] dst_address: The destination address of the firewall rule.
+        :param pulumi.Input[str] dst_address_ipv6: The IPv6 destination address of the firewall rule.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] dst_firewall_group_ids: The destination firewall group IDs of the firewall rule.
         :param pulumi.Input[str] dst_network_id: The destination network ID of the firewall rule.
         :param pulumi.Input[str] dst_network_type: The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         :param pulumi.Input[str] dst_port: The destination port of the firewall rule.
         :param pulumi.Input[str] icmp_typename: ICMP type name.
+        :param pulumi.Input[str] icmp_v6_typename: ICMPv6 type name.
         :param pulumi.Input[str] ip_sec: Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
         :param pulumi.Input[bool] logging: Enable logging for the firewall rule.
         :param pulumi.Input[str] name: The name of the firewall rule.
+        :param pulumi.Input[str] protocol: The protocol of the rule.
+        :param pulumi.Input[str] protocol_v6: The IPv6 protocol of the rule.
         :param pulumi.Input[str] site: The name of the site to associate the firewall rule with.
         :param pulumi.Input[str] src_address: The source address for the firewall rule.
+        :param pulumi.Input[str] src_address_ipv6: The IPv6 source address for the firewall rule.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] src_firewall_group_ids: The source firewall group IDs for the firewall rule.
         :param pulumi.Input[str] src_mac: The source MAC address of the firewall rule.
         :param pulumi.Input[str] src_network_id: The source network ID for the firewall rule.
@@ -64,11 +72,12 @@ class RuleArgs:
         :param pulumi.Input[bool] state_related: Match where the state is related.
         """
         pulumi.set(__self__, "action", action)
-        pulumi.set(__self__, "protocol", protocol)
         pulumi.set(__self__, "rule_index", rule_index)
         pulumi.set(__self__, "ruleset", ruleset)
         if dst_address is not None:
             pulumi.set(__self__, "dst_address", dst_address)
+        if dst_address_ipv6 is not None:
+            pulumi.set(__self__, "dst_address_ipv6", dst_address_ipv6)
         if dst_firewall_group_ids is not None:
             pulumi.set(__self__, "dst_firewall_group_ids", dst_firewall_group_ids)
         if dst_network_id is not None:
@@ -79,16 +88,24 @@ class RuleArgs:
             pulumi.set(__self__, "dst_port", dst_port)
         if icmp_typename is not None:
             pulumi.set(__self__, "icmp_typename", icmp_typename)
+        if icmp_v6_typename is not None:
+            pulumi.set(__self__, "icmp_v6_typename", icmp_v6_typename)
         if ip_sec is not None:
             pulumi.set(__self__, "ip_sec", ip_sec)
         if logging is not None:
             pulumi.set(__self__, "logging", logging)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+        if protocol_v6 is not None:
+            pulumi.set(__self__, "protocol_v6", protocol_v6)
         if site is not None:
             pulumi.set(__self__, "site", site)
         if src_address is not None:
             pulumi.set(__self__, "src_address", src_address)
+        if src_address_ipv6 is not None:
+            pulumi.set(__self__, "src_address_ipv6", src_address_ipv6)
         if src_firewall_group_ids is not None:
             pulumi.set(__self__, "src_firewall_group_ids", src_firewall_group_ids)
         if src_mac is not None:
@@ -117,18 +134,6 @@ class RuleArgs:
     @action.setter
     def action(self, value: pulumi.Input[str]):
         pulumi.set(self, "action", value)
-
-    @property
-    @pulumi.getter
-    def protocol(self) -> pulumi.Input[str]:
-        """
-        The protocol of the rule.
-        """
-        return pulumi.get(self, "protocol")
-
-    @protocol.setter
-    def protocol(self, value: pulumi.Input[str]):
-        pulumi.set(self, "protocol", value)
 
     @property
     @pulumi.getter(name="ruleIndex")
@@ -165,6 +170,18 @@ class RuleArgs:
     @dst_address.setter
     def dst_address(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "dst_address", value)
+
+    @property
+    @pulumi.getter(name="dstAddressIpv6")
+    def dst_address_ipv6(self) -> Optional[pulumi.Input[str]]:
+        """
+        The IPv6 destination address of the firewall rule.
+        """
+        return pulumi.get(self, "dst_address_ipv6")
+
+    @dst_address_ipv6.setter
+    def dst_address_ipv6(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "dst_address_ipv6", value)
 
     @property
     @pulumi.getter(name="dstFirewallGroupIds")
@@ -227,6 +244,18 @@ class RuleArgs:
         pulumi.set(self, "icmp_typename", value)
 
     @property
+    @pulumi.getter(name="icmpV6Typename")
+    def icmp_v6_typename(self) -> Optional[pulumi.Input[str]]:
+        """
+        ICMPv6 type name.
+        """
+        return pulumi.get(self, "icmp_v6_typename")
+
+    @icmp_v6_typename.setter
+    def icmp_v6_typename(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "icmp_v6_typename", value)
+
+    @property
     @pulumi.getter(name="ipSec")
     def ip_sec(self) -> Optional[pulumi.Input[str]]:
         """
@@ -264,6 +293,30 @@ class RuleArgs:
 
     @property
     @pulumi.getter
+    def protocol(self) -> Optional[pulumi.Input[str]]:
+        """
+        The protocol of the rule.
+        """
+        return pulumi.get(self, "protocol")
+
+    @protocol.setter
+    def protocol(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "protocol", value)
+
+    @property
+    @pulumi.getter(name="protocolV6")
+    def protocol_v6(self) -> Optional[pulumi.Input[str]]:
+        """
+        The IPv6 protocol of the rule.
+        """
+        return pulumi.get(self, "protocol_v6")
+
+    @protocol_v6.setter
+    def protocol_v6(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "protocol_v6", value)
+
+    @property
+    @pulumi.getter
     def site(self) -> Optional[pulumi.Input[str]]:
         """
         The name of the site to associate the firewall rule with.
@@ -285,6 +338,18 @@ class RuleArgs:
     @src_address.setter
     def src_address(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "src_address", value)
+
+    @property
+    @pulumi.getter(name="srcAddressIpv6")
+    def src_address_ipv6(self) -> Optional[pulumi.Input[str]]:
+        """
+        The IPv6 source address for the firewall rule.
+        """
+        return pulumi.get(self, "src_address_ipv6")
+
+    @src_address_ipv6.setter
+    def src_address_ipv6(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "src_address_ipv6", value)
 
     @property
     @pulumi.getter(name="srcFirewallGroupIds")
@@ -388,19 +453,23 @@ class _RuleState:
     def __init__(__self__, *,
                  action: Optional[pulumi.Input[str]] = None,
                  dst_address: Optional[pulumi.Input[str]] = None,
+                 dst_address_ipv6: Optional[pulumi.Input[str]] = None,
                  dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  dst_network_id: Optional[pulumi.Input[str]] = None,
                  dst_network_type: Optional[pulumi.Input[str]] = None,
                  dst_port: Optional[pulumi.Input[str]] = None,
                  icmp_typename: Optional[pulumi.Input[str]] = None,
+                 icmp_v6_typename: Optional[pulumi.Input[str]] = None,
                  ip_sec: Optional[pulumi.Input[str]] = None,
                  logging: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  protocol: Optional[pulumi.Input[str]] = None,
+                 protocol_v6: Optional[pulumi.Input[str]] = None,
                  rule_index: Optional[pulumi.Input[int]] = None,
                  ruleset: Optional[pulumi.Input[str]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  src_address: Optional[pulumi.Input[str]] = None,
+                 src_address_ipv6: Optional[pulumi.Input[str]] = None,
                  src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  src_mac: Optional[pulumi.Input[str]] = None,
                  src_network_id: Optional[pulumi.Input[str]] = None,
@@ -413,19 +482,23 @@ class _RuleState:
         Input properties used for looking up and filtering Rule resources.
         :param pulumi.Input[str] action: The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
         :param pulumi.Input[str] dst_address: The destination address of the firewall rule.
+        :param pulumi.Input[str] dst_address_ipv6: The IPv6 destination address of the firewall rule.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] dst_firewall_group_ids: The destination firewall group IDs of the firewall rule.
         :param pulumi.Input[str] dst_network_id: The destination network ID of the firewall rule.
         :param pulumi.Input[str] dst_network_type: The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         :param pulumi.Input[str] dst_port: The destination port of the firewall rule.
         :param pulumi.Input[str] icmp_typename: ICMP type name.
+        :param pulumi.Input[str] icmp_v6_typename: ICMPv6 type name.
         :param pulumi.Input[str] ip_sec: Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
         :param pulumi.Input[bool] logging: Enable logging for the firewall rule.
         :param pulumi.Input[str] name: The name of the firewall rule.
         :param pulumi.Input[str] protocol: The protocol of the rule.
+        :param pulumi.Input[str] protocol_v6: The IPv6 protocol of the rule.
         :param pulumi.Input[int] rule_index: The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
         :param pulumi.Input[str] ruleset: The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
         :param pulumi.Input[str] site: The name of the site to associate the firewall rule with.
         :param pulumi.Input[str] src_address: The source address for the firewall rule.
+        :param pulumi.Input[str] src_address_ipv6: The IPv6 source address for the firewall rule.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] src_firewall_group_ids: The source firewall group IDs for the firewall rule.
         :param pulumi.Input[str] src_mac: The source MAC address of the firewall rule.
         :param pulumi.Input[str] src_network_id: The source network ID for the firewall rule.
@@ -439,6 +512,8 @@ class _RuleState:
             pulumi.set(__self__, "action", action)
         if dst_address is not None:
             pulumi.set(__self__, "dst_address", dst_address)
+        if dst_address_ipv6 is not None:
+            pulumi.set(__self__, "dst_address_ipv6", dst_address_ipv6)
         if dst_firewall_group_ids is not None:
             pulumi.set(__self__, "dst_firewall_group_ids", dst_firewall_group_ids)
         if dst_network_id is not None:
@@ -449,6 +524,8 @@ class _RuleState:
             pulumi.set(__self__, "dst_port", dst_port)
         if icmp_typename is not None:
             pulumi.set(__self__, "icmp_typename", icmp_typename)
+        if icmp_v6_typename is not None:
+            pulumi.set(__self__, "icmp_v6_typename", icmp_v6_typename)
         if ip_sec is not None:
             pulumi.set(__self__, "ip_sec", ip_sec)
         if logging is not None:
@@ -457,6 +534,8 @@ class _RuleState:
             pulumi.set(__self__, "name", name)
         if protocol is not None:
             pulumi.set(__self__, "protocol", protocol)
+        if protocol_v6 is not None:
+            pulumi.set(__self__, "protocol_v6", protocol_v6)
         if rule_index is not None:
             pulumi.set(__self__, "rule_index", rule_index)
         if ruleset is not None:
@@ -465,6 +544,8 @@ class _RuleState:
             pulumi.set(__self__, "site", site)
         if src_address is not None:
             pulumi.set(__self__, "src_address", src_address)
+        if src_address_ipv6 is not None:
+            pulumi.set(__self__, "src_address_ipv6", src_address_ipv6)
         if src_firewall_group_ids is not None:
             pulumi.set(__self__, "src_firewall_group_ids", src_firewall_group_ids)
         if src_mac is not None:
@@ -505,6 +586,18 @@ class _RuleState:
     @dst_address.setter
     def dst_address(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "dst_address", value)
+
+    @property
+    @pulumi.getter(name="dstAddressIpv6")
+    def dst_address_ipv6(self) -> Optional[pulumi.Input[str]]:
+        """
+        The IPv6 destination address of the firewall rule.
+        """
+        return pulumi.get(self, "dst_address_ipv6")
+
+    @dst_address_ipv6.setter
+    def dst_address_ipv6(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "dst_address_ipv6", value)
 
     @property
     @pulumi.getter(name="dstFirewallGroupIds")
@@ -567,6 +660,18 @@ class _RuleState:
         pulumi.set(self, "icmp_typename", value)
 
     @property
+    @pulumi.getter(name="icmpV6Typename")
+    def icmp_v6_typename(self) -> Optional[pulumi.Input[str]]:
+        """
+        ICMPv6 type name.
+        """
+        return pulumi.get(self, "icmp_v6_typename")
+
+    @icmp_v6_typename.setter
+    def icmp_v6_typename(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "icmp_v6_typename", value)
+
+    @property
     @pulumi.getter(name="ipSec")
     def ip_sec(self) -> Optional[pulumi.Input[str]]:
         """
@@ -615,6 +720,18 @@ class _RuleState:
         pulumi.set(self, "protocol", value)
 
     @property
+    @pulumi.getter(name="protocolV6")
+    def protocol_v6(self) -> Optional[pulumi.Input[str]]:
+        """
+        The IPv6 protocol of the rule.
+        """
+        return pulumi.get(self, "protocol_v6")
+
+    @protocol_v6.setter
+    def protocol_v6(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "protocol_v6", value)
+
+    @property
     @pulumi.getter(name="ruleIndex")
     def rule_index(self) -> Optional[pulumi.Input[int]]:
         """
@@ -661,6 +778,18 @@ class _RuleState:
     @src_address.setter
     def src_address(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "src_address", value)
+
+    @property
+    @pulumi.getter(name="srcAddressIpv6")
+    def src_address_ipv6(self) -> Optional[pulumi.Input[str]]:
+        """
+        The IPv6 source address for the firewall rule.
+        """
+        return pulumi.get(self, "src_address_ipv6")
+
+    @src_address_ipv6.setter
+    def src_address_ipv6(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "src_address_ipv6", value)
 
     @property
     @pulumi.getter(name="srcFirewallGroupIds")
@@ -766,19 +895,23 @@ class Rule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  action: Optional[pulumi.Input[str]] = None,
                  dst_address: Optional[pulumi.Input[str]] = None,
+                 dst_address_ipv6: Optional[pulumi.Input[str]] = None,
                  dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  dst_network_id: Optional[pulumi.Input[str]] = None,
                  dst_network_type: Optional[pulumi.Input[str]] = None,
                  dst_port: Optional[pulumi.Input[str]] = None,
                  icmp_typename: Optional[pulumi.Input[str]] = None,
+                 icmp_v6_typename: Optional[pulumi.Input[str]] = None,
                  ip_sec: Optional[pulumi.Input[str]] = None,
                  logging: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  protocol: Optional[pulumi.Input[str]] = None,
+                 protocol_v6: Optional[pulumi.Input[str]] = None,
                  rule_index: Optional[pulumi.Input[int]] = None,
                  ruleset: Optional[pulumi.Input[str]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  src_address: Optional[pulumi.Input[str]] = None,
+                 src_address_ipv6: Optional[pulumi.Input[str]] = None,
                  src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  src_mac: Optional[pulumi.Input[str]] = None,
                  src_network_id: Optional[pulumi.Input[str]] = None,
@@ -819,19 +952,23 @@ class Rule(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] action: The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
         :param pulumi.Input[str] dst_address: The destination address of the firewall rule.
+        :param pulumi.Input[str] dst_address_ipv6: The IPv6 destination address of the firewall rule.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] dst_firewall_group_ids: The destination firewall group IDs of the firewall rule.
         :param pulumi.Input[str] dst_network_id: The destination network ID of the firewall rule.
         :param pulumi.Input[str] dst_network_type: The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         :param pulumi.Input[str] dst_port: The destination port of the firewall rule.
         :param pulumi.Input[str] icmp_typename: ICMP type name.
+        :param pulumi.Input[str] icmp_v6_typename: ICMPv6 type name.
         :param pulumi.Input[str] ip_sec: Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
         :param pulumi.Input[bool] logging: Enable logging for the firewall rule.
         :param pulumi.Input[str] name: The name of the firewall rule.
         :param pulumi.Input[str] protocol: The protocol of the rule.
+        :param pulumi.Input[str] protocol_v6: The IPv6 protocol of the rule.
         :param pulumi.Input[int] rule_index: The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
         :param pulumi.Input[str] ruleset: The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
         :param pulumi.Input[str] site: The name of the site to associate the firewall rule with.
         :param pulumi.Input[str] src_address: The source address for the firewall rule.
+        :param pulumi.Input[str] src_address_ipv6: The IPv6 source address for the firewall rule.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] src_firewall_group_ids: The source firewall group IDs for the firewall rule.
         :param pulumi.Input[str] src_mac: The source MAC address of the firewall rule.
         :param pulumi.Input[str] src_network_id: The source network ID for the firewall rule.
@@ -891,19 +1028,23 @@ class Rule(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  action: Optional[pulumi.Input[str]] = None,
                  dst_address: Optional[pulumi.Input[str]] = None,
+                 dst_address_ipv6: Optional[pulumi.Input[str]] = None,
                  dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  dst_network_id: Optional[pulumi.Input[str]] = None,
                  dst_network_type: Optional[pulumi.Input[str]] = None,
                  dst_port: Optional[pulumi.Input[str]] = None,
                  icmp_typename: Optional[pulumi.Input[str]] = None,
+                 icmp_v6_typename: Optional[pulumi.Input[str]] = None,
                  ip_sec: Optional[pulumi.Input[str]] = None,
                  logging: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  protocol: Optional[pulumi.Input[str]] = None,
+                 protocol_v6: Optional[pulumi.Input[str]] = None,
                  rule_index: Optional[pulumi.Input[int]] = None,
                  ruleset: Optional[pulumi.Input[str]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  src_address: Optional[pulumi.Input[str]] = None,
+                 src_address_ipv6: Optional[pulumi.Input[str]] = None,
                  src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  src_mac: Optional[pulumi.Input[str]] = None,
                  src_network_id: Optional[pulumi.Input[str]] = None,
@@ -925,17 +1066,18 @@ class Rule(pulumi.CustomResource):
                 raise TypeError("Missing required property 'action'")
             __props__.__dict__["action"] = action
             __props__.__dict__["dst_address"] = dst_address
+            __props__.__dict__["dst_address_ipv6"] = dst_address_ipv6
             __props__.__dict__["dst_firewall_group_ids"] = dst_firewall_group_ids
             __props__.__dict__["dst_network_id"] = dst_network_id
             __props__.__dict__["dst_network_type"] = dst_network_type
             __props__.__dict__["dst_port"] = dst_port
             __props__.__dict__["icmp_typename"] = icmp_typename
+            __props__.__dict__["icmp_v6_typename"] = icmp_v6_typename
             __props__.__dict__["ip_sec"] = ip_sec
             __props__.__dict__["logging"] = logging
             __props__.__dict__["name"] = name
-            if protocol is None and not opts.urn:
-                raise TypeError("Missing required property 'protocol'")
             __props__.__dict__["protocol"] = protocol
+            __props__.__dict__["protocol_v6"] = protocol_v6
             if rule_index is None and not opts.urn:
                 raise TypeError("Missing required property 'rule_index'")
             __props__.__dict__["rule_index"] = rule_index
@@ -944,6 +1086,7 @@ class Rule(pulumi.CustomResource):
             __props__.__dict__["ruleset"] = ruleset
             __props__.__dict__["site"] = site
             __props__.__dict__["src_address"] = src_address
+            __props__.__dict__["src_address_ipv6"] = src_address_ipv6
             __props__.__dict__["src_firewall_group_ids"] = src_firewall_group_ids
             __props__.__dict__["src_mac"] = src_mac
             __props__.__dict__["src_network_id"] = src_network_id
@@ -964,19 +1107,23 @@ class Rule(pulumi.CustomResource):
             opts: Optional[pulumi.ResourceOptions] = None,
             action: Optional[pulumi.Input[str]] = None,
             dst_address: Optional[pulumi.Input[str]] = None,
+            dst_address_ipv6: Optional[pulumi.Input[str]] = None,
             dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             dst_network_id: Optional[pulumi.Input[str]] = None,
             dst_network_type: Optional[pulumi.Input[str]] = None,
             dst_port: Optional[pulumi.Input[str]] = None,
             icmp_typename: Optional[pulumi.Input[str]] = None,
+            icmp_v6_typename: Optional[pulumi.Input[str]] = None,
             ip_sec: Optional[pulumi.Input[str]] = None,
             logging: Optional[pulumi.Input[bool]] = None,
             name: Optional[pulumi.Input[str]] = None,
             protocol: Optional[pulumi.Input[str]] = None,
+            protocol_v6: Optional[pulumi.Input[str]] = None,
             rule_index: Optional[pulumi.Input[int]] = None,
             ruleset: Optional[pulumi.Input[str]] = None,
             site: Optional[pulumi.Input[str]] = None,
             src_address: Optional[pulumi.Input[str]] = None,
+            src_address_ipv6: Optional[pulumi.Input[str]] = None,
             src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             src_mac: Optional[pulumi.Input[str]] = None,
             src_network_id: Optional[pulumi.Input[str]] = None,
@@ -994,19 +1141,23 @@ class Rule(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] action: The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
         :param pulumi.Input[str] dst_address: The destination address of the firewall rule.
+        :param pulumi.Input[str] dst_address_ipv6: The IPv6 destination address of the firewall rule.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] dst_firewall_group_ids: The destination firewall group IDs of the firewall rule.
         :param pulumi.Input[str] dst_network_id: The destination network ID of the firewall rule.
         :param pulumi.Input[str] dst_network_type: The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         :param pulumi.Input[str] dst_port: The destination port of the firewall rule.
         :param pulumi.Input[str] icmp_typename: ICMP type name.
+        :param pulumi.Input[str] icmp_v6_typename: ICMPv6 type name.
         :param pulumi.Input[str] ip_sec: Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
         :param pulumi.Input[bool] logging: Enable logging for the firewall rule.
         :param pulumi.Input[str] name: The name of the firewall rule.
         :param pulumi.Input[str] protocol: The protocol of the rule.
+        :param pulumi.Input[str] protocol_v6: The IPv6 protocol of the rule.
         :param pulumi.Input[int] rule_index: The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
         :param pulumi.Input[str] ruleset: The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
         :param pulumi.Input[str] site: The name of the site to associate the firewall rule with.
         :param pulumi.Input[str] src_address: The source address for the firewall rule.
+        :param pulumi.Input[str] src_address_ipv6: The IPv6 source address for the firewall rule.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] src_firewall_group_ids: The source firewall group IDs for the firewall rule.
         :param pulumi.Input[str] src_mac: The source MAC address of the firewall rule.
         :param pulumi.Input[str] src_network_id: The source network ID for the firewall rule.
@@ -1022,19 +1173,23 @@ class Rule(pulumi.CustomResource):
 
         __props__.__dict__["action"] = action
         __props__.__dict__["dst_address"] = dst_address
+        __props__.__dict__["dst_address_ipv6"] = dst_address_ipv6
         __props__.__dict__["dst_firewall_group_ids"] = dst_firewall_group_ids
         __props__.__dict__["dst_network_id"] = dst_network_id
         __props__.__dict__["dst_network_type"] = dst_network_type
         __props__.__dict__["dst_port"] = dst_port
         __props__.__dict__["icmp_typename"] = icmp_typename
+        __props__.__dict__["icmp_v6_typename"] = icmp_v6_typename
         __props__.__dict__["ip_sec"] = ip_sec
         __props__.__dict__["logging"] = logging
         __props__.__dict__["name"] = name
         __props__.__dict__["protocol"] = protocol
+        __props__.__dict__["protocol_v6"] = protocol_v6
         __props__.__dict__["rule_index"] = rule_index
         __props__.__dict__["ruleset"] = ruleset
         __props__.__dict__["site"] = site
         __props__.__dict__["src_address"] = src_address
+        __props__.__dict__["src_address_ipv6"] = src_address_ipv6
         __props__.__dict__["src_firewall_group_ids"] = src_firewall_group_ids
         __props__.__dict__["src_mac"] = src_mac
         __props__.__dict__["src_network_id"] = src_network_id
@@ -1060,6 +1215,14 @@ class Rule(pulumi.CustomResource):
         The destination address of the firewall rule.
         """
         return pulumi.get(self, "dst_address")
+
+    @property
+    @pulumi.getter(name="dstAddressIpv6")
+    def dst_address_ipv6(self) -> pulumi.Output[Optional[str]]:
+        """
+        The IPv6 destination address of the firewall rule.
+        """
+        return pulumi.get(self, "dst_address_ipv6")
 
     @property
     @pulumi.getter(name="dstFirewallGroupIds")
@@ -1102,6 +1265,14 @@ class Rule(pulumi.CustomResource):
         return pulumi.get(self, "icmp_typename")
 
     @property
+    @pulumi.getter(name="icmpV6Typename")
+    def icmp_v6_typename(self) -> pulumi.Output[Optional[str]]:
+        """
+        ICMPv6 type name.
+        """
+        return pulumi.get(self, "icmp_v6_typename")
+
+    @property
     @pulumi.getter(name="ipSec")
     def ip_sec(self) -> pulumi.Output[Optional[str]]:
         """
@@ -1127,11 +1298,19 @@ class Rule(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def protocol(self) -> pulumi.Output[str]:
+    def protocol(self) -> pulumi.Output[Optional[str]]:
         """
         The protocol of the rule.
         """
         return pulumi.get(self, "protocol")
+
+    @property
+    @pulumi.getter(name="protocolV6")
+    def protocol_v6(self) -> pulumi.Output[Optional[str]]:
+        """
+        The IPv6 protocol of the rule.
+        """
+        return pulumi.get(self, "protocol_v6")
 
     @property
     @pulumi.getter(name="ruleIndex")
@@ -1164,6 +1343,14 @@ class Rule(pulumi.CustomResource):
         The source address for the firewall rule.
         """
         return pulumi.get(self, "src_address")
+
+    @property
+    @pulumi.getter(name="srcAddressIpv6")
+    def src_address_ipv6(self) -> pulumi.Output[Optional[str]]:
+        """
+        The IPv6 source address for the firewall rule.
+        """
+        return pulumi.get(self, "src_address_ipv6")
 
     @property
     @pulumi.getter(name="srcFirewallGroupIds")

@@ -143,7 +143,7 @@ export class Wlan extends pulumi.CustomResource {
      */
     public readonly pmfMode!: pulumi.Output<string | undefined>;
     /**
-     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      */
     public readonly radiusProfileId!: pulumi.Output<string | undefined>;
     /**
@@ -321,7 +321,7 @@ export interface WlanState {
      */
     pmfMode?: pulumi.Input<string>;
     /**
-     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      */
     radiusProfileId?: pulumi.Input<string>;
     /**
@@ -423,7 +423,7 @@ export interface WlanArgs {
      */
     pmfMode?: pulumi.Input<string>;
     /**
-     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      */
     radiusProfileId?: pulumi.Input<string>;
     /**
