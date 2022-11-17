@@ -20,19 +20,57 @@ export interface DevicePortOverride {
     portProfileId?: string;
 }
 
+export interface RadiusProfileAcctServer {
+    /**
+     * IP address of accounting service server.
+     */
+    ip: string;
+    /**
+     * Port of accounting service. Defaults to `1813`.
+     */
+    port?: number;
+    /**
+     * RADIUS secret.
+     */
+    xsecret: string;
+}
+
+export interface RadiusProfileAuthServer {
+    /**
+     * IP address of authentication service server.
+     */
+    ip: string;
+    /**
+     * Port of authentication service. Defaults to `1812`.
+     */
+    port?: number;
+    /**
+     * RADIUS secret.
+     */
+    xsecret: string;
+}
+
 export interface WlanSchedule {
-    /**
-     * Time of day to end the block.
-     */
-    blockEnd: string;
-    /**
-     * Time of day to start the block.
-     */
-    blockStart: string;
     /**
      * Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
      */
     dayOfWeek: string;
+    /**
+     * Length of the block in minutes.
+     */
+    duration: number;
+    /**
+     * Name of the block.
+     */
+    name?: string;
+    /**
+     * Start hour for the block (0-23).
+     */
+    startHour: number;
+    /**
+     * Start minute for the block (0-59). Defaults to `0`.
+     */
+    startMinute?: number;
 }
 
 export namespace setting {

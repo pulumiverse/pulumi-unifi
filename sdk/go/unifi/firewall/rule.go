@@ -62,6 +62,8 @@ type Rule struct {
 	Action pulumi.StringOutput `pulumi:"action"`
 	// The destination address of the firewall rule.
 	DstAddress pulumi.StringPtrOutput `pulumi:"dstAddress"`
+	// The IPv6 destination address of the firewall rule.
+	DstAddressIpv6 pulumi.StringPtrOutput `pulumi:"dstAddressIpv6"`
 	// The destination firewall group IDs of the firewall rule.
 	DstFirewallGroupIds pulumi.StringArrayOutput `pulumi:"dstFirewallGroupIds"`
 	// The destination network ID of the firewall rule.
@@ -72,6 +74,8 @@ type Rule struct {
 	DstPort pulumi.StringPtrOutput `pulumi:"dstPort"`
 	// ICMP type name.
 	IcmpTypename pulumi.StringPtrOutput `pulumi:"icmpTypename"`
+	// ICMPv6 type name.
+	IcmpV6Typename pulumi.StringPtrOutput `pulumi:"icmpV6Typename"`
 	// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
 	IpSec pulumi.StringPtrOutput `pulumi:"ipSec"`
 	// Enable logging for the firewall rule.
@@ -79,7 +83,9 @@ type Rule struct {
 	// The name of the firewall rule.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The protocol of the rule.
-	Protocol pulumi.StringOutput `pulumi:"protocol"`
+	Protocol pulumi.StringPtrOutput `pulumi:"protocol"`
+	// The IPv6 protocol of the rule.
+	ProtocolV6 pulumi.StringPtrOutput `pulumi:"protocolV6"`
 	// The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
 	RuleIndex pulumi.IntOutput `pulumi:"ruleIndex"`
 	// The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
@@ -88,6 +94,8 @@ type Rule struct {
 	Site pulumi.StringOutput `pulumi:"site"`
 	// The source address for the firewall rule.
 	SrcAddress pulumi.StringPtrOutput `pulumi:"srcAddress"`
+	// The IPv6 source address for the firewall rule.
+	SrcAddressIpv6 pulumi.StringPtrOutput `pulumi:"srcAddressIpv6"`
 	// The source firewall group IDs for the firewall rule.
 	SrcFirewallGroupIds pulumi.StringArrayOutput `pulumi:"srcFirewallGroupIds"`
 	// The source MAC address of the firewall rule.
@@ -115,9 +123,6 @@ func NewRule(ctx *pulumi.Context,
 
 	if args.Action == nil {
 		return nil, errors.New("invalid value for required argument 'Action'")
-	}
-	if args.Protocol == nil {
-		return nil, errors.New("invalid value for required argument 'Protocol'")
 	}
 	if args.RuleIndex == nil {
 		return nil, errors.New("invalid value for required argument 'RuleIndex'")
@@ -152,6 +157,8 @@ type ruleState struct {
 	Action *string `pulumi:"action"`
 	// The destination address of the firewall rule.
 	DstAddress *string `pulumi:"dstAddress"`
+	// The IPv6 destination address of the firewall rule.
+	DstAddressIpv6 *string `pulumi:"dstAddressIpv6"`
 	// The destination firewall group IDs of the firewall rule.
 	DstFirewallGroupIds []string `pulumi:"dstFirewallGroupIds"`
 	// The destination network ID of the firewall rule.
@@ -162,6 +169,8 @@ type ruleState struct {
 	DstPort *string `pulumi:"dstPort"`
 	// ICMP type name.
 	IcmpTypename *string `pulumi:"icmpTypename"`
+	// ICMPv6 type name.
+	IcmpV6Typename *string `pulumi:"icmpV6Typename"`
 	// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
 	IpSec *string `pulumi:"ipSec"`
 	// Enable logging for the firewall rule.
@@ -170,6 +179,8 @@ type ruleState struct {
 	Name *string `pulumi:"name"`
 	// The protocol of the rule.
 	Protocol *string `pulumi:"protocol"`
+	// The IPv6 protocol of the rule.
+	ProtocolV6 *string `pulumi:"protocolV6"`
 	// The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
 	RuleIndex *int `pulumi:"ruleIndex"`
 	// The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
@@ -178,6 +189,8 @@ type ruleState struct {
 	Site *string `pulumi:"site"`
 	// The source address for the firewall rule.
 	SrcAddress *string `pulumi:"srcAddress"`
+	// The IPv6 source address for the firewall rule.
+	SrcAddressIpv6 *string `pulumi:"srcAddressIpv6"`
 	// The source firewall group IDs for the firewall rule.
 	SrcFirewallGroupIds []string `pulumi:"srcFirewallGroupIds"`
 	// The source MAC address of the firewall rule.
@@ -201,6 +214,8 @@ type RuleState struct {
 	Action pulumi.StringPtrInput
 	// The destination address of the firewall rule.
 	DstAddress pulumi.StringPtrInput
+	// The IPv6 destination address of the firewall rule.
+	DstAddressIpv6 pulumi.StringPtrInput
 	// The destination firewall group IDs of the firewall rule.
 	DstFirewallGroupIds pulumi.StringArrayInput
 	// The destination network ID of the firewall rule.
@@ -211,6 +226,8 @@ type RuleState struct {
 	DstPort pulumi.StringPtrInput
 	// ICMP type name.
 	IcmpTypename pulumi.StringPtrInput
+	// ICMPv6 type name.
+	IcmpV6Typename pulumi.StringPtrInput
 	// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
 	IpSec pulumi.StringPtrInput
 	// Enable logging for the firewall rule.
@@ -219,6 +236,8 @@ type RuleState struct {
 	Name pulumi.StringPtrInput
 	// The protocol of the rule.
 	Protocol pulumi.StringPtrInput
+	// The IPv6 protocol of the rule.
+	ProtocolV6 pulumi.StringPtrInput
 	// The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
 	RuleIndex pulumi.IntPtrInput
 	// The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
@@ -227,6 +246,8 @@ type RuleState struct {
 	Site pulumi.StringPtrInput
 	// The source address for the firewall rule.
 	SrcAddress pulumi.StringPtrInput
+	// The IPv6 source address for the firewall rule.
+	SrcAddressIpv6 pulumi.StringPtrInput
 	// The source firewall group IDs for the firewall rule.
 	SrcFirewallGroupIds pulumi.StringArrayInput
 	// The source MAC address of the firewall rule.
@@ -254,6 +275,8 @@ type ruleArgs struct {
 	Action string `pulumi:"action"`
 	// The destination address of the firewall rule.
 	DstAddress *string `pulumi:"dstAddress"`
+	// The IPv6 destination address of the firewall rule.
+	DstAddressIpv6 *string `pulumi:"dstAddressIpv6"`
 	// The destination firewall group IDs of the firewall rule.
 	DstFirewallGroupIds []string `pulumi:"dstFirewallGroupIds"`
 	// The destination network ID of the firewall rule.
@@ -264,6 +287,8 @@ type ruleArgs struct {
 	DstPort *string `pulumi:"dstPort"`
 	// ICMP type name.
 	IcmpTypename *string `pulumi:"icmpTypename"`
+	// ICMPv6 type name.
+	IcmpV6Typename *string `pulumi:"icmpV6Typename"`
 	// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
 	IpSec *string `pulumi:"ipSec"`
 	// Enable logging for the firewall rule.
@@ -271,7 +296,9 @@ type ruleArgs struct {
 	// The name of the firewall rule.
 	Name *string `pulumi:"name"`
 	// The protocol of the rule.
-	Protocol string `pulumi:"protocol"`
+	Protocol *string `pulumi:"protocol"`
+	// The IPv6 protocol of the rule.
+	ProtocolV6 *string `pulumi:"protocolV6"`
 	// The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
 	RuleIndex int `pulumi:"ruleIndex"`
 	// The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
@@ -280,6 +307,8 @@ type ruleArgs struct {
 	Site *string `pulumi:"site"`
 	// The source address for the firewall rule.
 	SrcAddress *string `pulumi:"srcAddress"`
+	// The IPv6 source address for the firewall rule.
+	SrcAddressIpv6 *string `pulumi:"srcAddressIpv6"`
 	// The source firewall group IDs for the firewall rule.
 	SrcFirewallGroupIds []string `pulumi:"srcFirewallGroupIds"`
 	// The source MAC address of the firewall rule.
@@ -304,6 +333,8 @@ type RuleArgs struct {
 	Action pulumi.StringInput
 	// The destination address of the firewall rule.
 	DstAddress pulumi.StringPtrInput
+	// The IPv6 destination address of the firewall rule.
+	DstAddressIpv6 pulumi.StringPtrInput
 	// The destination firewall group IDs of the firewall rule.
 	DstFirewallGroupIds pulumi.StringArrayInput
 	// The destination network ID of the firewall rule.
@@ -314,6 +345,8 @@ type RuleArgs struct {
 	DstPort pulumi.StringPtrInput
 	// ICMP type name.
 	IcmpTypename pulumi.StringPtrInput
+	// ICMPv6 type name.
+	IcmpV6Typename pulumi.StringPtrInput
 	// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
 	IpSec pulumi.StringPtrInput
 	// Enable logging for the firewall rule.
@@ -321,7 +354,9 @@ type RuleArgs struct {
 	// The name of the firewall rule.
 	Name pulumi.StringPtrInput
 	// The protocol of the rule.
-	Protocol pulumi.StringInput
+	Protocol pulumi.StringPtrInput
+	// The IPv6 protocol of the rule.
+	ProtocolV6 pulumi.StringPtrInput
 	// The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
 	RuleIndex pulumi.IntInput
 	// The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
@@ -330,6 +365,8 @@ type RuleArgs struct {
 	Site pulumi.StringPtrInput
 	// The source address for the firewall rule.
 	SrcAddress pulumi.StringPtrInput
+	// The IPv6 source address for the firewall rule.
+	SrcAddressIpv6 pulumi.StringPtrInput
 	// The source firewall group IDs for the firewall rule.
 	SrcFirewallGroupIds pulumi.StringArrayInput
 	// The source MAC address of the firewall rule.
@@ -445,6 +482,11 @@ func (o RuleOutput) DstAddress() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.DstAddress }).(pulumi.StringPtrOutput)
 }
 
+// The IPv6 destination address of the firewall rule.
+func (o RuleOutput) DstAddressIpv6() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.DstAddressIpv6 }).(pulumi.StringPtrOutput)
+}
+
 // The destination firewall group IDs of the firewall rule.
 func (o RuleOutput) DstFirewallGroupIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Rule) pulumi.StringArrayOutput { return v.DstFirewallGroupIds }).(pulumi.StringArrayOutput)
@@ -470,6 +512,11 @@ func (o RuleOutput) IcmpTypename() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.IcmpTypename }).(pulumi.StringPtrOutput)
 }
 
+// ICMPv6 type name.
+func (o RuleOutput) IcmpV6Typename() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.IcmpV6Typename }).(pulumi.StringPtrOutput)
+}
+
 // Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
 func (o RuleOutput) IpSec() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.IpSec }).(pulumi.StringPtrOutput)
@@ -486,8 +533,13 @@ func (o RuleOutput) Name() pulumi.StringOutput {
 }
 
 // The protocol of the rule.
-func (o RuleOutput) Protocol() pulumi.StringOutput {
-	return o.ApplyT(func(v *Rule) pulumi.StringOutput { return v.Protocol }).(pulumi.StringOutput)
+func (o RuleOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
+// The IPv6 protocol of the rule.
+func (o RuleOutput) ProtocolV6() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.ProtocolV6 }).(pulumi.StringPtrOutput)
 }
 
 // The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
@@ -508,6 +560,11 @@ func (o RuleOutput) Site() pulumi.StringOutput {
 // The source address for the firewall rule.
 func (o RuleOutput) SrcAddress() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.SrcAddress }).(pulumi.StringPtrOutput)
+}
+
+// The IPv6 source address for the firewall rule.
+func (o RuleOutput) SrcAddressIpv6() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.SrcAddressIpv6 }).(pulumi.StringPtrOutput)
 }
 
 // The source firewall group IDs for the firewall rule.

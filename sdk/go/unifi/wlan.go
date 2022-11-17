@@ -124,7 +124,7 @@ type Wlan struct {
 	Passphrase pulumi.StringPtrOutput `pulumi:"passphrase"`
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode pulumi.StringPtrOutput `pulumi:"pmfMode"`
-	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `getRadiusProfile` data source.
+	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId pulumi.StringPtrOutput `pulumi:"radiusProfileId"`
 	// Start and stop schedules for the WLAN
 	Schedules WlanScheduleArrayOutput `pulumi:"schedules"`
@@ -217,7 +217,7 @@ type wlanState struct {
 	Passphrase *string `pulumi:"passphrase"`
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode *string `pulumi:"pmfMode"`
-	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `getRadiusProfile` data source.
+	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId *string `pulumi:"radiusProfileId"`
 	// Start and stop schedules for the WLAN
 	Schedules []WlanSchedule `pulumi:"schedules"`
@@ -268,7 +268,7 @@ type WlanState struct {
 	Passphrase pulumi.StringPtrInput
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode pulumi.StringPtrInput
-	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `getRadiusProfile` data source.
+	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId pulumi.StringPtrInput
 	// Start and stop schedules for the WLAN
 	Schedules WlanScheduleArrayInput
@@ -323,7 +323,7 @@ type wlanArgs struct {
 	Passphrase *string `pulumi:"passphrase"`
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode *string `pulumi:"pmfMode"`
-	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `getRadiusProfile` data source.
+	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId *string `pulumi:"radiusProfileId"`
 	// Start and stop schedules for the WLAN
 	Schedules []WlanSchedule `pulumi:"schedules"`
@@ -375,7 +375,7 @@ type WlanArgs struct {
 	Passphrase pulumi.StringPtrInput
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode pulumi.StringPtrInput
-	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `getRadiusProfile` data source.
+	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId pulumi.StringPtrInput
 	// Start and stop schedules for the WLAN
 	Schedules WlanScheduleArrayInput
@@ -557,7 +557,7 @@ func (o WlanOutput) PmfMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.PmfMode }).(pulumi.StringPtrOutput)
 }
 
-// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `getRadiusProfile` data source.
+// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 func (o WlanOutput) RadiusProfileId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.RadiusProfileId }).(pulumi.StringPtrOutput)
 }

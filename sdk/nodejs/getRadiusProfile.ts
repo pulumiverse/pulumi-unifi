@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+ * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
  */
 export function getRadiusProfile(args?: GetRadiusProfileArgs, opts?: pulumi.InvokeOptions): Promise<GetRadiusProfileResult> {
     args = args || {};
@@ -29,7 +29,7 @@ export interface GetRadiusProfileArgs {
      */
     name?: string;
     /**
-     * The name of the site the radius profile is associated with.
+     * The name of the site the RADIUS profile is associated with.
      */
     site?: string;
 }
@@ -47,7 +47,7 @@ export interface GetRadiusProfileResult {
      */
     readonly name?: string;
     /**
-     * The name of the site the radius profile is associated with.
+     * The name of the site the RADIUS profile is associated with.
      */
     readonly site: string;
 }
@@ -65,7 +65,7 @@ export interface GetRadiusProfileOutputArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * The name of the site the radius profile is associated with.
+     * The name of the site the RADIUS profile is associated with.
      */
     site?: pulumi.Input<string>;
 }

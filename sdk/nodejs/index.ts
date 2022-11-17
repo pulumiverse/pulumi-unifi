@@ -5,6 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
+export { AccountArgs, AccountState } from "./account";
+export type Account = import("./account").Account;
+export const Account: typeof import("./account").Account = null as any;
+utilities.lazyLoad(exports, ["Account"], () => require("./account"));
+
 export { DeviceArgs, DeviceState } from "./device";
 export type Device = import("./device").Device;
 export const Device: typeof import("./device").Device = null as any;
@@ -14,6 +19,11 @@ export { DynamicDNSArgs, DynamicDNSState } from "./dynamicDNS";
 export type DynamicDNS = import("./dynamicDNS").DynamicDNS;
 export const DynamicDNS: typeof import("./dynamicDNS").DynamicDNS = null as any;
 utilities.lazyLoad(exports, ["DynamicDNS"], () => require("./dynamicDNS"));
+
+export { GetAccountArgs, GetAccountResult, GetAccountOutputArgs } from "./getAccount";
+export const getAccount: typeof import("./getAccount").getAccount = null as any;
+export const getAccountOutput: typeof import("./getAccount").getAccountOutput = null as any;
+utilities.lazyLoad(exports, ["getAccount","getAccountOutput"], () => require("./getAccount"));
 
 export { GetApGroupArgs, GetApGroupResult, GetApGroupOutputArgs } from "./getApGroup";
 export const getApGroup: typeof import("./getApGroup").getApGroup = null as any;
@@ -39,6 +49,11 @@ export { ProviderArgs } from "./provider";
 export type Provider = import("./provider").Provider;
 export const Provider: typeof import("./provider").Provider = null as any;
 utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
+
+export { RadiusProfileArgs, RadiusProfileState } from "./radiusProfile";
+export type RadiusProfile = import("./radiusProfile").RadiusProfile;
+export const RadiusProfile: typeof import("./radiusProfile").RadiusProfile = null as any;
+utilities.lazyLoad(exports, ["RadiusProfile"], () => require("./radiusProfile"));
 
 export { SiteArgs, SiteState } from "./site";
 export type Site = import("./site").Site;
@@ -77,12 +92,16 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "unifi:index/account:Account":
+                return new Account(name, <any>undefined, { urn })
             case "unifi:index/device:Device":
                 return new Device(name, <any>undefined, { urn })
             case "unifi:index/dynamicDNS:DynamicDNS":
                 return new DynamicDNS(name, <any>undefined, { urn })
             case "unifi:index/network:Network":
                 return new Network(name, <any>undefined, { urn })
+            case "unifi:index/radiusProfile:RadiusProfile":
+                return new RadiusProfile(name, <any>undefined, { urn })
             case "unifi:index/site:Site":
                 return new Site(name, <any>undefined, { urn })
             case "unifi:index/staticRoute:StaticRoute":
@@ -94,9 +113,11 @@ const _module = {
         }
     },
 };
+pulumi.runtime.registerResourceModule("unifi", "index/account", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/device", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/dynamicDNS", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/network", _module)
+pulumi.runtime.registerResourceModule("unifi", "index/radiusProfile", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/site", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/staticRoute", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/wlan", _module)

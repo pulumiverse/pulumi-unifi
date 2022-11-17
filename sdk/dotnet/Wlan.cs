@@ -165,7 +165,7 @@ namespace Pulumiverse.Unifi
         public Output<string?> PmfMode { get; private set; } = null!;
 
         /// <summary>
-        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
         /// </summary>
         [Output("radiusProfileId")]
         public Output<string?> RadiusProfileId { get; private set; } = null!;
@@ -382,7 +382,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? PmfMode { get; set; }
 
         /// <summary>
-        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
         /// </summary>
         [Input("radiusProfileId")]
         public Input<string>? RadiusProfileId { get; set; }
@@ -562,7 +562,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? PmfMode { get; set; }
 
         /// <summary>
-        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
         /// </summary>
         [Input("radiusProfileId")]
         public Input<string>? RadiusProfileId { get; set; }

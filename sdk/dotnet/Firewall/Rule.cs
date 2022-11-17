@@ -60,6 +60,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Output<string?> DstAddress { get; private set; } = null!;
 
         /// <summary>
+        /// The IPv6 destination address of the firewall rule.
+        /// </summary>
+        [Output("dstAddressIpv6")]
+        public Output<string?> DstAddressIpv6 { get; private set; } = null!;
+
+        /// <summary>
         /// The destination firewall group IDs of the firewall rule.
         /// </summary>
         [Output("dstFirewallGroupIds")]
@@ -90,6 +96,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Output<string?> IcmpTypename { get; private set; } = null!;
 
         /// <summary>
+        /// ICMPv6 type name.
+        /// </summary>
+        [Output("icmpV6Typename")]
+        public Output<string?> IcmpV6Typename { get; private set; } = null!;
+
+        /// <summary>
         /// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
         /// </summary>
         [Output("ipSec")]
@@ -111,7 +123,13 @@ namespace Pulumiverse.Unifi.Firewall
         /// The protocol of the rule.
         /// </summary>
         [Output("protocol")]
-        public Output<string> Protocol { get; private set; } = null!;
+        public Output<string?> Protocol { get; private set; } = null!;
+
+        /// <summary>
+        /// The IPv6 protocol of the rule.
+        /// </summary>
+        [Output("protocolV6")]
+        public Output<string?> ProtocolV6 { get; private set; } = null!;
 
         /// <summary>
         /// The index of the rule. Must be &gt;= 2000 &lt; 3000 or &gt;= 4000 &lt; 5000.
@@ -136,6 +154,12 @@ namespace Pulumiverse.Unifi.Firewall
         /// </summary>
         [Output("srcAddress")]
         public Output<string?> SrcAddress { get; private set; } = null!;
+
+        /// <summary>
+        /// The IPv6 source address for the firewall rule.
+        /// </summary>
+        [Output("srcAddressIpv6")]
+        public Output<string?> SrcAddressIpv6 { get; private set; } = null!;
 
         /// <summary>
         /// The source firewall group IDs for the firewall rule.
@@ -244,6 +268,12 @@ namespace Pulumiverse.Unifi.Firewall
         [Input("dstAddress")]
         public Input<string>? DstAddress { get; set; }
 
+        /// <summary>
+        /// The IPv6 destination address of the firewall rule.
+        /// </summary>
+        [Input("dstAddressIpv6")]
+        public Input<string>? DstAddressIpv6 { get; set; }
+
         [Input("dstFirewallGroupIds")]
         private InputList<string>? _dstFirewallGroupIds;
 
@@ -281,6 +311,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<string>? IcmpTypename { get; set; }
 
         /// <summary>
+        /// ICMPv6 type name.
+        /// </summary>
+        [Input("icmpV6Typename")]
+        public Input<string>? IcmpV6Typename { get; set; }
+
+        /// <summary>
         /// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
         /// </summary>
         [Input("ipSec")]
@@ -301,8 +337,14 @@ namespace Pulumiverse.Unifi.Firewall
         /// <summary>
         /// The protocol of the rule.
         /// </summary>
-        [Input("protocol", required: true)]
-        public Input<string> Protocol { get; set; } = null!;
+        [Input("protocol")]
+        public Input<string>? Protocol { get; set; }
+
+        /// <summary>
+        /// The IPv6 protocol of the rule.
+        /// </summary>
+        [Input("protocolV6")]
+        public Input<string>? ProtocolV6 { get; set; }
 
         /// <summary>
         /// The index of the rule. Must be &gt;= 2000 &lt; 3000 or &gt;= 4000 &lt; 5000.
@@ -327,6 +369,12 @@ namespace Pulumiverse.Unifi.Firewall
         /// </summary>
         [Input("srcAddress")]
         public Input<string>? SrcAddress { get; set; }
+
+        /// <summary>
+        /// The IPv6 source address for the firewall rule.
+        /// </summary>
+        [Input("srcAddressIpv6")]
+        public Input<string>? SrcAddressIpv6 { get; set; }
 
         [Input("srcFirewallGroupIds")]
         private InputList<string>? _srcFirewallGroupIds;
@@ -402,6 +450,12 @@ namespace Pulumiverse.Unifi.Firewall
         [Input("dstAddress")]
         public Input<string>? DstAddress { get; set; }
 
+        /// <summary>
+        /// The IPv6 destination address of the firewall rule.
+        /// </summary>
+        [Input("dstAddressIpv6")]
+        public Input<string>? DstAddressIpv6 { get; set; }
+
         [Input("dstFirewallGroupIds")]
         private InputList<string>? _dstFirewallGroupIds;
 
@@ -439,6 +493,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<string>? IcmpTypename { get; set; }
 
         /// <summary>
+        /// ICMPv6 type name.
+        /// </summary>
+        [Input("icmpV6Typename")]
+        public Input<string>? IcmpV6Typename { get; set; }
+
+        /// <summary>
         /// Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
         /// </summary>
         [Input("ipSec")]
@@ -463,6 +523,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<string>? Protocol { get; set; }
 
         /// <summary>
+        /// The IPv6 protocol of the rule.
+        /// </summary>
+        [Input("protocolV6")]
+        public Input<string>? ProtocolV6 { get; set; }
+
+        /// <summary>
         /// The index of the rule. Must be &gt;= 2000 &lt; 3000 or &gt;= 4000 &lt; 5000.
         /// </summary>
         [Input("ruleIndex")]
@@ -485,6 +551,12 @@ namespace Pulumiverse.Unifi.Firewall
         /// </summary>
         [Input("srcAddress")]
         public Input<string>? SrcAddress { get; set; }
+
+        /// <summary>
+        /// The IPv6 source address for the firewall rule.
+        /// </summary>
+        [Input("srcAddressIpv6")]
+        public Input<string>? SrcAddressIpv6 { get; set; }
 
         [Input("srcFirewallGroupIds")]
         private InputList<string>? _srcFirewallGroupIds;

@@ -11,6 +11,8 @@ from . import _utilities
 
 __all__ = [
     'DevicePortOverrideArgs',
+    'RadiusProfileAcctServerArgs',
+    'RadiusProfileAuthServerArgs',
     'WlanScheduleArgs',
 ]
 
@@ -69,43 +71,133 @@ class DevicePortOverrideArgs:
 
 
 @pulumi.input_type
+class RadiusProfileAcctServerArgs:
+    def __init__(__self__, *,
+                 ip: pulumi.Input[str],
+                 xsecret: pulumi.Input[str],
+                 port: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[str] ip: IP address of accounting service server.
+        :param pulumi.Input[str] xsecret: RADIUS secret.
+        :param pulumi.Input[int] port: Port of accounting service. Defaults to `1813`.
+        """
+        pulumi.set(__self__, "ip", ip)
+        pulumi.set(__self__, "xsecret", xsecret)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @property
+    @pulumi.getter
+    def ip(self) -> pulumi.Input[str]:
+        """
+        IP address of accounting service server.
+        """
+        return pulumi.get(self, "ip")
+
+    @ip.setter
+    def ip(self, value: pulumi.Input[str]):
+        pulumi.set(self, "ip", value)
+
+    @property
+    @pulumi.getter
+    def xsecret(self) -> pulumi.Input[str]:
+        """
+        RADIUS secret.
+        """
+        return pulumi.get(self, "xsecret")
+
+    @xsecret.setter
+    def xsecret(self, value: pulumi.Input[str]):
+        pulumi.set(self, "xsecret", value)
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[pulumi.Input[int]]:
+        """
+        Port of accounting service. Defaults to `1813`.
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "port", value)
+
+
+@pulumi.input_type
+class RadiusProfileAuthServerArgs:
+    def __init__(__self__, *,
+                 ip: pulumi.Input[str],
+                 xsecret: pulumi.Input[str],
+                 port: Optional[pulumi.Input[int]] = None):
+        """
+        :param pulumi.Input[str] ip: IP address of authentication service server.
+        :param pulumi.Input[str] xsecret: RADIUS secret.
+        :param pulumi.Input[int] port: Port of authentication service. Defaults to `1812`.
+        """
+        pulumi.set(__self__, "ip", ip)
+        pulumi.set(__self__, "xsecret", xsecret)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @property
+    @pulumi.getter
+    def ip(self) -> pulumi.Input[str]:
+        """
+        IP address of authentication service server.
+        """
+        return pulumi.get(self, "ip")
+
+    @ip.setter
+    def ip(self, value: pulumi.Input[str]):
+        pulumi.set(self, "ip", value)
+
+    @property
+    @pulumi.getter
+    def xsecret(self) -> pulumi.Input[str]:
+        """
+        RADIUS secret.
+        """
+        return pulumi.get(self, "xsecret")
+
+    @xsecret.setter
+    def xsecret(self, value: pulumi.Input[str]):
+        pulumi.set(self, "xsecret", value)
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[pulumi.Input[int]]:
+        """
+        Port of authentication service. Defaults to `1812`.
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "port", value)
+
+
+@pulumi.input_type
 class WlanScheduleArgs:
     def __init__(__self__, *,
-                 block_end: pulumi.Input[str],
-                 block_start: pulumi.Input[str],
-                 day_of_week: pulumi.Input[str]):
+                 day_of_week: pulumi.Input[str],
+                 duration: pulumi.Input[int],
+                 start_hour: pulumi.Input[int],
+                 name: Optional[pulumi.Input[str]] = None,
+                 start_minute: Optional[pulumi.Input[int]] = None):
         """
-        :param pulumi.Input[str] block_end: Time of day to end the block.
-        :param pulumi.Input[str] block_start: Time of day to start the block.
         :param pulumi.Input[str] day_of_week: Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+        :param pulumi.Input[int] duration: Length of the block in minutes.
+        :param pulumi.Input[int] start_hour: Start hour for the block (0-23).
+        :param pulumi.Input[str] name: Name of the block.
+        :param pulumi.Input[int] start_minute: Start minute for the block (0-59). Defaults to `0`.
         """
-        pulumi.set(__self__, "block_end", block_end)
-        pulumi.set(__self__, "block_start", block_start)
         pulumi.set(__self__, "day_of_week", day_of_week)
-
-    @property
-    @pulumi.getter(name="blockEnd")
-    def block_end(self) -> pulumi.Input[str]:
-        """
-        Time of day to end the block.
-        """
-        return pulumi.get(self, "block_end")
-
-    @block_end.setter
-    def block_end(self, value: pulumi.Input[str]):
-        pulumi.set(self, "block_end", value)
-
-    @property
-    @pulumi.getter(name="blockStart")
-    def block_start(self) -> pulumi.Input[str]:
-        """
-        Time of day to start the block.
-        """
-        return pulumi.get(self, "block_start")
-
-    @block_start.setter
-    def block_start(self, value: pulumi.Input[str]):
-        pulumi.set(self, "block_start", value)
+        pulumi.set(__self__, "duration", duration)
+        pulumi.set(__self__, "start_hour", start_hour)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if start_minute is not None:
+            pulumi.set(__self__, "start_minute", start_minute)
 
     @property
     @pulumi.getter(name="dayOfWeek")
@@ -118,5 +210,53 @@ class WlanScheduleArgs:
     @day_of_week.setter
     def day_of_week(self, value: pulumi.Input[str]):
         pulumi.set(self, "day_of_week", value)
+
+    @property
+    @pulumi.getter
+    def duration(self) -> pulumi.Input[int]:
+        """
+        Length of the block in minutes.
+        """
+        return pulumi.get(self, "duration")
+
+    @duration.setter
+    def duration(self, value: pulumi.Input[int]):
+        pulumi.set(self, "duration", value)
+
+    @property
+    @pulumi.getter(name="startHour")
+    def start_hour(self) -> pulumi.Input[int]:
+        """
+        Start hour for the block (0-23).
+        """
+        return pulumi.get(self, "start_hour")
+
+    @start_hour.setter
+    def start_hour(self, value: pulumi.Input[int]):
+        pulumi.set(self, "start_hour", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Name of the block.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="startMinute")
+    def start_minute(self) -> Optional[pulumi.Input[int]]:
+        """
+        Start minute for the block (0-59). Defaults to `0`.
+        """
+        return pulumi.get(self, "start_minute")
+
+    @start_minute.setter
+    def start_minute(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "start_minute", value)
 
 

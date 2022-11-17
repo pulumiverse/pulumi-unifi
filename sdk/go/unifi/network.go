@@ -94,7 +94,7 @@ type Network struct {
 	DhcpDns pulumi.StringArrayOutput `pulumi:"dhcpDns"`
 	// Specifies whether DHCP is enabled or not on this network.
 	DhcpEnabled pulumi.BoolPtrOutput `pulumi:"dhcpEnabled"`
-	// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+	// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
 	DhcpLease pulumi.IntPtrOutput `pulumi:"dhcpLease"`
 	// Specifies whether DHCP relay is enabled or not on this network.
 	DhcpRelayEnabled pulumi.BoolPtrOutput `pulumi:"dhcpRelayEnabled"`
@@ -102,6 +102,18 @@ type Network struct {
 	DhcpStart pulumi.StringPtrOutput `pulumi:"dhcpStart"`
 	// The IPv4 address where the DHCP range of addresses stops.
 	DhcpStop pulumi.StringPtrOutput `pulumi:"dhcpStop"`
+	// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+	DhcpV6Dns pulumi.StringArrayOutput `pulumi:"dhcpV6Dns"`
+	// Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+	DhcpV6DnsAuto pulumi.BoolPtrOutput `pulumi:"dhcpV6DnsAuto"`
+	// Enable stateful DHCPv6 for static configuration.
+	DhcpV6Enabled pulumi.BoolPtrOutput `pulumi:"dhcpV6Enabled"`
+	// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+	DhcpV6Lease pulumi.IntPtrOutput `pulumi:"dhcpV6Lease"`
+	// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Start pulumi.StringPtrOutput `pulumi:"dhcpV6Start"`
+	// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Stop pulumi.StringPtrOutput `pulumi:"dhcpV6Stop"`
 	// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
 	DhcpdBootEnabled pulumi.BoolPtrOutput `pulumi:"dhcpdBootEnabled"`
 	// Specifies the file to PXE boot from on the dhcpd*boot*server.
@@ -112,15 +124,29 @@ type Network struct {
 	DomainName pulumi.StringPtrOutput `pulumi:"domainName"`
 	// Specifies whether IGMP snooping is enabled or not.
 	IgmpSnooping pulumi.BoolPtrOutput `pulumi:"igmpSnooping"`
-	// Specifies which type of IPv6 connection to use. Defaults to `none`.
+	// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+	InternetAccessEnabled pulumi.BoolPtrOutput `pulumi:"internetAccessEnabled"`
+	// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+	IntraNetworkAccessEnabled pulumi.BoolPtrOutput `pulumi:"intraNetworkAccessEnabled"`
+	// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
 	Ipv6InterfaceType pulumi.StringPtrOutput `pulumi:"ipv6InterfaceType"`
-	// Specifies which WAN interface to use for IPv6 PD.
+	// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
 	Ipv6PdInterface pulumi.StringPtrOutput `pulumi:"ipv6PdInterface"`
 	// Specifies the IPv6 Prefix ID.
 	Ipv6PdPrefixid pulumi.StringPtrOutput `pulumi:"ipv6PdPrefixid"`
+	// Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStart pulumi.StringPtrOutput `pulumi:"ipv6PdStart"`
+	// End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStop pulumi.StringPtrOutput `pulumi:"ipv6PdStop"`
 	// Specifies whether to enable router advertisements or not.
 	Ipv6RaEnable pulumi.BoolPtrOutput `pulumi:"ipv6RaEnable"`
-	// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+	// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+	Ipv6RaPreferredLifetime pulumi.IntPtrOutput `pulumi:"ipv6RaPreferredLifetime"`
+	// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+	Ipv6RaPriority pulumi.StringPtrOutput `pulumi:"ipv6RaPriority"`
+	// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+	Ipv6RaValidLifetime pulumi.IntPtrOutput `pulumi:"ipv6RaValidLifetime"`
+	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet pulumi.StringPtrOutput `pulumi:"ipv6StaticSubnet"`
 	// The name of the network.
 	Name pulumi.StringOutput `pulumi:"name"`
@@ -134,20 +160,30 @@ type Network struct {
 	Subnet pulumi.StringPtrOutput `pulumi:"subnet"`
 	// The VLAN ID of the network.
 	VlanId pulumi.IntPtrOutput `pulumi:"vlanId"`
+	// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+	WanDhcpV6PdSize pulumi.IntPtrOutput `pulumi:"wanDhcpV6PdSize"`
 	// DNS servers IPs of the WAN.
 	WanDns pulumi.StringArrayOutput `pulumi:"wanDns"`
 	// Specifies the WAN egress quality of service. Defaults to `0`.
 	WanEgressQos pulumi.IntPtrOutput `pulumi:"wanEgressQos"`
 	// The IPv4 gateway of the WAN.
 	WanGateway pulumi.StringPtrOutput `pulumi:"wanGateway"`
+	// The IPv6 gateway of the WAN.
+	WanGatewayV6 pulumi.StringPtrOutput `pulumi:"wanGatewayV6"`
 	// The IPv4 address of the WAN.
 	WanIp pulumi.StringPtrOutput `pulumi:"wanIp"`
+	// The IPv6 address of the WAN.
+	WanIpv6 pulumi.StringPtrOutput `pulumi:"wanIpv6"`
 	// The IPv4 netmask of the WAN.
 	WanNetmask pulumi.StringPtrOutput `pulumi:"wanNetmask"`
 	// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
 	WanNetworkgroup pulumi.StringPtrOutput `pulumi:"wanNetworkgroup"`
+	// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+	WanPrefixlen pulumi.IntPtrOutput `pulumi:"wanPrefixlen"`
 	// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
 	WanType pulumi.StringPtrOutput `pulumi:"wanType"`
+	// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+	WanTypeV6 pulumi.StringPtrOutput `pulumi:"wanTypeV6"`
 	// Specifies the IPV4 WAN username.
 	WanUsername pulumi.StringPtrOutput `pulumi:"wanUsername"`
 	// Specifies the IPV4 WAN password.
@@ -191,7 +227,7 @@ type networkState struct {
 	DhcpDns []string `pulumi:"dhcpDns"`
 	// Specifies whether DHCP is enabled or not on this network.
 	DhcpEnabled *bool `pulumi:"dhcpEnabled"`
-	// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+	// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
 	DhcpLease *int `pulumi:"dhcpLease"`
 	// Specifies whether DHCP relay is enabled or not on this network.
 	DhcpRelayEnabled *bool `pulumi:"dhcpRelayEnabled"`
@@ -199,6 +235,18 @@ type networkState struct {
 	DhcpStart *string `pulumi:"dhcpStart"`
 	// The IPv4 address where the DHCP range of addresses stops.
 	DhcpStop *string `pulumi:"dhcpStop"`
+	// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+	DhcpV6Dns []string `pulumi:"dhcpV6Dns"`
+	// Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+	DhcpV6DnsAuto *bool `pulumi:"dhcpV6DnsAuto"`
+	// Enable stateful DHCPv6 for static configuration.
+	DhcpV6Enabled *bool `pulumi:"dhcpV6Enabled"`
+	// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+	DhcpV6Lease *int `pulumi:"dhcpV6Lease"`
+	// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Start *string `pulumi:"dhcpV6Start"`
+	// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Stop *string `pulumi:"dhcpV6Stop"`
 	// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
 	DhcpdBootEnabled *bool `pulumi:"dhcpdBootEnabled"`
 	// Specifies the file to PXE boot from on the dhcpd*boot*server.
@@ -209,15 +257,29 @@ type networkState struct {
 	DomainName *string `pulumi:"domainName"`
 	// Specifies whether IGMP snooping is enabled or not.
 	IgmpSnooping *bool `pulumi:"igmpSnooping"`
-	// Specifies which type of IPv6 connection to use. Defaults to `none`.
+	// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+	InternetAccessEnabled *bool `pulumi:"internetAccessEnabled"`
+	// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+	IntraNetworkAccessEnabled *bool `pulumi:"intraNetworkAccessEnabled"`
+	// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
 	Ipv6InterfaceType *string `pulumi:"ipv6InterfaceType"`
-	// Specifies which WAN interface to use for IPv6 PD.
+	// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
 	Ipv6PdInterface *string `pulumi:"ipv6PdInterface"`
 	// Specifies the IPv6 Prefix ID.
 	Ipv6PdPrefixid *string `pulumi:"ipv6PdPrefixid"`
+	// Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStart *string `pulumi:"ipv6PdStart"`
+	// End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStop *string `pulumi:"ipv6PdStop"`
 	// Specifies whether to enable router advertisements or not.
 	Ipv6RaEnable *bool `pulumi:"ipv6RaEnable"`
-	// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+	// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+	Ipv6RaPreferredLifetime *int `pulumi:"ipv6RaPreferredLifetime"`
+	// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+	Ipv6RaPriority *string `pulumi:"ipv6RaPriority"`
+	// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+	Ipv6RaValidLifetime *int `pulumi:"ipv6RaValidLifetime"`
+	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet *string `pulumi:"ipv6StaticSubnet"`
 	// The name of the network.
 	Name *string `pulumi:"name"`
@@ -231,20 +293,30 @@ type networkState struct {
 	Subnet *string `pulumi:"subnet"`
 	// The VLAN ID of the network.
 	VlanId *int `pulumi:"vlanId"`
+	// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+	WanDhcpV6PdSize *int `pulumi:"wanDhcpV6PdSize"`
 	// DNS servers IPs of the WAN.
 	WanDns []string `pulumi:"wanDns"`
 	// Specifies the WAN egress quality of service. Defaults to `0`.
 	WanEgressQos *int `pulumi:"wanEgressQos"`
 	// The IPv4 gateway of the WAN.
 	WanGateway *string `pulumi:"wanGateway"`
+	// The IPv6 gateway of the WAN.
+	WanGatewayV6 *string `pulumi:"wanGatewayV6"`
 	// The IPv4 address of the WAN.
 	WanIp *string `pulumi:"wanIp"`
+	// The IPv6 address of the WAN.
+	WanIpv6 *string `pulumi:"wanIpv6"`
 	// The IPv4 netmask of the WAN.
 	WanNetmask *string `pulumi:"wanNetmask"`
 	// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
 	WanNetworkgroup *string `pulumi:"wanNetworkgroup"`
+	// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+	WanPrefixlen *int `pulumi:"wanPrefixlen"`
 	// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
 	WanType *string `pulumi:"wanType"`
+	// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+	WanTypeV6 *string `pulumi:"wanTypeV6"`
 	// Specifies the IPV4 WAN username.
 	WanUsername *string `pulumi:"wanUsername"`
 	// Specifies the IPV4 WAN password.
@@ -256,7 +328,7 @@ type NetworkState struct {
 	DhcpDns pulumi.StringArrayInput
 	// Specifies whether DHCP is enabled or not on this network.
 	DhcpEnabled pulumi.BoolPtrInput
-	// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+	// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
 	DhcpLease pulumi.IntPtrInput
 	// Specifies whether DHCP relay is enabled or not on this network.
 	DhcpRelayEnabled pulumi.BoolPtrInput
@@ -264,6 +336,18 @@ type NetworkState struct {
 	DhcpStart pulumi.StringPtrInput
 	// The IPv4 address where the DHCP range of addresses stops.
 	DhcpStop pulumi.StringPtrInput
+	// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+	DhcpV6Dns pulumi.StringArrayInput
+	// Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+	DhcpV6DnsAuto pulumi.BoolPtrInput
+	// Enable stateful DHCPv6 for static configuration.
+	DhcpV6Enabled pulumi.BoolPtrInput
+	// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+	DhcpV6Lease pulumi.IntPtrInput
+	// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Start pulumi.StringPtrInput
+	// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Stop pulumi.StringPtrInput
 	// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
 	DhcpdBootEnabled pulumi.BoolPtrInput
 	// Specifies the file to PXE boot from on the dhcpd*boot*server.
@@ -274,15 +358,29 @@ type NetworkState struct {
 	DomainName pulumi.StringPtrInput
 	// Specifies whether IGMP snooping is enabled or not.
 	IgmpSnooping pulumi.BoolPtrInput
-	// Specifies which type of IPv6 connection to use. Defaults to `none`.
+	// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+	InternetAccessEnabled pulumi.BoolPtrInput
+	// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+	IntraNetworkAccessEnabled pulumi.BoolPtrInput
+	// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
 	Ipv6InterfaceType pulumi.StringPtrInput
-	// Specifies which WAN interface to use for IPv6 PD.
+	// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
 	Ipv6PdInterface pulumi.StringPtrInput
 	// Specifies the IPv6 Prefix ID.
 	Ipv6PdPrefixid pulumi.StringPtrInput
+	// Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStart pulumi.StringPtrInput
+	// End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStop pulumi.StringPtrInput
 	// Specifies whether to enable router advertisements or not.
 	Ipv6RaEnable pulumi.BoolPtrInput
-	// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+	// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+	Ipv6RaPreferredLifetime pulumi.IntPtrInput
+	// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+	Ipv6RaPriority pulumi.StringPtrInput
+	// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+	Ipv6RaValidLifetime pulumi.IntPtrInput
+	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet pulumi.StringPtrInput
 	// The name of the network.
 	Name pulumi.StringPtrInput
@@ -296,20 +394,30 @@ type NetworkState struct {
 	Subnet pulumi.StringPtrInput
 	// The VLAN ID of the network.
 	VlanId pulumi.IntPtrInput
+	// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+	WanDhcpV6PdSize pulumi.IntPtrInput
 	// DNS servers IPs of the WAN.
 	WanDns pulumi.StringArrayInput
 	// Specifies the WAN egress quality of service. Defaults to `0`.
 	WanEgressQos pulumi.IntPtrInput
 	// The IPv4 gateway of the WAN.
 	WanGateway pulumi.StringPtrInput
+	// The IPv6 gateway of the WAN.
+	WanGatewayV6 pulumi.StringPtrInput
 	// The IPv4 address of the WAN.
 	WanIp pulumi.StringPtrInput
+	// The IPv6 address of the WAN.
+	WanIpv6 pulumi.StringPtrInput
 	// The IPv4 netmask of the WAN.
 	WanNetmask pulumi.StringPtrInput
 	// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
 	WanNetworkgroup pulumi.StringPtrInput
+	// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+	WanPrefixlen pulumi.IntPtrInput
 	// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
 	WanType pulumi.StringPtrInput
+	// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+	WanTypeV6 pulumi.StringPtrInput
 	// Specifies the IPV4 WAN username.
 	WanUsername pulumi.StringPtrInput
 	// Specifies the IPV4 WAN password.
@@ -325,7 +433,7 @@ type networkArgs struct {
 	DhcpDns []string `pulumi:"dhcpDns"`
 	// Specifies whether DHCP is enabled or not on this network.
 	DhcpEnabled *bool `pulumi:"dhcpEnabled"`
-	// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+	// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
 	DhcpLease *int `pulumi:"dhcpLease"`
 	// Specifies whether DHCP relay is enabled or not on this network.
 	DhcpRelayEnabled *bool `pulumi:"dhcpRelayEnabled"`
@@ -333,6 +441,18 @@ type networkArgs struct {
 	DhcpStart *string `pulumi:"dhcpStart"`
 	// The IPv4 address where the DHCP range of addresses stops.
 	DhcpStop *string `pulumi:"dhcpStop"`
+	// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+	DhcpV6Dns []string `pulumi:"dhcpV6Dns"`
+	// Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+	DhcpV6DnsAuto *bool `pulumi:"dhcpV6DnsAuto"`
+	// Enable stateful DHCPv6 for static configuration.
+	DhcpV6Enabled *bool `pulumi:"dhcpV6Enabled"`
+	// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+	DhcpV6Lease *int `pulumi:"dhcpV6Lease"`
+	// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Start *string `pulumi:"dhcpV6Start"`
+	// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Stop *string `pulumi:"dhcpV6Stop"`
 	// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
 	DhcpdBootEnabled *bool `pulumi:"dhcpdBootEnabled"`
 	// Specifies the file to PXE boot from on the dhcpd*boot*server.
@@ -343,15 +463,29 @@ type networkArgs struct {
 	DomainName *string `pulumi:"domainName"`
 	// Specifies whether IGMP snooping is enabled or not.
 	IgmpSnooping *bool `pulumi:"igmpSnooping"`
-	// Specifies which type of IPv6 connection to use. Defaults to `none`.
+	// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+	InternetAccessEnabled *bool `pulumi:"internetAccessEnabled"`
+	// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+	IntraNetworkAccessEnabled *bool `pulumi:"intraNetworkAccessEnabled"`
+	// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
 	Ipv6InterfaceType *string `pulumi:"ipv6InterfaceType"`
-	// Specifies which WAN interface to use for IPv6 PD.
+	// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
 	Ipv6PdInterface *string `pulumi:"ipv6PdInterface"`
 	// Specifies the IPv6 Prefix ID.
 	Ipv6PdPrefixid *string `pulumi:"ipv6PdPrefixid"`
+	// Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStart *string `pulumi:"ipv6PdStart"`
+	// End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStop *string `pulumi:"ipv6PdStop"`
 	// Specifies whether to enable router advertisements or not.
 	Ipv6RaEnable *bool `pulumi:"ipv6RaEnable"`
-	// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+	// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+	Ipv6RaPreferredLifetime *int `pulumi:"ipv6RaPreferredLifetime"`
+	// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+	Ipv6RaPriority *string `pulumi:"ipv6RaPriority"`
+	// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+	Ipv6RaValidLifetime *int `pulumi:"ipv6RaValidLifetime"`
+	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet *string `pulumi:"ipv6StaticSubnet"`
 	// The name of the network.
 	Name *string `pulumi:"name"`
@@ -365,20 +499,30 @@ type networkArgs struct {
 	Subnet *string `pulumi:"subnet"`
 	// The VLAN ID of the network.
 	VlanId *int `pulumi:"vlanId"`
+	// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+	WanDhcpV6PdSize *int `pulumi:"wanDhcpV6PdSize"`
 	// DNS servers IPs of the WAN.
 	WanDns []string `pulumi:"wanDns"`
 	// Specifies the WAN egress quality of service. Defaults to `0`.
 	WanEgressQos *int `pulumi:"wanEgressQos"`
 	// The IPv4 gateway of the WAN.
 	WanGateway *string `pulumi:"wanGateway"`
+	// The IPv6 gateway of the WAN.
+	WanGatewayV6 *string `pulumi:"wanGatewayV6"`
 	// The IPv4 address of the WAN.
 	WanIp *string `pulumi:"wanIp"`
+	// The IPv6 address of the WAN.
+	WanIpv6 *string `pulumi:"wanIpv6"`
 	// The IPv4 netmask of the WAN.
 	WanNetmask *string `pulumi:"wanNetmask"`
 	// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
 	WanNetworkgroup *string `pulumi:"wanNetworkgroup"`
+	// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+	WanPrefixlen *int `pulumi:"wanPrefixlen"`
 	// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
 	WanType *string `pulumi:"wanType"`
+	// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+	WanTypeV6 *string `pulumi:"wanTypeV6"`
 	// Specifies the IPV4 WAN username.
 	WanUsername *string `pulumi:"wanUsername"`
 	// Specifies the IPV4 WAN password.
@@ -391,7 +535,7 @@ type NetworkArgs struct {
 	DhcpDns pulumi.StringArrayInput
 	// Specifies whether DHCP is enabled or not on this network.
 	DhcpEnabled pulumi.BoolPtrInput
-	// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+	// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
 	DhcpLease pulumi.IntPtrInput
 	// Specifies whether DHCP relay is enabled or not on this network.
 	DhcpRelayEnabled pulumi.BoolPtrInput
@@ -399,6 +543,18 @@ type NetworkArgs struct {
 	DhcpStart pulumi.StringPtrInput
 	// The IPv4 address where the DHCP range of addresses stops.
 	DhcpStop pulumi.StringPtrInput
+	// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+	DhcpV6Dns pulumi.StringArrayInput
+	// Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+	DhcpV6DnsAuto pulumi.BoolPtrInput
+	// Enable stateful DHCPv6 for static configuration.
+	DhcpV6Enabled pulumi.BoolPtrInput
+	// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+	DhcpV6Lease pulumi.IntPtrInput
+	// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Start pulumi.StringPtrInput
+	// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	DhcpV6Stop pulumi.StringPtrInput
 	// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
 	DhcpdBootEnabled pulumi.BoolPtrInput
 	// Specifies the file to PXE boot from on the dhcpd*boot*server.
@@ -409,15 +565,29 @@ type NetworkArgs struct {
 	DomainName pulumi.StringPtrInput
 	// Specifies whether IGMP snooping is enabled or not.
 	IgmpSnooping pulumi.BoolPtrInput
-	// Specifies which type of IPv6 connection to use. Defaults to `none`.
+	// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+	InternetAccessEnabled pulumi.BoolPtrInput
+	// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+	IntraNetworkAccessEnabled pulumi.BoolPtrInput
+	// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
 	Ipv6InterfaceType pulumi.StringPtrInput
-	// Specifies which WAN interface to use for IPv6 PD.
+	// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
 	Ipv6PdInterface pulumi.StringPtrInput
 	// Specifies the IPv6 Prefix ID.
 	Ipv6PdPrefixid pulumi.StringPtrInput
+	// Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStart pulumi.StringPtrInput
+	// End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	Ipv6PdStop pulumi.StringPtrInput
 	// Specifies whether to enable router advertisements or not.
 	Ipv6RaEnable pulumi.BoolPtrInput
-	// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+	// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+	Ipv6RaPreferredLifetime pulumi.IntPtrInput
+	// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+	Ipv6RaPriority pulumi.StringPtrInput
+	// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+	Ipv6RaValidLifetime pulumi.IntPtrInput
+	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet pulumi.StringPtrInput
 	// The name of the network.
 	Name pulumi.StringPtrInput
@@ -431,20 +601,30 @@ type NetworkArgs struct {
 	Subnet pulumi.StringPtrInput
 	// The VLAN ID of the network.
 	VlanId pulumi.IntPtrInput
+	// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+	WanDhcpV6PdSize pulumi.IntPtrInput
 	// DNS servers IPs of the WAN.
 	WanDns pulumi.StringArrayInput
 	// Specifies the WAN egress quality of service. Defaults to `0`.
 	WanEgressQos pulumi.IntPtrInput
 	// The IPv4 gateway of the WAN.
 	WanGateway pulumi.StringPtrInput
+	// The IPv6 gateway of the WAN.
+	WanGatewayV6 pulumi.StringPtrInput
 	// The IPv4 address of the WAN.
 	WanIp pulumi.StringPtrInput
+	// The IPv6 address of the WAN.
+	WanIpv6 pulumi.StringPtrInput
 	// The IPv4 netmask of the WAN.
 	WanNetmask pulumi.StringPtrInput
 	// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
 	WanNetworkgroup pulumi.StringPtrInput
+	// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+	WanPrefixlen pulumi.IntPtrInput
 	// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
 	WanType pulumi.StringPtrInput
+	// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+	WanTypeV6 pulumi.StringPtrInput
 	// Specifies the IPV4 WAN username.
 	WanUsername pulumi.StringPtrInput
 	// Specifies the IPV4 WAN password.
@@ -548,7 +728,7 @@ func (o NetworkOutput) DhcpEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.DhcpEnabled }).(pulumi.BoolPtrOutput)
 }
 
-// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
 func (o NetworkOutput) DhcpLease() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.DhcpLease }).(pulumi.IntPtrOutput)
 }
@@ -566,6 +746,36 @@ func (o NetworkOutput) DhcpStart() pulumi.StringPtrOutput {
 // The IPv4 address where the DHCP range of addresses stops.
 func (o NetworkOutput) DhcpStop() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.DhcpStop }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+func (o NetworkOutput) DhcpV6Dns() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringArrayOutput { return v.DhcpV6Dns }).(pulumi.StringArrayOutput)
+}
+
+// Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+func (o NetworkOutput) DhcpV6DnsAuto() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.DhcpV6DnsAuto }).(pulumi.BoolPtrOutput)
+}
+
+// Enable stateful DHCPv6 for static configuration.
+func (o NetworkOutput) DhcpV6Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.DhcpV6Enabled }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+func (o NetworkOutput) DhcpV6Lease() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.DhcpV6Lease }).(pulumi.IntPtrOutput)
+}
+
+// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+func (o NetworkOutput) DhcpV6Start() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.DhcpV6Start }).(pulumi.StringPtrOutput)
+}
+
+// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+func (o NetworkOutput) DhcpV6Stop() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.DhcpV6Stop }).(pulumi.StringPtrOutput)
 }
 
 // Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
@@ -593,12 +803,22 @@ func (o NetworkOutput) IgmpSnooping() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.IgmpSnooping }).(pulumi.BoolPtrOutput)
 }
 
-// Specifies which type of IPv6 connection to use. Defaults to `none`.
+// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+func (o NetworkOutput) InternetAccessEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.InternetAccessEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+func (o NetworkOutput) IntraNetworkAccessEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.IntraNetworkAccessEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
 func (o NetworkOutput) Ipv6InterfaceType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6InterfaceType }).(pulumi.StringPtrOutput)
 }
 
-// Specifies which WAN interface to use for IPv6 PD.
+// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
 func (o NetworkOutput) Ipv6PdInterface() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6PdInterface }).(pulumi.StringPtrOutput)
 }
@@ -608,12 +828,37 @@ func (o NetworkOutput) Ipv6PdPrefixid() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6PdPrefixid }).(pulumi.StringPtrOutput)
 }
 
+// Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+func (o NetworkOutput) Ipv6PdStart() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6PdStart }).(pulumi.StringPtrOutput)
+}
+
+// End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+func (o NetworkOutput) Ipv6PdStop() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6PdStop }).(pulumi.StringPtrOutput)
+}
+
 // Specifies whether to enable router advertisements or not.
 func (o NetworkOutput) Ipv6RaEnable() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.Ipv6RaEnable }).(pulumi.BoolPtrOutput)
 }
 
-// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+func (o NetworkOutput) Ipv6RaPreferredLifetime() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.Ipv6RaPreferredLifetime }).(pulumi.IntPtrOutput)
+}
+
+// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+func (o NetworkOutput) Ipv6RaPriority() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6RaPriority }).(pulumi.StringPtrOutput)
+}
+
+// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+func (o NetworkOutput) Ipv6RaValidLifetime() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.Ipv6RaValidLifetime }).(pulumi.IntPtrOutput)
+}
+
+// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 func (o NetworkOutput) Ipv6StaticSubnet() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6StaticSubnet }).(pulumi.StringPtrOutput)
 }
@@ -648,6 +893,11 @@ func (o NetworkOutput) VlanId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.VlanId }).(pulumi.IntPtrOutput)
 }
 
+// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+func (o NetworkOutput) WanDhcpV6PdSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.WanDhcpV6PdSize }).(pulumi.IntPtrOutput)
+}
+
 // DNS servers IPs of the WAN.
 func (o NetworkOutput) WanDns() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringArrayOutput { return v.WanDns }).(pulumi.StringArrayOutput)
@@ -663,9 +913,19 @@ func (o NetworkOutput) WanGateway() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanGateway }).(pulumi.StringPtrOutput)
 }
 
+// The IPv6 gateway of the WAN.
+func (o NetworkOutput) WanGatewayV6() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanGatewayV6 }).(pulumi.StringPtrOutput)
+}
+
 // The IPv4 address of the WAN.
 func (o NetworkOutput) WanIp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanIp }).(pulumi.StringPtrOutput)
+}
+
+// The IPv6 address of the WAN.
+func (o NetworkOutput) WanIpv6() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanIpv6 }).(pulumi.StringPtrOutput)
 }
 
 // The IPv4 netmask of the WAN.
@@ -678,9 +938,19 @@ func (o NetworkOutput) WanNetworkgroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanNetworkgroup }).(pulumi.StringPtrOutput)
 }
 
+// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+func (o NetworkOutput) WanPrefixlen() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.IntPtrOutput { return v.WanPrefixlen }).(pulumi.IntPtrOutput)
+}
+
 // Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
 func (o NetworkOutput) WanType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanType }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+func (o NetworkOutput) WanTypeV6() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.WanTypeV6 }).(pulumi.StringPtrOutput)
 }
 
 // Specifies the IPV4 WAN username.

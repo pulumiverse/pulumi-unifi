@@ -156,29 +156,121 @@
                 "number"
             ]
         },
+        "unifi:index/RadiusProfileAcctServer:RadiusProfileAcctServer": {
+            "properties": {
+                "ip": {
+                    "type": "string",
+                    "description": "IP address of accounting service server.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "Port of accounting service. Defaults to `1813`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "xsecret": {
+                    "type": "string",
+                    "description": "RADIUS secret.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "ip",
+                "xsecret"
+            ]
+        },
+        "unifi:index/RadiusProfileAuthServer:RadiusProfileAuthServer": {
+            "properties": {
+                "ip": {
+                    "type": "string",
+                    "description": "IP address of authentication service server.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "Port of authentication service. Defaults to `1812`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "xsecret": {
+                    "type": "string",
+                    "description": "RADIUS secret.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    },
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "ip",
+                "xsecret"
+            ]
+        },
         "unifi:index/WlanSchedule:WlanSchedule": {
             "properties": {
-                "blockEnd": {
-                    "type": "string",
-                    "description": "Time of day to end the block.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
-                "blockStart": {
-                    "type": "string",
-                    "description": "Time of day to start the block.\n",
-                    "language": {
-                        "python": {
-                            "mapCase": false
-                        }
-                    }
-                },
                 "dayOfWeek": {
                     "type": "string",
                     "description": "Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "duration": {
+                    "type": "integer",
+                    "description": "Length of the block in minutes.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the block.\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "startHour": {
+                    "type": "integer",
+                    "description": "Start hour for the block (0-23).\n",
+                    "language": {
+                        "python": {
+                            "mapCase": false
+                        }
+                    }
+                },
+                "startMinute": {
+                    "type": "integer",
+                    "description": "Start minute for the block (0-59). Defaults to `0`.\n",
                     "language": {
                         "python": {
                             "mapCase": false
@@ -188,9 +280,9 @@
             },
             "type": "object",
             "required": [
-                "blockEnd",
-                "blockStart",
-                "dayOfWeek"
+                "dayOfWeek",
+                "duration",
+                "startHour"
             ]
         },
         "unifi:setting/MgmtSshKey:MgmtSshKey": {
@@ -405,6 +497,10 @@
                     "type": "string",
                     "description": "The destination address of the firewall rule.\n"
                 },
+                "dstAddressIpv6": {
+                    "type": "string",
+                    "description": "The IPv6 destination address of the firewall rule.\n"
+                },
                 "dstFirewallGroupIds": {
                     "type": "array",
                     "items": {
@@ -428,6 +524,10 @@
                     "type": "string",
                     "description": "ICMP type name.\n"
                 },
+                "icmpV6Typename": {
+                    "type": "string",
+                    "description": "ICMPv6 type name.\n"
+                },
                 "ipSec": {
                     "type": "string",
                     "description": "Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.\n"
@@ -444,6 +544,10 @@
                     "type": "string",
                     "description": "The protocol of the rule.\n"
                 },
+                "protocolV6": {
+                    "type": "string",
+                    "description": "The IPv6 protocol of the rule.\n"
+                },
                 "ruleIndex": {
                     "type": "integer",
                     "description": "The index of the rule. Must be \u003e= 2000 \u003c 3000 or \u003e= 4000 \u003c 5000.\n"
@@ -459,6 +563,10 @@
                 "srcAddress": {
                     "type": "string",
                     "description": "The source address for the firewall rule.\n"
+                },
+                "srcAddressIpv6": {
+                    "type": "string",
+                    "description": "The IPv6 source address for the firewall rule.\n"
                 },
                 "srcFirewallGroupIds": {
                     "type": "array",
@@ -499,7 +607,6 @@
             "required": [
                 "action",
                 "name",
-                "protocol",
                 "ruleIndex",
                 "ruleset",
                 "site"
@@ -512,6 +619,10 @@
                 "dstAddress": {
                     "type": "string",
                     "description": "The destination address of the firewall rule.\n"
+                },
+                "dstAddressIpv6": {
+                    "type": "string",
+                    "description": "The IPv6 destination address of the firewall rule.\n"
                 },
                 "dstFirewallGroupIds": {
                     "type": "array",
@@ -536,6 +647,10 @@
                     "type": "string",
                     "description": "ICMP type name.\n"
                 },
+                "icmpV6Typename": {
+                    "type": "string",
+                    "description": "ICMPv6 type name.\n"
+                },
                 "ipSec": {
                     "type": "string",
                     "description": "Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.\n"
@@ -551,6 +666,10 @@
                 "protocol": {
                     "type": "string",
                     "description": "The protocol of the rule.\n"
+                },
+                "protocolV6": {
+                    "type": "string",
+                    "description": "The IPv6 protocol of the rule.\n"
                 },
                 "ruleIndex": {
                     "type": "integer",
@@ -568,6 +687,10 @@
                 "srcAddress": {
                     "type": "string",
                     "description": "The source address for the firewall rule.\n"
+                },
+                "srcAddressIpv6": {
+                    "type": "string",
+                    "description": "The IPv6 source address for the firewall rule.\n"
                 },
                 "srcFirewallGroupIds": {
                     "type": "array",
@@ -607,7 +730,6 @@
             },
             "requiredInputs": [
                 "action",
-                "protocol",
                 "ruleIndex",
                 "ruleset"
             ],
@@ -621,6 +743,10 @@
                     "dstAddress": {
                         "type": "string",
                         "description": "The destination address of the firewall rule.\n"
+                    },
+                    "dstAddressIpv6": {
+                        "type": "string",
+                        "description": "The IPv6 destination address of the firewall rule.\n"
                     },
                     "dstFirewallGroupIds": {
                         "type": "array",
@@ -645,6 +771,10 @@
                         "type": "string",
                         "description": "ICMP type name.\n"
                     },
+                    "icmpV6Typename": {
+                        "type": "string",
+                        "description": "ICMPv6 type name.\n"
+                    },
                     "ipSec": {
                         "type": "string",
                         "description": "Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.\n"
@@ -660,6 +790,10 @@
                     "protocol": {
                         "type": "string",
                         "description": "The protocol of the rule.\n"
+                    },
+                    "protocolV6": {
+                        "type": "string",
+                        "description": "The IPv6 protocol of the rule.\n"
                     },
                     "ruleIndex": {
                         "type": "integer",
@@ -677,6 +811,10 @@
                     "srcAddress": {
                         "type": "string",
                         "description": "The source address for the firewall rule.\n"
+                    },
+                    "srcAddressIpv6": {
+                        "type": "string",
+                        "description": "The IPv6 source address for the firewall rule.\n"
                     },
                     "srcFirewallGroupIds": {
                         "type": "array",
@@ -959,6 +1097,104 @@
                 "type": "object"
             }
         },
+        "unifi:index/account:Account": {
+            "description": "`unifi.Account` manages a RADIUS user account\n\nTo authenticate devices based on MAC address, use the MAC address as the username and password under client creation. \nConvert lowercase letters to uppercase, and also remove colons or periods from the MAC address. \n\nATTENTION: If the user profile does not include a VLAN, the client will fall back to the untagged VLAN. \n\nNOTE: MAC-based authentication accounts can only be used for wireless and wired clients. L2TP remote access does not apply.\n",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the account.\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "ID of the network for this account\n"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The password of the account.\n",
+                    "secret": true
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the account with.\n"
+                },
+                "tunnelMediumType": {
+                    "type": "integer",
+                    "description": "See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.\n"
+                },
+                "tunnelType": {
+                    "type": "integer",
+                    "description": "See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.\n"
+                }
+            },
+            "required": [
+                "name",
+                "password",
+                "site"
+            ],
+            "inputProperties": {
+                "name": {
+                    "type": "string",
+                    "description": "The name of the account.\n"
+                },
+                "networkId": {
+                    "type": "string",
+                    "description": "ID of the network for this account\n"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The password of the account.\n",
+                    "secret": true
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the account with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "tunnelMediumType": {
+                    "type": "integer",
+                    "description": "See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.\n"
+                },
+                "tunnelType": {
+                    "type": "integer",
+                    "description": "See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.\n"
+                }
+            },
+            "requiredInputs": [
+                "password"
+            ],
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Account resources.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the account.\n"
+                    },
+                    "networkId": {
+                        "type": "string",
+                        "description": "ID of the network for this account\n"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "The password of the account.\n",
+                        "secret": true
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the account with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "tunnelMediumType": {
+                        "type": "integer",
+                        "description": "See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.\n"
+                    },
+                    "tunnelType": {
+                        "type": "integer",
+                        "description": "See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "unifi:index/device:Device": {
             "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\nimport * as unifi from \"@pulumiverse/unifi\";\n\nconst disabled = unifi.port.getProfile({\n    name: \"Disabled\",\n});\nconst poe = new unifi.port.Profile(\"poe\", {\n    forward: \"customize\",\n    nativeNetworkconfId: _var.native_network_id,\n    taggedNetworkconfIds: [_var.some_vlan_network_id],\n    poeMode: \"auto\",\n});\nconst us24Poe = new unifi.Device(\"us24Poe\", {\n    mac: \"01:23:45:67:89:AB\",\n    portOverrides: [\n        {\n            number: 1,\n            name: \"port w/ poe\",\n            portProfileId: poe.id,\n        },\n        {\n            number: 2,\n            name: \"disabled\",\n            portProfileId: disabled.then(disabled =\u003e disabled.id),\n        },\n    ],\n});\n```\n```python\nimport pulumi\nimport pulumi_unifi as unifi\nimport pulumiverse_unifi as unifi\n\ndisabled = unifi.port.get_profile(name=\"Disabled\")\npoe = unifi.port.Profile(\"poe\",\n    forward=\"customize\",\n    native_networkconf_id=var[\"native_network_id\"],\n    tagged_networkconf_ids=[var[\"some_vlan_network_id\"]],\n    poe_mode=\"auto\")\nus24_poe = unifi.Device(\"us24Poe\",\n    mac=\"01:23:45:67:89:AB\",\n    port_overrides=[\n        unifi.DevicePortOverrideArgs(\n            number=1,\n            name=\"port w/ poe\",\n            port_profile_id=poe.id,\n        ),\n        unifi.DevicePortOverrideArgs(\n            number=2,\n            name=\"disabled\",\n            port_profile_id=disabled.id,\n        ),\n    ])\n```\n```csharp\nusing System.Collections.Generic;\nusing Pulumi;\nusing Unifi = Pulumi.Unifi;\nusing Unifi = Pulumiverse.Unifi;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var disabled = Unifi.Port.GetProfile.Invoke(new()\n    {\n        Name = \"Disabled\",\n    });\n\n    var poe = new Unifi.Port.Profile(\"poe\", new()\n    {\n        Forward = \"customize\",\n        NativeNetworkconfId = @var.Native_network_id,\n        TaggedNetworkconfIds = new[]\n        {\n            @var.Some_vlan_network_id,\n        },\n        PoeMode = \"auto\",\n    });\n\n    var us24Poe = new Unifi.Device(\"us24Poe\", new()\n    {\n        Mac = \"01:23:45:67:89:AB\",\n        PortOverrides = new[]\n        {\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 1,\n                Name = \"port w/ poe\",\n                PortProfileId = poe.Id,\n            },\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 2,\n                Name = \"disabled\",\n                PortProfileId = disabled.Apply(getProfileResult =\u003e getProfileResult.Id),\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tdisabled, err := port.LookupProfile(ctx, \u0026port.LookupProfileArgs{\n\t\t\tName: pulumi.StringRef(\"Disabled\"),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tpoe, err := port.NewProfile(ctx, \"poe\", \u0026port.ProfileArgs{\n\t\t\tForward:             pulumi.String(\"customize\"),\n\t\t\tNativeNetworkconfId: pulumi.Any(_var.Native_network_id),\n\t\t\tTaggedNetworkconfIds: pulumi.StringArray{\n\t\t\t\tpulumi.Any(_var.Some_vlan_network_id),\n\t\t\t},\n\t\t\tPoeMode: pulumi.String(\"auto\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = unifi.NewDevice(ctx, \"us24Poe\", \u0026unifi.DeviceArgs{\n\t\t\tMac: pulumi.String(\"01:23:45:67:89:AB\"),\n\t\t\tPortOverrides: DevicePortOverrideArray{\n\t\t\t\t\u0026DevicePortOverrideArgs{\n\t\t\t\t\tNumber:        pulumi.Int(1),\n\t\t\t\t\tName:          pulumi.String(\"port w/ poe\"),\n\t\t\t\t\tPortProfileId: poe.ID(),\n\t\t\t\t},\n\t\t\t\t\u0026DevicePortOverrideArgs{\n\t\t\t\t\tNumber:        pulumi.Int(2),\n\t\t\t\t\tName:          pulumi.String(\"disabled\"),\n\t\t\t\t\tPortProfileId: pulumi.String(disabled.Id),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.unifi.port.PortFunctions;\nimport com.pulumi.unifi.port.inputs.GetProfileArgs;\nimport com.pulumi.unifi.port.Profile;\nimport com.pulumi.unifi.port.ProfileArgs;\nimport com.pulumi.unifi.Device;\nimport com.pulumi.unifi.DeviceArgs;\nimport com.pulumi.unifi.inputs.DevicePortOverrideArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var disabled = PortFunctions.getProfile(GetProfileArgs.builder()\n            .name(\"Disabled\")\n            .build());\n\n        var poe = new Profile(\"poe\", ProfileArgs.builder()        \n            .forward(\"customize\")\n            .nativeNetworkconfId(var_.native_network_id())\n            .taggedNetworkconfIds(var_.some_vlan_network_id())\n            .poeMode(\"auto\")\n            .build());\n\n        var us24Poe = new Device(\"us24Poe\", DeviceArgs.builder()        \n            .mac(\"01:23:45:67:89:AB\")\n            .portOverrides(            \n                DevicePortOverrideArgs.builder()\n                    .number(1)\n                    .name(\"port w/ poe\")\n                    .portProfileId(poe.id())\n                    .build(),\n                DevicePortOverrideArgs.builder()\n                    .number(2)\n                    .name(\"disabled\")\n                    .portProfileId(disabled.applyValue(getProfileResult -\u003e getProfileResult.id()))\n                    .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  poe:\n    type: unifi:port:Profile\n    properties:\n      forward: customize\n      nativeNetworkconfId: ${var.native_network_id}\n      taggedNetworkconfIds:\n        - ${var.some_vlan_network_id}\n      poeMode: auto\n  us24Poe:\n    type: unifi:Device\n    properties:\n      # optionally specify MAC address to skip manually importing\n      #   # manual import is the safest way to add a device\n      mac: 01:23:45:67:89:AB\n      portOverrides:\n        - number: 1\n          name: port w/ poe\n          portProfileId: ${poe.id}\n        - number: 2\n          name: disabled\n          portProfileId: ${disabled.id}\nvariables:\n  disabled:\n    fn::invoke:\n      Function: unifi:port:getProfile\n      Arguments:\n        name: Disabled\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
@@ -1178,7 +1414,7 @@
                 },
                 "dhcpLease": {
                     "type": "integer",
-                    "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
+                    "description": "Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.\n"
                 },
                 "dhcpRelayEnabled": {
                     "type": "boolean",
@@ -1191,6 +1427,33 @@
                 "dhcpStop": {
                     "type": "string",
                     "description": "The IPv4 address where the DHCP range of addresses stops.\n"
+                },
+                "dhcpV6Dns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.\n"
+                },
+                "dhcpV6DnsAuto": {
+                    "type": "boolean",
+                    "description": "Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.\n"
+                },
+                "dhcpV6Enabled": {
+                    "type": "boolean",
+                    "description": "Enable stateful DHCPv6 for static configuration.\n"
+                },
+                "dhcpV6Lease": {
+                    "type": "integer",
+                    "description": "Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.\n"
+                },
+                "dhcpV6Start": {
+                    "type": "string",
+                    "description": "Start address of the DHCPv6 range. Used in static DHCPv6 configuration.\n"
+                },
+                "dhcpV6Stop": {
+                    "type": "string",
+                    "description": "End address of the DHCPv6 range. Used in static DHCPv6 configuration.\n"
                 },
                 "dhcpdBootEnabled": {
                     "type": "boolean",
@@ -1212,25 +1475,53 @@
                     "type": "boolean",
                     "description": "Specifies whether IGMP snooping is enabled or not.\n"
                 },
+                "internetAccessEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.\n"
+                },
+                "intraNetworkAccessEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.\n"
+                },
                 "ipv6InterfaceType": {
                     "type": "string",
-                    "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
+                    "description": "Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.\n"
                 },
                 "ipv6PdInterface": {
                     "type": "string",
-                    "description": "Specifies which WAN interface to use for IPv6 PD.\n"
+                    "description": "Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.\n"
                 },
                 "ipv6PdPrefixid": {
                     "type": "string",
                     "description": "Specifies the IPv6 Prefix ID.\n"
                 },
+                "ipv6PdStart": {
+                    "type": "string",
+                    "description": "Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.\n"
+                },
+                "ipv6PdStop": {
+                    "type": "string",
+                    "description": "End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.\n"
+                },
                 "ipv6RaEnable": {
                     "type": "boolean",
                     "description": "Specifies whether to enable router advertisements or not.\n"
                 },
+                "ipv6RaPreferredLifetime": {
+                    "type": "integer",
+                    "description": "Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.\n"
+                },
+                "ipv6RaPriority": {
+                    "type": "string",
+                    "description": "IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`\n"
+                },
+                "ipv6RaValidLifetime": {
+                    "type": "integer",
+                    "description": "Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.\n"
+                },
                 "ipv6StaticSubnet": {
                     "type": "string",
-                    "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
+                    "description": "Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.\n"
                 },
                 "name": {
                     "type": "string",
@@ -1256,6 +1547,10 @@
                     "type": "integer",
                     "description": "The VLAN ID of the network.\n"
                 },
+                "wanDhcpV6PdSize": {
+                    "type": "integer",
+                    "description": "Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.\n"
+                },
                 "wanDns": {
                     "type": "array",
                     "items": {
@@ -1271,9 +1566,17 @@
                     "type": "string",
                     "description": "The IPv4 gateway of the WAN.\n"
                 },
+                "wanGatewayV6": {
+                    "type": "string",
+                    "description": "The IPv6 gateway of the WAN.\n"
+                },
                 "wanIp": {
                     "type": "string",
                     "description": "The IPv4 address of the WAN.\n"
+                },
+                "wanIpv6": {
+                    "type": "string",
+                    "description": "The IPv6 address of the WAN.\n"
                 },
                 "wanNetmask": {
                     "type": "string",
@@ -1283,9 +1586,17 @@
                     "type": "string",
                     "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
                 },
+                "wanPrefixlen": {
+                    "type": "integer",
+                    "description": "The IPv6 prefix length of the WAN. Must be between 1 and 128.\n"
+                },
                 "wanType": {
                     "type": "string",
                     "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
+                },
+                "wanTypeV6": {
+                    "type": "string",
+                    "description": "Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.\n"
                 },
                 "wanUsername": {
                     "type": "string",
@@ -1315,7 +1626,7 @@
                 },
                 "dhcpLease": {
                     "type": "integer",
-                    "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
+                    "description": "Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.\n"
                 },
                 "dhcpRelayEnabled": {
                     "type": "boolean",
@@ -1328,6 +1639,33 @@
                 "dhcpStop": {
                     "type": "string",
                     "description": "The IPv4 address where the DHCP range of addresses stops.\n"
+                },
+                "dhcpV6Dns": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.\n"
+                },
+                "dhcpV6DnsAuto": {
+                    "type": "boolean",
+                    "description": "Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.\n"
+                },
+                "dhcpV6Enabled": {
+                    "type": "boolean",
+                    "description": "Enable stateful DHCPv6 for static configuration.\n"
+                },
+                "dhcpV6Lease": {
+                    "type": "integer",
+                    "description": "Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.\n"
+                },
+                "dhcpV6Start": {
+                    "type": "string",
+                    "description": "Start address of the DHCPv6 range. Used in static DHCPv6 configuration.\n"
+                },
+                "dhcpV6Stop": {
+                    "type": "string",
+                    "description": "End address of the DHCPv6 range. Used in static DHCPv6 configuration.\n"
                 },
                 "dhcpdBootEnabled": {
                     "type": "boolean",
@@ -1349,25 +1687,53 @@
                     "type": "boolean",
                     "description": "Specifies whether IGMP snooping is enabled or not.\n"
                 },
+                "internetAccessEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.\n"
+                },
+                "intraNetworkAccessEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.\n"
+                },
                 "ipv6InterfaceType": {
                     "type": "string",
-                    "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
+                    "description": "Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.\n"
                 },
                 "ipv6PdInterface": {
                     "type": "string",
-                    "description": "Specifies which WAN interface to use for IPv6 PD.\n"
+                    "description": "Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.\n"
                 },
                 "ipv6PdPrefixid": {
                     "type": "string",
                     "description": "Specifies the IPv6 Prefix ID.\n"
                 },
+                "ipv6PdStart": {
+                    "type": "string",
+                    "description": "Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.\n"
+                },
+                "ipv6PdStop": {
+                    "type": "string",
+                    "description": "End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.\n"
+                },
                 "ipv6RaEnable": {
                     "type": "boolean",
                     "description": "Specifies whether to enable router advertisements or not.\n"
                 },
+                "ipv6RaPreferredLifetime": {
+                    "type": "integer",
+                    "description": "Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.\n"
+                },
+                "ipv6RaPriority": {
+                    "type": "string",
+                    "description": "IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`\n"
+                },
+                "ipv6RaValidLifetime": {
+                    "type": "integer",
+                    "description": "Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.\n"
+                },
                 "ipv6StaticSubnet": {
                     "type": "string",
-                    "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
+                    "description": "Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.\n"
                 },
                 "name": {
                     "type": "string",
@@ -1395,6 +1761,10 @@
                     "type": "integer",
                     "description": "The VLAN ID of the network.\n"
                 },
+                "wanDhcpV6PdSize": {
+                    "type": "integer",
+                    "description": "Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.\n"
+                },
                 "wanDns": {
                     "type": "array",
                     "items": {
@@ -1410,9 +1780,17 @@
                     "type": "string",
                     "description": "The IPv4 gateway of the WAN.\n"
                 },
+                "wanGatewayV6": {
+                    "type": "string",
+                    "description": "The IPv6 gateway of the WAN.\n"
+                },
                 "wanIp": {
                     "type": "string",
                     "description": "The IPv4 address of the WAN.\n"
+                },
+                "wanIpv6": {
+                    "type": "string",
+                    "description": "The IPv6 address of the WAN.\n"
                 },
                 "wanNetmask": {
                     "type": "string",
@@ -1422,9 +1800,17 @@
                     "type": "string",
                     "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
                 },
+                "wanPrefixlen": {
+                    "type": "integer",
+                    "description": "The IPv6 prefix length of the WAN. Must be between 1 and 128.\n"
+                },
                 "wanType": {
                     "type": "string",
                     "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
+                },
+                "wanTypeV6": {
+                    "type": "string",
+                    "description": "Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.\n"
                 },
                 "wanUsername": {
                     "type": "string",
@@ -1454,7 +1840,7 @@
                     },
                     "dhcpLease": {
                         "type": "integer",
-                        "description": "Specifies the lease time for DHCP addresses. Defaults to `86400`.\n"
+                        "description": "Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.\n"
                     },
                     "dhcpRelayEnabled": {
                         "type": "boolean",
@@ -1467,6 +1853,33 @@
                     "dhcpStop": {
                         "type": "string",
                         "description": "The IPv4 address where the DHCP range of addresses stops.\n"
+                    },
+                    "dhcpV6Dns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.\n"
+                    },
+                    "dhcpV6DnsAuto": {
+                        "type": "boolean",
+                        "description": "Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.\n"
+                    },
+                    "dhcpV6Enabled": {
+                        "type": "boolean",
+                        "description": "Enable stateful DHCPv6 for static configuration.\n"
+                    },
+                    "dhcpV6Lease": {
+                        "type": "integer",
+                        "description": "Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.\n"
+                    },
+                    "dhcpV6Start": {
+                        "type": "string",
+                        "description": "Start address of the DHCPv6 range. Used in static DHCPv6 configuration.\n"
+                    },
+                    "dhcpV6Stop": {
+                        "type": "string",
+                        "description": "End address of the DHCPv6 range. Used in static DHCPv6 configuration.\n"
                     },
                     "dhcpdBootEnabled": {
                         "type": "boolean",
@@ -1488,25 +1901,53 @@
                         "type": "boolean",
                         "description": "Specifies whether IGMP snooping is enabled or not.\n"
                     },
+                    "internetAccessEnabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.\n"
+                    },
+                    "intraNetworkAccessEnabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.\n"
+                    },
                     "ipv6InterfaceType": {
                         "type": "string",
-                        "description": "Specifies which type of IPv6 connection to use. Defaults to `none`.\n"
+                        "description": "Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.\n"
                     },
                     "ipv6PdInterface": {
                         "type": "string",
-                        "description": "Specifies which WAN interface to use for IPv6 PD.\n"
+                        "description": "Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.\n"
                     },
                     "ipv6PdPrefixid": {
                         "type": "string",
                         "description": "Specifies the IPv6 Prefix ID.\n"
                     },
+                    "ipv6PdStart": {
+                        "type": "string",
+                        "description": "Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.\n"
+                    },
+                    "ipv6PdStop": {
+                        "type": "string",
+                        "description": "End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.\n"
+                    },
                     "ipv6RaEnable": {
                         "type": "boolean",
                         "description": "Specifies whether to enable router advertisements or not.\n"
                     },
+                    "ipv6RaPreferredLifetime": {
+                        "type": "integer",
+                        "description": "Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.\n"
+                    },
+                    "ipv6RaPriority": {
+                        "type": "string",
+                        "description": "IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`\n"
+                    },
+                    "ipv6RaValidLifetime": {
+                        "type": "integer",
+                        "description": "Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.\n"
+                    },
                     "ipv6StaticSubnet": {
                         "type": "string",
-                        "description": "Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.\n"
+                        "description": "Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.\n"
                     },
                     "name": {
                         "type": "string",
@@ -1534,6 +1975,10 @@
                         "type": "integer",
                         "description": "The VLAN ID of the network.\n"
                     },
+                    "wanDhcpV6PdSize": {
+                        "type": "integer",
+                        "description": "Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.\n"
+                    },
                     "wanDns": {
                         "type": "array",
                         "items": {
@@ -1549,9 +1994,17 @@
                         "type": "string",
                         "description": "The IPv4 gateway of the WAN.\n"
                     },
+                    "wanGatewayV6": {
+                        "type": "string",
+                        "description": "The IPv6 gateway of the WAN.\n"
+                    },
                     "wanIp": {
                         "type": "string",
                         "description": "The IPv4 address of the WAN.\n"
+                    },
+                    "wanIpv6": {
+                        "type": "string",
+                        "description": "The IPv6 address of the WAN.\n"
                     },
                     "wanNetmask": {
                         "type": "string",
@@ -1561,9 +2014,17 @@
                         "type": "string",
                         "description": "Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
                     },
+                    "wanPrefixlen": {
+                        "type": "integer",
+                        "description": "The IPv6 prefix length of the WAN. Must be between 1 and 128.\n"
+                    },
                     "wanType": {
                         "type": "string",
                         "description": "Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
+                    },
+                    "wanTypeV6": {
+                        "type": "string",
+                        "description": "Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.\n"
                     },
                     "wanUsername": {
                         "type": "string",
@@ -1572,6 +2033,175 @@
                     "xWanPassword": {
                         "type": "string",
                         "description": "Specifies the IPV4 WAN password.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "unifi:index/radiusProfile:RadiusProfile": {
+            "description": "`unifi.RadiusProfile` manages RADIUS profiles.\n",
+            "properties": {
+                "accountingEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use RADIUS accounting. Defaults to `false`.\n"
+                },
+                "acctServers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/RadiusProfileAcctServer:RadiusProfileAcctServer"
+                    },
+                    "description": "RADIUS accounting servers.\n"
+                },
+                "authServers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/RadiusProfileAuthServer:RadiusProfileAuthServer"
+                    },
+                    "description": "RADIUS authentication servers.\n"
+                },
+                "interimUpdateEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use interim_update. Defaults to `false`.\n"
+                },
+                "interimUpdateInterval": {
+                    "type": "integer",
+                    "description": "Specifies interim_update interval. Defaults to `3600`.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the profile.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the settings with.\n"
+                },
+                "useUsgAcctServer": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.\n"
+                },
+                "useUsgAuthServer": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.\n"
+                },
+                "vlanEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use vlan on wired connections. Defaults to `false`.\n"
+                },
+                "vlanWlanMode": {
+                    "type": "string",
+                    "description": "Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.\n"
+                }
+            },
+            "required": [
+                "name",
+                "site"
+            ],
+            "inputProperties": {
+                "accountingEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use RADIUS accounting. Defaults to `false`.\n"
+                },
+                "acctServers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/RadiusProfileAcctServer:RadiusProfileAcctServer"
+                    },
+                    "description": "RADIUS accounting servers.\n"
+                },
+                "authServers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/unifi:index/RadiusProfileAuthServer:RadiusProfileAuthServer"
+                    },
+                    "description": "RADIUS authentication servers.\n"
+                },
+                "interimUpdateEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use interim_update. Defaults to `false`.\n"
+                },
+                "interimUpdateInterval": {
+                    "type": "integer",
+                    "description": "Specifies interim_update interval. Defaults to `3600`.\n"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the profile.\n"
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the settings with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "useUsgAcctServer": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.\n"
+                },
+                "useUsgAuthServer": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.\n"
+                },
+                "vlanEnabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether to use vlan on wired connections. Defaults to `false`.\n"
+                },
+                "vlanWlanMode": {
+                    "type": "string",
+                    "description": "Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering RadiusProfile resources.\n",
+                "properties": {
+                    "accountingEnabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether to use RADIUS accounting. Defaults to `false`.\n"
+                    },
+                    "acctServers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/unifi:index/RadiusProfileAcctServer:RadiusProfileAcctServer"
+                        },
+                        "description": "RADIUS accounting servers.\n"
+                    },
+                    "authServers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/types/unifi:index/RadiusProfileAuthServer:RadiusProfileAuthServer"
+                        },
+                        "description": "RADIUS authentication servers.\n"
+                    },
+                    "interimUpdateEnabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether to use interim_update. Defaults to `false`.\n"
+                    },
+                    "interimUpdateInterval": {
+                        "type": "integer",
+                        "description": "Specifies interim_update interval. Defaults to `3600`.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the profile.\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the settings with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "useUsgAcctServer": {
+                        "type": "boolean",
+                        "description": "Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.\n"
+                    },
+                    "useUsgAuthServer": {
+                        "type": "boolean",
+                        "description": "Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.\n"
+                    },
+                    "vlanEnabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether to use vlan on wired connections. Defaults to `false`.\n"
+                    },
+                    "vlanWlanMode": {
+                        "type": "string",
+                        "description": "Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.\n"
                     }
                 },
                 "type": "object"
@@ -1800,7 +2430,7 @@
                 },
                 "radiusProfileId": {
                     "type": "string",
-                    "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
+                    "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.\n"
                 },
                 "schedules": {
                     "type": "array",
@@ -1914,7 +2544,7 @@
                 },
                 "radiusProfileId": {
                     "type": "string",
-                    "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
+                    "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.\n"
                 },
                 "schedules": {
                     "type": "array",
@@ -2029,7 +2659,7 @@
                     },
                     "radiusProfileId": {
                         "type": "string",
-                        "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.\n"
+                        "description": "ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.\n"
                     },
                     "schedules": {
                         "type": "array",
@@ -2745,6 +3375,123 @@
                 "type": "object"
             }
         },
+        "unifi:setting/radius:Radius": {
+            "description": "`unifi.setting.Radius` manages settings for the built-in RADIUS server.\n",
+            "properties": {
+                "accountingEnabled": {
+                    "type": "boolean",
+                    "description": "Enable RADIUS accounting Defaults to `false`.\n"
+                },
+                "accountingPort": {
+                    "type": "integer",
+                    "description": "The port for accounting communications. Defaults to `1813`.\n"
+                },
+                "authPort": {
+                    "type": "integer",
+                    "description": "The port for authentication communications. Defaults to `1812`.\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "RAIDUS server enabled. Defaults to `true`.\n"
+                },
+                "interimUpdateInterval": {
+                    "type": "integer",
+                    "description": "Statistics will be collected from connected clients at this interval. Defaults to `3600`.\n"
+                },
+                "secret": {
+                    "type": "string",
+                    "description": "RAIDUS secret passphrase. Defaults to ``.\n",
+                    "secret": true
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the settings with.\n"
+                },
+                "tunneledReply": {
+                    "type": "boolean",
+                    "description": "Encrypt communication between the server and the client. Defaults to `true`.\n"
+                }
+            },
+            "required": [
+                "site"
+            ],
+            "inputProperties": {
+                "accountingEnabled": {
+                    "type": "boolean",
+                    "description": "Enable RADIUS accounting Defaults to `false`.\n"
+                },
+                "accountingPort": {
+                    "type": "integer",
+                    "description": "The port for accounting communications. Defaults to `1813`.\n"
+                },
+                "authPort": {
+                    "type": "integer",
+                    "description": "The port for authentication communications. Defaults to `1812`.\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "RAIDUS server enabled. Defaults to `true`.\n"
+                },
+                "interimUpdateInterval": {
+                    "type": "integer",
+                    "description": "Statistics will be collected from connected clients at this interval. Defaults to `3600`.\n"
+                },
+                "secret": {
+                    "type": "string",
+                    "description": "RAIDUS secret passphrase. Defaults to ``.\n",
+                    "secret": true
+                },
+                "site": {
+                    "type": "string",
+                    "description": "The name of the site to associate the settings with.\n",
+                    "willReplaceOnChanges": true
+                },
+                "tunneledReply": {
+                    "type": "boolean",
+                    "description": "Encrypt communication between the server and the client. Defaults to `true`.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering Radius resources.\n",
+                "properties": {
+                    "accountingEnabled": {
+                        "type": "boolean",
+                        "description": "Enable RADIUS accounting Defaults to `false`.\n"
+                    },
+                    "accountingPort": {
+                        "type": "integer",
+                        "description": "The port for accounting communications. Defaults to `1813`.\n"
+                    },
+                    "authPort": {
+                        "type": "integer",
+                        "description": "The port for authentication communications. Defaults to `1812`.\n"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "RAIDUS server enabled. Defaults to `true`.\n"
+                    },
+                    "interimUpdateInterval": {
+                        "type": "integer",
+                        "description": "Statistics will be collected from connected clients at this interval. Defaults to `3600`.\n"
+                    },
+                    "secret": {
+                        "type": "string",
+                        "description": "RAIDUS secret passphrase. Defaults to ``.\n",
+                        "secret": true
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site to associate the settings with.\n",
+                        "willReplaceOnChanges": true
+                    },
+                    "tunneledReply": {
+                        "type": "boolean",
+                        "description": "Encrypt communication between the server and the client. Defaults to `true`.\n"
+                    }
+                },
+                "type": "object"
+            }
+        },
         "unifi:setting/uSG:USG": {
             "description": "`unifi.setting.USG` manages settings for a Unifi Security Gateway.\n",
             "properties": {
@@ -2986,6 +3733,70 @@
                 ]
             }
         },
+        "unifi:index/getAccount:getAccount": {
+            "description": "`unifi.Account` data source can be used to retrieve RADIUS user accounts\n",
+            "inputs": {
+                "description": "A collection of arguments for invoking getAccount.\n",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the account to look up\n"
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the account is associated with.\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "name"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getAccount.\n",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The ID of this account.\n"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the account to look up\n"
+                    },
+                    "networkId": {
+                        "type": "string",
+                        "description": "ID of the network for this account\n"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "The password of the account.\n",
+                        "secret": true
+                    },
+                    "site": {
+                        "type": "string",
+                        "description": "The name of the site the account is associated with.\n"
+                    },
+                    "tunnelMediumType": {
+                        "type": "integer",
+                        "description": "See RFC2868 section 3.2\n"
+                    },
+                    "tunnelType": {
+                        "type": "integer",
+                        "description": "See RFC2868 section 3.1\n"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "networkId",
+                    "password",
+                    "site",
+                    "tunnelMediumType",
+                    "tunnelType"
+                ]
+            }
+        },
         "unifi:index/getApGroup:getApGroup": {
             "description": "`unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst defaultApGroup = pulumi.output(unifi.getApGroup());\n```\n```python\nimport pulumi\nimport pulumi_unifi as unifi\n\ndefault = unifi.get_ap_group()\n```\n```csharp\nusing System.Collections.Generic;\nusing Pulumi;\nusing Unifi = Pulumi.Unifi;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var @default = Unifi.GetApGroup.Invoke();\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err = unifi.GetApGroup(ctx, nil, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.unifi.UnifiFunctions;\nimport com.pulumi.unifi.inputs.GetApGroupArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var default = UnifiFunctions.getApGroup();\n\n    }\n}\n```\n```yaml\nvariables:\n  default:\n    fn::invoke:\n      Function: unifi:getApGroup\n      Arguments: {}\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
@@ -3026,7 +3837,7 @@
             }
         },
         "unifi:index/getNetwork:getNetwork": {
-            "description": "`unifi.Network` data source can be used to retrieve settings for a network by name or ID.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst lanNetwork = unifi.getNetwork({\n    name: \"LAN\",\n});\nconst myDevice = unifi.iam.getUser({\n    mac: \"01:23:45:67:89:ab\",\n});\nconst myNetwork = myDevice.then(myDevice =\u003e unifi.getNetwork({\n    id: myDevice.networkId,\n}));\n```\n```python\nimport pulumi\nimport pulumi_unifi as unifi\n\nlan_network = unifi.get_network(name=\"LAN\")\nmy_device = unifi.iam.get_user(mac=\"01:23:45:67:89:ab\")\nmy_network = unifi.get_network(id=my_device.network_id)\n```\n```csharp\nusing System.Collections.Generic;\nusing Pulumi;\nusing Unifi = Pulumi.Unifi;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var lanNetwork = Unifi.GetNetwork.Invoke(new()\n    {\n        Name = \"LAN\",\n    });\n\n    var myDevice = Unifi.IAM.GetUser.Invoke(new()\n    {\n        Mac = \"01:23:45:67:89:ab\",\n    });\n\n    var myNetwork = Unifi.GetNetwork.Invoke(new()\n    {\n        Id = myDevice.Apply(getUserResult =\u003e getUserResult.NetworkId),\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err = unifi.LookupNetwork(ctx, \u0026GetNetworkArgs{\n\t\t\tName: pulumi.StringRef(\"LAN\"),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tmyDevice, err := iam.LookupUser(ctx, \u0026iam.LookupUserArgs{\n\t\t\tMac: \"01:23:45:67:89:ab\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = unifi.LookupNetwork(ctx, \u0026GetNetworkArgs{\n\t\t\tId: pulumi.StringRef(myDevice.NetworkId),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.unifi.UnifiFunctions;\nimport com.pulumi.unifi.inputs.GetNetworkArgs;\nimport com.pulumi.unifi.iam.IamFunctions;\nimport com.pulumi.unifi.iam.inputs.GetUserArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()\n            .name(\"LAN\")\n            .build());\n\n        final var myDevice = IamFunctions.getUser(GetUserArgs.builder()\n            .mac(\"01:23:45:67:89:ab\")\n            .build());\n\n        final var myNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()\n            .id(myDevice.applyValue(getUserResult -\u003e getUserResult.networkId()))\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  lanNetwork:\n    fn::invoke:\n      Function: unifi:getNetwork\n      Arguments:\n        name: LAN\n  myDevice:\n    fn::invoke:\n      Function: unifi:iam:getUser\n      Arguments:\n        mac: 01:23:45:67:89:ab\n  myNetwork:\n    fn::invoke:\n      Function: unifi:getNetwork\n      Arguments:\n        id: ${myDevice.networkId}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "`unifi.Network` data source can be used to retrieve settings for a network by name or ID.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\n\nconst lanNetwork = unifi.getNetwork({\n    name: \"Default\",\n});\nconst myDevice = unifi.iam.getUser({\n    mac: \"01:23:45:67:89:ab\",\n});\nconst myNetwork = myDevice.then(myDevice =\u003e unifi.getNetwork({\n    id: myDevice.networkId,\n}));\n```\n```python\nimport pulumi\nimport pulumi_unifi as unifi\n\nlan_network = unifi.get_network(name=\"Default\")\nmy_device = unifi.iam.get_user(mac=\"01:23:45:67:89:ab\")\nmy_network = unifi.get_network(id=my_device.network_id)\n```\n```csharp\nusing System.Collections.Generic;\nusing Pulumi;\nusing Unifi = Pulumi.Unifi;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var lanNetwork = Unifi.GetNetwork.Invoke(new()\n    {\n        Name = \"Default\",\n    });\n\n    var myDevice = Unifi.IAM.GetUser.Invoke(new()\n    {\n        Mac = \"01:23:45:67:89:ab\",\n    });\n\n    var myNetwork = Unifi.GetNetwork.Invoke(new()\n    {\n        Id = myDevice.Apply(getUserResult =\u003e getUserResult.NetworkId),\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err = unifi.LookupNetwork(ctx, \u0026GetNetworkArgs{\n\t\t\tName: pulumi.StringRef(\"Default\"),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tmyDevice, err := iam.LookupUser(ctx, \u0026iam.LookupUserArgs{\n\t\t\tMac: \"01:23:45:67:89:ab\",\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = unifi.LookupNetwork(ctx, \u0026GetNetworkArgs{\n\t\t\tId: pulumi.StringRef(myDevice.NetworkId),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.unifi.UnifiFunctions;\nimport com.pulumi.unifi.inputs.GetNetworkArgs;\nimport com.pulumi.unifi.iam.IamFunctions;\nimport com.pulumi.unifi.iam.inputs.GetUserArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var lanNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()\n            .name(\"Default\")\n            .build());\n\n        final var myDevice = IamFunctions.getUser(GetUserArgs.builder()\n            .mac(\"01:23:45:67:89:ab\")\n            .build());\n\n        final var myNetwork = UnifiFunctions.getNetwork(GetNetworkArgs.builder()\n            .id(myDevice.applyValue(getUserResult -\u003e getUserResult.networkId()))\n            .build());\n\n    }\n}\n```\n```yaml\nvariables:\n  lanNetwork:\n    fn::invoke:\n      Function: unifi:getNetwork\n      Arguments:\n        name: Default\n  myDevice:\n    fn::invoke:\n      Function: unifi:iam:getUser\n      Arguments:\n        mac: 01:23:45:67:89:ab\n  myNetwork:\n    fn::invoke:\n      Function: unifi:getNetwork\n      Arguments:\n        id: ${myDevice.networkId}\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getNetwork.\n",
                 "properties": {
@@ -3071,6 +3882,33 @@
                         "type": "string",
                         "description": "The IPv4 address where the DHCP range of addresses stops.\n"
                     },
+                    "dhcpV6Dns": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.\n"
+                    },
+                    "dhcpV6DnsAuto": {
+                        "type": "boolean",
+                        "description": "Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise\n"
+                    },
+                    "dhcpV6Enabled": {
+                        "type": "boolean",
+                        "description": "Enable stateful DHCPv6 for static configuration.\n"
+                    },
+                    "dhcpV6Lease": {
+                        "type": "integer",
+                        "description": "Specifies the lease time for DHCPv6 addresses.\n"
+                    },
+                    "dhcpV6Start": {
+                        "type": "string",
+                        "description": "Start address of the DHCPv6 range. Used in static DHCPv6 configuration.\n"
+                    },
+                    "dhcpV6Stop": {
+                        "type": "string",
+                        "description": "End address of the DHCPv6 range. Used in static DHCPv6 configuration.\n"
+                    },
                     "dhcpdBootEnabled": {
                         "type": "boolean",
                         "description": "Toggles on the DHCP boot options. will be set to true if you have dhcpd*boot*filename, and dhcpd*boot*server set.\n"
@@ -3097,19 +3935,39 @@
                     },
                     "ipv6InterfaceType": {
                         "type": "string",
-                        "description": "Specifies which type of IPv6 connection to use.\n"
+                        "description": "Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.\n"
                     },
                     "ipv6PdInterface": {
                         "type": "string",
-                        "description": "Specifies which WAN interface is used for IPv6 Prefix Delegation.\n"
+                        "description": "Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.\n"
                     },
                     "ipv6PdPrefixid": {
                         "type": "string",
                         "description": "Specifies the IPv6 Prefix ID.\n"
                     },
+                    "ipv6PdStart": {
+                        "type": "string",
+                        "description": "Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.\n"
+                    },
+                    "ipv6PdStop": {
+                        "type": "string",
+                        "description": "End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.\n"
+                    },
                     "ipv6RaEnable": {
                         "type": "boolean",
                         "description": "Specifies whether to enable router advertisements or not.\n"
+                    },
+                    "ipv6RaPreferredLifetime": {
+                        "type": "integer",
+                        "description": "Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime`\n"
+                    },
+                    "ipv6RaPriority": {
+                        "type": "string",
+                        "description": "IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`\n"
+                    },
+                    "ipv6RaValidLifetime": {
+                        "type": "integer",
+                        "description": "Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`.\n"
                     },
                     "ipv6StaticSubnet": {
                         "type": "string",
@@ -3139,6 +3997,10 @@
                         "type": "integer",
                         "description": "The VLAN ID of the network.\n"
                     },
+                    "wanDhcpV6PdSize": {
+                        "type": "integer",
+                        "description": "Specifies the IPv6 prefix size to request from ISP. Must be a number between 48 and 64.\n"
+                    },
                     "wanDns": {
                         "type": "array",
                         "items": {
@@ -3154,9 +4016,17 @@
                         "type": "string",
                         "description": "The IPv4 gateway of the WAN.\n"
                     },
+                    "wanGatewayV6": {
+                        "type": "string",
+                        "description": "The IPv6 gateway of the WAN.\n"
+                    },
                     "wanIp": {
                         "type": "string",
                         "description": "The IPv4 address of the WAN.\n"
+                    },
+                    "wanIpv6": {
+                        "type": "string",
+                        "description": "The IPv6 address of the WAN.\n"
                     },
                     "wanNetmask": {
                         "type": "string",
@@ -3166,9 +4036,17 @@
                         "type": "string",
                         "description": "Specifies the WAN network group. One of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.\n"
                     },
+                    "wanPrefixlen": {
+                        "type": "integer",
+                        "description": "The IPv6 prefix length of the WAN. Must be between 1 and 128.\n"
+                    },
                     "wanType": {
                         "type": "string",
                         "description": "Specifies the IPV4 WAN connection type. One of either `disabled`, `static`, `dhcp`, or `pppoe`.\n"
+                    },
+                    "wanTypeV6": {
+                        "type": "string",
+                        "description": "Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.\n"
                     },
                     "wanUsername": {
                         "type": "string",
@@ -3186,6 +4064,12 @@
                     "dhcpLease",
                     "dhcpStart",
                     "dhcpStop",
+                    "dhcpV6Dns",
+                    "dhcpV6DnsAuto",
+                    "dhcpV6Enabled",
+                    "dhcpV6Lease",
+                    "dhcpV6Start",
+                    "dhcpV6Stop",
                     "dhcpdBootEnabled",
                     "dhcpdBootFilename",
                     "dhcpdBootServer",
@@ -3195,7 +4079,12 @@
                     "ipv6InterfaceType",
                     "ipv6PdInterface",
                     "ipv6PdPrefixid",
+                    "ipv6PdStart",
+                    "ipv6PdStop",
                     "ipv6RaEnable",
+                    "ipv6RaPreferredLifetime",
+                    "ipv6RaPriority",
+                    "ipv6RaValidLifetime",
                     "ipv6StaticSubnet",
                     "name",
                     "networkGroup",
@@ -3203,20 +4092,25 @@
                     "site",
                     "subnet",
                     "vlanId",
+                    "wanDhcpV6PdSize",
                     "wanDns",
                     "wanEgressQos",
                     "wanGateway",
+                    "wanGatewayV6",
                     "wanIp",
+                    "wanIpv6",
                     "wanNetmask",
                     "wanNetworkgroup",
+                    "wanPrefixlen",
                     "wanType",
+                    "wanTypeV6",
                     "wanUsername",
                     "xWanPassword"
                 ]
             }
         },
         "unifi:index/getRadiusProfile:getRadiusProfile": {
-            "description": "`unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.\n",
+            "description": "`unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.\n",
             "inputs": {
                 "description": "A collection of arguments for invoking getRadiusProfile.\n",
                 "properties": {
@@ -3226,7 +4120,7 @@
                     },
                     "site": {
                         "type": "string",
-                        "description": "The name of the site the radius profile is associated with.\n"
+                        "description": "The name of the site the RADIUS profile is associated with.\n"
                     }
                 },
                 "type": "object"
@@ -3244,7 +4138,7 @@
                     },
                     "site": {
                         "type": "string",
-                        "description": "The name of the site the radius profile is associated with.\n"
+                        "description": "The name of the site the RADIUS profile is associated with.\n"
                     }
                 },
                 "type": "object",

@@ -5,43 +5,16 @@ package com.pulumiverse.unifi.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
+import java.util.Optional;
+import javax.annotation.Nullable;
 
 
 public final class WlanScheduleArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final WlanScheduleArgs Empty = new WlanScheduleArgs();
-
-    /**
-     * Time of day to end the block.
-     * 
-     */
-    @Import(name="blockEnd", required=true)
-    private Output<String> blockEnd;
-
-    /**
-     * @return Time of day to end the block.
-     * 
-     */
-    public Output<String> blockEnd() {
-        return this.blockEnd;
-    }
-
-    /**
-     * Time of day to start the block.
-     * 
-     */
-    @Import(name="blockStart", required=true)
-    private Output<String> blockStart;
-
-    /**
-     * @return Time of day to start the block.
-     * 
-     */
-    public Output<String> blockStart() {
-        return this.blockStart;
-    }
 
     /**
      * Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
@@ -58,12 +31,74 @@ public final class WlanScheduleArgs extends com.pulumi.resources.ResourceArgs {
         return this.dayOfWeek;
     }
 
+    /**
+     * Length of the block in minutes.
+     * 
+     */
+    @Import(name="duration", required=true)
+    private Output<Integer> duration;
+
+    /**
+     * @return Length of the block in minutes.
+     * 
+     */
+    public Output<Integer> duration() {
+        return this.duration;
+    }
+
+    /**
+     * Name of the block.
+     * 
+     */
+    @Import(name="name")
+    private @Nullable Output<String> name;
+
+    /**
+     * @return Name of the block.
+     * 
+     */
+    public Optional<Output<String>> name() {
+        return Optional.ofNullable(this.name);
+    }
+
+    /**
+     * Start hour for the block (0-23).
+     * 
+     */
+    @Import(name="startHour", required=true)
+    private Output<Integer> startHour;
+
+    /**
+     * @return Start hour for the block (0-23).
+     * 
+     */
+    public Output<Integer> startHour() {
+        return this.startHour;
+    }
+
+    /**
+     * Start minute for the block (0-59). Defaults to `0`.
+     * 
+     */
+    @Import(name="startMinute")
+    private @Nullable Output<Integer> startMinute;
+
+    /**
+     * @return Start minute for the block (0-59). Defaults to `0`.
+     * 
+     */
+    public Optional<Output<Integer>> startMinute() {
+        return Optional.ofNullable(this.startMinute);
+    }
+
     private WlanScheduleArgs() {}
 
     private WlanScheduleArgs(WlanScheduleArgs $) {
-        this.blockEnd = $.blockEnd;
-        this.blockStart = $.blockStart;
         this.dayOfWeek = $.dayOfWeek;
+        this.duration = $.duration;
+        this.name = $.name;
+        this.startHour = $.startHour;
+        this.startMinute = $.startMinute;
     }
 
     public static Builder builder() {
@@ -82,48 +117,6 @@ public final class WlanScheduleArgs extends com.pulumi.resources.ResourceArgs {
 
         public Builder(WlanScheduleArgs defaults) {
             $ = new WlanScheduleArgs(Objects.requireNonNull(defaults));
-        }
-
-        /**
-         * @param blockEnd Time of day to end the block.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder blockEnd(Output<String> blockEnd) {
-            $.blockEnd = blockEnd;
-            return this;
-        }
-
-        /**
-         * @param blockEnd Time of day to end the block.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder blockEnd(String blockEnd) {
-            return blockEnd(Output.of(blockEnd));
-        }
-
-        /**
-         * @param blockStart Time of day to start the block.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder blockStart(Output<String> blockStart) {
-            $.blockStart = blockStart;
-            return this;
-        }
-
-        /**
-         * @param blockStart Time of day to start the block.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder blockStart(String blockStart) {
-            return blockStart(Output.of(blockStart));
         }
 
         /**
@@ -147,10 +140,94 @@ public final class WlanScheduleArgs extends com.pulumi.resources.ResourceArgs {
             return dayOfWeek(Output.of(dayOfWeek));
         }
 
+        /**
+         * @param duration Length of the block in minutes.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder duration(Output<Integer> duration) {
+            $.duration = duration;
+            return this;
+        }
+
+        /**
+         * @param duration Length of the block in minutes.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder duration(Integer duration) {
+            return duration(Output.of(duration));
+        }
+
+        /**
+         * @param name Name of the block.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder name(@Nullable Output<String> name) {
+            $.name = name;
+            return this;
+        }
+
+        /**
+         * @param name Name of the block.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder name(String name) {
+            return name(Output.of(name));
+        }
+
+        /**
+         * @param startHour Start hour for the block (0-23).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder startHour(Output<Integer> startHour) {
+            $.startHour = startHour;
+            return this;
+        }
+
+        /**
+         * @param startHour Start hour for the block (0-23).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder startHour(Integer startHour) {
+            return startHour(Output.of(startHour));
+        }
+
+        /**
+         * @param startMinute Start minute for the block (0-59). Defaults to `0`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder startMinute(@Nullable Output<Integer> startMinute) {
+            $.startMinute = startMinute;
+            return this;
+        }
+
+        /**
+         * @param startMinute Start minute for the block (0-59). Defaults to `0`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder startMinute(Integer startMinute) {
+            return startMinute(Output.of(startMinute));
+        }
+
         public WlanScheduleArgs build() {
-            $.blockEnd = Objects.requireNonNull($.blockEnd, "expected parameter 'blockEnd' to be non-null");
-            $.blockStart = Objects.requireNonNull($.blockStart, "expected parameter 'blockStart' to be non-null");
             $.dayOfWeek = Objects.requireNonNull($.dayOfWeek, "expected parameter 'dayOfWeek' to be non-null");
+            $.duration = Objects.requireNonNull($.duration, "expected parameter 'duration' to be non-null");
+            $.startHour = Objects.requireNonNull($.startHour, "expected parameter 'startHour' to be non-null");
             return $;
         }
     }

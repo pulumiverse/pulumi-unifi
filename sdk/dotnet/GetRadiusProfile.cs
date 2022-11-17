@@ -13,13 +13,13 @@ namespace Pulumiverse.Unifi
     public static class GetRadiusProfile
     {
         /// <summary>
-        /// `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+        /// `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
         /// </summary>
         public static Task<GetRadiusProfileResult> InvokeAsync(GetRadiusProfileArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetRadiusProfileResult>("unifi:index/getRadiusProfile:getRadiusProfile", args ?? new GetRadiusProfileArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.getRadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+        /// `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
         /// </summary>
         public static Output<GetRadiusProfileResult> Invoke(GetRadiusProfileInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetRadiusProfileResult>("unifi:index/getRadiusProfile:getRadiusProfile", args ?? new GetRadiusProfileInvokeArgs(), options.WithDefaults());
@@ -35,7 +35,7 @@ namespace Pulumiverse.Unifi
         public string? Name { get; set; }
 
         /// <summary>
-        /// The name of the site the radius profile is associated with.
+        /// The name of the site the RADIUS profile is associated with.
         /// </summary>
         [Input("site")]
         public string? Site { get; set; }
@@ -55,7 +55,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The name of the site the radius profile is associated with.
+        /// The name of the site the RADIUS profile is associated with.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
@@ -79,7 +79,7 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string? Name;
         /// <summary>
-        /// The name of the site the radius profile is associated with.
+        /// The name of the site the RADIUS profile is associated with.
         /// </summary>
         public readonly string Site;
 

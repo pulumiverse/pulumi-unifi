@@ -20,12 +20,16 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "unifi:index/account:Account":
+		r = &Account{}
 	case "unifi:index/device:Device":
 		r = &Device{}
 	case "unifi:index/dynamicDNS:DynamicDNS":
 		r = &DynamicDNS{}
 	case "unifi:index/network:Network":
 		r = &Network{}
+	case "unifi:index/radiusProfile:RadiusProfile":
+		r = &RadiusProfile{}
 	case "unifi:index/site:Site":
 		r = &Site{}
 	case "unifi:index/staticRoute:StaticRoute":
@@ -62,6 +66,11 @@ func init() {
 	version, _ := PkgVersion()
 	pulumi.RegisterResourceModule(
 		"unifi",
+		"index/account",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
 		"index/device",
 		&module{version},
 	)
@@ -73,6 +82,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"unifi",
 		"index/network",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"index/radiusProfile",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

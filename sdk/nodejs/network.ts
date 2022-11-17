@@ -91,7 +91,7 @@ export class Network extends pulumi.CustomResource {
      */
     public readonly dhcpEnabled!: pulumi.Output<boolean | undefined>;
     /**
-     * Specifies the lease time for DHCP addresses. Defaults to `86400`.
+     * Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
      */
     public readonly dhcpLease!: pulumi.Output<number | undefined>;
     /**
@@ -106,6 +106,30 @@ export class Network extends pulumi.CustomResource {
      * The IPv4 address where the DHCP range of addresses stops.
      */
     public readonly dhcpStop!: pulumi.Output<string | undefined>;
+    /**
+     * Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+     */
+    public readonly dhcpV6Dns!: pulumi.Output<string[] | undefined>;
+    /**
+     * Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+     */
+    public readonly dhcpV6DnsAuto!: pulumi.Output<boolean | undefined>;
+    /**
+     * Enable stateful DHCPv6 for static configuration.
+     */
+    public readonly dhcpV6Enabled!: pulumi.Output<boolean | undefined>;
+    /**
+     * Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+     */
+    public readonly dhcpV6Lease!: pulumi.Output<number | undefined>;
+    /**
+     * Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     */
+    public readonly dhcpV6Start!: pulumi.Output<string | undefined>;
+    /**
+     * End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     */
+    public readonly dhcpV6Stop!: pulumi.Output<string | undefined>;
     /**
      * Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
      */
@@ -127,11 +151,19 @@ export class Network extends pulumi.CustomResource {
      */
     public readonly igmpSnooping!: pulumi.Output<boolean | undefined>;
     /**
-     * Specifies which type of IPv6 connection to use. Defaults to `none`.
+     * Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+     */
+    public readonly internetAccessEnabled!: pulumi.Output<boolean | undefined>;
+    /**
+     * Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+     */
+    public readonly intraNetworkAccessEnabled!: pulumi.Output<boolean | undefined>;
+    /**
+     * Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
      */
     public readonly ipv6InterfaceType!: pulumi.Output<string | undefined>;
     /**
-     * Specifies which WAN interface to use for IPv6 PD.
+     * Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      */
     public readonly ipv6PdInterface!: pulumi.Output<string | undefined>;
     /**
@@ -139,11 +171,31 @@ export class Network extends pulumi.CustomResource {
      */
     public readonly ipv6PdPrefixid!: pulumi.Output<string | undefined>;
     /**
+     * Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     */
+    public readonly ipv6PdStart!: pulumi.Output<string | undefined>;
+    /**
+     * End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     */
+    public readonly ipv6PdStop!: pulumi.Output<string | undefined>;
+    /**
      * Specifies whether to enable router advertisements or not.
      */
     public readonly ipv6RaEnable!: pulumi.Output<boolean | undefined>;
     /**
-     * Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+     * Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+     */
+    public readonly ipv6RaPreferredLifetime!: pulumi.Output<number | undefined>;
+    /**
+     * IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     */
+    public readonly ipv6RaPriority!: pulumi.Output<string | undefined>;
+    /**
+     * Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+     */
+    public readonly ipv6RaValidLifetime!: pulumi.Output<number | undefined>;
+    /**
+     * Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
      */
     public readonly ipv6StaticSubnet!: pulumi.Output<string | undefined>;
     /**
@@ -171,6 +223,10 @@ export class Network extends pulumi.CustomResource {
      */
     public readonly vlanId!: pulumi.Output<number | undefined>;
     /**
+     * Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+     */
+    public readonly wanDhcpV6PdSize!: pulumi.Output<number | undefined>;
+    /**
      * DNS servers IPs of the WAN.
      */
     public readonly wanDns!: pulumi.Output<string[] | undefined>;
@@ -183,9 +239,17 @@ export class Network extends pulumi.CustomResource {
      */
     public readonly wanGateway!: pulumi.Output<string | undefined>;
     /**
+     * The IPv6 gateway of the WAN.
+     */
+    public readonly wanGatewayV6!: pulumi.Output<string | undefined>;
+    /**
      * The IPv4 address of the WAN.
      */
     public readonly wanIp!: pulumi.Output<string | undefined>;
+    /**
+     * The IPv6 address of the WAN.
+     */
+    public readonly wanIpv6!: pulumi.Output<string | undefined>;
     /**
      * The IPv4 netmask of the WAN.
      */
@@ -195,9 +259,17 @@ export class Network extends pulumi.CustomResource {
      */
     public readonly wanNetworkgroup!: pulumi.Output<string | undefined>;
     /**
+     * The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     */
+    public readonly wanPrefixlen!: pulumi.Output<number | undefined>;
+    /**
      * Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
      */
     public readonly wanType!: pulumi.Output<string | undefined>;
+    /**
+     * Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     */
+    public readonly wanTypeV6!: pulumi.Output<string | undefined>;
     /**
      * Specifies the IPV4 WAN username.
      */
@@ -226,15 +298,28 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["dhcpRelayEnabled"] = state ? state.dhcpRelayEnabled : undefined;
             resourceInputs["dhcpStart"] = state ? state.dhcpStart : undefined;
             resourceInputs["dhcpStop"] = state ? state.dhcpStop : undefined;
+            resourceInputs["dhcpV6Dns"] = state ? state.dhcpV6Dns : undefined;
+            resourceInputs["dhcpV6DnsAuto"] = state ? state.dhcpV6DnsAuto : undefined;
+            resourceInputs["dhcpV6Enabled"] = state ? state.dhcpV6Enabled : undefined;
+            resourceInputs["dhcpV6Lease"] = state ? state.dhcpV6Lease : undefined;
+            resourceInputs["dhcpV6Start"] = state ? state.dhcpV6Start : undefined;
+            resourceInputs["dhcpV6Stop"] = state ? state.dhcpV6Stop : undefined;
             resourceInputs["dhcpdBootEnabled"] = state ? state.dhcpdBootEnabled : undefined;
             resourceInputs["dhcpdBootFilename"] = state ? state.dhcpdBootFilename : undefined;
             resourceInputs["dhcpdBootServer"] = state ? state.dhcpdBootServer : undefined;
             resourceInputs["domainName"] = state ? state.domainName : undefined;
             resourceInputs["igmpSnooping"] = state ? state.igmpSnooping : undefined;
+            resourceInputs["internetAccessEnabled"] = state ? state.internetAccessEnabled : undefined;
+            resourceInputs["intraNetworkAccessEnabled"] = state ? state.intraNetworkAccessEnabled : undefined;
             resourceInputs["ipv6InterfaceType"] = state ? state.ipv6InterfaceType : undefined;
             resourceInputs["ipv6PdInterface"] = state ? state.ipv6PdInterface : undefined;
             resourceInputs["ipv6PdPrefixid"] = state ? state.ipv6PdPrefixid : undefined;
+            resourceInputs["ipv6PdStart"] = state ? state.ipv6PdStart : undefined;
+            resourceInputs["ipv6PdStop"] = state ? state.ipv6PdStop : undefined;
             resourceInputs["ipv6RaEnable"] = state ? state.ipv6RaEnable : undefined;
+            resourceInputs["ipv6RaPreferredLifetime"] = state ? state.ipv6RaPreferredLifetime : undefined;
+            resourceInputs["ipv6RaPriority"] = state ? state.ipv6RaPriority : undefined;
+            resourceInputs["ipv6RaValidLifetime"] = state ? state.ipv6RaValidLifetime : undefined;
             resourceInputs["ipv6StaticSubnet"] = state ? state.ipv6StaticSubnet : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["networkGroup"] = state ? state.networkGroup : undefined;
@@ -242,13 +327,18 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["site"] = state ? state.site : undefined;
             resourceInputs["subnet"] = state ? state.subnet : undefined;
             resourceInputs["vlanId"] = state ? state.vlanId : undefined;
+            resourceInputs["wanDhcpV6PdSize"] = state ? state.wanDhcpV6PdSize : undefined;
             resourceInputs["wanDns"] = state ? state.wanDns : undefined;
             resourceInputs["wanEgressQos"] = state ? state.wanEgressQos : undefined;
             resourceInputs["wanGateway"] = state ? state.wanGateway : undefined;
+            resourceInputs["wanGatewayV6"] = state ? state.wanGatewayV6 : undefined;
             resourceInputs["wanIp"] = state ? state.wanIp : undefined;
+            resourceInputs["wanIpv6"] = state ? state.wanIpv6 : undefined;
             resourceInputs["wanNetmask"] = state ? state.wanNetmask : undefined;
             resourceInputs["wanNetworkgroup"] = state ? state.wanNetworkgroup : undefined;
+            resourceInputs["wanPrefixlen"] = state ? state.wanPrefixlen : undefined;
             resourceInputs["wanType"] = state ? state.wanType : undefined;
+            resourceInputs["wanTypeV6"] = state ? state.wanTypeV6 : undefined;
             resourceInputs["wanUsername"] = state ? state.wanUsername : undefined;
             resourceInputs["xWanPassword"] = state ? state.xWanPassword : undefined;
         } else {
@@ -262,15 +352,28 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["dhcpRelayEnabled"] = args ? args.dhcpRelayEnabled : undefined;
             resourceInputs["dhcpStart"] = args ? args.dhcpStart : undefined;
             resourceInputs["dhcpStop"] = args ? args.dhcpStop : undefined;
+            resourceInputs["dhcpV6Dns"] = args ? args.dhcpV6Dns : undefined;
+            resourceInputs["dhcpV6DnsAuto"] = args ? args.dhcpV6DnsAuto : undefined;
+            resourceInputs["dhcpV6Enabled"] = args ? args.dhcpV6Enabled : undefined;
+            resourceInputs["dhcpV6Lease"] = args ? args.dhcpV6Lease : undefined;
+            resourceInputs["dhcpV6Start"] = args ? args.dhcpV6Start : undefined;
+            resourceInputs["dhcpV6Stop"] = args ? args.dhcpV6Stop : undefined;
             resourceInputs["dhcpdBootEnabled"] = args ? args.dhcpdBootEnabled : undefined;
             resourceInputs["dhcpdBootFilename"] = args ? args.dhcpdBootFilename : undefined;
             resourceInputs["dhcpdBootServer"] = args ? args.dhcpdBootServer : undefined;
             resourceInputs["domainName"] = args ? args.domainName : undefined;
             resourceInputs["igmpSnooping"] = args ? args.igmpSnooping : undefined;
+            resourceInputs["internetAccessEnabled"] = args ? args.internetAccessEnabled : undefined;
+            resourceInputs["intraNetworkAccessEnabled"] = args ? args.intraNetworkAccessEnabled : undefined;
             resourceInputs["ipv6InterfaceType"] = args ? args.ipv6InterfaceType : undefined;
             resourceInputs["ipv6PdInterface"] = args ? args.ipv6PdInterface : undefined;
             resourceInputs["ipv6PdPrefixid"] = args ? args.ipv6PdPrefixid : undefined;
+            resourceInputs["ipv6PdStart"] = args ? args.ipv6PdStart : undefined;
+            resourceInputs["ipv6PdStop"] = args ? args.ipv6PdStop : undefined;
             resourceInputs["ipv6RaEnable"] = args ? args.ipv6RaEnable : undefined;
+            resourceInputs["ipv6RaPreferredLifetime"] = args ? args.ipv6RaPreferredLifetime : undefined;
+            resourceInputs["ipv6RaPriority"] = args ? args.ipv6RaPriority : undefined;
+            resourceInputs["ipv6RaValidLifetime"] = args ? args.ipv6RaValidLifetime : undefined;
             resourceInputs["ipv6StaticSubnet"] = args ? args.ipv6StaticSubnet : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["networkGroup"] = args ? args.networkGroup : undefined;
@@ -278,13 +381,18 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["site"] = args ? args.site : undefined;
             resourceInputs["subnet"] = args ? args.subnet : undefined;
             resourceInputs["vlanId"] = args ? args.vlanId : undefined;
+            resourceInputs["wanDhcpV6PdSize"] = args ? args.wanDhcpV6PdSize : undefined;
             resourceInputs["wanDns"] = args ? args.wanDns : undefined;
             resourceInputs["wanEgressQos"] = args ? args.wanEgressQos : undefined;
             resourceInputs["wanGateway"] = args ? args.wanGateway : undefined;
+            resourceInputs["wanGatewayV6"] = args ? args.wanGatewayV6 : undefined;
             resourceInputs["wanIp"] = args ? args.wanIp : undefined;
+            resourceInputs["wanIpv6"] = args ? args.wanIpv6 : undefined;
             resourceInputs["wanNetmask"] = args ? args.wanNetmask : undefined;
             resourceInputs["wanNetworkgroup"] = args ? args.wanNetworkgroup : undefined;
+            resourceInputs["wanPrefixlen"] = args ? args.wanPrefixlen : undefined;
             resourceInputs["wanType"] = args ? args.wanType : undefined;
+            resourceInputs["wanTypeV6"] = args ? args.wanTypeV6 : undefined;
             resourceInputs["wanUsername"] = args ? args.wanUsername : undefined;
             resourceInputs["xWanPassword"] = args ? args.xWanPassword : undefined;
         }
@@ -306,7 +414,7 @@ export interface NetworkState {
      */
     dhcpEnabled?: pulumi.Input<boolean>;
     /**
-     * Specifies the lease time for DHCP addresses. Defaults to `86400`.
+     * Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
      */
     dhcpLease?: pulumi.Input<number>;
     /**
@@ -321,6 +429,30 @@ export interface NetworkState {
      * The IPv4 address where the DHCP range of addresses stops.
      */
     dhcpStop?: pulumi.Input<string>;
+    /**
+     * Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+     */
+    dhcpV6Dns?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+     */
+    dhcpV6DnsAuto?: pulumi.Input<boolean>;
+    /**
+     * Enable stateful DHCPv6 for static configuration.
+     */
+    dhcpV6Enabled?: pulumi.Input<boolean>;
+    /**
+     * Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+     */
+    dhcpV6Lease?: pulumi.Input<number>;
+    /**
+     * Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     */
+    dhcpV6Start?: pulumi.Input<string>;
+    /**
+     * End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     */
+    dhcpV6Stop?: pulumi.Input<string>;
     /**
      * Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
      */
@@ -342,11 +474,19 @@ export interface NetworkState {
      */
     igmpSnooping?: pulumi.Input<boolean>;
     /**
-     * Specifies which type of IPv6 connection to use. Defaults to `none`.
+     * Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+     */
+    internetAccessEnabled?: pulumi.Input<boolean>;
+    /**
+     * Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+     */
+    intraNetworkAccessEnabled?: pulumi.Input<boolean>;
+    /**
+     * Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
      */
     ipv6InterfaceType?: pulumi.Input<string>;
     /**
-     * Specifies which WAN interface to use for IPv6 PD.
+     * Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      */
     ipv6PdInterface?: pulumi.Input<string>;
     /**
@@ -354,11 +494,31 @@ export interface NetworkState {
      */
     ipv6PdPrefixid?: pulumi.Input<string>;
     /**
+     * Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     */
+    ipv6PdStart?: pulumi.Input<string>;
+    /**
+     * End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     */
+    ipv6PdStop?: pulumi.Input<string>;
+    /**
      * Specifies whether to enable router advertisements or not.
      */
     ipv6RaEnable?: pulumi.Input<boolean>;
     /**
-     * Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+     * Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+     */
+    ipv6RaPreferredLifetime?: pulumi.Input<number>;
+    /**
+     * IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     */
+    ipv6RaPriority?: pulumi.Input<string>;
+    /**
+     * Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+     */
+    ipv6RaValidLifetime?: pulumi.Input<number>;
+    /**
+     * Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
      */
     ipv6StaticSubnet?: pulumi.Input<string>;
     /**
@@ -386,6 +546,10 @@ export interface NetworkState {
      */
     vlanId?: pulumi.Input<number>;
     /**
+     * Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+     */
+    wanDhcpV6PdSize?: pulumi.Input<number>;
+    /**
      * DNS servers IPs of the WAN.
      */
     wanDns?: pulumi.Input<pulumi.Input<string>[]>;
@@ -398,9 +562,17 @@ export interface NetworkState {
      */
     wanGateway?: pulumi.Input<string>;
     /**
+     * The IPv6 gateway of the WAN.
+     */
+    wanGatewayV6?: pulumi.Input<string>;
+    /**
      * The IPv4 address of the WAN.
      */
     wanIp?: pulumi.Input<string>;
+    /**
+     * The IPv6 address of the WAN.
+     */
+    wanIpv6?: pulumi.Input<string>;
     /**
      * The IPv4 netmask of the WAN.
      */
@@ -410,9 +582,17 @@ export interface NetworkState {
      */
     wanNetworkgroup?: pulumi.Input<string>;
     /**
+     * The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     */
+    wanPrefixlen?: pulumi.Input<number>;
+    /**
      * Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
      */
     wanType?: pulumi.Input<string>;
+    /**
+     * Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     */
+    wanTypeV6?: pulumi.Input<string>;
     /**
      * Specifies the IPV4 WAN username.
      */
@@ -436,7 +616,7 @@ export interface NetworkArgs {
      */
     dhcpEnabled?: pulumi.Input<boolean>;
     /**
-     * Specifies the lease time for DHCP addresses. Defaults to `86400`.
+     * Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
      */
     dhcpLease?: pulumi.Input<number>;
     /**
@@ -451,6 +631,30 @@ export interface NetworkArgs {
      * The IPv4 address where the DHCP range of addresses stops.
      */
     dhcpStop?: pulumi.Input<string>;
+    /**
+     * Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcpV6DnsAuto` is set to `false`.
+     */
+    dhcpV6Dns?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Specifies DNS source to propagate. If set `false` the entries in `dhcpV6Dns` are used, the upstream entries otherwise Defaults to `true`.
+     */
+    dhcpV6DnsAuto?: pulumi.Input<boolean>;
+    /**
+     * Enable stateful DHCPv6 for static configuration.
+     */
+    dhcpV6Enabled?: pulumi.Input<boolean>;
+    /**
+     * Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+     */
+    dhcpV6Lease?: pulumi.Input<number>;
+    /**
+     * Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     */
+    dhcpV6Start?: pulumi.Input<string>;
+    /**
+     * End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     */
+    dhcpV6Stop?: pulumi.Input<string>;
     /**
      * Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
      */
@@ -472,11 +676,19 @@ export interface NetworkArgs {
      */
     igmpSnooping?: pulumi.Input<boolean>;
     /**
-     * Specifies which type of IPv6 connection to use. Defaults to `none`.
+     * Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+     */
+    internetAccessEnabled?: pulumi.Input<boolean>;
+    /**
+     * Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+     */
+    intraNetworkAccessEnabled?: pulumi.Input<boolean>;
+    /**
+     * Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
      */
     ipv6InterfaceType?: pulumi.Input<string>;
     /**
-     * Specifies which WAN interface to use for IPv6 PD.
+     * Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      */
     ipv6PdInterface?: pulumi.Input<string>;
     /**
@@ -484,11 +696,31 @@ export interface NetworkArgs {
      */
     ipv6PdPrefixid?: pulumi.Input<string>;
     /**
+     * Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     */
+    ipv6PdStart?: pulumi.Input<string>;
+    /**
+     * End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     */
+    ipv6PdStop?: pulumi.Input<string>;
+    /**
      * Specifies whether to enable router advertisements or not.
      */
     ipv6RaEnable?: pulumi.Input<boolean>;
     /**
-     * Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+     * Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6RaValidLifetime` Defaults to `14400`.
+     */
+    ipv6RaPreferredLifetime?: pulumi.Input<number>;
+    /**
+     * IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     */
+    ipv6RaPriority?: pulumi.Input<string>;
+    /**
+     * Total lifetime in which the address can be used. Must be equal to or greater than `ipv6RaPreferredLifetime`. Defaults to `86400`.
+     */
+    ipv6RaValidLifetime?: pulumi.Input<number>;
+    /**
+     * Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
      */
     ipv6StaticSubnet?: pulumi.Input<string>;
     /**
@@ -516,6 +748,10 @@ export interface NetworkArgs {
      */
     vlanId?: pulumi.Input<number>;
     /**
+     * Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+     */
+    wanDhcpV6PdSize?: pulumi.Input<number>;
+    /**
      * DNS servers IPs of the WAN.
      */
     wanDns?: pulumi.Input<pulumi.Input<string>[]>;
@@ -528,9 +764,17 @@ export interface NetworkArgs {
      */
     wanGateway?: pulumi.Input<string>;
     /**
+     * The IPv6 gateway of the WAN.
+     */
+    wanGatewayV6?: pulumi.Input<string>;
+    /**
      * The IPv4 address of the WAN.
      */
     wanIp?: pulumi.Input<string>;
+    /**
+     * The IPv6 address of the WAN.
+     */
+    wanIpv6?: pulumi.Input<string>;
     /**
      * The IPv4 netmask of the WAN.
      */
@@ -540,9 +784,17 @@ export interface NetworkArgs {
      */
     wanNetworkgroup?: pulumi.Input<string>;
     /**
+     * The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     */
+    wanPrefixlen?: pulumi.Input<number>;
+    /**
      * Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
      */
     wanType?: pulumi.Input<string>;
+    /**
+     * Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     */
+    wanTypeV6?: pulumi.Input<string>;
     /**
      * Specifies the IPV4 WAN username.
      */

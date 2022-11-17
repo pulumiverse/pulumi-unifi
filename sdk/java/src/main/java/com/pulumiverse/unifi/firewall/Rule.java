@@ -96,6 +96,20 @@ public class Rule extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.dstAddress);
     }
     /**
+     * The IPv6 destination address of the firewall rule.
+     * 
+     */
+    @Export(name="dstAddressIpv6", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> dstAddressIpv6;
+
+    /**
+     * @return The IPv6 destination address of the firewall rule.
+     * 
+     */
+    public Output<Optional<String>> dstAddressIpv6() {
+        return Codegen.optional(this.dstAddressIpv6);
+    }
+    /**
      * The destination firewall group IDs of the firewall rule.
      * 
      */
@@ -166,6 +180,20 @@ public class Rule extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.icmpTypename);
     }
     /**
+     * ICMPv6 type name.
+     * 
+     */
+    @Export(name="icmpV6Typename", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> icmpV6Typename;
+
+    /**
+     * @return ICMPv6 type name.
+     * 
+     */
+    public Output<Optional<String>> icmpV6Typename() {
+        return Codegen.optional(this.icmpV6Typename);
+    }
+    /**
      * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
      * 
      */
@@ -212,14 +240,28 @@ public class Rule extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="protocol", refs={String.class}, tree="[0]")
-    private Output<String> protocol;
+    private Output</* @Nullable */ String> protocol;
 
     /**
      * @return The protocol of the rule.
      * 
      */
-    public Output<String> protocol() {
-        return this.protocol;
+    public Output<Optional<String>> protocol() {
+        return Codegen.optional(this.protocol);
+    }
+    /**
+     * The IPv6 protocol of the rule.
+     * 
+     */
+    @Export(name="protocolV6", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> protocolV6;
+
+    /**
+     * @return The IPv6 protocol of the rule.
+     * 
+     */
+    public Output<Optional<String>> protocolV6() {
+        return Codegen.optional(this.protocolV6);
     }
     /**
      * The index of the rule. Must be &gt;= 2000 &lt; 3000 or &gt;= 4000 &lt; 5000.
@@ -276,6 +318,20 @@ public class Rule extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> srcAddress() {
         return Codegen.optional(this.srcAddress);
+    }
+    /**
+     * The IPv6 source address for the firewall rule.
+     * 
+     */
+    @Export(name="srcAddressIpv6", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> srcAddressIpv6;
+
+    /**
+     * @return The IPv6 source address for the firewall rule.
+     * 
+     */
+    public Output<Optional<String>> srcAddressIpv6() {
+        return Codegen.optional(this.srcAddressIpv6);
     }
     /**
      * The source firewall group IDs for the firewall rule.

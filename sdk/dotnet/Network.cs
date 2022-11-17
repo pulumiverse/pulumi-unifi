@@ -84,7 +84,7 @@ namespace Pulumiverse.Unifi
         public Output<bool?> DhcpEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+        /// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
         /// </summary>
         [Output("dhcpLease")]
         public Output<int?> DhcpLease { get; private set; } = null!;
@@ -106,6 +106,42 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Output("dhcpStop")]
         public Output<string?> DhcpStop { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        /// </summary>
+        [Output("dhcpV6Dns")]
+        public Output<ImmutableArray<string>> DhcpV6Dns { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+        /// </summary>
+        [Output("dhcpV6DnsAuto")]
+        public Output<bool?> DhcpV6DnsAuto { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable stateful DHCPv6 for static configuration.
+        /// </summary>
+        [Output("dhcpV6Enabled")]
+        public Output<bool?> DhcpV6Enabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        /// </summary>
+        [Output("dhcpV6Lease")]
+        public Output<int?> DhcpV6Lease { get; private set; } = null!;
+
+        /// <summary>
+        /// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// </summary>
+        [Output("dhcpV6Start")]
+        public Output<string?> DhcpV6Start { get; private set; } = null!;
+
+        /// <summary>
+        /// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// </summary>
+        [Output("dhcpV6Stop")]
+        public Output<string?> DhcpV6Stop { get; private set; } = null!;
 
         /// <summary>
         /// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
@@ -138,13 +174,25 @@ namespace Pulumiverse.Unifi
         public Output<bool?> IgmpSnooping { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies which type of IPv6 connection to use. Defaults to `none`.
+        /// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+        /// </summary>
+        [Output("internetAccessEnabled")]
+        public Output<bool?> InternetAccessEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+        /// </summary>
+        [Output("intraNetworkAccessEnabled")]
+        public Output<bool?> IntraNetworkAccessEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
         /// </summary>
         [Output("ipv6InterfaceType")]
         public Output<string?> Ipv6InterfaceType { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies which WAN interface to use for IPv6 PD.
+        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
         /// </summary>
         [Output("ipv6PdInterface")]
         public Output<string?> Ipv6PdInterface { get; private set; } = null!;
@@ -156,13 +204,43 @@ namespace Pulumiverse.Unifi
         public Output<string?> Ipv6PdPrefixid { get; private set; } = null!;
 
         /// <summary>
+        /// Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// </summary>
+        [Output("ipv6PdStart")]
+        public Output<string?> Ipv6PdStart { get; private set; } = null!;
+
+        /// <summary>
+        /// End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// </summary>
+        [Output("ipv6PdStop")]
+        public Output<string?> Ipv6PdStop { get; private set; } = null!;
+
+        /// <summary>
         /// Specifies whether to enable router advertisements or not.
         /// </summary>
         [Output("ipv6RaEnable")]
         public Output<bool?> Ipv6RaEnable { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+        /// </summary>
+        [Output("ipv6RaPreferredLifetime")]
+        public Output<int?> Ipv6RaPreferredLifetime { get; private set; } = null!;
+
+        /// <summary>
+        /// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        /// </summary>
+        [Output("ipv6RaPriority")]
+        public Output<string?> Ipv6RaPriority { get; private set; } = null!;
+
+        /// <summary>
+        /// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+        /// </summary>
+        [Output("ipv6RaValidLifetime")]
+        public Output<int?> Ipv6RaValidLifetime { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
         /// </summary>
         [Output("ipv6StaticSubnet")]
         public Output<string?> Ipv6StaticSubnet { get; private set; } = null!;
@@ -204,6 +282,12 @@ namespace Pulumiverse.Unifi
         public Output<int?> VlanId { get; private set; } = null!;
 
         /// <summary>
+        /// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// </summary>
+        [Output("wanDhcpV6PdSize")]
+        public Output<int?> WanDhcpV6PdSize { get; private set; } = null!;
+
+        /// <summary>
         /// DNS servers IPs of the WAN.
         /// </summary>
         [Output("wanDns")]
@@ -222,10 +306,22 @@ namespace Pulumiverse.Unifi
         public Output<string?> WanGateway { get; private set; } = null!;
 
         /// <summary>
+        /// The IPv6 gateway of the WAN.
+        /// </summary>
+        [Output("wanGatewayV6")]
+        public Output<string?> WanGatewayV6 { get; private set; } = null!;
+
+        /// <summary>
         /// The IPv4 address of the WAN.
         /// </summary>
         [Output("wanIp")]
         public Output<string?> WanIp { get; private set; } = null!;
+
+        /// <summary>
+        /// The IPv6 address of the WAN.
+        /// </summary>
+        [Output("wanIpv6")]
+        public Output<string?> WanIpv6 { get; private set; } = null!;
 
         /// <summary>
         /// The IPv4 netmask of the WAN.
@@ -240,10 +336,22 @@ namespace Pulumiverse.Unifi
         public Output<string?> WanNetworkgroup { get; private set; } = null!;
 
         /// <summary>
+        /// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        /// </summary>
+        [Output("wanPrefixlen")]
+        public Output<int?> WanPrefixlen { get; private set; } = null!;
+
+        /// <summary>
         /// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
         /// </summary>
         [Output("wanType")]
         public Output<string?> WanType { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        /// </summary>
+        [Output("wanTypeV6")]
+        public Output<string?> WanTypeV6 { get; private set; } = null!;
 
         /// <summary>
         /// Specifies the IPV4 WAN username.
@@ -323,7 +431,7 @@ namespace Pulumiverse.Unifi
         public Input<bool>? DhcpEnabled { get; set; }
 
         /// <summary>
-        /// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+        /// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
         /// </summary>
         [Input("dhcpLease")]
         public Input<int>? DhcpLease { get; set; }
@@ -345,6 +453,48 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("dhcpStop")]
         public Input<string>? DhcpStop { get; set; }
+
+        [Input("dhcpV6Dns")]
+        private InputList<string>? _dhcpV6Dns;
+
+        /// <summary>
+        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        /// </summary>
+        public InputList<string> DhcpV6Dns
+        {
+            get => _dhcpV6Dns ?? (_dhcpV6Dns = new InputList<string>());
+            set => _dhcpV6Dns = value;
+        }
+
+        /// <summary>
+        /// Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+        /// </summary>
+        [Input("dhcpV6DnsAuto")]
+        public Input<bool>? DhcpV6DnsAuto { get; set; }
+
+        /// <summary>
+        /// Enable stateful DHCPv6 for static configuration.
+        /// </summary>
+        [Input("dhcpV6Enabled")]
+        public Input<bool>? DhcpV6Enabled { get; set; }
+
+        /// <summary>
+        /// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        /// </summary>
+        [Input("dhcpV6Lease")]
+        public Input<int>? DhcpV6Lease { get; set; }
+
+        /// <summary>
+        /// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// </summary>
+        [Input("dhcpV6Start")]
+        public Input<string>? DhcpV6Start { get; set; }
+
+        /// <summary>
+        /// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// </summary>
+        [Input("dhcpV6Stop")]
+        public Input<string>? DhcpV6Stop { get; set; }
 
         /// <summary>
         /// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
@@ -377,13 +527,25 @@ namespace Pulumiverse.Unifi
         public Input<bool>? IgmpSnooping { get; set; }
 
         /// <summary>
-        /// Specifies which type of IPv6 connection to use. Defaults to `none`.
+        /// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+        /// </summary>
+        [Input("internetAccessEnabled")]
+        public Input<bool>? InternetAccessEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+        /// </summary>
+        [Input("intraNetworkAccessEnabled")]
+        public Input<bool>? IntraNetworkAccessEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
         /// </summary>
         [Input("ipv6InterfaceType")]
         public Input<string>? Ipv6InterfaceType { get; set; }
 
         /// <summary>
-        /// Specifies which WAN interface to use for IPv6 PD.
+        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
         /// </summary>
         [Input("ipv6PdInterface")]
         public Input<string>? Ipv6PdInterface { get; set; }
@@ -395,13 +557,43 @@ namespace Pulumiverse.Unifi
         public Input<string>? Ipv6PdPrefixid { get; set; }
 
         /// <summary>
+        /// Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// </summary>
+        [Input("ipv6PdStart")]
+        public Input<string>? Ipv6PdStart { get; set; }
+
+        /// <summary>
+        /// End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// </summary>
+        [Input("ipv6PdStop")]
+        public Input<string>? Ipv6PdStop { get; set; }
+
+        /// <summary>
         /// Specifies whether to enable router advertisements or not.
         /// </summary>
         [Input("ipv6RaEnable")]
         public Input<bool>? Ipv6RaEnable { get; set; }
 
         /// <summary>
-        /// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+        /// </summary>
+        [Input("ipv6RaPreferredLifetime")]
+        public Input<int>? Ipv6RaPreferredLifetime { get; set; }
+
+        /// <summary>
+        /// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        /// </summary>
+        [Input("ipv6RaPriority")]
+        public Input<string>? Ipv6RaPriority { get; set; }
+
+        /// <summary>
+        /// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+        /// </summary>
+        [Input("ipv6RaValidLifetime")]
+        public Input<int>? Ipv6RaValidLifetime { get; set; }
+
+        /// <summary>
+        /// Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
         /// </summary>
         [Input("ipv6StaticSubnet")]
         public Input<string>? Ipv6StaticSubnet { get; set; }
@@ -442,6 +634,12 @@ namespace Pulumiverse.Unifi
         [Input("vlanId")]
         public Input<int>? VlanId { get; set; }
 
+        /// <summary>
+        /// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// </summary>
+        [Input("wanDhcpV6PdSize")]
+        public Input<int>? WanDhcpV6PdSize { get; set; }
+
         [Input("wanDns")]
         private InputList<string>? _wanDns;
 
@@ -467,10 +665,22 @@ namespace Pulumiverse.Unifi
         public Input<string>? WanGateway { get; set; }
 
         /// <summary>
+        /// The IPv6 gateway of the WAN.
+        /// </summary>
+        [Input("wanGatewayV6")]
+        public Input<string>? WanGatewayV6 { get; set; }
+
+        /// <summary>
         /// The IPv4 address of the WAN.
         /// </summary>
         [Input("wanIp")]
         public Input<string>? WanIp { get; set; }
+
+        /// <summary>
+        /// The IPv6 address of the WAN.
+        /// </summary>
+        [Input("wanIpv6")]
+        public Input<string>? WanIpv6 { get; set; }
 
         /// <summary>
         /// The IPv4 netmask of the WAN.
@@ -485,10 +695,22 @@ namespace Pulumiverse.Unifi
         public Input<string>? WanNetworkgroup { get; set; }
 
         /// <summary>
+        /// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        /// </summary>
+        [Input("wanPrefixlen")]
+        public Input<int>? WanPrefixlen { get; set; }
+
+        /// <summary>
         /// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
         /// </summary>
         [Input("wanType")]
         public Input<string>? WanType { get; set; }
+
+        /// <summary>
+        /// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        /// </summary>
+        [Input("wanTypeV6")]
+        public Input<string>? WanTypeV6 { get; set; }
 
         /// <summary>
         /// Specifies the IPV4 WAN username.
@@ -529,7 +751,7 @@ namespace Pulumiverse.Unifi
         public Input<bool>? DhcpEnabled { get; set; }
 
         /// <summary>
-        /// Specifies the lease time for DHCP addresses. Defaults to `86400`.
+        /// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
         /// </summary>
         [Input("dhcpLease")]
         public Input<int>? DhcpLease { get; set; }
@@ -551,6 +773,48 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("dhcpStop")]
         public Input<string>? DhcpStop { get; set; }
+
+        [Input("dhcpV6Dns")]
+        private InputList<string>? _dhcpV6Dns;
+
+        /// <summary>
+        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        /// </summary>
+        public InputList<string> DhcpV6Dns
+        {
+            get => _dhcpV6Dns ?? (_dhcpV6Dns = new InputList<string>());
+            set => _dhcpV6Dns = value;
+        }
+
+        /// <summary>
+        /// Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+        /// </summary>
+        [Input("dhcpV6DnsAuto")]
+        public Input<bool>? DhcpV6DnsAuto { get; set; }
+
+        /// <summary>
+        /// Enable stateful DHCPv6 for static configuration.
+        /// </summary>
+        [Input("dhcpV6Enabled")]
+        public Input<bool>? DhcpV6Enabled { get; set; }
+
+        /// <summary>
+        /// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        /// </summary>
+        [Input("dhcpV6Lease")]
+        public Input<int>? DhcpV6Lease { get; set; }
+
+        /// <summary>
+        /// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// </summary>
+        [Input("dhcpV6Start")]
+        public Input<string>? DhcpV6Start { get; set; }
+
+        /// <summary>
+        /// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// </summary>
+        [Input("dhcpV6Stop")]
+        public Input<string>? DhcpV6Stop { get; set; }
 
         /// <summary>
         /// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
@@ -583,13 +847,25 @@ namespace Pulumiverse.Unifi
         public Input<bool>? IgmpSnooping { get; set; }
 
         /// <summary>
-        /// Specifies which type of IPv6 connection to use. Defaults to `none`.
+        /// Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+        /// </summary>
+        [Input("internetAccessEnabled")]
+        public Input<bool>? InternetAccessEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+        /// </summary>
+        [Input("intraNetworkAccessEnabled")]
+        public Input<bool>? IntraNetworkAccessEnabled { get; set; }
+
+        /// <summary>
+        /// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
         /// </summary>
         [Input("ipv6InterfaceType")]
         public Input<string>? Ipv6InterfaceType { get; set; }
 
         /// <summary>
-        /// Specifies which WAN interface to use for IPv6 PD.
+        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
         /// </summary>
         [Input("ipv6PdInterface")]
         public Input<string>? Ipv6PdInterface { get; set; }
@@ -601,13 +877,43 @@ namespace Pulumiverse.Unifi
         public Input<string>? Ipv6PdPrefixid { get; set; }
 
         /// <summary>
+        /// Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// </summary>
+        [Input("ipv6PdStart")]
+        public Input<string>? Ipv6PdStart { get; set; }
+
+        /// <summary>
+        /// End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// </summary>
+        [Input("ipv6PdStop")]
+        public Input<string>? Ipv6PdStop { get; set; }
+
+        /// <summary>
         /// Specifies whether to enable router advertisements or not.
         /// </summary>
         [Input("ipv6RaEnable")]
         public Input<bool>? Ipv6RaEnable { get; set; }
 
         /// <summary>
-        /// Specifies the static IPv6 subnet when ipv6*interface*type is 'static'.
+        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+        /// </summary>
+        [Input("ipv6RaPreferredLifetime")]
+        public Input<int>? Ipv6RaPreferredLifetime { get; set; }
+
+        /// <summary>
+        /// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        /// </summary>
+        [Input("ipv6RaPriority")]
+        public Input<string>? Ipv6RaPriority { get; set; }
+
+        /// <summary>
+        /// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+        /// </summary>
+        [Input("ipv6RaValidLifetime")]
+        public Input<int>? Ipv6RaValidLifetime { get; set; }
+
+        /// <summary>
+        /// Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
         /// </summary>
         [Input("ipv6StaticSubnet")]
         public Input<string>? Ipv6StaticSubnet { get; set; }
@@ -648,6 +954,12 @@ namespace Pulumiverse.Unifi
         [Input("vlanId")]
         public Input<int>? VlanId { get; set; }
 
+        /// <summary>
+        /// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// </summary>
+        [Input("wanDhcpV6PdSize")]
+        public Input<int>? WanDhcpV6PdSize { get; set; }
+
         [Input("wanDns")]
         private InputList<string>? _wanDns;
 
@@ -673,10 +985,22 @@ namespace Pulumiverse.Unifi
         public Input<string>? WanGateway { get; set; }
 
         /// <summary>
+        /// The IPv6 gateway of the WAN.
+        /// </summary>
+        [Input("wanGatewayV6")]
+        public Input<string>? WanGatewayV6 { get; set; }
+
+        /// <summary>
         /// The IPv4 address of the WAN.
         /// </summary>
         [Input("wanIp")]
         public Input<string>? WanIp { get; set; }
+
+        /// <summary>
+        /// The IPv6 address of the WAN.
+        /// </summary>
+        [Input("wanIpv6")]
+        public Input<string>? WanIpv6 { get; set; }
 
         /// <summary>
         /// The IPv4 netmask of the WAN.
@@ -691,10 +1015,22 @@ namespace Pulumiverse.Unifi
         public Input<string>? WanNetworkgroup { get; set; }
 
         /// <summary>
+        /// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        /// </summary>
+        [Input("wanPrefixlen")]
+        public Input<int>? WanPrefixlen { get; set; }
+
+        /// <summary>
         /// Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
         /// </summary>
         [Input("wanType")]
         public Input<string>? WanType { get; set; }
+
+        /// <summary>
+        /// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        /// </summary>
+        [Input("wanTypeV6")]
+        public Input<string>? WanTypeV6 { get; set; }
 
         /// <summary>
         /// Specifies the IPV4 WAN username.

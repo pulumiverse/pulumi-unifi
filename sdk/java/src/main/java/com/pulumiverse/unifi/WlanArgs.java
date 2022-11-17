@@ -245,14 +245,14 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+     * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      * 
      */
     @Import(name="radiusProfileId")
     private @Nullable Output<String> radiusProfileId;
 
     /**
-     * @return ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+     * @return ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      * 
      */
     public Optional<Output<String>> radiusProfileId() {
@@ -762,7 +762,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param radiusProfileId ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+         * @param radiusProfileId ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
          * 
          * @return builder
          * 
@@ -773,7 +773,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param radiusProfileId ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.getRadiusProfile` data source.
+         * @param radiusProfileId ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
          * 
          * @return builder
          * 

@@ -49,14 +49,14 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specifies the lease time for DHCP addresses. Defaults to `86400`.
+     * Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
      * 
      */
     @Import(name="dhcpLease")
     private @Nullable Output<Integer> dhcpLease;
 
     /**
-     * @return Specifies the lease time for DHCP addresses. Defaults to `86400`.
+     * @return Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
      * 
      */
     public Optional<Output<Integer>> dhcpLease() {
@@ -106,6 +106,96 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> dhcpStop() {
         return Optional.ofNullable(this.dhcpStop);
+    }
+
+    /**
+     * Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+     * 
+     */
+    @Import(name="dhcpV6Dns")
+    private @Nullable Output<List<String>> dhcpV6Dns;
+
+    /**
+     * @return Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+     * 
+     */
+    public Optional<Output<List<String>>> dhcpV6Dns() {
+        return Optional.ofNullable(this.dhcpV6Dns);
+    }
+
+    /**
+     * Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+     * 
+     */
+    @Import(name="dhcpV6DnsAuto")
+    private @Nullable Output<Boolean> dhcpV6DnsAuto;
+
+    /**
+     * @return Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> dhcpV6DnsAuto() {
+        return Optional.ofNullable(this.dhcpV6DnsAuto);
+    }
+
+    /**
+     * Enable stateful DHCPv6 for static configuration.
+     * 
+     */
+    @Import(name="dhcpV6Enabled")
+    private @Nullable Output<Boolean> dhcpV6Enabled;
+
+    /**
+     * @return Enable stateful DHCPv6 for static configuration.
+     * 
+     */
+    public Optional<Output<Boolean>> dhcpV6Enabled() {
+        return Optional.ofNullable(this.dhcpV6Enabled);
+    }
+
+    /**
+     * Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+     * 
+     */
+    @Import(name="dhcpV6Lease")
+    private @Nullable Output<Integer> dhcpV6Lease;
+
+    /**
+     * @return Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+     * 
+     */
+    public Optional<Output<Integer>> dhcpV6Lease() {
+        return Optional.ofNullable(this.dhcpV6Lease);
+    }
+
+    /**
+     * Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    @Import(name="dhcpV6Start")
+    private @Nullable Output<String> dhcpV6Start;
+
+    /**
+     * @return Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    public Optional<Output<String>> dhcpV6Start() {
+        return Optional.ofNullable(this.dhcpV6Start);
+    }
+
+    /**
+     * End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    @Import(name="dhcpV6Stop")
+    private @Nullable Output<String> dhcpV6Stop;
+
+    /**
+     * @return End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    public Optional<Output<String>> dhcpV6Stop() {
+        return Optional.ofNullable(this.dhcpV6Stop);
     }
 
     /**
@@ -184,14 +274,44 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specifies which type of IPv6 connection to use. Defaults to `none`.
+     * Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+     * 
+     */
+    @Import(name="internetAccessEnabled")
+    private @Nullable Output<Boolean> internetAccessEnabled;
+
+    /**
+     * @return Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> internetAccessEnabled() {
+        return Optional.ofNullable(this.internetAccessEnabled);
+    }
+
+    /**
+     * Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+     * 
+     */
+    @Import(name="intraNetworkAccessEnabled")
+    private @Nullable Output<Boolean> intraNetworkAccessEnabled;
+
+    /**
+     * @return Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> intraNetworkAccessEnabled() {
+        return Optional.ofNullable(this.intraNetworkAccessEnabled);
+    }
+
+    /**
+     * Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
      * 
      */
     @Import(name="ipv6InterfaceType")
     private @Nullable Output<String> ipv6InterfaceType;
 
     /**
-     * @return Specifies which type of IPv6 connection to use. Defaults to `none`.
+     * @return Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
      * 
      */
     public Optional<Output<String>> ipv6InterfaceType() {
@@ -199,14 +319,14 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specifies which WAN interface to use for IPv6 PD.
+     * Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      * 
      */
     @Import(name="ipv6PdInterface")
     private @Nullable Output<String> ipv6PdInterface;
 
     /**
-     * @return Specifies which WAN interface to use for IPv6 PD.
+     * @return Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      * 
      */
     public Optional<Output<String>> ipv6PdInterface() {
@@ -229,6 +349,36 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    @Import(name="ipv6PdStart")
+    private @Nullable Output<String> ipv6PdStart;
+
+    /**
+     * @return Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    public Optional<Output<String>> ipv6PdStart() {
+        return Optional.ofNullable(this.ipv6PdStart);
+    }
+
+    /**
+     * End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    @Import(name="ipv6PdStop")
+    private @Nullable Output<String> ipv6PdStop;
+
+    /**
+     * @return End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    public Optional<Output<String>> ipv6PdStop() {
+        return Optional.ofNullable(this.ipv6PdStop);
+    }
+
+    /**
      * Specifies whether to enable router advertisements or not.
      * 
      */
@@ -244,14 +394,59 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specifies the static IPv6 subnet when ipv6*interface*type is &#39;static&#39;.
+     * Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+     * 
+     */
+    @Import(name="ipv6RaPreferredLifetime")
+    private @Nullable Output<Integer> ipv6RaPreferredLifetime;
+
+    /**
+     * @return Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+     * 
+     */
+    public Optional<Output<Integer>> ipv6RaPreferredLifetime() {
+        return Optional.ofNullable(this.ipv6RaPreferredLifetime);
+    }
+
+    /**
+     * IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     * 
+     */
+    @Import(name="ipv6RaPriority")
+    private @Nullable Output<String> ipv6RaPriority;
+
+    /**
+     * @return IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     * 
+     */
+    public Optional<Output<String>> ipv6RaPriority() {
+        return Optional.ofNullable(this.ipv6RaPriority);
+    }
+
+    /**
+     * Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+     * 
+     */
+    @Import(name="ipv6RaValidLifetime")
+    private @Nullable Output<Integer> ipv6RaValidLifetime;
+
+    /**
+     * @return Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+     * 
+     */
+    public Optional<Output<Integer>> ipv6RaValidLifetime() {
+        return Optional.ofNullable(this.ipv6RaValidLifetime);
+    }
+
+    /**
+     * Specifies the static IPv6 subnet when `ipv6_interface_type` is &#39;static&#39;.
      * 
      */
     @Import(name="ipv6StaticSubnet")
     private @Nullable Output<String> ipv6StaticSubnet;
 
     /**
-     * @return Specifies the static IPv6 subnet when ipv6*interface*type is &#39;static&#39;.
+     * @return Specifies the static IPv6 subnet when `ipv6_interface_type` is &#39;static&#39;.
      * 
      */
     public Optional<Output<String>> ipv6StaticSubnet() {
@@ -349,6 +544,21 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+     * 
+     */
+    @Import(name="wanDhcpV6PdSize")
+    private @Nullable Output<Integer> wanDhcpV6PdSize;
+
+    /**
+     * @return Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+     * 
+     */
+    public Optional<Output<Integer>> wanDhcpV6PdSize() {
+        return Optional.ofNullable(this.wanDhcpV6PdSize);
+    }
+
+    /**
      * DNS servers IPs of the WAN.
      * 
      */
@@ -394,6 +604,21 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The IPv6 gateway of the WAN.
+     * 
+     */
+    @Import(name="wanGatewayV6")
+    private @Nullable Output<String> wanGatewayV6;
+
+    /**
+     * @return The IPv6 gateway of the WAN.
+     * 
+     */
+    public Optional<Output<String>> wanGatewayV6() {
+        return Optional.ofNullable(this.wanGatewayV6);
+    }
+
+    /**
      * The IPv4 address of the WAN.
      * 
      */
@@ -406,6 +631,21 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> wanIp() {
         return Optional.ofNullable(this.wanIp);
+    }
+
+    /**
+     * The IPv6 address of the WAN.
+     * 
+     */
+    @Import(name="wanIpv6")
+    private @Nullable Output<String> wanIpv6;
+
+    /**
+     * @return The IPv6 address of the WAN.
+     * 
+     */
+    public Optional<Output<String>> wanIpv6() {
+        return Optional.ofNullable(this.wanIpv6);
     }
 
     /**
@@ -439,6 +679,21 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     * 
+     */
+    @Import(name="wanPrefixlen")
+    private @Nullable Output<Integer> wanPrefixlen;
+
+    /**
+     * @return The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     * 
+     */
+    public Optional<Output<Integer>> wanPrefixlen() {
+        return Optional.ofNullable(this.wanPrefixlen);
+    }
+
+    /**
      * Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
      * 
      */
@@ -451,6 +706,21 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> wanType() {
         return Optional.ofNullable(this.wanType);
+    }
+
+    /**
+     * Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     * 
+     */
+    @Import(name="wanTypeV6")
+    private @Nullable Output<String> wanTypeV6;
+
+    /**
+     * @return Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     * 
+     */
+    public Optional<Output<String>> wanTypeV6() {
+        return Optional.ofNullable(this.wanTypeV6);
     }
 
     /**
@@ -492,15 +762,28 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         this.dhcpRelayEnabled = $.dhcpRelayEnabled;
         this.dhcpStart = $.dhcpStart;
         this.dhcpStop = $.dhcpStop;
+        this.dhcpV6Dns = $.dhcpV6Dns;
+        this.dhcpV6DnsAuto = $.dhcpV6DnsAuto;
+        this.dhcpV6Enabled = $.dhcpV6Enabled;
+        this.dhcpV6Lease = $.dhcpV6Lease;
+        this.dhcpV6Start = $.dhcpV6Start;
+        this.dhcpV6Stop = $.dhcpV6Stop;
         this.dhcpdBootEnabled = $.dhcpdBootEnabled;
         this.dhcpdBootFilename = $.dhcpdBootFilename;
         this.dhcpdBootServer = $.dhcpdBootServer;
         this.domainName = $.domainName;
         this.igmpSnooping = $.igmpSnooping;
+        this.internetAccessEnabled = $.internetAccessEnabled;
+        this.intraNetworkAccessEnabled = $.intraNetworkAccessEnabled;
         this.ipv6InterfaceType = $.ipv6InterfaceType;
         this.ipv6PdInterface = $.ipv6PdInterface;
         this.ipv6PdPrefixid = $.ipv6PdPrefixid;
+        this.ipv6PdStart = $.ipv6PdStart;
+        this.ipv6PdStop = $.ipv6PdStop;
         this.ipv6RaEnable = $.ipv6RaEnable;
+        this.ipv6RaPreferredLifetime = $.ipv6RaPreferredLifetime;
+        this.ipv6RaPriority = $.ipv6RaPriority;
+        this.ipv6RaValidLifetime = $.ipv6RaValidLifetime;
         this.ipv6StaticSubnet = $.ipv6StaticSubnet;
         this.name = $.name;
         this.networkGroup = $.networkGroup;
@@ -508,13 +791,18 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         this.site = $.site;
         this.subnet = $.subnet;
         this.vlanId = $.vlanId;
+        this.wanDhcpV6PdSize = $.wanDhcpV6PdSize;
         this.wanDns = $.wanDns;
         this.wanEgressQos = $.wanEgressQos;
         this.wanGateway = $.wanGateway;
+        this.wanGatewayV6 = $.wanGatewayV6;
         this.wanIp = $.wanIp;
+        this.wanIpv6 = $.wanIpv6;
         this.wanNetmask = $.wanNetmask;
         this.wanNetworkgroup = $.wanNetworkgroup;
+        this.wanPrefixlen = $.wanPrefixlen;
         this.wanType = $.wanType;
+        this.wanTypeV6 = $.wanTypeV6;
         this.wanUsername = $.wanUsername;
         this.xWanPassword = $.xWanPassword;
     }
@@ -590,7 +878,7 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param dhcpLease Specifies the lease time for DHCP addresses. Defaults to `86400`.
+         * @param dhcpLease Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
          * 
          * @return builder
          * 
@@ -601,7 +889,7 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param dhcpLease Specifies the lease time for DHCP addresses. Defaults to `86400`.
+         * @param dhcpLease Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
          * 
          * @return builder
          * 
@@ -671,6 +959,142 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder dhcpStop(String dhcpStop) {
             return dhcpStop(Output.of(dhcpStop));
+        }
+
+        /**
+         * @param dhcpV6Dns Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Dns(@Nullable Output<List<String>> dhcpV6Dns) {
+            $.dhcpV6Dns = dhcpV6Dns;
+            return this;
+        }
+
+        /**
+         * @param dhcpV6Dns Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Dns(List<String> dhcpV6Dns) {
+            return dhcpV6Dns(Output.of(dhcpV6Dns));
+        }
+
+        /**
+         * @param dhcpV6Dns Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Dns(String... dhcpV6Dns) {
+            return dhcpV6Dns(List.of(dhcpV6Dns));
+        }
+
+        /**
+         * @param dhcpV6DnsAuto Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6DnsAuto(@Nullable Output<Boolean> dhcpV6DnsAuto) {
+            $.dhcpV6DnsAuto = dhcpV6DnsAuto;
+            return this;
+        }
+
+        /**
+         * @param dhcpV6DnsAuto Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6DnsAuto(Boolean dhcpV6DnsAuto) {
+            return dhcpV6DnsAuto(Output.of(dhcpV6DnsAuto));
+        }
+
+        /**
+         * @param dhcpV6Enabled Enable stateful DHCPv6 for static configuration.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Enabled(@Nullable Output<Boolean> dhcpV6Enabled) {
+            $.dhcpV6Enabled = dhcpV6Enabled;
+            return this;
+        }
+
+        /**
+         * @param dhcpV6Enabled Enable stateful DHCPv6 for static configuration.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Enabled(Boolean dhcpV6Enabled) {
+            return dhcpV6Enabled(Output.of(dhcpV6Enabled));
+        }
+
+        /**
+         * @param dhcpV6Lease Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Lease(@Nullable Output<Integer> dhcpV6Lease) {
+            $.dhcpV6Lease = dhcpV6Lease;
+            return this;
+        }
+
+        /**
+         * @param dhcpV6Lease Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Lease(Integer dhcpV6Lease) {
+            return dhcpV6Lease(Output.of(dhcpV6Lease));
+        }
+
+        /**
+         * @param dhcpV6Start Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Start(@Nullable Output<String> dhcpV6Start) {
+            $.dhcpV6Start = dhcpV6Start;
+            return this;
+        }
+
+        /**
+         * @param dhcpV6Start Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Start(String dhcpV6Start) {
+            return dhcpV6Start(Output.of(dhcpV6Start));
+        }
+
+        /**
+         * @param dhcpV6Stop End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Stop(@Nullable Output<String> dhcpV6Stop) {
+            $.dhcpV6Stop = dhcpV6Stop;
+            return this;
+        }
+
+        /**
+         * @param dhcpV6Stop End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dhcpV6Stop(String dhcpV6Stop) {
+            return dhcpV6Stop(Output.of(dhcpV6Stop));
         }
 
         /**
@@ -779,7 +1203,49 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ipv6InterfaceType Specifies which type of IPv6 connection to use. Defaults to `none`.
+         * @param internetAccessEnabled Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder internetAccessEnabled(@Nullable Output<Boolean> internetAccessEnabled) {
+            $.internetAccessEnabled = internetAccessEnabled;
+            return this;
+        }
+
+        /**
+         * @param internetAccessEnabled Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder internetAccessEnabled(Boolean internetAccessEnabled) {
+            return internetAccessEnabled(Output.of(internetAccessEnabled));
+        }
+
+        /**
+         * @param intraNetworkAccessEnabled Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder intraNetworkAccessEnabled(@Nullable Output<Boolean> intraNetworkAccessEnabled) {
+            $.intraNetworkAccessEnabled = intraNetworkAccessEnabled;
+            return this;
+        }
+
+        /**
+         * @param intraNetworkAccessEnabled Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder intraNetworkAccessEnabled(Boolean intraNetworkAccessEnabled) {
+            return intraNetworkAccessEnabled(Output.of(intraNetworkAccessEnabled));
+        }
+
+        /**
+         * @param ipv6InterfaceType Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
          * 
          * @return builder
          * 
@@ -790,7 +1256,7 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ipv6InterfaceType Specifies which type of IPv6 connection to use. Defaults to `none`.
+         * @param ipv6InterfaceType Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
          * 
          * @return builder
          * 
@@ -800,7 +1266,7 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ipv6PdInterface Specifies which WAN interface to use for IPv6 PD.
+         * @param ipv6PdInterface Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
          * 
          * @return builder
          * 
@@ -811,7 +1277,7 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ipv6PdInterface Specifies which WAN interface to use for IPv6 PD.
+         * @param ipv6PdInterface Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
          * 
          * @return builder
          * 
@@ -842,6 +1308,48 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param ipv6PdStart Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6PdStart(@Nullable Output<String> ipv6PdStart) {
+            $.ipv6PdStart = ipv6PdStart;
+            return this;
+        }
+
+        /**
+         * @param ipv6PdStart Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6PdStart(String ipv6PdStart) {
+            return ipv6PdStart(Output.of(ipv6PdStart));
+        }
+
+        /**
+         * @param ipv6PdStop End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6PdStop(@Nullable Output<String> ipv6PdStop) {
+            $.ipv6PdStop = ipv6PdStop;
+            return this;
+        }
+
+        /**
+         * @param ipv6PdStop End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6PdStop(String ipv6PdStop) {
+            return ipv6PdStop(Output.of(ipv6PdStop));
+        }
+
+        /**
          * @param ipv6RaEnable Specifies whether to enable router advertisements or not.
          * 
          * @return builder
@@ -863,7 +1371,70 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ipv6StaticSubnet Specifies the static IPv6 subnet when ipv6*interface*type is &#39;static&#39;.
+         * @param ipv6RaPreferredLifetime Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6RaPreferredLifetime(@Nullable Output<Integer> ipv6RaPreferredLifetime) {
+            $.ipv6RaPreferredLifetime = ipv6RaPreferredLifetime;
+            return this;
+        }
+
+        /**
+         * @param ipv6RaPreferredLifetime Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6RaPreferredLifetime(Integer ipv6RaPreferredLifetime) {
+            return ipv6RaPreferredLifetime(Output.of(ipv6RaPreferredLifetime));
+        }
+
+        /**
+         * @param ipv6RaPriority IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6RaPriority(@Nullable Output<String> ipv6RaPriority) {
+            $.ipv6RaPriority = ipv6RaPriority;
+            return this;
+        }
+
+        /**
+         * @param ipv6RaPriority IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6RaPriority(String ipv6RaPriority) {
+            return ipv6RaPriority(Output.of(ipv6RaPriority));
+        }
+
+        /**
+         * @param ipv6RaValidLifetime Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6RaValidLifetime(@Nullable Output<Integer> ipv6RaValidLifetime) {
+            $.ipv6RaValidLifetime = ipv6RaValidLifetime;
+            return this;
+        }
+
+        /**
+         * @param ipv6RaValidLifetime Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ipv6RaValidLifetime(Integer ipv6RaValidLifetime) {
+            return ipv6RaValidLifetime(Output.of(ipv6RaValidLifetime));
+        }
+
+        /**
+         * @param ipv6StaticSubnet Specifies the static IPv6 subnet when `ipv6_interface_type` is &#39;static&#39;.
          * 
          * @return builder
          * 
@@ -874,7 +1445,7 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ipv6StaticSubnet Specifies the static IPv6 subnet when ipv6*interface*type is &#39;static&#39;.
+         * @param ipv6StaticSubnet Specifies the static IPv6 subnet when `ipv6_interface_type` is &#39;static&#39;.
          * 
          * @return builder
          * 
@@ -1010,6 +1581,27 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param wanDhcpV6PdSize Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanDhcpV6PdSize(@Nullable Output<Integer> wanDhcpV6PdSize) {
+            $.wanDhcpV6PdSize = wanDhcpV6PdSize;
+            return this;
+        }
+
+        /**
+         * @param wanDhcpV6PdSize Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanDhcpV6PdSize(Integer wanDhcpV6PdSize) {
+            return wanDhcpV6PdSize(Output.of(wanDhcpV6PdSize));
+        }
+
+        /**
          * @param wanDns DNS servers IPs of the WAN.
          * 
          * @return builder
@@ -1083,6 +1675,27 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param wanGatewayV6 The IPv6 gateway of the WAN.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanGatewayV6(@Nullable Output<String> wanGatewayV6) {
+            $.wanGatewayV6 = wanGatewayV6;
+            return this;
+        }
+
+        /**
+         * @param wanGatewayV6 The IPv6 gateway of the WAN.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanGatewayV6(String wanGatewayV6) {
+            return wanGatewayV6(Output.of(wanGatewayV6));
+        }
+
+        /**
          * @param wanIp The IPv4 address of the WAN.
          * 
          * @return builder
@@ -1101,6 +1714,27 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder wanIp(String wanIp) {
             return wanIp(Output.of(wanIp));
+        }
+
+        /**
+         * @param wanIpv6 The IPv6 address of the WAN.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanIpv6(@Nullable Output<String> wanIpv6) {
+            $.wanIpv6 = wanIpv6;
+            return this;
+        }
+
+        /**
+         * @param wanIpv6 The IPv6 address of the WAN.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanIpv6(String wanIpv6) {
+            return wanIpv6(Output.of(wanIpv6));
         }
 
         /**
@@ -1146,6 +1780,27 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param wanPrefixlen The IPv6 prefix length of the WAN. Must be between 1 and 128.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanPrefixlen(@Nullable Output<Integer> wanPrefixlen) {
+            $.wanPrefixlen = wanPrefixlen;
+            return this;
+        }
+
+        /**
+         * @param wanPrefixlen The IPv6 prefix length of the WAN. Must be between 1 and 128.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanPrefixlen(Integer wanPrefixlen) {
+            return wanPrefixlen(Output.of(wanPrefixlen));
+        }
+
+        /**
          * @param wanType Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
          * 
          * @return builder
@@ -1164,6 +1819,27 @@ public final class NetworkArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder wanType(String wanType) {
             return wanType(Output.of(wanType));
+        }
+
+        /**
+         * @param wanTypeV6 Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanTypeV6(@Nullable Output<String> wanTypeV6) {
+            $.wanTypeV6 = wanTypeV6;
+            return this;
+        }
+
+        /**
+         * @param wanTypeV6 Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder wanTypeV6(String wanTypeV6) {
+            return wanTypeV6(Output.of(wanTypeV6));
         }
 
         /**

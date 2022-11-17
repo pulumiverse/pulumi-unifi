@@ -5,13 +5,16 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .account import *
 from .device import *
 from .dynamic_dns import *
+from .get_account import *
 from .get_ap_group import *
 from .get_network import *
 from .get_radius_profile import *
 from .network import *
 from .provider import *
+from .radius_profile import *
 from .site import *
 from .static_route import *
 from .wlan import *
@@ -74,6 +77,14 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
+  "mod": "index/account",
+  "fqn": "pulumiverse_unifi",
+  "classes": {
+   "unifi:index/account:Account": "Account"
+  }
+ },
+ {
+  "pkg": "unifi",
   "mod": "index/device",
   "fqn": "pulumiverse_unifi",
   "classes": {
@@ -94,6 +105,14 @@ _utilities.register(
   "fqn": "pulumiverse_unifi",
   "classes": {
    "unifi:index/network:Network": "Network"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "index/radiusProfile",
+  "fqn": "pulumiverse_unifi",
+  "classes": {
+   "unifi:index/radiusProfile:RadiusProfile": "RadiusProfile"
   }
  },
  {
@@ -142,6 +161,14 @@ _utilities.register(
   "fqn": "pulumiverse_unifi.setting",
   "classes": {
    "unifi:setting/mgmt:Mgmt": "Mgmt"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/radius",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/radius:Radius": "Radius"
   }
  },
  {

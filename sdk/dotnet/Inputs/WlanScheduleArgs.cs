@@ -14,22 +14,34 @@ namespace Pulumiverse.Unifi.Inputs
     public sealed class WlanScheduleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Time of day to end the block.
-        /// </summary>
-        [Input("blockEnd", required: true)]
-        public Input<string> BlockEnd { get; set; } = null!;
-
-        /// <summary>
-        /// Time of day to start the block.
-        /// </summary>
-        [Input("blockStart", required: true)]
-        public Input<string> BlockStart { get; set; } = null!;
-
-        /// <summary>
         /// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
         /// </summary>
         [Input("dayOfWeek", required: true)]
         public Input<string> DayOfWeek { get; set; } = null!;
+
+        /// <summary>
+        /// Length of the block in minutes.
+        /// </summary>
+        [Input("duration", required: true)]
+        public Input<int> Duration { get; set; } = null!;
+
+        /// <summary>
+        /// Name of the block.
+        /// </summary>
+        [Input("name")]
+        public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// Start hour for the block (0-23).
+        /// </summary>
+        [Input("startHour", required: true)]
+        public Input<int> StartHour { get; set; } = null!;
+
+        /// <summary>
+        /// Start minute for the block (0-59). Defaults to `0`.
+        /// </summary>
+        [Input("startMinute")]
+        public Input<int>? StartMinute { get; set; }
 
         public WlanScheduleArgs()
         {

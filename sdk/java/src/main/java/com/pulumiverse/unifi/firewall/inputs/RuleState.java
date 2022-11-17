@@ -49,6 +49,21 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The IPv6 destination address of the firewall rule.
+     * 
+     */
+    @Import(name="dstAddressIpv6")
+    private @Nullable Output<String> dstAddressIpv6;
+
+    /**
+     * @return The IPv6 destination address of the firewall rule.
+     * 
+     */
+    public Optional<Output<String>> dstAddressIpv6() {
+        return Optional.ofNullable(this.dstAddressIpv6);
+    }
+
+    /**
      * The destination firewall group IDs of the firewall rule.
      * 
      */
@@ -124,6 +139,21 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * ICMPv6 type name.
+     * 
+     */
+    @Import(name="icmpV6Typename")
+    private @Nullable Output<String> icmpV6Typename;
+
+    /**
+     * @return ICMPv6 type name.
+     * 
+     */
+    public Optional<Output<String>> icmpV6Typename() {
+        return Optional.ofNullable(this.icmpV6Typename);
+    }
+
+    /**
      * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
      * 
      */
@@ -184,6 +214,21 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The IPv6 protocol of the rule.
+     * 
+     */
+    @Import(name="protocolV6")
+    private @Nullable Output<String> protocolV6;
+
+    /**
+     * @return The IPv6 protocol of the rule.
+     * 
+     */
+    public Optional<Output<String>> protocolV6() {
+        return Optional.ofNullable(this.protocolV6);
+    }
+
+    /**
      * The index of the rule. Must be &gt;= 2000 &lt; 3000 or &gt;= 4000 &lt; 5000.
      * 
      */
@@ -241,6 +286,21 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> srcAddress() {
         return Optional.ofNullable(this.srcAddress);
+    }
+
+    /**
+     * The IPv6 source address for the firewall rule.
+     * 
+     */
+    @Import(name="srcAddressIpv6")
+    private @Nullable Output<String> srcAddressIpv6;
+
+    /**
+     * @return The IPv6 source address for the firewall rule.
+     * 
+     */
+    public Optional<Output<String>> srcAddressIpv6() {
+        return Optional.ofNullable(this.srcAddressIpv6);
     }
 
     /**
@@ -368,19 +428,23 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
     private RuleState(RuleState $) {
         this.action = $.action;
         this.dstAddress = $.dstAddress;
+        this.dstAddressIpv6 = $.dstAddressIpv6;
         this.dstFirewallGroupIds = $.dstFirewallGroupIds;
         this.dstNetworkId = $.dstNetworkId;
         this.dstNetworkType = $.dstNetworkType;
         this.dstPort = $.dstPort;
         this.icmpTypename = $.icmpTypename;
+        this.icmpV6Typename = $.icmpV6Typename;
         this.ipSec = $.ipSec;
         this.logging = $.logging;
         this.name = $.name;
         this.protocol = $.protocol;
+        this.protocolV6 = $.protocolV6;
         this.ruleIndex = $.ruleIndex;
         this.ruleset = $.ruleset;
         this.site = $.site;
         this.srcAddress = $.srcAddress;
+        this.srcAddressIpv6 = $.srcAddressIpv6;
         this.srcFirewallGroupIds = $.srcFirewallGroupIds;
         this.srcMac = $.srcMac;
         this.srcNetworkId = $.srcNetworkId;
@@ -449,6 +513,27 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder dstAddress(String dstAddress) {
             return dstAddress(Output.of(dstAddress));
+        }
+
+        /**
+         * @param dstAddressIpv6 The IPv6 destination address of the firewall rule.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dstAddressIpv6(@Nullable Output<String> dstAddressIpv6) {
+            $.dstAddressIpv6 = dstAddressIpv6;
+            return this;
+        }
+
+        /**
+         * @param dstAddressIpv6 The IPv6 destination address of the firewall rule.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder dstAddressIpv6(String dstAddressIpv6) {
+            return dstAddressIpv6(Output.of(dstAddressIpv6));
         }
 
         /**
@@ -567,6 +652,27 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param icmpV6Typename ICMPv6 type name.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder icmpV6Typename(@Nullable Output<String> icmpV6Typename) {
+            $.icmpV6Typename = icmpV6Typename;
+            return this;
+        }
+
+        /**
+         * @param icmpV6Typename ICMPv6 type name.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder icmpV6Typename(String icmpV6Typename) {
+            return icmpV6Typename(Output.of(icmpV6Typename));
+        }
+
+        /**
          * @param ipSec Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
          * 
          * @return builder
@@ -651,6 +757,27 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param protocolV6 The IPv6 protocol of the rule.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder protocolV6(@Nullable Output<String> protocolV6) {
+            $.protocolV6 = protocolV6;
+            return this;
+        }
+
+        /**
+         * @param protocolV6 The IPv6 protocol of the rule.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder protocolV6(String protocolV6) {
+            return protocolV6(Output.of(protocolV6));
+        }
+
+        /**
          * @param ruleIndex The index of the rule. Must be &gt;= 2000 &lt; 3000 or &gt;= 4000 &lt; 5000.
          * 
          * @return builder
@@ -732,6 +859,27 @@ public final class RuleState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder srcAddress(String srcAddress) {
             return srcAddress(Output.of(srcAddress));
+        }
+
+        /**
+         * @param srcAddressIpv6 The IPv6 source address for the firewall rule.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder srcAddressIpv6(@Nullable Output<String> srcAddressIpv6) {
+            $.srcAddressIpv6 = srcAddressIpv6;
+            return this;
+        }
+
+        /**
+         * @param srcAddressIpv6 The IPv6 source address for the firewall rule.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder srcAddressIpv6(String srcAddressIpv6) {
+            return srcAddressIpv6(Output.of(srcAddressIpv6));
         }
 
         /**

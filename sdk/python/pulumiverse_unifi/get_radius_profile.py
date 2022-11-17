@@ -52,7 +52,7 @@ class GetRadiusProfileResult:
     @pulumi.getter
     def site(self) -> str:
         """
-        The name of the site the radius profile is associated with.
+        The name of the site the RADIUS profile is associated with.
         """
         return pulumi.get(self, "site")
 
@@ -72,11 +72,11 @@ def get_radius_profile(name: Optional[str] = None,
                        site: Optional[str] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetRadiusProfileResult:
     """
-    `get_radius_profile` data source can be used to retrieve the ID for a RADIUS profile by name.
+    `RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
 
 
     :param str name: The name of the RADIUS profile to look up. Defaults to `Default`.
-    :param str site: The name of the site the radius profile is associated with.
+    :param str site: The name of the site the RADIUS profile is associated with.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -95,10 +95,10 @@ def get_radius_profile_output(name: Optional[pulumi.Input[Optional[str]]] = None
                               site: Optional[pulumi.Input[Optional[str]]] = None,
                               opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetRadiusProfileResult]:
     """
-    `get_radius_profile` data source can be used to retrieve the ID for a RADIUS profile by name.
+    `RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
 
 
     :param str name: The name of the RADIUS profile to look up. Defaults to `Default`.
-    :param str site: The name of the site the radius profile is associated with.
+    :param str site: The name of the site the RADIUS profile is associated with.
     """
     ...

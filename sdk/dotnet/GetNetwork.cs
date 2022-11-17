@@ -28,7 +28,7 @@ namespace Pulumiverse.Unifi
         /// {
         ///     var lanNetwork = Unifi.GetNetwork.Invoke(new()
         ///     {
-        ///         Name = "LAN",
+        ///         Name = "Default",
         ///     });
         /// 
         ///     var myDevice = Unifi.IAM.GetUser.Invoke(new()
@@ -65,7 +65,7 @@ namespace Pulumiverse.Unifi
         /// {
         ///     var lanNetwork = Unifi.GetNetwork.Invoke(new()
         ///     {
-        ///         Name = "LAN",
+        ///         Name = "Default",
         ///     });
         /// 
         ///     var myDevice = Unifi.IAM.GetUser.Invoke(new()
@@ -165,6 +165,30 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string DhcpStop;
         /// <summary>
+        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        /// </summary>
+        public readonly ImmutableArray<string> DhcpV6Dns;
+        /// <summary>
+        /// Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise
+        /// </summary>
+        public readonly bool DhcpV6DnsAuto;
+        /// <summary>
+        /// Enable stateful DHCPv6 for static configuration.
+        /// </summary>
+        public readonly bool DhcpV6Enabled;
+        /// <summary>
+        /// Specifies the lease time for DHCPv6 addresses.
+        /// </summary>
+        public readonly int DhcpV6Lease;
+        /// <summary>
+        /// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// </summary>
+        public readonly string DhcpV6Start;
+        /// <summary>
+        /// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// </summary>
+        public readonly string DhcpV6Stop;
+        /// <summary>
         /// Toggles on the DHCP boot options. will be set to true if you have dhcpd*boot*filename, and dhcpd*boot*server set.
         /// </summary>
         public readonly bool DhcpdBootEnabled;
@@ -189,11 +213,11 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly bool IgmpSnooping;
         /// <summary>
-        /// Specifies which type of IPv6 connection to use.
+        /// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
         /// </summary>
         public readonly string Ipv6InterfaceType;
         /// <summary>
-        /// Specifies which WAN interface is used for IPv6 Prefix Delegation.
+        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
         /// </summary>
         public readonly string Ipv6PdInterface;
         /// <summary>
@@ -201,9 +225,29 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string Ipv6PdPrefixid;
         /// <summary>
+        /// Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// </summary>
+        public readonly string Ipv6PdStart;
+        /// <summary>
+        /// End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// </summary>
+        public readonly string Ipv6PdStop;
+        /// <summary>
         /// Specifies whether to enable router advertisements or not.
         /// </summary>
         public readonly bool Ipv6RaEnable;
+        /// <summary>
+        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime`
+        /// </summary>
+        public readonly int Ipv6RaPreferredLifetime;
+        /// <summary>
+        /// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        /// </summary>
+        public readonly string Ipv6RaPriority;
+        /// <summary>
+        /// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`.
+        /// </summary>
+        public readonly int Ipv6RaValidLifetime;
         /// <summary>
         /// Specifies the static IPv6 subnet (when ipv6*interface*type is 'static').
         /// </summary>
@@ -233,6 +277,10 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly int VlanId;
         /// <summary>
+        /// Specifies the IPv6 prefix size to request from ISP. Must be a number between 48 and 64.
+        /// </summary>
+        public readonly int WanDhcpV6PdSize;
+        /// <summary>
         /// DNS servers IPs of the WAN.
         /// </summary>
         public readonly ImmutableArray<string> WanDns;
@@ -245,9 +293,17 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string WanGateway;
         /// <summary>
+        /// The IPv6 gateway of the WAN.
+        /// </summary>
+        public readonly string WanGatewayV6;
+        /// <summary>
         /// The IPv4 address of the WAN.
         /// </summary>
         public readonly string WanIp;
+        /// <summary>
+        /// The IPv6 address of the WAN.
+        /// </summary>
+        public readonly string WanIpv6;
         /// <summary>
         /// The IPv4 netmask of the WAN.
         /// </summary>
@@ -257,9 +313,17 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string WanNetworkgroup;
         /// <summary>
+        /// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        /// </summary>
+        public readonly int WanPrefixlen;
+        /// <summary>
         /// Specifies the IPV4 WAN connection type. One of either `disabled`, `static`, `dhcp`, or `pppoe`.
         /// </summary>
         public readonly string WanType;
+        /// <summary>
+        /// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        /// </summary>
+        public readonly string WanTypeV6;
         /// <summary>
         /// Specifies the IPV4 WAN username.
         /// </summary>
@@ -281,6 +345,18 @@ namespace Pulumiverse.Unifi
 
             string dhcpStop,
 
+            ImmutableArray<string> dhcpV6Dns,
+
+            bool dhcpV6DnsAuto,
+
+            bool dhcpV6Enabled,
+
+            int dhcpV6Lease,
+
+            string dhcpV6Start,
+
+            string dhcpV6Stop,
+
             bool dhcpdBootEnabled,
 
             string dhcpdBootFilename,
@@ -299,7 +375,17 @@ namespace Pulumiverse.Unifi
 
             string ipv6PdPrefixid,
 
+            string ipv6PdStart,
+
+            string ipv6PdStop,
+
             bool ipv6RaEnable,
+
+            int ipv6RaPreferredLifetime,
+
+            string ipv6RaPriority,
+
+            int ipv6RaValidLifetime,
 
             string ipv6StaticSubnet,
 
@@ -315,19 +401,29 @@ namespace Pulumiverse.Unifi
 
             int vlanId,
 
+            int wanDhcpV6PdSize,
+
             ImmutableArray<string> wanDns,
 
             int wanEgressQos,
 
             string wanGateway,
 
+            string wanGatewayV6,
+
             string wanIp,
+
+            string wanIpv6,
 
             string wanNetmask,
 
             string wanNetworkgroup,
 
+            int wanPrefixlen,
+
             string wanType,
+
+            string wanTypeV6,
 
             string wanUsername,
 
@@ -338,6 +434,12 @@ namespace Pulumiverse.Unifi
             DhcpLease = dhcpLease;
             DhcpStart = dhcpStart;
             DhcpStop = dhcpStop;
+            DhcpV6Dns = dhcpV6Dns;
+            DhcpV6DnsAuto = dhcpV6DnsAuto;
+            DhcpV6Enabled = dhcpV6Enabled;
+            DhcpV6Lease = dhcpV6Lease;
+            DhcpV6Start = dhcpV6Start;
+            DhcpV6Stop = dhcpV6Stop;
             DhcpdBootEnabled = dhcpdBootEnabled;
             DhcpdBootFilename = dhcpdBootFilename;
             DhcpdBootServer = dhcpdBootServer;
@@ -347,7 +449,12 @@ namespace Pulumiverse.Unifi
             Ipv6InterfaceType = ipv6InterfaceType;
             Ipv6PdInterface = ipv6PdInterface;
             Ipv6PdPrefixid = ipv6PdPrefixid;
+            Ipv6PdStart = ipv6PdStart;
+            Ipv6PdStop = ipv6PdStop;
             Ipv6RaEnable = ipv6RaEnable;
+            Ipv6RaPreferredLifetime = ipv6RaPreferredLifetime;
+            Ipv6RaPriority = ipv6RaPriority;
+            Ipv6RaValidLifetime = ipv6RaValidLifetime;
             Ipv6StaticSubnet = ipv6StaticSubnet;
             Name = name;
             NetworkGroup = networkGroup;
@@ -355,13 +462,18 @@ namespace Pulumiverse.Unifi
             Site = site;
             Subnet = subnet;
             VlanId = vlanId;
+            WanDhcpV6PdSize = wanDhcpV6PdSize;
             WanDns = wanDns;
             WanEgressQos = wanEgressQos;
             WanGateway = wanGateway;
+            WanGatewayV6 = wanGatewayV6;
             WanIp = wanIp;
+            WanIpv6 = wanIpv6;
             WanNetmask = wanNetmask;
             WanNetworkgroup = wanNetworkgroup;
+            WanPrefixlen = wanPrefixlen;
             WanType = wanType;
+            WanTypeV6 = wanTypeV6;
             WanUsername = wanUsername;
             XWanPassword = xWanPassword;
         }

@@ -119,14 +119,14 @@ public class Network extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.dhcpEnabled);
     }
     /**
-     * Specifies the lease time for DHCP addresses. Defaults to `86400`.
+     * Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
      * 
      */
     @Export(name="dhcpLease", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> dhcpLease;
 
     /**
-     * @return Specifies the lease time for DHCP addresses. Defaults to `86400`.
+     * @return Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
      * 
      */
     public Output<Optional<Integer>> dhcpLease() {
@@ -173,6 +173,90 @@ public class Network extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> dhcpStop() {
         return Codegen.optional(this.dhcpStop);
+    }
+    /**
+     * Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+     * 
+     */
+    @Export(name="dhcpV6Dns", refs={List.class,String.class}, tree="[0,1]")
+    private Output</* @Nullable */ List<String>> dhcpV6Dns;
+
+    /**
+     * @return Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+     * 
+     */
+    public Output<Optional<List<String>>> dhcpV6Dns() {
+        return Codegen.optional(this.dhcpV6Dns);
+    }
+    /**
+     * Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+     * 
+     */
+    @Export(name="dhcpV6DnsAuto", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> dhcpV6DnsAuto;
+
+    /**
+     * @return Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+     * 
+     */
+    public Output<Optional<Boolean>> dhcpV6DnsAuto() {
+        return Codegen.optional(this.dhcpV6DnsAuto);
+    }
+    /**
+     * Enable stateful DHCPv6 for static configuration.
+     * 
+     */
+    @Export(name="dhcpV6Enabled", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> dhcpV6Enabled;
+
+    /**
+     * @return Enable stateful DHCPv6 for static configuration.
+     * 
+     */
+    public Output<Optional<Boolean>> dhcpV6Enabled() {
+        return Codegen.optional(this.dhcpV6Enabled);
+    }
+    /**
+     * Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+     * 
+     */
+    @Export(name="dhcpV6Lease", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> dhcpV6Lease;
+
+    /**
+     * @return Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+     * 
+     */
+    public Output<Optional<Integer>> dhcpV6Lease() {
+        return Codegen.optional(this.dhcpV6Lease);
+    }
+    /**
+     * Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    @Export(name="dhcpV6Start", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> dhcpV6Start;
+
+    /**
+     * @return Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    public Output<Optional<String>> dhcpV6Start() {
+        return Codegen.optional(this.dhcpV6Start);
+    }
+    /**
+     * End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    @Export(name="dhcpV6Stop", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> dhcpV6Stop;
+
+    /**
+     * @return End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * 
+     */
+    public Output<Optional<String>> dhcpV6Stop() {
+        return Codegen.optional(this.dhcpV6Stop);
     }
     /**
      * Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
@@ -245,28 +329,56 @@ public class Network extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.igmpSnooping);
     }
     /**
-     * Specifies which type of IPv6 connection to use. Defaults to `none`.
+     * Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+     * 
+     */
+    @Export(name="internetAccessEnabled", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> internetAccessEnabled;
+
+    /**
+     * @return Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+     * 
+     */
+    public Output<Optional<Boolean>> internetAccessEnabled() {
+        return Codegen.optional(this.internetAccessEnabled);
+    }
+    /**
+     * Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+     * 
+     */
+    @Export(name="intraNetworkAccessEnabled", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> intraNetworkAccessEnabled;
+
+    /**
+     * @return Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
+     * 
+     */
+    public Output<Optional<Boolean>> intraNetworkAccessEnabled() {
+        return Codegen.optional(this.intraNetworkAccessEnabled);
+    }
+    /**
+     * Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
      * 
      */
     @Export(name="ipv6InterfaceType", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipv6InterfaceType;
 
     /**
-     * @return Specifies which type of IPv6 connection to use. Defaults to `none`.
+     * @return Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
      * 
      */
     public Output<Optional<String>> ipv6InterfaceType() {
         return Codegen.optional(this.ipv6InterfaceType);
     }
     /**
-     * Specifies which WAN interface to use for IPv6 PD.
+     * Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      * 
      */
     @Export(name="ipv6PdInterface", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipv6PdInterface;
 
     /**
-     * @return Specifies which WAN interface to use for IPv6 PD.
+     * @return Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
      * 
      */
     public Output<Optional<String>> ipv6PdInterface() {
@@ -287,6 +399,34 @@ public class Network extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.ipv6PdPrefixid);
     }
     /**
+     * Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    @Export(name="ipv6PdStart", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> ipv6PdStart;
+
+    /**
+     * @return Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    public Output<Optional<String>> ipv6PdStart() {
+        return Codegen.optional(this.ipv6PdStart);
+    }
+    /**
+     * End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    @Export(name="ipv6PdStop", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> ipv6PdStop;
+
+    /**
+     * @return End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+     * 
+     */
+    public Output<Optional<String>> ipv6PdStop() {
+        return Codegen.optional(this.ipv6PdStop);
+    }
+    /**
      * Specifies whether to enable router advertisements or not.
      * 
      */
@@ -301,14 +441,56 @@ public class Network extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.ipv6RaEnable);
     }
     /**
-     * Specifies the static IPv6 subnet when ipv6*interface*type is &#39;static&#39;.
+     * Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+     * 
+     */
+    @Export(name="ipv6RaPreferredLifetime", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> ipv6RaPreferredLifetime;
+
+    /**
+     * @return Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+     * 
+     */
+    public Output<Optional<Integer>> ipv6RaPreferredLifetime() {
+        return Codegen.optional(this.ipv6RaPreferredLifetime);
+    }
+    /**
+     * IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     * 
+     */
+    @Export(name="ipv6RaPriority", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> ipv6RaPriority;
+
+    /**
+     * @return IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+     * 
+     */
+    public Output<Optional<String>> ipv6RaPriority() {
+        return Codegen.optional(this.ipv6RaPriority);
+    }
+    /**
+     * Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+     * 
+     */
+    @Export(name="ipv6RaValidLifetime", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> ipv6RaValidLifetime;
+
+    /**
+     * @return Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+     * 
+     */
+    public Output<Optional<Integer>> ipv6RaValidLifetime() {
+        return Codegen.optional(this.ipv6RaValidLifetime);
+    }
+    /**
+     * Specifies the static IPv6 subnet when `ipv6_interface_type` is &#39;static&#39;.
      * 
      */
     @Export(name="ipv6StaticSubnet", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> ipv6StaticSubnet;
 
     /**
-     * @return Specifies the static IPv6 subnet when ipv6*interface*type is &#39;static&#39;.
+     * @return Specifies the static IPv6 subnet when `ipv6_interface_type` is &#39;static&#39;.
      * 
      */
     public Output<Optional<String>> ipv6StaticSubnet() {
@@ -399,6 +581,20 @@ public class Network extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.vlanId);
     }
     /**
+     * Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+     * 
+     */
+    @Export(name="wanDhcpV6PdSize", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> wanDhcpV6PdSize;
+
+    /**
+     * @return Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+     * 
+     */
+    public Output<Optional<Integer>> wanDhcpV6PdSize() {
+        return Codegen.optional(this.wanDhcpV6PdSize);
+    }
+    /**
      * DNS servers IPs of the WAN.
      * 
      */
@@ -441,6 +637,20 @@ public class Network extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.wanGateway);
     }
     /**
+     * The IPv6 gateway of the WAN.
+     * 
+     */
+    @Export(name="wanGatewayV6", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> wanGatewayV6;
+
+    /**
+     * @return The IPv6 gateway of the WAN.
+     * 
+     */
+    public Output<Optional<String>> wanGatewayV6() {
+        return Codegen.optional(this.wanGatewayV6);
+    }
+    /**
      * The IPv4 address of the WAN.
      * 
      */
@@ -453,6 +663,20 @@ public class Network extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> wanIp() {
         return Codegen.optional(this.wanIp);
+    }
+    /**
+     * The IPv6 address of the WAN.
+     * 
+     */
+    @Export(name="wanIpv6", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> wanIpv6;
+
+    /**
+     * @return The IPv6 address of the WAN.
+     * 
+     */
+    public Output<Optional<String>> wanIpv6() {
+        return Codegen.optional(this.wanIpv6);
     }
     /**
      * The IPv4 netmask of the WAN.
@@ -483,6 +707,20 @@ public class Network extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.wanNetworkgroup);
     }
     /**
+     * The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     * 
+     */
+    @Export(name="wanPrefixlen", refs={Integer.class}, tree="[0]")
+    private Output</* @Nullable */ Integer> wanPrefixlen;
+
+    /**
+     * @return The IPv6 prefix length of the WAN. Must be between 1 and 128.
+     * 
+     */
+    public Output<Optional<Integer>> wanPrefixlen() {
+        return Codegen.optional(this.wanPrefixlen);
+    }
+    /**
      * Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
      * 
      */
@@ -495,6 +733,20 @@ public class Network extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> wanType() {
         return Codegen.optional(this.wanType);
+    }
+    /**
+     * Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     * 
+     */
+    @Export(name="wanTypeV6", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> wanTypeV6;
+
+    /**
+     * @return Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+     * 
+     */
+    public Output<Optional<String>> wanTypeV6() {
+        return Codegen.optional(this.wanTypeV6);
     }
     /**
      * Specifies the IPV4 WAN username.

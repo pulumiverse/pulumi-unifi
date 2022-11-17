@@ -125,13 +125,247 @@ func (o DevicePortOverrideArrayOutput) Index(i pulumi.IntInput) DevicePortOverri
 	}).(DevicePortOverrideOutput)
 }
 
+type RadiusProfileAcctServer struct {
+	// IP address of accounting service server.
+	Ip string `pulumi:"ip"`
+	// Port of accounting service. Defaults to `1813`.
+	Port *int `pulumi:"port"`
+	// RADIUS secret.
+	Xsecret string `pulumi:"xsecret"`
+}
+
+// RadiusProfileAcctServerInput is an input type that accepts RadiusProfileAcctServerArgs and RadiusProfileAcctServerOutput values.
+// You can construct a concrete instance of `RadiusProfileAcctServerInput` via:
+//
+//	RadiusProfileAcctServerArgs{...}
+type RadiusProfileAcctServerInput interface {
+	pulumi.Input
+
+	ToRadiusProfileAcctServerOutput() RadiusProfileAcctServerOutput
+	ToRadiusProfileAcctServerOutputWithContext(context.Context) RadiusProfileAcctServerOutput
+}
+
+type RadiusProfileAcctServerArgs struct {
+	// IP address of accounting service server.
+	Ip pulumi.StringInput `pulumi:"ip"`
+	// Port of accounting service. Defaults to `1813`.
+	Port pulumi.IntPtrInput `pulumi:"port"`
+	// RADIUS secret.
+	Xsecret pulumi.StringInput `pulumi:"xsecret"`
+}
+
+func (RadiusProfileAcctServerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RadiusProfileAcctServer)(nil)).Elem()
+}
+
+func (i RadiusProfileAcctServerArgs) ToRadiusProfileAcctServerOutput() RadiusProfileAcctServerOutput {
+	return i.ToRadiusProfileAcctServerOutputWithContext(context.Background())
+}
+
+func (i RadiusProfileAcctServerArgs) ToRadiusProfileAcctServerOutputWithContext(ctx context.Context) RadiusProfileAcctServerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileAcctServerOutput)
+}
+
+// RadiusProfileAcctServerArrayInput is an input type that accepts RadiusProfileAcctServerArray and RadiusProfileAcctServerArrayOutput values.
+// You can construct a concrete instance of `RadiusProfileAcctServerArrayInput` via:
+//
+//	RadiusProfileAcctServerArray{ RadiusProfileAcctServerArgs{...} }
+type RadiusProfileAcctServerArrayInput interface {
+	pulumi.Input
+
+	ToRadiusProfileAcctServerArrayOutput() RadiusProfileAcctServerArrayOutput
+	ToRadiusProfileAcctServerArrayOutputWithContext(context.Context) RadiusProfileAcctServerArrayOutput
+}
+
+type RadiusProfileAcctServerArray []RadiusProfileAcctServerInput
+
+func (RadiusProfileAcctServerArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RadiusProfileAcctServer)(nil)).Elem()
+}
+
+func (i RadiusProfileAcctServerArray) ToRadiusProfileAcctServerArrayOutput() RadiusProfileAcctServerArrayOutput {
+	return i.ToRadiusProfileAcctServerArrayOutputWithContext(context.Background())
+}
+
+func (i RadiusProfileAcctServerArray) ToRadiusProfileAcctServerArrayOutputWithContext(ctx context.Context) RadiusProfileAcctServerArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileAcctServerArrayOutput)
+}
+
+type RadiusProfileAcctServerOutput struct{ *pulumi.OutputState }
+
+func (RadiusProfileAcctServerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RadiusProfileAcctServer)(nil)).Elem()
+}
+
+func (o RadiusProfileAcctServerOutput) ToRadiusProfileAcctServerOutput() RadiusProfileAcctServerOutput {
+	return o
+}
+
+func (o RadiusProfileAcctServerOutput) ToRadiusProfileAcctServerOutputWithContext(ctx context.Context) RadiusProfileAcctServerOutput {
+	return o
+}
+
+// IP address of accounting service server.
+func (o RadiusProfileAcctServerOutput) Ip() pulumi.StringOutput {
+	return o.ApplyT(func(v RadiusProfileAcctServer) string { return v.Ip }).(pulumi.StringOutput)
+}
+
+// Port of accounting service. Defaults to `1813`.
+func (o RadiusProfileAcctServerOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v RadiusProfileAcctServer) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+// RADIUS secret.
+func (o RadiusProfileAcctServerOutput) Xsecret() pulumi.StringOutput {
+	return o.ApplyT(func(v RadiusProfileAcctServer) string { return v.Xsecret }).(pulumi.StringOutput)
+}
+
+type RadiusProfileAcctServerArrayOutput struct{ *pulumi.OutputState }
+
+func (RadiusProfileAcctServerArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RadiusProfileAcctServer)(nil)).Elem()
+}
+
+func (o RadiusProfileAcctServerArrayOutput) ToRadiusProfileAcctServerArrayOutput() RadiusProfileAcctServerArrayOutput {
+	return o
+}
+
+func (o RadiusProfileAcctServerArrayOutput) ToRadiusProfileAcctServerArrayOutputWithContext(ctx context.Context) RadiusProfileAcctServerArrayOutput {
+	return o
+}
+
+func (o RadiusProfileAcctServerArrayOutput) Index(i pulumi.IntInput) RadiusProfileAcctServerOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RadiusProfileAcctServer {
+		return vs[0].([]RadiusProfileAcctServer)[vs[1].(int)]
+	}).(RadiusProfileAcctServerOutput)
+}
+
+type RadiusProfileAuthServer struct {
+	// IP address of authentication service server.
+	Ip string `pulumi:"ip"`
+	// Port of authentication service. Defaults to `1812`.
+	Port *int `pulumi:"port"`
+	// RADIUS secret.
+	Xsecret string `pulumi:"xsecret"`
+}
+
+// RadiusProfileAuthServerInput is an input type that accepts RadiusProfileAuthServerArgs and RadiusProfileAuthServerOutput values.
+// You can construct a concrete instance of `RadiusProfileAuthServerInput` via:
+//
+//	RadiusProfileAuthServerArgs{...}
+type RadiusProfileAuthServerInput interface {
+	pulumi.Input
+
+	ToRadiusProfileAuthServerOutput() RadiusProfileAuthServerOutput
+	ToRadiusProfileAuthServerOutputWithContext(context.Context) RadiusProfileAuthServerOutput
+}
+
+type RadiusProfileAuthServerArgs struct {
+	// IP address of authentication service server.
+	Ip pulumi.StringInput `pulumi:"ip"`
+	// Port of authentication service. Defaults to `1812`.
+	Port pulumi.IntPtrInput `pulumi:"port"`
+	// RADIUS secret.
+	Xsecret pulumi.StringInput `pulumi:"xsecret"`
+}
+
+func (RadiusProfileAuthServerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RadiusProfileAuthServer)(nil)).Elem()
+}
+
+func (i RadiusProfileAuthServerArgs) ToRadiusProfileAuthServerOutput() RadiusProfileAuthServerOutput {
+	return i.ToRadiusProfileAuthServerOutputWithContext(context.Background())
+}
+
+func (i RadiusProfileAuthServerArgs) ToRadiusProfileAuthServerOutputWithContext(ctx context.Context) RadiusProfileAuthServerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileAuthServerOutput)
+}
+
+// RadiusProfileAuthServerArrayInput is an input type that accepts RadiusProfileAuthServerArray and RadiusProfileAuthServerArrayOutput values.
+// You can construct a concrete instance of `RadiusProfileAuthServerArrayInput` via:
+//
+//	RadiusProfileAuthServerArray{ RadiusProfileAuthServerArgs{...} }
+type RadiusProfileAuthServerArrayInput interface {
+	pulumi.Input
+
+	ToRadiusProfileAuthServerArrayOutput() RadiusProfileAuthServerArrayOutput
+	ToRadiusProfileAuthServerArrayOutputWithContext(context.Context) RadiusProfileAuthServerArrayOutput
+}
+
+type RadiusProfileAuthServerArray []RadiusProfileAuthServerInput
+
+func (RadiusProfileAuthServerArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RadiusProfileAuthServer)(nil)).Elem()
+}
+
+func (i RadiusProfileAuthServerArray) ToRadiusProfileAuthServerArrayOutput() RadiusProfileAuthServerArrayOutput {
+	return i.ToRadiusProfileAuthServerArrayOutputWithContext(context.Background())
+}
+
+func (i RadiusProfileAuthServerArray) ToRadiusProfileAuthServerArrayOutputWithContext(ctx context.Context) RadiusProfileAuthServerArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileAuthServerArrayOutput)
+}
+
+type RadiusProfileAuthServerOutput struct{ *pulumi.OutputState }
+
+func (RadiusProfileAuthServerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RadiusProfileAuthServer)(nil)).Elem()
+}
+
+func (o RadiusProfileAuthServerOutput) ToRadiusProfileAuthServerOutput() RadiusProfileAuthServerOutput {
+	return o
+}
+
+func (o RadiusProfileAuthServerOutput) ToRadiusProfileAuthServerOutputWithContext(ctx context.Context) RadiusProfileAuthServerOutput {
+	return o
+}
+
+// IP address of authentication service server.
+func (o RadiusProfileAuthServerOutput) Ip() pulumi.StringOutput {
+	return o.ApplyT(func(v RadiusProfileAuthServer) string { return v.Ip }).(pulumi.StringOutput)
+}
+
+// Port of authentication service. Defaults to `1812`.
+func (o RadiusProfileAuthServerOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v RadiusProfileAuthServer) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+// RADIUS secret.
+func (o RadiusProfileAuthServerOutput) Xsecret() pulumi.StringOutput {
+	return o.ApplyT(func(v RadiusProfileAuthServer) string { return v.Xsecret }).(pulumi.StringOutput)
+}
+
+type RadiusProfileAuthServerArrayOutput struct{ *pulumi.OutputState }
+
+func (RadiusProfileAuthServerArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RadiusProfileAuthServer)(nil)).Elem()
+}
+
+func (o RadiusProfileAuthServerArrayOutput) ToRadiusProfileAuthServerArrayOutput() RadiusProfileAuthServerArrayOutput {
+	return o
+}
+
+func (o RadiusProfileAuthServerArrayOutput) ToRadiusProfileAuthServerArrayOutputWithContext(ctx context.Context) RadiusProfileAuthServerArrayOutput {
+	return o
+}
+
+func (o RadiusProfileAuthServerArrayOutput) Index(i pulumi.IntInput) RadiusProfileAuthServerOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RadiusProfileAuthServer {
+		return vs[0].([]RadiusProfileAuthServer)[vs[1].(int)]
+	}).(RadiusProfileAuthServerOutput)
+}
+
 type WlanSchedule struct {
-	// Time of day to end the block.
-	BlockEnd string `pulumi:"blockEnd"`
-	// Time of day to start the block.
-	BlockStart string `pulumi:"blockStart"`
 	// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
 	DayOfWeek string `pulumi:"dayOfWeek"`
+	// Length of the block in minutes.
+	Duration int `pulumi:"duration"`
+	// Name of the block.
+	Name *string `pulumi:"name"`
+	// Start hour for the block (0-23).
+	StartHour int `pulumi:"startHour"`
+	// Start minute for the block (0-59). Defaults to `0`.
+	StartMinute *int `pulumi:"startMinute"`
 }
 
 // WlanScheduleInput is an input type that accepts WlanScheduleArgs and WlanScheduleOutput values.
@@ -146,12 +380,16 @@ type WlanScheduleInput interface {
 }
 
 type WlanScheduleArgs struct {
-	// Time of day to end the block.
-	BlockEnd pulumi.StringInput `pulumi:"blockEnd"`
-	// Time of day to start the block.
-	BlockStart pulumi.StringInput `pulumi:"blockStart"`
 	// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
 	DayOfWeek pulumi.StringInput `pulumi:"dayOfWeek"`
+	// Length of the block in minutes.
+	Duration pulumi.IntInput `pulumi:"duration"`
+	// Name of the block.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Start hour for the block (0-23).
+	StartHour pulumi.IntInput `pulumi:"startHour"`
+	// Start minute for the block (0-59). Defaults to `0`.
+	StartMinute pulumi.IntPtrInput `pulumi:"startMinute"`
 }
 
 func (WlanScheduleArgs) ElementType() reflect.Type {
@@ -205,19 +443,29 @@ func (o WlanScheduleOutput) ToWlanScheduleOutputWithContext(ctx context.Context)
 	return o
 }
 
-// Time of day to end the block.
-func (o WlanScheduleOutput) BlockEnd() pulumi.StringOutput {
-	return o.ApplyT(func(v WlanSchedule) string { return v.BlockEnd }).(pulumi.StringOutput)
-}
-
-// Time of day to start the block.
-func (o WlanScheduleOutput) BlockStart() pulumi.StringOutput {
-	return o.ApplyT(func(v WlanSchedule) string { return v.BlockStart }).(pulumi.StringOutput)
-}
-
 // Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
 func (o WlanScheduleOutput) DayOfWeek() pulumi.StringOutput {
 	return o.ApplyT(func(v WlanSchedule) string { return v.DayOfWeek }).(pulumi.StringOutput)
+}
+
+// Length of the block in minutes.
+func (o WlanScheduleOutput) Duration() pulumi.IntOutput {
+	return o.ApplyT(func(v WlanSchedule) int { return v.Duration }).(pulumi.IntOutput)
+}
+
+// Name of the block.
+func (o WlanScheduleOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WlanSchedule) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Start hour for the block (0-23).
+func (o WlanScheduleOutput) StartHour() pulumi.IntOutput {
+	return o.ApplyT(func(v WlanSchedule) int { return v.StartHour }).(pulumi.IntOutput)
+}
+
+// Start minute for the block (0-59). Defaults to `0`.
+func (o WlanScheduleOutput) StartMinute() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v WlanSchedule) *int { return v.StartMinute }).(pulumi.IntPtrOutput)
 }
 
 type WlanScheduleArrayOutput struct{ *pulumi.OutputState }
@@ -243,10 +491,18 @@ func (o WlanScheduleArrayOutput) Index(i pulumi.IntInput) WlanScheduleOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePortOverrideInput)(nil)).Elem(), DevicePortOverrideArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePortOverrideArrayInput)(nil)).Elem(), DevicePortOverrideArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RadiusProfileAcctServerInput)(nil)).Elem(), RadiusProfileAcctServerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RadiusProfileAcctServerArrayInput)(nil)).Elem(), RadiusProfileAcctServerArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RadiusProfileAuthServerInput)(nil)).Elem(), RadiusProfileAuthServerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RadiusProfileAuthServerArrayInput)(nil)).Elem(), RadiusProfileAuthServerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WlanScheduleInput)(nil)).Elem(), WlanScheduleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WlanScheduleArrayInput)(nil)).Elem(), WlanScheduleArray{})
 	pulumi.RegisterOutputType(DevicePortOverrideOutput{})
 	pulumi.RegisterOutputType(DevicePortOverrideArrayOutput{})
+	pulumi.RegisterOutputType(RadiusProfileAcctServerOutput{})
+	pulumi.RegisterOutputType(RadiusProfileAcctServerArrayOutput{})
+	pulumi.RegisterOutputType(RadiusProfileAuthServerOutput{})
+	pulumi.RegisterOutputType(RadiusProfileAuthServerArrayOutput{})
 	pulumi.RegisterOutputType(WlanScheduleOutput{})
 	pulumi.RegisterOutputType(WlanScheduleArrayOutput{})
 }

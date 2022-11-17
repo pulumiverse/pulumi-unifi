@@ -153,6 +153,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
+			"unifi_account":        {Tok: unifiResource(mainMod, "Account")},
 			"unifi_device":         {Tok: unifiResource(mainMod, "Device")},
 			"unifi_dynamic_dns":    {Tok: unifiResource(mainMod, "DynamicDNS")},
 			"unifi_firewall_group": {Tok: unifiResource(firewallMod, "Group")},
@@ -160,8 +161,10 @@ func Provider() tfbridge.ProviderInfo {
 			"unifi_network":        {Tok: unifiResource(mainMod, "Network")},
 			"unifi_port_forward":   {Tok: unifiResource(portMod, "Forward")},
 			"unifi_port_profile":   {Tok: unifiResource(portMod, "Profile")},
+			"unifi_radius_profile":	{Tok: unifiResource(mainMod, "RadiusProfile")},
 			"unifi_setting_mgmt":   {Tok: unifiResource(settingMod, "Mgmt")},
 			"unifi_setting_usg":    {Tok: unifiResource(settingMod, "USG")},
+			"unifi_setting_radius": {Tok: unifiResource(settingMod, "Radius")},
 			"unifi_site":           {Tok: unifiResource(mainMod, "Site")},
 			"unifi_static_route":   {Tok: unifiResource(mainMod, "StaticRoute")},
 			"unifi_user":           {Tok: unifiResource(iamMod, "User")},
@@ -169,6 +172,7 @@ func Provider() tfbridge.ProviderInfo {
 			"unifi_wlan":           {Tok: unifiResource(mainMod, "Wlan")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
+			"unifi_account":        {Tok: unifiDataSource(mainMod, "getAccount")},
 			"unifi_ap_group":       {Tok: unifiDataSource(mainMod, "getApGroup")},
 			"unifi_network":        {Tok: unifiDataSource(mainMod, "getNetwork")},
 			"unifi_port_profile":   {Tok: unifiDataSource(portMod, "getProfile")},
