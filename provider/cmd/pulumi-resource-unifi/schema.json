@@ -11,7 +11,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`unifi` Terraform Provider](https://github.com/paultyng/terraform-provider-unifi).",
     "repository": "https://github.com/pulumiverse/pulumi-unifi",
-    "logoUrl": "https://raw.githubusercontent.com/pulumiverse/.github/main/assets/mascot.png",
+    "logoUrl": "",
     "pluginDownloadURL": "github://api.github.com/pulumiverse",
     "publisher": "Pulumiverse",
     "meta": {
