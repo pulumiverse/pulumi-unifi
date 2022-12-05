@@ -4,7 +4,9 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
+import * as utilities from "../utilities";
 
+export * as setting from "./setting/output";
 export interface DevicePortOverride {
     /**
      * Human-readable name of the port.
@@ -73,24 +75,3 @@ export interface WlanSchedule {
     startMinute?: number;
 }
 
-export namespace setting {
-    export interface MgmtSshKey {
-        /**
-         * Comment.
-         */
-        comment?: string;
-        /**
-         * Public SSH key.
-         */
-        key?: string;
-        /**
-         * Name of SSH key.
-         */
-        name: string;
-        /**
-         * Type of SSH key, e.g. ssh-rsa.
-         */
-        type: string;
-    }
-
-}

@@ -27,7 +27,7 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err = unifi.LookupNetwork(ctx, &GetNetworkArgs{
+//			_, err = unifi.LookupNetwork(ctx, &unifi.LookupNetworkArgs{
 //				Name: pulumi.StringRef("Default"),
 //			}, nil)
 //			if err != nil {
@@ -39,7 +39,7 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			_, err = unifi.LookupNetwork(ctx, &GetNetworkArgs{
+//			_, err = unifi.LookupNetwork(ctx, &unifi.LookupNetworkArgs{
 //				Id: pulumi.StringRef(myDevice.NetworkId),
 //			}, nil)
 //			if err != nil {

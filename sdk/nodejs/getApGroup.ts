@@ -13,16 +13,13 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumi/unifi";
  *
- * const defaultApGroup = pulumi.output(unifi.getApGroup());
+ * const default = unifi.getApGroup({});
  * ```
  */
 export function getApGroup(args?: GetApGroupArgs, opts?: pulumi.InvokeOptions): Promise<GetApGroupResult> {
     args = args || {};
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("unifi:index/getApGroup:getApGroup", {
         "name": args.name,
         "site": args.site,

@@ -9,11 +9,8 @@ import * as utilities from "./utilities";
  */
 export function getRadiusProfile(args?: GetRadiusProfileArgs, opts?: pulumi.InvokeOptions): Promise<GetRadiusProfileResult> {
     args = args || {};
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("unifi:index/getRadiusProfile:getRadiusProfile", {
         "name": args.name,
         "site": args.site,

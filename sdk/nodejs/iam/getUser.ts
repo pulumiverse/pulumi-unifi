@@ -13,17 +13,14 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumi/unifi";
  *
- * const client = pulumi.output(unifi.iam.getUser({
+ * const client = unifi.iam.getUser({
  *     mac: "01:23:45:67:89:ab",
- * }));
+ * });
  * ```
  */
 export function getUser(args: GetUserArgs, opts?: pulumi.InvokeOptions): Promise<GetUserResult> {
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("unifi:iam/getUser:getUser", {
         "mac": args.mac,
         "site": args.site,
