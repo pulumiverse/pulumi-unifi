@@ -11,12 +11,13 @@ import * as utilities from "../utilities";
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumi/unifi";
+ * import * as unifi from "@pulumiverse/unifi";
  *
  * const wifi = new unifi.iam.Group("wifi", {
- *     qosRateMaxDown: 2000, // 2mbps
- *     qosRateMaxUp: 10, // 10kbps
+ *     qosRateMaxDown: 2000,
+ *     qosRateMaxUp: 10,
  * });
+ * // 10kbps
  * ```
  *
  * ## Import

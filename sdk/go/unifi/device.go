@@ -35,7 +35,7 @@ import (
 //				Forward:             pulumi.String("customize"),
 //				NativeNetworkconfId: pulumi.Any(_var.Native_network_id),
 //				TaggedNetworkconfIds: pulumi.StringArray{
-//					pulumi.Any(_var.Some_vlan_network_id),
+//					_var.Some_vlan_network_id,
 //				},
 //				PoeMode: pulumi.String("auto"),
 //			})
@@ -44,13 +44,13 @@ import (
 //			}
 //			_, err = unifi.NewDevice(ctx, "us24Poe", &unifi.DeviceArgs{
 //				Mac: pulumi.String("01:23:45:67:89:AB"),
-//				PortOverrides: DevicePortOverrideArray{
-//					&DevicePortOverrideArgs{
+//				PortOverrides: unifi.DevicePortOverrideArray{
+//					&unifi.DevicePortOverrideArgs{
 //						Number:        pulumi.Int(1),
 //						Name:          pulumi.String("port w/ poe"),
 //						PortProfileId: poe.ID(),
 //					},
-//					&DevicePortOverrideArgs{
+//					&unifi.DevicePortOverrideArgs{
 //						Number:        pulumi.Int(2),
 //						Name:          pulumi.String("disabled"),
 //						PortProfileId: pulumi.String(disabled.Id),

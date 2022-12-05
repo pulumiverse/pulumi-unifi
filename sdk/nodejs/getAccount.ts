@@ -8,11 +8,8 @@ import * as utilities from "./utilities";
  * `unifi.Account` data source can be used to retrieve RADIUS user accounts
  */
 export function getAccount(args: GetAccountArgs, opts?: pulumi.InvokeOptions): Promise<GetAccountResult> {
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("unifi:index/getAccount:getAccount", {
         "name": args.name,
         "site": args.site,

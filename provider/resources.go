@@ -108,7 +108,7 @@ func Provider() tfbridge.ProviderInfo {
 		//
 		// You may host a logo on a domain you control or add an SVG logo for your package
 		// in your repository and use the raw content URL for that file as your logo URL.
-		LogoURL: "https://raw.githubusercontent.com/pulumiverse/.github/main/assets/mascot.png",
+		LogoURL: "",
 		// PluginDownloadURL is an optional URL used to download the Provider
 		// for use in Pulumi programs
 		// https://www.pulumi.com/docs/guides/pulumi-packages/how-to-author/#support-for-github-releases
@@ -161,7 +161,7 @@ func Provider() tfbridge.ProviderInfo {
 			"unifi_network":        {Tok: unifiResource(mainMod, "Network")},
 			"unifi_port_forward":   {Tok: unifiResource(portMod, "Forward")},
 			"unifi_port_profile":   {Tok: unifiResource(portMod, "Profile")},
-			"unifi_radius_profile":	{Tok: unifiResource(mainMod, "RadiusProfile")},
+			"unifi_radius_profile": {Tok: unifiResource(mainMod, "RadiusProfile")},
 			"unifi_setting_mgmt":   {Tok: unifiResource(settingMod, "Mgmt")},
 			"unifi_setting_usg":    {Tok: unifiResource(settingMod, "USG")},
 			"unifi_setting_radius": {Tok: unifiResource(settingMod, "Radius")},
