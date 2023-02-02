@@ -6,8 +6,12 @@
 **/bin/
 **/obj/
 Pulumi.*.yaml
-**/node_modules/
 .DS_Store
+
+# Temp NodeJS test setup for workflow generation
+package.json
+package-lock.json
+**/node_modules/
 
 **/command-output/
 
