@@ -18,20 +18,14 @@ env:
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
   TRAVIS_OS_NAME: linux
+  GOVERSION: 1.19.x
+  NODEVERSION: 16.x
+  PYTHONVERSION: "3.9"
+  DOTNETVERSION: 3.1.301
+  JAVAVERSION: "11"
 jobs:
   prerequisites:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        dotnetversion:
-        - 3.1.301
-        goversion:
-        - 1.19.x
-        pythonversion:
-        - "3.9"
-        nodeversion:
-        - 16.x
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
@@ -45,7 +39,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -69,14 +63,11 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - 3.1.301
-        pythonversion:
-        - "3.9"
-        nodeversion:
-        - 16.x
+        language:
+        - nodejs
+        - python
+        - dotnet
+        - go
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
@@ -90,7 +81,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -100,16 +91,16 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: ${{matrix.nodeversion}}
+        node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{matrix.dotnetversion}}
+        dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{matrix.pythonversion}}
+        python-version: ${{ env.PYTHONVERSION }}
     - name: Download provider + tfgen binaries
       uses: actions/download-artifact@v2
       with:
@@ -140,17 +131,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: test
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - 3.1.301
-        pythonversion:
-        - "3.9"
-        nodeversion:
-        - 16.x
     name: publish
     steps:
     - name: Checkout repo
@@ -160,7 +140,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -187,17 +167,6 @@ jobs:
   publish_sdk:
     runs-on: ubuntu-latest
     needs: publish
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - 3.1.301
-        pythonversion:
-        - "3.9"
-        nodeversion:
-        - 16.x
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
@@ -211,7 +180,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -221,16 +190,16 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: ${{matrix.nodeversion}}
+        node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{matrix.dotnetversion}}
+        dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{matrix.pythonversion}}
+        python-version: ${{ env.PYTHONVERSION }}
     - name: Download python SDK
       uses: actions/download-artifact@v2
       with:
