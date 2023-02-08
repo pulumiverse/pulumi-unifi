@@ -57,9 +57,20 @@ export interface GetApGroupResult {
      */
     readonly site: string;
 }
-
+/**
+ * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumi/unifi";
+ *
+ * const default = unifi.getApGroup({});
+ * ```
+ */
 export function getApGroupOutput(args?: GetApGroupOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetApGroupResult> {
-    return pulumi.output(args).apply(a => getApGroup(a, opts))
+    return pulumi.output(args).apply((a: any) => getApGroup(a, opts))
 }
 
 /**

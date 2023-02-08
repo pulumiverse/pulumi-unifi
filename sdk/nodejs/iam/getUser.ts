@@ -94,9 +94,22 @@ export interface GetUserResult {
      */
     readonly userGroupId: string;
 }
-
+/**
+ * `unifi.iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumi/unifi";
+ *
+ * const client = unifi.iam.getUser({
+ *     mac: "01:23:45:67:89:ab",
+ * });
+ * ```
+ */
 export function getUserOutput(args: GetUserOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetUserResult> {
-    return pulumi.output(args).apply(a => getUser(a, opts))
+    return pulumi.output(args).apply((a: any) => getUser(a, opts))
 }
 
 /**

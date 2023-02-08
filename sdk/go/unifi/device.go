@@ -53,7 +53,7 @@ import (
 //					&unifi.DevicePortOverrideArgs{
 //						Number:        pulumi.Int(2),
 //						Name:          pulumi.String("disabled"),
-//						PortProfileId: pulumi.String(disabled.Id),
+//						PortProfileId: *pulumi.String(disabled.Id),
 //					},
 //				},
 //			})

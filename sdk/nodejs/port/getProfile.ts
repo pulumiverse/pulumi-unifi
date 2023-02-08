@@ -57,9 +57,20 @@ export interface GetProfileResult {
      */
     readonly site: string;
 }
-
+/**
+ * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumi/unifi";
+ *
+ * const all = unifi.port.getProfile({});
+ * ```
+ */
 export function getProfileOutput(args?: GetProfileOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetProfileResult> {
-    return pulumi.output(args).apply(a => getProfile(a, opts))
+    return pulumi.output(args).apply((a: any) => getProfile(a, opts))
 }
 
 /**

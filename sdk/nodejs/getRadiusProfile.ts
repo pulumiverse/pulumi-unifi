@@ -48,9 +48,11 @@ export interface GetRadiusProfileResult {
      */
     readonly site: string;
 }
-
+/**
+ * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
+ */
 export function getRadiusProfileOutput(args?: GetRadiusProfileOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetRadiusProfileResult> {
-    return pulumi.output(args).apply(a => getRadiusProfile(a, opts))
+    return pulumi.output(args).apply((a: any) => getRadiusProfile(a, opts))
 }
 
 /**

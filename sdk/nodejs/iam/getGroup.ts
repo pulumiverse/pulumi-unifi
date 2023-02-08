@@ -50,9 +50,11 @@ export interface GetGroupResult {
      */
     readonly site: string;
 }
-
+/**
+ * `unifi.iam.Group` data source can be used to retrieve the ID for a user group by name.
+ */
 export function getGroupOutput(args?: GetGroupOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetGroupResult> {
-    return pulumi.output(args).apply(a => getGroup(a, opts))
+    return pulumi.output(args).apply((a: any) => getGroup(a, opts))
 }
 
 /**

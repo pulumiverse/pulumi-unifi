@@ -63,9 +63,11 @@ export interface GetAccountResult {
      */
     readonly tunnelType: number;
 }
-
+/**
+ * `unifi.Account` data source can be used to retrieve RADIUS user accounts
+ */
 export function getAccountOutput(args: GetAccountOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetAccountResult> {
-    return pulumi.output(args).apply(a => getAccount(a, opts))
+    return pulumi.output(args).apply((a: any) => getAccount(a, opts))
 }
 
 /**
