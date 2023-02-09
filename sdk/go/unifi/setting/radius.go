@@ -40,7 +40,7 @@ func NewRadius(ctx *pulumi.Context,
 	}
 
 	if args.Secret != nil {
-		args.Secret = pulumi.ToSecret(args.Secret).(pulumi.StringPtrOutput)
+		args.Secret = pulumi.ToSecret(args.Secret).(pulumi.StringPtrInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"secret",

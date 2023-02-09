@@ -246,9 +246,28 @@ export interface GetNetworkResult {
      */
     readonly xWanPassword: string;
 }
-
+/**
+ * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumi/unifi";
+ *
+ * const lanNetwork = unifi.getNetwork({
+ *     name: "Default",
+ * });
+ * const myDevice = unifi.iam.getUser({
+ *     mac: "01:23:45:67:89:ab",
+ * });
+ * const myNetwork = myDevice.then(myDevice => unifi.getNetwork({
+ *     id: myDevice.networkId,
+ * }));
+ * ```
+ */
 export function getNetworkOutput(args?: GetNetworkOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetNetworkResult> {
-    return pulumi.output(args).apply(a => getNetwork(a, opts))
+    return pulumi.output(args).apply((a: any) => getNetwork(a, opts))
 }
 
 /**

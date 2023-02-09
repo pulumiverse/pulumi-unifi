@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
+	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -61,9 +61,9 @@ import (
 //				PmfMode:        pulumi.String("optional"),
 //				NetworkId:      vlan.ID(),
 //				ApGroupIds: pulumi.StringArray{
-//					pulumi.String(defaultApGroup.Id),
+//					*pulumi.String(defaultApGroup.Id),
 //				},
-//				UserGroupId: pulumi.String(defaultGroup.Id),
+//				UserGroupId: *pulumi.String(defaultGroup.Id),
 //			})
 //			if err != nil {
 //				return err
@@ -158,7 +158,7 @@ func NewWlan(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'UserGroupId'")
 	}
 	if args.Passphrase != nil {
-		args.Passphrase = pulumi.ToSecret(args.Passphrase).(pulumi.StringPtrOutput)
+		args.Passphrase = pulumi.ToSecret(args.Passphrase).(pulumi.StringPtrInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"passphrase",

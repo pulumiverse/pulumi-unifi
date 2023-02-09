@@ -26,7 +26,7 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err = iam.LookupUser(ctx, &iam.LookupUserArgs{
+//			_, err := iam.LookupUser(ctx, &iam.LookupUserArgs{
 //				Mac: "01:23:45:67:89:ab",
 //			}, nil)
 //			if err != nil {
