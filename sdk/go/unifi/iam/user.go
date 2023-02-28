@@ -58,6 +58,8 @@ type User struct {
 	Hostname pulumi.StringOutput `pulumi:"hostname"`
 	// The IP address of the user.
 	Ip pulumi.StringOutput `pulumi:"ip"`
+	// Specifies the local DNS record for this user.
+	LocalDnsRecord pulumi.StringPtrOutput `pulumi:"localDnsRecord"`
 	// The MAC address of the user.
 	Mac pulumi.StringOutput `pulumi:"mac"`
 	// The name of the user.
@@ -119,6 +121,8 @@ type userState struct {
 	Hostname *string `pulumi:"hostname"`
 	// The IP address of the user.
 	Ip *string `pulumi:"ip"`
+	// Specifies the local DNS record for this user.
+	LocalDnsRecord *string `pulumi:"localDnsRecord"`
 	// The MAC address of the user.
 	Mac *string `pulumi:"mac"`
 	// The name of the user.
@@ -148,6 +152,8 @@ type UserState struct {
 	Hostname pulumi.StringPtrInput
 	// The IP address of the user.
 	Ip pulumi.StringPtrInput
+	// Specifies the local DNS record for this user.
+	LocalDnsRecord pulumi.StringPtrInput
 	// The MAC address of the user.
 	Mac pulumi.StringPtrInput
 	// The name of the user.
@@ -177,6 +183,8 @@ type userArgs struct {
 	DevIdOverride *int `pulumi:"devIdOverride"`
 	// A fixed IPv4 address for this user.
 	FixedIp *string `pulumi:"fixedIp"`
+	// Specifies the local DNS record for this user.
+	LocalDnsRecord *string `pulumi:"localDnsRecord"`
 	// The MAC address of the user.
 	Mac string `pulumi:"mac"`
 	// The name of the user.
@@ -203,6 +211,8 @@ type UserArgs struct {
 	DevIdOverride pulumi.IntPtrInput
 	// A fixed IPv4 address for this user.
 	FixedIp pulumi.StringPtrInput
+	// Specifies the local DNS record for this user.
+	LocalDnsRecord pulumi.StringPtrInput
 	// The MAC address of the user.
 	Mac pulumi.StringInput
 	// The name of the user.
@@ -334,6 +344,11 @@ func (o UserOutput) Hostname() pulumi.StringOutput {
 // The IP address of the user.
 func (o UserOutput) Ip() pulumi.StringOutput {
 	return o.ApplyT(func(v *User) pulumi.StringOutput { return v.Ip }).(pulumi.StringOutput)
+}
+
+// Specifies the local DNS record for this user.
+func (o UserOutput) LocalDnsRecord() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.LocalDnsRecord }).(pulumi.StringPtrOutput)
 }
 
 // The MAC address of the user.

@@ -201,7 +201,7 @@ namespace Pulumiverse.Unifi
         public Output<string> UserGroupId { get; private set; } = null!;
 
         /// <summary>
-        /// Radio band your WiFi network will use.
+        /// Radio band your WiFi network will use. Defaults to `both`.
         /// </summary>
         [Output("wlanBand")]
         public Output<string?> WlanBand { get; private set; } = null!;
@@ -424,7 +424,7 @@ namespace Pulumiverse.Unifi
         public Input<string> UserGroupId { get; set; } = null!;
 
         /// <summary>
-        /// Radio band your WiFi network will use.
+        /// Radio band your WiFi network will use. Defaults to `both`.
         /// </summary>
         [Input("wlanBand")]
         public Input<string>? WlanBand { get; set; }
@@ -604,7 +604,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? UserGroupId { get; set; }
 
         /// <summary>
-        /// Radio band your WiFi network will use.
+        /// Radio band your WiFi network will use. Defaults to `both`.
         /// </summary>
         [Input("wlanBand")]
         public Input<string>? WlanBand { get; set; }

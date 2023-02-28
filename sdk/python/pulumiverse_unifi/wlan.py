@@ -63,7 +63,7 @@ class WlanArgs:
         :param pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
         :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
-        :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use.
+        :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use. Defaults to `both`.
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
         :param pulumi.Input[bool] wpa3_transition: Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
         """
@@ -370,7 +370,7 @@ class WlanArgs:
     @pulumi.getter(name="wlanBand")
     def wlan_band(self) -> Optional[pulumi.Input[str]]:
         """
-        Radio band your WiFi network will use.
+        Radio band your WiFi network will use. Defaults to `both`.
         """
         return pulumi.get(self, "wlan_band")
 
@@ -453,7 +453,7 @@ class _WlanState:
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
         :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
         :param pulumi.Input[str] user_group_id: ID of the user group to use for this network.
-        :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use.
+        :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use. Defaults to `both`.
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
         :param pulumi.Input[bool] wpa3_transition: Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
         """
@@ -762,7 +762,7 @@ class _WlanState:
     @pulumi.getter(name="wlanBand")
     def wlan_band(self) -> Optional[pulumi.Input[str]]:
         """
-        Radio band your WiFi network will use.
+        Radio band your WiFi network will use. Defaults to `both`.
         """
         return pulumi.get(self, "wlan_band")
 
@@ -896,7 +896,7 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
         :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
         :param pulumi.Input[str] user_group_id: ID of the user group to use for this network.
-        :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use.
+        :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use. Defaults to `both`.
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
         :param pulumi.Input[bool] wpa3_transition: Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
         """
@@ -1094,7 +1094,7 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
         :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
         :param pulumi.Input[str] user_group_id: ID of the user group to use for this network.
-        :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use.
+        :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use. Defaults to `both`.
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
         :param pulumi.Input[bool] wpa3_transition: Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
         """
@@ -1300,7 +1300,7 @@ class Wlan(pulumi.CustomResource):
     @pulumi.getter(name="wlanBand")
     def wlan_band(self) -> pulumi.Output[Optional[str]]:
         """
-        Radio band your WiFi network will use.
+        Radio band your WiFi network will use. Defaults to `both`.
         """
         return pulumi.get(self, "wlan_band")
 

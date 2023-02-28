@@ -69,9 +69,17 @@ export class Device extends pulumi.CustomResource {
     }
 
     /**
+     * Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     */
+    public readonly allowAdoption!: pulumi.Output<boolean | undefined>;
+    /**
      * Specifies whether this device should be disabled.
      */
     public /*out*/ readonly disabled!: pulumi.Output<boolean>;
+    /**
+     * Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     */
+    public readonly forgetOnDestroy!: pulumi.Output<boolean | undefined>;
     /**
      * The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
      */
@@ -102,13 +110,17 @@ export class Device extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as DeviceState | undefined;
+            resourceInputs["allowAdoption"] = state ? state.allowAdoption : undefined;
             resourceInputs["disabled"] = state ? state.disabled : undefined;
+            resourceInputs["forgetOnDestroy"] = state ? state.forgetOnDestroy : undefined;
             resourceInputs["mac"] = state ? state.mac : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["portOverrides"] = state ? state.portOverrides : undefined;
             resourceInputs["site"] = state ? state.site : undefined;
         } else {
             const args = argsOrState as DeviceArgs | undefined;
+            resourceInputs["allowAdoption"] = args ? args.allowAdoption : undefined;
+            resourceInputs["forgetOnDestroy"] = args ? args.forgetOnDestroy : undefined;
             resourceInputs["mac"] = args ? args.mac : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["portOverrides"] = args ? args.portOverrides : undefined;
@@ -125,9 +137,17 @@ export class Device extends pulumi.CustomResource {
  */
 export interface DeviceState {
     /**
+     * Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     */
+    allowAdoption?: pulumi.Input<boolean>;
+    /**
      * Specifies whether this device should be disabled.
      */
     disabled?: pulumi.Input<boolean>;
+    /**
+     * Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     */
+    forgetOnDestroy?: pulumi.Input<boolean>;
     /**
      * The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
      */
@@ -150,6 +170,14 @@ export interface DeviceState {
  * The set of arguments for constructing a Device resource.
  */
 export interface DeviceArgs {
+    /**
+     * Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     */
+    allowAdoption?: pulumi.Input<boolean>;
+    /**
+     * Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     */
+    forgetOnDestroy?: pulumi.Input<boolean>;
     /**
      * The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
      */

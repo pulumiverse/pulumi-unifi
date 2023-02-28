@@ -148,6 +148,11 @@ public final class GetNetworkResult {
      */
     private String ipv6StaticSubnet;
     /**
+     * @return Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+     * 
+     */
+    private Boolean multicastDns;
+    /**
      * @return The name of the network.
      * 
      */
@@ -439,6 +444,13 @@ public final class GetNetworkResult {
         return this.ipv6StaticSubnet;
     }
     /**
+     * @return Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+     * 
+     */
+    public Boolean multicastDns() {
+        return this.multicastDns;
+    }
+    /**
      * @return The name of the network.
      * 
      */
@@ -615,6 +627,7 @@ public final class GetNetworkResult {
         private String ipv6RaPriority;
         private Integer ipv6RaValidLifetime;
         private String ipv6StaticSubnet;
+        private Boolean multicastDns;
         private String name;
         private String networkGroup;
         private String purpose;
@@ -665,6 +678,7 @@ public final class GetNetworkResult {
     	      this.ipv6RaPriority = defaults.ipv6RaPriority;
     	      this.ipv6RaValidLifetime = defaults.ipv6RaValidLifetime;
     	      this.ipv6StaticSubnet = defaults.ipv6StaticSubnet;
+    	      this.multicastDns = defaults.multicastDns;
     	      this.name = defaults.name;
     	      this.networkGroup = defaults.networkGroup;
     	      this.purpose = defaults.purpose;
@@ -829,6 +843,11 @@ public final class GetNetworkResult {
             return this;
         }
         @CustomType.Setter
+        public Builder multicastDns(Boolean multicastDns) {
+            this.multicastDns = Objects.requireNonNull(multicastDns);
+            return this;
+        }
+        @CustomType.Setter
         public Builder name(String name) {
             this.name = Objects.requireNonNull(name);
             return this;
@@ -960,6 +979,7 @@ public final class GetNetworkResult {
             o.ipv6RaPriority = ipv6RaPriority;
             o.ipv6RaValidLifetime = ipv6RaValidLifetime;
             o.ipv6StaticSubnet = ipv6StaticSubnet;
+            o.multicastDns = multicastDns;
             o.name = name;
             o.networkGroup = networkGroup;
             o.purpose = purpose;

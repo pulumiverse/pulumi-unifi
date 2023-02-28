@@ -23,7 +23,7 @@ namespace Pulumiverse.Unifi.Port
         public Output<string?> DstPort { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
@@ -130,7 +130,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -198,7 +198,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }

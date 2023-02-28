@@ -167,7 +167,7 @@ export class Wlan extends pulumi.CustomResource {
      */
     public readonly userGroupId!: pulumi.Output<string>;
     /**
-     * Radio band your WiFi network will use.
+     * Radio band your WiFi network will use. Defaults to `both`.
      */
     public readonly wlanBand!: pulumi.Output<string | undefined>;
     /**
@@ -345,7 +345,7 @@ export interface WlanState {
      */
     userGroupId?: pulumi.Input<string>;
     /**
-     * Radio band your WiFi network will use.
+     * Radio band your WiFi network will use. Defaults to `both`.
      */
     wlanBand?: pulumi.Input<string>;
     /**
@@ -447,7 +447,7 @@ export interface WlanArgs {
      */
     userGroupId: pulumi.Input<string>;
     /**
-     * Radio band your WiFi network will use.
+     * Radio band your WiFi network will use. Defaults to `both`.
      */
     wlanBand?: pulumi.Input<string>;
     /**

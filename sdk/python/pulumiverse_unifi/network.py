@@ -44,6 +44,7 @@ class NetworkArgs:
                  ipv6_ra_priority: Optional[pulumi.Input[str]] = None,
                  ipv6_ra_valid_lifetime: Optional[pulumi.Input[int]] = None,
                  ipv6_static_subnet: Optional[pulumi.Input[str]] = None,
+                 multicast_dns: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  network_group: Optional[pulumi.Input[str]] = None,
                  site: Optional[pulumi.Input[str]] = None,
@@ -95,6 +96,7 @@ class NetworkArgs:
         :param pulumi.Input[str] ipv6_ra_priority: IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
         :param pulumi.Input[int] ipv6_ra_valid_lifetime: Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
         :param pulumi.Input[str] ipv6_static_subnet: Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
+        :param pulumi.Input[bool] multicast_dns: Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
         :param pulumi.Input[str] name: The name of the network.
         :param pulumi.Input[str] network_group: The group of the network. Defaults to `LAN`.
         :param pulumi.Input[str] site: The name of the site to associate the network with.
@@ -174,6 +176,8 @@ class NetworkArgs:
             pulumi.set(__self__, "ipv6_ra_valid_lifetime", ipv6_ra_valid_lifetime)
         if ipv6_static_subnet is not None:
             pulumi.set(__self__, "ipv6_static_subnet", ipv6_static_subnet)
+        if multicast_dns is not None:
+            pulumi.set(__self__, "multicast_dns", multicast_dns)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if network_group is not None:
@@ -574,6 +578,18 @@ class NetworkArgs:
         pulumi.set(self, "ipv6_static_subnet", value)
 
     @property
+    @pulumi.getter(name="multicastDns")
+    def multicast_dns(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+        """
+        return pulumi.get(self, "multicast_dns")
+
+    @multicast_dns.setter
+    def multicast_dns(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "multicast_dns", value)
+
+    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -834,6 +850,7 @@ class _NetworkState:
                  ipv6_ra_priority: Optional[pulumi.Input[str]] = None,
                  ipv6_ra_valid_lifetime: Optional[pulumi.Input[int]] = None,
                  ipv6_static_subnet: Optional[pulumi.Input[str]] = None,
+                 multicast_dns: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  network_group: Optional[pulumi.Input[str]] = None,
                  purpose: Optional[pulumi.Input[str]] = None,
@@ -885,6 +902,7 @@ class _NetworkState:
         :param pulumi.Input[str] ipv6_ra_priority: IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
         :param pulumi.Input[int] ipv6_ra_valid_lifetime: Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
         :param pulumi.Input[str] ipv6_static_subnet: Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
+        :param pulumi.Input[bool] multicast_dns: Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
         :param pulumi.Input[str] name: The name of the network.
         :param pulumi.Input[str] network_group: The group of the network. Defaults to `LAN`.
         :param pulumi.Input[str] purpose: The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
@@ -964,6 +982,8 @@ class _NetworkState:
             pulumi.set(__self__, "ipv6_ra_valid_lifetime", ipv6_ra_valid_lifetime)
         if ipv6_static_subnet is not None:
             pulumi.set(__self__, "ipv6_static_subnet", ipv6_static_subnet)
+        if multicast_dns is not None:
+            pulumi.set(__self__, "multicast_dns", multicast_dns)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if network_group is not None:
@@ -1354,6 +1374,18 @@ class _NetworkState:
         pulumi.set(self, "ipv6_static_subnet", value)
 
     @property
+    @pulumi.getter(name="multicastDns")
+    def multicast_dns(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+        """
+        return pulumi.get(self, "multicast_dns")
+
+    @multicast_dns.setter
+    def multicast_dns(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "multicast_dns", value)
+
+    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -1628,6 +1660,7 @@ class Network(pulumi.CustomResource):
                  ipv6_ra_priority: Optional[pulumi.Input[str]] = None,
                  ipv6_ra_valid_lifetime: Optional[pulumi.Input[int]] = None,
                  ipv6_static_subnet: Optional[pulumi.Input[str]] = None,
+                 multicast_dns: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  network_group: Optional[pulumi.Input[str]] = None,
                  purpose: Optional[pulumi.Input[str]] = None,
@@ -1730,6 +1763,7 @@ class Network(pulumi.CustomResource):
         :param pulumi.Input[str] ipv6_ra_priority: IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
         :param pulumi.Input[int] ipv6_ra_valid_lifetime: Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
         :param pulumi.Input[str] ipv6_static_subnet: Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
+        :param pulumi.Input[bool] multicast_dns: Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
         :param pulumi.Input[str] name: The name of the network.
         :param pulumi.Input[str] network_group: The group of the network. Defaults to `LAN`.
         :param pulumi.Input[str] purpose: The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
@@ -1851,6 +1885,7 @@ class Network(pulumi.CustomResource):
                  ipv6_ra_priority: Optional[pulumi.Input[str]] = None,
                  ipv6_ra_valid_lifetime: Optional[pulumi.Input[int]] = None,
                  ipv6_static_subnet: Optional[pulumi.Input[str]] = None,
+                 multicast_dns: Optional[pulumi.Input[bool]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  network_group: Optional[pulumi.Input[str]] = None,
                  purpose: Optional[pulumi.Input[str]] = None,
@@ -1909,6 +1944,7 @@ class Network(pulumi.CustomResource):
             __props__.__dict__["ipv6_ra_priority"] = ipv6_ra_priority
             __props__.__dict__["ipv6_ra_valid_lifetime"] = ipv6_ra_valid_lifetime
             __props__.__dict__["ipv6_static_subnet"] = ipv6_static_subnet
+            __props__.__dict__["multicast_dns"] = multicast_dns
             __props__.__dict__["name"] = name
             __props__.__dict__["network_group"] = network_group
             if purpose is None and not opts.urn:
@@ -1970,6 +2006,7 @@ class Network(pulumi.CustomResource):
             ipv6_ra_priority: Optional[pulumi.Input[str]] = None,
             ipv6_ra_valid_lifetime: Optional[pulumi.Input[int]] = None,
             ipv6_static_subnet: Optional[pulumi.Input[str]] = None,
+            multicast_dns: Optional[pulumi.Input[bool]] = None,
             name: Optional[pulumi.Input[str]] = None,
             network_group: Optional[pulumi.Input[str]] = None,
             purpose: Optional[pulumi.Input[str]] = None,
@@ -2026,6 +2063,7 @@ class Network(pulumi.CustomResource):
         :param pulumi.Input[str] ipv6_ra_priority: IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
         :param pulumi.Input[int] ipv6_ra_valid_lifetime: Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
         :param pulumi.Input[str] ipv6_static_subnet: Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
+        :param pulumi.Input[bool] multicast_dns: Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
         :param pulumi.Input[str] name: The name of the network.
         :param pulumi.Input[str] network_group: The group of the network. Defaults to `LAN`.
         :param pulumi.Input[str] purpose: The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
@@ -2080,6 +2118,7 @@ class Network(pulumi.CustomResource):
         __props__.__dict__["ipv6_ra_priority"] = ipv6_ra_priority
         __props__.__dict__["ipv6_ra_valid_lifetime"] = ipv6_ra_valid_lifetime
         __props__.__dict__["ipv6_static_subnet"] = ipv6_static_subnet
+        __props__.__dict__["multicast_dns"] = multicast_dns
         __props__.__dict__["name"] = name
         __props__.__dict__["network_group"] = network_group
         __props__.__dict__["purpose"] = purpose
@@ -2333,6 +2372,14 @@ class Network(pulumi.CustomResource):
         Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
         """
         return pulumi.get(self, "ipv6_static_subnet")
+
+    @property
+    @pulumi.getter(name="multicastDns")
+    def multicast_dns(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+        """
+        return pulumi.get(self, "multicast_dns")
 
     @property
     @pulumi.getter

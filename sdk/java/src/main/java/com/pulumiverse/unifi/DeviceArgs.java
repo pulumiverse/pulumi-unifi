@@ -6,6 +6,7 @@ package com.pulumiverse.unifi;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumiverse.unifi.inputs.DevicePortOverrideArgs;
+import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +17,36 @@ import javax.annotation.Nullable;
 public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final DeviceArgs Empty = new DeviceArgs();
+
+    /**
+     * Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     * 
+     */
+    @Import(name="allowAdoption")
+    private @Nullable Output<Boolean> allowAdoption;
+
+    /**
+     * @return Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> allowAdoption() {
+        return Optional.ofNullable(this.allowAdoption);
+    }
+
+    /**
+     * Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     * 
+     */
+    @Import(name="forgetOnDestroy")
+    private @Nullable Output<Boolean> forgetOnDestroy;
+
+    /**
+     * @return Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> forgetOnDestroy() {
+        return Optional.ofNullable(this.forgetOnDestroy);
+    }
 
     /**
      * The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
@@ -80,6 +111,8 @@ public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
     private DeviceArgs() {}
 
     private DeviceArgs(DeviceArgs $) {
+        this.allowAdoption = $.allowAdoption;
+        this.forgetOnDestroy = $.forgetOnDestroy;
         this.mac = $.mac;
         this.name = $.name;
         this.portOverrides = $.portOverrides;
@@ -102,6 +135,48 @@ public final class DeviceArgs extends com.pulumi.resources.ResourceArgs {
 
         public Builder(DeviceArgs defaults) {
             $ = new DeviceArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param allowAdoption Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allowAdoption(@Nullable Output<Boolean> allowAdoption) {
+            $.allowAdoption = allowAdoption;
+            return this;
+        }
+
+        /**
+         * @param allowAdoption Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allowAdoption(Boolean allowAdoption) {
+            return allowAdoption(Output.of(allowAdoption));
+        }
+
+        /**
+         * @param forgetOnDestroy Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder forgetOnDestroy(@Nullable Output<Boolean> forgetOnDestroy) {
+            $.forgetOnDestroy = forgetOnDestroy;
+            return this;
+        }
+
+        /**
+         * @param forgetOnDestroy Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder forgetOnDestroy(Boolean forgetOnDestroy) {
+            return forgetOnDestroy(Output.of(forgetOnDestroy));
         }
 
         /**

@@ -21,7 +21,7 @@ class GetNetworkResult:
     """
     A collection of values returned by getNetwork.
     """
-    def __init__(__self__, dhcp_dns=None, dhcp_enabled=None, dhcp_lease=None, dhcp_start=None, dhcp_stop=None, dhcp_v6_dns=None, dhcp_v6_dns_auto=None, dhcp_v6_enabled=None, dhcp_v6_lease=None, dhcp_v6_start=None, dhcp_v6_stop=None, dhcpd_boot_enabled=None, dhcpd_boot_filename=None, dhcpd_boot_server=None, domain_name=None, id=None, igmp_snooping=None, ipv6_interface_type=None, ipv6_pd_interface=None, ipv6_pd_prefixid=None, ipv6_pd_start=None, ipv6_pd_stop=None, ipv6_ra_enable=None, ipv6_ra_preferred_lifetime=None, ipv6_ra_priority=None, ipv6_ra_valid_lifetime=None, ipv6_static_subnet=None, name=None, network_group=None, purpose=None, site=None, subnet=None, vlan_id=None, wan_dhcp_v6_pd_size=None, wan_dns=None, wan_egress_qos=None, wan_gateway=None, wan_gateway_v6=None, wan_ip=None, wan_ipv6=None, wan_netmask=None, wan_networkgroup=None, wan_prefixlen=None, wan_type=None, wan_type_v6=None, wan_username=None, x_wan_password=None):
+    def __init__(__self__, dhcp_dns=None, dhcp_enabled=None, dhcp_lease=None, dhcp_start=None, dhcp_stop=None, dhcp_v6_dns=None, dhcp_v6_dns_auto=None, dhcp_v6_enabled=None, dhcp_v6_lease=None, dhcp_v6_start=None, dhcp_v6_stop=None, dhcpd_boot_enabled=None, dhcpd_boot_filename=None, dhcpd_boot_server=None, domain_name=None, id=None, igmp_snooping=None, ipv6_interface_type=None, ipv6_pd_interface=None, ipv6_pd_prefixid=None, ipv6_pd_start=None, ipv6_pd_stop=None, ipv6_ra_enable=None, ipv6_ra_preferred_lifetime=None, ipv6_ra_priority=None, ipv6_ra_valid_lifetime=None, ipv6_static_subnet=None, multicast_dns=None, name=None, network_group=None, purpose=None, site=None, subnet=None, vlan_id=None, wan_dhcp_v6_pd_size=None, wan_dns=None, wan_egress_qos=None, wan_gateway=None, wan_gateway_v6=None, wan_ip=None, wan_ipv6=None, wan_netmask=None, wan_networkgroup=None, wan_prefixlen=None, wan_type=None, wan_type_v6=None, wan_username=None, x_wan_password=None):
         if dhcp_dns and not isinstance(dhcp_dns, list):
             raise TypeError("Expected argument 'dhcp_dns' to be a list")
         pulumi.set(__self__, "dhcp_dns", dhcp_dns)
@@ -103,6 +103,9 @@ class GetNetworkResult:
         if ipv6_static_subnet and not isinstance(ipv6_static_subnet, str):
             raise TypeError("Expected argument 'ipv6_static_subnet' to be a str")
         pulumi.set(__self__, "ipv6_static_subnet", ipv6_static_subnet)
+        if multicast_dns and not isinstance(multicast_dns, bool):
+            raise TypeError("Expected argument 'multicast_dns' to be a bool")
+        pulumi.set(__self__, "multicast_dns", multicast_dns)
         if name and not isinstance(name, str):
             raise TypeError("Expected argument 'name' to be a str")
         pulumi.set(__self__, "name", name)
@@ -381,6 +384,14 @@ class GetNetworkResult:
         return pulumi.get(self, "ipv6_static_subnet")
 
     @property
+    @pulumi.getter(name="multicastDns")
+    def multicast_dns(self) -> bool:
+        """
+        Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+        """
+        return pulumi.get(self, "multicast_dns")
+
+    @property
     @pulumi.getter
     def name(self) -> str:
         """
@@ -574,6 +585,7 @@ class AwaitableGetNetworkResult(GetNetworkResult):
             ipv6_ra_priority=self.ipv6_ra_priority,
             ipv6_ra_valid_lifetime=self.ipv6_ra_valid_lifetime,
             ipv6_static_subnet=self.ipv6_static_subnet,
+            multicast_dns=self.multicast_dns,
             name=self.name,
             network_group=self.network_group,
             purpose=self.purpose,
@@ -654,6 +666,7 @@ def get_network(id: Optional[str] = None,
         ipv6_ra_priority=__ret__.ipv6_ra_priority,
         ipv6_ra_valid_lifetime=__ret__.ipv6_ra_valid_lifetime,
         ipv6_static_subnet=__ret__.ipv6_static_subnet,
+        multicast_dns=__ret__.multicast_dns,
         name=__ret__.name,
         network_group=__ret__.network_group,
         purpose=__ret__.purpose,

@@ -75,6 +75,12 @@ namespace Pulumiverse.Unifi.IAM
         public Output<string> Ip { get; private set; } = null!;
 
         /// <summary>
+        /// Specifies the local DNS record for this user.
+        /// </summary>
+        [Output("localDnsRecord")]
+        public Output<string?> LocalDnsRecord { get; private set; } = null!;
+
+        /// <summary>
         /// The MAC address of the user.
         /// </summary>
         [Output("mac")]
@@ -188,6 +194,12 @@ namespace Pulumiverse.Unifi.IAM
         public Input<string>? FixedIp { get; set; }
 
         /// <summary>
+        /// Specifies the local DNS record for this user.
+        /// </summary>
+        [Input("localDnsRecord")]
+        public Input<string>? LocalDnsRecord { get; set; }
+
+        /// <summary>
         /// The MAC address of the user.
         /// </summary>
         [Input("mac", required: true)]
@@ -272,6 +284,12 @@ namespace Pulumiverse.Unifi.IAM
         /// </summary>
         [Input("ip")]
         public Input<string>? Ip { get; set; }
+
+        /// <summary>
+        /// Specifies the local DNS record for this user.
+        /// </summary>
+        [Input("localDnsRecord")]
+        public Input<string>? LocalDnsRecord { get; set; }
 
         /// <summary>
         /// The MAC address of the user.

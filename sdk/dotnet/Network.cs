@@ -246,6 +246,12 @@ namespace Pulumiverse.Unifi
         public Output<string?> Ipv6StaticSubnet { get; private set; } = null!;
 
         /// <summary>
+        /// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+        /// </summary>
+        [Output("multicastDns")]
+        public Output<bool?> MulticastDns { get; private set; } = null!;
+
+        /// <summary>
         /// The name of the network.
         /// </summary>
         [Output("name")]
@@ -599,6 +605,12 @@ namespace Pulumiverse.Unifi
         public Input<string>? Ipv6StaticSubnet { get; set; }
 
         /// <summary>
+        /// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+        /// </summary>
+        [Input("multicastDns")]
+        public Input<bool>? MulticastDns { get; set; }
+
+        /// <summary>
         /// The name of the network.
         /// </summary>
         [Input("name")]
@@ -917,6 +929,12 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("ipv6StaticSubnet")]
         public Input<string>? Ipv6StaticSubnet { get; set; }
+
+        /// <summary>
+        /// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+        /// </summary>
+        [Input("multicastDns")]
+        public Input<bool>? MulticastDns { get; set; }
 
         /// <summary>
         /// The name of the network.

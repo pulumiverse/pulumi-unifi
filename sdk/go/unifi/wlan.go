@@ -136,7 +136,7 @@ type Wlan struct {
 	Uapsd pulumi.BoolPtrOutput `pulumi:"uapsd"`
 	// ID of the user group to use for this network.
 	UserGroupId pulumi.StringOutput `pulumi:"userGroupId"`
-	// Radio band your WiFi network will use.
+	// Radio band your WiFi network will use. Defaults to `both`.
 	WlanBand pulumi.StringPtrOutput `pulumi:"wlanBand"`
 	// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
 	Wpa3Support pulumi.BoolPtrOutput `pulumi:"wpa3Support"`
@@ -229,7 +229,7 @@ type wlanState struct {
 	Uapsd *bool `pulumi:"uapsd"`
 	// ID of the user group to use for this network.
 	UserGroupId *string `pulumi:"userGroupId"`
-	// Radio band your WiFi network will use.
+	// Radio band your WiFi network will use. Defaults to `both`.
 	WlanBand *string `pulumi:"wlanBand"`
 	// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
 	Wpa3Support *bool `pulumi:"wpa3Support"`
@@ -280,7 +280,7 @@ type WlanState struct {
 	Uapsd pulumi.BoolPtrInput
 	// ID of the user group to use for this network.
 	UserGroupId pulumi.StringPtrInput
-	// Radio band your WiFi network will use.
+	// Radio band your WiFi network will use. Defaults to `both`.
 	WlanBand pulumi.StringPtrInput
 	// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
 	Wpa3Support pulumi.BoolPtrInput
@@ -335,7 +335,7 @@ type wlanArgs struct {
 	Uapsd *bool `pulumi:"uapsd"`
 	// ID of the user group to use for this network.
 	UserGroupId string `pulumi:"userGroupId"`
-	// Radio band your WiFi network will use.
+	// Radio band your WiFi network will use. Defaults to `both`.
 	WlanBand *string `pulumi:"wlanBand"`
 	// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
 	Wpa3Support *bool `pulumi:"wpa3Support"`
@@ -387,7 +387,7 @@ type WlanArgs struct {
 	Uapsd pulumi.BoolPtrInput
 	// ID of the user group to use for this network.
 	UserGroupId pulumi.StringInput
-	// Radio band your WiFi network will use.
+	// Radio band your WiFi network will use. Defaults to `both`.
 	WlanBand pulumi.StringPtrInput
 	// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
 	Wpa3Support pulumi.BoolPtrInput
@@ -587,7 +587,7 @@ func (o WlanOutput) UserGroupId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringOutput { return v.UserGroupId }).(pulumi.StringOutput)
 }
 
-// Radio band your WiFi network will use.
+// Radio band your WiFi network will use. Defaults to `both`.
 func (o WlanOutput) WlanBand() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.WlanBand }).(pulumi.StringPtrOutput)
 }

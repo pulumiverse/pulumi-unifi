@@ -586,6 +586,10 @@
                     "type": "string",
                     "description": "The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.\n"
                 },
+                "srcPort": {
+                    "type": "string",
+                    "description": "The source port of the firewall rule.\n"
+                },
                 "stateEstablished": {
                     "type": "boolean",
                     "description": "Match where the state is established.\n"
@@ -709,6 +713,10 @@
                 "srcNetworkType": {
                     "type": "string",
                     "description": "The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.\n"
+                },
+                "srcPort": {
+                    "type": "string",
+                    "description": "The source port of the firewall rule.\n"
                 },
                 "stateEstablished": {
                     "type": "boolean",
@@ -834,6 +842,10 @@
                         "type": "string",
                         "description": "The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.\n"
                     },
+                    "srcPort": {
+                        "type": "string",
+                        "description": "The source port of the firewall rule.\n"
+                    },
                     "stateEstablished": {
                         "type": "boolean",
                         "description": "Match where the state is established.\n"
@@ -948,6 +960,10 @@
                     "type": "string",
                     "description": "The IP address of the user.\n"
                 },
+                "localDnsRecord": {
+                    "type": "string",
+                    "description": "Specifies the local DNS record for this user.\n"
+                },
                 "mac": {
                     "type": "string",
                     "description": "The MAC address of the user.\n"
@@ -1000,6 +1016,10 @@
                 "fixedIp": {
                     "type": "string",
                     "description": "A fixed IPv4 address for this user.\n"
+                },
+                "localDnsRecord": {
+                    "type": "string",
+                    "description": "Specifies the local DNS record for this user.\n"
                 },
                 "mac": {
                     "type": "string",
@@ -1061,6 +1081,10 @@
                     "ip": {
                         "type": "string",
                         "description": "The IP address of the user.\n"
+                    },
+                    "localDnsRecord": {
+                        "type": "string",
+                        "description": "Specifies the local DNS record for this user.\n"
                     },
                     "mac": {
                         "type": "string",
@@ -1197,9 +1221,17 @@
         "unifi:index/device:Device": {
             "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\nimport * as unifi from \"@pulumiverse/unifi\";\n\nconst disabled = unifi.port.getProfile({\n    name: \"Disabled\",\n});\nconst poe = new unifi.port.Profile(\"poe\", {\n    forward: \"customize\",\n    nativeNetworkconfId: _var.native_network_id,\n    taggedNetworkconfIds: [_var.some_vlan_network_id],\n    poeMode: \"auto\",\n});\nconst us24Poe = new unifi.Device(\"us24Poe\", {\n    mac: \"01:23:45:67:89:AB\",\n    portOverrides: [\n        {\n            number: 1,\n            name: \"port w/ poe\",\n            portProfileId: poe.id,\n        },\n        {\n            number: 2,\n            name: \"disabled\",\n            portProfileId: disabled.then(disabled =\u003e disabled.id),\n        },\n    ],\n});\n```\n```python\nimport pulumi\nimport pulumi_unifi as unifi\nimport pulumiverse_unifi as unifi\n\ndisabled = unifi.port.get_profile(name=\"Disabled\")\npoe = unifi.port.Profile(\"poe\",\n    forward=\"customize\",\n    native_networkconf_id=var[\"native_network_id\"],\n    tagged_networkconf_ids=[var[\"some_vlan_network_id\"]],\n    poe_mode=\"auto\")\nus24_poe = unifi.Device(\"us24Poe\",\n    mac=\"01:23:45:67:89:AB\",\n    port_overrides=[\n        unifi.DevicePortOverrideArgs(\n            number=1,\n            name=\"port w/ poe\",\n            port_profile_id=poe.id,\n        ),\n        unifi.DevicePortOverrideArgs(\n            number=2,\n            name=\"disabled\",\n            port_profile_id=disabled.id,\n        ),\n    ])\n```\n```csharp\nusing System.Collections.Generic;\nusing Pulumi;\nusing Unifi = Pulumi.Unifi;\nusing Unifi = Pulumiverse.Unifi;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var disabled = Unifi.Port.GetProfile.Invoke(new()\n    {\n        Name = \"Disabled\",\n    });\n\n    var poe = new Unifi.Port.Profile(\"poe\", new()\n    {\n        Forward = \"customize\",\n        NativeNetworkconfId = @var.Native_network_id,\n        TaggedNetworkconfIds = new[]\n        {\n            @var.Some_vlan_network_id,\n        },\n        PoeMode = \"auto\",\n    });\n\n    var us24Poe = new Unifi.Device(\"us24Poe\", new()\n    {\n        Mac = \"01:23:45:67:89:AB\",\n        PortOverrides = new[]\n        {\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 1,\n                Name = \"port w/ poe\",\n                PortProfileId = poe.Id,\n            },\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 2,\n                Name = \"disabled\",\n                PortProfileId = disabled.Apply(getProfileResult =\u003e getProfileResult.Id),\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tdisabled, err := port.LookupProfile(ctx, \u0026port.LookupProfileArgs{\n\t\t\tName: pulumi.StringRef(\"Disabled\"),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tpoe, err := port.NewProfile(ctx, \"poe\", \u0026port.ProfileArgs{\n\t\t\tForward:             pulumi.String(\"customize\"),\n\t\t\tNativeNetworkconfId: pulumi.Any(_var.Native_network_id),\n\t\t\tTaggedNetworkconfIds: pulumi.StringArray{\n\t\t\t\t_var.Some_vlan_network_id,\n\t\t\t},\n\t\t\tPoeMode: pulumi.String(\"auto\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = unifi.NewDevice(ctx, \"us24Poe\", \u0026unifi.DeviceArgs{\n\t\t\tMac: pulumi.String(\"01:23:45:67:89:AB\"),\n\t\t\tPortOverrides: unifi.DevicePortOverrideArray{\n\t\t\t\t\u0026unifi.DevicePortOverrideArgs{\n\t\t\t\t\tNumber:        pulumi.Int(1),\n\t\t\t\t\tName:          pulumi.String(\"port w/ poe\"),\n\t\t\t\t\tPortProfileId: poe.ID(),\n\t\t\t\t},\n\t\t\t\t\u0026unifi.DevicePortOverrideArgs{\n\t\t\t\t\tNumber:        pulumi.Int(2),\n\t\t\t\t\tName:          pulumi.String(\"disabled\"),\n\t\t\t\t\tPortProfileId: *pulumi.String(disabled.Id),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.unifi.port.PortFunctions;\nimport com.pulumi.unifi.port.inputs.GetProfileArgs;\nimport com.pulumi.unifi.port.Profile;\nimport com.pulumi.unifi.port.ProfileArgs;\nimport com.pulumi.unifi.Device;\nimport com.pulumi.unifi.DeviceArgs;\nimport com.pulumi.unifi.inputs.DevicePortOverrideArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var disabled = PortFunctions.getProfile(GetProfileArgs.builder()\n            .name(\"Disabled\")\n            .build());\n\n        var poe = new Profile(\"poe\", ProfileArgs.builder()        \n            .forward(\"customize\")\n            .nativeNetworkconfId(var_.native_network_id())\n            .taggedNetworkconfIds(var_.some_vlan_network_id())\n            .poeMode(\"auto\")\n            .build());\n\n        var us24Poe = new Device(\"us24Poe\", DeviceArgs.builder()        \n            .mac(\"01:23:45:67:89:AB\")\n            .portOverrides(            \n                DevicePortOverrideArgs.builder()\n                    .number(1)\n                    .name(\"port w/ poe\")\n                    .portProfileId(poe.id())\n                    .build(),\n                DevicePortOverrideArgs.builder()\n                    .number(2)\n                    .name(\"disabled\")\n                    .portProfileId(disabled.applyValue(getProfileResult -\u003e getProfileResult.id()))\n                    .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  poe:\n    type: unifi:port:Profile\n    properties:\n      forward: customize\n      nativeNetworkconfId: ${var.native_network_id}\n      taggedNetworkconfIds:\n        - ${var.some_vlan_network_id}\n      poeMode: auto\n  us24Poe:\n    type: unifi:Device\n    properties:\n      # optionally specify MAC address to skip manually importing\n      #   # manual import is the safest way to add a device\n      mac: 01:23:45:67:89:AB\n      portOverrides:\n        - number: 1\n          name: port w/ poe\n          portProfileId: ${poe.id}\n        - number: 2\n          name: disabled\n          portProfileId: ${disabled.id}\nvariables:\n  disabled:\n    fn::invoke:\n      Function: unifi:port:getProfile\n      Arguments:\n        name: Disabled\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
+                "allowAdoption": {
+                    "type": "boolean",
+                    "description": "Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.\n"
+                },
                 "disabled": {
                     "type": "boolean",
                     "description": "Specifies whether this device should be disabled.\n"
+                },
+                "forgetOnDestroy": {
+                    "type": "boolean",
+                    "description": "Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.\n"
                 },
                 "mac": {
                     "type": "string",
@@ -1228,6 +1260,14 @@
                 "site"
             ],
             "inputProperties": {
+                "allowAdoption": {
+                    "type": "boolean",
+                    "description": "Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.\n"
+                },
+                "forgetOnDestroy": {
+                    "type": "boolean",
+                    "description": "Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.\n"
+                },
                 "mac": {
                     "type": "string",
                     "description": "The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).\n",
@@ -1253,9 +1293,17 @@
             "stateInputs": {
                 "description": "Input properties used for looking up and filtering Device resources.\n",
                 "properties": {
+                    "allowAdoption": {
+                        "type": "boolean",
+                        "description": "Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.\n"
+                    },
                     "disabled": {
                         "type": "boolean",
                         "description": "Specifies whether this device should be disabled.\n"
+                    },
+                    "forgetOnDestroy": {
+                        "type": "boolean",
+                        "description": "Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.\n"
                     },
                     "mac": {
                         "type": "string",
@@ -1522,6 +1570,10 @@
                     "type": "string",
                     "description": "Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.\n"
                 },
+                "multicastDns": {
+                    "type": "boolean",
+                    "description": "Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller \u003e=v7).\n"
+                },
                 "name": {
                     "type": "string",
                     "description": "The name of the network.\n"
@@ -1733,6 +1785,10 @@
                 "ipv6StaticSubnet": {
                     "type": "string",
                     "description": "Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.\n"
+                },
+                "multicastDns": {
+                    "type": "boolean",
+                    "description": "Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller \u003e=v7).\n"
                 },
                 "name": {
                     "type": "string",
@@ -1947,6 +2003,10 @@
                     "ipv6StaticSubnet": {
                         "type": "string",
                         "description": "Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.\n"
+                    },
+                    "multicastDns": {
+                        "type": "boolean",
+                        "description": "Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller \u003e=v7).\n"
                     },
                     "name": {
                         "type": "string",
@@ -2456,7 +2516,7 @@
                 },
                 "wlanBand": {
                     "type": "string",
-                    "description": "Radio band your WiFi network will use.\n"
+                    "description": "Radio band your WiFi network will use. Defaults to `both`.\n"
                 },
                 "wpa3Support": {
                     "type": "boolean",
@@ -2571,7 +2631,7 @@
                 },
                 "wlanBand": {
                     "type": "string",
-                    "description": "Radio band your WiFi network will use.\n"
+                    "description": "Radio band your WiFi network will use. Defaults to `both`.\n"
                 },
                 "wpa3Support": {
                     "type": "boolean",
@@ -2686,7 +2746,7 @@
                     },
                     "wlanBand": {
                         "type": "string",
-                        "description": "Radio band your WiFi network will use.\n"
+                        "description": "Radio band your WiFi network will use. Defaults to `both`.\n"
                     },
                     "wpa3Support": {
                         "type": "boolean",
@@ -2709,7 +2769,7 @@
                 },
                 "enabled": {
                     "type": "boolean",
-                    "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
+                    "description": "Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
                     "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
                 },
                 "fwdIp": {
@@ -2756,7 +2816,7 @@
                 },
                 "enabled": {
                     "type": "boolean",
-                    "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
+                    "description": "Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
                     "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
                 },
                 "fwdIp": {
@@ -2802,7 +2862,7 @@
                     },
                     "enabled": {
                         "type": "boolean",
-                        "description": "Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
+                        "description": "Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.\n",
                         "deprecationMessage": "This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration."
                     },
                     "fwdIp": {
@@ -3690,6 +3750,10 @@
                         "type": "string",
                         "description": "The IP address of the user.\n"
                     },
+                    "localDnsRecord": {
+                        "type": "string",
+                        "description": "The local DNS record for this user.\n"
+                    },
                     "mac": {
                         "type": "string",
                         "description": "The MAC address of the user.\n"
@@ -3723,6 +3787,7 @@
                     "hostname",
                     "id",
                     "ip",
+                    "localDnsRecord",
                     "mac",
                     "name",
                     "networkId",
@@ -3972,6 +4037,10 @@
                         "type": "string",
                         "description": "Specifies the static IPv6 subnet (when ipv6*interface*type is 'static').\n"
                     },
+                    "multicastDns": {
+                        "type": "boolean",
+                        "description": "Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller \u003e=v7).\n"
+                    },
                     "name": {
                         "type": "string",
                         "description": "The name of the network.\n"
@@ -4085,6 +4154,7 @@
                     "ipv6RaPriority",
                     "ipv6RaValidLifetime",
                     "ipv6StaticSubnet",
+                    "multicastDns",
                     "name",
                     "networkGroup",
                     "purpose",

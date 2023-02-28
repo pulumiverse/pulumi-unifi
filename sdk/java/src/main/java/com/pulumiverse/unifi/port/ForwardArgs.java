@@ -32,7 +32,7 @@ public final class ForwardArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      * 
      * @deprecated
      * This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
@@ -43,7 +43,7 @@ public final class ForwardArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<Boolean> enabled;
 
     /**
-     * @return Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * @return Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      * 
      * @deprecated
      * This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
@@ -229,7 +229,7 @@ public final class ForwardArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param enabled Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+         * @param enabled Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
          * 
          * @return builder
          * 
@@ -244,7 +244,7 @@ public final class ForwardArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param enabled Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+         * @param enabled Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
          * 
          * @return builder
          * 

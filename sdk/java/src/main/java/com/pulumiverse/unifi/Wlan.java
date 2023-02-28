@@ -391,14 +391,14 @@ public class Wlan extends com.pulumi.resources.CustomResource {
         return this.userGroupId;
     }
     /**
-     * Radio band your WiFi network will use.
+     * Radio band your WiFi network will use. Defaults to `both`.
      * 
      */
     @Export(name="wlanBand", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> wlanBand;
 
     /**
-     * @return Radio band your WiFi network will use.
+     * @return Radio band your WiFi network will use. Defaults to `both`.
      * 
      */
     public Output<Optional<String>> wlanBand() {

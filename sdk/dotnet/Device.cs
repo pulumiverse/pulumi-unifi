@@ -64,10 +64,22 @@ namespace Pulumiverse.Unifi
     public partial class Device : global::Pulumi.CustomResource
     {
         /// <summary>
+        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        /// </summary>
+        [Output("allowAdoption")]
+        public Output<bool?> AllowAdoption { get; private set; } = null!;
+
+        /// <summary>
         /// Specifies whether this device should be disabled.
         /// </summary>
         [Output("disabled")]
         public Output<bool> Disabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        /// </summary>
+        [Output("forgetOnDestroy")]
+        public Output<bool?> ForgetOnDestroy { get; private set; } = null!;
 
         /// <summary>
         /// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
@@ -141,6 +153,18 @@ namespace Pulumiverse.Unifi
     public sealed class DeviceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        /// </summary>
+        [Input("allowAdoption")]
+        public Input<bool>? AllowAdoption { get; set; }
+
+        /// <summary>
+        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        /// </summary>
+        [Input("forgetOnDestroy")]
+        public Input<bool>? ForgetOnDestroy { get; set; }
+
+        /// <summary>
         /// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
         /// </summary>
         [Input("mac")]
@@ -179,10 +203,22 @@ namespace Pulumiverse.Unifi
     public sealed class DeviceState : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        /// </summary>
+        [Input("allowAdoption")]
+        public Input<bool>? AllowAdoption { get; set; }
+
+        /// <summary>
         /// Specifies whether this device should be disabled.
         /// </summary>
         [Input("disabled")]
         public Input<bool>? Disabled { get; set; }
+
+        /// <summary>
+        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        /// </summary>
+        [Input("forgetOnDestroy")]
+        public Input<bool>? ForgetOnDestroy { get; set; }
 
         /// <summary>
         /// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).

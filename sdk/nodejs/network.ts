@@ -199,6 +199,10 @@ export class Network extends pulumi.CustomResource {
      */
     public readonly ipv6StaticSubnet!: pulumi.Output<string | undefined>;
     /**
+     * Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+     */
+    public readonly multicastDns!: pulumi.Output<boolean | undefined>;
+    /**
      * The name of the network.
      */
     public readonly name!: pulumi.Output<string>;
@@ -321,6 +325,7 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["ipv6RaPriority"] = state ? state.ipv6RaPriority : undefined;
             resourceInputs["ipv6RaValidLifetime"] = state ? state.ipv6RaValidLifetime : undefined;
             resourceInputs["ipv6StaticSubnet"] = state ? state.ipv6StaticSubnet : undefined;
+            resourceInputs["multicastDns"] = state ? state.multicastDns : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["networkGroup"] = state ? state.networkGroup : undefined;
             resourceInputs["purpose"] = state ? state.purpose : undefined;
@@ -375,6 +380,7 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["ipv6RaPriority"] = args ? args.ipv6RaPriority : undefined;
             resourceInputs["ipv6RaValidLifetime"] = args ? args.ipv6RaValidLifetime : undefined;
             resourceInputs["ipv6StaticSubnet"] = args ? args.ipv6StaticSubnet : undefined;
+            resourceInputs["multicastDns"] = args ? args.multicastDns : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["networkGroup"] = args ? args.networkGroup : undefined;
             resourceInputs["purpose"] = args ? args.purpose : undefined;
@@ -521,6 +527,10 @@ export interface NetworkState {
      * Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
      */
     ipv6StaticSubnet?: pulumi.Input<string>;
+    /**
+     * Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+     */
+    multicastDns?: pulumi.Input<boolean>;
     /**
      * The name of the network.
      */
@@ -723,6 +733,10 @@ export interface NetworkArgs {
      * Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
      */
     ipv6StaticSubnet?: pulumi.Input<string>;
+    /**
+     * Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+     */
+    multicastDns?: pulumi.Input<boolean>;
     /**
      * The name of the network.
      */

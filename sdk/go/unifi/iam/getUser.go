@@ -69,6 +69,8 @@ type LookupUserResult struct {
 	Id string `pulumi:"id"`
 	// The IP address of the user.
 	Ip string `pulumi:"ip"`
+	// The local DNS record for this user.
+	LocalDnsRecord string `pulumi:"localDnsRecord"`
 	// The MAC address of the user.
 	Mac string `pulumi:"mac"`
 	// The name of the user.
@@ -151,6 +153,11 @@ func (o LookupUserResultOutput) Id() pulumi.StringOutput {
 // The IP address of the user.
 func (o LookupUserResultOutput) Ip() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Ip }).(pulumi.StringOutput)
+}
+
+// The local DNS record for this user.
+func (o LookupUserResultOutput) LocalDnsRecord() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupUserResult) string { return v.LocalDnsRecord }).(pulumi.StringOutput)
 }
 
 // The MAC address of the user.

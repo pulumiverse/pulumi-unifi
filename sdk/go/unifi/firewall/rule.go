@@ -104,6 +104,8 @@ type Rule struct {
 	SrcNetworkId pulumi.StringPtrOutput `pulumi:"srcNetworkId"`
 	// The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
 	SrcNetworkType pulumi.StringPtrOutput `pulumi:"srcNetworkType"`
+	// The source port of the firewall rule.
+	SrcPort pulumi.StringPtrOutput `pulumi:"srcPort"`
 	// Match where the state is established.
 	StateEstablished pulumi.BoolPtrOutput `pulumi:"stateEstablished"`
 	// Match where the state is invalid.
@@ -199,6 +201,8 @@ type ruleState struct {
 	SrcNetworkId *string `pulumi:"srcNetworkId"`
 	// The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
 	SrcNetworkType *string `pulumi:"srcNetworkType"`
+	// The source port of the firewall rule.
+	SrcPort *string `pulumi:"srcPort"`
 	// Match where the state is established.
 	StateEstablished *bool `pulumi:"stateEstablished"`
 	// Match where the state is invalid.
@@ -256,6 +260,8 @@ type RuleState struct {
 	SrcNetworkId pulumi.StringPtrInput
 	// The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
 	SrcNetworkType pulumi.StringPtrInput
+	// The source port of the firewall rule.
+	SrcPort pulumi.StringPtrInput
 	// Match where the state is established.
 	StateEstablished pulumi.BoolPtrInput
 	// Match where the state is invalid.
@@ -317,6 +323,8 @@ type ruleArgs struct {
 	SrcNetworkId *string `pulumi:"srcNetworkId"`
 	// The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
 	SrcNetworkType *string `pulumi:"srcNetworkType"`
+	// The source port of the firewall rule.
+	SrcPort *string `pulumi:"srcPort"`
 	// Match where the state is established.
 	StateEstablished *bool `pulumi:"stateEstablished"`
 	// Match where the state is invalid.
@@ -375,6 +383,8 @@ type RuleArgs struct {
 	SrcNetworkId pulumi.StringPtrInput
 	// The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
 	SrcNetworkType pulumi.StringPtrInput
+	// The source port of the firewall rule.
+	SrcPort pulumi.StringPtrInput
 	// Match where the state is established.
 	StateEstablished pulumi.BoolPtrInput
 	// Match where the state is invalid.
@@ -585,6 +595,11 @@ func (o RuleOutput) SrcNetworkId() pulumi.StringPtrOutput {
 // The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
 func (o RuleOutput) SrcNetworkType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.SrcNetworkType }).(pulumi.StringPtrOutput)
+}
+
+// The source port of the firewall rule.
+func (o RuleOutput) SrcPort() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.SrcPort }).(pulumi.StringPtrOutput)
 }
 
 // Match where the state is established.

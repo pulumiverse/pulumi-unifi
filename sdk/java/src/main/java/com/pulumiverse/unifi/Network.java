@@ -497,6 +497,20 @@ public class Network extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.ipv6StaticSubnet);
     }
     /**
+     * Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+     * 
+     */
+    @Export(name="multicastDns", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> multicastDns;
+
+    /**
+     * @return Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+     * 
+     */
+    public Output<Optional<Boolean>> multicastDns() {
+        return Codegen.optional(this.multicastDns);
+    }
+    /**
      * The name of the network.
      * 
      */

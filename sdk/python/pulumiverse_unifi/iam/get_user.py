@@ -21,7 +21,7 @@ class GetUserResult:
     """
     A collection of values returned by getUser.
     """
-    def __init__(__self__, blocked=None, dev_id_override=None, fixed_ip=None, hostname=None, id=None, ip=None, mac=None, name=None, network_id=None, note=None, site=None, user_group_id=None):
+    def __init__(__self__, blocked=None, dev_id_override=None, fixed_ip=None, hostname=None, id=None, ip=None, local_dns_record=None, mac=None, name=None, network_id=None, note=None, site=None, user_group_id=None):
         if blocked and not isinstance(blocked, bool):
             raise TypeError("Expected argument 'blocked' to be a bool")
         pulumi.set(__self__, "blocked", blocked)
@@ -40,6 +40,9 @@ class GetUserResult:
         if ip and not isinstance(ip, str):
             raise TypeError("Expected argument 'ip' to be a str")
         pulumi.set(__self__, "ip", ip)
+        if local_dns_record and not isinstance(local_dns_record, str):
+            raise TypeError("Expected argument 'local_dns_record' to be a str")
+        pulumi.set(__self__, "local_dns_record", local_dns_record)
         if mac and not isinstance(mac, str):
             raise TypeError("Expected argument 'mac' to be a str")
         pulumi.set(__self__, "mac", mac)
@@ -108,6 +111,14 @@ class GetUserResult:
         return pulumi.get(self, "ip")
 
     @property
+    @pulumi.getter(name="localDnsRecord")
+    def local_dns_record(self) -> str:
+        """
+        The local DNS record for this user.
+        """
+        return pulumi.get(self, "local_dns_record")
+
+    @property
     @pulumi.getter
     def mac(self) -> str:
         """
@@ -168,6 +179,7 @@ class AwaitableGetUserResult(GetUserResult):
             hostname=self.hostname,
             id=self.id,
             ip=self.ip,
+            local_dns_record=self.local_dns_record,
             mac=self.mac,
             name=self.name,
             network_id=self.network_id,
@@ -208,6 +220,7 @@ def get_user(mac: Optional[str] = None,
         hostname=__ret__.hostname,
         id=__ret__.id,
         ip=__ret__.ip,
+        local_dns_record=__ret__.local_dns_record,
         mac=__ret__.mac,
         name=__ret__.name,
         network_id=__ret__.network_id,

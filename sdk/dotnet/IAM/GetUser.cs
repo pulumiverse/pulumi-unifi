@@ -137,6 +137,10 @@ namespace Pulumiverse.Unifi.IAM
         /// </summary>
         public readonly string Ip;
         /// <summary>
+        /// The local DNS record for this user.
+        /// </summary>
+        public readonly string LocalDnsRecord;
+        /// <summary>
         /// The MAC address of the user.
         /// </summary>
         public readonly string Mac;
@@ -175,6 +179,8 @@ namespace Pulumiverse.Unifi.IAM
 
             string ip,
 
+            string localDnsRecord,
+
             string mac,
 
             string name,
@@ -193,6 +199,7 @@ namespace Pulumiverse.Unifi.IAM
             Hostname = hostname;
             Id = id;
             Ip = ip;
+            LocalDnsRecord = localDnsRecord;
             Mac = mac;
             Name = name;
             NetworkId = networkId;

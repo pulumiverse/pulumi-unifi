@@ -142,6 +142,20 @@ public class User extends com.pulumi.resources.CustomResource {
         return this.ip;
     }
     /**
+     * Specifies the local DNS record for this user.
+     * 
+     */
+    @Export(name="localDnsRecord", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> localDnsRecord;
+
+    /**
+     * @return Specifies the local DNS record for this user.
+     * 
+     */
+    public Output<Optional<String>> localDnsRecord() {
+        return Codegen.optional(this.localDnsRecord);
+    }
+    /**
      * The MAC address of the user.
      * 
      */

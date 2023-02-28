@@ -27,7 +27,7 @@ class ForwardArgs:
         """
         The set of arguments for constructing a Forward resource.
         :param pulumi.Input[str] dst_port: The destination port for the forwarding.
-        :param pulumi.Input[bool] enabled: Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        :param pulumi.Input[bool] enabled: Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         :param pulumi.Input[str] fwd_ip: The IPv4 address to forward traffic to.
         :param pulumi.Input[str] fwd_port: The port to forward traffic to.
         :param pulumi.Input[bool] log: Specifies whether to log forwarded traffic or not. Defaults to `false`.
@@ -77,7 +77,7 @@ class ForwardArgs:
     @pulumi.getter
     def enabled(self) -> Optional[pulumi.Input[bool]]:
         """
-        Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
         return pulumi.get(self, "enabled")
 
@@ -198,7 +198,7 @@ class _ForwardState:
         """
         Input properties used for looking up and filtering Forward resources.
         :param pulumi.Input[str] dst_port: The destination port for the forwarding.
-        :param pulumi.Input[bool] enabled: Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        :param pulumi.Input[bool] enabled: Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         :param pulumi.Input[str] fwd_ip: The IPv4 address to forward traffic to.
         :param pulumi.Input[str] fwd_port: The port to forward traffic to.
         :param pulumi.Input[bool] log: Specifies whether to log forwarded traffic or not. Defaults to `false`.
@@ -248,7 +248,7 @@ class _ForwardState:
     @pulumi.getter
     def enabled(self) -> Optional[pulumi.Input[bool]]:
         """
-        Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
         return pulumi.get(self, "enabled")
 
@@ -375,7 +375,7 @@ class Forward(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] dst_port: The destination port for the forwarding.
-        :param pulumi.Input[bool] enabled: Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        :param pulumi.Input[bool] enabled: Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         :param pulumi.Input[str] fwd_ip: The IPv4 address to forward traffic to.
         :param pulumi.Input[str] fwd_port: The port to forward traffic to.
         :param pulumi.Input[bool] log: Specifies whether to log forwarded traffic or not. Defaults to `false`.
@@ -469,7 +469,7 @@ class Forward(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] dst_port: The destination port for the forwarding.
-        :param pulumi.Input[bool] enabled: Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        :param pulumi.Input[bool] enabled: Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         :param pulumi.Input[str] fwd_ip: The IPv4 address to forward traffic to.
         :param pulumi.Input[str] fwd_port: The port to forward traffic to.
         :param pulumi.Input[bool] log: Specifies whether to log forwarded traffic or not. Defaults to `false`.
@@ -507,7 +507,7 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter
     def enabled(self) -> pulumi.Output[Optional[bool]]:
         """
-        Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
         return pulumi.get(self, "enabled")
 

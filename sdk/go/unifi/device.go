@@ -68,8 +68,12 @@ import (
 type Device struct {
 	pulumi.CustomResourceState
 
+	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	AllowAdoption pulumi.BoolPtrOutput `pulumi:"allowAdoption"`
 	// Specifies whether this device should be disabled.
 	Disabled pulumi.BoolOutput `pulumi:"disabled"`
+	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	ForgetOnDestroy pulumi.BoolPtrOutput `pulumi:"forgetOnDestroy"`
 	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
 	Mac pulumi.StringOutput `pulumi:"mac"`
 	// The name of the device.
@@ -110,8 +114,12 @@ func GetDevice(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Device resources.
 type deviceState struct {
+	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	AllowAdoption *bool `pulumi:"allowAdoption"`
 	// Specifies whether this device should be disabled.
 	Disabled *bool `pulumi:"disabled"`
+	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	ForgetOnDestroy *bool `pulumi:"forgetOnDestroy"`
 	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
 	Mac *string `pulumi:"mac"`
 	// The name of the device.
@@ -123,8 +131,12 @@ type deviceState struct {
 }
 
 type DeviceState struct {
+	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	AllowAdoption pulumi.BoolPtrInput
 	// Specifies whether this device should be disabled.
 	Disabled pulumi.BoolPtrInput
+	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	ForgetOnDestroy pulumi.BoolPtrInput
 	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
 	Mac pulumi.StringPtrInput
 	// The name of the device.
@@ -140,6 +152,10 @@ func (DeviceState) ElementType() reflect.Type {
 }
 
 type deviceArgs struct {
+	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	AllowAdoption *bool `pulumi:"allowAdoption"`
+	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	ForgetOnDestroy *bool `pulumi:"forgetOnDestroy"`
 	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
 	Mac *string `pulumi:"mac"`
 	// The name of the device.
@@ -152,6 +168,10 @@ type deviceArgs struct {
 
 // The set of arguments for constructing a Device resource.
 type DeviceArgs struct {
+	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	AllowAdoption pulumi.BoolPtrInput
+	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	ForgetOnDestroy pulumi.BoolPtrInput
 	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
 	Mac pulumi.StringPtrInput
 	// The name of the device.
@@ -249,9 +269,19 @@ func (o DeviceOutput) ToDeviceOutputWithContext(ctx context.Context) DeviceOutpu
 	return o
 }
 
+// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+func (o DeviceOutput) AllowAdoption() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.BoolPtrOutput { return v.AllowAdoption }).(pulumi.BoolPtrOutput)
+}
+
 // Specifies whether this device should be disabled.
 func (o DeviceOutput) Disabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Device) pulumi.BoolOutput { return v.Disabled }).(pulumi.BoolOutput)
+}
+
+// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+func (o DeviceOutput) ForgetOnDestroy() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Device) pulumi.BoolPtrOutput { return v.ForgetOnDestroy }).(pulumi.BoolPtrOutput)
 }
 
 // The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
