@@ -364,6 +364,21 @@ public final class RuleArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The source port of the firewall rule.
+     * 
+     */
+    @Import(name="srcPort")
+    private @Nullable Output<String> srcPort;
+
+    /**
+     * @return The source port of the firewall rule.
+     * 
+     */
+    public Optional<Output<String>> srcPort() {
+        return Optional.ofNullable(this.srcPort);
+    }
+
+    /**
      * Match where the state is established.
      * 
      */
@@ -449,6 +464,7 @@ public final class RuleArgs extends com.pulumi.resources.ResourceArgs {
         this.srcMac = $.srcMac;
         this.srcNetworkId = $.srcNetworkId;
         this.srcNetworkType = $.srcNetworkType;
+        this.srcPort = $.srcPort;
         this.stateEstablished = $.stateEstablished;
         this.stateInvalid = $.stateInvalid;
         this.stateNew = $.stateNew;
@@ -974,6 +990,27 @@ public final class RuleArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder srcNetworkType(String srcNetworkType) {
             return srcNetworkType(Output.of(srcNetworkType));
+        }
+
+        /**
+         * @param srcPort The source port of the firewall rule.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder srcPort(@Nullable Output<String> srcPort) {
+            $.srcPort = srcPort;
+            return this;
+        }
+
+        /**
+         * @param srcPort The source port of the firewall rule.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder srcPort(String srcPort) {
+            return srcPort(Output.of(srcPort));
         }
 
         /**

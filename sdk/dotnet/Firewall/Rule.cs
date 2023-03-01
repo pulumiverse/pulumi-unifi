@@ -186,6 +186,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Output<string?> SrcNetworkType { get; private set; } = null!;
 
         /// <summary>
+        /// The source port of the firewall rule.
+        /// </summary>
+        [Output("srcPort")]
+        public Output<string?> SrcPort { get; private set; } = null!;
+
+        /// <summary>
         /// Match where the state is established.
         /// </summary>
         [Output("stateEstablished")]
@@ -407,6 +413,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<string>? SrcNetworkType { get; set; }
 
         /// <summary>
+        /// The source port of the firewall rule.
+        /// </summary>
+        [Input("srcPort")]
+        public Input<string>? SrcPort { get; set; }
+
+        /// <summary>
         /// Match where the state is established.
         /// </summary>
         [Input("stateEstablished")]
@@ -587,6 +599,12 @@ namespace Pulumiverse.Unifi.Firewall
         /// </summary>
         [Input("srcNetworkType")]
         public Input<string>? SrcNetworkType { get; set; }
+
+        /// <summary>
+        /// The source port of the firewall rule.
+        /// </summary>
+        [Input("srcPort")]
+        public Input<string>? SrcPort { get; set; }
 
         /// <summary>
         /// Match where the state is established.

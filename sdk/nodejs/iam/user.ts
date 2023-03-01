@@ -76,6 +76,10 @@ export class User extends pulumi.CustomResource {
      */
     public /*out*/ readonly ip!: pulumi.Output<string>;
     /**
+     * Specifies the local DNS record for this user.
+     */
+    public readonly localDnsRecord!: pulumi.Output<string | undefined>;
+    /**
      * The MAC address of the user.
      */
     public readonly mac!: pulumi.Output<string>;
@@ -123,6 +127,7 @@ export class User extends pulumi.CustomResource {
             resourceInputs["fixedIp"] = state ? state.fixedIp : undefined;
             resourceInputs["hostname"] = state ? state.hostname : undefined;
             resourceInputs["ip"] = state ? state.ip : undefined;
+            resourceInputs["localDnsRecord"] = state ? state.localDnsRecord : undefined;
             resourceInputs["mac"] = state ? state.mac : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["networkId"] = state ? state.networkId : undefined;
@@ -139,6 +144,7 @@ export class User extends pulumi.CustomResource {
             resourceInputs["blocked"] = args ? args.blocked : undefined;
             resourceInputs["devIdOverride"] = args ? args.devIdOverride : undefined;
             resourceInputs["fixedIp"] = args ? args.fixedIp : undefined;
+            resourceInputs["localDnsRecord"] = args ? args.localDnsRecord : undefined;
             resourceInputs["mac"] = args ? args.mac : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["networkId"] = args ? args.networkId : undefined;
@@ -182,6 +188,10 @@ export interface UserState {
      * The IP address of the user.
      */
     ip?: pulumi.Input<string>;
+    /**
+     * Specifies the local DNS record for this user.
+     */
+    localDnsRecord?: pulumi.Input<string>;
     /**
      * The MAC address of the user.
      */
@@ -232,6 +242,10 @@ export interface UserArgs {
      * A fixed IPv4 address for this user.
      */
     fixedIp?: pulumi.Input<string>;
+    /**
+     * Specifies the local DNS record for this user.
+     */
+    localDnsRecord?: pulumi.Input<string>;
     /**
      * The MAC address of the user.
      */

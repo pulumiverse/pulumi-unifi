@@ -454,6 +454,21 @@ public final class NetworkState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+     * 
+     */
+    @Import(name="multicastDns")
+    private @Nullable Output<Boolean> multicastDns;
+
+    /**
+     * @return Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+     * 
+     */
+    public Optional<Output<Boolean>> multicastDns() {
+        return Optional.ofNullable(this.multicastDns);
+    }
+
+    /**
      * The name of the network.
      * 
      */
@@ -785,6 +800,7 @@ public final class NetworkState extends com.pulumi.resources.ResourceArgs {
         this.ipv6RaPriority = $.ipv6RaPriority;
         this.ipv6RaValidLifetime = $.ipv6RaValidLifetime;
         this.ipv6StaticSubnet = $.ipv6StaticSubnet;
+        this.multicastDns = $.multicastDns;
         this.name = $.name;
         this.networkGroup = $.networkGroup;
         this.purpose = $.purpose;
@@ -1452,6 +1468,27 @@ public final class NetworkState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder ipv6StaticSubnet(String ipv6StaticSubnet) {
             return ipv6StaticSubnet(Output.of(ipv6StaticSubnet));
+        }
+
+        /**
+         * @param multicastDns Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder multicastDns(@Nullable Output<Boolean> multicastDns) {
+            $.multicastDns = multicastDns;
+            return this;
+        }
+
+        /**
+         * @param multicastDns Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder multicastDns(Boolean multicastDns) {
+            return multicastDns(Output.of(multicastDns));
         }
 
         /**

@@ -153,6 +153,10 @@ export class Rule extends pulumi.CustomResource {
      */
     public readonly srcNetworkType!: pulumi.Output<string | undefined>;
     /**
+     * The source port of the firewall rule.
+     */
+    public readonly srcPort!: pulumi.Output<string | undefined>;
+    /**
      * Match where the state is established.
      */
     public readonly stateEstablished!: pulumi.Output<boolean | undefined>;
@@ -205,6 +209,7 @@ export class Rule extends pulumi.CustomResource {
             resourceInputs["srcMac"] = state ? state.srcMac : undefined;
             resourceInputs["srcNetworkId"] = state ? state.srcNetworkId : undefined;
             resourceInputs["srcNetworkType"] = state ? state.srcNetworkType : undefined;
+            resourceInputs["srcPort"] = state ? state.srcPort : undefined;
             resourceInputs["stateEstablished"] = state ? state.stateEstablished : undefined;
             resourceInputs["stateInvalid"] = state ? state.stateInvalid : undefined;
             resourceInputs["stateNew"] = state ? state.stateNew : undefined;
@@ -243,6 +248,7 @@ export class Rule extends pulumi.CustomResource {
             resourceInputs["srcMac"] = args ? args.srcMac : undefined;
             resourceInputs["srcNetworkId"] = args ? args.srcNetworkId : undefined;
             resourceInputs["srcNetworkType"] = args ? args.srcNetworkType : undefined;
+            resourceInputs["srcPort"] = args ? args.srcPort : undefined;
             resourceInputs["stateEstablished"] = args ? args.stateEstablished : undefined;
             resourceInputs["stateInvalid"] = args ? args.stateInvalid : undefined;
             resourceInputs["stateNew"] = args ? args.stateNew : undefined;
@@ -349,6 +355,10 @@ export interface RuleState {
      * The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
      */
     srcNetworkType?: pulumi.Input<string>;
+    /**
+     * The source port of the firewall rule.
+     */
+    srcPort?: pulumi.Input<string>;
     /**
      * Match where the state is established.
      */
@@ -463,6 +473,10 @@ export interface RuleArgs {
      * The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
      */
     srcNetworkType?: pulumi.Input<string>;
+    /**
+     * The source port of the firewall rule.
+     */
+    srcPort?: pulumi.Input<string>;
     /**
      * Match where the state is established.
      */

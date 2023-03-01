@@ -16,7 +16,7 @@ type Forward struct {
 
 	// The destination port for the forwarding.
 	DstPort pulumi.StringPtrOutput `pulumi:"dstPort"`
-	// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled pulumi.BoolPtrOutput `pulumi:"enabled"`
@@ -70,7 +70,7 @@ func GetForward(ctx *pulumi.Context,
 type forwardState struct {
 	// The destination port for the forwarding.
 	DstPort *string `pulumi:"dstPort"`
-	// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled *bool `pulumi:"enabled"`
@@ -95,7 +95,7 @@ type forwardState struct {
 type ForwardState struct {
 	// The destination port for the forwarding.
 	DstPort pulumi.StringPtrInput
-	// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled pulumi.BoolPtrInput
@@ -124,7 +124,7 @@ func (ForwardState) ElementType() reflect.Type {
 type forwardArgs struct {
 	// The destination port for the forwarding.
 	DstPort *string `pulumi:"dstPort"`
-	// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled *bool `pulumi:"enabled"`
@@ -150,7 +150,7 @@ type forwardArgs struct {
 type ForwardArgs struct {
 	// The destination port for the forwarding.
 	DstPort pulumi.StringPtrInput
-	// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled pulumi.BoolPtrInput
@@ -264,7 +264,7 @@ func (o ForwardOutput) DstPort() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringPtrOutput { return v.DstPort }).(pulumi.StringPtrOutput)
 }
 
-// Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 //
 // Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 func (o ForwardOutput) Enabled() pulumi.BoolPtrOutput {

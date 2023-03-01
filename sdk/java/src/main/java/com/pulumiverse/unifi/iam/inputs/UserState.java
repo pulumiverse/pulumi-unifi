@@ -108,6 +108,21 @@ public final class UserState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Specifies the local DNS record for this user.
+     * 
+     */
+    @Import(name="localDnsRecord")
+    private @Nullable Output<String> localDnsRecord;
+
+    /**
+     * @return Specifies the local DNS record for this user.
+     * 
+     */
+    public Optional<Output<String>> localDnsRecord() {
+        return Optional.ofNullable(this.localDnsRecord);
+    }
+
+    /**
      * The MAC address of the user.
      * 
      */
@@ -221,6 +236,7 @@ public final class UserState extends com.pulumi.resources.ResourceArgs {
         this.fixedIp = $.fixedIp;
         this.hostname = $.hostname;
         this.ip = $.ip;
+        this.localDnsRecord = $.localDnsRecord;
         this.mac = $.mac;
         this.name = $.name;
         this.networkId = $.networkId;
@@ -372,6 +388,27 @@ public final class UserState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder ip(String ip) {
             return ip(Output.of(ip));
+        }
+
+        /**
+         * @param localDnsRecord Specifies the local DNS record for this user.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder localDnsRecord(@Nullable Output<String> localDnsRecord) {
+            $.localDnsRecord = localDnsRecord;
+            return this;
+        }
+
+        /**
+         * @param localDnsRecord Specifies the local DNS record for this user.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder localDnsRecord(String localDnsRecord) {
+            return localDnsRecord(Output.of(localDnsRecord));
         }
 
         /**

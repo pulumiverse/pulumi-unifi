@@ -40,7 +40,7 @@ export class Forward extends pulumi.CustomResource {
      */
     public readonly dstPort!: pulumi.Output<string | undefined>;
     /**
-     * Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      *
      * @deprecated This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      */
@@ -128,7 +128,7 @@ export interface ForwardState {
      */
     dstPort?: pulumi.Input<string>;
     /**
-     * Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      *
      * @deprecated This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      */
@@ -176,7 +176,7 @@ export interface ForwardArgs {
      */
     dstPort?: pulumi.Input<string>;
     /**
-     * Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      *
      * @deprecated This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      */

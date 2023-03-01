@@ -19,6 +19,21 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
     public static final DeviceState Empty = new DeviceState();
 
     /**
+     * Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     * 
+     */
+    @Import(name="allowAdoption")
+    private @Nullable Output<Boolean> allowAdoption;
+
+    /**
+     * @return Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> allowAdoption() {
+        return Optional.ofNullable(this.allowAdoption);
+    }
+
+    /**
      * Specifies whether this device should be disabled.
      * 
      */
@@ -31,6 +46,21 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<Boolean>> disabled() {
         return Optional.ofNullable(this.disabled);
+    }
+
+    /**
+     * Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     * 
+     */
+    @Import(name="forgetOnDestroy")
+    private @Nullable Output<Boolean> forgetOnDestroy;
+
+    /**
+     * @return Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> forgetOnDestroy() {
+        return Optional.ofNullable(this.forgetOnDestroy);
     }
 
     /**
@@ -96,7 +126,9 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
     private DeviceState() {}
 
     private DeviceState(DeviceState $) {
+        this.allowAdoption = $.allowAdoption;
         this.disabled = $.disabled;
+        this.forgetOnDestroy = $.forgetOnDestroy;
         this.mac = $.mac;
         this.name = $.name;
         this.portOverrides = $.portOverrides;
@@ -122,6 +154,27 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param allowAdoption Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allowAdoption(@Nullable Output<Boolean> allowAdoption) {
+            $.allowAdoption = allowAdoption;
+            return this;
+        }
+
+        /**
+         * @param allowAdoption Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allowAdoption(Boolean allowAdoption) {
+            return allowAdoption(Output.of(allowAdoption));
+        }
+
+        /**
          * @param disabled Specifies whether this device should be disabled.
          * 
          * @return builder
@@ -140,6 +193,27 @@ public final class DeviceState extends com.pulumi.resources.ResourceArgs {
          */
         public Builder disabled(Boolean disabled) {
             return disabled(Output.of(disabled));
+        }
+
+        /**
+         * @param forgetOnDestroy Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder forgetOnDestroy(@Nullable Output<Boolean> forgetOnDestroy) {
+            $.forgetOnDestroy = forgetOnDestroy;
+            return this;
+        }
+
+        /**
+         * @param forgetOnDestroy Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder forgetOnDestroy(Boolean forgetOnDestroy) {
+            return forgetOnDestroy(Output.of(forgetOnDestroy));
         }
 
         /**

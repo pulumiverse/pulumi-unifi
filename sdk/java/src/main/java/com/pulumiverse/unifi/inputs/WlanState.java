@@ -335,14 +335,14 @@ public final class WlanState extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Radio band your WiFi network will use.
+     * Radio band your WiFi network will use. Defaults to `both`.
      * 
      */
     @Import(name="wlanBand")
     private @Nullable Output<String> wlanBand;
 
     /**
-     * @return Radio band your WiFi network will use.
+     * @return Radio band your WiFi network will use. Defaults to `both`.
      * 
      */
     public Optional<Output<String>> wlanBand() {
@@ -898,7 +898,7 @@ public final class WlanState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param wlanBand Radio band your WiFi network will use.
+         * @param wlanBand Radio band your WiFi network will use. Defaults to `both`.
          * 
          * @return builder
          * 
@@ -909,7 +909,7 @@ public final class WlanState extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param wlanBand Radio band your WiFi network will use.
+         * @param wlanBand Radio band your WiFi network will use. Defaults to `both`.
          * 
          * @return builder
          * 

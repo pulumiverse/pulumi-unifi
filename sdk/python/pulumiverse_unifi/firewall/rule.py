@@ -37,6 +37,7 @@ class RuleArgs:
                  src_mac: Optional[pulumi.Input[str]] = None,
                  src_network_id: Optional[pulumi.Input[str]] = None,
                  src_network_type: Optional[pulumi.Input[str]] = None,
+                 src_port: Optional[pulumi.Input[str]] = None,
                  state_established: Optional[pulumi.Input[bool]] = None,
                  state_invalid: Optional[pulumi.Input[bool]] = None,
                  state_new: Optional[pulumi.Input[bool]] = None,
@@ -66,6 +67,7 @@ class RuleArgs:
         :param pulumi.Input[str] src_mac: The source MAC address of the firewall rule.
         :param pulumi.Input[str] src_network_id: The source network ID for the firewall rule.
         :param pulumi.Input[str] src_network_type: The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+        :param pulumi.Input[str] src_port: The source port of the firewall rule.
         :param pulumi.Input[bool] state_established: Match where the state is established.
         :param pulumi.Input[bool] state_invalid: Match where the state is invalid.
         :param pulumi.Input[bool] state_new: Match where the state is new.
@@ -114,6 +116,8 @@ class RuleArgs:
             pulumi.set(__self__, "src_network_id", src_network_id)
         if src_network_type is not None:
             pulumi.set(__self__, "src_network_type", src_network_type)
+        if src_port is not None:
+            pulumi.set(__self__, "src_port", src_port)
         if state_established is not None:
             pulumi.set(__self__, "state_established", state_established)
         if state_invalid is not None:
@@ -400,6 +404,18 @@ class RuleArgs:
         pulumi.set(self, "src_network_type", value)
 
     @property
+    @pulumi.getter(name="srcPort")
+    def src_port(self) -> Optional[pulumi.Input[str]]:
+        """
+        The source port of the firewall rule.
+        """
+        return pulumi.get(self, "src_port")
+
+    @src_port.setter
+    def src_port(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "src_port", value)
+
+    @property
     @pulumi.getter(name="stateEstablished")
     def state_established(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -474,6 +490,7 @@ class _RuleState:
                  src_mac: Optional[pulumi.Input[str]] = None,
                  src_network_id: Optional[pulumi.Input[str]] = None,
                  src_network_type: Optional[pulumi.Input[str]] = None,
+                 src_port: Optional[pulumi.Input[str]] = None,
                  state_established: Optional[pulumi.Input[bool]] = None,
                  state_invalid: Optional[pulumi.Input[bool]] = None,
                  state_new: Optional[pulumi.Input[bool]] = None,
@@ -503,6 +520,7 @@ class _RuleState:
         :param pulumi.Input[str] src_mac: The source MAC address of the firewall rule.
         :param pulumi.Input[str] src_network_id: The source network ID for the firewall rule.
         :param pulumi.Input[str] src_network_type: The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+        :param pulumi.Input[str] src_port: The source port of the firewall rule.
         :param pulumi.Input[bool] state_established: Match where the state is established.
         :param pulumi.Input[bool] state_invalid: Match where the state is invalid.
         :param pulumi.Input[bool] state_new: Match where the state is new.
@@ -554,6 +572,8 @@ class _RuleState:
             pulumi.set(__self__, "src_network_id", src_network_id)
         if src_network_type is not None:
             pulumi.set(__self__, "src_network_type", src_network_type)
+        if src_port is not None:
+            pulumi.set(__self__, "src_port", src_port)
         if state_established is not None:
             pulumi.set(__self__, "state_established", state_established)
         if state_invalid is not None:
@@ -840,6 +860,18 @@ class _RuleState:
         pulumi.set(self, "src_network_type", value)
 
     @property
+    @pulumi.getter(name="srcPort")
+    def src_port(self) -> Optional[pulumi.Input[str]]:
+        """
+        The source port of the firewall rule.
+        """
+        return pulumi.get(self, "src_port")
+
+    @src_port.setter
+    def src_port(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "src_port", value)
+
+    @property
     @pulumi.getter(name="stateEstablished")
     def state_established(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -916,6 +948,7 @@ class Rule(pulumi.CustomResource):
                  src_mac: Optional[pulumi.Input[str]] = None,
                  src_network_id: Optional[pulumi.Input[str]] = None,
                  src_network_type: Optional[pulumi.Input[str]] = None,
+                 src_port: Optional[pulumi.Input[str]] = None,
                  state_established: Optional[pulumi.Input[bool]] = None,
                  state_invalid: Optional[pulumi.Input[bool]] = None,
                  state_new: Optional[pulumi.Input[bool]] = None,
@@ -973,6 +1006,7 @@ class Rule(pulumi.CustomResource):
         :param pulumi.Input[str] src_mac: The source MAC address of the firewall rule.
         :param pulumi.Input[str] src_network_id: The source network ID for the firewall rule.
         :param pulumi.Input[str] src_network_type: The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+        :param pulumi.Input[str] src_port: The source port of the firewall rule.
         :param pulumi.Input[bool] state_established: Match where the state is established.
         :param pulumi.Input[bool] state_invalid: Match where the state is invalid.
         :param pulumi.Input[bool] state_new: Match where the state is new.
@@ -1049,6 +1083,7 @@ class Rule(pulumi.CustomResource):
                  src_mac: Optional[pulumi.Input[str]] = None,
                  src_network_id: Optional[pulumi.Input[str]] = None,
                  src_network_type: Optional[pulumi.Input[str]] = None,
+                 src_port: Optional[pulumi.Input[str]] = None,
                  state_established: Optional[pulumi.Input[bool]] = None,
                  state_invalid: Optional[pulumi.Input[bool]] = None,
                  state_new: Optional[pulumi.Input[bool]] = None,
@@ -1091,6 +1126,7 @@ class Rule(pulumi.CustomResource):
             __props__.__dict__["src_mac"] = src_mac
             __props__.__dict__["src_network_id"] = src_network_id
             __props__.__dict__["src_network_type"] = src_network_type
+            __props__.__dict__["src_port"] = src_port
             __props__.__dict__["state_established"] = state_established
             __props__.__dict__["state_invalid"] = state_invalid
             __props__.__dict__["state_new"] = state_new
@@ -1128,6 +1164,7 @@ class Rule(pulumi.CustomResource):
             src_mac: Optional[pulumi.Input[str]] = None,
             src_network_id: Optional[pulumi.Input[str]] = None,
             src_network_type: Optional[pulumi.Input[str]] = None,
+            src_port: Optional[pulumi.Input[str]] = None,
             state_established: Optional[pulumi.Input[bool]] = None,
             state_invalid: Optional[pulumi.Input[bool]] = None,
             state_new: Optional[pulumi.Input[bool]] = None,
@@ -1162,6 +1199,7 @@ class Rule(pulumi.CustomResource):
         :param pulumi.Input[str] src_mac: The source MAC address of the firewall rule.
         :param pulumi.Input[str] src_network_id: The source network ID for the firewall rule.
         :param pulumi.Input[str] src_network_type: The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+        :param pulumi.Input[str] src_port: The source port of the firewall rule.
         :param pulumi.Input[bool] state_established: Match where the state is established.
         :param pulumi.Input[bool] state_invalid: Match where the state is invalid.
         :param pulumi.Input[bool] state_new: Match where the state is new.
@@ -1194,6 +1232,7 @@ class Rule(pulumi.CustomResource):
         __props__.__dict__["src_mac"] = src_mac
         __props__.__dict__["src_network_id"] = src_network_id
         __props__.__dict__["src_network_type"] = src_network_type
+        __props__.__dict__["src_port"] = src_port
         __props__.__dict__["state_established"] = state_established
         __props__.__dict__["state_invalid"] = state_invalid
         __props__.__dict__["state_new"] = state_new
@@ -1383,6 +1422,14 @@ class Rule(pulumi.CustomResource):
         The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         """
         return pulumi.get(self, "src_network_type")
+
+    @property
+    @pulumi.getter(name="srcPort")
+    def src_port(self) -> pulumi.Output[Optional[str]]:
+        """
+        The source port of the firewall rule.
+        """
+        return pulumi.get(self, "src_port")
 
     @property
     @pulumi.getter(name="stateEstablished")

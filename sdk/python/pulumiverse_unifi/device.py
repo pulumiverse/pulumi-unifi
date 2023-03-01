@@ -16,17 +16,25 @@ __all__ = ['DeviceArgs', 'Device']
 @pulumi.input_type
 class DeviceArgs:
     def __init__(__self__, *,
+                 allow_adoption: Optional[pulumi.Input[bool]] = None,
+                 forget_on_destroy: Optional[pulumi.Input[bool]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]] = None,
                  site: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Device resource.
+        :param pulumi.Input[bool] allow_adoption: Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        :param pulumi.Input[bool] forget_on_destroy: Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
         :param pulumi.Input[str] mac: The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
         :param pulumi.Input[str] name: The name of the device.
         :param pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]] port_overrides: Settings overrides for specific switch ports.
         :param pulumi.Input[str] site: The name of the site to associate the device with.
         """
+        if allow_adoption is not None:
+            pulumi.set(__self__, "allow_adoption", allow_adoption)
+        if forget_on_destroy is not None:
+            pulumi.set(__self__, "forget_on_destroy", forget_on_destroy)
         if mac is not None:
             pulumi.set(__self__, "mac", mac)
         if name is not None:
@@ -35,6 +43,30 @@ class DeviceArgs:
             pulumi.set(__self__, "port_overrides", port_overrides)
         if site is not None:
             pulumi.set(__self__, "site", site)
+
+    @property
+    @pulumi.getter(name="allowAdoption")
+    def allow_adoption(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        """
+        return pulumi.get(self, "allow_adoption")
+
+    @allow_adoption.setter
+    def allow_adoption(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "allow_adoption", value)
+
+    @property
+    @pulumi.getter(name="forgetOnDestroy")
+    def forget_on_destroy(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        """
+        return pulumi.get(self, "forget_on_destroy")
+
+    @forget_on_destroy.setter
+    def forget_on_destroy(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "forget_on_destroy", value)
 
     @property
     @pulumi.getter
@@ -88,21 +120,29 @@ class DeviceArgs:
 @pulumi.input_type
 class _DeviceState:
     def __init__(__self__, *,
+                 allow_adoption: Optional[pulumi.Input[bool]] = None,
                  disabled: Optional[pulumi.Input[bool]] = None,
+                 forget_on_destroy: Optional[pulumi.Input[bool]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]] = None,
                  site: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Device resources.
+        :param pulumi.Input[bool] allow_adoption: Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
         :param pulumi.Input[bool] disabled: Specifies whether this device should be disabled.
+        :param pulumi.Input[bool] forget_on_destroy: Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
         :param pulumi.Input[str] mac: The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
         :param pulumi.Input[str] name: The name of the device.
         :param pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]] port_overrides: Settings overrides for specific switch ports.
         :param pulumi.Input[str] site: The name of the site to associate the device with.
         """
+        if allow_adoption is not None:
+            pulumi.set(__self__, "allow_adoption", allow_adoption)
         if disabled is not None:
             pulumi.set(__self__, "disabled", disabled)
+        if forget_on_destroy is not None:
+            pulumi.set(__self__, "forget_on_destroy", forget_on_destroy)
         if mac is not None:
             pulumi.set(__self__, "mac", mac)
         if name is not None:
@@ -111,6 +151,18 @@ class _DeviceState:
             pulumi.set(__self__, "port_overrides", port_overrides)
         if site is not None:
             pulumi.set(__self__, "site", site)
+
+    @property
+    @pulumi.getter(name="allowAdoption")
+    def allow_adoption(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        """
+        return pulumi.get(self, "allow_adoption")
+
+    @allow_adoption.setter
+    def allow_adoption(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "allow_adoption", value)
 
     @property
     @pulumi.getter
@@ -123,6 +175,18 @@ class _DeviceState:
     @disabled.setter
     def disabled(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "disabled", value)
+
+    @property
+    @pulumi.getter(name="forgetOnDestroy")
+    def forget_on_destroy(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        """
+        return pulumi.get(self, "forget_on_destroy")
+
+    @forget_on_destroy.setter
+    def forget_on_destroy(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "forget_on_destroy", value)
 
     @property
     @pulumi.getter
@@ -178,6 +242,8 @@ class Device(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allow_adoption: Optional[pulumi.Input[bool]] = None,
+                 forget_on_destroy: Optional[pulumi.Input[bool]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]]] = None,
@@ -215,6 +281,8 @@ class Device(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[bool] allow_adoption: Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        :param pulumi.Input[bool] forget_on_destroy: Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
         :param pulumi.Input[str] mac: The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
         :param pulumi.Input[str] name: The name of the device.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]] port_overrides: Settings overrides for specific switch ports.
@@ -271,6 +339,8 @@ class Device(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allow_adoption: Optional[pulumi.Input[bool]] = None,
+                 forget_on_destroy: Optional[pulumi.Input[bool]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]]] = None,
@@ -284,6 +354,8 @@ class Device(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = DeviceArgs.__new__(DeviceArgs)
 
+            __props__.__dict__["allow_adoption"] = allow_adoption
+            __props__.__dict__["forget_on_destroy"] = forget_on_destroy
             __props__.__dict__["mac"] = mac
             __props__.__dict__["name"] = name
             __props__.__dict__["port_overrides"] = port_overrides
@@ -299,7 +371,9 @@ class Device(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            allow_adoption: Optional[pulumi.Input[bool]] = None,
             disabled: Optional[pulumi.Input[bool]] = None,
+            forget_on_destroy: Optional[pulumi.Input[bool]] = None,
             mac: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
             port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]]] = None,
@@ -311,7 +385,9 @@ class Device(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[bool] allow_adoption: Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
         :param pulumi.Input[bool] disabled: Specifies whether this device should be disabled.
+        :param pulumi.Input[bool] forget_on_destroy: Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
         :param pulumi.Input[str] mac: The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
         :param pulumi.Input[str] name: The name of the device.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]] port_overrides: Settings overrides for specific switch ports.
@@ -321,12 +397,22 @@ class Device(pulumi.CustomResource):
 
         __props__ = _DeviceState.__new__(_DeviceState)
 
+        __props__.__dict__["allow_adoption"] = allow_adoption
         __props__.__dict__["disabled"] = disabled
+        __props__.__dict__["forget_on_destroy"] = forget_on_destroy
         __props__.__dict__["mac"] = mac
         __props__.__dict__["name"] = name
         __props__.__dict__["port_overrides"] = port_overrides
         __props__.__dict__["site"] = site
         return Device(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="allowAdoption")
+    def allow_adoption(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        """
+        return pulumi.get(self, "allow_adoption")
 
     @property
     @pulumi.getter
@@ -335,6 +421,14 @@ class Device(pulumi.CustomResource):
         Specifies whether this device should be disabled.
         """
         return pulumi.get(self, "disabled")
+
+    @property
+    @pulumi.getter(name="forgetOnDestroy")
+    def forget_on_destroy(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        """
+        return pulumi.get(self, "forget_on_destroy")
 
     @property
     @pulumi.getter

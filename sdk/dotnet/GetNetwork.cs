@@ -253,6 +253,10 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string Ipv6StaticSubnet;
         /// <summary>
+        /// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+        /// </summary>
+        public readonly bool MulticastDns;
+        /// <summary>
         /// The name of the network.
         /// </summary>
         public readonly string Name;
@@ -389,6 +393,8 @@ namespace Pulumiverse.Unifi
 
             string ipv6StaticSubnet,
 
+            bool multicastDns,
+
             string name,
 
             string networkGroup,
@@ -456,6 +462,7 @@ namespace Pulumiverse.Unifi
             Ipv6RaPriority = ipv6RaPriority;
             Ipv6RaValidLifetime = ipv6RaValidLifetime;
             Ipv6StaticSubnet = ipv6StaticSubnet;
+            MulticastDns = multicastDns;
             Name = name;
             NetworkGroup = networkGroup;
             Purpose = purpose;

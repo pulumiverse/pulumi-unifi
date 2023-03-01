@@ -36,7 +36,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.dstPort);
     }
     /**
-     * Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      * 
      * @deprecated
      * This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
@@ -47,7 +47,7 @@ public class Forward extends com.pulumi.resources.CustomResource {
     private Output</* @Nullable */ Boolean> enabled;
 
     /**
-     * @return Specifies whether the port forwarding rule is enabled or not. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * @return Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      * 
      */
     public Output<Optional<Boolean>> enabled() {

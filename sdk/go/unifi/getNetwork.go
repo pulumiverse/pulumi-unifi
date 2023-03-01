@@ -126,6 +126,8 @@ type LookupNetworkResult struct {
 	Ipv6RaValidLifetime int `pulumi:"ipv6RaValidLifetime"`
 	// Specifies the static IPv6 subnet (when ipv6*interface*type is 'static').
 	Ipv6StaticSubnet string `pulumi:"ipv6StaticSubnet"`
+	// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+	MulticastDns bool `pulumi:"multicastDns"`
 	// The name of the network.
 	Name string `pulumi:"name"`
 	// The group of the network.
@@ -343,6 +345,11 @@ func (o LookupNetworkResultOutput) Ipv6RaValidLifetime() pulumi.IntOutput {
 // Specifies the static IPv6 subnet (when ipv6*interface*type is 'static').
 func (o LookupNetworkResultOutput) Ipv6StaticSubnet() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.Ipv6StaticSubnet }).(pulumi.StringOutput)
+}
+
+// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+func (o LookupNetworkResultOutput) MulticastDns() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupNetworkResult) bool { return v.MulticastDns }).(pulumi.BoolOutput)
 }
 
 // The name of the network.

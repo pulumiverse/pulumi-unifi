@@ -148,6 +148,8 @@ type Network struct {
 	Ipv6RaValidLifetime pulumi.IntPtrOutput `pulumi:"ipv6RaValidLifetime"`
 	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet pulumi.StringPtrOutput `pulumi:"ipv6StaticSubnet"`
+	// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+	MulticastDns pulumi.BoolPtrOutput `pulumi:"multicastDns"`
 	// The name of the network.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// The group of the network. Defaults to `LAN`.
@@ -281,6 +283,8 @@ type networkState struct {
 	Ipv6RaValidLifetime *int `pulumi:"ipv6RaValidLifetime"`
 	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet *string `pulumi:"ipv6StaticSubnet"`
+	// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+	MulticastDns *bool `pulumi:"multicastDns"`
 	// The name of the network.
 	Name *string `pulumi:"name"`
 	// The group of the network. Defaults to `LAN`.
@@ -382,6 +386,8 @@ type NetworkState struct {
 	Ipv6RaValidLifetime pulumi.IntPtrInput
 	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet pulumi.StringPtrInput
+	// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+	MulticastDns pulumi.BoolPtrInput
 	// The name of the network.
 	Name pulumi.StringPtrInput
 	// The group of the network. Defaults to `LAN`.
@@ -487,6 +493,8 @@ type networkArgs struct {
 	Ipv6RaValidLifetime *int `pulumi:"ipv6RaValidLifetime"`
 	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet *string `pulumi:"ipv6StaticSubnet"`
+	// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+	MulticastDns *bool `pulumi:"multicastDns"`
 	// The name of the network.
 	Name *string `pulumi:"name"`
 	// The group of the network. Defaults to `LAN`.
@@ -589,6 +597,8 @@ type NetworkArgs struct {
 	Ipv6RaValidLifetime pulumi.IntPtrInput
 	// Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 	Ipv6StaticSubnet pulumi.StringPtrInput
+	// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+	MulticastDns pulumi.BoolPtrInput
 	// The name of the network.
 	Name pulumi.StringPtrInput
 	// The group of the network. Defaults to `LAN`.
@@ -861,6 +871,11 @@ func (o NetworkOutput) Ipv6RaValidLifetime() pulumi.IntPtrOutput {
 // Specifies the static IPv6 subnet when `ipv6InterfaceType` is 'static'.
 func (o NetworkOutput) Ipv6StaticSubnet() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Network) pulumi.StringPtrOutput { return v.Ipv6StaticSubnet }).(pulumi.StringPtrOutput)
+}
+
+// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+func (o NetworkOutput) MulticastDns() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Network) pulumi.BoolPtrOutput { return v.MulticastDns }).(pulumi.BoolPtrOutput)
 }
 
 // The name of the network.

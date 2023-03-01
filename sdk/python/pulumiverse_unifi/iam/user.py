@@ -19,6 +19,7 @@ class UserArgs:
                  blocked: Optional[pulumi.Input[bool]] = None,
                  dev_id_override: Optional[pulumi.Input[int]] = None,
                  fixed_ip: Optional[pulumi.Input[str]] = None,
+                 local_dns_record: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  network_id: Optional[pulumi.Input[str]] = None,
                  note: Optional[pulumi.Input[str]] = None,
@@ -32,6 +33,7 @@ class UserArgs:
         :param pulumi.Input[bool] blocked: Specifies whether this user should be blocked from the network.
         :param pulumi.Input[int] dev_id_override: Override the device fingerprint.
         :param pulumi.Input[str] fixed_ip: A fixed IPv4 address for this user.
+        :param pulumi.Input[str] local_dns_record: Specifies the local DNS record for this user.
         :param pulumi.Input[str] name: The name of the user.
         :param pulumi.Input[str] network_id: The network ID for this user.
         :param pulumi.Input[str] note: A note with additional information for the user.
@@ -48,6 +50,8 @@ class UserArgs:
             pulumi.set(__self__, "dev_id_override", dev_id_override)
         if fixed_ip is not None:
             pulumi.set(__self__, "fixed_ip", fixed_ip)
+        if local_dns_record is not None:
+            pulumi.set(__self__, "local_dns_record", local_dns_record)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if network_id is not None:
@@ -120,6 +124,18 @@ class UserArgs:
     @fixed_ip.setter
     def fixed_ip(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "fixed_ip", value)
+
+    @property
+    @pulumi.getter(name="localDnsRecord")
+    def local_dns_record(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specifies the local DNS record for this user.
+        """
+        return pulumi.get(self, "local_dns_record")
+
+    @local_dns_record.setter
+    def local_dns_record(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "local_dns_record", value)
 
     @property
     @pulumi.getter
@@ -203,6 +219,7 @@ class _UserState:
                  fixed_ip: Optional[pulumi.Input[str]] = None,
                  hostname: Optional[pulumi.Input[str]] = None,
                  ip: Optional[pulumi.Input[str]] = None,
+                 local_dns_record: Optional[pulumi.Input[str]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  network_id: Optional[pulumi.Input[str]] = None,
@@ -218,6 +235,7 @@ class _UserState:
         :param pulumi.Input[str] fixed_ip: A fixed IPv4 address for this user.
         :param pulumi.Input[str] hostname: The hostname of the user.
         :param pulumi.Input[str] ip: The IP address of the user.
+        :param pulumi.Input[str] local_dns_record: Specifies the local DNS record for this user.
         :param pulumi.Input[str] mac: The MAC address of the user.
         :param pulumi.Input[str] name: The name of the user.
         :param pulumi.Input[str] network_id: The network ID for this user.
@@ -238,6 +256,8 @@ class _UserState:
             pulumi.set(__self__, "hostname", hostname)
         if ip is not None:
             pulumi.set(__self__, "ip", ip)
+        if local_dns_record is not None:
+            pulumi.set(__self__, "local_dns_record", local_dns_record)
         if mac is not None:
             pulumi.set(__self__, "mac", mac)
         if name is not None:
@@ -324,6 +344,18 @@ class _UserState:
     @ip.setter
     def ip(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "ip", value)
+
+    @property
+    @pulumi.getter(name="localDnsRecord")
+    def local_dns_record(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specifies the local DNS record for this user.
+        """
+        return pulumi.get(self, "local_dns_record")
+
+    @local_dns_record.setter
+    def local_dns_record(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "local_dns_record", value)
 
     @property
     @pulumi.getter
@@ -419,6 +451,7 @@ class User(pulumi.CustomResource):
                  blocked: Optional[pulumi.Input[bool]] = None,
                  dev_id_override: Optional[pulumi.Input[int]] = None,
                  fixed_ip: Optional[pulumi.Input[str]] = None,
+                 local_dns_record: Optional[pulumi.Input[str]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  network_id: Optional[pulumi.Input[str]] = None,
@@ -451,6 +484,7 @@ class User(pulumi.CustomResource):
         :param pulumi.Input[bool] blocked: Specifies whether this user should be blocked from the network.
         :param pulumi.Input[int] dev_id_override: Override the device fingerprint.
         :param pulumi.Input[str] fixed_ip: A fixed IPv4 address for this user.
+        :param pulumi.Input[str] local_dns_record: Specifies the local DNS record for this user.
         :param pulumi.Input[str] mac: The MAC address of the user.
         :param pulumi.Input[str] name: The name of the user.
         :param pulumi.Input[str] network_id: The network ID for this user.
@@ -502,6 +536,7 @@ class User(pulumi.CustomResource):
                  blocked: Optional[pulumi.Input[bool]] = None,
                  dev_id_override: Optional[pulumi.Input[int]] = None,
                  fixed_ip: Optional[pulumi.Input[str]] = None,
+                 local_dns_record: Optional[pulumi.Input[str]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  network_id: Optional[pulumi.Input[str]] = None,
@@ -522,6 +557,7 @@ class User(pulumi.CustomResource):
             __props__.__dict__["blocked"] = blocked
             __props__.__dict__["dev_id_override"] = dev_id_override
             __props__.__dict__["fixed_ip"] = fixed_ip
+            __props__.__dict__["local_dns_record"] = local_dns_record
             if mac is None and not opts.urn:
                 raise TypeError("Missing required property 'mac'")
             __props__.__dict__["mac"] = mac
@@ -549,6 +585,7 @@ class User(pulumi.CustomResource):
             fixed_ip: Optional[pulumi.Input[str]] = None,
             hostname: Optional[pulumi.Input[str]] = None,
             ip: Optional[pulumi.Input[str]] = None,
+            local_dns_record: Optional[pulumi.Input[str]] = None,
             mac: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
             network_id: Optional[pulumi.Input[str]] = None,
@@ -569,6 +606,7 @@ class User(pulumi.CustomResource):
         :param pulumi.Input[str] fixed_ip: A fixed IPv4 address for this user.
         :param pulumi.Input[str] hostname: The hostname of the user.
         :param pulumi.Input[str] ip: The IP address of the user.
+        :param pulumi.Input[str] local_dns_record: Specifies the local DNS record for this user.
         :param pulumi.Input[str] mac: The MAC address of the user.
         :param pulumi.Input[str] name: The name of the user.
         :param pulumi.Input[str] network_id: The network ID for this user.
@@ -587,6 +625,7 @@ class User(pulumi.CustomResource):
         __props__.__dict__["fixed_ip"] = fixed_ip
         __props__.__dict__["hostname"] = hostname
         __props__.__dict__["ip"] = ip
+        __props__.__dict__["local_dns_record"] = local_dns_record
         __props__.__dict__["mac"] = mac
         __props__.__dict__["name"] = name
         __props__.__dict__["network_id"] = network_id
@@ -643,6 +682,14 @@ class User(pulumi.CustomResource):
         The IP address of the user.
         """
         return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter(name="localDnsRecord")
+    def local_dns_record(self) -> pulumi.Output[Optional[str]]:
+        """
+        Specifies the local DNS record for this user.
+        """
+        return pulumi.get(self, "local_dns_record")
 
     @property
     @pulumi.getter

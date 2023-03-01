@@ -79,6 +79,20 @@ import javax.annotation.Nullable;
 @ResourceType(type="unifi:index/device:Device")
 public class Device extends com.pulumi.resources.CustomResource {
     /**
+     * Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     * 
+     */
+    @Export(name="allowAdoption", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> allowAdoption;
+
+    /**
+     * @return Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+     * 
+     */
+    public Output<Optional<Boolean>> allowAdoption() {
+        return Codegen.optional(this.allowAdoption);
+    }
+    /**
      * Specifies whether this device should be disabled.
      * 
      */
@@ -91,6 +105,20 @@ public class Device extends com.pulumi.resources.CustomResource {
      */
     public Output<Boolean> disabled() {
         return this.disabled;
+    }
+    /**
+     * Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     * 
+     */
+    @Export(name="forgetOnDestroy", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> forgetOnDestroy;
+
+    /**
+     * @return Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+     * 
+     */
+    public Output<Optional<Boolean>> forgetOnDestroy() {
+        return Codegen.optional(this.forgetOnDestroy);
     }
     /**
      * The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).

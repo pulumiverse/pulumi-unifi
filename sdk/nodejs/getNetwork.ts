@@ -166,6 +166,10 @@ export interface GetNetworkResult {
      */
     readonly ipv6StaticSubnet: string;
     /**
+     * Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+     */
+    readonly multicastDns: boolean;
+    /**
      * The name of the network.
      */
     readonly name: string;

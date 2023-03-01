@@ -70,6 +70,10 @@ export interface GetUserResult {
      */
     readonly ip: string;
     /**
+     * The local DNS record for this user.
+     */
+    readonly localDnsRecord: string;
+    /**
      * The MAC address of the user.
      */
     readonly mac: string;

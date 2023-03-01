@@ -42,6 +42,11 @@ public final class GetUserResult {
      */
     private String ip;
     /**
+     * @return The local DNS record for this user.
+     * 
+     */
+    private String localDnsRecord;
+    /**
      * @return The MAC address of the user.
      * 
      */
@@ -116,6 +121,13 @@ public final class GetUserResult {
         return this.ip;
     }
     /**
+     * @return The local DNS record for this user.
+     * 
+     */
+    public String localDnsRecord() {
+        return this.localDnsRecord;
+    }
+    /**
      * @return The MAC address of the user.
      * 
      */
@@ -173,6 +185,7 @@ public final class GetUserResult {
         private String hostname;
         private String id;
         private String ip;
+        private String localDnsRecord;
         private String mac;
         private String name;
         private String networkId;
@@ -188,6 +201,7 @@ public final class GetUserResult {
     	      this.hostname = defaults.hostname;
     	      this.id = defaults.id;
     	      this.ip = defaults.ip;
+    	      this.localDnsRecord = defaults.localDnsRecord;
     	      this.mac = defaults.mac;
     	      this.name = defaults.name;
     	      this.networkId = defaults.networkId;
@@ -224,6 +238,11 @@ public final class GetUserResult {
         @CustomType.Setter
         public Builder ip(String ip) {
             this.ip = Objects.requireNonNull(ip);
+            return this;
+        }
+        @CustomType.Setter
+        public Builder localDnsRecord(String localDnsRecord) {
+            this.localDnsRecord = Objects.requireNonNull(localDnsRecord);
             return this;
         }
         @CustomType.Setter
@@ -264,6 +283,7 @@ public final class GetUserResult {
             o.hostname = hostname;
             o.id = id;
             o.ip = ip;
+            o.localDnsRecord = localDnsRecord;
             o.mac = mac;
             o.name = name;
             o.networkId = networkId;

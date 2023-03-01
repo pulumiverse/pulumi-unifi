@@ -390,6 +390,20 @@ public class Rule extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.srcNetworkType);
     }
     /**
+     * The source port of the firewall rule.
+     * 
+     */
+    @Export(name="srcPort", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> srcPort;
+
+    /**
+     * @return The source port of the firewall rule.
+     * 
+     */
+    public Output<Optional<String>> srcPort() {
+        return Codegen.optional(this.srcPort);
+    }
+    /**
      * Match where the state is established.
      * 
      */
