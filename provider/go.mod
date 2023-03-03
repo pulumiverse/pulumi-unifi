@@ -10,7 +10,7 @@ replace (
 
 require (
 	github.com/paultyng/terraform-provider-unifi/shim v0.0.0
-	github.com/pulumi/pulumi-terraform-bridge/v3 v3.34.1-0.20221214173921-8e65b1f9fdd5
+	github.com/pulumi/pulumi-terraform-bridge/v3 v3.41.0
 	github.com/pulumi/pulumi/sdk/v3 v3.55.0
 )
 
