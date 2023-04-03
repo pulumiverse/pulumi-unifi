@@ -31,7 +31,7 @@ env:
   GOVERSION: 1.19.x
   NODEVERSION: 16.x
   PYTHONVERSION: "3.9"
-  DOTNETVERSION: 3.1.301
+  DOTNETVERSION: 6.0
   JAVAVERSION: "11"
 jobs:
   prerequisites:
@@ -104,7 +104,7 @@ jobs:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
