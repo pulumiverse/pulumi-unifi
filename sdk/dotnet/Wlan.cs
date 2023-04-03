@@ -17,6 +17,7 @@ namespace Pulumiverse.Unifi
     /// 
     /// ```csharp
     /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Unifi = Pulumi.Unifi;
     /// using Unifi = Pulumiverse.Unifi;
