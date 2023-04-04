@@ -37,19 +37,19 @@ func NewProvider(ctx *pulumi.Context,
 		args = &ProviderArgs{}
 	}
 
-	if isZero(args.AllowInsecure) {
+	if args.AllowInsecure == nil {
 		args.AllowInsecure = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "UNIFI_INSECURE").(bool))
 	}
-	if isZero(args.ApiUrl) {
+	if args.ApiUrl == nil {
 		args.ApiUrl = pulumi.StringPtr(getEnvOrDefault("", nil, "UNIFI_API").(string))
 	}
-	if isZero(args.Password) {
+	if args.Password == nil {
 		args.Password = pulumi.StringPtr(getEnvOrDefault("", nil, "UNIFI_PASSWORD").(string))
 	}
-	if isZero(args.Site) {
+	if args.Site == nil {
 		args.Site = pulumi.StringPtr(getEnvOrDefault("", nil, "UNIFI_SITE").(string))
 	}
-	if isZero(args.Username) {
+	if args.Username == nil {
 		args.Username = pulumi.StringPtr(getEnvOrDefault("", nil, "UNIFI_USERNAME").(string))
 	}
 	opts = pkgResourceDefaultOpts(opts)

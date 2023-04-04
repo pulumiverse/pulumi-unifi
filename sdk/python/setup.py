@@ -38,6 +38,7 @@ def readme():
 
 
 setup(name='pulumiverse_unifi',
+      python_requires='>=3.7',
       version=VERSION,
       description="A Pulumi package for creating and managing Unifi network resources.",
       long_description=readme(),

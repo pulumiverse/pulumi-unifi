@@ -21,6 +21,7 @@ namespace Pulumiverse.Unifi.Port
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using Unifi = Pulumi.Unifi;
         /// 
@@ -45,6 +46,7 @@ namespace Pulumiverse.Unifi.Port
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
+        /// using System.Linq;
         /// using Pulumi;
         /// using Unifi = Pulumi.Unifi;
         /// 
