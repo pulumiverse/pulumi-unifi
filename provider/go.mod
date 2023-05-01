@@ -11,7 +11,7 @@ replace (
 require (
 	github.com/paultyng/terraform-provider-unifi/shim v0.0.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.43.0
-	github.com/pulumi/pulumi/sdk/v3 v3.61.0
+	github.com/pulumi/pulumi/sdk/v3 v3.65.1
 )
 
 require (
@@ -215,7 +215,7 @@ require (
 	gocloud.dev v0.28.0 // indirect
 	gocloud.dev/secrets/hashivault v0.27.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
-	golang.org/x/mod v0.8.0 // indirect
+	golang.org/x/mod v0.10.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/oauth2 v0.4.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
