@@ -7,6 +7,10 @@ import * as outputs from "../types/output";
 
 export interface DevicePortOverride {
     /**
+     * Number of ports in the aggregate.
+     */
+    aggregateNumPorts?: pulumi.Input<number>;
+    /**
      * Human-readable name of the port.
      */
     name?: pulumi.Input<string>;
@@ -14,6 +18,10 @@ export interface DevicePortOverride {
      * Switch port number.
      */
     number: pulumi.Input<number>;
+    /**
+     * Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+     */
+    opMode?: pulumi.Input<string>;
     /**
      * ID of the Port Profile used on this port.
      */

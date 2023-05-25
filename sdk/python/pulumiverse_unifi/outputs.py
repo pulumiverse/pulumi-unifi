@@ -21,7 +21,11 @@ class DevicePortOverride(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "portProfileId":
+        if key == "aggregateNumPorts":
+            suggest = "aggregate_num_ports"
+        elif key == "opMode":
+            suggest = "op_mode"
+        elif key == "portProfileId":
             suggest = "port_profile_id"
 
         if suggest:
@@ -37,16 +41,24 @@ class DevicePortOverride(dict):
 
     def __init__(__self__, *,
                  number: int,
+                 aggregate_num_ports: Optional[int] = None,
                  name: Optional[str] = None,
+                 op_mode: Optional[str] = None,
                  port_profile_id: Optional[str] = None):
         """
         :param int number: Switch port number.
+        :param int aggregate_num_ports: Number of ports in the aggregate.
         :param str name: Human-readable name of the port.
+        :param str op_mode: Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
         :param str port_profile_id: ID of the Port Profile used on this port.
         """
         pulumi.set(__self__, "number", number)
+        if aggregate_num_ports is not None:
+            pulumi.set(__self__, "aggregate_num_ports", aggregate_num_ports)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if op_mode is not None:
+            pulumi.set(__self__, "op_mode", op_mode)
         if port_profile_id is not None:
             pulumi.set(__self__, "port_profile_id", port_profile_id)
 
@@ -59,12 +71,28 @@ class DevicePortOverride(dict):
         return pulumi.get(self, "number")
 
     @property
+    @pulumi.getter(name="aggregateNumPorts")
+    def aggregate_num_ports(self) -> Optional[int]:
+        """
+        Number of ports in the aggregate.
+        """
+        return pulumi.get(self, "aggregate_num_ports")
+
+    @property
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
         Human-readable name of the port.
         """
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="opMode")
+    def op_mode(self) -> Optional[str]:
+        """
+        Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+        """
+        return pulumi.get(self, "op_mode")
 
     @property
     @pulumi.getter(name="portProfileId")

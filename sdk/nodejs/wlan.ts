@@ -87,6 +87,14 @@ export class Wlan extends pulumi.CustomResource {
      */
     public readonly apGroupIds!: pulumi.Output<string[] | undefined>;
     /**
+     * Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+     */
+    public readonly bssTransition!: pulumi.Output<boolean | undefined>;
+    /**
+     * Enables 802.11r fast roaming. Defaults to `false`.
+     */
+    public readonly fastRoamingEnabled!: pulumi.Output<boolean | undefined>;
+    /**
      * Indicates whether or not to hide the SSID from broadcast.
      */
     public readonly hideSsid!: pulumi.Output<boolean | undefined>;
@@ -95,7 +103,7 @@ export class Wlan extends pulumi.CustomResource {
      */
     public readonly isGuest!: pulumi.Output<boolean | undefined>;
     /**
-     * Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+     * Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
      */
     public readonly l2Isolation!: pulumi.Output<boolean | undefined>;
     /**
@@ -131,7 +139,7 @@ export class Wlan extends pulumi.CustomResource {
      */
     public readonly networkId!: pulumi.Output<string | undefined>;
     /**
-     * Connect high performance clients to 5 GHz only Defaults to `true`.
+     * Connect high performance clients to 5 GHz only. Defaults to `true`.
      */
     public readonly no2ghzOui!: pulumi.Output<boolean | undefined>;
     /**
@@ -142,6 +150,10 @@ export class Wlan extends pulumi.CustomResource {
      * Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
      */
     public readonly pmfMode!: pulumi.Output<string | undefined>;
+    /**
+     * Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+     */
+    public readonly proxyArp!: pulumi.Output<boolean | undefined>;
     /**
      * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      */
@@ -159,7 +171,7 @@ export class Wlan extends pulumi.CustomResource {
      */
     public readonly site!: pulumi.Output<string>;
     /**
-     * Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+     * Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
      */
     public readonly uapsd!: pulumi.Output<boolean | undefined>;
     /**
@@ -193,6 +205,8 @@ export class Wlan extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as WlanState | undefined;
             resourceInputs["apGroupIds"] = state ? state.apGroupIds : undefined;
+            resourceInputs["bssTransition"] = state ? state.bssTransition : undefined;
+            resourceInputs["fastRoamingEnabled"] = state ? state.fastRoamingEnabled : undefined;
             resourceInputs["hideSsid"] = state ? state.hideSsid : undefined;
             resourceInputs["isGuest"] = state ? state.isGuest : undefined;
             resourceInputs["l2Isolation"] = state ? state.l2Isolation : undefined;
@@ -207,6 +221,7 @@ export class Wlan extends pulumi.CustomResource {
             resourceInputs["no2ghzOui"] = state ? state.no2ghzOui : undefined;
             resourceInputs["passphrase"] = state ? state.passphrase : undefined;
             resourceInputs["pmfMode"] = state ? state.pmfMode : undefined;
+            resourceInputs["proxyArp"] = state ? state.proxyArp : undefined;
             resourceInputs["radiusProfileId"] = state ? state.radiusProfileId : undefined;
             resourceInputs["schedules"] = state ? state.schedules : undefined;
             resourceInputs["security"] = state ? state.security : undefined;
@@ -225,6 +240,8 @@ export class Wlan extends pulumi.CustomResource {
                 throw new Error("Missing required property 'userGroupId'");
             }
             resourceInputs["apGroupIds"] = args ? args.apGroupIds : undefined;
+            resourceInputs["bssTransition"] = args ? args.bssTransition : undefined;
+            resourceInputs["fastRoamingEnabled"] = args ? args.fastRoamingEnabled : undefined;
             resourceInputs["hideSsid"] = args ? args.hideSsid : undefined;
             resourceInputs["isGuest"] = args ? args.isGuest : undefined;
             resourceInputs["l2Isolation"] = args ? args.l2Isolation : undefined;
@@ -239,6 +256,7 @@ export class Wlan extends pulumi.CustomResource {
             resourceInputs["no2ghzOui"] = args ? args.no2ghzOui : undefined;
             resourceInputs["passphrase"] = args?.passphrase ? pulumi.secret(args.passphrase) : undefined;
             resourceInputs["pmfMode"] = args ? args.pmfMode : undefined;
+            resourceInputs["proxyArp"] = args ? args.proxyArp : undefined;
             resourceInputs["radiusProfileId"] = args ? args.radiusProfileId : undefined;
             resourceInputs["schedules"] = args ? args.schedules : undefined;
             resourceInputs["security"] = args ? args.security : undefined;
@@ -265,6 +283,14 @@ export interface WlanState {
      */
     apGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+     */
+    bssTransition?: pulumi.Input<boolean>;
+    /**
+     * Enables 802.11r fast roaming. Defaults to `false`.
+     */
+    fastRoamingEnabled?: pulumi.Input<boolean>;
+    /**
      * Indicates whether or not to hide the SSID from broadcast.
      */
     hideSsid?: pulumi.Input<boolean>;
@@ -273,7 +299,7 @@ export interface WlanState {
      */
     isGuest?: pulumi.Input<boolean>;
     /**
-     * Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+     * Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
      */
     l2Isolation?: pulumi.Input<boolean>;
     /**
@@ -309,7 +335,7 @@ export interface WlanState {
      */
     networkId?: pulumi.Input<string>;
     /**
-     * Connect high performance clients to 5 GHz only Defaults to `true`.
+     * Connect high performance clients to 5 GHz only. Defaults to `true`.
      */
     no2ghzOui?: pulumi.Input<boolean>;
     /**
@@ -320,6 +346,10 @@ export interface WlanState {
      * Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
      */
     pmfMode?: pulumi.Input<string>;
+    /**
+     * Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+     */
+    proxyArp?: pulumi.Input<boolean>;
     /**
      * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      */
@@ -337,7 +367,7 @@ export interface WlanState {
      */
     site?: pulumi.Input<string>;
     /**
-     * Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+     * Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
      */
     uapsd?: pulumi.Input<boolean>;
     /**
@@ -367,6 +397,14 @@ export interface WlanArgs {
      */
     apGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+     */
+    bssTransition?: pulumi.Input<boolean>;
+    /**
+     * Enables 802.11r fast roaming. Defaults to `false`.
+     */
+    fastRoamingEnabled?: pulumi.Input<boolean>;
+    /**
      * Indicates whether or not to hide the SSID from broadcast.
      */
     hideSsid?: pulumi.Input<boolean>;
@@ -375,7 +413,7 @@ export interface WlanArgs {
      */
     isGuest?: pulumi.Input<boolean>;
     /**
-     * Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+     * Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
      */
     l2Isolation?: pulumi.Input<boolean>;
     /**
@@ -411,7 +449,7 @@ export interface WlanArgs {
      */
     networkId?: pulumi.Input<string>;
     /**
-     * Connect high performance clients to 5 GHz only Defaults to `true`.
+     * Connect high performance clients to 5 GHz only. Defaults to `true`.
      */
     no2ghzOui?: pulumi.Input<boolean>;
     /**
@@ -422,6 +460,10 @@ export interface WlanArgs {
      * Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
      */
     pmfMode?: pulumi.Input<string>;
+    /**
+     * Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+     */
+    proxyArp?: pulumi.Input<boolean>;
     /**
      * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
      */
@@ -439,7 +481,7 @@ export interface WlanArgs {
      */
     site?: pulumi.Input<string>;
     /**
-     * Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+     * Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
      */
     uapsd?: pulumi.Input<boolean>;
     /**

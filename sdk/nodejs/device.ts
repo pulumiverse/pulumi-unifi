@@ -36,6 +36,11 @@ import * as utilities from "./utilities";
  *             name: "disabled",
  *             portProfileId: disabled.then(disabled => disabled.id),
  *         },
+ *         {
+ *             number: 11,
+ *             opMode: "aggregate",
+ *             aggregateNumPorts: 2,
+ *         },
  *     ],
  * });
  * ```

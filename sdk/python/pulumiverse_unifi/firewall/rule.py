@@ -23,6 +23,7 @@ class RuleArgs:
                  dst_network_id: Optional[pulumi.Input[str]] = None,
                  dst_network_type: Optional[pulumi.Input[str]] = None,
                  dst_port: Optional[pulumi.Input[str]] = None,
+                 enabled: Optional[pulumi.Input[bool]] = None,
                  icmp_typename: Optional[pulumi.Input[str]] = None,
                  icmp_v6_typename: Optional[pulumi.Input[str]] = None,
                  ip_sec: Optional[pulumi.Input[str]] = None,
@@ -53,6 +54,7 @@ class RuleArgs:
         :param pulumi.Input[str] dst_network_id: The destination network ID of the firewall rule.
         :param pulumi.Input[str] dst_network_type: The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         :param pulumi.Input[str] dst_port: The destination port of the firewall rule.
+        :param pulumi.Input[bool] enabled: Specifies whether the rule should be enabled. Defaults to `true`.
         :param pulumi.Input[str] icmp_typename: ICMP type name.
         :param pulumi.Input[str] icmp_v6_typename: ICMPv6 type name.
         :param pulumi.Input[str] ip_sec: Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
@@ -88,6 +90,8 @@ class RuleArgs:
             pulumi.set(__self__, "dst_network_type", dst_network_type)
         if dst_port is not None:
             pulumi.set(__self__, "dst_port", dst_port)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
         if icmp_typename is not None:
             pulumi.set(__self__, "icmp_typename", icmp_typename)
         if icmp_v6_typename is not None:
@@ -234,6 +238,18 @@ class RuleArgs:
     @dst_port.setter
     def dst_port(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "dst_port", value)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether the rule should be enabled. Defaults to `true`.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
 
     @property
     @pulumi.getter(name="icmpTypename")
@@ -474,6 +490,7 @@ class _RuleState:
                  dst_network_id: Optional[pulumi.Input[str]] = None,
                  dst_network_type: Optional[pulumi.Input[str]] = None,
                  dst_port: Optional[pulumi.Input[str]] = None,
+                 enabled: Optional[pulumi.Input[bool]] = None,
                  icmp_typename: Optional[pulumi.Input[str]] = None,
                  icmp_v6_typename: Optional[pulumi.Input[str]] = None,
                  ip_sec: Optional[pulumi.Input[str]] = None,
@@ -504,6 +521,7 @@ class _RuleState:
         :param pulumi.Input[str] dst_network_id: The destination network ID of the firewall rule.
         :param pulumi.Input[str] dst_network_type: The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         :param pulumi.Input[str] dst_port: The destination port of the firewall rule.
+        :param pulumi.Input[bool] enabled: Specifies whether the rule should be enabled. Defaults to `true`.
         :param pulumi.Input[str] icmp_typename: ICMP type name.
         :param pulumi.Input[str] icmp_v6_typename: ICMPv6 type name.
         :param pulumi.Input[str] ip_sec: Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
@@ -540,6 +558,8 @@ class _RuleState:
             pulumi.set(__self__, "dst_network_type", dst_network_type)
         if dst_port is not None:
             pulumi.set(__self__, "dst_port", dst_port)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
         if icmp_typename is not None:
             pulumi.set(__self__, "icmp_typename", icmp_typename)
         if icmp_v6_typename is not None:
@@ -666,6 +686,18 @@ class _RuleState:
     @dst_port.setter
     def dst_port(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "dst_port", value)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether the rule should be enabled. Defaults to `true`.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
 
     @property
     @pulumi.getter(name="icmpTypename")
@@ -932,6 +964,7 @@ class Rule(pulumi.CustomResource):
                  dst_network_id: Optional[pulumi.Input[str]] = None,
                  dst_network_type: Optional[pulumi.Input[str]] = None,
                  dst_port: Optional[pulumi.Input[str]] = None,
+                 enabled: Optional[pulumi.Input[bool]] = None,
                  icmp_typename: Optional[pulumi.Input[str]] = None,
                  icmp_v6_typename: Optional[pulumi.Input[str]] = None,
                  ip_sec: Optional[pulumi.Input[str]] = None,
@@ -990,6 +1023,7 @@ class Rule(pulumi.CustomResource):
         :param pulumi.Input[str] dst_network_id: The destination network ID of the firewall rule.
         :param pulumi.Input[str] dst_network_type: The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         :param pulumi.Input[str] dst_port: The destination port of the firewall rule.
+        :param pulumi.Input[bool] enabled: Specifies whether the rule should be enabled. Defaults to `true`.
         :param pulumi.Input[str] icmp_typename: ICMP type name.
         :param pulumi.Input[str] icmp_v6_typename: ICMPv6 type name.
         :param pulumi.Input[str] ip_sec: Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
@@ -1067,6 +1101,7 @@ class Rule(pulumi.CustomResource):
                  dst_network_id: Optional[pulumi.Input[str]] = None,
                  dst_network_type: Optional[pulumi.Input[str]] = None,
                  dst_port: Optional[pulumi.Input[str]] = None,
+                 enabled: Optional[pulumi.Input[bool]] = None,
                  icmp_typename: Optional[pulumi.Input[str]] = None,
                  icmp_v6_typename: Optional[pulumi.Input[str]] = None,
                  ip_sec: Optional[pulumi.Input[str]] = None,
@@ -1106,6 +1141,7 @@ class Rule(pulumi.CustomResource):
             __props__.__dict__["dst_network_id"] = dst_network_id
             __props__.__dict__["dst_network_type"] = dst_network_type
             __props__.__dict__["dst_port"] = dst_port
+            __props__.__dict__["enabled"] = enabled
             __props__.__dict__["icmp_typename"] = icmp_typename
             __props__.__dict__["icmp_v6_typename"] = icmp_v6_typename
             __props__.__dict__["ip_sec"] = ip_sec
@@ -1148,6 +1184,7 @@ class Rule(pulumi.CustomResource):
             dst_network_id: Optional[pulumi.Input[str]] = None,
             dst_network_type: Optional[pulumi.Input[str]] = None,
             dst_port: Optional[pulumi.Input[str]] = None,
+            enabled: Optional[pulumi.Input[bool]] = None,
             icmp_typename: Optional[pulumi.Input[str]] = None,
             icmp_v6_typename: Optional[pulumi.Input[str]] = None,
             ip_sec: Optional[pulumi.Input[str]] = None,
@@ -1183,6 +1220,7 @@ class Rule(pulumi.CustomResource):
         :param pulumi.Input[str] dst_network_id: The destination network ID of the firewall rule.
         :param pulumi.Input[str] dst_network_type: The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
         :param pulumi.Input[str] dst_port: The destination port of the firewall rule.
+        :param pulumi.Input[bool] enabled: Specifies whether the rule should be enabled. Defaults to `true`.
         :param pulumi.Input[str] icmp_typename: ICMP type name.
         :param pulumi.Input[str] icmp_v6_typename: ICMPv6 type name.
         :param pulumi.Input[str] ip_sec: Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
@@ -1216,6 +1254,7 @@ class Rule(pulumi.CustomResource):
         __props__.__dict__["dst_network_id"] = dst_network_id
         __props__.__dict__["dst_network_type"] = dst_network_type
         __props__.__dict__["dst_port"] = dst_port
+        __props__.__dict__["enabled"] = enabled
         __props__.__dict__["icmp_typename"] = icmp_typename
         __props__.__dict__["icmp_v6_typename"] = icmp_v6_typename
         __props__.__dict__["ip_sec"] = ip_sec
@@ -1294,6 +1333,14 @@ class Rule(pulumi.CustomResource):
         The destination port of the firewall rule.
         """
         return pulumi.get(self, "dst_port")
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Specifies whether the rule should be enabled. Defaults to `true`.
+        """
+        return pulumi.get(self, "enabled")
 
     @property
     @pulumi.getter(name="icmpTypename")
