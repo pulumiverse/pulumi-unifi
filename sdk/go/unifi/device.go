@@ -55,6 +55,11 @@ import (
 //						Name:          pulumi.String("disabled"),
 //						PortProfileId: *pulumi.String(disabled.Id),
 //					},
+//					&unifi.DevicePortOverrideArgs{
+//						Number:            pulumi.Int(11),
+//						OpMode:            pulumi.String("aggregate"),
+//						AggregateNumPorts: pulumi.Int(2),
+//					},
 //				},
 //			})
 //			if err != nil {

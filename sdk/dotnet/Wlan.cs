@@ -82,6 +82,18 @@ namespace Pulumiverse.Unifi
         public Output<ImmutableArray<string>> ApGroupIds { get; private set; } = null!;
 
         /// <summary>
+        /// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        /// </summary>
+        [Output("bssTransition")]
+        public Output<bool?> BssTransition { get; private set; } = null!;
+
+        /// <summary>
+        /// Enables 802.11r fast roaming. Defaults to `false`.
+        /// </summary>
+        [Output("fastRoamingEnabled")]
+        public Output<bool?> FastRoamingEnabled { get; private set; } = null!;
+
+        /// <summary>
         /// Indicates whether or not to hide the SSID from broadcast.
         /// </summary>
         [Output("hideSsid")]
@@ -94,7 +106,7 @@ namespace Pulumiverse.Unifi
         public Output<bool?> IsGuest { get; private set; } = null!;
 
         /// <summary>
-        /// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        /// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         /// </summary>
         [Output("l2Isolation")]
         public Output<bool?> L2Isolation { get; private set; } = null!;
@@ -148,7 +160,7 @@ namespace Pulumiverse.Unifi
         public Output<string?> NetworkId { get; private set; } = null!;
 
         /// <summary>
-        /// Connect high performance clients to 5 GHz only Defaults to `true`.
+        /// Connect high performance clients to 5 GHz only. Defaults to `true`.
         /// </summary>
         [Output("no2ghzOui")]
         public Output<bool?> No2ghzOui { get; private set; } = null!;
@@ -164,6 +176,12 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Output("pmfMode")]
         public Output<string?> PmfMode { get; private set; } = null!;
+
+        /// <summary>
+        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        /// </summary>
+        [Output("proxyArp")]
+        public Output<bool?> ProxyArp { get; private set; } = null!;
 
         /// <summary>
         /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
@@ -190,7 +208,7 @@ namespace Pulumiverse.Unifi
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         /// </summary>
         [Output("uapsd")]
         public Output<bool?> Uapsd { get; private set; } = null!;
@@ -283,6 +301,18 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
+        /// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        /// </summary>
+        [Input("bssTransition")]
+        public Input<bool>? BssTransition { get; set; }
+
+        /// <summary>
+        /// Enables 802.11r fast roaming. Defaults to `false`.
+        /// </summary>
+        [Input("fastRoamingEnabled")]
+        public Input<bool>? FastRoamingEnabled { get; set; }
+
+        /// <summary>
         /// Indicates whether or not to hide the SSID from broadcast.
         /// </summary>
         [Input("hideSsid")]
@@ -295,7 +325,7 @@ namespace Pulumiverse.Unifi
         public Input<bool>? IsGuest { get; set; }
 
         /// <summary>
-        /// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        /// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         /// </summary>
         [Input("l2Isolation")]
         public Input<bool>? L2Isolation { get; set; }
@@ -355,7 +385,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? NetworkId { get; set; }
 
         /// <summary>
-        /// Connect high performance clients to 5 GHz only Defaults to `true`.
+        /// Connect high performance clients to 5 GHz only. Defaults to `true`.
         /// </summary>
         [Input("no2ghzOui")]
         public Input<bool>? No2ghzOui { get; set; }
@@ -381,6 +411,12 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("pmfMode")]
         public Input<string>? PmfMode { get; set; }
+
+        /// <summary>
+        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        /// </summary>
+        [Input("proxyArp")]
+        public Input<bool>? ProxyArp { get; set; }
 
         /// <summary>
         /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
@@ -413,7 +449,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         /// </summary>
         [Input("uapsd")]
         public Input<bool>? Uapsd { get; set; }
@@ -463,6 +499,18 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
+        /// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        /// </summary>
+        [Input("bssTransition")]
+        public Input<bool>? BssTransition { get; set; }
+
+        /// <summary>
+        /// Enables 802.11r fast roaming. Defaults to `false`.
+        /// </summary>
+        [Input("fastRoamingEnabled")]
+        public Input<bool>? FastRoamingEnabled { get; set; }
+
+        /// <summary>
         /// Indicates whether or not to hide the SSID from broadcast.
         /// </summary>
         [Input("hideSsid")]
@@ -475,7 +523,7 @@ namespace Pulumiverse.Unifi
         public Input<bool>? IsGuest { get; set; }
 
         /// <summary>
-        /// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        /// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         /// </summary>
         [Input("l2Isolation")]
         public Input<bool>? L2Isolation { get; set; }
@@ -535,7 +583,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? NetworkId { get; set; }
 
         /// <summary>
-        /// Connect high performance clients to 5 GHz only Defaults to `true`.
+        /// Connect high performance clients to 5 GHz only. Defaults to `true`.
         /// </summary>
         [Input("no2ghzOui")]
         public Input<bool>? No2ghzOui { get; set; }
@@ -561,6 +609,12 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("pmfMode")]
         public Input<string>? PmfMode { get; set; }
+
+        /// <summary>
+        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        /// </summary>
+        [Input("proxyArp")]
+        public Input<bool>? ProxyArp { get; set; }
 
         /// <summary>
         /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
@@ -593,7 +647,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         /// </summary>
         [Input("uapsd")]
         public Input<bool>? Uapsd { get; set; }

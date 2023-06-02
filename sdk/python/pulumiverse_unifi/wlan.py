@@ -19,6 +19,8 @@ class WlanArgs:
                  security: pulumi.Input[str],
                  user_group_id: pulumi.Input[str],
                  ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 bss_transition: Optional[pulumi.Input[bool]] = None,
+                 fast_roaming_enabled: Optional[pulumi.Input[bool]] = None,
                  hide_ssid: Optional[pulumi.Input[bool]] = None,
                  is_guest: Optional[pulumi.Input[bool]] = None,
                  l2_isolation: Optional[pulumi.Input[bool]] = None,
@@ -33,6 +35,7 @@ class WlanArgs:
                  no2ghz_oui: Optional[pulumi.Input[bool]] = None,
                  passphrase: Optional[pulumi.Input[str]] = None,
                  pmf_mode: Optional[pulumi.Input[str]] = None,
+                 proxy_arp: Optional[pulumi.Input[bool]] = None,
                  radius_profile_id: Optional[pulumi.Input[str]] = None,
                  schedules: Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]] = None,
                  site: Optional[pulumi.Input[str]] = None,
@@ -45,9 +48,11 @@ class WlanArgs:
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] user_group_id: ID of the user group to use for this network.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ap_group_ids: IDs of the AP groups to use for this network.
+        :param pulumi.Input[bool] bss_transition: Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        :param pulumi.Input[bool] fast_roaming_enabled: Enables 802.11r fast roaming. Defaults to `false`.
         :param pulumi.Input[bool] hide_ssid: Indicates whether or not to hide the SSID from broadcast.
         :param pulumi.Input[bool] is_guest: Indicates that this is a guest WLAN and should use guest behaviors.
-        :param pulumi.Input[bool] l2_isolation: Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        :param pulumi.Input[bool] l2_isolation: Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         :param pulumi.Input[bool] mac_filter_enabled: Indicates whether or not the MAC filter is turned of for the network.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] mac_filter_lists: List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
         :param pulumi.Input[str] mac_filter_policy: MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
@@ -56,13 +61,14 @@ class WlanArgs:
         :param pulumi.Input[bool] multicast_enhance: Indicates whether or not Multicast Enhance is turned of for the network.
         :param pulumi.Input[str] name: The SSID of the network.
         :param pulumi.Input[str] network_id: ID of the network for this SSID
-        :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only Defaults to `true`.
+        :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only. Defaults to `true`.
         :param pulumi.Input[str] passphrase: The passphrase for the network, this is only required if `security` is not set to `open`.
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
+        :param pulumi.Input[bool] proxy_arp: Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
         :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         :param pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
-        :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use. Defaults to `both`.
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
         :param pulumi.Input[bool] wpa3_transition: Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
@@ -71,6 +77,10 @@ class WlanArgs:
         pulumi.set(__self__, "user_group_id", user_group_id)
         if ap_group_ids is not None:
             pulumi.set(__self__, "ap_group_ids", ap_group_ids)
+        if bss_transition is not None:
+            pulumi.set(__self__, "bss_transition", bss_transition)
+        if fast_roaming_enabled is not None:
+            pulumi.set(__self__, "fast_roaming_enabled", fast_roaming_enabled)
         if hide_ssid is not None:
             pulumi.set(__self__, "hide_ssid", hide_ssid)
         if is_guest is not None:
@@ -99,6 +109,8 @@ class WlanArgs:
             pulumi.set(__self__, "passphrase", passphrase)
         if pmf_mode is not None:
             pulumi.set(__self__, "pmf_mode", pmf_mode)
+        if proxy_arp is not None:
+            pulumi.set(__self__, "proxy_arp", proxy_arp)
         if radius_profile_id is not None:
             pulumi.set(__self__, "radius_profile_id", radius_profile_id)
         if schedules is not None:
@@ -151,6 +163,30 @@ class WlanArgs:
         pulumi.set(self, "ap_group_ids", value)
 
     @property
+    @pulumi.getter(name="bssTransition")
+    def bss_transition(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        """
+        return pulumi.get(self, "bss_transition")
+
+    @bss_transition.setter
+    def bss_transition(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "bss_transition", value)
+
+    @property
+    @pulumi.getter(name="fastRoamingEnabled")
+    def fast_roaming_enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enables 802.11r fast roaming. Defaults to `false`.
+        """
+        return pulumi.get(self, "fast_roaming_enabled")
+
+    @fast_roaming_enabled.setter
+    def fast_roaming_enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "fast_roaming_enabled", value)
+
+    @property
     @pulumi.getter(name="hideSsid")
     def hide_ssid(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -178,7 +214,7 @@ class WlanArgs:
     @pulumi.getter(name="l2Isolation")
     def l2_isolation(self) -> Optional[pulumi.Input[bool]]:
         """
-        Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         """
         return pulumi.get(self, "l2_isolation")
 
@@ -286,7 +322,7 @@ class WlanArgs:
     @pulumi.getter(name="no2ghzOui")
     def no2ghz_oui(self) -> Optional[pulumi.Input[bool]]:
         """
-        Connect high performance clients to 5 GHz only Defaults to `true`.
+        Connect high performance clients to 5 GHz only. Defaults to `true`.
         """
         return pulumi.get(self, "no2ghz_oui")
 
@@ -317,6 +353,18 @@ class WlanArgs:
     @pmf_mode.setter
     def pmf_mode(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "pmf_mode", value)
+
+    @property
+    @pulumi.getter(name="proxyArp")
+    def proxy_arp(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        """
+        return pulumi.get(self, "proxy_arp")
+
+    @proxy_arp.setter
+    def proxy_arp(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "proxy_arp", value)
 
     @property
     @pulumi.getter(name="radiusProfileId")
@@ -358,7 +406,7 @@ class WlanArgs:
     @pulumi.getter
     def uapsd(self) -> Optional[pulumi.Input[bool]]:
         """
-        Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         """
         return pulumi.get(self, "uapsd")
 
@@ -407,6 +455,8 @@ class WlanArgs:
 class _WlanState:
     def __init__(__self__, *,
                  ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 bss_transition: Optional[pulumi.Input[bool]] = None,
+                 fast_roaming_enabled: Optional[pulumi.Input[bool]] = None,
                  hide_ssid: Optional[pulumi.Input[bool]] = None,
                  is_guest: Optional[pulumi.Input[bool]] = None,
                  l2_isolation: Optional[pulumi.Input[bool]] = None,
@@ -421,6 +471,7 @@ class _WlanState:
                  no2ghz_oui: Optional[pulumi.Input[bool]] = None,
                  passphrase: Optional[pulumi.Input[str]] = None,
                  pmf_mode: Optional[pulumi.Input[str]] = None,
+                 proxy_arp: Optional[pulumi.Input[bool]] = None,
                  radius_profile_id: Optional[pulumi.Input[str]] = None,
                  schedules: Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]] = None,
                  security: Optional[pulumi.Input[str]] = None,
@@ -433,9 +484,11 @@ class _WlanState:
         """
         Input properties used for looking up and filtering Wlan resources.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ap_group_ids: IDs of the AP groups to use for this network.
+        :param pulumi.Input[bool] bss_transition: Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        :param pulumi.Input[bool] fast_roaming_enabled: Enables 802.11r fast roaming. Defaults to `false`.
         :param pulumi.Input[bool] hide_ssid: Indicates whether or not to hide the SSID from broadcast.
         :param pulumi.Input[bool] is_guest: Indicates that this is a guest WLAN and should use guest behaviors.
-        :param pulumi.Input[bool] l2_isolation: Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        :param pulumi.Input[bool] l2_isolation: Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         :param pulumi.Input[bool] mac_filter_enabled: Indicates whether or not the MAC filter is turned of for the network.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] mac_filter_lists: List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
         :param pulumi.Input[str] mac_filter_policy: MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
@@ -444,14 +497,15 @@ class _WlanState:
         :param pulumi.Input[bool] multicast_enhance: Indicates whether or not Multicast Enhance is turned of for the network.
         :param pulumi.Input[str] name: The SSID of the network.
         :param pulumi.Input[str] network_id: ID of the network for this SSID
-        :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only Defaults to `true`.
+        :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only. Defaults to `true`.
         :param pulumi.Input[str] passphrase: The passphrase for the network, this is only required if `security` is not set to `open`.
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
+        :param pulumi.Input[bool] proxy_arp: Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
         :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         :param pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
-        :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         :param pulumi.Input[str] user_group_id: ID of the user group to use for this network.
         :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use. Defaults to `both`.
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
@@ -459,6 +513,10 @@ class _WlanState:
         """
         if ap_group_ids is not None:
             pulumi.set(__self__, "ap_group_ids", ap_group_ids)
+        if bss_transition is not None:
+            pulumi.set(__self__, "bss_transition", bss_transition)
+        if fast_roaming_enabled is not None:
+            pulumi.set(__self__, "fast_roaming_enabled", fast_roaming_enabled)
         if hide_ssid is not None:
             pulumi.set(__self__, "hide_ssid", hide_ssid)
         if is_guest is not None:
@@ -487,6 +545,8 @@ class _WlanState:
             pulumi.set(__self__, "passphrase", passphrase)
         if pmf_mode is not None:
             pulumi.set(__self__, "pmf_mode", pmf_mode)
+        if proxy_arp is not None:
+            pulumi.set(__self__, "proxy_arp", proxy_arp)
         if radius_profile_id is not None:
             pulumi.set(__self__, "radius_profile_id", radius_profile_id)
         if schedules is not None:
@@ -519,6 +579,30 @@ class _WlanState:
         pulumi.set(self, "ap_group_ids", value)
 
     @property
+    @pulumi.getter(name="bssTransition")
+    def bss_transition(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        """
+        return pulumi.get(self, "bss_transition")
+
+    @bss_transition.setter
+    def bss_transition(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "bss_transition", value)
+
+    @property
+    @pulumi.getter(name="fastRoamingEnabled")
+    def fast_roaming_enabled(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Enables 802.11r fast roaming. Defaults to `false`.
+        """
+        return pulumi.get(self, "fast_roaming_enabled")
+
+    @fast_roaming_enabled.setter
+    def fast_roaming_enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "fast_roaming_enabled", value)
+
+    @property
     @pulumi.getter(name="hideSsid")
     def hide_ssid(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -546,7 +630,7 @@ class _WlanState:
     @pulumi.getter(name="l2Isolation")
     def l2_isolation(self) -> Optional[pulumi.Input[bool]]:
         """
-        Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         """
         return pulumi.get(self, "l2_isolation")
 
@@ -654,7 +738,7 @@ class _WlanState:
     @pulumi.getter(name="no2ghzOui")
     def no2ghz_oui(self) -> Optional[pulumi.Input[bool]]:
         """
-        Connect high performance clients to 5 GHz only Defaults to `true`.
+        Connect high performance clients to 5 GHz only. Defaults to `true`.
         """
         return pulumi.get(self, "no2ghz_oui")
 
@@ -685,6 +769,18 @@ class _WlanState:
     @pmf_mode.setter
     def pmf_mode(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "pmf_mode", value)
+
+    @property
+    @pulumi.getter(name="proxyArp")
+    def proxy_arp(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        """
+        return pulumi.get(self, "proxy_arp")
+
+    @proxy_arp.setter
+    def proxy_arp(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "proxy_arp", value)
 
     @property
     @pulumi.getter(name="radiusProfileId")
@@ -738,7 +834,7 @@ class _WlanState:
     @pulumi.getter
     def uapsd(self) -> Optional[pulumi.Input[bool]]:
         """
-        Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         """
         return pulumi.get(self, "uapsd")
 
@@ -801,6 +897,8 @@ class Wlan(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 bss_transition: Optional[pulumi.Input[bool]] = None,
+                 fast_roaming_enabled: Optional[pulumi.Input[bool]] = None,
                  hide_ssid: Optional[pulumi.Input[bool]] = None,
                  is_guest: Optional[pulumi.Input[bool]] = None,
                  l2_isolation: Optional[pulumi.Input[bool]] = None,
@@ -815,6 +913,7 @@ class Wlan(pulumi.CustomResource):
                  no2ghz_oui: Optional[pulumi.Input[bool]] = None,
                  passphrase: Optional[pulumi.Input[str]] = None,
                  pmf_mode: Optional[pulumi.Input[str]] = None,
+                 proxy_arp: Optional[pulumi.Input[bool]] = None,
                  radius_profile_id: Optional[pulumi.Input[str]] = None,
                  schedules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]]] = None,
                  security: Optional[pulumi.Input[str]] = None,
@@ -876,9 +975,11 @@ class Wlan(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ap_group_ids: IDs of the AP groups to use for this network.
+        :param pulumi.Input[bool] bss_transition: Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        :param pulumi.Input[bool] fast_roaming_enabled: Enables 802.11r fast roaming. Defaults to `false`.
         :param pulumi.Input[bool] hide_ssid: Indicates whether or not to hide the SSID from broadcast.
         :param pulumi.Input[bool] is_guest: Indicates that this is a guest WLAN and should use guest behaviors.
-        :param pulumi.Input[bool] l2_isolation: Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        :param pulumi.Input[bool] l2_isolation: Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         :param pulumi.Input[bool] mac_filter_enabled: Indicates whether or not the MAC filter is turned of for the network.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] mac_filter_lists: List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
         :param pulumi.Input[str] mac_filter_policy: MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
@@ -887,14 +988,15 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[bool] multicast_enhance: Indicates whether or not Multicast Enhance is turned of for the network.
         :param pulumi.Input[str] name: The SSID of the network.
         :param pulumi.Input[str] network_id: ID of the network for this SSID
-        :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only Defaults to `true`.
+        :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only. Defaults to `true`.
         :param pulumi.Input[str] passphrase: The passphrase for the network, this is only required if `security` is not set to `open`.
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
+        :param pulumi.Input[bool] proxy_arp: Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
         :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
-        :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         :param pulumi.Input[str] user_group_id: ID of the user group to use for this network.
         :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use. Defaults to `both`.
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
@@ -970,6 +1072,8 @@ class Wlan(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 bss_transition: Optional[pulumi.Input[bool]] = None,
+                 fast_roaming_enabled: Optional[pulumi.Input[bool]] = None,
                  hide_ssid: Optional[pulumi.Input[bool]] = None,
                  is_guest: Optional[pulumi.Input[bool]] = None,
                  l2_isolation: Optional[pulumi.Input[bool]] = None,
@@ -984,6 +1088,7 @@ class Wlan(pulumi.CustomResource):
                  no2ghz_oui: Optional[pulumi.Input[bool]] = None,
                  passphrase: Optional[pulumi.Input[str]] = None,
                  pmf_mode: Optional[pulumi.Input[str]] = None,
+                 proxy_arp: Optional[pulumi.Input[bool]] = None,
                  radius_profile_id: Optional[pulumi.Input[str]] = None,
                  schedules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]]] = None,
                  security: Optional[pulumi.Input[str]] = None,
@@ -1003,6 +1108,8 @@ class Wlan(pulumi.CustomResource):
             __props__ = WlanArgs.__new__(WlanArgs)
 
             __props__.__dict__["ap_group_ids"] = ap_group_ids
+            __props__.__dict__["bss_transition"] = bss_transition
+            __props__.__dict__["fast_roaming_enabled"] = fast_roaming_enabled
             __props__.__dict__["hide_ssid"] = hide_ssid
             __props__.__dict__["is_guest"] = is_guest
             __props__.__dict__["l2_isolation"] = l2_isolation
@@ -1017,6 +1124,7 @@ class Wlan(pulumi.CustomResource):
             __props__.__dict__["no2ghz_oui"] = no2ghz_oui
             __props__.__dict__["passphrase"] = None if passphrase is None else pulumi.Output.secret(passphrase)
             __props__.__dict__["pmf_mode"] = pmf_mode
+            __props__.__dict__["proxy_arp"] = proxy_arp
             __props__.__dict__["radius_profile_id"] = radius_profile_id
             __props__.__dict__["schedules"] = schedules
             if security is None and not opts.urn:
@@ -1043,6 +1151,8 @@ class Wlan(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            bss_transition: Optional[pulumi.Input[bool]] = None,
+            fast_roaming_enabled: Optional[pulumi.Input[bool]] = None,
             hide_ssid: Optional[pulumi.Input[bool]] = None,
             is_guest: Optional[pulumi.Input[bool]] = None,
             l2_isolation: Optional[pulumi.Input[bool]] = None,
@@ -1057,6 +1167,7 @@ class Wlan(pulumi.CustomResource):
             no2ghz_oui: Optional[pulumi.Input[bool]] = None,
             passphrase: Optional[pulumi.Input[str]] = None,
             pmf_mode: Optional[pulumi.Input[str]] = None,
+            proxy_arp: Optional[pulumi.Input[bool]] = None,
             radius_profile_id: Optional[pulumi.Input[str]] = None,
             schedules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]]] = None,
             security: Optional[pulumi.Input[str]] = None,
@@ -1074,9 +1185,11 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ap_group_ids: IDs of the AP groups to use for this network.
+        :param pulumi.Input[bool] bss_transition: Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        :param pulumi.Input[bool] fast_roaming_enabled: Enables 802.11r fast roaming. Defaults to `false`.
         :param pulumi.Input[bool] hide_ssid: Indicates whether or not to hide the SSID from broadcast.
         :param pulumi.Input[bool] is_guest: Indicates that this is a guest WLAN and should use guest behaviors.
-        :param pulumi.Input[bool] l2_isolation: Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        :param pulumi.Input[bool] l2_isolation: Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         :param pulumi.Input[bool] mac_filter_enabled: Indicates whether or not the MAC filter is turned of for the network.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] mac_filter_lists: List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
         :param pulumi.Input[str] mac_filter_policy: MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
@@ -1085,14 +1198,15 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[bool] multicast_enhance: Indicates whether or not Multicast Enhance is turned of for the network.
         :param pulumi.Input[str] name: The SSID of the network.
         :param pulumi.Input[str] network_id: ID of the network for this SSID
-        :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only Defaults to `true`.
+        :param pulumi.Input[bool] no2ghz_oui: Connect high performance clients to 5 GHz only. Defaults to `true`.
         :param pulumi.Input[str] passphrase: The passphrase for the network, this is only required if `security` is not set to `open`.
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
+        :param pulumi.Input[bool] proxy_arp: Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
         :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
-        :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         :param pulumi.Input[str] user_group_id: ID of the user group to use for this network.
         :param pulumi.Input[str] wlan_band: Radio band your WiFi network will use. Defaults to `both`.
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
@@ -1103,6 +1217,8 @@ class Wlan(pulumi.CustomResource):
         __props__ = _WlanState.__new__(_WlanState)
 
         __props__.__dict__["ap_group_ids"] = ap_group_ids
+        __props__.__dict__["bss_transition"] = bss_transition
+        __props__.__dict__["fast_roaming_enabled"] = fast_roaming_enabled
         __props__.__dict__["hide_ssid"] = hide_ssid
         __props__.__dict__["is_guest"] = is_guest
         __props__.__dict__["l2_isolation"] = l2_isolation
@@ -1117,6 +1233,7 @@ class Wlan(pulumi.CustomResource):
         __props__.__dict__["no2ghz_oui"] = no2ghz_oui
         __props__.__dict__["passphrase"] = passphrase
         __props__.__dict__["pmf_mode"] = pmf_mode
+        __props__.__dict__["proxy_arp"] = proxy_arp
         __props__.__dict__["radius_profile_id"] = radius_profile_id
         __props__.__dict__["schedules"] = schedules
         __props__.__dict__["security"] = security
@@ -1135,6 +1252,22 @@ class Wlan(pulumi.CustomResource):
         IDs of the AP groups to use for this network.
         """
         return pulumi.get(self, "ap_group_ids")
+
+    @property
+    @pulumi.getter(name="bssTransition")
+    def bss_transition(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        """
+        return pulumi.get(self, "bss_transition")
+
+    @property
+    @pulumi.getter(name="fastRoamingEnabled")
+    def fast_roaming_enabled(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Enables 802.11r fast roaming. Defaults to `false`.
+        """
+        return pulumi.get(self, "fast_roaming_enabled")
 
     @property
     @pulumi.getter(name="hideSsid")
@@ -1156,7 +1289,7 @@ class Wlan(pulumi.CustomResource):
     @pulumi.getter(name="l2Isolation")
     def l2_isolation(self) -> pulumi.Output[Optional[bool]]:
         """
-        Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+        Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
         """
         return pulumi.get(self, "l2_isolation")
 
@@ -1228,7 +1361,7 @@ class Wlan(pulumi.CustomResource):
     @pulumi.getter(name="no2ghzOui")
     def no2ghz_oui(self) -> pulumi.Output[Optional[bool]]:
         """
-        Connect high performance clients to 5 GHz only Defaults to `true`.
+        Connect high performance clients to 5 GHz only. Defaults to `true`.
         """
         return pulumi.get(self, "no2ghz_oui")
 
@@ -1247,6 +1380,14 @@ class Wlan(pulumi.CustomResource):
         Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
         """
         return pulumi.get(self, "pmf_mode")
+
+    @property
+    @pulumi.getter(name="proxyArp")
+    def proxy_arp(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        """
+        return pulumi.get(self, "proxy_arp")
 
     @property
     @pulumi.getter(name="radiusProfileId")
@@ -1284,7 +1425,7 @@ class Wlan(pulumi.CustomResource):
     @pulumi.getter
     def uapsd(self) -> pulumi.Output[Optional[bool]]:
         """
-        Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+        Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
         """
         return pulumi.get(self, "uapsd")
 

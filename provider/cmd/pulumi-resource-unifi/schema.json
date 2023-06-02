@@ -124,6 +124,10 @@
     "types": {
         "unifi:index/DevicePortOverride:DevicePortOverride": {
             "properties": {
+                "aggregateNumPorts": {
+                    "type": "integer",
+                    "description": "Number of ports in the aggregate.\n"
+                },
                 "name": {
                     "type": "string",
                     "description": "Human-readable name of the port.\n"
@@ -131,6 +135,10 @@
                 "number": {
                     "type": "integer",
                     "description": "Switch port number.\n"
+                },
+                "opMode": {
+                    "type": "string",
+                    "description": "Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.\n"
                 },
                 "portProfileId": {
                     "type": "string",
@@ -431,6 +439,10 @@
                     "type": "string",
                     "description": "The destination port of the firewall rule.\n"
                 },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether the rule should be enabled. Defaults to `true`.\n"
+                },
                 "icmpTypename": {
                     "type": "string",
                     "description": "ICMP type name.\n"
@@ -557,6 +569,10 @@
                 "dstPort": {
                     "type": "string",
                     "description": "The destination port of the firewall rule.\n"
+                },
+                "enabled": {
+                    "type": "boolean",
+                    "description": "Specifies whether the rule should be enabled. Defaults to `true`.\n"
                 },
                 "icmpTypename": {
                     "type": "string",
@@ -685,6 +701,10 @@
                     "dstPort": {
                         "type": "string",
                         "description": "The destination port of the firewall rule.\n"
+                    },
+                    "enabled": {
+                        "type": "boolean",
+                        "description": "Specifies whether the rule should be enabled. Defaults to `true`.\n"
                     },
                     "icmpTypename": {
                         "type": "string",
@@ -1131,7 +1151,7 @@
             }
         },
         "unifi:index/device:Device": {
-            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\nimport * as unifi from \"@pulumiverse/unifi\";\n\nconst disabled = unifi.port.getProfile({\n    name: \"Disabled\",\n});\nconst poe = new unifi.port.Profile(\"poe\", {\n    forward: \"customize\",\n    nativeNetworkconfId: _var.native_network_id,\n    taggedNetworkconfIds: [_var.some_vlan_network_id],\n    poeMode: \"auto\",\n});\nconst us24Poe = new unifi.Device(\"us24Poe\", {\n    mac: \"01:23:45:67:89:AB\",\n    portOverrides: [\n        {\n            number: 1,\n            name: \"port w/ poe\",\n            portProfileId: poe.id,\n        },\n        {\n            number: 2,\n            name: \"disabled\",\n            portProfileId: disabled.then(disabled =\u003e disabled.id),\n        },\n    ],\n});\n```\n```python\nimport pulumi\nimport pulumi_unifi as unifi\nimport pulumiverse_unifi as unifi\n\ndisabled = unifi.port.get_profile(name=\"Disabled\")\npoe = unifi.port.Profile(\"poe\",\n    forward=\"customize\",\n    native_networkconf_id=var[\"native_network_id\"],\n    tagged_networkconf_ids=[var[\"some_vlan_network_id\"]],\n    poe_mode=\"auto\")\nus24_poe = unifi.Device(\"us24Poe\",\n    mac=\"01:23:45:67:89:AB\",\n    port_overrides=[\n        unifi.DevicePortOverrideArgs(\n            number=1,\n            name=\"port w/ poe\",\n            port_profile_id=poe.id,\n        ),\n        unifi.DevicePortOverrideArgs(\n            number=2,\n            name=\"disabled\",\n            port_profile_id=disabled.id,\n        ),\n    ])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Unifi = Pulumi.Unifi;\nusing Unifi = Pulumiverse.Unifi;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var disabled = Unifi.Port.GetProfile.Invoke(new()\n    {\n        Name = \"Disabled\",\n    });\n\n    var poe = new Unifi.Port.Profile(\"poe\", new()\n    {\n        Forward = \"customize\",\n        NativeNetworkconfId = @var.Native_network_id,\n        TaggedNetworkconfIds = new[]\n        {\n            @var.Some_vlan_network_id,\n        },\n        PoeMode = \"auto\",\n    });\n\n    var us24Poe = new Unifi.Device(\"us24Poe\", new()\n    {\n        Mac = \"01:23:45:67:89:AB\",\n        PortOverrides = new[]\n        {\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 1,\n                Name = \"port w/ poe\",\n                PortProfileId = poe.Id,\n            },\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 2,\n                Name = \"disabled\",\n                PortProfileId = disabled.Apply(getProfileResult =\u003e getProfileResult.Id),\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tdisabled, err := port.LookupProfile(ctx, \u0026port.LookupProfileArgs{\n\t\t\tName: pulumi.StringRef(\"Disabled\"),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tpoe, err := port.NewProfile(ctx, \"poe\", \u0026port.ProfileArgs{\n\t\t\tForward:             pulumi.String(\"customize\"),\n\t\t\tNativeNetworkconfId: pulumi.Any(_var.Native_network_id),\n\t\t\tTaggedNetworkconfIds: pulumi.StringArray{\n\t\t\t\t_var.Some_vlan_network_id,\n\t\t\t},\n\t\t\tPoeMode: pulumi.String(\"auto\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = unifi.NewDevice(ctx, \"us24Poe\", \u0026unifi.DeviceArgs{\n\t\t\tMac: pulumi.String(\"01:23:45:67:89:AB\"),\n\t\t\tPortOverrides: unifi.DevicePortOverrideArray{\n\t\t\t\t\u0026unifi.DevicePortOverrideArgs{\n\t\t\t\t\tNumber:        pulumi.Int(1),\n\t\t\t\t\tName:          pulumi.String(\"port w/ poe\"),\n\t\t\t\t\tPortProfileId: poe.ID(),\n\t\t\t\t},\n\t\t\t\t\u0026unifi.DevicePortOverrideArgs{\n\t\t\t\t\tNumber:        pulumi.Int(2),\n\t\t\t\t\tName:          pulumi.String(\"disabled\"),\n\t\t\t\t\tPortProfileId: *pulumi.String(disabled.Id),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.unifi.port.PortFunctions;\nimport com.pulumi.unifi.port.inputs.GetProfileArgs;\nimport com.pulumi.unifi.port.Profile;\nimport com.pulumi.unifi.port.ProfileArgs;\nimport com.pulumi.unifi.Device;\nimport com.pulumi.unifi.DeviceArgs;\nimport com.pulumi.unifi.inputs.DevicePortOverrideArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var disabled = PortFunctions.getProfile(GetProfileArgs.builder()\n            .name(\"Disabled\")\n            .build());\n\n        var poe = new Profile(\"poe\", ProfileArgs.builder()        \n            .forward(\"customize\")\n            .nativeNetworkconfId(var_.native_network_id())\n            .taggedNetworkconfIds(var_.some_vlan_network_id())\n            .poeMode(\"auto\")\n            .build());\n\n        var us24Poe = new Device(\"us24Poe\", DeviceArgs.builder()        \n            .mac(\"01:23:45:67:89:AB\")\n            .portOverrides(            \n                DevicePortOverrideArgs.builder()\n                    .number(1)\n                    .name(\"port w/ poe\")\n                    .portProfileId(poe.id())\n                    .build(),\n                DevicePortOverrideArgs.builder()\n                    .number(2)\n                    .name(\"disabled\")\n                    .portProfileId(disabled.applyValue(getProfileResult -\u003e getProfileResult.id()))\n                    .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  poe:\n    type: unifi:port:Profile\n    properties:\n      forward: customize\n      nativeNetworkconfId: ${var.native_network_id}\n      taggedNetworkconfIds:\n        - ${var.some_vlan_network_id}\n      poeMode: auto\n  us24Poe:\n    type: unifi:Device\n    properties:\n      # optionally specify MAC address to skip manually importing\n      #   # manual import is the safest way to add a device\n      mac: 01:23:45:67:89:AB\n      portOverrides:\n        - number: 1\n          name: port w/ poe\n          portProfileId: ${poe.id}\n        - number: 2\n          name: disabled\n          portProfileId: ${disabled.id}\nvariables:\n  disabled:\n    fn::invoke:\n      Function: unifi:port:getProfile\n      Arguments:\n        name: Disabled\n```\n{{% /example %}}\n{{% /examples %}}",
+            "description": "{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as unifi from \"@pulumi/unifi\";\nimport * as unifi from \"@pulumiverse/unifi\";\n\nconst disabled = unifi.port.getProfile({\n    name: \"Disabled\",\n});\nconst poe = new unifi.port.Profile(\"poe\", {\n    forward: \"customize\",\n    nativeNetworkconfId: _var.native_network_id,\n    taggedNetworkconfIds: [_var.some_vlan_network_id],\n    poeMode: \"auto\",\n});\nconst us24Poe = new unifi.Device(\"us24Poe\", {\n    mac: \"01:23:45:67:89:AB\",\n    portOverrides: [\n        {\n            number: 1,\n            name: \"port w/ poe\",\n            portProfileId: poe.id,\n        },\n        {\n            number: 2,\n            name: \"disabled\",\n            portProfileId: disabled.then(disabled =\u003e disabled.id),\n        },\n        {\n            number: 11,\n            opMode: \"aggregate\",\n            aggregateNumPorts: 2,\n        },\n    ],\n});\n```\n```python\nimport pulumi\nimport pulumi_unifi as unifi\nimport pulumiverse_unifi as unifi\n\ndisabled = unifi.port.get_profile(name=\"Disabled\")\npoe = unifi.port.Profile(\"poe\",\n    forward=\"customize\",\n    native_networkconf_id=var[\"native_network_id\"],\n    tagged_networkconf_ids=[var[\"some_vlan_network_id\"]],\n    poe_mode=\"auto\")\nus24_poe = unifi.Device(\"us24Poe\",\n    mac=\"01:23:45:67:89:AB\",\n    port_overrides=[\n        unifi.DevicePortOverrideArgs(\n            number=1,\n            name=\"port w/ poe\",\n            port_profile_id=poe.id,\n        ),\n        unifi.DevicePortOverrideArgs(\n            number=2,\n            name=\"disabled\",\n            port_profile_id=disabled.id,\n        ),\n        unifi.DevicePortOverrideArgs(\n            number=11,\n            op_mode=\"aggregate\",\n            aggregate_num_ports=2,\n        ),\n    ])\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Unifi = Pulumi.Unifi;\nusing Unifi = Pulumiverse.Unifi;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var disabled = Unifi.Port.GetProfile.Invoke(new()\n    {\n        Name = \"Disabled\",\n    });\n\n    var poe = new Unifi.Port.Profile(\"poe\", new()\n    {\n        Forward = \"customize\",\n        NativeNetworkconfId = @var.Native_network_id,\n        TaggedNetworkconfIds = new[]\n        {\n            @var.Some_vlan_network_id,\n        },\n        PoeMode = \"auto\",\n    });\n\n    var us24Poe = new Unifi.Device(\"us24Poe\", new()\n    {\n        Mac = \"01:23:45:67:89:AB\",\n        PortOverrides = new[]\n        {\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 1,\n                Name = \"port w/ poe\",\n                PortProfileId = poe.Id,\n            },\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 2,\n                Name = \"disabled\",\n                PortProfileId = disabled.Apply(getProfileResult =\u003e getProfileResult.Id),\n            },\n            new Unifi.Inputs.DevicePortOverrideArgs\n            {\n                Number = 11,\n                OpMode = \"aggregate\",\n                AggregateNumPorts = 2,\n            },\n        },\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi\"\n\t\"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tdisabled, err := port.LookupProfile(ctx, \u0026port.LookupProfileArgs{\n\t\t\tName: pulumi.StringRef(\"Disabled\"),\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\tpoe, err := port.NewProfile(ctx, \"poe\", \u0026port.ProfileArgs{\n\t\t\tForward:             pulumi.String(\"customize\"),\n\t\t\tNativeNetworkconfId: pulumi.Any(_var.Native_network_id),\n\t\t\tTaggedNetworkconfIds: pulumi.StringArray{\n\t\t\t\t_var.Some_vlan_network_id,\n\t\t\t},\n\t\t\tPoeMode: pulumi.String(\"auto\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\t_, err = unifi.NewDevice(ctx, \"us24Poe\", \u0026unifi.DeviceArgs{\n\t\t\tMac: pulumi.String(\"01:23:45:67:89:AB\"),\n\t\t\tPortOverrides: unifi.DevicePortOverrideArray{\n\t\t\t\t\u0026unifi.DevicePortOverrideArgs{\n\t\t\t\t\tNumber:        pulumi.Int(1),\n\t\t\t\t\tName:          pulumi.String(\"port w/ poe\"),\n\t\t\t\t\tPortProfileId: poe.ID(),\n\t\t\t\t},\n\t\t\t\t\u0026unifi.DevicePortOverrideArgs{\n\t\t\t\t\tNumber:        pulumi.Int(2),\n\t\t\t\t\tName:          pulumi.String(\"disabled\"),\n\t\t\t\t\tPortProfileId: *pulumi.String(disabled.Id),\n\t\t\t\t},\n\t\t\t\t\u0026unifi.DevicePortOverrideArgs{\n\t\t\t\t\tNumber:            pulumi.Int(11),\n\t\t\t\t\tOpMode:            pulumi.String(\"aggregate\"),\n\t\t\t\t\tAggregateNumPorts: pulumi.Int(2),\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.unifi.port.PortFunctions;\nimport com.pulumi.unifi.port.inputs.GetProfileArgs;\nimport com.pulumi.unifi.port.Profile;\nimport com.pulumi.unifi.port.ProfileArgs;\nimport com.pulumi.unifi.Device;\nimport com.pulumi.unifi.DeviceArgs;\nimport com.pulumi.unifi.inputs.DevicePortOverrideArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var disabled = PortFunctions.getProfile(GetProfileArgs.builder()\n            .name(\"Disabled\")\n            .build());\n\n        var poe = new Profile(\"poe\", ProfileArgs.builder()        \n            .forward(\"customize\")\n            .nativeNetworkconfId(var_.native_network_id())\n            .taggedNetworkconfIds(var_.some_vlan_network_id())\n            .poeMode(\"auto\")\n            .build());\n\n        var us24Poe = new Device(\"us24Poe\", DeviceArgs.builder()        \n            .mac(\"01:23:45:67:89:AB\")\n            .portOverrides(            \n                DevicePortOverrideArgs.builder()\n                    .number(1)\n                    .name(\"port w/ poe\")\n                    .portProfileId(poe.id())\n                    .build(),\n                DevicePortOverrideArgs.builder()\n                    .number(2)\n                    .name(\"disabled\")\n                    .portProfileId(disabled.applyValue(getProfileResult -\u003e getProfileResult.id()))\n                    .build(),\n                DevicePortOverrideArgs.builder()\n                    .number(11)\n                    .opMode(\"aggregate\")\n                    .aggregateNumPorts(2)\n                    .build())\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  poe:\n    type: unifi:port:Profile\n    properties:\n      forward: customize\n      nativeNetworkconfId: ${var.native_network_id}\n      taggedNetworkconfIds:\n        - ${var.some_vlan_network_id}\n      poeMode: auto\n  us24Poe:\n    type: unifi:Device\n    properties:\n      # optionally specify MAC address to skip manually importing\n      #   # manual import is the safest way to add a device\n      mac: 01:23:45:67:89:AB\n      portOverrides:\n        - number: 1\n          name: port w/ poe\n          portProfileId: ${poe.id}\n        - number: 2\n          name: disabled\n          portProfileId: ${disabled.id}\n        - number: 11\n          opMode: aggregate\n          aggregateNumPorts: 2\nvariables:\n  disabled:\n    fn::invoke:\n      Function: unifi:port:getProfile\n      Arguments:\n        name: Disabled\n```\n{{% /example %}}\n{{% /examples %}}",
             "properties": {
                 "allowAdoption": {
                     "type": "boolean",
@@ -2339,6 +2359,14 @@
                     },
                     "description": "IDs of the AP groups to use for this network.\n"
                 },
+                "bssTransition": {
+                    "type": "boolean",
+                    "description": "Improves client transitions between APs when they have a weak signal. Defaults to `true`.\n"
+                },
+                "fastRoamingEnabled": {
+                    "type": "boolean",
+                    "description": "Enables 802.11r fast roaming. Defaults to `false`.\n"
+                },
                 "hideSsid": {
                     "type": "boolean",
                     "description": "Indicates whether or not to hide the SSID from broadcast.\n"
@@ -2349,7 +2377,7 @@
                 },
                 "l2Isolation": {
                     "type": "boolean",
-                    "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
+                    "description": "Isolates stations on layer 2 (ethernet) level. Defaults to `false`.\n"
                 },
                 "macFilterEnabled": {
                     "type": "boolean",
@@ -2388,7 +2416,7 @@
                 },
                 "no2ghzOui": {
                     "type": "boolean",
-                    "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
+                    "description": "Connect high performance clients to 5 GHz only. Defaults to `true`.\n"
                 },
                 "passphrase": {
                     "type": "string",
@@ -2398,6 +2426,10 @@
                 "pmfMode": {
                     "type": "string",
                     "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
+                },
+                "proxyArp": {
+                    "type": "boolean",
+                    "description": "Reduces airtime usage by allowing APs to \"proxy\" common broadcast frames as unicast. Defaults to `false`.\n"
                 },
                 "radiusProfileId": {
                     "type": "string",
@@ -2420,7 +2452,7 @@
                 },
                 "uapsd": {
                     "type": "boolean",
-                    "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
+                    "description": "Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.\n"
                 },
                 "userGroupId": {
                     "type": "string",
@@ -2453,6 +2485,14 @@
                     },
                     "description": "IDs of the AP groups to use for this network.\n"
                 },
+                "bssTransition": {
+                    "type": "boolean",
+                    "description": "Improves client transitions between APs when they have a weak signal. Defaults to `true`.\n"
+                },
+                "fastRoamingEnabled": {
+                    "type": "boolean",
+                    "description": "Enables 802.11r fast roaming. Defaults to `false`.\n"
+                },
                 "hideSsid": {
                     "type": "boolean",
                     "description": "Indicates whether or not to hide the SSID from broadcast.\n"
@@ -2463,7 +2503,7 @@
                 },
                 "l2Isolation": {
                     "type": "boolean",
-                    "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
+                    "description": "Isolates stations on layer 2 (ethernet) level. Defaults to `false`.\n"
                 },
                 "macFilterEnabled": {
                     "type": "boolean",
@@ -2502,7 +2542,7 @@
                 },
                 "no2ghzOui": {
                     "type": "boolean",
-                    "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
+                    "description": "Connect high performance clients to 5 GHz only. Defaults to `true`.\n"
                 },
                 "passphrase": {
                     "type": "string",
@@ -2512,6 +2552,10 @@
                 "pmfMode": {
                     "type": "string",
                     "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
+                },
+                "proxyArp": {
+                    "type": "boolean",
+                    "description": "Reduces airtime usage by allowing APs to \"proxy\" common broadcast frames as unicast. Defaults to `false`.\n"
                 },
                 "radiusProfileId": {
                     "type": "string",
@@ -2535,7 +2579,7 @@
                 },
                 "uapsd": {
                     "type": "boolean",
-                    "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
+                    "description": "Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.\n"
                 },
                 "userGroupId": {
                     "type": "string",
@@ -2568,6 +2612,14 @@
                         },
                         "description": "IDs of the AP groups to use for this network.\n"
                     },
+                    "bssTransition": {
+                        "type": "boolean",
+                        "description": "Improves client transitions between APs when they have a weak signal. Defaults to `true`.\n"
+                    },
+                    "fastRoamingEnabled": {
+                        "type": "boolean",
+                        "description": "Enables 802.11r fast roaming. Defaults to `false`.\n"
+                    },
                     "hideSsid": {
                         "type": "boolean",
                         "description": "Indicates whether or not to hide the SSID from broadcast.\n"
@@ -2578,7 +2630,7 @@
                     },
                     "l2Isolation": {
                         "type": "boolean",
-                        "description": "Isolates stations on layer 2 (ethernet) level Defaults to `false`.\n"
+                        "description": "Isolates stations on layer 2 (ethernet) level. Defaults to `false`.\n"
                     },
                     "macFilterEnabled": {
                         "type": "boolean",
@@ -2617,7 +2669,7 @@
                     },
                     "no2ghzOui": {
                         "type": "boolean",
-                        "description": "Connect high performance clients to 5 GHz only Defaults to `true`.\n"
+                        "description": "Connect high performance clients to 5 GHz only. Defaults to `true`.\n"
                     },
                     "passphrase": {
                         "type": "string",
@@ -2627,6 +2679,10 @@
                     "pmfMode": {
                         "type": "string",
                         "description": "Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.\n"
+                    },
+                    "proxyArp": {
+                        "type": "boolean",
+                        "description": "Reduces airtime usage by allowing APs to \"proxy\" common broadcast frames as unicast. Defaults to `false`.\n"
                     },
                     "radiusProfileId": {
                         "type": "string",
@@ -2650,7 +2706,7 @@
                     },
                     "uapsd": {
                         "type": "boolean",
-                        "description": "Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.\n"
+                        "description": "Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.\n"
                     },
                     "userGroupId": {
                         "type": "string",

@@ -11,10 +11,14 @@ import (
 )
 
 type DevicePortOverride struct {
+	// Number of ports in the aggregate.
+	AggregateNumPorts *int `pulumi:"aggregateNumPorts"`
 	// Human-readable name of the port.
 	Name *string `pulumi:"name"`
 	// Switch port number.
 	Number int `pulumi:"number"`
+	// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+	OpMode *string `pulumi:"opMode"`
 	// ID of the Port Profile used on this port.
 	PortProfileId *string `pulumi:"portProfileId"`
 }
@@ -31,10 +35,14 @@ type DevicePortOverrideInput interface {
 }
 
 type DevicePortOverrideArgs struct {
+	// Number of ports in the aggregate.
+	AggregateNumPorts pulumi.IntPtrInput `pulumi:"aggregateNumPorts"`
 	// Human-readable name of the port.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Switch port number.
 	Number pulumi.IntInput `pulumi:"number"`
+	// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+	OpMode pulumi.StringPtrInput `pulumi:"opMode"`
 	// ID of the Port Profile used on this port.
 	PortProfileId pulumi.StringPtrInput `pulumi:"portProfileId"`
 }
@@ -90,6 +98,11 @@ func (o DevicePortOverrideOutput) ToDevicePortOverrideOutputWithContext(ctx cont
 	return o
 }
 
+// Number of ports in the aggregate.
+func (o DevicePortOverrideOutput) AggregateNumPorts() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DevicePortOverride) *int { return v.AggregateNumPorts }).(pulumi.IntPtrOutput)
+}
+
 // Human-readable name of the port.
 func (o DevicePortOverrideOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DevicePortOverride) *string { return v.Name }).(pulumi.StringPtrOutput)
@@ -98,6 +111,11 @@ func (o DevicePortOverrideOutput) Name() pulumi.StringPtrOutput {
 // Switch port number.
 func (o DevicePortOverrideOutput) Number() pulumi.IntOutput {
 	return o.ApplyT(func(v DevicePortOverride) int { return v.Number }).(pulumi.IntOutput)
+}
+
+// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+func (o DevicePortOverrideOutput) OpMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DevicePortOverride) *string { return v.OpMode }).(pulumi.StringPtrOutput)
 }
 
 // ID of the Port Profile used on this port.

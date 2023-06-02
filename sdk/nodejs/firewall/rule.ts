@@ -89,6 +89,10 @@ export class Rule extends pulumi.CustomResource {
      */
     public readonly dstPort!: pulumi.Output<string | undefined>;
     /**
+     * Specifies whether the rule should be enabled. Defaults to `true`.
+     */
+    public readonly enabled!: pulumi.Output<boolean | undefined>;
+    /**
      * ICMP type name.
      */
     public readonly icmpTypename!: pulumi.Output<string | undefined>;
@@ -193,6 +197,7 @@ export class Rule extends pulumi.CustomResource {
             resourceInputs["dstNetworkId"] = state ? state.dstNetworkId : undefined;
             resourceInputs["dstNetworkType"] = state ? state.dstNetworkType : undefined;
             resourceInputs["dstPort"] = state ? state.dstPort : undefined;
+            resourceInputs["enabled"] = state ? state.enabled : undefined;
             resourceInputs["icmpTypename"] = state ? state.icmpTypename : undefined;
             resourceInputs["icmpV6Typename"] = state ? state.icmpV6Typename : undefined;
             resourceInputs["ipSec"] = state ? state.ipSec : undefined;
@@ -232,6 +237,7 @@ export class Rule extends pulumi.CustomResource {
             resourceInputs["dstNetworkId"] = args ? args.dstNetworkId : undefined;
             resourceInputs["dstNetworkType"] = args ? args.dstNetworkType : undefined;
             resourceInputs["dstPort"] = args ? args.dstPort : undefined;
+            resourceInputs["enabled"] = args ? args.enabled : undefined;
             resourceInputs["icmpTypename"] = args ? args.icmpTypename : undefined;
             resourceInputs["icmpV6Typename"] = args ? args.icmpV6Typename : undefined;
             resourceInputs["ipSec"] = args ? args.ipSec : undefined;
@@ -291,6 +297,10 @@ export interface RuleState {
      * The destination port of the firewall rule.
      */
     dstPort?: pulumi.Input<string>;
+    /**
+     * Specifies whether the rule should be enabled. Defaults to `true`.
+     */
+    enabled?: pulumi.Input<boolean>;
     /**
      * ICMP type name.
      */
@@ -409,6 +419,10 @@ export interface RuleArgs {
      * The destination port of the firewall rule.
      */
     dstPort?: pulumi.Input<string>;
+    /**
+     * Specifies whether the rule should be enabled. Defaults to `true`.
+     */
+    enabled?: pulumi.Input<boolean>;
     /**
      * ICMP type name.
      */

@@ -55,6 +55,12 @@ namespace Pulumiverse.Unifi
     ///                 Name = "disabled",
     ///                 PortProfileId = disabled.Apply(getProfileResult =&gt; getProfileResult.Id),
     ///             },
+    ///             new Unifi.Inputs.DevicePortOverrideArgs
+    ///             {
+    ///                 Number = 11,
+    ///                 OpMode = "aggregate",
+    ///                 AggregateNumPorts = 2,
+    ///             },
     ///         },
     ///     });
     /// 

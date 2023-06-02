@@ -91,6 +91,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Output<string?> DstPort { get; private set; } = null!;
 
         /// <summary>
+        /// Specifies whether the rule should be enabled. Defaults to `true`.
+        /// </summary>
+        [Output("enabled")]
+        public Output<bool?> Enabled { get; private set; } = null!;
+
+        /// <summary>
         /// ICMP type name.
         /// </summary>
         [Output("icmpTypename")]
@@ -312,6 +318,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
+        /// Specifies whether the rule should be enabled. Defaults to `true`.
+        /// </summary>
+        [Input("enabled")]
+        public Input<bool>? Enabled { get; set; }
+
+        /// <summary>
         /// ICMP type name.
         /// </summary>
         [Input("icmpTypename")]
@@ -498,6 +510,12 @@ namespace Pulumiverse.Unifi.Firewall
         /// </summary>
         [Input("dstPort")]
         public Input<string>? DstPort { get; set; }
+
+        /// <summary>
+        /// Specifies whether the rule should be enabled. Defaults to `true`.
+        /// </summary>
+        [Input("enabled")]
+        public Input<bool>? Enabled { get; set; }
 
         /// <summary>
         /// ICMP type name.
