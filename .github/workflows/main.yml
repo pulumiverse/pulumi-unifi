@@ -17,10 +17,6 @@ jobs:
     with:
       provider: sentry
       goversion: "1.19.x"
-      pythonversion: "3.9"
-      nodeversion: "16.x"
-      dotnetversion: "6.0"
-      # javaversion: "11"
   build:
     needs: prerequisites
     uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@matrix-simplified
