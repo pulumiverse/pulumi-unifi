@@ -15,13 +15,13 @@ jobs:
   prerequisites:
     uses: pulumiverse/infra/.github/workflows/provider-prerequisites.yaml@matrix-simplified
     with:
-      provider: sentry
+      provider: unifi
       goversion: "1.19.x"
   build:
     needs: prerequisites
     uses: pulumiverse/infra/.github/workflows/provider-build-sdk.yaml@matrix-simplified
     with:
-      provider: sentry
+      provider: unifi
       goversion: "1.19.x"
       pythonversion: "3.9"
       nodeversion: "16.x"
