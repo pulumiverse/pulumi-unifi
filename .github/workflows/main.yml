@@ -13,6 +13,8 @@ on:
 
 jobs:
   prerequisites:
+    permissions: 
+      pull-requests: write
     uses: pulumiverse/infra/.github/workflows/provider-prerequisites.yaml@matrix-simplified
     with:
       provider: unifi
