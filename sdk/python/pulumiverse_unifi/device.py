@@ -276,6 +276,11 @@ class Device(pulumi.CustomResource):
                     name="disabled",
                     port_profile_id=disabled.id,
                 ),
+                unifi.DevicePortOverrideArgs(
+                    number=11,
+                    op_mode="aggregate",
+                    aggregate_num_ports=2,
+                ),
             ])
         ```
 
@@ -320,6 +325,11 @@ class Device(pulumi.CustomResource):
                     number=2,
                     name="disabled",
                     port_profile_id=disabled.id,
+                ),
+                unifi.DevicePortOverrideArgs(
+                    number=11,
+                    op_mode="aggregate",
+                    aggregate_num_ports=2,
                 ),
             ])
         ```

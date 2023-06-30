@@ -96,11 +96,15 @@ type Wlan struct {
 
 	// IDs of the AP groups to use for this network.
 	ApGroupIds pulumi.StringArrayOutput `pulumi:"apGroupIds"`
+	// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+	BssTransition pulumi.BoolPtrOutput `pulumi:"bssTransition"`
+	// Enables 802.11r fast roaming. Defaults to `false`.
+	FastRoamingEnabled pulumi.BoolPtrOutput `pulumi:"fastRoamingEnabled"`
 	// Indicates whether or not to hide the SSID from broadcast.
 	HideSsid pulumi.BoolPtrOutput `pulumi:"hideSsid"`
 	// Indicates that this is a guest WLAN and should use guest behaviors.
 	IsGuest pulumi.BoolPtrOutput `pulumi:"isGuest"`
-	// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+	// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
 	L2Isolation pulumi.BoolPtrOutput `pulumi:"l2Isolation"`
 	// Indicates whether or not the MAC filter is turned of for the network.
 	MacFilterEnabled pulumi.BoolPtrOutput `pulumi:"macFilterEnabled"`
@@ -118,12 +122,14 @@ type Wlan struct {
 	Name pulumi.StringOutput `pulumi:"name"`
 	// ID of the network for this SSID
 	NetworkId pulumi.StringPtrOutput `pulumi:"networkId"`
-	// Connect high performance clients to 5 GHz only Defaults to `true`.
+	// Connect high performance clients to 5 GHz only. Defaults to `true`.
 	No2ghzOui pulumi.BoolPtrOutput `pulumi:"no2ghzOui"`
 	// The passphrase for the network, this is only required if `security` is not set to `open`.
 	Passphrase pulumi.StringPtrOutput `pulumi:"passphrase"`
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode pulumi.StringPtrOutput `pulumi:"pmfMode"`
+	// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+	ProxyArp pulumi.BoolPtrOutput `pulumi:"proxyArp"`
 	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId pulumi.StringPtrOutput `pulumi:"radiusProfileId"`
 	// Start and stop schedules for the WLAN
@@ -132,7 +138,7 @@ type Wlan struct {
 	Security pulumi.StringOutput `pulumi:"security"`
 	// The name of the site to associate the wlan with.
 	Site pulumi.StringOutput `pulumi:"site"`
-	// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+	// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
 	Uapsd pulumi.BoolPtrOutput `pulumi:"uapsd"`
 	// ID of the user group to use for this network.
 	UserGroupId pulumi.StringOutput `pulumi:"userGroupId"`
@@ -189,11 +195,15 @@ func GetWlan(ctx *pulumi.Context,
 type wlanState struct {
 	// IDs of the AP groups to use for this network.
 	ApGroupIds []string `pulumi:"apGroupIds"`
+	// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+	BssTransition *bool `pulumi:"bssTransition"`
+	// Enables 802.11r fast roaming. Defaults to `false`.
+	FastRoamingEnabled *bool `pulumi:"fastRoamingEnabled"`
 	// Indicates whether or not to hide the SSID from broadcast.
 	HideSsid *bool `pulumi:"hideSsid"`
 	// Indicates that this is a guest WLAN and should use guest behaviors.
 	IsGuest *bool `pulumi:"isGuest"`
-	// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+	// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
 	L2Isolation *bool `pulumi:"l2Isolation"`
 	// Indicates whether or not the MAC filter is turned of for the network.
 	MacFilterEnabled *bool `pulumi:"macFilterEnabled"`
@@ -211,12 +221,14 @@ type wlanState struct {
 	Name *string `pulumi:"name"`
 	// ID of the network for this SSID
 	NetworkId *string `pulumi:"networkId"`
-	// Connect high performance clients to 5 GHz only Defaults to `true`.
+	// Connect high performance clients to 5 GHz only. Defaults to `true`.
 	No2ghzOui *bool `pulumi:"no2ghzOui"`
 	// The passphrase for the network, this is only required if `security` is not set to `open`.
 	Passphrase *string `pulumi:"passphrase"`
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode *string `pulumi:"pmfMode"`
+	// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+	ProxyArp *bool `pulumi:"proxyArp"`
 	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId *string `pulumi:"radiusProfileId"`
 	// Start and stop schedules for the WLAN
@@ -225,7 +237,7 @@ type wlanState struct {
 	Security *string `pulumi:"security"`
 	// The name of the site to associate the wlan with.
 	Site *string `pulumi:"site"`
-	// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+	// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
 	Uapsd *bool `pulumi:"uapsd"`
 	// ID of the user group to use for this network.
 	UserGroupId *string `pulumi:"userGroupId"`
@@ -240,11 +252,15 @@ type wlanState struct {
 type WlanState struct {
 	// IDs of the AP groups to use for this network.
 	ApGroupIds pulumi.StringArrayInput
+	// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+	BssTransition pulumi.BoolPtrInput
+	// Enables 802.11r fast roaming. Defaults to `false`.
+	FastRoamingEnabled pulumi.BoolPtrInput
 	// Indicates whether or not to hide the SSID from broadcast.
 	HideSsid pulumi.BoolPtrInput
 	// Indicates that this is a guest WLAN and should use guest behaviors.
 	IsGuest pulumi.BoolPtrInput
-	// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+	// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
 	L2Isolation pulumi.BoolPtrInput
 	// Indicates whether or not the MAC filter is turned of for the network.
 	MacFilterEnabled pulumi.BoolPtrInput
@@ -262,12 +278,14 @@ type WlanState struct {
 	Name pulumi.StringPtrInput
 	// ID of the network for this SSID
 	NetworkId pulumi.StringPtrInput
-	// Connect high performance clients to 5 GHz only Defaults to `true`.
+	// Connect high performance clients to 5 GHz only. Defaults to `true`.
 	No2ghzOui pulumi.BoolPtrInput
 	// The passphrase for the network, this is only required if `security` is not set to `open`.
 	Passphrase pulumi.StringPtrInput
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode pulumi.StringPtrInput
+	// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+	ProxyArp pulumi.BoolPtrInput
 	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId pulumi.StringPtrInput
 	// Start and stop schedules for the WLAN
@@ -276,7 +294,7 @@ type WlanState struct {
 	Security pulumi.StringPtrInput
 	// The name of the site to associate the wlan with.
 	Site pulumi.StringPtrInput
-	// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+	// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
 	Uapsd pulumi.BoolPtrInput
 	// ID of the user group to use for this network.
 	UserGroupId pulumi.StringPtrInput
@@ -295,11 +313,15 @@ func (WlanState) ElementType() reflect.Type {
 type wlanArgs struct {
 	// IDs of the AP groups to use for this network.
 	ApGroupIds []string `pulumi:"apGroupIds"`
+	// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+	BssTransition *bool `pulumi:"bssTransition"`
+	// Enables 802.11r fast roaming. Defaults to `false`.
+	FastRoamingEnabled *bool `pulumi:"fastRoamingEnabled"`
 	// Indicates whether or not to hide the SSID from broadcast.
 	HideSsid *bool `pulumi:"hideSsid"`
 	// Indicates that this is a guest WLAN and should use guest behaviors.
 	IsGuest *bool `pulumi:"isGuest"`
-	// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+	// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
 	L2Isolation *bool `pulumi:"l2Isolation"`
 	// Indicates whether or not the MAC filter is turned of for the network.
 	MacFilterEnabled *bool `pulumi:"macFilterEnabled"`
@@ -317,12 +339,14 @@ type wlanArgs struct {
 	Name *string `pulumi:"name"`
 	// ID of the network for this SSID
 	NetworkId *string `pulumi:"networkId"`
-	// Connect high performance clients to 5 GHz only Defaults to `true`.
+	// Connect high performance clients to 5 GHz only. Defaults to `true`.
 	No2ghzOui *bool `pulumi:"no2ghzOui"`
 	// The passphrase for the network, this is only required if `security` is not set to `open`.
 	Passphrase *string `pulumi:"passphrase"`
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode *string `pulumi:"pmfMode"`
+	// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+	ProxyArp *bool `pulumi:"proxyArp"`
 	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId *string `pulumi:"radiusProfileId"`
 	// Start and stop schedules for the WLAN
@@ -331,7 +355,7 @@ type wlanArgs struct {
 	Security string `pulumi:"security"`
 	// The name of the site to associate the wlan with.
 	Site *string `pulumi:"site"`
-	// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+	// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
 	Uapsd *bool `pulumi:"uapsd"`
 	// ID of the user group to use for this network.
 	UserGroupId string `pulumi:"userGroupId"`
@@ -347,11 +371,15 @@ type wlanArgs struct {
 type WlanArgs struct {
 	// IDs of the AP groups to use for this network.
 	ApGroupIds pulumi.StringArrayInput
+	// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+	BssTransition pulumi.BoolPtrInput
+	// Enables 802.11r fast roaming. Defaults to `false`.
+	FastRoamingEnabled pulumi.BoolPtrInput
 	// Indicates whether or not to hide the SSID from broadcast.
 	HideSsid pulumi.BoolPtrInput
 	// Indicates that this is a guest WLAN and should use guest behaviors.
 	IsGuest pulumi.BoolPtrInput
-	// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+	// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
 	L2Isolation pulumi.BoolPtrInput
 	// Indicates whether or not the MAC filter is turned of for the network.
 	MacFilterEnabled pulumi.BoolPtrInput
@@ -369,12 +397,14 @@ type WlanArgs struct {
 	Name pulumi.StringPtrInput
 	// ID of the network for this SSID
 	NetworkId pulumi.StringPtrInput
-	// Connect high performance clients to 5 GHz only Defaults to `true`.
+	// Connect high performance clients to 5 GHz only. Defaults to `true`.
 	No2ghzOui pulumi.BoolPtrInput
 	// The passphrase for the network, this is only required if `security` is not set to `open`.
 	Passphrase pulumi.StringPtrInput
 	// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 	PmfMode pulumi.StringPtrInput
+	// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+	ProxyArp pulumi.BoolPtrInput
 	// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
 	RadiusProfileId pulumi.StringPtrInput
 	// Start and stop schedules for the WLAN
@@ -383,7 +413,7 @@ type WlanArgs struct {
 	Security pulumi.StringInput
 	// The name of the site to associate the wlan with.
 	Site pulumi.StringPtrInput
-	// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+	// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
 	Uapsd pulumi.BoolPtrInput
 	// ID of the user group to use for this network.
 	UserGroupId pulumi.StringInput
@@ -487,6 +517,16 @@ func (o WlanOutput) ApGroupIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringArrayOutput { return v.ApGroupIds }).(pulumi.StringArrayOutput)
 }
 
+// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+func (o WlanOutput) BssTransition() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.BssTransition }).(pulumi.BoolPtrOutput)
+}
+
+// Enables 802.11r fast roaming. Defaults to `false`.
+func (o WlanOutput) FastRoamingEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.FastRoamingEnabled }).(pulumi.BoolPtrOutput)
+}
+
 // Indicates whether or not to hide the SSID from broadcast.
 func (o WlanOutput) HideSsid() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.HideSsid }).(pulumi.BoolPtrOutput)
@@ -497,7 +537,7 @@ func (o WlanOutput) IsGuest() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.IsGuest }).(pulumi.BoolPtrOutput)
 }
 
-// Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
 func (o WlanOutput) L2Isolation() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.L2Isolation }).(pulumi.BoolPtrOutput)
 }
@@ -542,7 +582,7 @@ func (o WlanOutput) NetworkId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.NetworkId }).(pulumi.StringPtrOutput)
 }
 
-// Connect high performance clients to 5 GHz only Defaults to `true`.
+// Connect high performance clients to 5 GHz only. Defaults to `true`.
 func (o WlanOutput) No2ghzOui() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.No2ghzOui }).(pulumi.BoolPtrOutput)
 }
@@ -555,6 +595,11 @@ func (o WlanOutput) Passphrase() pulumi.StringPtrOutput {
 // Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
 func (o WlanOutput) PmfMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.PmfMode }).(pulumi.StringPtrOutput)
+}
+
+// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+func (o WlanOutput) ProxyArp() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.ProxyArp }).(pulumi.BoolPtrOutput)
 }
 
 // ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
@@ -577,7 +622,7 @@ func (o WlanOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
 }
 
-// Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
 func (o WlanOutput) Uapsd() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.BoolPtrOutput { return v.Uapsd }).(pulumi.BoolPtrOutput)
 }

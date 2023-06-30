@@ -72,6 +72,8 @@ type Rule struct {
 	DstNetworkType pulumi.StringPtrOutput `pulumi:"dstNetworkType"`
 	// The destination port of the firewall rule.
 	DstPort pulumi.StringPtrOutput `pulumi:"dstPort"`
+	// Specifies whether the rule should be enabled. Defaults to `true`.
+	Enabled pulumi.BoolPtrOutput `pulumi:"enabled"`
 	// ICMP type name.
 	IcmpTypename pulumi.StringPtrOutput `pulumi:"icmpTypename"`
 	// ICMPv6 type name.
@@ -169,6 +171,8 @@ type ruleState struct {
 	DstNetworkType *string `pulumi:"dstNetworkType"`
 	// The destination port of the firewall rule.
 	DstPort *string `pulumi:"dstPort"`
+	// Specifies whether the rule should be enabled. Defaults to `true`.
+	Enabled *bool `pulumi:"enabled"`
 	// ICMP type name.
 	IcmpTypename *string `pulumi:"icmpTypename"`
 	// ICMPv6 type name.
@@ -228,6 +232,8 @@ type RuleState struct {
 	DstNetworkType pulumi.StringPtrInput
 	// The destination port of the firewall rule.
 	DstPort pulumi.StringPtrInput
+	// Specifies whether the rule should be enabled. Defaults to `true`.
+	Enabled pulumi.BoolPtrInput
 	// ICMP type name.
 	IcmpTypename pulumi.StringPtrInput
 	// ICMPv6 type name.
@@ -291,6 +297,8 @@ type ruleArgs struct {
 	DstNetworkType *string `pulumi:"dstNetworkType"`
 	// The destination port of the firewall rule.
 	DstPort *string `pulumi:"dstPort"`
+	// Specifies whether the rule should be enabled. Defaults to `true`.
+	Enabled *bool `pulumi:"enabled"`
 	// ICMP type name.
 	IcmpTypename *string `pulumi:"icmpTypename"`
 	// ICMPv6 type name.
@@ -351,6 +359,8 @@ type RuleArgs struct {
 	DstNetworkType pulumi.StringPtrInput
 	// The destination port of the firewall rule.
 	DstPort pulumi.StringPtrInput
+	// Specifies whether the rule should be enabled. Defaults to `true`.
+	Enabled pulumi.BoolPtrInput
 	// ICMP type name.
 	IcmpTypename pulumi.StringPtrInput
 	// ICMPv6 type name.
@@ -515,6 +525,11 @@ func (o RuleOutput) DstNetworkType() pulumi.StringPtrOutput {
 // The destination port of the firewall rule.
 func (o RuleOutput) DstPort() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Rule) pulumi.StringPtrOutput { return v.DstPort }).(pulumi.StringPtrOutput)
+}
+
+// Specifies whether the rule should be enabled. Defaults to `true`.
+func (o RuleOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Rule) pulumi.BoolPtrOutput { return v.Enabled }).(pulumi.BoolPtrOutput)
 }
 
 // ICMP type name.

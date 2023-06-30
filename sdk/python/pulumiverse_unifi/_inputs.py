@@ -20,16 +20,24 @@ __all__ = [
 class DevicePortOverrideArgs:
     def __init__(__self__, *,
                  number: pulumi.Input[int],
+                 aggregate_num_ports: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 op_mode: Optional[pulumi.Input[str]] = None,
                  port_profile_id: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[int] number: Switch port number.
+        :param pulumi.Input[int] aggregate_num_ports: Number of ports in the aggregate.
         :param pulumi.Input[str] name: Human-readable name of the port.
+        :param pulumi.Input[str] op_mode: Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
         :param pulumi.Input[str] port_profile_id: ID of the Port Profile used on this port.
         """
         pulumi.set(__self__, "number", number)
+        if aggregate_num_ports is not None:
+            pulumi.set(__self__, "aggregate_num_ports", aggregate_num_ports)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if op_mode is not None:
+            pulumi.set(__self__, "op_mode", op_mode)
         if port_profile_id is not None:
             pulumi.set(__self__, "port_profile_id", port_profile_id)
 
@@ -46,6 +54,18 @@ class DevicePortOverrideArgs:
         pulumi.set(self, "number", value)
 
     @property
+    @pulumi.getter(name="aggregateNumPorts")
+    def aggregate_num_ports(self) -> Optional[pulumi.Input[int]]:
+        """
+        Number of ports in the aggregate.
+        """
+        return pulumi.get(self, "aggregate_num_ports")
+
+    @aggregate_num_ports.setter
+    def aggregate_num_ports(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "aggregate_num_ports", value)
+
+    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -56,6 +76,18 @@ class DevicePortOverrideArgs:
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="opMode")
+    def op_mode(self) -> Optional[pulumi.Input[str]]:
+        """
+        Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+        """
+        return pulumi.get(self, "op_mode")
+
+    @op_mode.setter
+    def op_mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "op_mode", value)
 
     @property
     @pulumi.getter(name="portProfileId")

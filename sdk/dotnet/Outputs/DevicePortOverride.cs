@@ -15,6 +15,10 @@ namespace Pulumiverse.Unifi.Outputs
     public sealed class DevicePortOverride
     {
         /// <summary>
+        /// Number of ports in the aggregate.
+        /// </summary>
+        public readonly int? AggregateNumPorts;
+        /// <summary>
         /// Human-readable name of the port.
         /// </summary>
         public readonly string? Name;
@@ -23,20 +27,30 @@ namespace Pulumiverse.Unifi.Outputs
         /// </summary>
         public readonly int Number;
         /// <summary>
+        /// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+        /// </summary>
+        public readonly string? OpMode;
+        /// <summary>
         /// ID of the Port Profile used on this port.
         /// </summary>
         public readonly string? PortProfileId;
 
         [OutputConstructor]
         private DevicePortOverride(
+            int? aggregateNumPorts,
+
             string? name,
 
             int number,
 
+            string? opMode,
+
             string? portProfileId)
         {
+            AggregateNumPorts = aggregateNumPorts;
             Name = name;
             Number = number;
+            OpMode = opMode;
             PortProfileId = portProfileId;
         }
     }
