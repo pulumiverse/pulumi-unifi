@@ -14,3 +14,14 @@ updates:
   open-pull-requests-limit: 3
   reviewers:
   - ringods
+- package-ecosystem: "github-actions"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+    day: "sunday"
+    time: "08:00"
+  labels:
+    - "dependencies"
+  commit-message:
+    prefix: "chore"
+    include: "scope"
