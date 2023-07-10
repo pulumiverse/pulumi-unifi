@@ -18,7 +18,7 @@ env:
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
   TRAVIS_OS_NAME: linux
-  GOVERSION: 1.19.x
+  GOVERSION: "1.20.x"
   NODEVERSION: 16.x
   PYTHONVERSION: "3.9"
   DOTNETVERSION: 6.0
