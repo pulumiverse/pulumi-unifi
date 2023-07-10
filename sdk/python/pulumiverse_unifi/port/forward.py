@@ -79,6 +79,9 @@ class ForwardArgs:
         """
         Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
+        warnings.warn("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""", DeprecationWarning)
+        pulumi.log.warn("""enabled is deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
+
         return pulumi.get(self, "enabled")
 
     @enabled.setter
@@ -250,6 +253,9 @@ class _ForwardState:
         """
         Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
+        warnings.warn("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""", DeprecationWarning)
+        pulumi.log.warn("""enabled is deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
+
         return pulumi.get(self, "enabled")
 
     @enabled.setter
@@ -509,6 +515,9 @@ class Forward(pulumi.CustomResource):
         """
         Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
+        warnings.warn("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""", DeprecationWarning)
+        pulumi.log.warn("""enabled is deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
+
         return pulumi.get(self, "enabled")
 
     @property

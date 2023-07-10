@@ -38,19 +38,29 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.AllowInsecure == nil {
-		args.AllowInsecure = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "UNIFI_INSECURE").(bool))
+		if d := getEnvOrDefault(nil, parseEnvBool, "UNIFI_INSECURE"); d != nil {
+			args.AllowInsecure = pulumi.BoolPtr(d.(bool))
+		}
 	}
 	if args.ApiUrl == nil {
-		args.ApiUrl = pulumi.StringPtr(getEnvOrDefault("", nil, "UNIFI_API").(string))
+		if d := getEnvOrDefault(nil, nil, "UNIFI_API"); d != nil {
+			args.ApiUrl = pulumi.StringPtr(d.(string))
+		}
 	}
 	if args.Password == nil {
-		args.Password = pulumi.StringPtr(getEnvOrDefault("", nil, "UNIFI_PASSWORD").(string))
+		if d := getEnvOrDefault(nil, nil, "UNIFI_PASSWORD"); d != nil {
+			args.Password = pulumi.StringPtr(d.(string))
+		}
 	}
 	if args.Site == nil {
-		args.Site = pulumi.StringPtr(getEnvOrDefault("", nil, "UNIFI_SITE").(string))
+		if d := getEnvOrDefault(nil, nil, "UNIFI_SITE"); d != nil {
+			args.Site = pulumi.StringPtr(d.(string))
+		}
 	}
 	if args.Username == nil {
-		args.Username = pulumi.StringPtr(getEnvOrDefault("", nil, "UNIFI_USERNAME").(string))
+		if d := getEnvOrDefault(nil, nil, "UNIFI_USERNAME"); d != nil {
+			args.Username = pulumi.StringPtr(d.(string))
+		}
 	}
 	opts = pkgResourceDefaultOpts(opts)
 	var resource Provider

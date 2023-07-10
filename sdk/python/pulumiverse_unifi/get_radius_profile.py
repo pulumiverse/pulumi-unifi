@@ -85,9 +85,9 @@ def get_radius_profile(name: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('unifi:index/getRadiusProfile:getRadiusProfile', __args__, opts=opts, typ=GetRadiusProfileResult).value
 
     return AwaitableGetRadiusProfileResult(
-        id=__ret__.id,
-        name=__ret__.name,
-        site=__ret__.site)
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'),
+        site=pulumi.get(__ret__, 'site'))
 
 
 @_utilities.lift_output_func(get_radius_profile)

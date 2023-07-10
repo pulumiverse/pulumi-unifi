@@ -133,13 +133,13 @@ def get_account(name: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('unifi:index/getAccount:getAccount', __args__, opts=opts, typ=GetAccountResult).value
 
     return AwaitableGetAccountResult(
-        id=__ret__.id,
-        name=__ret__.name,
-        network_id=__ret__.network_id,
-        password=__ret__.password,
-        site=__ret__.site,
-        tunnel_medium_type=__ret__.tunnel_medium_type,
-        tunnel_type=__ret__.tunnel_type)
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'),
+        network_id=pulumi.get(__ret__, 'network_id'),
+        password=pulumi.get(__ret__, 'password'),
+        site=pulumi.get(__ret__, 'site'),
+        tunnel_medium_type=pulumi.get(__ret__, 'tunnel_medium_type'),
+        tunnel_type=pulumi.get(__ret__, 'tunnel_type'))
 
 
 @_utilities.lift_output_func(get_account)
