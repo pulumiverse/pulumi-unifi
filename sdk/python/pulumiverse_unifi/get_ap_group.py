@@ -94,9 +94,9 @@ def get_ap_group(name: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('unifi:index/getApGroup:getApGroup', __args__, opts=opts, typ=GetApGroupResult).value
 
     return AwaitableGetApGroupResult(
-        id=__ret__.id,
-        name=__ret__.name,
-        site=__ret__.site)
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'),
+        site=pulumi.get(__ret__, 'site'))
 
 
 @_utilities.lift_output_func(get_ap_group)

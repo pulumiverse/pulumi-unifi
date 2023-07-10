@@ -214,19 +214,19 @@ def get_user(mac: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('unifi:iam/getUser:getUser', __args__, opts=opts, typ=GetUserResult).value
 
     return AwaitableGetUserResult(
-        blocked=__ret__.blocked,
-        dev_id_override=__ret__.dev_id_override,
-        fixed_ip=__ret__.fixed_ip,
-        hostname=__ret__.hostname,
-        id=__ret__.id,
-        ip=__ret__.ip,
-        local_dns_record=__ret__.local_dns_record,
-        mac=__ret__.mac,
-        name=__ret__.name,
-        network_id=__ret__.network_id,
-        note=__ret__.note,
-        site=__ret__.site,
-        user_group_id=__ret__.user_group_id)
+        blocked=pulumi.get(__ret__, 'blocked'),
+        dev_id_override=pulumi.get(__ret__, 'dev_id_override'),
+        fixed_ip=pulumi.get(__ret__, 'fixed_ip'),
+        hostname=pulumi.get(__ret__, 'hostname'),
+        id=pulumi.get(__ret__, 'id'),
+        ip=pulumi.get(__ret__, 'ip'),
+        local_dns_record=pulumi.get(__ret__, 'local_dns_record'),
+        mac=pulumi.get(__ret__, 'mac'),
+        name=pulumi.get(__ret__, 'name'),
+        network_id=pulumi.get(__ret__, 'network_id'),
+        note=pulumi.get(__ret__, 'note'),
+        site=pulumi.get(__ret__, 'site'),
+        user_group_id=pulumi.get(__ret__, 'user_group_id'))
 
 
 @_utilities.lift_output_func(get_user)

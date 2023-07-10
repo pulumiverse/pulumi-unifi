@@ -15,7 +15,11 @@ func GetAllowInsecure(ctx *pulumi.Context) bool {
 	if err == nil {
 		return v
 	}
-	return getEnvOrDefault(false, parseEnvBool, "UNIFI_INSECURE").(bool)
+	var value bool
+	if d := getEnvOrDefault(nil, parseEnvBool, "UNIFI_INSECURE"); d != nil {
+		value = d.(bool)
+	}
+	return value
 }
 
 // URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
@@ -26,7 +30,11 @@ func GetApiUrl(ctx *pulumi.Context) string {
 	if err == nil {
 		return v
 	}
-	return getEnvOrDefault("", nil, "UNIFI_API").(string)
+	var value string
+	if d := getEnvOrDefault(nil, nil, "UNIFI_API"); d != nil {
+		value = d.(string)
+	}
+	return value
 }
 
 // Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
@@ -35,7 +43,11 @@ func GetPassword(ctx *pulumi.Context) string {
 	if err == nil {
 		return v
 	}
-	return getEnvOrDefault("", nil, "UNIFI_PASSWORD").(string)
+	var value string
+	if d := getEnvOrDefault(nil, nil, "UNIFI_PASSWORD"); d != nil {
+		value = d.(string)
+	}
+	return value
 }
 
 // The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
@@ -45,7 +57,11 @@ func GetSite(ctx *pulumi.Context) string {
 	if err == nil {
 		return v
 	}
-	return getEnvOrDefault("", nil, "UNIFI_SITE").(string)
+	var value string
+	if d := getEnvOrDefault(nil, nil, "UNIFI_SITE"); d != nil {
+		value = d.(string)
+	}
+	return value
 }
 
 // Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
@@ -54,5 +70,9 @@ func GetUsername(ctx *pulumi.Context) string {
 	if err == nil {
 		return v
 	}
-	return getEnvOrDefault("", nil, "UNIFI_USERNAME").(string)
+	var value string
+	if d := getEnvOrDefault(nil, nil, "UNIFI_USERNAME"); d != nil {
+		value = d.(string)
+	}
+	return value
 }

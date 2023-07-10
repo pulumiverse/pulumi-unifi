@@ -103,11 +103,11 @@ def get_group(name: Optional[str] = None,
     __ret__ = pulumi.runtime.invoke('unifi:iam/getGroup:getGroup', __args__, opts=opts, typ=GetGroupResult).value
 
     return AwaitableGetGroupResult(
-        id=__ret__.id,
-        name=__ret__.name,
-        qos_rate_max_down=__ret__.qos_rate_max_down,
-        qos_rate_max_up=__ret__.qos_rate_max_up,
-        site=__ret__.site)
+        id=pulumi.get(__ret__, 'id'),
+        name=pulumi.get(__ret__, 'name'),
+        qos_rate_max_down=pulumi.get(__ret__, 'qos_rate_max_down'),
+        qos_rate_max_up=pulumi.get(__ret__, 'qos_rate_max_up'),
+        site=pulumi.get(__ret__, 'site'))
 
 
 @_utilities.lift_output_func(get_group)
