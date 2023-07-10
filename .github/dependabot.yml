@@ -5,6 +5,11 @@ updates:
   schedule:
     interval: monthly
   open-pull-requests-limit: 3
+  # Upgrade all pulumi dependencies together.
+  groups:
+      pulumi-dependencies:
+        patterns:
+          - "github.com/pulumi/*"
   reviewers:
   - ringods
 - package-ecosystem: gomod
@@ -12,6 +17,11 @@ updates:
   schedule:
     interval: monthly
   open-pull-requests-limit: 3
+  # Upgrade all pulumi dependencies together.
+  groups:
+      pulumi-dependencies:
+        patterns:
+          - "github.com/pulumi/*"
   reviewers:
   - ringods
 - package-ecosystem: "github-actions"
