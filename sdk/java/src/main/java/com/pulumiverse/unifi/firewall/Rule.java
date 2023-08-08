@@ -166,6 +166,20 @@ public class Rule extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.dstPort);
     }
     /**
+     * Specifies whether the rule should be enabled. Defaults to `true`.
+     * 
+     */
+    @Export(name="enabled", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> enabled;
+
+    /**
+     * @return Specifies whether the rule should be enabled. Defaults to `true`.
+     * 
+     */
+    public Output<Optional<Boolean>> enabled() {
+        return Codegen.optional(this.enabled);
+    }
+    /**
      * ICMP type name.
      * 
      */

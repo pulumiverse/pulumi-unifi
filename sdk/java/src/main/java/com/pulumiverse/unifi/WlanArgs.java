@@ -35,6 +35,36 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+     * 
+     */
+    @Import(name="bssTransition")
+    private @Nullable Output<Boolean> bssTransition;
+
+    /**
+     * @return Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> bssTransition() {
+        return Optional.ofNullable(this.bssTransition);
+    }
+
+    /**
+     * Enables 802.11r fast roaming. Defaults to `false`.
+     * 
+     */
+    @Import(name="fastRoamingEnabled")
+    private @Nullable Output<Boolean> fastRoamingEnabled;
+
+    /**
+     * @return Enables 802.11r fast roaming. Defaults to `false`.
+     * 
+     */
+    public Optional<Output<Boolean>> fastRoamingEnabled() {
+        return Optional.ofNullable(this.fastRoamingEnabled);
+    }
+
+    /**
      * Indicates whether or not to hide the SSID from broadcast.
      * 
      */
@@ -65,14 +95,14 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+     * Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
      * 
      */
     @Import(name="l2Isolation")
     private @Nullable Output<Boolean> l2Isolation;
 
     /**
-     * @return Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+     * @return Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
      * 
      */
     public Optional<Output<Boolean>> l2Isolation() {
@@ -200,14 +230,14 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Connect high performance clients to 5 GHz only Defaults to `true`.
+     * Connect high performance clients to 5 GHz only. Defaults to `true`.
      * 
      */
     @Import(name="no2ghzOui")
     private @Nullable Output<Boolean> no2ghzOui;
 
     /**
-     * @return Connect high performance clients to 5 GHz only Defaults to `true`.
+     * @return Connect high performance clients to 5 GHz only. Defaults to `true`.
      * 
      */
     public Optional<Output<Boolean>> no2ghzOui() {
@@ -242,6 +272,21 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> pmfMode() {
         return Optional.ofNullable(this.pmfMode);
+    }
+
+    /**
+     * Reduces airtime usage by allowing APs to &#34;proxy&#34; common broadcast frames as unicast. Defaults to `false`.
+     * 
+     */
+    @Import(name="proxyArp")
+    private @Nullable Output<Boolean> proxyArp;
+
+    /**
+     * @return Reduces airtime usage by allowing APs to &#34;proxy&#34; common broadcast frames as unicast. Defaults to `false`.
+     * 
+     */
+    public Optional<Output<Boolean>> proxyArp() {
+        return Optional.ofNullable(this.proxyArp);
     }
 
     /**
@@ -305,14 +350,14 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+     * Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
      * 
      */
     @Import(name="uapsd")
     private @Nullable Output<Boolean> uapsd;
 
     /**
-     * @return Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+     * @return Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
      * 
      */
     public Optional<Output<Boolean>> uapsd() {
@@ -383,6 +428,8 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
 
     private WlanArgs(WlanArgs $) {
         this.apGroupIds = $.apGroupIds;
+        this.bssTransition = $.bssTransition;
+        this.fastRoamingEnabled = $.fastRoamingEnabled;
         this.hideSsid = $.hideSsid;
         this.isGuest = $.isGuest;
         this.l2Isolation = $.l2Isolation;
@@ -397,6 +444,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         this.no2ghzOui = $.no2ghzOui;
         this.passphrase = $.passphrase;
         this.pmfMode = $.pmfMode;
+        this.proxyArp = $.proxyArp;
         this.radiusProfileId = $.radiusProfileId;
         this.schedules = $.schedules;
         this.security = $.security;
@@ -458,6 +506,48 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param bssTransition Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bssTransition(@Nullable Output<Boolean> bssTransition) {
+            $.bssTransition = bssTransition;
+            return this;
+        }
+
+        /**
+         * @param bssTransition Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder bssTransition(Boolean bssTransition) {
+            return bssTransition(Output.of(bssTransition));
+        }
+
+        /**
+         * @param fastRoamingEnabled Enables 802.11r fast roaming. Defaults to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder fastRoamingEnabled(@Nullable Output<Boolean> fastRoamingEnabled) {
+            $.fastRoamingEnabled = fastRoamingEnabled;
+            return this;
+        }
+
+        /**
+         * @param fastRoamingEnabled Enables 802.11r fast roaming. Defaults to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder fastRoamingEnabled(Boolean fastRoamingEnabled) {
+            return fastRoamingEnabled(Output.of(fastRoamingEnabled));
+        }
+
+        /**
          * @param hideSsid Indicates whether or not to hide the SSID from broadcast.
          * 
          * @return builder
@@ -500,7 +590,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param l2Isolation Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+         * @param l2Isolation Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
          * 
          * @return builder
          * 
@@ -511,7 +601,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param l2Isolation Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+         * @param l2Isolation Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
          * 
          * @return builder
          * 
@@ -699,7 +789,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param no2ghzOui Connect high performance clients to 5 GHz only Defaults to `true`.
+         * @param no2ghzOui Connect high performance clients to 5 GHz only. Defaults to `true`.
          * 
          * @return builder
          * 
@@ -710,7 +800,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param no2ghzOui Connect high performance clients to 5 GHz only Defaults to `true`.
+         * @param no2ghzOui Connect high performance clients to 5 GHz only. Defaults to `true`.
          * 
          * @return builder
          * 
@@ -759,6 +849,27 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder pmfMode(String pmfMode) {
             return pmfMode(Output.of(pmfMode));
+        }
+
+        /**
+         * @param proxyArp Reduces airtime usage by allowing APs to &#34;proxy&#34; common broadcast frames as unicast. Defaults to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder proxyArp(@Nullable Output<Boolean> proxyArp) {
+            $.proxyArp = proxyArp;
+            return this;
+        }
+
+        /**
+         * @param proxyArp Reduces airtime usage by allowing APs to &#34;proxy&#34; common broadcast frames as unicast. Defaults to `false`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder proxyArp(Boolean proxyArp) {
+            return proxyArp(Output.of(proxyArp));
         }
 
         /**
@@ -856,7 +967,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param uapsd Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+         * @param uapsd Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
          * 
          * @return builder
          * 
@@ -867,7 +978,7 @@ public final class WlanArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param uapsd Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+         * @param uapsd Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
          * 
          * @return builder
          * 

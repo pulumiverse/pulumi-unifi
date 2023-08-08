@@ -124,6 +124,21 @@ public final class RuleArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Specifies whether the rule should be enabled. Defaults to `true`.
+     * 
+     */
+    @Import(name="enabled")
+    private @Nullable Output<Boolean> enabled;
+
+    /**
+     * @return Specifies whether the rule should be enabled. Defaults to `true`.
+     * 
+     */
+    public Optional<Output<Boolean>> enabled() {
+        return Optional.ofNullable(this.enabled);
+    }
+
+    /**
      * ICMP type name.
      * 
      */
@@ -448,6 +463,7 @@ public final class RuleArgs extends com.pulumi.resources.ResourceArgs {
         this.dstNetworkId = $.dstNetworkId;
         this.dstNetworkType = $.dstNetworkType;
         this.dstPort = $.dstPort;
+        this.enabled = $.enabled;
         this.icmpTypename = $.icmpTypename;
         this.icmpV6Typename = $.icmpV6Typename;
         this.ipSec = $.ipSec;
@@ -644,6 +660,27 @@ public final class RuleArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder dstPort(String dstPort) {
             return dstPort(Output.of(dstPort));
+        }
+
+        /**
+         * @param enabled Specifies whether the rule should be enabled. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder enabled(@Nullable Output<Boolean> enabled) {
+            $.enabled = enabled;
+            return this;
+        }
+
+        /**
+         * @param enabled Specifies whether the rule should be enabled. Defaults to `true`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder enabled(Boolean enabled) {
+            return enabled(Output.of(enabled));
         }
 
         /**
