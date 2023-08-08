@@ -68,6 +68,11 @@ import javax.annotation.Nullable;
  *                     .number(2)
  *                     .name(&#34;disabled&#34;)
  *                     .portProfileId(disabled.applyValue(getProfileResult -&gt; getProfileResult.id()))
+ *                     .build(),
+ *                 DevicePortOverrideArgs.builder()
+ *                     .number(11)
+ *                     .opMode(&#34;aggregate&#34;)
+ *                     .aggregateNumPorts(2)
  *                     .build())
  *             .build());
  * 

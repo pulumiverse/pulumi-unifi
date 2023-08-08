@@ -111,6 +111,34 @@ public class Wlan extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.apGroupIds);
     }
     /**
+     * Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+     * 
+     */
+    @Export(name="bssTransition", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> bssTransition;
+
+    /**
+     * @return Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+     * 
+     */
+    public Output<Optional<Boolean>> bssTransition() {
+        return Codegen.optional(this.bssTransition);
+    }
+    /**
+     * Enables 802.11r fast roaming. Defaults to `false`.
+     * 
+     */
+    @Export(name="fastRoamingEnabled", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> fastRoamingEnabled;
+
+    /**
+     * @return Enables 802.11r fast roaming. Defaults to `false`.
+     * 
+     */
+    public Output<Optional<Boolean>> fastRoamingEnabled() {
+        return Codegen.optional(this.fastRoamingEnabled);
+    }
+    /**
      * Indicates whether or not to hide the SSID from broadcast.
      * 
      */
@@ -139,14 +167,14 @@ public class Wlan extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.isGuest);
     }
     /**
-     * Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+     * Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
      * 
      */
     @Export(name="l2Isolation", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> l2Isolation;
 
     /**
-     * @return Isolates stations on layer 2 (ethernet) level Defaults to `false`.
+     * @return Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
      * 
      */
     public Output<Optional<Boolean>> l2Isolation() {
@@ -265,14 +293,14 @@ public class Wlan extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.networkId);
     }
     /**
-     * Connect high performance clients to 5 GHz only Defaults to `true`.
+     * Connect high performance clients to 5 GHz only. Defaults to `true`.
      * 
      */
     @Export(name="no2ghzOui", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> no2ghzOui;
 
     /**
-     * @return Connect high performance clients to 5 GHz only Defaults to `true`.
+     * @return Connect high performance clients to 5 GHz only. Defaults to `true`.
      * 
      */
     public Output<Optional<Boolean>> no2ghzOui() {
@@ -305,6 +333,20 @@ public class Wlan extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> pmfMode() {
         return Codegen.optional(this.pmfMode);
+    }
+    /**
+     * Reduces airtime usage by allowing APs to &#34;proxy&#34; common broadcast frames as unicast. Defaults to `false`.
+     * 
+     */
+    @Export(name="proxyArp", refs={Boolean.class}, tree="[0]")
+    private Output</* @Nullable */ Boolean> proxyArp;
+
+    /**
+     * @return Reduces airtime usage by allowing APs to &#34;proxy&#34; common broadcast frames as unicast. Defaults to `false`.
+     * 
+     */
+    public Output<Optional<Boolean>> proxyArp() {
+        return Codegen.optional(this.proxyArp);
     }
     /**
      * ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
@@ -363,14 +405,14 @@ public class Wlan extends com.pulumi.resources.CustomResource {
         return this.site;
     }
     /**
-     * Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+     * Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
      * 
      */
     @Export(name="uapsd", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> uapsd;
 
     /**
-     * @return Enable Unscheduled Automatic Power Save Delivery Defaults to `false`.
+     * @return Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
      * 
      */
     public Output<Optional<Boolean>> uapsd() {

@@ -17,6 +17,21 @@ public final class DevicePortOverrideArgs extends com.pulumi.resources.ResourceA
     public static final DevicePortOverrideArgs Empty = new DevicePortOverrideArgs();
 
     /**
+     * Number of ports in the aggregate.
+     * 
+     */
+    @Import(name="aggregateNumPorts")
+    private @Nullable Output<Integer> aggregateNumPorts;
+
+    /**
+     * @return Number of ports in the aggregate.
+     * 
+     */
+    public Optional<Output<Integer>> aggregateNumPorts() {
+        return Optional.ofNullable(this.aggregateNumPorts);
+    }
+
+    /**
      * Human-readable name of the port.
      * 
      */
@@ -47,6 +62,21 @@ public final class DevicePortOverrideArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
+     * Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+     * 
+     */
+    @Import(name="opMode")
+    private @Nullable Output<String> opMode;
+
+    /**
+     * @return Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+     * 
+     */
+    public Optional<Output<String>> opMode() {
+        return Optional.ofNullable(this.opMode);
+    }
+
+    /**
      * ID of the Port Profile used on this port.
      * 
      */
@@ -64,8 +94,10 @@ public final class DevicePortOverrideArgs extends com.pulumi.resources.ResourceA
     private DevicePortOverrideArgs() {}
 
     private DevicePortOverrideArgs(DevicePortOverrideArgs $) {
+        this.aggregateNumPorts = $.aggregateNumPorts;
         this.name = $.name;
         this.number = $.number;
+        this.opMode = $.opMode;
         this.portProfileId = $.portProfileId;
     }
 
@@ -85,6 +117,27 @@ public final class DevicePortOverrideArgs extends com.pulumi.resources.ResourceA
 
         public Builder(DevicePortOverrideArgs defaults) {
             $ = new DevicePortOverrideArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param aggregateNumPorts Number of ports in the aggregate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder aggregateNumPorts(@Nullable Output<Integer> aggregateNumPorts) {
+            $.aggregateNumPorts = aggregateNumPorts;
+            return this;
+        }
+
+        /**
+         * @param aggregateNumPorts Number of ports in the aggregate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder aggregateNumPorts(Integer aggregateNumPorts) {
+            return aggregateNumPorts(Output.of(aggregateNumPorts));
         }
 
         /**
@@ -127,6 +180,27 @@ public final class DevicePortOverrideArgs extends com.pulumi.resources.ResourceA
          */
         public Builder number(Integer number) {
             return number(Output.of(number));
+        }
+
+        /**
+         * @param opMode Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder opMode(@Nullable Output<String> opMode) {
+            $.opMode = opMode;
+            return this;
+        }
+
+        /**
+         * @param opMode Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder opMode(String opMode) {
+            return opMode(Output.of(opMode));
         }
 
         /**
