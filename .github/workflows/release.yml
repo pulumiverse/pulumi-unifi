@@ -28,11 +28,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: ci-scripts
         repository: pulumi/scripts
@@ -73,11 +73,11 @@ jobs:
         - go
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: ci-scripts
         repository: pulumi/scripts
@@ -140,7 +140,7 @@ jobs:
     name: publish
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Install Go
@@ -175,11 +175,11 @@ jobs:
     needs: publish
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: ci-scripts
         repository: pulumi/scripts
