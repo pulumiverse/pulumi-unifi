@@ -8,11 +8,13 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
 // `iam.Group` data source can be used to retrieve the ID for a user group by name.
 func LookupGroup(ctx *pulumi.Context, args *LookupGroupArgs, opts ...pulumi.InvokeOption) (*LookupGroupResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupGroupResult
 	err := ctx.Invoke("unifi:iam/getGroup:getGroup", args, &rv, opts...)
 	if err != nil {
@@ -79,6 +81,12 @@ func (o LookupGroupResultOutput) ToLookupGroupResultOutput() LookupGroupResultOu
 
 func (o LookupGroupResultOutput) ToLookupGroupResultOutputWithContext(ctx context.Context) LookupGroupResultOutput {
 	return o
+}
+
+func (o LookupGroupResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupGroupResult] {
+	return pulumix.Output[LookupGroupResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The ID of this AP group.

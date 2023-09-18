@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['AccountArgs', 'Account']
@@ -29,17 +29,36 @@ class AccountArgs:
         :param pulumi.Input[int] tunnel_medium_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
         :param pulumi.Input[int] tunnel_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
         """
-        pulumi.set(__self__, "password", password)
+        AccountArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            password=password,
+            name=name,
+            network_id=network_id,
+            site=site,
+            tunnel_medium_type=tunnel_medium_type,
+            tunnel_type=tunnel_type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             password: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
+             network_id: Optional[pulumi.Input[str]] = None,
+             site: Optional[pulumi.Input[str]] = None,
+             tunnel_medium_type: Optional[pulumi.Input[int]] = None,
+             tunnel_type: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("password", password)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if network_id is not None:
-            pulumi.set(__self__, "network_id", network_id)
+            _setter("network_id", network_id)
         if site is not None:
-            pulumi.set(__self__, "site", site)
+            _setter("site", site)
         if tunnel_medium_type is not None:
-            pulumi.set(__self__, "tunnel_medium_type", tunnel_medium_type)
+            _setter("tunnel_medium_type", tunnel_medium_type)
         if tunnel_type is not None:
-            pulumi.set(__self__, "tunnel_type", tunnel_type)
+            _setter("tunnel_type", tunnel_type)
 
     @property
     @pulumi.getter
@@ -132,18 +151,37 @@ class _AccountState:
         :param pulumi.Input[int] tunnel_medium_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
         :param pulumi.Input[int] tunnel_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
         """
+        _AccountState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            network_id=network_id,
+            password=password,
+            site=site,
+            tunnel_medium_type=tunnel_medium_type,
+            tunnel_type=tunnel_type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[pulumi.Input[str]] = None,
+             network_id: Optional[pulumi.Input[str]] = None,
+             password: Optional[pulumi.Input[str]] = None,
+             site: Optional[pulumi.Input[str]] = None,
+             tunnel_medium_type: Optional[pulumi.Input[int]] = None,
+             tunnel_type: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if network_id is not None:
-            pulumi.set(__self__, "network_id", network_id)
+            _setter("network_id", network_id)
         if password is not None:
-            pulumi.set(__self__, "password", password)
+            _setter("password", password)
         if site is not None:
-            pulumi.set(__self__, "site", site)
+            _setter("site", site)
         if tunnel_medium_type is not None:
-            pulumi.set(__self__, "tunnel_medium_type", tunnel_medium_type)
+            _setter("tunnel_medium_type", tunnel_medium_type)
         if tunnel_type is not None:
-            pulumi.set(__self__, "tunnel_type", tunnel_type)
+            _setter("tunnel_type", tunnel_type)
 
     @property
     @pulumi.getter
@@ -275,6 +313,10 @@ class Account(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            AccountArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

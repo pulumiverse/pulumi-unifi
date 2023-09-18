@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
 // `port.Forward` manages a port forwarding rule on the gateway.
@@ -45,7 +47,7 @@ func NewForward(ctx *pulumi.Context,
 		args = &ForwardArgs{}
 	}
 
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Forward
 	err := ctx.RegisterResource("unifi:port/forward:Forward", name, args, &resource, opts...)
 	if err != nil {
@@ -195,6 +197,12 @@ func (i *Forward) ToForwardOutputWithContext(ctx context.Context) ForwardOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(ForwardOutput)
 }
 
+func (i *Forward) ToOutput(ctx context.Context) pulumix.Output[*Forward] {
+	return pulumix.Output[*Forward]{
+		OutputState: i.ToForwardOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ForwardArrayInput is an input type that accepts ForwardArray and ForwardArrayOutput values.
 // You can construct a concrete instance of `ForwardArrayInput` via:
 //
@@ -218,6 +226,12 @@ func (i ForwardArray) ToForwardArrayOutput() ForwardArrayOutput {
 
 func (i ForwardArray) ToForwardArrayOutputWithContext(ctx context.Context) ForwardArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ForwardArrayOutput)
+}
+
+func (i ForwardArray) ToOutput(ctx context.Context) pulumix.Output[[]*Forward] {
+	return pulumix.Output[[]*Forward]{
+		OutputState: i.ToForwardArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ForwardMapInput is an input type that accepts ForwardMap and ForwardMapOutput values.
@@ -245,6 +259,12 @@ func (i ForwardMap) ToForwardMapOutputWithContext(ctx context.Context) ForwardMa
 	return pulumi.ToOutputWithContext(ctx, i).(ForwardMapOutput)
 }
 
+func (i ForwardMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Forward] {
+	return pulumix.Output[map[string]*Forward]{
+		OutputState: i.ToForwardMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ForwardOutput struct{ *pulumi.OutputState }
 
 func (ForwardOutput) ElementType() reflect.Type {
@@ -257,6 +277,12 @@ func (o ForwardOutput) ToForwardOutput() ForwardOutput {
 
 func (o ForwardOutput) ToForwardOutputWithContext(ctx context.Context) ForwardOutput {
 	return o
+}
+
+func (o ForwardOutput) ToOutput(ctx context.Context) pulumix.Output[*Forward] {
+	return pulumix.Output[*Forward]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The destination port for the forwarding.
@@ -325,6 +351,12 @@ func (o ForwardArrayOutput) ToForwardArrayOutputWithContext(ctx context.Context)
 	return o
 }
 
+func (o ForwardArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Forward] {
+	return pulumix.Output[[]*Forward]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ForwardArrayOutput) Index(i pulumi.IntInput) ForwardOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Forward {
 		return vs[0].([]*Forward)[vs[1].(int)]
@@ -343,6 +375,12 @@ func (o ForwardMapOutput) ToForwardMapOutput() ForwardMapOutput {
 
 func (o ForwardMapOutput) ToForwardMapOutputWithContext(ctx context.Context) ForwardMapOutput {
 	return o
+}
+
+func (o ForwardMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Forward] {
+	return pulumix.Output[map[string]*Forward]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ForwardMapOutput) MapIndex(k pulumi.StringInput) ForwardOutput {

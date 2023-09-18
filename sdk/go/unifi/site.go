@@ -9,6 +9,8 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
 // `Site` manages Unifi sites
@@ -75,7 +77,7 @@ func NewSite(ctx *pulumi.Context,
 	if args.Description == nil {
 		return nil, errors.New("invalid value for required argument 'Description'")
 	}
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Site
 	err := ctx.RegisterResource("unifi:index/site:Site", name, args, &resource, opts...)
 	if err != nil {
@@ -149,6 +151,12 @@ func (i *Site) ToSiteOutputWithContext(ctx context.Context) SiteOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SiteOutput)
 }
 
+func (i *Site) ToOutput(ctx context.Context) pulumix.Output[*Site] {
+	return pulumix.Output[*Site]{
+		OutputState: i.ToSiteOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SiteArrayInput is an input type that accepts SiteArray and SiteArrayOutput values.
 // You can construct a concrete instance of `SiteArrayInput` via:
 //
@@ -172,6 +180,12 @@ func (i SiteArray) ToSiteArrayOutput() SiteArrayOutput {
 
 func (i SiteArray) ToSiteArrayOutputWithContext(ctx context.Context) SiteArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SiteArrayOutput)
+}
+
+func (i SiteArray) ToOutput(ctx context.Context) pulumix.Output[[]*Site] {
+	return pulumix.Output[[]*Site]{
+		OutputState: i.ToSiteArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // SiteMapInput is an input type that accepts SiteMap and SiteMapOutput values.
@@ -199,6 +213,12 @@ func (i SiteMap) ToSiteMapOutputWithContext(ctx context.Context) SiteMapOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SiteMapOutput)
 }
 
+func (i SiteMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Site] {
+	return pulumix.Output[map[string]*Site]{
+		OutputState: i.ToSiteMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type SiteOutput struct{ *pulumi.OutputState }
 
 func (SiteOutput) ElementType() reflect.Type {
@@ -211,6 +231,12 @@ func (o SiteOutput) ToSiteOutput() SiteOutput {
 
 func (o SiteOutput) ToSiteOutputWithContext(ctx context.Context) SiteOutput {
 	return o
+}
+
+func (o SiteOutput) ToOutput(ctx context.Context) pulumix.Output[*Site] {
+	return pulumix.Output[*Site]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The description of the site.
@@ -237,6 +263,12 @@ func (o SiteArrayOutput) ToSiteArrayOutputWithContext(ctx context.Context) SiteA
 	return o
 }
 
+func (o SiteArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Site] {
+	return pulumix.Output[[]*Site]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o SiteArrayOutput) Index(i pulumi.IntInput) SiteOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Site {
 		return vs[0].([]*Site)[vs[1].(int)]
@@ -255,6 +287,12 @@ func (o SiteMapOutput) ToSiteMapOutput() SiteMapOutput {
 
 func (o SiteMapOutput) ToSiteMapOutputWithContext(ctx context.Context) SiteMapOutput {
 	return o
+}
+
+func (o SiteMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Site] {
+	return pulumix.Output[map[string]*Site]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SiteMapOutput) MapIndex(k pulumi.StringInput) SiteOutput {

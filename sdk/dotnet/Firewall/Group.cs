@@ -24,7 +24,7 @@ namespace Pulumiverse.Unifi.Firewall
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
     ///     var config = new Config();
-    ///     var laptopIps = config.RequireObject&lt;dynamic&gt;("laptopIps");
+    ///     var laptopIps = config.RequireObject&lt;string[]&gt;("laptopIps");
     ///     var canPrint = new Unifi.Firewall.Group("canPrint", new()
     ///     {
     ///         Type = "address-group",

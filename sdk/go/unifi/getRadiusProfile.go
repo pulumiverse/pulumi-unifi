@@ -8,11 +8,13 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
 // `RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
 func LookupRadiusProfile(ctx *pulumi.Context, args *LookupRadiusProfileArgs, opts ...pulumi.InvokeOption) (*LookupRadiusProfileResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupRadiusProfileResult
 	err := ctx.Invoke("unifi:index/getRadiusProfile:getRadiusProfile", args, &rv, opts...)
 	if err != nil {
@@ -77,6 +79,12 @@ func (o LookupRadiusProfileResultOutput) ToLookupRadiusProfileResultOutput() Loo
 
 func (o LookupRadiusProfileResultOutput) ToLookupRadiusProfileResultOutputWithContext(ctx context.Context) LookupRadiusProfileResultOutput {
 	return o
+}
+
+func (o LookupRadiusProfileResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupRadiusProfileResult] {
+	return pulumix.Output[LookupRadiusProfileResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The ID of this AP group.

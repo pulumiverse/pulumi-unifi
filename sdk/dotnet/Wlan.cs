@@ -25,7 +25,7 @@ namespace Pulumiverse.Unifi
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
     ///     var config = new Config();
-    ///     var vlanId = config.GetNumber("vlanId") ?? 10;
+    ///     var vlanId = config.GetDouble("vlanId") ?? 10;
     ///     var defaultApGroup = Unifi.GetApGroup.Invoke();
     /// 
     ///     var defaultGroup = Unifi.IAM.GetGroup.Invoke();

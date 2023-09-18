@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
 // `setting.Radius` manages settings for the built-in RADIUS server.
@@ -46,7 +48,7 @@ func NewRadius(ctx *pulumi.Context,
 		"secret",
 	})
 	opts = append(opts, secrets)
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Radius
 	err := ctx.RegisterResource("unifi:setting/radius:Radius", name, args, &resource, opts...)
 	if err != nil {
@@ -172,6 +174,12 @@ func (i *Radius) ToRadiusOutputWithContext(ctx context.Context) RadiusOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusOutput)
 }
 
+func (i *Radius) ToOutput(ctx context.Context) pulumix.Output[*Radius] {
+	return pulumix.Output[*Radius]{
+		OutputState: i.ToRadiusOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RadiusArrayInput is an input type that accepts RadiusArray and RadiusArrayOutput values.
 // You can construct a concrete instance of `RadiusArrayInput` via:
 //
@@ -195,6 +203,12 @@ func (i RadiusArray) ToRadiusArrayOutput() RadiusArrayOutput {
 
 func (i RadiusArray) ToRadiusArrayOutputWithContext(ctx context.Context) RadiusArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusArrayOutput)
+}
+
+func (i RadiusArray) ToOutput(ctx context.Context) pulumix.Output[[]*Radius] {
+	return pulumix.Output[[]*Radius]{
+		OutputState: i.ToRadiusArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // RadiusMapInput is an input type that accepts RadiusMap and RadiusMapOutput values.
@@ -222,6 +236,12 @@ func (i RadiusMap) ToRadiusMapOutputWithContext(ctx context.Context) RadiusMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusMapOutput)
 }
 
+func (i RadiusMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Radius] {
+	return pulumix.Output[map[string]*Radius]{
+		OutputState: i.ToRadiusMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type RadiusOutput struct{ *pulumi.OutputState }
 
 func (RadiusOutput) ElementType() reflect.Type {
@@ -234,6 +254,12 @@ func (o RadiusOutput) ToRadiusOutput() RadiusOutput {
 
 func (o RadiusOutput) ToRadiusOutputWithContext(ctx context.Context) RadiusOutput {
 	return o
+}
+
+func (o RadiusOutput) ToOutput(ctx context.Context) pulumix.Output[*Radius] {
+	return pulumix.Output[*Radius]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Enable RADIUS accounting Defaults to `false`.
@@ -290,6 +316,12 @@ func (o RadiusArrayOutput) ToRadiusArrayOutputWithContext(ctx context.Context) R
 	return o
 }
 
+func (o RadiusArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Radius] {
+	return pulumix.Output[[]*Radius]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o RadiusArrayOutput) Index(i pulumi.IntInput) RadiusOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Radius {
 		return vs[0].([]*Radius)[vs[1].(int)]
@@ -308,6 +340,12 @@ func (o RadiusMapOutput) ToRadiusMapOutput() RadiusMapOutput {
 
 func (o RadiusMapOutput) ToRadiusMapOutputWithContext(ctx context.Context) RadiusMapOutput {
 	return o
+}
+
+func (o RadiusMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Radius] {
+	return pulumix.Output[map[string]*Radius]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RadiusMapOutput) MapIndex(k pulumi.StringInput) RadiusOutput {

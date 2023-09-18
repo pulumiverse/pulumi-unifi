@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = [
@@ -52,15 +52,32 @@ class DevicePortOverride(dict):
         :param str op_mode: Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
         :param str port_profile_id: ID of the Port Profile used on this port.
         """
-        pulumi.set(__self__, "number", number)
+        DevicePortOverride._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            number=number,
+            aggregate_num_ports=aggregate_num_ports,
+            name=name,
+            op_mode=op_mode,
+            port_profile_id=port_profile_id,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             number: int,
+             aggregate_num_ports: Optional[int] = None,
+             name: Optional[str] = None,
+             op_mode: Optional[str] = None,
+             port_profile_id: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("number", number)
         if aggregate_num_ports is not None:
-            pulumi.set(__self__, "aggregate_num_ports", aggregate_num_ports)
+            _setter("aggregate_num_ports", aggregate_num_ports)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if op_mode is not None:
-            pulumi.set(__self__, "op_mode", op_mode)
+            _setter("op_mode", op_mode)
         if port_profile_id is not None:
-            pulumi.set(__self__, "port_profile_id", port_profile_id)
+            _setter("port_profile_id", port_profile_id)
 
     @property
     @pulumi.getter
@@ -114,10 +131,23 @@ class RadiusProfileAcctServer(dict):
         :param str xsecret: RADIUS secret.
         :param int port: Port of accounting service. Defaults to `1813`.
         """
-        pulumi.set(__self__, "ip", ip)
-        pulumi.set(__self__, "xsecret", xsecret)
+        RadiusProfileAcctServer._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ip=ip,
+            xsecret=xsecret,
+            port=port,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ip: str,
+             xsecret: str,
+             port: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("ip", ip)
+        _setter("xsecret", xsecret)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
 
     @property
     @pulumi.getter
@@ -155,10 +185,23 @@ class RadiusProfileAuthServer(dict):
         :param str xsecret: RADIUS secret.
         :param int port: Port of authentication service. Defaults to `1812`.
         """
-        pulumi.set(__self__, "ip", ip)
-        pulumi.set(__self__, "xsecret", xsecret)
+        RadiusProfileAuthServer._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ip=ip,
+            xsecret=xsecret,
+            port=port,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ip: str,
+             xsecret: str,
+             port: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("ip", ip)
+        _setter("xsecret", xsecret)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
 
     @property
     @pulumi.getter
@@ -221,13 +264,30 @@ class WlanSchedule(dict):
         :param str name: Name of the block.
         :param int start_minute: Start minute for the block (0-59). Defaults to `0`.
         """
-        pulumi.set(__self__, "day_of_week", day_of_week)
-        pulumi.set(__self__, "duration", duration)
-        pulumi.set(__self__, "start_hour", start_hour)
+        WlanSchedule._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            day_of_week=day_of_week,
+            duration=duration,
+            start_hour=start_hour,
+            name=name,
+            start_minute=start_minute,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             day_of_week: str,
+             duration: int,
+             start_hour: int,
+             name: Optional[str] = None,
+             start_minute: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("day_of_week", day_of_week)
+        _setter("duration", duration)
+        _setter("start_hour", start_hour)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if start_minute is not None:
-            pulumi.set(__self__, "start_minute", start_minute)
+            _setter("start_minute", start_minute)
 
     @property
     @pulumi.getter(name="dayOfWeek")
