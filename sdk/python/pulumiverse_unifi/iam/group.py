@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = ['GroupArgs', 'Group']
@@ -25,14 +25,29 @@ class GroupArgs:
         :param pulumi.Input[int] qos_rate_max_up: The QOS maximum upload rate. Defaults to `-1`.
         :param pulumi.Input[str] site: The name of the site to associate the user group with.
         """
+        GroupArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            qos_rate_max_down=qos_rate_max_down,
+            qos_rate_max_up=qos_rate_max_up,
+            site=site,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[pulumi.Input[str]] = None,
+             qos_rate_max_down: Optional[pulumi.Input[int]] = None,
+             qos_rate_max_up: Optional[pulumi.Input[int]] = None,
+             site: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if qos_rate_max_down is not None:
-            pulumi.set(__self__, "qos_rate_max_down", qos_rate_max_down)
+            _setter("qos_rate_max_down", qos_rate_max_down)
         if qos_rate_max_up is not None:
-            pulumi.set(__self__, "qos_rate_max_up", qos_rate_max_up)
+            _setter("qos_rate_max_up", qos_rate_max_up)
         if site is not None:
-            pulumi.set(__self__, "site", site)
+            _setter("site", site)
 
     @property
     @pulumi.getter
@@ -97,14 +112,29 @@ class _GroupState:
         :param pulumi.Input[int] qos_rate_max_up: The QOS maximum upload rate. Defaults to `-1`.
         :param pulumi.Input[str] site: The name of the site to associate the user group with.
         """
+        _GroupState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            qos_rate_max_down=qos_rate_max_down,
+            qos_rate_max_up=qos_rate_max_up,
+            site=site,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[pulumi.Input[str]] = None,
+             qos_rate_max_down: Optional[pulumi.Input[int]] = None,
+             qos_rate_max_up: Optional[pulumi.Input[int]] = None,
+             site: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if qos_rate_max_down is not None:
-            pulumi.set(__self__, "qos_rate_max_down", qos_rate_max_down)
+            _setter("qos_rate_max_down", qos_rate_max_down)
         if qos_rate_max_up is not None:
-            pulumi.set(__self__, "qos_rate_max_up", qos_rate_max_up)
+            _setter("qos_rate_max_up", qos_rate_max_up)
         if site is not None:
-            pulumi.set(__self__, "site", site)
+            _setter("site", site)
 
     @property
     @pulumi.getter
@@ -234,6 +264,10 @@ class Group(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            GroupArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

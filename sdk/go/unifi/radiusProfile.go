@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
 // `RadiusProfile` manages RADIUS profiles.
@@ -45,7 +47,7 @@ func NewRadiusProfile(ctx *pulumi.Context,
 		args = &RadiusProfileArgs{}
 	}
 
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource RadiusProfile
 	err := ctx.RegisterResource("unifi:index/radiusProfile:RadiusProfile", name, args, &resource, opts...)
 	if err != nil {
@@ -195,6 +197,12 @@ func (i *RadiusProfile) ToRadiusProfileOutputWithContext(ctx context.Context) Ra
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileOutput)
 }
 
+func (i *RadiusProfile) ToOutput(ctx context.Context) pulumix.Output[*RadiusProfile] {
+	return pulumix.Output[*RadiusProfile]{
+		OutputState: i.ToRadiusProfileOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RadiusProfileArrayInput is an input type that accepts RadiusProfileArray and RadiusProfileArrayOutput values.
 // You can construct a concrete instance of `RadiusProfileArrayInput` via:
 //
@@ -218,6 +226,12 @@ func (i RadiusProfileArray) ToRadiusProfileArrayOutput() RadiusProfileArrayOutpu
 
 func (i RadiusProfileArray) ToRadiusProfileArrayOutputWithContext(ctx context.Context) RadiusProfileArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileArrayOutput)
+}
+
+func (i RadiusProfileArray) ToOutput(ctx context.Context) pulumix.Output[[]*RadiusProfile] {
+	return pulumix.Output[[]*RadiusProfile]{
+		OutputState: i.ToRadiusProfileArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // RadiusProfileMapInput is an input type that accepts RadiusProfileMap and RadiusProfileMapOutput values.
@@ -245,6 +259,12 @@ func (i RadiusProfileMap) ToRadiusProfileMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileMapOutput)
 }
 
+func (i RadiusProfileMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*RadiusProfile] {
+	return pulumix.Output[map[string]*RadiusProfile]{
+		OutputState: i.ToRadiusProfileMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type RadiusProfileOutput struct{ *pulumi.OutputState }
 
 func (RadiusProfileOutput) ElementType() reflect.Type {
@@ -257,6 +277,12 @@ func (o RadiusProfileOutput) ToRadiusProfileOutput() RadiusProfileOutput {
 
 func (o RadiusProfileOutput) ToRadiusProfileOutputWithContext(ctx context.Context) RadiusProfileOutput {
 	return o
+}
+
+func (o RadiusProfileOutput) ToOutput(ctx context.Context) pulumix.Output[*RadiusProfile] {
+	return pulumix.Output[*RadiusProfile]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Specifies whether to use RADIUS accounting. Defaults to `false`.
@@ -328,6 +354,12 @@ func (o RadiusProfileArrayOutput) ToRadiusProfileArrayOutputWithContext(ctx cont
 	return o
 }
 
+func (o RadiusProfileArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*RadiusProfile] {
+	return pulumix.Output[[]*RadiusProfile]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o RadiusProfileArrayOutput) Index(i pulumi.IntInput) RadiusProfileOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *RadiusProfile {
 		return vs[0].([]*RadiusProfile)[vs[1].(int)]
@@ -346,6 +378,12 @@ func (o RadiusProfileMapOutput) ToRadiusProfileMapOutput() RadiusProfileMapOutpu
 
 func (o RadiusProfileMapOutput) ToRadiusProfileMapOutputWithContext(ctx context.Context) RadiusProfileMapOutput {
 	return o
+}
+
+func (o RadiusProfileMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*RadiusProfile] {
+	return pulumix.Output[map[string]*RadiusProfile]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RadiusProfileMapOutput) MapIndex(k pulumi.StringInput) RadiusProfileOutput {

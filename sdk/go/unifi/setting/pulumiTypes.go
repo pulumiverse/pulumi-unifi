@@ -8,7 +8,11 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
+
+var _ = internal.GetEnvOrDefault
 
 type MgmtSshKey struct {
 	// Comment.
@@ -55,6 +59,12 @@ func (i MgmtSshKeyArgs) ToMgmtSshKeyOutputWithContext(ctx context.Context) MgmtS
 	return pulumi.ToOutputWithContext(ctx, i).(MgmtSshKeyOutput)
 }
 
+func (i MgmtSshKeyArgs) ToOutput(ctx context.Context) pulumix.Output[MgmtSshKey] {
+	return pulumix.Output[MgmtSshKey]{
+		OutputState: i.ToMgmtSshKeyOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MgmtSshKeyArrayInput is an input type that accepts MgmtSshKeyArray and MgmtSshKeyArrayOutput values.
 // You can construct a concrete instance of `MgmtSshKeyArrayInput` via:
 //
@@ -80,6 +90,12 @@ func (i MgmtSshKeyArray) ToMgmtSshKeyArrayOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(MgmtSshKeyArrayOutput)
 }
 
+func (i MgmtSshKeyArray) ToOutput(ctx context.Context) pulumix.Output[[]MgmtSshKey] {
+	return pulumix.Output[[]MgmtSshKey]{
+		OutputState: i.ToMgmtSshKeyArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type MgmtSshKeyOutput struct{ *pulumi.OutputState }
 
 func (MgmtSshKeyOutput) ElementType() reflect.Type {
@@ -92,6 +108,12 @@ func (o MgmtSshKeyOutput) ToMgmtSshKeyOutput() MgmtSshKeyOutput {
 
 func (o MgmtSshKeyOutput) ToMgmtSshKeyOutputWithContext(ctx context.Context) MgmtSshKeyOutput {
 	return o
+}
+
+func (o MgmtSshKeyOutput) ToOutput(ctx context.Context) pulumix.Output[MgmtSshKey] {
+	return pulumix.Output[MgmtSshKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Comment.
@@ -126,6 +148,12 @@ func (o MgmtSshKeyArrayOutput) ToMgmtSshKeyArrayOutput() MgmtSshKeyArrayOutput {
 
 func (o MgmtSshKeyArrayOutput) ToMgmtSshKeyArrayOutputWithContext(ctx context.Context) MgmtSshKeyArrayOutput {
 	return o
+}
+
+func (o MgmtSshKeyArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MgmtSshKey] {
+	return pulumix.Output[[]MgmtSshKey]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o MgmtSshKeyArrayOutput) Index(i pulumi.IntInput) MgmtSshKeyOutput {

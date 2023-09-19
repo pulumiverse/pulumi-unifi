@@ -14,7 +14,7 @@ import * as utilities from "../utilities";
  * import * as unifi from "@pulumiverse/unifi";
  *
  * const config = new pulumi.Config();
- * const laptopIps = config.requireObject("laptopIps");
+ * const laptopIps = config.requireObject<Array<string>>("laptopIps");
  * const canPrint = new unifi.firewall.Group("canPrint", {
  *     type: "address-group",
  *     members: laptopIps,

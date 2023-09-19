@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['NetworkArgs', 'Network']
@@ -117,105 +117,212 @@ class NetworkArgs:
         :param pulumi.Input[str] wan_username: Specifies the IPV4 WAN username.
         :param pulumi.Input[str] x_wan_password: Specifies the IPV4 WAN password.
         """
-        pulumi.set(__self__, "purpose", purpose)
+        NetworkArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            purpose=purpose,
+            dhcp_dns=dhcp_dns,
+            dhcp_enabled=dhcp_enabled,
+            dhcp_lease=dhcp_lease,
+            dhcp_relay_enabled=dhcp_relay_enabled,
+            dhcp_start=dhcp_start,
+            dhcp_stop=dhcp_stop,
+            dhcp_v6_dns=dhcp_v6_dns,
+            dhcp_v6_dns_auto=dhcp_v6_dns_auto,
+            dhcp_v6_enabled=dhcp_v6_enabled,
+            dhcp_v6_lease=dhcp_v6_lease,
+            dhcp_v6_start=dhcp_v6_start,
+            dhcp_v6_stop=dhcp_v6_stop,
+            dhcpd_boot_enabled=dhcpd_boot_enabled,
+            dhcpd_boot_filename=dhcpd_boot_filename,
+            dhcpd_boot_server=dhcpd_boot_server,
+            domain_name=domain_name,
+            igmp_snooping=igmp_snooping,
+            internet_access_enabled=internet_access_enabled,
+            intra_network_access_enabled=intra_network_access_enabled,
+            ipv6_interface_type=ipv6_interface_type,
+            ipv6_pd_interface=ipv6_pd_interface,
+            ipv6_pd_prefixid=ipv6_pd_prefixid,
+            ipv6_pd_start=ipv6_pd_start,
+            ipv6_pd_stop=ipv6_pd_stop,
+            ipv6_ra_enable=ipv6_ra_enable,
+            ipv6_ra_preferred_lifetime=ipv6_ra_preferred_lifetime,
+            ipv6_ra_priority=ipv6_ra_priority,
+            ipv6_ra_valid_lifetime=ipv6_ra_valid_lifetime,
+            ipv6_static_subnet=ipv6_static_subnet,
+            multicast_dns=multicast_dns,
+            name=name,
+            network_group=network_group,
+            site=site,
+            subnet=subnet,
+            vlan_id=vlan_id,
+            wan_dhcp_v6_pd_size=wan_dhcp_v6_pd_size,
+            wan_dns=wan_dns,
+            wan_egress_qos=wan_egress_qos,
+            wan_gateway=wan_gateway,
+            wan_gateway_v6=wan_gateway_v6,
+            wan_ip=wan_ip,
+            wan_ipv6=wan_ipv6,
+            wan_netmask=wan_netmask,
+            wan_networkgroup=wan_networkgroup,
+            wan_prefixlen=wan_prefixlen,
+            wan_type=wan_type,
+            wan_type_v6=wan_type_v6,
+            wan_username=wan_username,
+            x_wan_password=x_wan_password,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             purpose: pulumi.Input[str],
+             dhcp_dns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             dhcp_enabled: Optional[pulumi.Input[bool]] = None,
+             dhcp_lease: Optional[pulumi.Input[int]] = None,
+             dhcp_relay_enabled: Optional[pulumi.Input[bool]] = None,
+             dhcp_start: Optional[pulumi.Input[str]] = None,
+             dhcp_stop: Optional[pulumi.Input[str]] = None,
+             dhcp_v6_dns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             dhcp_v6_dns_auto: Optional[pulumi.Input[bool]] = None,
+             dhcp_v6_enabled: Optional[pulumi.Input[bool]] = None,
+             dhcp_v6_lease: Optional[pulumi.Input[int]] = None,
+             dhcp_v6_start: Optional[pulumi.Input[str]] = None,
+             dhcp_v6_stop: Optional[pulumi.Input[str]] = None,
+             dhcpd_boot_enabled: Optional[pulumi.Input[bool]] = None,
+             dhcpd_boot_filename: Optional[pulumi.Input[str]] = None,
+             dhcpd_boot_server: Optional[pulumi.Input[str]] = None,
+             domain_name: Optional[pulumi.Input[str]] = None,
+             igmp_snooping: Optional[pulumi.Input[bool]] = None,
+             internet_access_enabled: Optional[pulumi.Input[bool]] = None,
+             intra_network_access_enabled: Optional[pulumi.Input[bool]] = None,
+             ipv6_interface_type: Optional[pulumi.Input[str]] = None,
+             ipv6_pd_interface: Optional[pulumi.Input[str]] = None,
+             ipv6_pd_prefixid: Optional[pulumi.Input[str]] = None,
+             ipv6_pd_start: Optional[pulumi.Input[str]] = None,
+             ipv6_pd_stop: Optional[pulumi.Input[str]] = None,
+             ipv6_ra_enable: Optional[pulumi.Input[bool]] = None,
+             ipv6_ra_preferred_lifetime: Optional[pulumi.Input[int]] = None,
+             ipv6_ra_priority: Optional[pulumi.Input[str]] = None,
+             ipv6_ra_valid_lifetime: Optional[pulumi.Input[int]] = None,
+             ipv6_static_subnet: Optional[pulumi.Input[str]] = None,
+             multicast_dns: Optional[pulumi.Input[bool]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             network_group: Optional[pulumi.Input[str]] = None,
+             site: Optional[pulumi.Input[str]] = None,
+             subnet: Optional[pulumi.Input[str]] = None,
+             vlan_id: Optional[pulumi.Input[int]] = None,
+             wan_dhcp_v6_pd_size: Optional[pulumi.Input[int]] = None,
+             wan_dns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             wan_egress_qos: Optional[pulumi.Input[int]] = None,
+             wan_gateway: Optional[pulumi.Input[str]] = None,
+             wan_gateway_v6: Optional[pulumi.Input[str]] = None,
+             wan_ip: Optional[pulumi.Input[str]] = None,
+             wan_ipv6: Optional[pulumi.Input[str]] = None,
+             wan_netmask: Optional[pulumi.Input[str]] = None,
+             wan_networkgroup: Optional[pulumi.Input[str]] = None,
+             wan_prefixlen: Optional[pulumi.Input[int]] = None,
+             wan_type: Optional[pulumi.Input[str]] = None,
+             wan_type_v6: Optional[pulumi.Input[str]] = None,
+             wan_username: Optional[pulumi.Input[str]] = None,
+             x_wan_password: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("purpose", purpose)
         if dhcp_dns is not None:
-            pulumi.set(__self__, "dhcp_dns", dhcp_dns)
+            _setter("dhcp_dns", dhcp_dns)
         if dhcp_enabled is not None:
-            pulumi.set(__self__, "dhcp_enabled", dhcp_enabled)
+            _setter("dhcp_enabled", dhcp_enabled)
         if dhcp_lease is not None:
-            pulumi.set(__self__, "dhcp_lease", dhcp_lease)
+            _setter("dhcp_lease", dhcp_lease)
         if dhcp_relay_enabled is not None:
-            pulumi.set(__self__, "dhcp_relay_enabled", dhcp_relay_enabled)
+            _setter("dhcp_relay_enabled", dhcp_relay_enabled)
         if dhcp_start is not None:
-            pulumi.set(__self__, "dhcp_start", dhcp_start)
+            _setter("dhcp_start", dhcp_start)
         if dhcp_stop is not None:
-            pulumi.set(__self__, "dhcp_stop", dhcp_stop)
+            _setter("dhcp_stop", dhcp_stop)
         if dhcp_v6_dns is not None:
-            pulumi.set(__self__, "dhcp_v6_dns", dhcp_v6_dns)
+            _setter("dhcp_v6_dns", dhcp_v6_dns)
         if dhcp_v6_dns_auto is not None:
-            pulumi.set(__self__, "dhcp_v6_dns_auto", dhcp_v6_dns_auto)
+            _setter("dhcp_v6_dns_auto", dhcp_v6_dns_auto)
         if dhcp_v6_enabled is not None:
-            pulumi.set(__self__, "dhcp_v6_enabled", dhcp_v6_enabled)
+            _setter("dhcp_v6_enabled", dhcp_v6_enabled)
         if dhcp_v6_lease is not None:
-            pulumi.set(__self__, "dhcp_v6_lease", dhcp_v6_lease)
+            _setter("dhcp_v6_lease", dhcp_v6_lease)
         if dhcp_v6_start is not None:
-            pulumi.set(__self__, "dhcp_v6_start", dhcp_v6_start)
+            _setter("dhcp_v6_start", dhcp_v6_start)
         if dhcp_v6_stop is not None:
-            pulumi.set(__self__, "dhcp_v6_stop", dhcp_v6_stop)
+            _setter("dhcp_v6_stop", dhcp_v6_stop)
         if dhcpd_boot_enabled is not None:
-            pulumi.set(__self__, "dhcpd_boot_enabled", dhcpd_boot_enabled)
+            _setter("dhcpd_boot_enabled", dhcpd_boot_enabled)
         if dhcpd_boot_filename is not None:
-            pulumi.set(__self__, "dhcpd_boot_filename", dhcpd_boot_filename)
+            _setter("dhcpd_boot_filename", dhcpd_boot_filename)
         if dhcpd_boot_server is not None:
-            pulumi.set(__self__, "dhcpd_boot_server", dhcpd_boot_server)
+            _setter("dhcpd_boot_server", dhcpd_boot_server)
         if domain_name is not None:
-            pulumi.set(__self__, "domain_name", domain_name)
+            _setter("domain_name", domain_name)
         if igmp_snooping is not None:
-            pulumi.set(__self__, "igmp_snooping", igmp_snooping)
+            _setter("igmp_snooping", igmp_snooping)
         if internet_access_enabled is not None:
-            pulumi.set(__self__, "internet_access_enabled", internet_access_enabled)
+            _setter("internet_access_enabled", internet_access_enabled)
         if intra_network_access_enabled is not None:
-            pulumi.set(__self__, "intra_network_access_enabled", intra_network_access_enabled)
+            _setter("intra_network_access_enabled", intra_network_access_enabled)
         if ipv6_interface_type is not None:
-            pulumi.set(__self__, "ipv6_interface_type", ipv6_interface_type)
+            _setter("ipv6_interface_type", ipv6_interface_type)
         if ipv6_pd_interface is not None:
-            pulumi.set(__self__, "ipv6_pd_interface", ipv6_pd_interface)
+            _setter("ipv6_pd_interface", ipv6_pd_interface)
         if ipv6_pd_prefixid is not None:
-            pulumi.set(__self__, "ipv6_pd_prefixid", ipv6_pd_prefixid)
+            _setter("ipv6_pd_prefixid", ipv6_pd_prefixid)
         if ipv6_pd_start is not None:
-            pulumi.set(__self__, "ipv6_pd_start", ipv6_pd_start)
+            _setter("ipv6_pd_start", ipv6_pd_start)
         if ipv6_pd_stop is not None:
-            pulumi.set(__self__, "ipv6_pd_stop", ipv6_pd_stop)
+            _setter("ipv6_pd_stop", ipv6_pd_stop)
         if ipv6_ra_enable is not None:
-            pulumi.set(__self__, "ipv6_ra_enable", ipv6_ra_enable)
+            _setter("ipv6_ra_enable", ipv6_ra_enable)
         if ipv6_ra_preferred_lifetime is not None:
-            pulumi.set(__self__, "ipv6_ra_preferred_lifetime", ipv6_ra_preferred_lifetime)
+            _setter("ipv6_ra_preferred_lifetime", ipv6_ra_preferred_lifetime)
         if ipv6_ra_priority is not None:
-            pulumi.set(__self__, "ipv6_ra_priority", ipv6_ra_priority)
+            _setter("ipv6_ra_priority", ipv6_ra_priority)
         if ipv6_ra_valid_lifetime is not None:
-            pulumi.set(__self__, "ipv6_ra_valid_lifetime", ipv6_ra_valid_lifetime)
+            _setter("ipv6_ra_valid_lifetime", ipv6_ra_valid_lifetime)
         if ipv6_static_subnet is not None:
-            pulumi.set(__self__, "ipv6_static_subnet", ipv6_static_subnet)
+            _setter("ipv6_static_subnet", ipv6_static_subnet)
         if multicast_dns is not None:
-            pulumi.set(__self__, "multicast_dns", multicast_dns)
+            _setter("multicast_dns", multicast_dns)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if network_group is not None:
-            pulumi.set(__self__, "network_group", network_group)
+            _setter("network_group", network_group)
         if site is not None:
-            pulumi.set(__self__, "site", site)
+            _setter("site", site)
         if subnet is not None:
-            pulumi.set(__self__, "subnet", subnet)
+            _setter("subnet", subnet)
         if vlan_id is not None:
-            pulumi.set(__self__, "vlan_id", vlan_id)
+            _setter("vlan_id", vlan_id)
         if wan_dhcp_v6_pd_size is not None:
-            pulumi.set(__self__, "wan_dhcp_v6_pd_size", wan_dhcp_v6_pd_size)
+            _setter("wan_dhcp_v6_pd_size", wan_dhcp_v6_pd_size)
         if wan_dns is not None:
-            pulumi.set(__self__, "wan_dns", wan_dns)
+            _setter("wan_dns", wan_dns)
         if wan_egress_qos is not None:
-            pulumi.set(__self__, "wan_egress_qos", wan_egress_qos)
+            _setter("wan_egress_qos", wan_egress_qos)
         if wan_gateway is not None:
-            pulumi.set(__self__, "wan_gateway", wan_gateway)
+            _setter("wan_gateway", wan_gateway)
         if wan_gateway_v6 is not None:
-            pulumi.set(__self__, "wan_gateway_v6", wan_gateway_v6)
+            _setter("wan_gateway_v6", wan_gateway_v6)
         if wan_ip is not None:
-            pulumi.set(__self__, "wan_ip", wan_ip)
+            _setter("wan_ip", wan_ip)
         if wan_ipv6 is not None:
-            pulumi.set(__self__, "wan_ipv6", wan_ipv6)
+            _setter("wan_ipv6", wan_ipv6)
         if wan_netmask is not None:
-            pulumi.set(__self__, "wan_netmask", wan_netmask)
+            _setter("wan_netmask", wan_netmask)
         if wan_networkgroup is not None:
-            pulumi.set(__self__, "wan_networkgroup", wan_networkgroup)
+            _setter("wan_networkgroup", wan_networkgroup)
         if wan_prefixlen is not None:
-            pulumi.set(__self__, "wan_prefixlen", wan_prefixlen)
+            _setter("wan_prefixlen", wan_prefixlen)
         if wan_type is not None:
-            pulumi.set(__self__, "wan_type", wan_type)
+            _setter("wan_type", wan_type)
         if wan_type_v6 is not None:
-            pulumi.set(__self__, "wan_type_v6", wan_type_v6)
+            _setter("wan_type_v6", wan_type_v6)
         if wan_username is not None:
-            pulumi.set(__self__, "wan_username", wan_username)
+            _setter("wan_username", wan_username)
         if x_wan_password is not None:
-            pulumi.set(__self__, "x_wan_password", x_wan_password)
+            _setter("x_wan_password", x_wan_password)
 
     @property
     @pulumi.getter
@@ -924,106 +1031,213 @@ class _NetworkState:
         :param pulumi.Input[str] wan_username: Specifies the IPV4 WAN username.
         :param pulumi.Input[str] x_wan_password: Specifies the IPV4 WAN password.
         """
+        _NetworkState._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            dhcp_dns=dhcp_dns,
+            dhcp_enabled=dhcp_enabled,
+            dhcp_lease=dhcp_lease,
+            dhcp_relay_enabled=dhcp_relay_enabled,
+            dhcp_start=dhcp_start,
+            dhcp_stop=dhcp_stop,
+            dhcp_v6_dns=dhcp_v6_dns,
+            dhcp_v6_dns_auto=dhcp_v6_dns_auto,
+            dhcp_v6_enabled=dhcp_v6_enabled,
+            dhcp_v6_lease=dhcp_v6_lease,
+            dhcp_v6_start=dhcp_v6_start,
+            dhcp_v6_stop=dhcp_v6_stop,
+            dhcpd_boot_enabled=dhcpd_boot_enabled,
+            dhcpd_boot_filename=dhcpd_boot_filename,
+            dhcpd_boot_server=dhcpd_boot_server,
+            domain_name=domain_name,
+            igmp_snooping=igmp_snooping,
+            internet_access_enabled=internet_access_enabled,
+            intra_network_access_enabled=intra_network_access_enabled,
+            ipv6_interface_type=ipv6_interface_type,
+            ipv6_pd_interface=ipv6_pd_interface,
+            ipv6_pd_prefixid=ipv6_pd_prefixid,
+            ipv6_pd_start=ipv6_pd_start,
+            ipv6_pd_stop=ipv6_pd_stop,
+            ipv6_ra_enable=ipv6_ra_enable,
+            ipv6_ra_preferred_lifetime=ipv6_ra_preferred_lifetime,
+            ipv6_ra_priority=ipv6_ra_priority,
+            ipv6_ra_valid_lifetime=ipv6_ra_valid_lifetime,
+            ipv6_static_subnet=ipv6_static_subnet,
+            multicast_dns=multicast_dns,
+            name=name,
+            network_group=network_group,
+            purpose=purpose,
+            site=site,
+            subnet=subnet,
+            vlan_id=vlan_id,
+            wan_dhcp_v6_pd_size=wan_dhcp_v6_pd_size,
+            wan_dns=wan_dns,
+            wan_egress_qos=wan_egress_qos,
+            wan_gateway=wan_gateway,
+            wan_gateway_v6=wan_gateway_v6,
+            wan_ip=wan_ip,
+            wan_ipv6=wan_ipv6,
+            wan_netmask=wan_netmask,
+            wan_networkgroup=wan_networkgroup,
+            wan_prefixlen=wan_prefixlen,
+            wan_type=wan_type,
+            wan_type_v6=wan_type_v6,
+            wan_username=wan_username,
+            x_wan_password=x_wan_password,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             dhcp_dns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             dhcp_enabled: Optional[pulumi.Input[bool]] = None,
+             dhcp_lease: Optional[pulumi.Input[int]] = None,
+             dhcp_relay_enabled: Optional[pulumi.Input[bool]] = None,
+             dhcp_start: Optional[pulumi.Input[str]] = None,
+             dhcp_stop: Optional[pulumi.Input[str]] = None,
+             dhcp_v6_dns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             dhcp_v6_dns_auto: Optional[pulumi.Input[bool]] = None,
+             dhcp_v6_enabled: Optional[pulumi.Input[bool]] = None,
+             dhcp_v6_lease: Optional[pulumi.Input[int]] = None,
+             dhcp_v6_start: Optional[pulumi.Input[str]] = None,
+             dhcp_v6_stop: Optional[pulumi.Input[str]] = None,
+             dhcpd_boot_enabled: Optional[pulumi.Input[bool]] = None,
+             dhcpd_boot_filename: Optional[pulumi.Input[str]] = None,
+             dhcpd_boot_server: Optional[pulumi.Input[str]] = None,
+             domain_name: Optional[pulumi.Input[str]] = None,
+             igmp_snooping: Optional[pulumi.Input[bool]] = None,
+             internet_access_enabled: Optional[pulumi.Input[bool]] = None,
+             intra_network_access_enabled: Optional[pulumi.Input[bool]] = None,
+             ipv6_interface_type: Optional[pulumi.Input[str]] = None,
+             ipv6_pd_interface: Optional[pulumi.Input[str]] = None,
+             ipv6_pd_prefixid: Optional[pulumi.Input[str]] = None,
+             ipv6_pd_start: Optional[pulumi.Input[str]] = None,
+             ipv6_pd_stop: Optional[pulumi.Input[str]] = None,
+             ipv6_ra_enable: Optional[pulumi.Input[bool]] = None,
+             ipv6_ra_preferred_lifetime: Optional[pulumi.Input[int]] = None,
+             ipv6_ra_priority: Optional[pulumi.Input[str]] = None,
+             ipv6_ra_valid_lifetime: Optional[pulumi.Input[int]] = None,
+             ipv6_static_subnet: Optional[pulumi.Input[str]] = None,
+             multicast_dns: Optional[pulumi.Input[bool]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             network_group: Optional[pulumi.Input[str]] = None,
+             purpose: Optional[pulumi.Input[str]] = None,
+             site: Optional[pulumi.Input[str]] = None,
+             subnet: Optional[pulumi.Input[str]] = None,
+             vlan_id: Optional[pulumi.Input[int]] = None,
+             wan_dhcp_v6_pd_size: Optional[pulumi.Input[int]] = None,
+             wan_dns: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             wan_egress_qos: Optional[pulumi.Input[int]] = None,
+             wan_gateway: Optional[pulumi.Input[str]] = None,
+             wan_gateway_v6: Optional[pulumi.Input[str]] = None,
+             wan_ip: Optional[pulumi.Input[str]] = None,
+             wan_ipv6: Optional[pulumi.Input[str]] = None,
+             wan_netmask: Optional[pulumi.Input[str]] = None,
+             wan_networkgroup: Optional[pulumi.Input[str]] = None,
+             wan_prefixlen: Optional[pulumi.Input[int]] = None,
+             wan_type: Optional[pulumi.Input[str]] = None,
+             wan_type_v6: Optional[pulumi.Input[str]] = None,
+             wan_username: Optional[pulumi.Input[str]] = None,
+             x_wan_password: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if dhcp_dns is not None:
-            pulumi.set(__self__, "dhcp_dns", dhcp_dns)
+            _setter("dhcp_dns", dhcp_dns)
         if dhcp_enabled is not None:
-            pulumi.set(__self__, "dhcp_enabled", dhcp_enabled)
+            _setter("dhcp_enabled", dhcp_enabled)
         if dhcp_lease is not None:
-            pulumi.set(__self__, "dhcp_lease", dhcp_lease)
+            _setter("dhcp_lease", dhcp_lease)
         if dhcp_relay_enabled is not None:
-            pulumi.set(__self__, "dhcp_relay_enabled", dhcp_relay_enabled)
+            _setter("dhcp_relay_enabled", dhcp_relay_enabled)
         if dhcp_start is not None:
-            pulumi.set(__self__, "dhcp_start", dhcp_start)
+            _setter("dhcp_start", dhcp_start)
         if dhcp_stop is not None:
-            pulumi.set(__self__, "dhcp_stop", dhcp_stop)
+            _setter("dhcp_stop", dhcp_stop)
         if dhcp_v6_dns is not None:
-            pulumi.set(__self__, "dhcp_v6_dns", dhcp_v6_dns)
+            _setter("dhcp_v6_dns", dhcp_v6_dns)
         if dhcp_v6_dns_auto is not None:
-            pulumi.set(__self__, "dhcp_v6_dns_auto", dhcp_v6_dns_auto)
+            _setter("dhcp_v6_dns_auto", dhcp_v6_dns_auto)
         if dhcp_v6_enabled is not None:
-            pulumi.set(__self__, "dhcp_v6_enabled", dhcp_v6_enabled)
+            _setter("dhcp_v6_enabled", dhcp_v6_enabled)
         if dhcp_v6_lease is not None:
-            pulumi.set(__self__, "dhcp_v6_lease", dhcp_v6_lease)
+            _setter("dhcp_v6_lease", dhcp_v6_lease)
         if dhcp_v6_start is not None:
-            pulumi.set(__self__, "dhcp_v6_start", dhcp_v6_start)
+            _setter("dhcp_v6_start", dhcp_v6_start)
         if dhcp_v6_stop is not None:
-            pulumi.set(__self__, "dhcp_v6_stop", dhcp_v6_stop)
+            _setter("dhcp_v6_stop", dhcp_v6_stop)
         if dhcpd_boot_enabled is not None:
-            pulumi.set(__self__, "dhcpd_boot_enabled", dhcpd_boot_enabled)
+            _setter("dhcpd_boot_enabled", dhcpd_boot_enabled)
         if dhcpd_boot_filename is not None:
-            pulumi.set(__self__, "dhcpd_boot_filename", dhcpd_boot_filename)
+            _setter("dhcpd_boot_filename", dhcpd_boot_filename)
         if dhcpd_boot_server is not None:
-            pulumi.set(__self__, "dhcpd_boot_server", dhcpd_boot_server)
+            _setter("dhcpd_boot_server", dhcpd_boot_server)
         if domain_name is not None:
-            pulumi.set(__self__, "domain_name", domain_name)
+            _setter("domain_name", domain_name)
         if igmp_snooping is not None:
-            pulumi.set(__self__, "igmp_snooping", igmp_snooping)
+            _setter("igmp_snooping", igmp_snooping)
         if internet_access_enabled is not None:
-            pulumi.set(__self__, "internet_access_enabled", internet_access_enabled)
+            _setter("internet_access_enabled", internet_access_enabled)
         if intra_network_access_enabled is not None:
-            pulumi.set(__self__, "intra_network_access_enabled", intra_network_access_enabled)
+            _setter("intra_network_access_enabled", intra_network_access_enabled)
         if ipv6_interface_type is not None:
-            pulumi.set(__self__, "ipv6_interface_type", ipv6_interface_type)
+            _setter("ipv6_interface_type", ipv6_interface_type)
         if ipv6_pd_interface is not None:
-            pulumi.set(__self__, "ipv6_pd_interface", ipv6_pd_interface)
+            _setter("ipv6_pd_interface", ipv6_pd_interface)
         if ipv6_pd_prefixid is not None:
-            pulumi.set(__self__, "ipv6_pd_prefixid", ipv6_pd_prefixid)
+            _setter("ipv6_pd_prefixid", ipv6_pd_prefixid)
         if ipv6_pd_start is not None:
-            pulumi.set(__self__, "ipv6_pd_start", ipv6_pd_start)
+            _setter("ipv6_pd_start", ipv6_pd_start)
         if ipv6_pd_stop is not None:
-            pulumi.set(__self__, "ipv6_pd_stop", ipv6_pd_stop)
+            _setter("ipv6_pd_stop", ipv6_pd_stop)
         if ipv6_ra_enable is not None:
-            pulumi.set(__self__, "ipv6_ra_enable", ipv6_ra_enable)
+            _setter("ipv6_ra_enable", ipv6_ra_enable)
         if ipv6_ra_preferred_lifetime is not None:
-            pulumi.set(__self__, "ipv6_ra_preferred_lifetime", ipv6_ra_preferred_lifetime)
+            _setter("ipv6_ra_preferred_lifetime", ipv6_ra_preferred_lifetime)
         if ipv6_ra_priority is not None:
-            pulumi.set(__self__, "ipv6_ra_priority", ipv6_ra_priority)
+            _setter("ipv6_ra_priority", ipv6_ra_priority)
         if ipv6_ra_valid_lifetime is not None:
-            pulumi.set(__self__, "ipv6_ra_valid_lifetime", ipv6_ra_valid_lifetime)
+            _setter("ipv6_ra_valid_lifetime", ipv6_ra_valid_lifetime)
         if ipv6_static_subnet is not None:
-            pulumi.set(__self__, "ipv6_static_subnet", ipv6_static_subnet)
+            _setter("ipv6_static_subnet", ipv6_static_subnet)
         if multicast_dns is not None:
-            pulumi.set(__self__, "multicast_dns", multicast_dns)
+            _setter("multicast_dns", multicast_dns)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if network_group is not None:
-            pulumi.set(__self__, "network_group", network_group)
+            _setter("network_group", network_group)
         if purpose is not None:
-            pulumi.set(__self__, "purpose", purpose)
+            _setter("purpose", purpose)
         if site is not None:
-            pulumi.set(__self__, "site", site)
+            _setter("site", site)
         if subnet is not None:
-            pulumi.set(__self__, "subnet", subnet)
+            _setter("subnet", subnet)
         if vlan_id is not None:
-            pulumi.set(__self__, "vlan_id", vlan_id)
+            _setter("vlan_id", vlan_id)
         if wan_dhcp_v6_pd_size is not None:
-            pulumi.set(__self__, "wan_dhcp_v6_pd_size", wan_dhcp_v6_pd_size)
+            _setter("wan_dhcp_v6_pd_size", wan_dhcp_v6_pd_size)
         if wan_dns is not None:
-            pulumi.set(__self__, "wan_dns", wan_dns)
+            _setter("wan_dns", wan_dns)
         if wan_egress_qos is not None:
-            pulumi.set(__self__, "wan_egress_qos", wan_egress_qos)
+            _setter("wan_egress_qos", wan_egress_qos)
         if wan_gateway is not None:
-            pulumi.set(__self__, "wan_gateway", wan_gateway)
+            _setter("wan_gateway", wan_gateway)
         if wan_gateway_v6 is not None:
-            pulumi.set(__self__, "wan_gateway_v6", wan_gateway_v6)
+            _setter("wan_gateway_v6", wan_gateway_v6)
         if wan_ip is not None:
-            pulumi.set(__self__, "wan_ip", wan_ip)
+            _setter("wan_ip", wan_ip)
         if wan_ipv6 is not None:
-            pulumi.set(__self__, "wan_ipv6", wan_ipv6)
+            _setter("wan_ipv6", wan_ipv6)
         if wan_netmask is not None:
-            pulumi.set(__self__, "wan_netmask", wan_netmask)
+            _setter("wan_netmask", wan_netmask)
         if wan_networkgroup is not None:
-            pulumi.set(__self__, "wan_networkgroup", wan_networkgroup)
+            _setter("wan_networkgroup", wan_networkgroup)
         if wan_prefixlen is not None:
-            pulumi.set(__self__, "wan_prefixlen", wan_prefixlen)
+            _setter("wan_prefixlen", wan_prefixlen)
         if wan_type is not None:
-            pulumi.set(__self__, "wan_type", wan_type)
+            _setter("wan_type", wan_type)
         if wan_type_v6 is not None:
-            pulumi.set(__self__, "wan_type_v6", wan_type_v6)
+            _setter("wan_type_v6", wan_type_v6)
         if wan_username is not None:
-            pulumi.set(__self__, "wan_username", wan_username)
+            _setter("wan_username", wan_username)
         if x_wan_password is not None:
-            pulumi.set(__self__, "x_wan_password", x_wan_password)
+            _setter("x_wan_password", x_wan_password)
 
     @property
     @pulumi.getter(name="dhcpDns")
@@ -1851,6 +2065,10 @@ class Network(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            NetworkArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

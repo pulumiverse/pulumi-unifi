@@ -24,7 +24,7 @@ namespace Pulumiverse.Unifi.Port
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
     ///     var config = new Config();
-    ///     var vlanId = config.GetNumber("vlanId") ?? 10;
+    ///     var vlanId = config.GetDouble("vlanId") ?? 10;
     ///     var vlan = new Unifi.Network("vlan", new()
     ///     {
     ///         Purpose = "corporate",

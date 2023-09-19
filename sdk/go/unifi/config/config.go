@@ -6,7 +6,10 @@ package config
 import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
+
+var _ = internal.GetEnvOrDefault
 
 // Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
 // API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
@@ -16,7 +19,7 @@ func GetAllowInsecure(ctx *pulumi.Context) bool {
 		return v
 	}
 	var value bool
-	if d := getEnvOrDefault(nil, parseEnvBool, "UNIFI_INSECURE"); d != nil {
+	if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "UNIFI_INSECURE"); d != nil {
 		value = d.(bool)
 	}
 	return value
@@ -31,7 +34,7 @@ func GetApiUrl(ctx *pulumi.Context) string {
 		return v
 	}
 	var value string
-	if d := getEnvOrDefault(nil, nil, "UNIFI_API"); d != nil {
+	if d := internal.GetEnvOrDefault(nil, nil, "UNIFI_API"); d != nil {
 		value = d.(string)
 	}
 	return value
@@ -44,7 +47,7 @@ func GetPassword(ctx *pulumi.Context) string {
 		return v
 	}
 	var value string
-	if d := getEnvOrDefault(nil, nil, "UNIFI_PASSWORD"); d != nil {
+	if d := internal.GetEnvOrDefault(nil, nil, "UNIFI_PASSWORD"); d != nil {
 		value = d.(string)
 	}
 	return value
@@ -58,7 +61,7 @@ func GetSite(ctx *pulumi.Context) string {
 		return v
 	}
 	var value string
-	if d := getEnvOrDefault(nil, nil, "UNIFI_SITE"); d != nil {
+	if d := internal.GetEnvOrDefault(nil, nil, "UNIFI_SITE"); d != nil {
 		value = d.(string)
 	}
 	return value
@@ -71,7 +74,7 @@ func GetUsername(ctx *pulumi.Context) string {
 		return v
 	}
 	var value string
-	if d := getEnvOrDefault(nil, nil, "UNIFI_USERNAME"); d != nil {
+	if d := internal.GetEnvOrDefault(nil, nil, "UNIFI_USERNAME"); d != nil {
 		value = d.(string)
 	}
 	return value

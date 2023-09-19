@@ -9,6 +9,8 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
 // `DynamicDNS` manages dynamic DNS settings for different providers.
@@ -81,7 +83,7 @@ func NewDynamicDNS(ctx *pulumi.Context,
 		"password",
 	})
 	opts = append(opts, secrets)
-	opts = pkgResourceDefaultOpts(opts)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource DynamicDNS
 	err := ctx.RegisterResource("unifi:index/dynamicDNS:DynamicDNS", name, args, &resource, opts...)
 	if err != nil {
@@ -199,6 +201,12 @@ func (i *DynamicDNS) ToDynamicDNSOutputWithContext(ctx context.Context) DynamicD
 	return pulumi.ToOutputWithContext(ctx, i).(DynamicDNSOutput)
 }
 
+func (i *DynamicDNS) ToOutput(ctx context.Context) pulumix.Output[*DynamicDNS] {
+	return pulumix.Output[*DynamicDNS]{
+		OutputState: i.ToDynamicDNSOutputWithContext(ctx).OutputState,
+	}
+}
+
 // DynamicDNSArrayInput is an input type that accepts DynamicDNSArray and DynamicDNSArrayOutput values.
 // You can construct a concrete instance of `DynamicDNSArrayInput` via:
 //
@@ -222,6 +230,12 @@ func (i DynamicDNSArray) ToDynamicDNSArrayOutput() DynamicDNSArrayOutput {
 
 func (i DynamicDNSArray) ToDynamicDNSArrayOutputWithContext(ctx context.Context) DynamicDNSArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DynamicDNSArrayOutput)
+}
+
+func (i DynamicDNSArray) ToOutput(ctx context.Context) pulumix.Output[[]*DynamicDNS] {
+	return pulumix.Output[[]*DynamicDNS]{
+		OutputState: i.ToDynamicDNSArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // DynamicDNSMapInput is an input type that accepts DynamicDNSMap and DynamicDNSMapOutput values.
@@ -249,6 +263,12 @@ func (i DynamicDNSMap) ToDynamicDNSMapOutputWithContext(ctx context.Context) Dyn
 	return pulumi.ToOutputWithContext(ctx, i).(DynamicDNSMapOutput)
 }
 
+func (i DynamicDNSMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DynamicDNS] {
+	return pulumix.Output[map[string]*DynamicDNS]{
+		OutputState: i.ToDynamicDNSMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DynamicDNSOutput struct{ *pulumi.OutputState }
 
 func (DynamicDNSOutput) ElementType() reflect.Type {
@@ -261,6 +281,12 @@ func (o DynamicDNSOutput) ToDynamicDNSOutput() DynamicDNSOutput {
 
 func (o DynamicDNSOutput) ToDynamicDNSOutputWithContext(ctx context.Context) DynamicDNSOutput {
 	return o
+}
+
+func (o DynamicDNSOutput) ToOutput(ctx context.Context) pulumix.Output[*DynamicDNS] {
+	return pulumix.Output[*DynamicDNS]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The host name to update in the dynamic DNS service.
@@ -312,6 +338,12 @@ func (o DynamicDNSArrayOutput) ToDynamicDNSArrayOutputWithContext(ctx context.Co
 	return o
 }
 
+func (o DynamicDNSArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DynamicDNS] {
+	return pulumix.Output[[]*DynamicDNS]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o DynamicDNSArrayOutput) Index(i pulumi.IntInput) DynamicDNSOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *DynamicDNS {
 		return vs[0].([]*DynamicDNS)[vs[1].(int)]
@@ -330,6 +362,12 @@ func (o DynamicDNSMapOutput) ToDynamicDNSMapOutput() DynamicDNSMapOutput {
 
 func (o DynamicDNSMapOutput) ToDynamicDNSMapOutputWithContext(ctx context.Context) DynamicDNSMapOutput {
 	return o
+}
+
+func (o DynamicDNSMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DynamicDNS] {
+	return pulumix.Output[map[string]*DynamicDNS]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DynamicDNSMapOutput) MapIndex(k pulumi.StringInput) DynamicDNSOutput {

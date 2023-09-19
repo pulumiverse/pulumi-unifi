@@ -8,6 +8,8 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
+	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
 // `getApGroup` data source can be used to retrieve the ID for an AP group by name.
@@ -36,7 +38,7 @@ import (
 //
 // ```
 func GetApGroup(ctx *pulumi.Context, args *GetApGroupArgs, opts ...pulumi.InvokeOption) (*GetApGroupResult, error) {
-	opts = pkgInvokeDefaultOpts(opts)
+	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetApGroupResult
 	err := ctx.Invoke("unifi:index/getApGroup:getApGroup", args, &rv, opts...)
 	if err != nil {
@@ -101,6 +103,12 @@ func (o GetApGroupResultOutput) ToGetApGroupResultOutput() GetApGroupResultOutpu
 
 func (o GetApGroupResultOutput) ToGetApGroupResultOutputWithContext(ctx context.Context) GetApGroupResultOutput {
 	return o
+}
+
+func (o GetApGroupResultOutput) ToOutput(ctx context.Context) pulumix.Output[GetApGroupResult] {
+	return pulumix.Output[GetApGroupResult]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The ID of this AP group.
