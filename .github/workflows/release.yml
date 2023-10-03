@@ -136,7 +136,7 @@ jobs:
     name: build_sdk
   publish:
     runs-on: ubuntu-latest
-    needs: test
+    needs: build_sdk
     name: publish
     steps:
     - name: Checkout repo
