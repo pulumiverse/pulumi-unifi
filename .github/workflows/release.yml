@@ -37,7 +37,7 @@ jobs:
         path: ci-scripts
         repository: pulumi/scripts
     - name: Install Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: |
@@ -82,7 +82,7 @@ jobs:
         path: ci-scripts
         repository: pulumi/scripts
     - name: Install Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
         cache-dependency-path: |
@@ -144,7 +144,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Install Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
@@ -184,7 +184,7 @@ jobs:
         path: ci-scripts
         repository: pulumi/scripts
     - name: Install Go
-      uses: actions/setup-go@v4
+      uses: actions/setup-go@v5
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
