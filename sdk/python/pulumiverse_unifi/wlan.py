@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._inputs import *
@@ -73,119 +73,58 @@ class WlanArgs:
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
         :param pulumi.Input[bool] wpa3_transition: Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
         """
-        WlanArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            security=security,
-            user_group_id=user_group_id,
-            ap_group_ids=ap_group_ids,
-            bss_transition=bss_transition,
-            fast_roaming_enabled=fast_roaming_enabled,
-            hide_ssid=hide_ssid,
-            is_guest=is_guest,
-            l2_isolation=l2_isolation,
-            mac_filter_enabled=mac_filter_enabled,
-            mac_filter_lists=mac_filter_lists,
-            mac_filter_policy=mac_filter_policy,
-            minimum_data_rate2g_kbps=minimum_data_rate2g_kbps,
-            minimum_data_rate5g_kbps=minimum_data_rate5g_kbps,
-            multicast_enhance=multicast_enhance,
-            name=name,
-            network_id=network_id,
-            no2ghz_oui=no2ghz_oui,
-            passphrase=passphrase,
-            pmf_mode=pmf_mode,
-            proxy_arp=proxy_arp,
-            radius_profile_id=radius_profile_id,
-            schedules=schedules,
-            site=site,
-            uapsd=uapsd,
-            wlan_band=wlan_band,
-            wpa3_support=wpa3_support,
-            wpa3_transition=wpa3_transition,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             security: pulumi.Input[str],
-             user_group_id: pulumi.Input[str],
-             ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             bss_transition: Optional[pulumi.Input[bool]] = None,
-             fast_roaming_enabled: Optional[pulumi.Input[bool]] = None,
-             hide_ssid: Optional[pulumi.Input[bool]] = None,
-             is_guest: Optional[pulumi.Input[bool]] = None,
-             l2_isolation: Optional[pulumi.Input[bool]] = None,
-             mac_filter_enabled: Optional[pulumi.Input[bool]] = None,
-             mac_filter_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             mac_filter_policy: Optional[pulumi.Input[str]] = None,
-             minimum_data_rate2g_kbps: Optional[pulumi.Input[int]] = None,
-             minimum_data_rate5g_kbps: Optional[pulumi.Input[int]] = None,
-             multicast_enhance: Optional[pulumi.Input[bool]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             network_id: Optional[pulumi.Input[str]] = None,
-             no2ghz_oui: Optional[pulumi.Input[bool]] = None,
-             passphrase: Optional[pulumi.Input[str]] = None,
-             pmf_mode: Optional[pulumi.Input[str]] = None,
-             proxy_arp: Optional[pulumi.Input[bool]] = None,
-             radius_profile_id: Optional[pulumi.Input[str]] = None,
-             schedules: Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             uapsd: Optional[pulumi.Input[bool]] = None,
-             wlan_band: Optional[pulumi.Input[str]] = None,
-             wpa3_support: Optional[pulumi.Input[bool]] = None,
-             wpa3_transition: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
-        _setter("security", security)
-        _setter("user_group_id", user_group_id)
+        pulumi.set(__self__, "security", security)
+        pulumi.set(__self__, "user_group_id", user_group_id)
         if ap_group_ids is not None:
-            _setter("ap_group_ids", ap_group_ids)
+            pulumi.set(__self__, "ap_group_ids", ap_group_ids)
         if bss_transition is not None:
-            _setter("bss_transition", bss_transition)
+            pulumi.set(__self__, "bss_transition", bss_transition)
         if fast_roaming_enabled is not None:
-            _setter("fast_roaming_enabled", fast_roaming_enabled)
+            pulumi.set(__self__, "fast_roaming_enabled", fast_roaming_enabled)
         if hide_ssid is not None:
-            _setter("hide_ssid", hide_ssid)
+            pulumi.set(__self__, "hide_ssid", hide_ssid)
         if is_guest is not None:
-            _setter("is_guest", is_guest)
+            pulumi.set(__self__, "is_guest", is_guest)
         if l2_isolation is not None:
-            _setter("l2_isolation", l2_isolation)
+            pulumi.set(__self__, "l2_isolation", l2_isolation)
         if mac_filter_enabled is not None:
-            _setter("mac_filter_enabled", mac_filter_enabled)
+            pulumi.set(__self__, "mac_filter_enabled", mac_filter_enabled)
         if mac_filter_lists is not None:
-            _setter("mac_filter_lists", mac_filter_lists)
+            pulumi.set(__self__, "mac_filter_lists", mac_filter_lists)
         if mac_filter_policy is not None:
-            _setter("mac_filter_policy", mac_filter_policy)
+            pulumi.set(__self__, "mac_filter_policy", mac_filter_policy)
         if minimum_data_rate2g_kbps is not None:
-            _setter("minimum_data_rate2g_kbps", minimum_data_rate2g_kbps)
+            pulumi.set(__self__, "minimum_data_rate2g_kbps", minimum_data_rate2g_kbps)
         if minimum_data_rate5g_kbps is not None:
-            _setter("minimum_data_rate5g_kbps", minimum_data_rate5g_kbps)
+            pulumi.set(__self__, "minimum_data_rate5g_kbps", minimum_data_rate5g_kbps)
         if multicast_enhance is not None:
-            _setter("multicast_enhance", multicast_enhance)
+            pulumi.set(__self__, "multicast_enhance", multicast_enhance)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if network_id is not None:
-            _setter("network_id", network_id)
+            pulumi.set(__self__, "network_id", network_id)
         if no2ghz_oui is not None:
-            _setter("no2ghz_oui", no2ghz_oui)
+            pulumi.set(__self__, "no2ghz_oui", no2ghz_oui)
         if passphrase is not None:
-            _setter("passphrase", passphrase)
+            pulumi.set(__self__, "passphrase", passphrase)
         if pmf_mode is not None:
-            _setter("pmf_mode", pmf_mode)
+            pulumi.set(__self__, "pmf_mode", pmf_mode)
         if proxy_arp is not None:
-            _setter("proxy_arp", proxy_arp)
+            pulumi.set(__self__, "proxy_arp", proxy_arp)
         if radius_profile_id is not None:
-            _setter("radius_profile_id", radius_profile_id)
+            pulumi.set(__self__, "radius_profile_id", radius_profile_id)
         if schedules is not None:
-            _setter("schedules", schedules)
+            pulumi.set(__self__, "schedules", schedules)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if uapsd is not None:
-            _setter("uapsd", uapsd)
+            pulumi.set(__self__, "uapsd", uapsd)
         if wlan_band is not None:
-            _setter("wlan_band", wlan_band)
+            pulumi.set(__self__, "wlan_band", wlan_band)
         if wpa3_support is not None:
-            _setter("wpa3_support", wpa3_support)
+            pulumi.set(__self__, "wpa3_support", wpa3_support)
         if wpa3_transition is not None:
-            _setter("wpa3_transition", wpa3_transition)
+            pulumi.set(__self__, "wpa3_transition", wpa3_transition)
 
     @property
     @pulumi.getter
@@ -572,121 +511,60 @@ class _WlanState:
         :param pulumi.Input[bool] wpa3_support: Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
         :param pulumi.Input[bool] wpa3_transition: Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
         """
-        _WlanState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ap_group_ids=ap_group_ids,
-            bss_transition=bss_transition,
-            fast_roaming_enabled=fast_roaming_enabled,
-            hide_ssid=hide_ssid,
-            is_guest=is_guest,
-            l2_isolation=l2_isolation,
-            mac_filter_enabled=mac_filter_enabled,
-            mac_filter_lists=mac_filter_lists,
-            mac_filter_policy=mac_filter_policy,
-            minimum_data_rate2g_kbps=minimum_data_rate2g_kbps,
-            minimum_data_rate5g_kbps=minimum_data_rate5g_kbps,
-            multicast_enhance=multicast_enhance,
-            name=name,
-            network_id=network_id,
-            no2ghz_oui=no2ghz_oui,
-            passphrase=passphrase,
-            pmf_mode=pmf_mode,
-            proxy_arp=proxy_arp,
-            radius_profile_id=radius_profile_id,
-            schedules=schedules,
-            security=security,
-            site=site,
-            uapsd=uapsd,
-            user_group_id=user_group_id,
-            wlan_band=wlan_band,
-            wpa3_support=wpa3_support,
-            wpa3_transition=wpa3_transition,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             bss_transition: Optional[pulumi.Input[bool]] = None,
-             fast_roaming_enabled: Optional[pulumi.Input[bool]] = None,
-             hide_ssid: Optional[pulumi.Input[bool]] = None,
-             is_guest: Optional[pulumi.Input[bool]] = None,
-             l2_isolation: Optional[pulumi.Input[bool]] = None,
-             mac_filter_enabled: Optional[pulumi.Input[bool]] = None,
-             mac_filter_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             mac_filter_policy: Optional[pulumi.Input[str]] = None,
-             minimum_data_rate2g_kbps: Optional[pulumi.Input[int]] = None,
-             minimum_data_rate5g_kbps: Optional[pulumi.Input[int]] = None,
-             multicast_enhance: Optional[pulumi.Input[bool]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             network_id: Optional[pulumi.Input[str]] = None,
-             no2ghz_oui: Optional[pulumi.Input[bool]] = None,
-             passphrase: Optional[pulumi.Input[str]] = None,
-             pmf_mode: Optional[pulumi.Input[str]] = None,
-             proxy_arp: Optional[pulumi.Input[bool]] = None,
-             radius_profile_id: Optional[pulumi.Input[str]] = None,
-             schedules: Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]] = None,
-             security: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             uapsd: Optional[pulumi.Input[bool]] = None,
-             user_group_id: Optional[pulumi.Input[str]] = None,
-             wlan_band: Optional[pulumi.Input[str]] = None,
-             wpa3_support: Optional[pulumi.Input[bool]] = None,
-             wpa3_transition: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if ap_group_ids is not None:
-            _setter("ap_group_ids", ap_group_ids)
+            pulumi.set(__self__, "ap_group_ids", ap_group_ids)
         if bss_transition is not None:
-            _setter("bss_transition", bss_transition)
+            pulumi.set(__self__, "bss_transition", bss_transition)
         if fast_roaming_enabled is not None:
-            _setter("fast_roaming_enabled", fast_roaming_enabled)
+            pulumi.set(__self__, "fast_roaming_enabled", fast_roaming_enabled)
         if hide_ssid is not None:
-            _setter("hide_ssid", hide_ssid)
+            pulumi.set(__self__, "hide_ssid", hide_ssid)
         if is_guest is not None:
-            _setter("is_guest", is_guest)
+            pulumi.set(__self__, "is_guest", is_guest)
         if l2_isolation is not None:
-            _setter("l2_isolation", l2_isolation)
+            pulumi.set(__self__, "l2_isolation", l2_isolation)
         if mac_filter_enabled is not None:
-            _setter("mac_filter_enabled", mac_filter_enabled)
+            pulumi.set(__self__, "mac_filter_enabled", mac_filter_enabled)
         if mac_filter_lists is not None:
-            _setter("mac_filter_lists", mac_filter_lists)
+            pulumi.set(__self__, "mac_filter_lists", mac_filter_lists)
         if mac_filter_policy is not None:
-            _setter("mac_filter_policy", mac_filter_policy)
+            pulumi.set(__self__, "mac_filter_policy", mac_filter_policy)
         if minimum_data_rate2g_kbps is not None:
-            _setter("minimum_data_rate2g_kbps", minimum_data_rate2g_kbps)
+            pulumi.set(__self__, "minimum_data_rate2g_kbps", minimum_data_rate2g_kbps)
         if minimum_data_rate5g_kbps is not None:
-            _setter("minimum_data_rate5g_kbps", minimum_data_rate5g_kbps)
+            pulumi.set(__self__, "minimum_data_rate5g_kbps", minimum_data_rate5g_kbps)
         if multicast_enhance is not None:
-            _setter("multicast_enhance", multicast_enhance)
+            pulumi.set(__self__, "multicast_enhance", multicast_enhance)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if network_id is not None:
-            _setter("network_id", network_id)
+            pulumi.set(__self__, "network_id", network_id)
         if no2ghz_oui is not None:
-            _setter("no2ghz_oui", no2ghz_oui)
+            pulumi.set(__self__, "no2ghz_oui", no2ghz_oui)
         if passphrase is not None:
-            _setter("passphrase", passphrase)
+            pulumi.set(__self__, "passphrase", passphrase)
         if pmf_mode is not None:
-            _setter("pmf_mode", pmf_mode)
+            pulumi.set(__self__, "pmf_mode", pmf_mode)
         if proxy_arp is not None:
-            _setter("proxy_arp", proxy_arp)
+            pulumi.set(__self__, "proxy_arp", proxy_arp)
         if radius_profile_id is not None:
-            _setter("radius_profile_id", radius_profile_id)
+            pulumi.set(__self__, "radius_profile_id", radius_profile_id)
         if schedules is not None:
-            _setter("schedules", schedules)
+            pulumi.set(__self__, "schedules", schedules)
         if security is not None:
-            _setter("security", security)
+            pulumi.set(__self__, "security", security)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if uapsd is not None:
-            _setter("uapsd", uapsd)
+            pulumi.set(__self__, "uapsd", uapsd)
         if user_group_id is not None:
-            _setter("user_group_id", user_group_id)
+            pulumi.set(__self__, "user_group_id", user_group_id)
         if wlan_band is not None:
-            _setter("wlan_band", wlan_band)
+            pulumi.set(__self__, "wlan_band", wlan_band)
         if wpa3_support is not None:
-            _setter("wpa3_support", wpa3_support)
+            pulumi.set(__self__, "wpa3_support", wpa3_support)
         if wpa3_transition is not None:
-            _setter("wpa3_transition", wpa3_transition)
+            pulumi.set(__self__, "wpa3_transition", wpa3_transition)
 
     @property
     @pulumi.getter(name="apGroupIds")
@@ -1085,13 +963,13 @@ class Wlan(pulumi.CustomResource):
         import from provider configured site
 
         ```sh
-         $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+        $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
         ```
 
-         import from another site
+        import from another site
 
         ```sh
-         $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+        $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
         ```
 
         :param str resource_name: The name of the resource.
@@ -1169,13 +1047,13 @@ class Wlan(pulumi.CustomResource):
         import from provider configured site
 
         ```sh
-         $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+        $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
         ```
 
-         import from another site
+        import from another site
 
         ```sh
-         $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+        $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
         ```
 
         :param str resource_name: The name of the resource.
@@ -1188,10 +1066,6 @@ class Wlan(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            WlanArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

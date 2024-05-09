@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
@@ -63,12 +62,6 @@ func (i DevicePortOverrideArgs) ToDevicePortOverrideOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(DevicePortOverrideOutput)
 }
 
-func (i DevicePortOverrideArgs) ToOutput(ctx context.Context) pulumix.Output[DevicePortOverride] {
-	return pulumix.Output[DevicePortOverride]{
-		OutputState: i.ToDevicePortOverrideOutputWithContext(ctx).OutputState,
-	}
-}
-
 // DevicePortOverrideArrayInput is an input type that accepts DevicePortOverrideArray and DevicePortOverrideArrayOutput values.
 // You can construct a concrete instance of `DevicePortOverrideArrayInput` via:
 //
@@ -94,12 +87,6 @@ func (i DevicePortOverrideArray) ToDevicePortOverrideArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(DevicePortOverrideArrayOutput)
 }
 
-func (i DevicePortOverrideArray) ToOutput(ctx context.Context) pulumix.Output[[]DevicePortOverride] {
-	return pulumix.Output[[]DevicePortOverride]{
-		OutputState: i.ToDevicePortOverrideArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 type DevicePortOverrideOutput struct{ *pulumi.OutputState }
 
 func (DevicePortOverrideOutput) ElementType() reflect.Type {
@@ -112,12 +99,6 @@ func (o DevicePortOverrideOutput) ToDevicePortOverrideOutput() DevicePortOverrid
 
 func (o DevicePortOverrideOutput) ToDevicePortOverrideOutputWithContext(ctx context.Context) DevicePortOverrideOutput {
 	return o
-}
-
-func (o DevicePortOverrideOutput) ToOutput(ctx context.Context) pulumix.Output[DevicePortOverride] {
-	return pulumix.Output[DevicePortOverride]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Number of ports in the aggregate.
@@ -157,12 +138,6 @@ func (o DevicePortOverrideArrayOutput) ToDevicePortOverrideArrayOutput() DeviceP
 
 func (o DevicePortOverrideArrayOutput) ToDevicePortOverrideArrayOutputWithContext(ctx context.Context) DevicePortOverrideArrayOutput {
 	return o
-}
-
-func (o DevicePortOverrideArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]DevicePortOverride] {
-	return pulumix.Output[[]DevicePortOverride]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o DevicePortOverrideArrayOutput) Index(i pulumi.IntInput) DevicePortOverrideOutput {
@@ -212,12 +187,6 @@ func (i RadiusProfileAcctServerArgs) ToRadiusProfileAcctServerOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileAcctServerOutput)
 }
 
-func (i RadiusProfileAcctServerArgs) ToOutput(ctx context.Context) pulumix.Output[RadiusProfileAcctServer] {
-	return pulumix.Output[RadiusProfileAcctServer]{
-		OutputState: i.ToRadiusProfileAcctServerOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RadiusProfileAcctServerArrayInput is an input type that accepts RadiusProfileAcctServerArray and RadiusProfileAcctServerArrayOutput values.
 // You can construct a concrete instance of `RadiusProfileAcctServerArrayInput` via:
 //
@@ -243,12 +212,6 @@ func (i RadiusProfileAcctServerArray) ToRadiusProfileAcctServerArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileAcctServerArrayOutput)
 }
 
-func (i RadiusProfileAcctServerArray) ToOutput(ctx context.Context) pulumix.Output[[]RadiusProfileAcctServer] {
-	return pulumix.Output[[]RadiusProfileAcctServer]{
-		OutputState: i.ToRadiusProfileAcctServerArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 type RadiusProfileAcctServerOutput struct{ *pulumi.OutputState }
 
 func (RadiusProfileAcctServerOutput) ElementType() reflect.Type {
@@ -261,12 +224,6 @@ func (o RadiusProfileAcctServerOutput) ToRadiusProfileAcctServerOutput() RadiusP
 
 func (o RadiusProfileAcctServerOutput) ToRadiusProfileAcctServerOutputWithContext(ctx context.Context) RadiusProfileAcctServerOutput {
 	return o
-}
-
-func (o RadiusProfileAcctServerOutput) ToOutput(ctx context.Context) pulumix.Output[RadiusProfileAcctServer] {
-	return pulumix.Output[RadiusProfileAcctServer]{
-		OutputState: o.OutputState,
-	}
 }
 
 // IP address of accounting service server.
@@ -296,12 +253,6 @@ func (o RadiusProfileAcctServerArrayOutput) ToRadiusProfileAcctServerArrayOutput
 
 func (o RadiusProfileAcctServerArrayOutput) ToRadiusProfileAcctServerArrayOutputWithContext(ctx context.Context) RadiusProfileAcctServerArrayOutput {
 	return o
-}
-
-func (o RadiusProfileAcctServerArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RadiusProfileAcctServer] {
-	return pulumix.Output[[]RadiusProfileAcctServer]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RadiusProfileAcctServerArrayOutput) Index(i pulumi.IntInput) RadiusProfileAcctServerOutput {
@@ -351,12 +302,6 @@ func (i RadiusProfileAuthServerArgs) ToRadiusProfileAuthServerOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileAuthServerOutput)
 }
 
-func (i RadiusProfileAuthServerArgs) ToOutput(ctx context.Context) pulumix.Output[RadiusProfileAuthServer] {
-	return pulumix.Output[RadiusProfileAuthServer]{
-		OutputState: i.ToRadiusProfileAuthServerOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RadiusProfileAuthServerArrayInput is an input type that accepts RadiusProfileAuthServerArray and RadiusProfileAuthServerArrayOutput values.
 // You can construct a concrete instance of `RadiusProfileAuthServerArrayInput` via:
 //
@@ -382,12 +327,6 @@ func (i RadiusProfileAuthServerArray) ToRadiusProfileAuthServerArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(RadiusProfileAuthServerArrayOutput)
 }
 
-func (i RadiusProfileAuthServerArray) ToOutput(ctx context.Context) pulumix.Output[[]RadiusProfileAuthServer] {
-	return pulumix.Output[[]RadiusProfileAuthServer]{
-		OutputState: i.ToRadiusProfileAuthServerArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 type RadiusProfileAuthServerOutput struct{ *pulumi.OutputState }
 
 func (RadiusProfileAuthServerOutput) ElementType() reflect.Type {
@@ -400,12 +339,6 @@ func (o RadiusProfileAuthServerOutput) ToRadiusProfileAuthServerOutput() RadiusP
 
 func (o RadiusProfileAuthServerOutput) ToRadiusProfileAuthServerOutputWithContext(ctx context.Context) RadiusProfileAuthServerOutput {
 	return o
-}
-
-func (o RadiusProfileAuthServerOutput) ToOutput(ctx context.Context) pulumix.Output[RadiusProfileAuthServer] {
-	return pulumix.Output[RadiusProfileAuthServer]{
-		OutputState: o.OutputState,
-	}
 }
 
 // IP address of authentication service server.
@@ -435,12 +368,6 @@ func (o RadiusProfileAuthServerArrayOutput) ToRadiusProfileAuthServerArrayOutput
 
 func (o RadiusProfileAuthServerArrayOutput) ToRadiusProfileAuthServerArrayOutputWithContext(ctx context.Context) RadiusProfileAuthServerArrayOutput {
 	return o
-}
-
-func (o RadiusProfileAuthServerArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RadiusProfileAuthServer] {
-	return pulumix.Output[[]RadiusProfileAuthServer]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RadiusProfileAuthServerArrayOutput) Index(i pulumi.IntInput) RadiusProfileAuthServerOutput {
@@ -498,12 +425,6 @@ func (i WlanScheduleArgs) ToWlanScheduleOutputWithContext(ctx context.Context) W
 	return pulumi.ToOutputWithContext(ctx, i).(WlanScheduleOutput)
 }
 
-func (i WlanScheduleArgs) ToOutput(ctx context.Context) pulumix.Output[WlanSchedule] {
-	return pulumix.Output[WlanSchedule]{
-		OutputState: i.ToWlanScheduleOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WlanScheduleArrayInput is an input type that accepts WlanScheduleArray and WlanScheduleArrayOutput values.
 // You can construct a concrete instance of `WlanScheduleArrayInput` via:
 //
@@ -529,12 +450,6 @@ func (i WlanScheduleArray) ToWlanScheduleArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(WlanScheduleArrayOutput)
 }
 
-func (i WlanScheduleArray) ToOutput(ctx context.Context) pulumix.Output[[]WlanSchedule] {
-	return pulumix.Output[[]WlanSchedule]{
-		OutputState: i.ToWlanScheduleArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 type WlanScheduleOutput struct{ *pulumi.OutputState }
 
 func (WlanScheduleOutput) ElementType() reflect.Type {
@@ -547,12 +462,6 @@ func (o WlanScheduleOutput) ToWlanScheduleOutput() WlanScheduleOutput {
 
 func (o WlanScheduleOutput) ToWlanScheduleOutputWithContext(ctx context.Context) WlanScheduleOutput {
 	return o
-}
-
-func (o WlanScheduleOutput) ToOutput(ctx context.Context) pulumix.Output[WlanSchedule] {
-	return pulumix.Output[WlanSchedule]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
@@ -592,12 +501,6 @@ func (o WlanScheduleArrayOutput) ToWlanScheduleArrayOutput() WlanScheduleArrayOu
 
 func (o WlanScheduleArrayOutput) ToWlanScheduleArrayOutputWithContext(ctx context.Context) WlanScheduleArrayOutput {
 	return o
-}
-
-func (o WlanScheduleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]WlanSchedule] {
-	return pulumix.Output[[]WlanSchedule]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WlanScheduleArrayOutput) Index(i pulumi.IntInput) WlanScheduleOutput {

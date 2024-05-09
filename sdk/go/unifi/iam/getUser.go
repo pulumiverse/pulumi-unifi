@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
@@ -125,12 +124,6 @@ func (o LookupUserResultOutput) ToLookupUserResultOutput() LookupUserResultOutpu
 
 func (o LookupUserResultOutput) ToLookupUserResultOutputWithContext(ctx context.Context) LookupUserResultOutput {
 	return o
-}
-
-func (o LookupUserResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupUserResult] {
-	return pulumix.Output[LookupUserResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies whether this user should be blocked from the network.

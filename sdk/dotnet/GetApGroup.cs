@@ -15,9 +15,7 @@ namespace Pulumiverse.Unifi
         /// <summary>
         /// `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -31,8 +29,6 @@ namespace Pulumiverse.Unifi
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetApGroupResult> InvokeAsync(GetApGroupArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupArgs(), options.WithDefaults());
@@ -40,9 +36,7 @@ namespace Pulumiverse.Unifi
         /// <summary>
         /// `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -56,8 +50,6 @@ namespace Pulumiverse.Unifi
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetApGroupResult> Invoke(GetApGroupInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupInvokeArgs(), options.WithDefaults());

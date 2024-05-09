@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = ['ProfileArgs', 'Profile']
@@ -87,153 +87,76 @@ class ProfileArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tagged_networkconf_ids: The IDs of networks to tag traffic with for the port profile.
         :param pulumi.Input[str] voice_networkconf_id: The ID of network to use as the voice network on the port profile.
         """
-        ProfileArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            autoneg=autoneg,
-            dot1x_ctrl=dot1x_ctrl,
-            dot1x_idle_timeout=dot1x_idle_timeout,
-            egress_rate_limit_kbps=egress_rate_limit_kbps,
-            egress_rate_limit_kbps_enabled=egress_rate_limit_kbps_enabled,
-            forward=forward,
-            full_duplex=full_duplex,
-            isolation=isolation,
-            lldpmed_enabled=lldpmed_enabled,
-            lldpmed_notify_enabled=lldpmed_notify_enabled,
-            name=name,
-            native_networkconf_id=native_networkconf_id,
-            op_mode=op_mode,
-            poe_mode=poe_mode,
-            port_security_enabled=port_security_enabled,
-            port_security_mac_addresses=port_security_mac_addresses,
-            priority_queue1_level=priority_queue1_level,
-            priority_queue2_level=priority_queue2_level,
-            priority_queue3_level=priority_queue3_level,
-            priority_queue4_level=priority_queue4_level,
-            site=site,
-            speed=speed,
-            stormctrl_bcast_enabled=stormctrl_bcast_enabled,
-            stormctrl_bcast_level=stormctrl_bcast_level,
-            stormctrl_bcast_rate=stormctrl_bcast_rate,
-            stormctrl_mcast_enabled=stormctrl_mcast_enabled,
-            stormctrl_mcast_level=stormctrl_mcast_level,
-            stormctrl_mcast_rate=stormctrl_mcast_rate,
-            stormctrl_type=stormctrl_type,
-            stormctrl_ucast_enabled=stormctrl_ucast_enabled,
-            stormctrl_ucast_level=stormctrl_ucast_level,
-            stormctrl_ucast_rate=stormctrl_ucast_rate,
-            stp_port_mode=stp_port_mode,
-            tagged_networkconf_ids=tagged_networkconf_ids,
-            voice_networkconf_id=voice_networkconf_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             autoneg: Optional[pulumi.Input[bool]] = None,
-             dot1x_ctrl: Optional[pulumi.Input[str]] = None,
-             dot1x_idle_timeout: Optional[pulumi.Input[int]] = None,
-             egress_rate_limit_kbps: Optional[pulumi.Input[int]] = None,
-             egress_rate_limit_kbps_enabled: Optional[pulumi.Input[bool]] = None,
-             forward: Optional[pulumi.Input[str]] = None,
-             full_duplex: Optional[pulumi.Input[bool]] = None,
-             isolation: Optional[pulumi.Input[bool]] = None,
-             lldpmed_enabled: Optional[pulumi.Input[bool]] = None,
-             lldpmed_notify_enabled: Optional[pulumi.Input[bool]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             native_networkconf_id: Optional[pulumi.Input[str]] = None,
-             op_mode: Optional[pulumi.Input[str]] = None,
-             poe_mode: Optional[pulumi.Input[str]] = None,
-             port_security_enabled: Optional[pulumi.Input[bool]] = None,
-             port_security_mac_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             priority_queue1_level: Optional[pulumi.Input[int]] = None,
-             priority_queue2_level: Optional[pulumi.Input[int]] = None,
-             priority_queue3_level: Optional[pulumi.Input[int]] = None,
-             priority_queue4_level: Optional[pulumi.Input[int]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             speed: Optional[pulumi.Input[int]] = None,
-             stormctrl_bcast_enabled: Optional[pulumi.Input[bool]] = None,
-             stormctrl_bcast_level: Optional[pulumi.Input[int]] = None,
-             stormctrl_bcast_rate: Optional[pulumi.Input[int]] = None,
-             stormctrl_mcast_enabled: Optional[pulumi.Input[bool]] = None,
-             stormctrl_mcast_level: Optional[pulumi.Input[int]] = None,
-             stormctrl_mcast_rate: Optional[pulumi.Input[int]] = None,
-             stormctrl_type: Optional[pulumi.Input[str]] = None,
-             stormctrl_ucast_enabled: Optional[pulumi.Input[bool]] = None,
-             stormctrl_ucast_level: Optional[pulumi.Input[int]] = None,
-             stormctrl_ucast_rate: Optional[pulumi.Input[int]] = None,
-             stp_port_mode: Optional[pulumi.Input[bool]] = None,
-             tagged_networkconf_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             voice_networkconf_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if autoneg is not None:
-            _setter("autoneg", autoneg)
+            pulumi.set(__self__, "autoneg", autoneg)
         if dot1x_ctrl is not None:
-            _setter("dot1x_ctrl", dot1x_ctrl)
+            pulumi.set(__self__, "dot1x_ctrl", dot1x_ctrl)
         if dot1x_idle_timeout is not None:
-            _setter("dot1x_idle_timeout", dot1x_idle_timeout)
+            pulumi.set(__self__, "dot1x_idle_timeout", dot1x_idle_timeout)
         if egress_rate_limit_kbps is not None:
-            _setter("egress_rate_limit_kbps", egress_rate_limit_kbps)
+            pulumi.set(__self__, "egress_rate_limit_kbps", egress_rate_limit_kbps)
         if egress_rate_limit_kbps_enabled is not None:
-            _setter("egress_rate_limit_kbps_enabled", egress_rate_limit_kbps_enabled)
+            pulumi.set(__self__, "egress_rate_limit_kbps_enabled", egress_rate_limit_kbps_enabled)
         if forward is not None:
-            _setter("forward", forward)
+            pulumi.set(__self__, "forward", forward)
         if full_duplex is not None:
-            _setter("full_duplex", full_duplex)
+            pulumi.set(__self__, "full_duplex", full_duplex)
         if isolation is not None:
-            _setter("isolation", isolation)
+            pulumi.set(__self__, "isolation", isolation)
         if lldpmed_enabled is not None:
-            _setter("lldpmed_enabled", lldpmed_enabled)
+            pulumi.set(__self__, "lldpmed_enabled", lldpmed_enabled)
         if lldpmed_notify_enabled is not None:
-            _setter("lldpmed_notify_enabled", lldpmed_notify_enabled)
+            pulumi.set(__self__, "lldpmed_notify_enabled", lldpmed_notify_enabled)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if native_networkconf_id is not None:
-            _setter("native_networkconf_id", native_networkconf_id)
+            pulumi.set(__self__, "native_networkconf_id", native_networkconf_id)
         if op_mode is not None:
-            _setter("op_mode", op_mode)
+            pulumi.set(__self__, "op_mode", op_mode)
         if poe_mode is not None:
-            _setter("poe_mode", poe_mode)
+            pulumi.set(__self__, "poe_mode", poe_mode)
         if port_security_enabled is not None:
-            _setter("port_security_enabled", port_security_enabled)
+            pulumi.set(__self__, "port_security_enabled", port_security_enabled)
         if port_security_mac_addresses is not None:
-            _setter("port_security_mac_addresses", port_security_mac_addresses)
+            pulumi.set(__self__, "port_security_mac_addresses", port_security_mac_addresses)
         if priority_queue1_level is not None:
-            _setter("priority_queue1_level", priority_queue1_level)
+            pulumi.set(__self__, "priority_queue1_level", priority_queue1_level)
         if priority_queue2_level is not None:
-            _setter("priority_queue2_level", priority_queue2_level)
+            pulumi.set(__self__, "priority_queue2_level", priority_queue2_level)
         if priority_queue3_level is not None:
-            _setter("priority_queue3_level", priority_queue3_level)
+            pulumi.set(__self__, "priority_queue3_level", priority_queue3_level)
         if priority_queue4_level is not None:
-            _setter("priority_queue4_level", priority_queue4_level)
+            pulumi.set(__self__, "priority_queue4_level", priority_queue4_level)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if speed is not None:
-            _setter("speed", speed)
+            pulumi.set(__self__, "speed", speed)
         if stormctrl_bcast_enabled is not None:
-            _setter("stormctrl_bcast_enabled", stormctrl_bcast_enabled)
+            pulumi.set(__self__, "stormctrl_bcast_enabled", stormctrl_bcast_enabled)
         if stormctrl_bcast_level is not None:
-            _setter("stormctrl_bcast_level", stormctrl_bcast_level)
+            pulumi.set(__self__, "stormctrl_bcast_level", stormctrl_bcast_level)
         if stormctrl_bcast_rate is not None:
-            _setter("stormctrl_bcast_rate", stormctrl_bcast_rate)
+            pulumi.set(__self__, "stormctrl_bcast_rate", stormctrl_bcast_rate)
         if stormctrl_mcast_enabled is not None:
-            _setter("stormctrl_mcast_enabled", stormctrl_mcast_enabled)
+            pulumi.set(__self__, "stormctrl_mcast_enabled", stormctrl_mcast_enabled)
         if stormctrl_mcast_level is not None:
-            _setter("stormctrl_mcast_level", stormctrl_mcast_level)
+            pulumi.set(__self__, "stormctrl_mcast_level", stormctrl_mcast_level)
         if stormctrl_mcast_rate is not None:
-            _setter("stormctrl_mcast_rate", stormctrl_mcast_rate)
+            pulumi.set(__self__, "stormctrl_mcast_rate", stormctrl_mcast_rate)
         if stormctrl_type is not None:
-            _setter("stormctrl_type", stormctrl_type)
+            pulumi.set(__self__, "stormctrl_type", stormctrl_type)
         if stormctrl_ucast_enabled is not None:
-            _setter("stormctrl_ucast_enabled", stormctrl_ucast_enabled)
+            pulumi.set(__self__, "stormctrl_ucast_enabled", stormctrl_ucast_enabled)
         if stormctrl_ucast_level is not None:
-            _setter("stormctrl_ucast_level", stormctrl_ucast_level)
+            pulumi.set(__self__, "stormctrl_ucast_level", stormctrl_ucast_level)
         if stormctrl_ucast_rate is not None:
-            _setter("stormctrl_ucast_rate", stormctrl_ucast_rate)
+            pulumi.set(__self__, "stormctrl_ucast_rate", stormctrl_ucast_rate)
         if stp_port_mode is not None:
-            _setter("stp_port_mode", stp_port_mode)
+            pulumi.set(__self__, "stp_port_mode", stp_port_mode)
         if tagged_networkconf_ids is not None:
-            _setter("tagged_networkconf_ids", tagged_networkconf_ids)
+            pulumi.set(__self__, "tagged_networkconf_ids", tagged_networkconf_ids)
         if voice_networkconf_id is not None:
-            _setter("voice_networkconf_id", voice_networkconf_id)
+            pulumi.set(__self__, "voice_networkconf_id", voice_networkconf_id)
 
     @property
     @pulumi.getter
@@ -732,153 +655,76 @@ class _ProfileState:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] tagged_networkconf_ids: The IDs of networks to tag traffic with for the port profile.
         :param pulumi.Input[str] voice_networkconf_id: The ID of network to use as the voice network on the port profile.
         """
-        _ProfileState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            autoneg=autoneg,
-            dot1x_ctrl=dot1x_ctrl,
-            dot1x_idle_timeout=dot1x_idle_timeout,
-            egress_rate_limit_kbps=egress_rate_limit_kbps,
-            egress_rate_limit_kbps_enabled=egress_rate_limit_kbps_enabled,
-            forward=forward,
-            full_duplex=full_duplex,
-            isolation=isolation,
-            lldpmed_enabled=lldpmed_enabled,
-            lldpmed_notify_enabled=lldpmed_notify_enabled,
-            name=name,
-            native_networkconf_id=native_networkconf_id,
-            op_mode=op_mode,
-            poe_mode=poe_mode,
-            port_security_enabled=port_security_enabled,
-            port_security_mac_addresses=port_security_mac_addresses,
-            priority_queue1_level=priority_queue1_level,
-            priority_queue2_level=priority_queue2_level,
-            priority_queue3_level=priority_queue3_level,
-            priority_queue4_level=priority_queue4_level,
-            site=site,
-            speed=speed,
-            stormctrl_bcast_enabled=stormctrl_bcast_enabled,
-            stormctrl_bcast_level=stormctrl_bcast_level,
-            stormctrl_bcast_rate=stormctrl_bcast_rate,
-            stormctrl_mcast_enabled=stormctrl_mcast_enabled,
-            stormctrl_mcast_level=stormctrl_mcast_level,
-            stormctrl_mcast_rate=stormctrl_mcast_rate,
-            stormctrl_type=stormctrl_type,
-            stormctrl_ucast_enabled=stormctrl_ucast_enabled,
-            stormctrl_ucast_level=stormctrl_ucast_level,
-            stormctrl_ucast_rate=stormctrl_ucast_rate,
-            stp_port_mode=stp_port_mode,
-            tagged_networkconf_ids=tagged_networkconf_ids,
-            voice_networkconf_id=voice_networkconf_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             autoneg: Optional[pulumi.Input[bool]] = None,
-             dot1x_ctrl: Optional[pulumi.Input[str]] = None,
-             dot1x_idle_timeout: Optional[pulumi.Input[int]] = None,
-             egress_rate_limit_kbps: Optional[pulumi.Input[int]] = None,
-             egress_rate_limit_kbps_enabled: Optional[pulumi.Input[bool]] = None,
-             forward: Optional[pulumi.Input[str]] = None,
-             full_duplex: Optional[pulumi.Input[bool]] = None,
-             isolation: Optional[pulumi.Input[bool]] = None,
-             lldpmed_enabled: Optional[pulumi.Input[bool]] = None,
-             lldpmed_notify_enabled: Optional[pulumi.Input[bool]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             native_networkconf_id: Optional[pulumi.Input[str]] = None,
-             op_mode: Optional[pulumi.Input[str]] = None,
-             poe_mode: Optional[pulumi.Input[str]] = None,
-             port_security_enabled: Optional[pulumi.Input[bool]] = None,
-             port_security_mac_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             priority_queue1_level: Optional[pulumi.Input[int]] = None,
-             priority_queue2_level: Optional[pulumi.Input[int]] = None,
-             priority_queue3_level: Optional[pulumi.Input[int]] = None,
-             priority_queue4_level: Optional[pulumi.Input[int]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             speed: Optional[pulumi.Input[int]] = None,
-             stormctrl_bcast_enabled: Optional[pulumi.Input[bool]] = None,
-             stormctrl_bcast_level: Optional[pulumi.Input[int]] = None,
-             stormctrl_bcast_rate: Optional[pulumi.Input[int]] = None,
-             stormctrl_mcast_enabled: Optional[pulumi.Input[bool]] = None,
-             stormctrl_mcast_level: Optional[pulumi.Input[int]] = None,
-             stormctrl_mcast_rate: Optional[pulumi.Input[int]] = None,
-             stormctrl_type: Optional[pulumi.Input[str]] = None,
-             stormctrl_ucast_enabled: Optional[pulumi.Input[bool]] = None,
-             stormctrl_ucast_level: Optional[pulumi.Input[int]] = None,
-             stormctrl_ucast_rate: Optional[pulumi.Input[int]] = None,
-             stp_port_mode: Optional[pulumi.Input[bool]] = None,
-             tagged_networkconf_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             voice_networkconf_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if autoneg is not None:
-            _setter("autoneg", autoneg)
+            pulumi.set(__self__, "autoneg", autoneg)
         if dot1x_ctrl is not None:
-            _setter("dot1x_ctrl", dot1x_ctrl)
+            pulumi.set(__self__, "dot1x_ctrl", dot1x_ctrl)
         if dot1x_idle_timeout is not None:
-            _setter("dot1x_idle_timeout", dot1x_idle_timeout)
+            pulumi.set(__self__, "dot1x_idle_timeout", dot1x_idle_timeout)
         if egress_rate_limit_kbps is not None:
-            _setter("egress_rate_limit_kbps", egress_rate_limit_kbps)
+            pulumi.set(__self__, "egress_rate_limit_kbps", egress_rate_limit_kbps)
         if egress_rate_limit_kbps_enabled is not None:
-            _setter("egress_rate_limit_kbps_enabled", egress_rate_limit_kbps_enabled)
+            pulumi.set(__self__, "egress_rate_limit_kbps_enabled", egress_rate_limit_kbps_enabled)
         if forward is not None:
-            _setter("forward", forward)
+            pulumi.set(__self__, "forward", forward)
         if full_duplex is not None:
-            _setter("full_duplex", full_duplex)
+            pulumi.set(__self__, "full_duplex", full_duplex)
         if isolation is not None:
-            _setter("isolation", isolation)
+            pulumi.set(__self__, "isolation", isolation)
         if lldpmed_enabled is not None:
-            _setter("lldpmed_enabled", lldpmed_enabled)
+            pulumi.set(__self__, "lldpmed_enabled", lldpmed_enabled)
         if lldpmed_notify_enabled is not None:
-            _setter("lldpmed_notify_enabled", lldpmed_notify_enabled)
+            pulumi.set(__self__, "lldpmed_notify_enabled", lldpmed_notify_enabled)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if native_networkconf_id is not None:
-            _setter("native_networkconf_id", native_networkconf_id)
+            pulumi.set(__self__, "native_networkconf_id", native_networkconf_id)
         if op_mode is not None:
-            _setter("op_mode", op_mode)
+            pulumi.set(__self__, "op_mode", op_mode)
         if poe_mode is not None:
-            _setter("poe_mode", poe_mode)
+            pulumi.set(__self__, "poe_mode", poe_mode)
         if port_security_enabled is not None:
-            _setter("port_security_enabled", port_security_enabled)
+            pulumi.set(__self__, "port_security_enabled", port_security_enabled)
         if port_security_mac_addresses is not None:
-            _setter("port_security_mac_addresses", port_security_mac_addresses)
+            pulumi.set(__self__, "port_security_mac_addresses", port_security_mac_addresses)
         if priority_queue1_level is not None:
-            _setter("priority_queue1_level", priority_queue1_level)
+            pulumi.set(__self__, "priority_queue1_level", priority_queue1_level)
         if priority_queue2_level is not None:
-            _setter("priority_queue2_level", priority_queue2_level)
+            pulumi.set(__self__, "priority_queue2_level", priority_queue2_level)
         if priority_queue3_level is not None:
-            _setter("priority_queue3_level", priority_queue3_level)
+            pulumi.set(__self__, "priority_queue3_level", priority_queue3_level)
         if priority_queue4_level is not None:
-            _setter("priority_queue4_level", priority_queue4_level)
+            pulumi.set(__self__, "priority_queue4_level", priority_queue4_level)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if speed is not None:
-            _setter("speed", speed)
+            pulumi.set(__self__, "speed", speed)
         if stormctrl_bcast_enabled is not None:
-            _setter("stormctrl_bcast_enabled", stormctrl_bcast_enabled)
+            pulumi.set(__self__, "stormctrl_bcast_enabled", stormctrl_bcast_enabled)
         if stormctrl_bcast_level is not None:
-            _setter("stormctrl_bcast_level", stormctrl_bcast_level)
+            pulumi.set(__self__, "stormctrl_bcast_level", stormctrl_bcast_level)
         if stormctrl_bcast_rate is not None:
-            _setter("stormctrl_bcast_rate", stormctrl_bcast_rate)
+            pulumi.set(__self__, "stormctrl_bcast_rate", stormctrl_bcast_rate)
         if stormctrl_mcast_enabled is not None:
-            _setter("stormctrl_mcast_enabled", stormctrl_mcast_enabled)
+            pulumi.set(__self__, "stormctrl_mcast_enabled", stormctrl_mcast_enabled)
         if stormctrl_mcast_level is not None:
-            _setter("stormctrl_mcast_level", stormctrl_mcast_level)
+            pulumi.set(__self__, "stormctrl_mcast_level", stormctrl_mcast_level)
         if stormctrl_mcast_rate is not None:
-            _setter("stormctrl_mcast_rate", stormctrl_mcast_rate)
+            pulumi.set(__self__, "stormctrl_mcast_rate", stormctrl_mcast_rate)
         if stormctrl_type is not None:
-            _setter("stormctrl_type", stormctrl_type)
+            pulumi.set(__self__, "stormctrl_type", stormctrl_type)
         if stormctrl_ucast_enabled is not None:
-            _setter("stormctrl_ucast_enabled", stormctrl_ucast_enabled)
+            pulumi.set(__self__, "stormctrl_ucast_enabled", stormctrl_ucast_enabled)
         if stormctrl_ucast_level is not None:
-            _setter("stormctrl_ucast_level", stormctrl_ucast_level)
+            pulumi.set(__self__, "stormctrl_ucast_level", stormctrl_ucast_level)
         if stormctrl_ucast_rate is not None:
-            _setter("stormctrl_ucast_rate", stormctrl_ucast_rate)
+            pulumi.set(__self__, "stormctrl_ucast_rate", stormctrl_ucast_rate)
         if stp_port_mode is not None:
-            _setter("stp_port_mode", stp_port_mode)
+            pulumi.set(__self__, "stp_port_mode", stp_port_mode)
         if tagged_networkconf_ids is not None:
-            _setter("tagged_networkconf_ids", tagged_networkconf_ids)
+            pulumi.set(__self__, "tagged_networkconf_ids", tagged_networkconf_ids)
         if voice_networkconf_id is not None:
-            _setter("voice_networkconf_id", voice_networkconf_id)
+            pulumi.set(__self__, "voice_networkconf_id", voice_networkconf_id)
 
     @property
     @pulumi.getter
@@ -1446,10 +1292,6 @@ class Profile(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ProfileArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

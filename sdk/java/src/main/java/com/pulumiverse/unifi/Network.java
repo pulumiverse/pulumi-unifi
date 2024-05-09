@@ -21,6 +21,8 @@ import javax.annotation.Nullable;
  * `unifi.Network` manages WAN/LAN/VLAN networks.
  * 
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -44,7 +46,7 @@ import javax.annotation.Nullable;
  *     public static void stack(Context ctx) {
  *         final var config = ctx.config();
  *         final var vlanId = config.get(&#34;vlanId&#34;).orElse(10);
- *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()
  *             .purpose(&#34;corporate&#34;)
  *             .subnet(&#34;10.0.0.1/24&#34;)
  *             .vlanId(vlanId)
@@ -53,7 +55,7 @@ import javax.annotation.Nullable;
  *             .dhcpEnabled(true)
  *             .build());
  * 
- *         var wan = new Network(&#34;wan&#34;, NetworkArgs.builder()        
+ *         var wan = new Network(&#34;wan&#34;, NetworkArgs.builder()
  *             .purpose(&#34;wan&#34;)
  *             .wanNetworkgroup(&#34;WAN&#34;)
  *             .wanType(&#34;pppoe&#34;)
@@ -66,25 +68,26 @@ import javax.annotation.Nullable;
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  * ## Import
  * 
  * import from provider configured site
  * 
  * ```sh
- *  $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
+ * $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
  * ```
  * 
- *  import from another site
+ * import from another site
  * 
  * ```sh
- *  $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
+ * $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
  * ```
  * 
- *  import network by name
+ * import network by name
  * 
  * ```sh
- *  $ pulumi import unifi:index/network:Network mynetwork name=LAN
+ * $ pulumi import unifi:index/network:Network mynetwork name=LAN
  * ```
  * 
  */

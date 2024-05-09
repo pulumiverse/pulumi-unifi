@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = ['RuleArgs', 'Rule']
@@ -75,126 +75,61 @@ class RuleArgs:
         :param pulumi.Input[bool] state_new: Match where the state is new.
         :param pulumi.Input[bool] state_related: Match where the state is related.
         """
-        RuleArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            action=action,
-            rule_index=rule_index,
-            ruleset=ruleset,
-            dst_address=dst_address,
-            dst_address_ipv6=dst_address_ipv6,
-            dst_firewall_group_ids=dst_firewall_group_ids,
-            dst_network_id=dst_network_id,
-            dst_network_type=dst_network_type,
-            dst_port=dst_port,
-            enabled=enabled,
-            icmp_typename=icmp_typename,
-            icmp_v6_typename=icmp_v6_typename,
-            ip_sec=ip_sec,
-            logging=logging,
-            name=name,
-            protocol=protocol,
-            protocol_v6=protocol_v6,
-            site=site,
-            src_address=src_address,
-            src_address_ipv6=src_address_ipv6,
-            src_firewall_group_ids=src_firewall_group_ids,
-            src_mac=src_mac,
-            src_network_id=src_network_id,
-            src_network_type=src_network_type,
-            src_port=src_port,
-            state_established=state_established,
-            state_invalid=state_invalid,
-            state_new=state_new,
-            state_related=state_related,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             action: pulumi.Input[str],
-             rule_index: pulumi.Input[int],
-             ruleset: pulumi.Input[str],
-             dst_address: Optional[pulumi.Input[str]] = None,
-             dst_address_ipv6: Optional[pulumi.Input[str]] = None,
-             dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             dst_network_id: Optional[pulumi.Input[str]] = None,
-             dst_network_type: Optional[pulumi.Input[str]] = None,
-             dst_port: Optional[pulumi.Input[str]] = None,
-             enabled: Optional[pulumi.Input[bool]] = None,
-             icmp_typename: Optional[pulumi.Input[str]] = None,
-             icmp_v6_typename: Optional[pulumi.Input[str]] = None,
-             ip_sec: Optional[pulumi.Input[str]] = None,
-             logging: Optional[pulumi.Input[bool]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             protocol: Optional[pulumi.Input[str]] = None,
-             protocol_v6: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             src_address: Optional[pulumi.Input[str]] = None,
-             src_address_ipv6: Optional[pulumi.Input[str]] = None,
-             src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             src_mac: Optional[pulumi.Input[str]] = None,
-             src_network_id: Optional[pulumi.Input[str]] = None,
-             src_network_type: Optional[pulumi.Input[str]] = None,
-             src_port: Optional[pulumi.Input[str]] = None,
-             state_established: Optional[pulumi.Input[bool]] = None,
-             state_invalid: Optional[pulumi.Input[bool]] = None,
-             state_new: Optional[pulumi.Input[bool]] = None,
-             state_related: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
-        _setter("action", action)
-        _setter("rule_index", rule_index)
-        _setter("ruleset", ruleset)
+        pulumi.set(__self__, "action", action)
+        pulumi.set(__self__, "rule_index", rule_index)
+        pulumi.set(__self__, "ruleset", ruleset)
         if dst_address is not None:
-            _setter("dst_address", dst_address)
+            pulumi.set(__self__, "dst_address", dst_address)
         if dst_address_ipv6 is not None:
-            _setter("dst_address_ipv6", dst_address_ipv6)
+            pulumi.set(__self__, "dst_address_ipv6", dst_address_ipv6)
         if dst_firewall_group_ids is not None:
-            _setter("dst_firewall_group_ids", dst_firewall_group_ids)
+            pulumi.set(__self__, "dst_firewall_group_ids", dst_firewall_group_ids)
         if dst_network_id is not None:
-            _setter("dst_network_id", dst_network_id)
+            pulumi.set(__self__, "dst_network_id", dst_network_id)
         if dst_network_type is not None:
-            _setter("dst_network_type", dst_network_type)
+            pulumi.set(__self__, "dst_network_type", dst_network_type)
         if dst_port is not None:
-            _setter("dst_port", dst_port)
+            pulumi.set(__self__, "dst_port", dst_port)
         if enabled is not None:
-            _setter("enabled", enabled)
+            pulumi.set(__self__, "enabled", enabled)
         if icmp_typename is not None:
-            _setter("icmp_typename", icmp_typename)
+            pulumi.set(__self__, "icmp_typename", icmp_typename)
         if icmp_v6_typename is not None:
-            _setter("icmp_v6_typename", icmp_v6_typename)
+            pulumi.set(__self__, "icmp_v6_typename", icmp_v6_typename)
         if ip_sec is not None:
-            _setter("ip_sec", ip_sec)
+            pulumi.set(__self__, "ip_sec", ip_sec)
         if logging is not None:
-            _setter("logging", logging)
+            pulumi.set(__self__, "logging", logging)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if protocol is not None:
-            _setter("protocol", protocol)
+            pulumi.set(__self__, "protocol", protocol)
         if protocol_v6 is not None:
-            _setter("protocol_v6", protocol_v6)
+            pulumi.set(__self__, "protocol_v6", protocol_v6)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if src_address is not None:
-            _setter("src_address", src_address)
+            pulumi.set(__self__, "src_address", src_address)
         if src_address_ipv6 is not None:
-            _setter("src_address_ipv6", src_address_ipv6)
+            pulumi.set(__self__, "src_address_ipv6", src_address_ipv6)
         if src_firewall_group_ids is not None:
-            _setter("src_firewall_group_ids", src_firewall_group_ids)
+            pulumi.set(__self__, "src_firewall_group_ids", src_firewall_group_ids)
         if src_mac is not None:
-            _setter("src_mac", src_mac)
+            pulumi.set(__self__, "src_mac", src_mac)
         if src_network_id is not None:
-            _setter("src_network_id", src_network_id)
+            pulumi.set(__self__, "src_network_id", src_network_id)
         if src_network_type is not None:
-            _setter("src_network_type", src_network_type)
+            pulumi.set(__self__, "src_network_type", src_network_type)
         if src_port is not None:
-            _setter("src_port", src_port)
+            pulumi.set(__self__, "src_port", src_port)
         if state_established is not None:
-            _setter("state_established", state_established)
+            pulumi.set(__self__, "state_established", state_established)
         if state_invalid is not None:
-            _setter("state_invalid", state_invalid)
+            pulumi.set(__self__, "state_invalid", state_invalid)
         if state_new is not None:
-            _setter("state_new", state_new)
+            pulumi.set(__self__, "state_new", state_new)
         if state_related is not None:
-            _setter("state_related", state_related)
+            pulumi.set(__self__, "state_related", state_related)
 
     @property
     @pulumi.getter
@@ -609,129 +544,64 @@ class _RuleState:
         :param pulumi.Input[bool] state_new: Match where the state is new.
         :param pulumi.Input[bool] state_related: Match where the state is related.
         """
-        _RuleState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            action=action,
-            dst_address=dst_address,
-            dst_address_ipv6=dst_address_ipv6,
-            dst_firewall_group_ids=dst_firewall_group_ids,
-            dst_network_id=dst_network_id,
-            dst_network_type=dst_network_type,
-            dst_port=dst_port,
-            enabled=enabled,
-            icmp_typename=icmp_typename,
-            icmp_v6_typename=icmp_v6_typename,
-            ip_sec=ip_sec,
-            logging=logging,
-            name=name,
-            protocol=protocol,
-            protocol_v6=protocol_v6,
-            rule_index=rule_index,
-            ruleset=ruleset,
-            site=site,
-            src_address=src_address,
-            src_address_ipv6=src_address_ipv6,
-            src_firewall_group_ids=src_firewall_group_ids,
-            src_mac=src_mac,
-            src_network_id=src_network_id,
-            src_network_type=src_network_type,
-            src_port=src_port,
-            state_established=state_established,
-            state_invalid=state_invalid,
-            state_new=state_new,
-            state_related=state_related,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             action: Optional[pulumi.Input[str]] = None,
-             dst_address: Optional[pulumi.Input[str]] = None,
-             dst_address_ipv6: Optional[pulumi.Input[str]] = None,
-             dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             dst_network_id: Optional[pulumi.Input[str]] = None,
-             dst_network_type: Optional[pulumi.Input[str]] = None,
-             dst_port: Optional[pulumi.Input[str]] = None,
-             enabled: Optional[pulumi.Input[bool]] = None,
-             icmp_typename: Optional[pulumi.Input[str]] = None,
-             icmp_v6_typename: Optional[pulumi.Input[str]] = None,
-             ip_sec: Optional[pulumi.Input[str]] = None,
-             logging: Optional[pulumi.Input[bool]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             protocol: Optional[pulumi.Input[str]] = None,
-             protocol_v6: Optional[pulumi.Input[str]] = None,
-             rule_index: Optional[pulumi.Input[int]] = None,
-             ruleset: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             src_address: Optional[pulumi.Input[str]] = None,
-             src_address_ipv6: Optional[pulumi.Input[str]] = None,
-             src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             src_mac: Optional[pulumi.Input[str]] = None,
-             src_network_id: Optional[pulumi.Input[str]] = None,
-             src_network_type: Optional[pulumi.Input[str]] = None,
-             src_port: Optional[pulumi.Input[str]] = None,
-             state_established: Optional[pulumi.Input[bool]] = None,
-             state_invalid: Optional[pulumi.Input[bool]] = None,
-             state_new: Optional[pulumi.Input[bool]] = None,
-             state_related: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if action is not None:
-            _setter("action", action)
+            pulumi.set(__self__, "action", action)
         if dst_address is not None:
-            _setter("dst_address", dst_address)
+            pulumi.set(__self__, "dst_address", dst_address)
         if dst_address_ipv6 is not None:
-            _setter("dst_address_ipv6", dst_address_ipv6)
+            pulumi.set(__self__, "dst_address_ipv6", dst_address_ipv6)
         if dst_firewall_group_ids is not None:
-            _setter("dst_firewall_group_ids", dst_firewall_group_ids)
+            pulumi.set(__self__, "dst_firewall_group_ids", dst_firewall_group_ids)
         if dst_network_id is not None:
-            _setter("dst_network_id", dst_network_id)
+            pulumi.set(__self__, "dst_network_id", dst_network_id)
         if dst_network_type is not None:
-            _setter("dst_network_type", dst_network_type)
+            pulumi.set(__self__, "dst_network_type", dst_network_type)
         if dst_port is not None:
-            _setter("dst_port", dst_port)
+            pulumi.set(__self__, "dst_port", dst_port)
         if enabled is not None:
-            _setter("enabled", enabled)
+            pulumi.set(__self__, "enabled", enabled)
         if icmp_typename is not None:
-            _setter("icmp_typename", icmp_typename)
+            pulumi.set(__self__, "icmp_typename", icmp_typename)
         if icmp_v6_typename is not None:
-            _setter("icmp_v6_typename", icmp_v6_typename)
+            pulumi.set(__self__, "icmp_v6_typename", icmp_v6_typename)
         if ip_sec is not None:
-            _setter("ip_sec", ip_sec)
+            pulumi.set(__self__, "ip_sec", ip_sec)
         if logging is not None:
-            _setter("logging", logging)
+            pulumi.set(__self__, "logging", logging)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if protocol is not None:
-            _setter("protocol", protocol)
+            pulumi.set(__self__, "protocol", protocol)
         if protocol_v6 is not None:
-            _setter("protocol_v6", protocol_v6)
+            pulumi.set(__self__, "protocol_v6", protocol_v6)
         if rule_index is not None:
-            _setter("rule_index", rule_index)
+            pulumi.set(__self__, "rule_index", rule_index)
         if ruleset is not None:
-            _setter("ruleset", ruleset)
+            pulumi.set(__self__, "ruleset", ruleset)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if src_address is not None:
-            _setter("src_address", src_address)
+            pulumi.set(__self__, "src_address", src_address)
         if src_address_ipv6 is not None:
-            _setter("src_address_ipv6", src_address_ipv6)
+            pulumi.set(__self__, "src_address_ipv6", src_address_ipv6)
         if src_firewall_group_ids is not None:
-            _setter("src_firewall_group_ids", src_firewall_group_ids)
+            pulumi.set(__self__, "src_firewall_group_ids", src_firewall_group_ids)
         if src_mac is not None:
-            _setter("src_mac", src_mac)
+            pulumi.set(__self__, "src_mac", src_mac)
         if src_network_id is not None:
-            _setter("src_network_id", src_network_id)
+            pulumi.set(__self__, "src_network_id", src_network_id)
         if src_network_type is not None:
-            _setter("src_network_type", src_network_type)
+            pulumi.set(__self__, "src_network_type", src_network_type)
         if src_port is not None:
-            _setter("src_port", src_port)
+            pulumi.set(__self__, "src_port", src_port)
         if state_established is not None:
-            _setter("state_established", state_established)
+            pulumi.set(__self__, "state_established", state_established)
         if state_invalid is not None:
-            _setter("state_invalid", state_invalid)
+            pulumi.set(__self__, "state_invalid", state_invalid)
         if state_new is not None:
-            _setter("state_new", state_new)
+            pulumi.set(__self__, "state_new", state_new)
         if state_related is not None:
-            _setter("state_related", state_related)
+            pulumi.set(__self__, "state_related", state_related)
 
     @property
     @pulumi.getter
@@ -1141,7 +1011,7 @@ class Rule(pulumi.CustomResource):
         import using the ID from the controller API/UI
 
         ```sh
-         $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+        $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
         ```
 
         :param str resource_name: The name of the resource.
@@ -1206,7 +1076,7 @@ class Rule(pulumi.CustomResource):
         import using the ID from the controller API/UI
 
         ```sh
-         $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+        $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
         ```
 
         :param str resource_name: The name of the resource.
@@ -1219,10 +1089,6 @@ class Rule(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            RuleArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

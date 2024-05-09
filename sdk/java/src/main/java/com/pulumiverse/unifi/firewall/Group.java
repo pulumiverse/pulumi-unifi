@@ -18,6 +18,8 @@ import javax.annotation.Nullable;
  * `unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).
  * 
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -41,7 +43,7 @@ import javax.annotation.Nullable;
  *     public static void stack(Context ctx) {
  *         final var config = ctx.config();
  *         final var laptopIps = config.get(&#34;laptopIps&#34;);
- *         var canPrint = new Group(&#34;canPrint&#34;, GroupArgs.builder()        
+ *         var canPrint = new Group(&#34;canPrint&#34;, GroupArgs.builder()
  *             .type(&#34;address-group&#34;)
  *             .members(laptopIps)
  *             .build());
@@ -49,6 +51,7 @@ import javax.annotation.Nullable;
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  */
 @ResourceType(type="unifi:firewall/group:Group")

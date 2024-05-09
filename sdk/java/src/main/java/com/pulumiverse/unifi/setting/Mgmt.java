@@ -21,6 +21,8 @@ import javax.annotation.Nullable;
  * `unifi.setting.Mgmt` manages settings for a unifi site.
  * 
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -44,11 +46,11 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var exampleSite = new Site(&#34;exampleSite&#34;, SiteArgs.builder()        
+ *         var exampleSite = new Site(&#34;exampleSite&#34;, SiteArgs.builder()
  *             .description(&#34;example&#34;)
  *             .build());
  * 
- *         var exampleMgmt = new Mgmt(&#34;exampleMgmt&#34;, MgmtArgs.builder()        
+ *         var exampleMgmt = new Mgmt(&#34;exampleMgmt&#34;, MgmtArgs.builder()
  *             .site(exampleSite.name())
  *             .autoUpgrade(true)
  *             .build());
@@ -56,6 +58,7 @@ import javax.annotation.Nullable;
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  */
 @ResourceType(type="unifi:setting/mgmt:Mgmt")

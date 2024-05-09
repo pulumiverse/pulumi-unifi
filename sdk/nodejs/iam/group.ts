@@ -25,7 +25,7 @@ import * as utilities from "../utilities";
  * import using the ID
  *
  * ```sh
- *  $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
+ * $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
  * ```
  */
 export class Group extends pulumi.CustomResource {

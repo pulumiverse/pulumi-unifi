@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['StaticRouteArgs', 'StaticRoute']
@@ -31,38 +31,17 @@ class StaticRouteArgs:
         :param pulumi.Input[str] next_hop: The next hop of the static route (only valid for `nexthop-route` type).
         :param pulumi.Input[str] site: The name of the site to associate the static route with.
         """
-        StaticRouteArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            distance=distance,
-            network=network,
-            type=type,
-            interface=interface,
-            name=name,
-            next_hop=next_hop,
-            site=site,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             distance: pulumi.Input[int],
-             network: pulumi.Input[str],
-             type: pulumi.Input[str],
-             interface: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             next_hop: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
-        _setter("distance", distance)
-        _setter("network", network)
-        _setter("type", type)
+        pulumi.set(__self__, "distance", distance)
+        pulumi.set(__self__, "network", network)
+        pulumi.set(__self__, "type", type)
         if interface is not None:
-            _setter("interface", interface)
+            pulumi.set(__self__, "interface", interface)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if next_hop is not None:
-            _setter("next_hop", next_hop)
+            pulumi.set(__self__, "next_hop", next_hop)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
 
     @property
     @pulumi.getter
@@ -169,41 +148,20 @@ class _StaticRouteState:
         :param pulumi.Input[str] site: The name of the site to associate the static route with.
         :param pulumi.Input[str] type: The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
         """
-        _StaticRouteState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            distance=distance,
-            interface=interface,
-            name=name,
-            network=network,
-            next_hop=next_hop,
-            site=site,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             distance: Optional[pulumi.Input[int]] = None,
-             interface: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             network: Optional[pulumi.Input[str]] = None,
-             next_hop: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if distance is not None:
-            _setter("distance", distance)
+            pulumi.set(__self__, "distance", distance)
         if interface is not None:
-            _setter("interface", interface)
+            pulumi.set(__self__, "interface", interface)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if network is not None:
-            _setter("network", network)
+            pulumi.set(__self__, "network", network)
         if next_hop is not None:
-            _setter("next_hop", next_hop)
+            pulumi.set(__self__, "next_hop", next_hop)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter
@@ -379,10 +337,6 @@ class StaticRoute(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            StaticRouteArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

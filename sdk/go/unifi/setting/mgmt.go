@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
@@ -161,12 +160,6 @@ func (i *Mgmt) ToMgmtOutputWithContext(ctx context.Context) MgmtOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(MgmtOutput)
 }
 
-func (i *Mgmt) ToOutput(ctx context.Context) pulumix.Output[*Mgmt] {
-	return pulumix.Output[*Mgmt]{
-		OutputState: i.ToMgmtOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MgmtArrayInput is an input type that accepts MgmtArray and MgmtArrayOutput values.
 // You can construct a concrete instance of `MgmtArrayInput` via:
 //
@@ -190,12 +183,6 @@ func (i MgmtArray) ToMgmtArrayOutput() MgmtArrayOutput {
 
 func (i MgmtArray) ToMgmtArrayOutputWithContext(ctx context.Context) MgmtArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(MgmtArrayOutput)
-}
-
-func (i MgmtArray) ToOutput(ctx context.Context) pulumix.Output[[]*Mgmt] {
-	return pulumix.Output[[]*Mgmt]{
-		OutputState: i.ToMgmtArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // MgmtMapInput is an input type that accepts MgmtMap and MgmtMapOutput values.
@@ -223,12 +210,6 @@ func (i MgmtMap) ToMgmtMapOutputWithContext(ctx context.Context) MgmtMapOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(MgmtMapOutput)
 }
 
-func (i MgmtMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Mgmt] {
-	return pulumix.Output[map[string]*Mgmt]{
-		OutputState: i.ToMgmtMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type MgmtOutput struct{ *pulumi.OutputState }
 
 func (MgmtOutput) ElementType() reflect.Type {
@@ -241,12 +222,6 @@ func (o MgmtOutput) ToMgmtOutput() MgmtOutput {
 
 func (o MgmtOutput) ToMgmtOutputWithContext(ctx context.Context) MgmtOutput {
 	return o
-}
-
-func (o MgmtOutput) ToOutput(ctx context.Context) pulumix.Output[*Mgmt] {
-	return pulumix.Output[*Mgmt]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Automatically upgrade device firmware.
@@ -283,12 +258,6 @@ func (o MgmtArrayOutput) ToMgmtArrayOutputWithContext(ctx context.Context) MgmtA
 	return o
 }
 
-func (o MgmtArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Mgmt] {
-	return pulumix.Output[[]*Mgmt]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o MgmtArrayOutput) Index(i pulumi.IntInput) MgmtOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Mgmt {
 		return vs[0].([]*Mgmt)[vs[1].(int)]
@@ -307,12 +276,6 @@ func (o MgmtMapOutput) ToMgmtMapOutput() MgmtMapOutput {
 
 func (o MgmtMapOutput) ToMgmtMapOutputWithContext(ctx context.Context) MgmtMapOutput {
 	return o
-}
-
-func (o MgmtMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Mgmt] {
-	return pulumix.Output[map[string]*Mgmt]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o MgmtMapOutput) MapIndex(k pulumi.StringInput) MgmtOutput {

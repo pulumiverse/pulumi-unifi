@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = ['ForwardArgs', 'Forward']
@@ -37,56 +37,29 @@ class ForwardArgs:
         :param pulumi.Input[str] site: The name of the site to associate the port forwarding rule with.
         :param pulumi.Input[str] src_ip: The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
         """
-        ForwardArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            dst_port=dst_port,
-            enabled=enabled,
-            fwd_ip=fwd_ip,
-            fwd_port=fwd_port,
-            log=log,
-            name=name,
-            port_forward_interface=port_forward_interface,
-            protocol=protocol,
-            site=site,
-            src_ip=src_ip,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             dst_port: Optional[pulumi.Input[str]] = None,
-             enabled: Optional[pulumi.Input[bool]] = None,
-             fwd_ip: Optional[pulumi.Input[str]] = None,
-             fwd_port: Optional[pulumi.Input[str]] = None,
-             log: Optional[pulumi.Input[bool]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             port_forward_interface: Optional[pulumi.Input[str]] = None,
-             protocol: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             src_ip: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if dst_port is not None:
-            _setter("dst_port", dst_port)
+            pulumi.set(__self__, "dst_port", dst_port)
         if enabled is not None:
             warnings.warn("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""", DeprecationWarning)
             pulumi.log.warn("""enabled is deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
         if enabled is not None:
-            _setter("enabled", enabled)
+            pulumi.set(__self__, "enabled", enabled)
         if fwd_ip is not None:
-            _setter("fwd_ip", fwd_ip)
+            pulumi.set(__self__, "fwd_ip", fwd_ip)
         if fwd_port is not None:
-            _setter("fwd_port", fwd_port)
+            pulumi.set(__self__, "fwd_port", fwd_port)
         if log is not None:
-            _setter("log", log)
+            pulumi.set(__self__, "log", log)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if port_forward_interface is not None:
-            _setter("port_forward_interface", port_forward_interface)
+            pulumi.set(__self__, "port_forward_interface", port_forward_interface)
         if protocol is not None:
-            _setter("protocol", protocol)
+            pulumi.set(__self__, "protocol", protocol)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if src_ip is not None:
-            _setter("src_ip", src_ip)
+            pulumi.set(__self__, "src_ip", src_ip)
 
     @property
     @pulumi.getter(name="dstPort")
@@ -238,56 +211,29 @@ class _ForwardState:
         :param pulumi.Input[str] site: The name of the site to associate the port forwarding rule with.
         :param pulumi.Input[str] src_ip: The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
         """
-        _ForwardState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            dst_port=dst_port,
-            enabled=enabled,
-            fwd_ip=fwd_ip,
-            fwd_port=fwd_port,
-            log=log,
-            name=name,
-            port_forward_interface=port_forward_interface,
-            protocol=protocol,
-            site=site,
-            src_ip=src_ip,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             dst_port: Optional[pulumi.Input[str]] = None,
-             enabled: Optional[pulumi.Input[bool]] = None,
-             fwd_ip: Optional[pulumi.Input[str]] = None,
-             fwd_port: Optional[pulumi.Input[str]] = None,
-             log: Optional[pulumi.Input[bool]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             port_forward_interface: Optional[pulumi.Input[str]] = None,
-             protocol: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             src_ip: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if dst_port is not None:
-            _setter("dst_port", dst_port)
+            pulumi.set(__self__, "dst_port", dst_port)
         if enabled is not None:
             warnings.warn("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""", DeprecationWarning)
             pulumi.log.warn("""enabled is deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
         if enabled is not None:
-            _setter("enabled", enabled)
+            pulumi.set(__self__, "enabled", enabled)
         if fwd_ip is not None:
-            _setter("fwd_ip", fwd_ip)
+            pulumi.set(__self__, "fwd_ip", fwd_ip)
         if fwd_port is not None:
-            _setter("fwd_port", fwd_port)
+            pulumi.set(__self__, "fwd_port", fwd_port)
         if log is not None:
-            _setter("log", log)
+            pulumi.set(__self__, "log", log)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if port_forward_interface is not None:
-            _setter("port_forward_interface", port_forward_interface)
+            pulumi.set(__self__, "port_forward_interface", port_forward_interface)
         if protocol is not None:
-            _setter("protocol", protocol)
+            pulumi.set(__self__, "protocol", protocol)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if src_ip is not None:
-            _setter("src_ip", src_ip)
+            pulumi.set(__self__, "src_ip", src_ip)
 
     @property
     @pulumi.getter(name="dstPort")
@@ -464,10 +410,6 @@ class Forward(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ForwardArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

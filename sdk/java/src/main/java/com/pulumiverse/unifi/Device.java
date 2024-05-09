@@ -19,6 +19,8 @@ import javax.annotation.Nullable;
 
 /**
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -49,14 +51,14 @@ import javax.annotation.Nullable;
  *             .name(&#34;Disabled&#34;)
  *             .build());
  * 
- *         var poe = new Profile(&#34;poe&#34;, ProfileArgs.builder()        
+ *         var poe = new Profile(&#34;poe&#34;, ProfileArgs.builder()
  *             .forward(&#34;customize&#34;)
  *             .nativeNetworkconfId(var_.native_network_id())
  *             .taggedNetworkconfIds(var_.some_vlan_network_id())
  *             .poeMode(&#34;auto&#34;)
  *             .build());
  * 
- *         var us24Poe = new Device(&#34;us24Poe&#34;, DeviceArgs.builder()        
+ *         var us24Poe = new Device(&#34;us24Poe&#34;, DeviceArgs.builder()
  *             .mac(&#34;01:23:45:67:89:AB&#34;)
  *             .portOverrides(            
  *                 DevicePortOverrideArgs.builder()
@@ -79,6 +81,7 @@ import javax.annotation.Nullable;
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  */
 @ResourceType(type="unifi:index/device:Device")

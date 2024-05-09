@@ -19,6 +19,8 @@ import javax.annotation.Nullable;
  * `unifi.DynamicDNS` manages dynamic DNS settings for different providers.
  * 
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -40,7 +42,7 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var test = new DynamicDNS(&#34;test&#34;, DynamicDNSArgs.builder()        
+ *         var test = new DynamicDNS(&#34;test&#34;, DynamicDNSArgs.builder()
  *             .service(&#34;dyndns&#34;)
  *             .hostName(&#34;my-network.example.com&#34;)
  *             .server(&#34;domains.google.com&#34;)
@@ -51,6 +53,7 @@ import javax.annotation.Nullable;
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  */
 @ResourceType(type="unifi:index/dynamicDNS:DynamicDNS")

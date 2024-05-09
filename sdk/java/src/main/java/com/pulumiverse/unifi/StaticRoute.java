@@ -19,6 +19,8 @@ import javax.annotation.Nullable;
  * `unifi.StaticRoute` manages a static route.
  * 
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -40,20 +42,20 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var nexthop = new StaticRoute(&#34;nexthop&#34;, StaticRouteArgs.builder()        
+ *         var nexthop = new StaticRoute(&#34;nexthop&#34;, StaticRouteArgs.builder()
  *             .type(&#34;nexthop-route&#34;)
  *             .network(&#34;172.17.0.0/16&#34;)
  *             .distance(1)
  *             .nextHop(&#34;172.16.0.1&#34;)
  *             .build());
  * 
- *         var blackhole = new StaticRoute(&#34;blackhole&#34;, StaticRouteArgs.builder()        
+ *         var blackhole = new StaticRoute(&#34;blackhole&#34;, StaticRouteArgs.builder()
  *             .type(&#34;blackhole&#34;)
  *             .network(var_.blackhole_cidr())
  *             .distance(1)
  *             .build());
  * 
- *         var interface_ = new StaticRoute(&#34;interface&#34;, StaticRouteArgs.builder()        
+ *         var interface_ = new StaticRoute(&#34;interface&#34;, StaticRouteArgs.builder()
  *             .type(&#34;interface-route&#34;)
  *             .network(var_.wan2_cidr())
  *             .distance(1)
@@ -63,6 +65,7 @@ import javax.annotation.Nullable;
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  */
 @ResourceType(type="unifi:index/staticRoute:StaticRoute")

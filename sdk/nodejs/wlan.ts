@@ -45,13 +45,13 @@ import * as utilities from "./utilities";
  * import from provider configured site
  *
  * ```sh
- *  $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+ * $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
  * ```
  *
- *  import from another site
+ * import from another site
  *
  * ```sh
- *  $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+ * $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
  * ```
  */
 export class Wlan extends pulumi.CustomResource {

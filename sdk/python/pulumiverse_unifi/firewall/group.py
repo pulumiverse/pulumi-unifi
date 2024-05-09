@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = ['GroupArgs', 'Group']
@@ -25,27 +25,12 @@ class GroupArgs:
         :param pulumi.Input[str] name: The name of the firewall group.
         :param pulumi.Input[str] site: The name of the site to associate the firewall group with.
         """
-        GroupArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            members=members,
-            type=type,
-            name=name,
-            site=site,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             members: pulumi.Input[Sequence[pulumi.Input[str]]],
-             type: pulumi.Input[str],
-             name: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
-        _setter("members", members)
-        _setter("type", type)
+        pulumi.set(__self__, "members", members)
+        pulumi.set(__self__, "type", type)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
 
     @property
     @pulumi.getter
@@ -110,29 +95,14 @@ class _GroupState:
         :param pulumi.Input[str] site: The name of the site to associate the firewall group with.
         :param pulumi.Input[str] type: The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
         """
-        _GroupState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            members=members,
-            name=name,
-            site=site,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             members: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if members is not None:
-            _setter("members", members)
+            pulumi.set(__self__, "members", members)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter
@@ -248,10 +218,6 @@ class Group(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            GroupArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

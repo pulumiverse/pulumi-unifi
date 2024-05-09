@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = [
@@ -26,27 +26,12 @@ class MgmtSshKey(dict):
         :param str comment: Comment.
         :param str key: Public SSH key.
         """
-        MgmtSshKey._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            type=type,
-            comment=comment,
-            key=key,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: str,
-             type: str,
-             comment: Optional[str] = None,
-             key: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
-        _setter("name", name)
-        _setter("type", type)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "type", type)
         if comment is not None:
-            _setter("comment", comment)
+            pulumi.set(__self__, "comment", comment)
         if key is not None:
-            _setter("key", key)
+            pulumi.set(__self__, "key", key)
 
     @property
     @pulumi.getter
