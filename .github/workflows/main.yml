@@ -254,3 +254,4 @@ name: main
     - v*
     - sdk/*
     - '**'
+  pull_request:
