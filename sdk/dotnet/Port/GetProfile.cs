@@ -15,9 +15,7 @@ namespace Pulumiverse.Unifi.Port
         /// <summary>
         /// `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -31,8 +29,6 @@ namespace Pulumiverse.Unifi.Port
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Task<GetProfileResult> InvokeAsync(GetProfileArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileArgs(), options.WithDefaults());
@@ -40,9 +36,7 @@ namespace Pulumiverse.Unifi.Port
         /// <summary>
         /// `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
         /// 
-        /// {{% examples %}}
         /// ## Example Usage
-        /// {{% example %}}
         /// 
         /// ```csharp
         /// using System.Collections.Generic;
@@ -56,8 +50,6 @@ namespace Pulumiverse.Unifi.Port
         /// 
         /// });
         /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
         /// </summary>
         public static Output<GetProfileResult> Invoke(GetProfileInvokeArgs? args = null, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileInvokeArgs(), options.WithDefaults());

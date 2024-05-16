@@ -55,6 +55,8 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -81,6 +83,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetApGroupResult> getApGroup() {
@@ -90,6 +93,8 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -116,6 +121,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetApGroupResult> getApGroupPlain() {
@@ -125,6 +131,8 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -151,6 +159,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetApGroupResult> getApGroup(GetApGroupArgs args) {
@@ -160,6 +169,8 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -186,6 +197,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetApGroupResult> getApGroupPlain(GetApGroupPlainArgs args) {
@@ -195,6 +207,8 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -221,6 +235,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetApGroupResult> getApGroup(GetApGroupArgs args, InvokeOptions options) {
@@ -230,6 +245,8 @@ public final class UnifiFunctions {
      * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -256,6 +273,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetApGroupResult> getApGroupPlain(GetApGroupPlainArgs args, InvokeOptions options) {
@@ -265,6 +283,8 @@ public final class UnifiFunctions {
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -303,6 +323,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetNetworkResult> getNetwork() {
@@ -312,6 +333,8 @@ public final class UnifiFunctions {
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -350,6 +373,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetNetworkResult> getNetworkPlain() {
@@ -359,6 +383,8 @@ public final class UnifiFunctions {
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -397,6 +423,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetNetworkResult> getNetwork(GetNetworkArgs args) {
@@ -406,6 +433,8 @@ public final class UnifiFunctions {
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -444,6 +473,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetNetworkResult> getNetworkPlain(GetNetworkPlainArgs args) {
@@ -453,6 +483,8 @@ public final class UnifiFunctions {
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -491,6 +523,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetNetworkResult> getNetwork(GetNetworkArgs args, InvokeOptions options) {
@@ -500,6 +533,8 @@ public final class UnifiFunctions {
      * `unifi.Network` data source can be used to retrieve settings for a network by name or ID.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -538,6 +573,7 @@ public final class UnifiFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetNetworkResult> getNetworkPlain(GetNetworkPlainArgs args, InvokeOptions options) {

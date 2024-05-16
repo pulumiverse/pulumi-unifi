@@ -21,6 +21,8 @@ import javax.annotation.Nullable;
  * `unifi.port.Profile` manages a port profile for use on network switches.
  * 
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -46,7 +48,7 @@ import javax.annotation.Nullable;
  *     public static void stack(Context ctx) {
  *         final var config = ctx.config();
  *         final var vlanId = config.get(&#34;vlanId&#34;).orElse(10);
- *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()
  *             .purpose(&#34;corporate&#34;)
  *             .subnet(&#34;10.0.0.1/24&#34;)
  *             .vlanId(vlanId)
@@ -55,7 +57,7 @@ import javax.annotation.Nullable;
  *             .dhcpEnabled(true)
  *             .build());
  * 
- *         var poeDisabled = new Profile(&#34;poeDisabled&#34;, ProfileArgs.builder()        
+ *         var poeDisabled = new Profile(&#34;poeDisabled&#34;, ProfileArgs.builder()
  *             .nativeNetworkconfId(vlan.id())
  *             .poeMode(&#34;off&#34;)
  *             .build());
@@ -63,6 +65,7 @@ import javax.annotation.Nullable;
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  */
 @ResourceType(type="unifi:port/profile:Profile")

@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._inputs import *
@@ -31,37 +31,18 @@ class DeviceArgs:
         :param pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]] port_overrides: Settings overrides for specific switch ports.
         :param pulumi.Input[str] site: The name of the site to associate the device with.
         """
-        DeviceArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            allow_adoption=allow_adoption,
-            forget_on_destroy=forget_on_destroy,
-            mac=mac,
-            name=name,
-            port_overrides=port_overrides,
-            site=site,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             allow_adoption: Optional[pulumi.Input[bool]] = None,
-             forget_on_destroy: Optional[pulumi.Input[bool]] = None,
-             mac: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if allow_adoption is not None:
-            _setter("allow_adoption", allow_adoption)
+            pulumi.set(__self__, "allow_adoption", allow_adoption)
         if forget_on_destroy is not None:
-            _setter("forget_on_destroy", forget_on_destroy)
+            pulumi.set(__self__, "forget_on_destroy", forget_on_destroy)
         if mac is not None:
-            _setter("mac", mac)
+            pulumi.set(__self__, "mac", mac)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if port_overrides is not None:
-            _setter("port_overrides", port_overrides)
+            pulumi.set(__self__, "port_overrides", port_overrides)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
 
     @property
     @pulumi.getter(name="allowAdoption")
@@ -156,41 +137,20 @@ class _DeviceState:
         :param pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]] port_overrides: Settings overrides for specific switch ports.
         :param pulumi.Input[str] site: The name of the site to associate the device with.
         """
-        _DeviceState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            allow_adoption=allow_adoption,
-            disabled=disabled,
-            forget_on_destroy=forget_on_destroy,
-            mac=mac,
-            name=name,
-            port_overrides=port_overrides,
-            site=site,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             allow_adoption: Optional[pulumi.Input[bool]] = None,
-             disabled: Optional[pulumi.Input[bool]] = None,
-             forget_on_destroy: Optional[pulumi.Input[bool]] = None,
-             mac: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if allow_adoption is not None:
-            _setter("allow_adoption", allow_adoption)
+            pulumi.set(__self__, "allow_adoption", allow_adoption)
         if disabled is not None:
-            _setter("disabled", disabled)
+            pulumi.set(__self__, "disabled", disabled)
         if forget_on_destroy is not None:
-            _setter("forget_on_destroy", forget_on_destroy)
+            pulumi.set(__self__, "forget_on_destroy", forget_on_destroy)
         if mac is not None:
-            _setter("mac", mac)
+            pulumi.set(__self__, "mac", mac)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if port_overrides is not None:
-            _setter("port_overrides", port_overrides)
+            pulumi.set(__self__, "port_overrides", port_overrides)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
 
     @property
     @pulumi.getter(name="allowAdoption")
@@ -384,10 +344,6 @@ class Device(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            DeviceArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

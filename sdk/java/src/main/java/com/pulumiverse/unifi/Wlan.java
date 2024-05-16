@@ -22,6 +22,8 @@ import javax.annotation.Nullable;
  * `unifi.Wlan` manages a WiFi network / SSID.
  * 
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -55,7 +57,7 @@ import javax.annotation.Nullable;
  * 
  *         final var defaultGroup = IamFunctions.getGroup();
  * 
- *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()        
+ *         var vlan = new Network(&#34;vlan&#34;, NetworkArgs.builder()
  *             .purpose(&#34;corporate&#34;)
  *             .subnet(&#34;10.0.0.1/24&#34;)
  *             .vlanId(vlanId)
@@ -64,7 +66,7 @@ import javax.annotation.Nullable;
  *             .dhcpEnabled(true)
  *             .build());
  * 
- *         var wifi = new Wlan(&#34;wifi&#34;, WlanArgs.builder()        
+ *         var wifi = new Wlan(&#34;wifi&#34;, WlanArgs.builder()
  *             .passphrase(&#34;12345678&#34;)
  *             .security(&#34;wpapsk&#34;)
  *             .wpa3Support(true)
@@ -78,19 +80,20 @@ import javax.annotation.Nullable;
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  * ## Import
  * 
  * import from provider configured site
  * 
  * ```sh
- *  $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+ * $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
  * ```
  * 
- *  import from another site
+ * import from another site
  * 
  * ```sh
- *  $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+ * $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
  * ```
  * 
  */

@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
@@ -212,12 +211,6 @@ func (o LookupNetworkResultOutput) ToLookupNetworkResultOutput() LookupNetworkRe
 
 func (o LookupNetworkResultOutput) ToLookupNetworkResultOutputWithContext(ctx context.Context) LookupNetworkResultOutput {
 	return o
-}
-
-func (o LookupNetworkResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupNetworkResult] {
-	return pulumix.Output[LookupNetworkResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // IPv4 addresses for the DNS server to be returned from the DHCP server.

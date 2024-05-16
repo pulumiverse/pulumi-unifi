@@ -18,6 +18,8 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -44,6 +46,7 @@ public final class PortFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetProfileResult> getProfile() {
@@ -53,6 +56,8 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -79,6 +84,7 @@ public final class PortFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetProfileResult> getProfilePlain() {
@@ -88,6 +94,8 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -114,6 +122,7 @@ public final class PortFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetProfileResult> getProfile(GetProfileArgs args) {
@@ -123,6 +132,8 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -149,6 +160,7 @@ public final class PortFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetProfileResult> getProfilePlain(GetProfilePlainArgs args) {
@@ -158,6 +170,8 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -184,6 +198,7 @@ public final class PortFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetProfileResult> getProfile(GetProfileArgs args, InvokeOptions options) {
@@ -193,6 +208,8 @@ public final class PortFunctions {
      * `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -219,6 +236,7 @@ public final class PortFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetProfileResult> getProfilePlain(GetProfilePlainArgs args, InvokeOptions options) {

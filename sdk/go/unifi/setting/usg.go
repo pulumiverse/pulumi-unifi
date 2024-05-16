@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
@@ -147,12 +146,6 @@ func (i *USG) ToUSGOutputWithContext(ctx context.Context) USGOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(USGOutput)
 }
 
-func (i *USG) ToOutput(ctx context.Context) pulumix.Output[*USG] {
-	return pulumix.Output[*USG]{
-		OutputState: i.ToUSGOutputWithContext(ctx).OutputState,
-	}
-}
-
 // USGArrayInput is an input type that accepts USGArray and USGArrayOutput values.
 // You can construct a concrete instance of `USGArrayInput` via:
 //
@@ -176,12 +169,6 @@ func (i USGArray) ToUSGArrayOutput() USGArrayOutput {
 
 func (i USGArray) ToUSGArrayOutputWithContext(ctx context.Context) USGArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(USGArrayOutput)
-}
-
-func (i USGArray) ToOutput(ctx context.Context) pulumix.Output[[]*USG] {
-	return pulumix.Output[[]*USG]{
-		OutputState: i.ToUSGArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // USGMapInput is an input type that accepts USGMap and USGMapOutput values.
@@ -209,12 +196,6 @@ func (i USGMap) ToUSGMapOutputWithContext(ctx context.Context) USGMapOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(USGMapOutput)
 }
 
-func (i USGMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*USG] {
-	return pulumix.Output[map[string]*USG]{
-		OutputState: i.ToUSGMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type USGOutput struct{ *pulumi.OutputState }
 
 func (USGOutput) ElementType() reflect.Type {
@@ -227,12 +208,6 @@ func (o USGOutput) ToUSGOutput() USGOutput {
 
 func (o USGOutput) ToUSGOutputWithContext(ctx context.Context) USGOutput {
 	return o
-}
-
-func (o USGOutput) ToOutput(ctx context.Context) pulumix.Output[*USG] {
-	return pulumix.Output[*USG]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The DHCP relay servers.
@@ -279,12 +254,6 @@ func (o USGArrayOutput) ToUSGArrayOutputWithContext(ctx context.Context) USGArra
 	return o
 }
 
-func (o USGArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*USG] {
-	return pulumix.Output[[]*USG]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o USGArrayOutput) Index(i pulumi.IntInput) USGOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *USG {
 		return vs[0].([]*USG)[vs[1].(int)]
@@ -303,12 +272,6 @@ func (o USGMapOutput) ToUSGMapOutput() USGMapOutput {
 
 func (o USGMapOutput) ToUSGMapOutputWithContext(ctx context.Context) USGMapOutput {
 	return o
-}
-
-func (o USGMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*USG] {
-	return pulumix.Output[map[string]*USG]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o USGMapOutput) MapIndex(k pulumi.StringInput) USGOutput {

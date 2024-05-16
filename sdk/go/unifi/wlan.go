@@ -9,7 +9,6 @@ import (
 
 	"errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
@@ -63,9 +62,9 @@ import (
 //				PmfMode:        pulumi.String("optional"),
 //				NetworkId:      vlan.ID(),
 //				ApGroupIds: pulumi.StringArray{
-//					*pulumi.String(defaultApGroup.Id),
+//					pulumi.String(defaultApGroup.Id),
 //				},
-//				UserGroupId: *pulumi.String(defaultGroup.Id),
+//				UserGroupId: pulumi.String(defaultGroup.Id),
 //			})
 //			if err != nil {
 //				return err
@@ -81,17 +80,13 @@ import (
 // import from provider configured site
 //
 // ```sh
-//
-//	$ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
-//
+// $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
 // ```
 //
-//	import from another site
+// import from another site
 //
 // ```sh
-//
-//	$ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
-//
+// $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
 // ```
 type Wlan struct {
 	pulumi.CustomResourceState
@@ -450,12 +445,6 @@ func (i *Wlan) ToWlanOutputWithContext(ctx context.Context) WlanOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(WlanOutput)
 }
 
-func (i *Wlan) ToOutput(ctx context.Context) pulumix.Output[*Wlan] {
-	return pulumix.Output[*Wlan]{
-		OutputState: i.ToWlanOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WlanArrayInput is an input type that accepts WlanArray and WlanArrayOutput values.
 // You can construct a concrete instance of `WlanArrayInput` via:
 //
@@ -479,12 +468,6 @@ func (i WlanArray) ToWlanArrayOutput() WlanArrayOutput {
 
 func (i WlanArray) ToWlanArrayOutputWithContext(ctx context.Context) WlanArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(WlanArrayOutput)
-}
-
-func (i WlanArray) ToOutput(ctx context.Context) pulumix.Output[[]*Wlan] {
-	return pulumix.Output[[]*Wlan]{
-		OutputState: i.ToWlanArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // WlanMapInput is an input type that accepts WlanMap and WlanMapOutput values.
@@ -512,12 +495,6 @@ func (i WlanMap) ToWlanMapOutputWithContext(ctx context.Context) WlanMapOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(WlanMapOutput)
 }
 
-func (i WlanMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Wlan] {
-	return pulumix.Output[map[string]*Wlan]{
-		OutputState: i.ToWlanMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type WlanOutput struct{ *pulumi.OutputState }
 
 func (WlanOutput) ElementType() reflect.Type {
@@ -530,12 +507,6 @@ func (o WlanOutput) ToWlanOutput() WlanOutput {
 
 func (o WlanOutput) ToWlanOutputWithContext(ctx context.Context) WlanOutput {
 	return o
-}
-
-func (o WlanOutput) ToOutput(ctx context.Context) pulumix.Output[*Wlan] {
-	return pulumix.Output[*Wlan]{
-		OutputState: o.OutputState,
-	}
 }
 
 // IDs of the AP groups to use for this network.
@@ -687,12 +658,6 @@ func (o WlanArrayOutput) ToWlanArrayOutputWithContext(ctx context.Context) WlanA
 	return o
 }
 
-func (o WlanArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Wlan] {
-	return pulumix.Output[[]*Wlan]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o WlanArrayOutput) Index(i pulumi.IntInput) WlanOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Wlan {
 		return vs[0].([]*Wlan)[vs[1].(int)]
@@ -711,12 +676,6 @@ func (o WlanMapOutput) ToWlanMapOutput() WlanMapOutput {
 
 func (o WlanMapOutput) ToWlanMapOutputWithContext(ctx context.Context) WlanMapOutput {
 	return o
-}
-
-func (o WlanMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Wlan] {
-	return pulumix.Output[map[string]*Wlan]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WlanMapOutput) MapIndex(k pulumi.StringInput) WlanOutput {

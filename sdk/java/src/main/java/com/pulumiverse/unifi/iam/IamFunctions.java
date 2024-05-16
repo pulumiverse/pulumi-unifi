@@ -63,6 +63,8 @@ public final class IamFunctions {
      * `unifi.iam.User` retrieves properties of a user (or &#34;client&#34; in the UI) of the network by MAC address.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -91,6 +93,7 @@ public final class IamFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetUserResult> getUser(GetUserArgs args) {
@@ -100,6 +103,8 @@ public final class IamFunctions {
      * `unifi.iam.User` retrieves properties of a user (or &#34;client&#34; in the UI) of the network by MAC address.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -128,6 +133,7 @@ public final class IamFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetUserResult> getUserPlain(GetUserPlainArgs args) {
@@ -137,6 +143,8 @@ public final class IamFunctions {
      * `unifi.iam.User` retrieves properties of a user (or &#34;client&#34; in the UI) of the network by MAC address.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -165,6 +173,7 @@ public final class IamFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static Output<GetUserResult> getUser(GetUserArgs args, InvokeOptions options) {
@@ -174,6 +183,8 @@ public final class IamFunctions {
      * `unifi.iam.User` retrieves properties of a user (or &#34;client&#34; in the UI) of the network by MAC address.
      * 
      * ## Example Usage
+     * 
+     * &lt;!--Start PulumiCodeChooser --&gt;
      * ```java
      * package generated_program;
      * 
@@ -202,6 +213,7 @@ public final class IamFunctions {
      *     }
      * }
      * ```
+     * &lt;!--End PulumiCodeChooser --&gt;
      * 
      */
     public static CompletableFuture<GetUserResult> getUserPlain(GetUserPlainArgs args, InvokeOptions options) {

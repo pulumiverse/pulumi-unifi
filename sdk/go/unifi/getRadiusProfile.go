@@ -8,7 +8,6 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
@@ -79,12 +78,6 @@ func (o LookupRadiusProfileResultOutput) ToLookupRadiusProfileResultOutput() Loo
 
 func (o LookupRadiusProfileResultOutput) ToLookupRadiusProfileResultOutputWithContext(ctx context.Context) LookupRadiusProfileResultOutput {
 	return o
-}
-
-func (o LookupRadiusProfileResultOutput) ToOutput(ctx context.Context) pulumix.Output[LookupRadiusProfileResult] {
-	return pulumix.Output[LookupRadiusProfileResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The ID of this AP group.

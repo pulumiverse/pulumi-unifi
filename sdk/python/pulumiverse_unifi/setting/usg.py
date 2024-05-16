@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = ['USGArgs', 'USG']
@@ -29,37 +29,18 @@ class USGArgs:
         :param pulumi.Input[bool] multicast_dns_enabled: Whether multicast DNS is enabled.
         :param pulumi.Input[str] site: The name of the site to associate the settings with.
         """
-        USGArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            dhcp_relay_servers=dhcp_relay_servers,
-            firewall_guest_default_log=firewall_guest_default_log,
-            firewall_lan_default_log=firewall_lan_default_log,
-            firewall_wan_default_log=firewall_wan_default_log,
-            multicast_dns_enabled=multicast_dns_enabled,
-            site=site,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             dhcp_relay_servers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             firewall_guest_default_log: Optional[pulumi.Input[bool]] = None,
-             firewall_lan_default_log: Optional[pulumi.Input[bool]] = None,
-             firewall_wan_default_log: Optional[pulumi.Input[bool]] = None,
-             multicast_dns_enabled: Optional[pulumi.Input[bool]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if dhcp_relay_servers is not None:
-            _setter("dhcp_relay_servers", dhcp_relay_servers)
+            pulumi.set(__self__, "dhcp_relay_servers", dhcp_relay_servers)
         if firewall_guest_default_log is not None:
-            _setter("firewall_guest_default_log", firewall_guest_default_log)
+            pulumi.set(__self__, "firewall_guest_default_log", firewall_guest_default_log)
         if firewall_lan_default_log is not None:
-            _setter("firewall_lan_default_log", firewall_lan_default_log)
+            pulumi.set(__self__, "firewall_lan_default_log", firewall_lan_default_log)
         if firewall_wan_default_log is not None:
-            _setter("firewall_wan_default_log", firewall_wan_default_log)
+            pulumi.set(__self__, "firewall_wan_default_log", firewall_wan_default_log)
         if multicast_dns_enabled is not None:
-            _setter("multicast_dns_enabled", multicast_dns_enabled)
+            pulumi.set(__self__, "multicast_dns_enabled", multicast_dns_enabled)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
 
     @property
     @pulumi.getter(name="dhcpRelayServers")
@@ -152,37 +133,18 @@ class _USGState:
         :param pulumi.Input[bool] multicast_dns_enabled: Whether multicast DNS is enabled.
         :param pulumi.Input[str] site: The name of the site to associate the settings with.
         """
-        _USGState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            dhcp_relay_servers=dhcp_relay_servers,
-            firewall_guest_default_log=firewall_guest_default_log,
-            firewall_lan_default_log=firewall_lan_default_log,
-            firewall_wan_default_log=firewall_wan_default_log,
-            multicast_dns_enabled=multicast_dns_enabled,
-            site=site,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             dhcp_relay_servers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             firewall_guest_default_log: Optional[pulumi.Input[bool]] = None,
-             firewall_lan_default_log: Optional[pulumi.Input[bool]] = None,
-             firewall_wan_default_log: Optional[pulumi.Input[bool]] = None,
-             multicast_dns_enabled: Optional[pulumi.Input[bool]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if dhcp_relay_servers is not None:
-            _setter("dhcp_relay_servers", dhcp_relay_servers)
+            pulumi.set(__self__, "dhcp_relay_servers", dhcp_relay_servers)
         if firewall_guest_default_log is not None:
-            _setter("firewall_guest_default_log", firewall_guest_default_log)
+            pulumi.set(__self__, "firewall_guest_default_log", firewall_guest_default_log)
         if firewall_lan_default_log is not None:
-            _setter("firewall_lan_default_log", firewall_lan_default_log)
+            pulumi.set(__self__, "firewall_lan_default_log", firewall_lan_default_log)
         if firewall_wan_default_log is not None:
-            _setter("firewall_wan_default_log", firewall_wan_default_log)
+            pulumi.set(__self__, "firewall_wan_default_log", firewall_wan_default_log)
         if multicast_dns_enabled is not None:
-            _setter("multicast_dns_enabled", multicast_dns_enabled)
+            pulumi.set(__self__, "multicast_dns_enabled", multicast_dns_enabled)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
 
     @property
     @pulumi.getter(name="dhcpRelayServers")
@@ -300,10 +262,6 @@ class USG(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            USGArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

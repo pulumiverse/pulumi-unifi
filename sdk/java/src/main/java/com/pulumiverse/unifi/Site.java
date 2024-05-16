@@ -17,6 +17,8 @@ import javax.annotation.Nullable;
  * `unifi.Site` manages Unifi sites
  * 
  * ## Example Usage
+ * 
+ * &lt;!--Start PulumiCodeChooser --&gt;
  * ```java
  * package generated_program;
  * 
@@ -38,26 +40,27 @@ import javax.annotation.Nullable;
  *     }
  * 
  *     public static void stack(Context ctx) {
- *         var mysite = new Site(&#34;mysite&#34;, SiteArgs.builder()        
+ *         var mysite = new Site(&#34;mysite&#34;, SiteArgs.builder()
  *             .description(&#34;mysite&#34;)
  *             .build());
  * 
  *     }
  * }
  * ```
+ * &lt;!--End PulumiCodeChooser --&gt;
  * 
  * ## Import
  * 
  * import using the API/UI ID
  * 
  * ```sh
- *  $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
+ * $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
  * ```
  * 
- *  import using the name (short ID)
+ * import using the name (short ID)
  * 
  * ```sh
- *  $ pulumi import unifi:index/site:Site mysite vq98kwez
+ * $ pulumi import unifi:index/site:Site mysite vq98kwez
  * ```
  * 
  */

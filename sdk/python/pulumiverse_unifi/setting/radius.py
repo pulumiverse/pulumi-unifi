@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = ['RadiusArgs', 'Radius']
@@ -33,45 +33,22 @@ class RadiusArgs:
         :param pulumi.Input[str] site: The name of the site to associate the settings with.
         :param pulumi.Input[bool] tunneled_reply: Encrypt communication between the server and the client. Defaults to `true`.
         """
-        RadiusArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            accounting_enabled=accounting_enabled,
-            accounting_port=accounting_port,
-            auth_port=auth_port,
-            enabled=enabled,
-            interim_update_interval=interim_update_interval,
-            secret=secret,
-            site=site,
-            tunneled_reply=tunneled_reply,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             accounting_enabled: Optional[pulumi.Input[bool]] = None,
-             accounting_port: Optional[pulumi.Input[int]] = None,
-             auth_port: Optional[pulumi.Input[int]] = None,
-             enabled: Optional[pulumi.Input[bool]] = None,
-             interim_update_interval: Optional[pulumi.Input[int]] = None,
-             secret: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             tunneled_reply: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if accounting_enabled is not None:
-            _setter("accounting_enabled", accounting_enabled)
+            pulumi.set(__self__, "accounting_enabled", accounting_enabled)
         if accounting_port is not None:
-            _setter("accounting_port", accounting_port)
+            pulumi.set(__self__, "accounting_port", accounting_port)
         if auth_port is not None:
-            _setter("auth_port", auth_port)
+            pulumi.set(__self__, "auth_port", auth_port)
         if enabled is not None:
-            _setter("enabled", enabled)
+            pulumi.set(__self__, "enabled", enabled)
         if interim_update_interval is not None:
-            _setter("interim_update_interval", interim_update_interval)
+            pulumi.set(__self__, "interim_update_interval", interim_update_interval)
         if secret is not None:
-            _setter("secret", secret)
+            pulumi.set(__self__, "secret", secret)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if tunneled_reply is not None:
-            _setter("tunneled_reply", tunneled_reply)
+            pulumi.set(__self__, "tunneled_reply", tunneled_reply)
 
     @property
     @pulumi.getter(name="accountingEnabled")
@@ -192,45 +169,22 @@ class _RadiusState:
         :param pulumi.Input[str] site: The name of the site to associate the settings with.
         :param pulumi.Input[bool] tunneled_reply: Encrypt communication between the server and the client. Defaults to `true`.
         """
-        _RadiusState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            accounting_enabled=accounting_enabled,
-            accounting_port=accounting_port,
-            auth_port=auth_port,
-            enabled=enabled,
-            interim_update_interval=interim_update_interval,
-            secret=secret,
-            site=site,
-            tunneled_reply=tunneled_reply,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             accounting_enabled: Optional[pulumi.Input[bool]] = None,
-             accounting_port: Optional[pulumi.Input[int]] = None,
-             auth_port: Optional[pulumi.Input[int]] = None,
-             enabled: Optional[pulumi.Input[bool]] = None,
-             interim_update_interval: Optional[pulumi.Input[int]] = None,
-             secret: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             tunneled_reply: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if accounting_enabled is not None:
-            _setter("accounting_enabled", accounting_enabled)
+            pulumi.set(__self__, "accounting_enabled", accounting_enabled)
         if accounting_port is not None:
-            _setter("accounting_port", accounting_port)
+            pulumi.set(__self__, "accounting_port", accounting_port)
         if auth_port is not None:
-            _setter("auth_port", auth_port)
+            pulumi.set(__self__, "auth_port", auth_port)
         if enabled is not None:
-            _setter("enabled", enabled)
+            pulumi.set(__self__, "enabled", enabled)
         if interim_update_interval is not None:
-            _setter("interim_update_interval", interim_update_interval)
+            pulumi.set(__self__, "interim_update_interval", interim_update_interval)
         if secret is not None:
-            _setter("secret", secret)
+            pulumi.set(__self__, "secret", secret)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if tunneled_reply is not None:
-            _setter("tunneled_reply", tunneled_reply)
+            pulumi.set(__self__, "tunneled_reply", tunneled_reply)
 
     @property
     @pulumi.getter(name="accountingEnabled")
@@ -376,10 +330,6 @@ class Radius(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            RadiusArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

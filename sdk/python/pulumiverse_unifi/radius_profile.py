@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from . import outputs
 from ._inputs import *
@@ -41,57 +41,28 @@ class RadiusProfileArgs:
         :param pulumi.Input[bool] vlan_enabled: Specifies whether to use vlan on wired connections. Defaults to `false`.
         :param pulumi.Input[str] vlan_wlan_mode: Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
         """
-        RadiusProfileArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            accounting_enabled=accounting_enabled,
-            acct_servers=acct_servers,
-            auth_servers=auth_servers,
-            interim_update_enabled=interim_update_enabled,
-            interim_update_interval=interim_update_interval,
-            name=name,
-            site=site,
-            use_usg_acct_server=use_usg_acct_server,
-            use_usg_auth_server=use_usg_auth_server,
-            vlan_enabled=vlan_enabled,
-            vlan_wlan_mode=vlan_wlan_mode,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             accounting_enabled: Optional[pulumi.Input[bool]] = None,
-             acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]] = None,
-             auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]] = None,
-             interim_update_enabled: Optional[pulumi.Input[bool]] = None,
-             interim_update_interval: Optional[pulumi.Input[int]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             use_usg_acct_server: Optional[pulumi.Input[bool]] = None,
-             use_usg_auth_server: Optional[pulumi.Input[bool]] = None,
-             vlan_enabled: Optional[pulumi.Input[bool]] = None,
-             vlan_wlan_mode: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if accounting_enabled is not None:
-            _setter("accounting_enabled", accounting_enabled)
+            pulumi.set(__self__, "accounting_enabled", accounting_enabled)
         if acct_servers is not None:
-            _setter("acct_servers", acct_servers)
+            pulumi.set(__self__, "acct_servers", acct_servers)
         if auth_servers is not None:
-            _setter("auth_servers", auth_servers)
+            pulumi.set(__self__, "auth_servers", auth_servers)
         if interim_update_enabled is not None:
-            _setter("interim_update_enabled", interim_update_enabled)
+            pulumi.set(__self__, "interim_update_enabled", interim_update_enabled)
         if interim_update_interval is not None:
-            _setter("interim_update_interval", interim_update_interval)
+            pulumi.set(__self__, "interim_update_interval", interim_update_interval)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if use_usg_acct_server is not None:
-            _setter("use_usg_acct_server", use_usg_acct_server)
+            pulumi.set(__self__, "use_usg_acct_server", use_usg_acct_server)
         if use_usg_auth_server is not None:
-            _setter("use_usg_auth_server", use_usg_auth_server)
+            pulumi.set(__self__, "use_usg_auth_server", use_usg_auth_server)
         if vlan_enabled is not None:
-            _setter("vlan_enabled", vlan_enabled)
+            pulumi.set(__self__, "vlan_enabled", vlan_enabled)
         if vlan_wlan_mode is not None:
-            _setter("vlan_wlan_mode", vlan_wlan_mode)
+            pulumi.set(__self__, "vlan_wlan_mode", vlan_wlan_mode)
 
     @property
     @pulumi.getter(name="accountingEnabled")
@@ -254,57 +225,28 @@ class _RadiusProfileState:
         :param pulumi.Input[bool] vlan_enabled: Specifies whether to use vlan on wired connections. Defaults to `false`.
         :param pulumi.Input[str] vlan_wlan_mode: Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
         """
-        _RadiusProfileState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            accounting_enabled=accounting_enabled,
-            acct_servers=acct_servers,
-            auth_servers=auth_servers,
-            interim_update_enabled=interim_update_enabled,
-            interim_update_interval=interim_update_interval,
-            name=name,
-            site=site,
-            use_usg_acct_server=use_usg_acct_server,
-            use_usg_auth_server=use_usg_auth_server,
-            vlan_enabled=vlan_enabled,
-            vlan_wlan_mode=vlan_wlan_mode,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             accounting_enabled: Optional[pulumi.Input[bool]] = None,
-             acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]] = None,
-             auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]] = None,
-             interim_update_enabled: Optional[pulumi.Input[bool]] = None,
-             interim_update_interval: Optional[pulumi.Input[int]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             use_usg_acct_server: Optional[pulumi.Input[bool]] = None,
-             use_usg_auth_server: Optional[pulumi.Input[bool]] = None,
-             vlan_enabled: Optional[pulumi.Input[bool]] = None,
-             vlan_wlan_mode: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if accounting_enabled is not None:
-            _setter("accounting_enabled", accounting_enabled)
+            pulumi.set(__self__, "accounting_enabled", accounting_enabled)
         if acct_servers is not None:
-            _setter("acct_servers", acct_servers)
+            pulumi.set(__self__, "acct_servers", acct_servers)
         if auth_servers is not None:
-            _setter("auth_servers", auth_servers)
+            pulumi.set(__self__, "auth_servers", auth_servers)
         if interim_update_enabled is not None:
-            _setter("interim_update_enabled", interim_update_enabled)
+            pulumi.set(__self__, "interim_update_enabled", interim_update_enabled)
         if interim_update_interval is not None:
-            _setter("interim_update_interval", interim_update_interval)
+            pulumi.set(__self__, "interim_update_interval", interim_update_interval)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if use_usg_acct_server is not None:
-            _setter("use_usg_acct_server", use_usg_acct_server)
+            pulumi.set(__self__, "use_usg_acct_server", use_usg_acct_server)
         if use_usg_auth_server is not None:
-            _setter("use_usg_auth_server", use_usg_auth_server)
+            pulumi.set(__self__, "use_usg_auth_server", use_usg_auth_server)
         if vlan_enabled is not None:
-            _setter("vlan_enabled", vlan_enabled)
+            pulumi.set(__self__, "vlan_enabled", vlan_enabled)
         if vlan_wlan_mode is not None:
-            _setter("vlan_wlan_mode", vlan_wlan_mode)
+            pulumi.set(__self__, "vlan_wlan_mode", vlan_wlan_mode)
 
     @property
     @pulumi.getter(name="accountingEnabled")
@@ -492,10 +434,6 @@ class RadiusProfile(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            RadiusProfileArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

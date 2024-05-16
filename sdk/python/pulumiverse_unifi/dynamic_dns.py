@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['DynamicDNSArgs', 'DynamicDNS']
@@ -31,39 +31,18 @@ class DynamicDNSArgs:
         :param pulumi.Input[str] server: The server for the dynamic DNS service.
         :param pulumi.Input[str] site: The name of the site to associate the dynamic DNS with.
         """
-        DynamicDNSArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            host_name=host_name,
-            service=service,
-            interface=interface,
-            login=login,
-            password=password,
-            server=server,
-            site=site,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             host_name: pulumi.Input[str],
-             service: pulumi.Input[str],
-             interface: Optional[pulumi.Input[str]] = None,
-             login: Optional[pulumi.Input[str]] = None,
-             password: Optional[pulumi.Input[str]] = None,
-             server: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
-        _setter("host_name", host_name)
-        _setter("service", service)
+        pulumi.set(__self__, "host_name", host_name)
+        pulumi.set(__self__, "service", service)
         if interface is not None:
-            _setter("interface", interface)
+            pulumi.set(__self__, "interface", interface)
         if login is not None:
-            _setter("login", login)
+            pulumi.set(__self__, "login", login)
         if password is not None:
-            _setter("password", password)
+            pulumi.set(__self__, "password", password)
         if server is not None:
-            _setter("server", server)
+            pulumi.set(__self__, "server", server)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
 
     @property
     @pulumi.getter(name="hostName")
@@ -170,41 +149,20 @@ class _DynamicDNSState:
         :param pulumi.Input[str] service: The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
         :param pulumi.Input[str] site: The name of the site to associate the dynamic DNS with.
         """
-        _DynamicDNSState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            host_name=host_name,
-            interface=interface,
-            login=login,
-            password=password,
-            server=server,
-            service=service,
-            site=site,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             host_name: Optional[pulumi.Input[str]] = None,
-             interface: Optional[pulumi.Input[str]] = None,
-             login: Optional[pulumi.Input[str]] = None,
-             password: Optional[pulumi.Input[str]] = None,
-             server: Optional[pulumi.Input[str]] = None,
-             service: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if host_name is not None:
-            _setter("host_name", host_name)
+            pulumi.set(__self__, "host_name", host_name)
         if interface is not None:
-            _setter("interface", interface)
+            pulumi.set(__self__, "interface", interface)
         if login is not None:
-            _setter("login", login)
+            pulumi.set(__self__, "login", login)
         if password is not None:
-            _setter("password", password)
+            pulumi.set(__self__, "password", password)
         if server is not None:
-            _setter("server", server)
+            pulumi.set(__self__, "server", server)
         if service is not None:
-            _setter("service", service)
+            pulumi.set(__self__, "service", service)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
 
     @property
     @pulumi.getter(name="hostName")
@@ -364,10 +322,6 @@ class DynamicDNS(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            DynamicDNSArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

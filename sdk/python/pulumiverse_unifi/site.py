@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['SiteArgs', 'Site']
@@ -19,16 +19,7 @@ class SiteArgs:
         The set of arguments for constructing a Site resource.
         :param pulumi.Input[str] description: The description of the site.
         """
-        SiteArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            description=description,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             description: pulumi.Input[str],
-             opts: Optional[pulumi.ResourceOptions]=None):
-        _setter("description", description)
+        pulumi.set(__self__, "description", description)
 
     @property
     @pulumi.getter
@@ -53,21 +44,10 @@ class _SiteState:
         :param pulumi.Input[str] description: The description of the site.
         :param pulumi.Input[str] name: The name of the site.
         """
-        _SiteState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            description=description,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             description: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if description is not None:
-            _setter("description", description)
+            pulumi.set(__self__, "description", description)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -118,13 +98,13 @@ class Site(pulumi.CustomResource):
         import using the API/UI ID
 
         ```sh
-         $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
+        $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
         ```
 
-         import using the name (short ID)
+        import using the name (short ID)
 
         ```sh
-         $ pulumi import unifi:index/site:Site mysite vq98kwez
+        $ pulumi import unifi:index/site:Site mysite vq98kwez
         ```
 
         :param str resource_name: The name of the resource.
@@ -154,13 +134,13 @@ class Site(pulumi.CustomResource):
         import using the API/UI ID
 
         ```sh
-         $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
+        $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
         ```
 
-         import using the name (short ID)
+        import using the name (short ID)
 
         ```sh
-         $ pulumi import unifi:index/site:Site mysite vq98kwez
+        $ pulumi import unifi:index/site:Site mysite vq98kwez
         ```
 
         :param str resource_name: The name of the resource.
@@ -173,10 +153,6 @@ class Site(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            SiteArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

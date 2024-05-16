@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = ['ProviderArgs', 'Provider']
@@ -31,43 +31,26 @@ class ProviderArgs:
                Default: `default`
         :param pulumi.Input[str] username: Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
         """
-        ProviderArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            allow_insecure=allow_insecure,
-            api_url=api_url,
-            password=password,
-            site=site,
-            username=username,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             allow_insecure: Optional[pulumi.Input[bool]] = None,
-             api_url: Optional[pulumi.Input[str]] = None,
-             password: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             username: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if allow_insecure is None:
             allow_insecure = _utilities.get_env_bool('UNIFI_INSECURE')
         if allow_insecure is not None:
-            _setter("allow_insecure", allow_insecure)
+            pulumi.set(__self__, "allow_insecure", allow_insecure)
         if api_url is None:
             api_url = _utilities.get_env('UNIFI_API')
         if api_url is not None:
-            _setter("api_url", api_url)
+            pulumi.set(__self__, "api_url", api_url)
         if password is None:
             password = _utilities.get_env('UNIFI_PASSWORD')
         if password is not None:
-            _setter("password", password)
+            pulumi.set(__self__, "password", password)
         if site is None:
             site = _utilities.get_env('UNIFI_SITE')
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if username is None:
             username = _utilities.get_env('UNIFI_USERNAME')
         if username is not None:
-            _setter("username", username)
+            pulumi.set(__self__, "username", username)
 
     @property
     @pulumi.getter(name="allowInsecure")
@@ -185,10 +168,6 @@ class Provider(pulumi.ProviderResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ProviderArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

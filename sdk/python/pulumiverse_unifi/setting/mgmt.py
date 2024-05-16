@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 from . import outputs
 from ._inputs import *
@@ -27,29 +27,14 @@ class MgmtArgs:
         :param pulumi.Input[bool] ssh_enabled: Enable SSH authentication.
         :param pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]] ssh_keys: SSH key.
         """
-        MgmtArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            auto_upgrade=auto_upgrade,
-            site=site,
-            ssh_enabled=ssh_enabled,
-            ssh_keys=ssh_keys,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             auto_upgrade: Optional[pulumi.Input[bool]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             ssh_enabled: Optional[pulumi.Input[bool]] = None,
-             ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if auto_upgrade is not None:
-            _setter("auto_upgrade", auto_upgrade)
+            pulumi.set(__self__, "auto_upgrade", auto_upgrade)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if ssh_enabled is not None:
-            _setter("ssh_enabled", ssh_enabled)
+            pulumi.set(__self__, "ssh_enabled", ssh_enabled)
         if ssh_keys is not None:
-            _setter("ssh_keys", ssh_keys)
+            pulumi.set(__self__, "ssh_keys", ssh_keys)
 
     @property
     @pulumi.getter(name="autoUpgrade")
@@ -114,29 +99,14 @@ class _MgmtState:
         :param pulumi.Input[bool] ssh_enabled: Enable SSH authentication.
         :param pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]] ssh_keys: SSH key.
         """
-        _MgmtState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            auto_upgrade=auto_upgrade,
-            site=site,
-            ssh_enabled=ssh_enabled,
-            ssh_keys=ssh_keys,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             auto_upgrade: Optional[pulumi.Input[bool]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             ssh_enabled: Optional[pulumi.Input[bool]] = None,
-             ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if auto_upgrade is not None:
-            _setter("auto_upgrade", auto_upgrade)
+            pulumi.set(__self__, "auto_upgrade", auto_upgrade)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if ssh_enabled is not None:
-            _setter("ssh_enabled", ssh_enabled)
+            pulumi.set(__self__, "ssh_enabled", ssh_enabled)
         if ssh_keys is not None:
-            _setter("ssh_keys", ssh_keys)
+            pulumi.set(__self__, "ssh_keys", ssh_keys)
 
     @property
     @pulumi.getter(name="autoUpgrade")
@@ -250,10 +220,6 @@ class Mgmt(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            MgmtArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,

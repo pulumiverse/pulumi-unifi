@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = ['UserArgs', 'User']
@@ -41,60 +41,29 @@ class UserArgs:
         :param pulumi.Input[bool] skip_forget_on_destroy: Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
         :param pulumi.Input[str] user_group_id: The user group ID for the user.
         """
-        UserArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            mac=mac,
-            allow_existing=allow_existing,
-            blocked=blocked,
-            dev_id_override=dev_id_override,
-            fixed_ip=fixed_ip,
-            local_dns_record=local_dns_record,
-            name=name,
-            network_id=network_id,
-            note=note,
-            site=site,
-            skip_forget_on_destroy=skip_forget_on_destroy,
-            user_group_id=user_group_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             mac: pulumi.Input[str],
-             allow_existing: Optional[pulumi.Input[bool]] = None,
-             blocked: Optional[pulumi.Input[bool]] = None,
-             dev_id_override: Optional[pulumi.Input[int]] = None,
-             fixed_ip: Optional[pulumi.Input[str]] = None,
-             local_dns_record: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             network_id: Optional[pulumi.Input[str]] = None,
-             note: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             skip_forget_on_destroy: Optional[pulumi.Input[bool]] = None,
-             user_group_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
-        _setter("mac", mac)
+        pulumi.set(__self__, "mac", mac)
         if allow_existing is not None:
-            _setter("allow_existing", allow_existing)
+            pulumi.set(__self__, "allow_existing", allow_existing)
         if blocked is not None:
-            _setter("blocked", blocked)
+            pulumi.set(__self__, "blocked", blocked)
         if dev_id_override is not None:
-            _setter("dev_id_override", dev_id_override)
+            pulumi.set(__self__, "dev_id_override", dev_id_override)
         if fixed_ip is not None:
-            _setter("fixed_ip", fixed_ip)
+            pulumi.set(__self__, "fixed_ip", fixed_ip)
         if local_dns_record is not None:
-            _setter("local_dns_record", local_dns_record)
+            pulumi.set(__self__, "local_dns_record", local_dns_record)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if network_id is not None:
-            _setter("network_id", network_id)
+            pulumi.set(__self__, "network_id", network_id)
         if note is not None:
-            _setter("note", note)
+            pulumi.set(__self__, "note", note)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if skip_forget_on_destroy is not None:
-            _setter("skip_forget_on_destroy", skip_forget_on_destroy)
+            pulumi.set(__self__, "skip_forget_on_destroy", skip_forget_on_destroy)
         if user_group_id is not None:
-            _setter("user_group_id", user_group_id)
+            pulumi.set(__self__, "user_group_id", user_group_id)
 
     @property
     @pulumi.getter
@@ -275,69 +244,34 @@ class _UserState:
         :param pulumi.Input[bool] skip_forget_on_destroy: Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
         :param pulumi.Input[str] user_group_id: The user group ID for the user.
         """
-        _UserState._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            allow_existing=allow_existing,
-            blocked=blocked,
-            dev_id_override=dev_id_override,
-            fixed_ip=fixed_ip,
-            hostname=hostname,
-            ip=ip,
-            local_dns_record=local_dns_record,
-            mac=mac,
-            name=name,
-            network_id=network_id,
-            note=note,
-            site=site,
-            skip_forget_on_destroy=skip_forget_on_destroy,
-            user_group_id=user_group_id,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             allow_existing: Optional[pulumi.Input[bool]] = None,
-             blocked: Optional[pulumi.Input[bool]] = None,
-             dev_id_override: Optional[pulumi.Input[int]] = None,
-             fixed_ip: Optional[pulumi.Input[str]] = None,
-             hostname: Optional[pulumi.Input[str]] = None,
-             ip: Optional[pulumi.Input[str]] = None,
-             local_dns_record: Optional[pulumi.Input[str]] = None,
-             mac: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             network_id: Optional[pulumi.Input[str]] = None,
-             note: Optional[pulumi.Input[str]] = None,
-             site: Optional[pulumi.Input[str]] = None,
-             skip_forget_on_destroy: Optional[pulumi.Input[bool]] = None,
-             user_group_id: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None):
         if allow_existing is not None:
-            _setter("allow_existing", allow_existing)
+            pulumi.set(__self__, "allow_existing", allow_existing)
         if blocked is not None:
-            _setter("blocked", blocked)
+            pulumi.set(__self__, "blocked", blocked)
         if dev_id_override is not None:
-            _setter("dev_id_override", dev_id_override)
+            pulumi.set(__self__, "dev_id_override", dev_id_override)
         if fixed_ip is not None:
-            _setter("fixed_ip", fixed_ip)
+            pulumi.set(__self__, "fixed_ip", fixed_ip)
         if hostname is not None:
-            _setter("hostname", hostname)
+            pulumi.set(__self__, "hostname", hostname)
         if ip is not None:
-            _setter("ip", ip)
+            pulumi.set(__self__, "ip", ip)
         if local_dns_record is not None:
-            _setter("local_dns_record", local_dns_record)
+            pulumi.set(__self__, "local_dns_record", local_dns_record)
         if mac is not None:
-            _setter("mac", mac)
+            pulumi.set(__self__, "mac", mac)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if network_id is not None:
-            _setter("network_id", network_id)
+            pulumi.set(__self__, "network_id", network_id)
         if note is not None:
-            _setter("note", note)
+            pulumi.set(__self__, "note", note)
         if site is not None:
-            _setter("site", site)
+            pulumi.set(__self__, "site", site)
         if skip_forget_on_destroy is not None:
-            _setter("skip_forget_on_destroy", skip_forget_on_destroy)
+            pulumi.set(__self__, "skip_forget_on_destroy", skip_forget_on_destroy)
         if user_group_id is not None:
-            _setter("user_group_id", user_group_id)
+            pulumi.set(__self__, "user_group_id", user_group_id)
 
     @property
     @pulumi.getter(name="allowExisting")
@@ -593,10 +527,6 @@ class User(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            UserArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
