@@ -2,7 +2,7 @@ module github.com/pulumiverse/pulumi-unifi/provider
 
 go 1.21
 
-toolchain go1.22.2
+toolchain go1.22.3
 
 replace (
 	github.com/hashicorp/go-getter v1.5.0 => github.com/hashicorp/go-getter v1.4.0
@@ -11,7 +11,7 @@ replace (
 )
 
 require (
-	github.com/paultyng/terraform-provider-unifi/shim v0.0.0
+	github.com/paultyng/terraform-provider-unifi/shim v0.41.0
 	github.com/pulumi/pulumi-terraform-bridge/v3 v3.82.0
 	github.com/pulumi/pulumi/sdk/v3 v3.115.2
 )
@@ -135,12 +135,12 @@ require (
 	github.com/hashicorp/hcl/v2 v2.20.1 // indirect
 	github.com/hashicorp/hil v0.0.0-20240507135339-f7f291a57605 // indirect
 	github.com/hashicorp/logutils v1.0.0 // indirect
-	github.com/hashicorp/terraform-exec v0.20.0 // indirect
-	github.com/hashicorp/terraform-json v0.21.0 // indirect
+	github.com/hashicorp/terraform-exec v0.21.0 // indirect
+	github.com/hashicorp/terraform-json v0.22.1 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.23.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.9.0 // indirect
 	github.com/hashicorp/terraform-plugin-sdk v1.9.1 // indirect
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.33.0 // indirect
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.34.0 // indirect
 	github.com/hashicorp/terraform-plugin-testing v1.7.0 // indirect
 	github.com/hashicorp/terraform-registry-address v0.2.3 // indirect
 	github.com/hashicorp/terraform-svchost v0.1.1 // indirect
