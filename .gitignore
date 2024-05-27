@@ -34,3 +34,5 @@ sdk/java/gradlew
 sdk/java/gradlew.bat
 
 .envrc
+
+go.work.sum
