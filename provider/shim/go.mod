@@ -2,7 +2,7 @@ module github.com/paultyng/terraform-provider-unifi/shim
 
 go 1.21
 
-toolchain go1.22.2
+toolchain go1.22.4
 
 require (
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.33.0
