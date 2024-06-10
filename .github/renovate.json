@@ -1,7 +1,8 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        ":semanticCommitScopeDisabled",
+        "helpers:pinGitHubActionDigests",
+        "group:githubArtifactActions",
         "schedule:earlyMondays"
     ],
     "packageRules": [
