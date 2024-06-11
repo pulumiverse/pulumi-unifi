@@ -2,7 +2,7 @@ module github.com/pulumiverse/pulumi-unifi/provider
 
 go 1.21
 
-toolchain go1.22.2
+toolchain go1.22.4
 
 replace (
 	github.com/hashicorp/go-getter v1.5.0 => github.com/hashicorp/go-getter v1.4.0
