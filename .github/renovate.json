@@ -18,6 +18,7 @@
             ],
             "matchPackageNames": [
                 "!github.com/hashicorp/terraform-plugin-sdk",
+                "!github.com/pulumi/terraform-plugin-sdk",
                 "!github.com/pulumi/pulumi/*",
                 "!github.com/paultyng/terraform-provider-unifi"
             ]
