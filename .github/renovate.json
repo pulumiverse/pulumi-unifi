@@ -32,6 +32,28 @@
         },
         {
             "matchFileNames": [
+                "examples/**"
+            ],
+            "matchDatasources": [
+                "pypi"
+            ],
+            "matchPackageNames": [
+                "!pulumi*"
+            ]
+        },
+        {
+            "matchFileNames": [
+                "examples/**"
+            ],
+            "matchDatasources": [
+                "npm"
+            ],
+            "matchPackageNames": [
+                "!@pulumi/pulumi"
+            ]
+        },
+        {
+            "matchFileNames": [
                 "sdk/**"
             ],
             "enabled": false
