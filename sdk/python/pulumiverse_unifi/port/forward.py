@@ -75,13 +75,11 @@ class ForwardArgs:
 
     @property
     @pulumi.getter
+    @_utilities.deprecated("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
     def enabled(self) -> Optional[pulumi.Input[bool]]:
         """
         Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
-        warnings.warn("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""", DeprecationWarning)
-        pulumi.log.warn("""enabled is deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
-
         return pulumi.get(self, "enabled")
 
     @enabled.setter
@@ -249,13 +247,11 @@ class _ForwardState:
 
     @property
     @pulumi.getter
+    @_utilities.deprecated("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
     def enabled(self) -> Optional[pulumi.Input[bool]]:
         """
         Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
-        warnings.warn("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""", DeprecationWarning)
-        pulumi.log.warn("""enabled is deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
-
         return pulumi.get(self, "enabled")
 
     @enabled.setter
@@ -508,13 +504,11 @@ class Forward(pulumi.CustomResource):
 
     @property
     @pulumi.getter
+    @_utilities.deprecated("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
     def enabled(self) -> pulumi.Output[Optional[bool]]:
         """
         Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         """
-        warnings.warn("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""", DeprecationWarning)
-        pulumi.log.warn("""enabled is deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
-
         return pulumi.get(self, "enabled")
 
     @property
