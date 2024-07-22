@@ -13,7 +13,7 @@ services:
       - "./scripts/init.d:/usr/local/unifi/init.d:ro"
 
   bootstrap:
-    image: python:3.10-alpine
+    image: python:3.12-alpine
     environment:
       - UNIFI_EMAIL=${UNIFI_EMAIL:-pulumi-unifi@pulumi.com}
       - UNIFI_PASSWORD=${UNIFI_PASSWORD:-pulumi-unifi-password}
