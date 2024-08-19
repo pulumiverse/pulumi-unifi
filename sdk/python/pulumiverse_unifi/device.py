@@ -246,7 +246,7 @@ class Device(pulumi.CustomResource):
                  forget_on_destroy: Optional[pulumi.Input[bool]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]]] = None,
+                 port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
@@ -266,21 +266,21 @@ class Device(pulumi.CustomResource):
         us24_poe = unifi.Device("us24Poe",
             mac="01:23:45:67:89:AB",
             port_overrides=[
-                unifi.DevicePortOverrideArgs(
-                    number=1,
-                    name="port w/ poe",
-                    port_profile_id=poe.id,
-                ),
-                unifi.DevicePortOverrideArgs(
-                    number=2,
-                    name="disabled",
-                    port_profile_id=disabled.id,
-                ),
-                unifi.DevicePortOverrideArgs(
-                    number=11,
-                    op_mode="aggregate",
-                    aggregate_num_ports=2,
-                ),
+                {
+                    "number": 1,
+                    "name": "port w/ poe",
+                    "port_profile_id": poe.id,
+                },
+                {
+                    "number": 2,
+                    "name": "disabled",
+                    "port_profile_id": disabled.id,
+                },
+                {
+                    "number": 11,
+                    "op_mode": "aggregate",
+                    "aggregate_num_ports": 2,
+                },
             ])
         ```
 
@@ -290,7 +290,7 @@ class Device(pulumi.CustomResource):
         :param pulumi.Input[bool] forget_on_destroy: Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
         :param pulumi.Input[str] mac: The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
         :param pulumi.Input[str] name: The name of the device.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]] port_overrides: Settings overrides for specific switch ports.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]] port_overrides: Settings overrides for specific switch ports.
         :param pulumi.Input[str] site: The name of the site to associate the device with.
         """
         ...
@@ -316,21 +316,21 @@ class Device(pulumi.CustomResource):
         us24_poe = unifi.Device("us24Poe",
             mac="01:23:45:67:89:AB",
             port_overrides=[
-                unifi.DevicePortOverrideArgs(
-                    number=1,
-                    name="port w/ poe",
-                    port_profile_id=poe.id,
-                ),
-                unifi.DevicePortOverrideArgs(
-                    number=2,
-                    name="disabled",
-                    port_profile_id=disabled.id,
-                ),
-                unifi.DevicePortOverrideArgs(
-                    number=11,
-                    op_mode="aggregate",
-                    aggregate_num_ports=2,
-                ),
+                {
+                    "number": 1,
+                    "name": "port w/ poe",
+                    "port_profile_id": poe.id,
+                },
+                {
+                    "number": 2,
+                    "name": "disabled",
+                    "port_profile_id": disabled.id,
+                },
+                {
+                    "number": 11,
+                    "op_mode": "aggregate",
+                    "aggregate_num_ports": 2,
+                },
             ])
         ```
 
@@ -353,7 +353,7 @@ class Device(pulumi.CustomResource):
                  forget_on_destroy: Optional[pulumi.Input[bool]] = None,
                  mac: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
-                 port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]]] = None,
+                 port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -386,7 +386,7 @@ class Device(pulumi.CustomResource):
             forget_on_destroy: Optional[pulumi.Input[bool]] = None,
             mac: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
-            port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]]] = None,
+            port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
             site: Optional[pulumi.Input[str]] = None) -> 'Device':
         """
         Get an existing Device resource's state with the given name, id, and optional extra
@@ -400,7 +400,7 @@ class Device(pulumi.CustomResource):
         :param pulumi.Input[bool] forget_on_destroy: Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
         :param pulumi.Input[str] mac: The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
         :param pulumi.Input[str] name: The name of the device.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['DevicePortOverrideArgs']]]] port_overrides: Settings overrides for specific switch ports.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]] port_overrides: Settings overrides for specific switch ports.
         :param pulumi.Input[str] site: The name of the site to associate the device with.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))

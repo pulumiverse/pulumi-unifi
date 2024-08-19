@@ -387,8 +387,8 @@ class RadiusProfile(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  accounting_enabled: Optional[pulumi.Input[bool]] = None,
-                 acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAcctServerArgs']]]]] = None,
-                 auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAuthServerArgs']]]]] = None,
+                 acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
+                 auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
                  interim_update_enabled: Optional[pulumi.Input[bool]] = None,
                  interim_update_interval: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -404,8 +404,8 @@ class RadiusProfile(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] accounting_enabled: Specifies whether to use RADIUS accounting. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAcctServerArgs']]]] acct_servers: RADIUS accounting servers.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAuthServerArgs']]]] auth_servers: RADIUS authentication servers.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]] acct_servers: RADIUS accounting servers.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]] auth_servers: RADIUS authentication servers.
         :param pulumi.Input[bool] interim_update_enabled: Specifies whether to use interim_update. Defaults to `false`.
         :param pulumi.Input[int] interim_update_interval: Specifies interim_update interval. Defaults to `3600`.
         :param pulumi.Input[str] name: The name of the profile.
@@ -440,8 +440,8 @@ class RadiusProfile(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  accounting_enabled: Optional[pulumi.Input[bool]] = None,
-                 acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAcctServerArgs']]]]] = None,
-                 auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAuthServerArgs']]]]] = None,
+                 acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
+                 auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
                  interim_update_enabled: Optional[pulumi.Input[bool]] = None,
                  interim_update_interval: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -481,8 +481,8 @@ class RadiusProfile(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             accounting_enabled: Optional[pulumi.Input[bool]] = None,
-            acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAcctServerArgs']]]]] = None,
-            auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAuthServerArgs']]]]] = None,
+            acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
+            auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
             interim_update_enabled: Optional[pulumi.Input[bool]] = None,
             interim_update_interval: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
@@ -499,8 +499,8 @@ class RadiusProfile(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] accounting_enabled: Specifies whether to use RADIUS accounting. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAcctServerArgs']]]] acct_servers: RADIUS accounting servers.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RadiusProfileAuthServerArgs']]]] auth_servers: RADIUS authentication servers.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]] acct_servers: RADIUS accounting servers.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]] auth_servers: RADIUS authentication servers.
         :param pulumi.Input[bool] interim_update_enabled: Specifies whether to use interim_update. Defaults to `false`.
         :param pulumi.Input[int] interim_update_interval: Specifies interim_update interval. Defaults to `3600`.
         :param pulumi.Input[str] name: The name of the profile.

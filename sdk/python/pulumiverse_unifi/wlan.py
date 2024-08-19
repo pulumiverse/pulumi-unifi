@@ -915,7 +915,7 @@ class Wlan(pulumi.CustomResource):
                  pmf_mode: Optional[pulumi.Input[str]] = None,
                  proxy_arp: Optional[pulumi.Input[bool]] = None,
                  radius_profile_id: Optional[pulumi.Input[str]] = None,
-                 schedules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]]] = None,
+                 schedules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
                  security: Optional[pulumi.Input[str]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  uapsd: Optional[pulumi.Input[bool]] = None,
@@ -993,7 +993,7 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
         :param pulumi.Input[bool] proxy_arp: Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
         :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]] schedules: Start and stop schedules for the WLAN
+        :param pulumi.Input[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
         :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
@@ -1090,7 +1090,7 @@ class Wlan(pulumi.CustomResource):
                  pmf_mode: Optional[pulumi.Input[str]] = None,
                  proxy_arp: Optional[pulumi.Input[bool]] = None,
                  radius_profile_id: Optional[pulumi.Input[str]] = None,
-                 schedules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]]] = None,
+                 schedules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
                  security: Optional[pulumi.Input[str]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  uapsd: Optional[pulumi.Input[bool]] = None,
@@ -1169,7 +1169,7 @@ class Wlan(pulumi.CustomResource):
             pmf_mode: Optional[pulumi.Input[str]] = None,
             proxy_arp: Optional[pulumi.Input[bool]] = None,
             radius_profile_id: Optional[pulumi.Input[str]] = None,
-            schedules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]]] = None,
+            schedules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
             security: Optional[pulumi.Input[str]] = None,
             site: Optional[pulumi.Input[str]] = None,
             uapsd: Optional[pulumi.Input[bool]] = None,
@@ -1203,7 +1203,7 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[str] pmf_mode: Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
         :param pulumi.Input[bool] proxy_arp: Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
         :param pulumi.Input[str] radius_profile_id: ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `RadiusProfile` data source.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['WlanScheduleArgs']]]] schedules: Start and stop schedules for the WLAN
+        :param pulumi.Input[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]] schedules: Start and stop schedules for the WLAN
         :param pulumi.Input[str] security: The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
         :param pulumi.Input[str] site: The name of the site to associate the wlan with.
         :param pulumi.Input[bool] uapsd: Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
