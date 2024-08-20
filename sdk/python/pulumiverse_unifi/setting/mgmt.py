@@ -165,7 +165,7 @@ class Mgmt(pulumi.CustomResource):
                  auto_upgrade: Optional[pulumi.Input[bool]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  ssh_enabled: Optional[pulumi.Input[bool]] = None,
-                 ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['MgmtSshKeyArgs']]]]] = None,
+                 ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]]] = None,
                  __props__=None):
         """
         `setting.Mgmt` manages settings for a unifi site.
@@ -187,7 +187,7 @@ class Mgmt(pulumi.CustomResource):
         :param pulumi.Input[bool] auto_upgrade: Automatically upgrade device firmware.
         :param pulumi.Input[str] site: The name of the site to associate the settings with.
         :param pulumi.Input[bool] ssh_enabled: Enable SSH authentication.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['MgmtSshKeyArgs']]]] ssh_keys: SSH key.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]] ssh_keys: SSH key.
         """
         ...
     @overload
@@ -228,7 +228,7 @@ class Mgmt(pulumi.CustomResource):
                  auto_upgrade: Optional[pulumi.Input[bool]] = None,
                  site: Optional[pulumi.Input[str]] = None,
                  ssh_enabled: Optional[pulumi.Input[bool]] = None,
-                 ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['MgmtSshKeyArgs']]]]] = None,
+                 ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -255,7 +255,7 @@ class Mgmt(pulumi.CustomResource):
             auto_upgrade: Optional[pulumi.Input[bool]] = None,
             site: Optional[pulumi.Input[str]] = None,
             ssh_enabled: Optional[pulumi.Input[bool]] = None,
-            ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['MgmtSshKeyArgs']]]]] = None) -> 'Mgmt':
+            ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]]] = None) -> 'Mgmt':
         """
         Get an existing Mgmt resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -266,7 +266,7 @@ class Mgmt(pulumi.CustomResource):
         :param pulumi.Input[bool] auto_upgrade: Automatically upgrade device firmware.
         :param pulumi.Input[str] site: The name of the site to associate the settings with.
         :param pulumi.Input[bool] ssh_enabled: Enable SSH authentication.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['MgmtSshKeyArgs']]]] ssh_keys: SSH key.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]] ssh_keys: SSH key.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
