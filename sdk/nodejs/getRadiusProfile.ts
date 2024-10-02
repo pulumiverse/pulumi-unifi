@@ -9,7 +9,6 @@ import * as utilities from "./utilities";
  */
 export function getRadiusProfile(args?: GetRadiusProfileArgs, opts?: pulumi.InvokeOptions): Promise<GetRadiusProfileResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("unifi:index/getRadiusProfile:getRadiusProfile", {
         "name": args.name,
@@ -52,7 +51,12 @@ export interface GetRadiusProfileResult {
  * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
  */
 export function getRadiusProfileOutput(args?: GetRadiusProfileOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetRadiusProfileResult> {
-    return pulumi.output(args).apply((a: any) => getRadiusProfile(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("unifi:index/getRadiusProfile:getRadiusProfile", {
+        "name": args.name,
+        "site": args.site,
+    }, opts);
 }
 
 /**
