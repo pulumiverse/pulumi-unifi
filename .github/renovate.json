@@ -16,10 +16,11 @@
             "matchDatasources": [
                 "go"
             ],
-            "excludePackagePrefixes": [
-                "github.com/hashicorp/terraform-plugin-sdk",
-                "github.com/pulumi/pulumi",
-                "github.com/paultyng/terraform-provider-unifi"
+            "matchPackageNames": [
+                "!github.com/hashicorp/terraform-plugin-sdk",
+                "!github.com/pulumi/terraform-plugin-sdk",
+                "!github.com/pulumi/pulumi/*",
+                "!github.com/paultyng/terraform-provider-unifi"
             ]
         },
         {
@@ -28,6 +29,28 @@
             ],
             "matchDatasources": [
                 "go"
+            ]
+        },
+        {
+            "matchFileNames": [
+                "examples/**"
+            ],
+            "matchDatasources": [
+                "pypi"
+            ],
+            "matchPackageNames": [
+                "!pulumi*"
+            ]
+        },
+        {
+            "matchFileNames": [
+                "examples/**"
+            ],
+            "matchDatasources": [
+                "npm"
+            ],
+            "matchPackageNames": [
+                "!@pulumi/pulumi"
             ]
         },
         {
