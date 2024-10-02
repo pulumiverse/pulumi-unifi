@@ -1,0 +1,22 @@
+{
+	"typescript": {
+		"Total": 16,
+		"Successes": {
+			"Number": 16,
+			"Pct": 100
+		},
+		"Warnings": {
+			"Number": 0,
+			"Pct": 0
+		},
+		"Failures": {
+			"Number": 0,
+			"Pct": 0
+		},
+		"Fatals": {
+			"Number": 0,
+			"Pct": 0
+		},
+		"FrequentErrors": []
+	}
+}

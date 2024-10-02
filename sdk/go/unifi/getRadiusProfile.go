@@ -42,14 +42,20 @@ type LookupRadiusProfileResult struct {
 
 func LookupRadiusProfileOutput(ctx *pulumi.Context, args LookupRadiusProfileOutputArgs, opts ...pulumi.InvokeOption) LookupRadiusProfileResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (LookupRadiusProfileResult, error) {
+		ApplyT(func(v interface{}) (LookupRadiusProfileResultOutput, error) {
 			args := v.(LookupRadiusProfileArgs)
-			r, err := LookupRadiusProfile(ctx, &args, opts...)
-			var s LookupRadiusProfileResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv LookupRadiusProfileResult
+			secret, err := ctx.InvokePackageRaw("unifi:index/getRadiusProfile:getRadiusProfile", args, &rv, "", opts...)
+			if err != nil {
+				return LookupRadiusProfileResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(LookupRadiusProfileResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(LookupRadiusProfileResultOutput), nil
+			}
+			return output, nil
 		}).(LookupRadiusProfileResultOutput)
 }
 

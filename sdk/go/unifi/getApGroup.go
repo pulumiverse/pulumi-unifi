@@ -66,14 +66,20 @@ type GetApGroupResult struct {
 
 func GetApGroupOutput(ctx *pulumi.Context, args GetApGroupOutputArgs, opts ...pulumi.InvokeOption) GetApGroupResultOutput {
 	return pulumi.ToOutputWithContext(context.Background(), args).
-		ApplyT(func(v interface{}) (GetApGroupResult, error) {
+		ApplyT(func(v interface{}) (GetApGroupResultOutput, error) {
 			args := v.(GetApGroupArgs)
-			r, err := GetApGroup(ctx, &args, opts...)
-			var s GetApGroupResult
-			if r != nil {
-				s = *r
+			opts = internal.PkgInvokeDefaultOpts(opts)
+			var rv GetApGroupResult
+			secret, err := ctx.InvokePackageRaw("unifi:index/getApGroup:getApGroup", args, &rv, "", opts...)
+			if err != nil {
+				return GetApGroupResultOutput{}, err
 			}
-			return s, err
+
+			output := pulumi.ToOutput(rv).(GetApGroupResultOutput)
+			if secret {
+				return pulumi.ToSecret(output).(GetApGroupResultOutput), nil
+			}
+			return output, nil
 		}).(GetApGroupResultOutput)
 }
 

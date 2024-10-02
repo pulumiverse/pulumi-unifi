@@ -18,7 +18,6 @@ import * as utilities from "./utilities";
  */
 export function getApGroup(args?: GetApGroupArgs, opts?: pulumi.InvokeOptions): Promise<GetApGroupResult> {
     args = args || {};
-
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("unifi:index/getApGroup:getApGroup", {
         "name": args.name,
@@ -70,7 +69,12 @@ export interface GetApGroupResult {
  * ```
  */
 export function getApGroupOutput(args?: GetApGroupOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetApGroupResult> {
-    return pulumi.output(args).apply((a: any) => getApGroup(a, opts))
+    args = args || {};
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
+    return pulumi.runtime.invokeOutput("unifi:index/getApGroup:getApGroup", {
+        "name": args.name,
+        "site": args.site,
+    }, opts);
 }
 
 /**
