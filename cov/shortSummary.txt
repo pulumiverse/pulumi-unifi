@@ -1,4 +1,0 @@
-Provider:     unifi
-Success rate: 100.00% (16/16)
-
-Converted 100.00% of typescript examples (16/16)
