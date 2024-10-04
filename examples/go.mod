@@ -4,7 +4,7 @@ go 1.21
 
 toolchain go1.23.1
 
-require github.com/pulumi/pulumi/pkg/v3 v3.133.0
+require github.com/pulumi/pulumi/pkg/v3 v3.135.1
 
 require (
 	cloud.google.com/go v0.112.1 // indirect
