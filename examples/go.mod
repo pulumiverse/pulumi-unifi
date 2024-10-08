@@ -2,7 +2,7 @@ module github.com/pulumiverse/pulumi-unifi/examples
 
 go 1.21
 
-toolchain go1.23.1
+toolchain go1.23.2
 
 require github.com/pulumi/pulumi/pkg/v3 v3.133.0
 
