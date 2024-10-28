@@ -275,8 +275,8 @@ class DynamicDNS(pulumi.CustomResource):
             service="dyndns",
             host_name="my-network.example.com",
             server="domains.google.com",
-            login=var["dns_login"],
-            password=var["dns_password"])
+            login=dns_login,
+            password=dns_password)
         ```
 
         :param str resource_name: The name of the resource.
@@ -308,8 +308,8 @@ class DynamicDNS(pulumi.CustomResource):
             service="dyndns",
             host_name="my-network.example.com",
             server="domains.google.com",
-            login=var["dns_login"],
-            password=var["dns_password"])
+            login=dns_login,
+            password=dns_password)
         ```
 
         :param str resource_name: The name of the resource.

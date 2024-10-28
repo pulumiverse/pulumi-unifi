@@ -15,7 +15,8 @@ import * as utilities from "../utilities";
  *
  * const config = new pulumi.Config();
  * const ipAddress = config.require("ipAddress");
- * const dropAll = new unifi.firewall.Rule("dropAll", {
+ * const dropAll = new unifi.firewall.Rule("drop_all", {
+ *     name: "drop all",
  *     action: "drop",
  *     ruleset: "LAN_IN",
  *     ruleIndex: 2011,

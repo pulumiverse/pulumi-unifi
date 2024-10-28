@@ -621,7 +621,9 @@ def get_network(id: Optional[str] = None,
     import pulumi
     import pulumi_unifi as unifi
 
+    #retrieve network data by unifi network name
     lan_network = unifi.get_network(name="Default")
+    #retrieve network data from user record
     my_device = unifi.iam.get_user(mac="01:23:45:67:89:ab")
     my_network = unifi.get_network(id=my_device.network_id)
     ```
@@ -703,7 +705,9 @@ def get_network_output(id: Optional[pulumi.Input[Optional[str]]] = None,
     import pulumi
     import pulumi_unifi as unifi
 
+    #retrieve network data by unifi network name
     lan_network = unifi.get_network(name="Default")
+    #retrieve network data from user record
     my_device = unifi.iam.get_user(mac="01:23:45:67:89:ab")
     my_network = unifi.get_network(id=my_device.network_id)
     ```

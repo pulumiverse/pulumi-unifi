@@ -16,6 +16,7 @@ import * as utilities from "../utilities";
  * const config = new pulumi.Config();
  * const vlanId = config.getNumber("vlanId") || 10;
  * const vlan = new unifi.Network("vlan", {
+ *     name: "wifi-vlan",
  *     purpose: "corporate",
  *     subnet: "10.0.0.1/24",
  *     vlanId: vlanId,
@@ -23,7 +24,8 @@ import * as utilities from "../utilities";
  *     dhcpStop: "10.0.0.254",
  *     dhcpEnabled: true,
  * });
- * const poeDisabled = new unifi.port.Profile("poeDisabled", {
+ * const poeDisabled = new unifi.port.Profile("poe_disabled", {
+ *     name: "POE Disabled",
  *     nativeNetworkconfId: vlan.id,
  *     poeMode: "off",
  * });

@@ -14,10 +14,10 @@ import * as utilities from "../utilities";
  * import * as unifi from "@pulumiverse/unifi";
  *
  * const wifi = new unifi.iam.Group("wifi", {
+ *     name: "wifi",
  *     qosRateMaxDown: 2000,
  *     qosRateMaxUp: 10,
  * });
- * // 10kbps
  * ```
  *
  * ## Import

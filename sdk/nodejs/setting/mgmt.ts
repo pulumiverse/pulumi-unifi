@@ -15,9 +15,9 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumiverse/unifi";
  *
- * const exampleSite = new unifi.Site("exampleSite", {description: "example"});
- * const exampleMgmt = new unifi.setting.Mgmt("exampleMgmt", {
- *     site: exampleSite.name,
+ * const example = new unifi.Site("example", {description: "example"});
+ * const exampleMgmt = new unifi.setting.Mgmt("example", {
+ *     site: example.name,
  *     autoUpgrade: true,
  * });
  * ```

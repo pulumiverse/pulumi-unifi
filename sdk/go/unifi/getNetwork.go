@@ -28,12 +28,14 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
+//			// retrieve network data by unifi network name
 //			_, err := unifi.LookupNetwork(ctx, &unifi.LookupNetworkArgs{
 //				Name: pulumi.StringRef("Default"),
 //			}, nil)
 //			if err != nil {
 //				return err
 //			}
+//			// retrieve network data from user record
 //			myDevice, err := iam.LookupUser(ctx, &iam.LookupUserArgs{
 //				Mac: "01:23:45:67:89:ab",
 //			}, nil)

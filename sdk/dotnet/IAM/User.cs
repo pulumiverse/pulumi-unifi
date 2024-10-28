@@ -28,9 +28,10 @@ namespace Pulumiverse.Unifi.IAM
     ///     var test = new Unifi.IAM.User("test", new()
     ///     {
     ///         Mac = "01:23:45:67:89:AB",
+    ///         Name = "some client",
     ///         Note = "my note",
     ///         FixedIp = "10.0.0.50",
-    ///         NetworkId = unifi_network.My_vlan.Id,
+    ///         NetworkId = myVlan.Id,
     ///     });
     /// 
     /// });

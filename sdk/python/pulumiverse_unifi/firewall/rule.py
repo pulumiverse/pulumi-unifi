@@ -998,7 +998,8 @@ class Rule(pulumi.CustomResource):
 
         config = pulumi.Config()
         ip_address = config.require("ipAddress")
-        drop_all = unifi.firewall.Rule("dropAll",
+        drop_all = unifi.firewall.Rule("drop_all",
+            name="drop all",
             action="drop",
             ruleset="LAN_IN",
             rule_index=2011,
@@ -1063,7 +1064,8 @@ class Rule(pulumi.CustomResource):
 
         config = pulumi.Config()
         ip_address = config.require("ipAddress")
-        drop_all = unifi.firewall.Rule("dropAll",
+        drop_all = unifi.firewall.Rule("drop_all",
+            name="drop all",
             action="drop",
             ruleset="LAN_IN",
             rule_index=2011,

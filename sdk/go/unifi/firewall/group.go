@@ -31,7 +31,8 @@ import (
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			cfg := config.New(ctx, "")
 //			laptopIps := cfg.Require("laptopIps")
-//			_, err := firewall.NewGroup(ctx, "canPrint", &firewall.GroupArgs{
+//			_, err := firewall.NewGroup(ctx, "can_print", &firewall.GroupArgs{
+//				Name:    pulumi.String("can-print"),
 //				Type:    pulumi.String("address-group"),
 //				Members: laptopIps,
 //			})

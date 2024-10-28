@@ -27,6 +27,7 @@ namespace Pulumiverse.Unifi
     ///     {
     ///         Type = "nexthop-route",
     ///         Network = "172.17.0.0/16",
+    ///         Name = "basic nexthop",
     ///         Distance = 1,
     ///         NextHop = "172.16.0.1",
     ///     });
@@ -34,14 +35,16 @@ namespace Pulumiverse.Unifi
     ///     var blackhole = new Unifi.StaticRoute("blackhole", new()
     ///     {
     ///         Type = "blackhole",
-    ///         Network = @var.Blackhole_cidr,
+    ///         Network = blackholeCidr,
+    ///         Name = "blackhole traffice to cidr",
     ///         Distance = 1,
     ///     });
     /// 
     ///     var @interface = new Unifi.StaticRoute("interface", new()
     ///     {
     ///         Type = "interface-route",
-    ///         Network = @var.Wan2_cidr,
+    ///         Network = wan2Cidr,
+    ///         Name = "send traffic over wan2",
     ///         Distance = 1,
     ///         Interface = "WAN2",
     ///     });

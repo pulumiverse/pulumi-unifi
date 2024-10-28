@@ -35,6 +35,7 @@ import (
 //				vlanId = param
 //			}
 //			vlan, err := unifi.NewNetwork(ctx, "vlan", &unifi.NetworkArgs{
+//				Name:        pulumi.String("wifi-vlan"),
 //				Purpose:     pulumi.String("corporate"),
 //				Subnet:      pulumi.String("10.0.0.1/24"),
 //				VlanId:      pulumi.Float64(vlanId),
@@ -45,7 +46,8 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			_, err = port.NewProfile(ctx, "poeDisabled", &port.ProfileArgs{
+//			_, err = port.NewProfile(ctx, "poe_disabled", &port.ProfileArgs{
+//				Name:                pulumi.String("POE Disabled"),
 //				NativeNetworkconfId: vlan.ID(),
 //				PoeMode:             pulumi.String("off"),
 //			})

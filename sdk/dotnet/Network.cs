@@ -27,6 +27,7 @@ namespace Pulumiverse.Unifi
     ///     var vlanId = config.GetDouble("vlanId") ?? 10;
     ///     var vlan = new Unifi.Network("vlan", new()
     ///     {
+    ///         Name = "wifi-vlan",
     ///         Purpose = "corporate",
     ///         Subnet = "10.0.0.1/24",
     ///         VlanId = vlanId,
@@ -37,6 +38,7 @@ namespace Pulumiverse.Unifi
     /// 
     ///     var wan = new Unifi.Network("wan", new()
     ///     {
+    ///         Name = "wan",
     ///         Purpose = "wan",
     ///         WanNetworkgroup = "WAN",
     ///         WanType = "pppoe",

@@ -1202,13 +1202,15 @@ class Profile(pulumi.CustomResource):
         if vlan_id is None:
             vlan_id = 10
         vlan = unifi.Network("vlan",
+            name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
             vlan_id=vlan_id,
             dhcp_start="10.0.0.6",
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
-        poe_disabled = unifi.port.Profile("poeDisabled",
+        poe_disabled = unifi.port.Profile("poe_disabled",
+            name="POE Disabled",
             native_networkconf_id=vlan.id,
             poe_mode="off")
         ```
@@ -1271,13 +1273,15 @@ class Profile(pulumi.CustomResource):
         if vlan_id is None:
             vlan_id = 10
         vlan = unifi.Network("vlan",
+            name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
             vlan_id=vlan_id,
             dhcp_start="10.0.0.6",
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
-        poe_disabled = unifi.port.Profile("poeDisabled",
+        poe_disabled = unifi.port.Profile("poe_disabled",
+            name="POE Disabled",
             native_networkconf_id=vlan.id,
             poe_mode="off")
         ```

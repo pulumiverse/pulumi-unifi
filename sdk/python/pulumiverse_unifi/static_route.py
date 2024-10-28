@@ -273,15 +273,18 @@ class StaticRoute(pulumi.CustomResource):
         nexthop = unifi.StaticRoute("nexthop",
             type="nexthop-route",
             network="172.17.0.0/16",
+            name="basic nexthop",
             distance=1,
             next_hop="172.16.0.1")
         blackhole = unifi.StaticRoute("blackhole",
             type="blackhole",
-            network=var["blackhole_cidr"],
+            network=blackhole_cidr,
+            name="blackhole traffice to cidr",
             distance=1)
         interface = unifi.StaticRoute("interface",
             type="interface-route",
-            network=var["wan2_cidr"],
+            network=wan2_cidr,
+            name="send traffic over wan2",
             distance=1,
             interface="WAN2")
         ```
@@ -314,15 +317,18 @@ class StaticRoute(pulumi.CustomResource):
         nexthop = unifi.StaticRoute("nexthop",
             type="nexthop-route",
             network="172.17.0.0/16",
+            name="basic nexthop",
             distance=1,
             next_hop="172.16.0.1")
         blackhole = unifi.StaticRoute("blackhole",
             type="blackhole",
-            network=var["blackhole_cidr"],
+            network=blackhole_cidr,
+            name="blackhole traffice to cidr",
             distance=1)
         interface = unifi.StaticRoute("interface",
             type="interface-route",
-            network=var["wan2_cidr"],
+            network=wan2_cidr,
+            name="send traffic over wan2",
             distance=1,
             interface="WAN2")
         ```

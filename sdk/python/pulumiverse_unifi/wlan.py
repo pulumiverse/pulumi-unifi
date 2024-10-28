@@ -938,9 +938,10 @@ class Wlan(pulumi.CustomResource):
         vlan_id = config.get_float("vlanId")
         if vlan_id is None:
             vlan_id = 10
-        default_ap_group = unifi.get_ap_group()
-        default_group = unifi.iam.get_group()
+        default = unifi.get_ap_group()
+        default_get_group = unifi.iam.get_group()
         vlan = unifi.Network("vlan",
+            name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
             vlan_id=vlan_id,
@@ -948,14 +949,15 @@ class Wlan(pulumi.CustomResource):
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
         wifi = unifi.Wlan("wifi",
+            name="myssid",
             passphrase="12345678",
             security="wpapsk",
             wpa3_support=True,
             wpa3_transition=True,
             pmf_mode="optional",
             network_id=vlan.id,
-            ap_group_ids=[default_ap_group.id],
-            user_group_id=default_group.id)
+            ap_group_ids=[default.id],
+            user_group_id=default_get_group.id)
         ```
 
         ## Import
@@ -1022,9 +1024,10 @@ class Wlan(pulumi.CustomResource):
         vlan_id = config.get_float("vlanId")
         if vlan_id is None:
             vlan_id = 10
-        default_ap_group = unifi.get_ap_group()
-        default_group = unifi.iam.get_group()
+        default = unifi.get_ap_group()
+        default_get_group = unifi.iam.get_group()
         vlan = unifi.Network("vlan",
+            name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
             vlan_id=vlan_id,
@@ -1032,14 +1035,15 @@ class Wlan(pulumi.CustomResource):
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
         wifi = unifi.Wlan("wifi",
+            name="myssid",
             passphrase="12345678",
             security="wpapsk",
             wpa3_support=True,
             wpa3_transition=True,
             pmf_mode="optional",
             network_id=vlan.id,
-            ap_group_ids=[default_ap_group.id],
-            user_group_id=default_group.id)
+            ap_group_ids=[default.id],
+            user_group_id=default_get_group.id)
         ```
 
         ## Import

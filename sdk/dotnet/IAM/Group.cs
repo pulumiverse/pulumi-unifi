@@ -25,11 +25,11 @@ namespace Pulumiverse.Unifi.IAM
     /// {
     ///     var wifi = new Unifi.IAM.Group("wifi", new()
     ///     {
+    ///         Name = "wifi",
     ///         QosRateMaxDown = 2000,
     ///         QosRateMaxUp = 10,
     ///     });
     /// 
-    ///     // 10kbps
     /// });
     /// ```
     /// 

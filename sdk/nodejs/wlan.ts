@@ -18,9 +18,10 @@ import * as utilities from "./utilities";
  *
  * const config = new pulumi.Config();
  * const vlanId = config.getNumber("vlanId") || 10;
- * const defaultApGroup = unifi.getApGroup({});
- * const defaultGroup = unifi.iam.getGroup({});
+ * const default = unifi.getApGroup({});
+ * const defaultGetGroup = unifi.iam.getGroup({});
  * const vlan = new unifi.Network("vlan", {
+ *     name: "wifi-vlan",
  *     purpose: "corporate",
  *     subnet: "10.0.0.1/24",
  *     vlanId: vlanId,
@@ -29,14 +30,15 @@ import * as utilities from "./utilities";
  *     dhcpEnabled: true,
  * });
  * const wifi = new unifi.Wlan("wifi", {
+ *     name: "myssid",
  *     passphrase: "12345678",
  *     security: "wpapsk",
  *     wpa3Support: true,
  *     wpa3Transition: true,
  *     pmfMode: "optional",
  *     networkId: vlan.id,
- *     apGroupIds: [defaultApGroup.then(defaultApGroup => defaultApGroup.id)],
- *     userGroupId: defaultGroup.then(defaultGroup => defaultGroup.id),
+ *     apGroupIds: [_default.then(_default => _default.id)],
+ *     userGroupId: defaultGetGroup.then(defaultGetGroup => defaultGetGroup.id),
  * });
  * ```
  *

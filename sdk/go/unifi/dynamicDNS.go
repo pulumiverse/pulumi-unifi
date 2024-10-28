@@ -32,8 +32,8 @@ import (
 //				Service:  pulumi.String("dyndns"),
 //				HostName: pulumi.String("my-network.example.com"),
 //				Server:   pulumi.String("domains.google.com"),
-//				Login:    pulumi.Any(_var.Dns_login),
-//				Password: pulumi.Any(_var.Dns_password),
+//				Login:    pulumi.Any(dnsLogin),
+//				Password: pulumi.Any(dnsPassword),
 //			})
 //			if err != nil {
 //				return err

@@ -31,6 +31,7 @@ import (
 //			_, err := unifi.NewStaticRoute(ctx, "nexthop", &unifi.StaticRouteArgs{
 //				Type:     pulumi.String("nexthop-route"),
 //				Network:  pulumi.String("172.17.0.0/16"),
+//				Name:     pulumi.String("basic nexthop"),
 //				Distance: pulumi.Int(1),
 //				NextHop:  pulumi.String("172.16.0.1"),
 //			})
@@ -39,7 +40,8 @@ import (
 //			}
 //			_, err = unifi.NewStaticRoute(ctx, "blackhole", &unifi.StaticRouteArgs{
 //				Type:     pulumi.String("blackhole"),
-//				Network:  pulumi.Any(_var.Blackhole_cidr),
+//				Network:  pulumi.Any(blackholeCidr),
+//				Name:     pulumi.String("blackhole traffice to cidr"),
 //				Distance: pulumi.Int(1),
 //			})
 //			if err != nil {
@@ -47,7 +49,8 @@ import (
 //			}
 //			_, err = unifi.NewStaticRoute(ctx, "interface", &unifi.StaticRouteArgs{
 //				Type:      pulumi.String("interface-route"),
-//				Network:   pulumi.Any(_var.Wan2_cidr),
+//				Network:   pulumi.Any(wan2Cidr),
+//				Name:      pulumi.String("send traffic over wan2"),
 //				Distance:  pulumi.Int(1),
 //				Interface: pulumi.String("WAN2"),
 //			})

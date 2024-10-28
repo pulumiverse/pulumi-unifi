@@ -35,6 +35,7 @@ import (
 //				vlanId = param
 //			}
 //			_, err := unifi.NewNetwork(ctx, "vlan", &unifi.NetworkArgs{
+//				Name:        pulumi.String("wifi-vlan"),
 //				Purpose:     pulumi.String("corporate"),
 //				Subnet:      pulumi.String("10.0.0.1/24"),
 //				VlanId:      pulumi.Float64(vlanId),
@@ -46,6 +47,7 @@ import (
 //				return err
 //			}
 //			_, err = unifi.NewNetwork(ctx, "wan", &unifi.NetworkArgs{
+//				Name:            pulumi.String("wan"),
 //				Purpose:         pulumi.String("wan"),
 //				WanNetworkgroup: pulumi.String("WAN"),
 //				WanType:         pulumi.String("pppoe"),

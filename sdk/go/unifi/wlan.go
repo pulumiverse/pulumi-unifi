@@ -35,15 +35,16 @@ import (
 //			if param := cfg.GetFloat64("vlanId"); param != 0 {
 //				vlanId = param
 //			}
-//			defaultApGroup, err := unifi.GetApGroup(ctx, nil, nil)
+//			_default, err := unifi.GetApGroup(ctx, nil, nil)
 //			if err != nil {
 //				return err
 //			}
-//			defaultGroup, err := iam.LookupGroup(ctx, nil, nil)
+//			defaultGetGroup, err := iam.LookupGroup(ctx, nil, nil)
 //			if err != nil {
 //				return err
 //			}
 //			vlan, err := unifi.NewNetwork(ctx, "vlan", &unifi.NetworkArgs{
+//				Name:        pulumi.String("wifi-vlan"),
 //				Purpose:     pulumi.String("corporate"),
 //				Subnet:      pulumi.String("10.0.0.1/24"),
 //				VlanId:      pulumi.Float64(vlanId),
@@ -55,6 +56,7 @@ import (
 //				return err
 //			}
 //			_, err = unifi.NewWlan(ctx, "wifi", &unifi.WlanArgs{
+//				Name:           pulumi.String("myssid"),
 //				Passphrase:     pulumi.String("12345678"),
 //				Security:       pulumi.String("wpapsk"),
 //				Wpa3Support:    pulumi.Bool(true),
@@ -62,9 +64,9 @@ import (
 //				PmfMode:        pulumi.String("optional"),
 //				NetworkId:      vlan.ID(),
 //				ApGroupIds: pulumi.StringArray{
-//					pulumi.String(defaultApGroup.Id),
+//					pulumi.String(_default.Id),
 //				},
-//				UserGroupId: pulumi.String(defaultGroup.Id),
+//				UserGroupId: pulumi.String(defaultGetGroup.Id),
 //			})
 //			if err != nil {
 //				return err

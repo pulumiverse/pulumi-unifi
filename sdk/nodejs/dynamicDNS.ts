@@ -17,8 +17,8 @@ import * as utilities from "./utilities";
  *     service: "dyndns",
  *     hostName: "my-network.example.com",
  *     server: "domains.google.com",
- *     login: _var.dns_login,
- *     password: _var.dns_password,
+ *     login: dnsLogin,
+ *     password: dnsPassword,
  * });
  * ```
  */

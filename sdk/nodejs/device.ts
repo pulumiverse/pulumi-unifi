@@ -18,13 +18,15 @@ import * as utilities from "./utilities";
  *     name: "Disabled",
  * });
  * const poe = new unifi.port.Profile("poe", {
+ *     name: "poe",
  *     forward: "customize",
- *     nativeNetworkconfId: _var.native_network_id,
- *     taggedNetworkconfIds: [_var.some_vlan_network_id],
+ *     nativeNetworkconfId: nativeNetworkId,
+ *     taggedNetworkconfIds: [someVlanNetworkId],
  *     poeMode: "auto",
  * });
- * const us24Poe = new unifi.Device("us24Poe", {
+ * const us24Poe = new unifi.Device("us_24_poe", {
  *     mac: "01:23:45:67:89:AB",
+ *     name: "Switch with POE",
  *     portOverrides: [
  *         {
  *             number: 1,

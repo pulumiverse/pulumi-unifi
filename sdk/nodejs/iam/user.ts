@@ -17,9 +17,10 @@ import * as utilities from "../utilities";
  *
  * const test = new unifi.iam.User("test", {
  *     mac: "01:23:45:67:89:AB",
+ *     name: "some client",
  *     note: "my note",
  *     fixedIp: "10.0.0.50",
- *     networkId: unifi_network.my_vlan.id,
+ *     networkId: myVlan.id,
  * });
  * ```
  */

@@ -27,6 +27,7 @@ namespace Pulumiverse.Unifi.Port
     ///     var vlanId = config.GetDouble("vlanId") ?? 10;
     ///     var vlan = new Unifi.Network("vlan", new()
     ///     {
+    ///         Name = "wifi-vlan",
     ///         Purpose = "corporate",
     ///         Subnet = "10.0.0.1/24",
     ///         VlanId = vlanId,
@@ -35,8 +36,9 @@ namespace Pulumiverse.Unifi.Port
     ///         DhcpEnabled = true,
     ///     });
     /// 
-    ///     var poeDisabled = new Unifi.Port.Profile("poeDisabled", new()
+    ///     var poeDisabled = new Unifi.Port.Profile("poe_disabled", new()
     ///     {
+    ///         Name = "POE Disabled",
     ///         NativeNetworkconfId = vlan.Id,
     ///         PoeMode = "off",
     ///     });

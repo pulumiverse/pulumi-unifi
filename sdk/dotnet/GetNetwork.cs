@@ -25,11 +25,13 @@ namespace Pulumiverse.Unifi
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
+        ///     //retrieve network data by unifi network name
         ///     var lanNetwork = Unifi.GetNetwork.Invoke(new()
         ///     {
         ///         Name = "Default",
         ///     });
         /// 
+        ///     //retrieve network data from user record
         ///     var myDevice = Unifi.IAM.GetUser.Invoke(new()
         ///     {
         ///         Mac = "01:23:45:67:89:ab",
@@ -59,11 +61,13 @@ namespace Pulumiverse.Unifi
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
+        ///     //retrieve network data by unifi network name
         ///     var lanNetwork = Unifi.GetNetwork.Invoke(new()
         ///     {
         ///         Name = "Default",
         ///     });
         /// 
+        ///     //retrieve network data from user record
         ///     var myDevice = Unifi.IAM.GetUser.Invoke(new()
         ///     {
         ///         Mac = "01:23:45:67:89:ab",

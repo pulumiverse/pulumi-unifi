@@ -25,8 +25,9 @@ namespace Pulumiverse.Unifi.Firewall
     /// {
     ///     var config = new Config();
     ///     var ipAddress = config.Require("ipAddress");
-    ///     var dropAll = new Unifi.Firewall.Rule("dropAll", new()
+    ///     var dropAll = new Unifi.Firewall.Rule("drop_all", new()
     ///     {
+    ///         Name = "drop all",
     ///         Action = "drop",
     ///         Ruleset = "LAN_IN",
     ///         RuleIndex = 2011,

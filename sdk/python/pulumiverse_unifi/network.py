@@ -1696,6 +1696,7 @@ class Network(pulumi.CustomResource):
         if vlan_id is None:
             vlan_id = 10
         vlan = unifi.Network("vlan",
+            name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
             vlan_id=vlan_id,
@@ -1703,6 +1704,7 @@ class Network(pulumi.CustomResource):
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
         wan = unifi.Network("wan",
+            name="wan",
             purpose="wan",
             wan_networkgroup="WAN",
             wan_type="pppoe",
@@ -1805,6 +1807,7 @@ class Network(pulumi.CustomResource):
         if vlan_id is None:
             vlan_id = 10
         vlan = unifi.Network("vlan",
+            name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
             vlan_id=vlan_id,
@@ -1812,6 +1815,7 @@ class Network(pulumi.CustomResource):
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
         wan = unifi.Network("wan",
+            name="wan",
             purpose="wan",
             wan_networkgroup="WAN",
             wan_type="pppoe",

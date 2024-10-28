@@ -31,7 +31,8 @@ import (
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			cfg := config.New(ctx, "")
 //			ipAddress := cfg.Require("ipAddress")
-//			_, err := firewall.NewRule(ctx, "dropAll", &firewall.RuleArgs{
+//			_, err := firewall.NewRule(ctx, "drop_all", &firewall.RuleArgs{
+//				Name:       pulumi.String("drop all"),
 //				Action:     pulumi.String("drop"),
 //				Ruleset:    pulumi.String("LAN_IN"),
 //				RuleIndex:  pulumi.Int(2011),

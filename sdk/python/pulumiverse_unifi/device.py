@@ -259,12 +259,14 @@ class Device(pulumi.CustomResource):
 
         disabled = unifi.port.get_profile(name="Disabled")
         poe = unifi.port.Profile("poe",
+            name="poe",
             forward="customize",
-            native_networkconf_id=var["native_network_id"],
-            tagged_networkconf_ids=[var["some_vlan_network_id"]],
+            native_networkconf_id=native_network_id,
+            tagged_networkconf_ids=[some_vlan_network_id],
             poe_mode="auto")
-        us24_poe = unifi.Device("us24Poe",
+        us24_poe = unifi.Device("us_24_poe",
             mac="01:23:45:67:89:AB",
+            name="Switch with POE",
             port_overrides=[
                 {
                     "number": 1,
@@ -309,12 +311,14 @@ class Device(pulumi.CustomResource):
 
         disabled = unifi.port.get_profile(name="Disabled")
         poe = unifi.port.Profile("poe",
+            name="poe",
             forward="customize",
-            native_networkconf_id=var["native_network_id"],
-            tagged_networkconf_ids=[var["some_vlan_network_id"]],
+            native_networkconf_id=native_network_id,
+            tagged_networkconf_ids=[some_vlan_network_id],
             poe_mode="auto")
-        us24_poe = unifi.Device("us24Poe",
+        us24_poe = unifi.Device("us_24_poe",
             mac="01:23:45:67:89:AB",
+            name="Switch with POE",
             port_overrides=[
                 {
                     "number": 1,

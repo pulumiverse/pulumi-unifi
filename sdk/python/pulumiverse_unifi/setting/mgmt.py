@@ -176,9 +176,9 @@ class Mgmt(pulumi.CustomResource):
         import pulumi
         import pulumiverse_unifi as unifi
 
-        example_site = unifi.Site("exampleSite", description="example")
-        example_mgmt = unifi.setting.Mgmt("exampleMgmt",
-            site=example_site.name,
+        example = unifi.Site("example", description="example")
+        example_mgmt = unifi.setting.Mgmt("example",
+            site=example.name,
             auto_upgrade=True)
         ```
 
@@ -204,9 +204,9 @@ class Mgmt(pulumi.CustomResource):
         import pulumi
         import pulumiverse_unifi as unifi
 
-        example_site = unifi.Site("exampleSite", description="example")
-        example_mgmt = unifi.setting.Mgmt("exampleMgmt",
-            site=example_site.name,
+        example = unifi.Site("example", description="example")
+        example_mgmt = unifi.setting.Mgmt("example",
+            site=example.name,
             auto_upgrade=True)
         ```
 

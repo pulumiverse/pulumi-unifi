@@ -13,9 +13,11 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumi/unifi";
  *
+ * //retrieve network data by unifi network name
  * const lanNetwork = unifi.getNetwork({
  *     name: "Default",
  * });
+ * //retrieve network data from user record
  * const myDevice = unifi.iam.getUser({
  *     mac: "01:23:45:67:89:ab",
  * });
@@ -258,9 +260,11 @@ export interface GetNetworkResult {
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumi/unifi";
  *
+ * //retrieve network data by unifi network name
  * const lanNetwork = unifi.getNetwork({
  *     name: "Default",
  * });
+ * //retrieve network data from user record
  * const myDevice = unifi.iam.getUser({
  *     mac: "01:23:45:67:89:ab",
  * });

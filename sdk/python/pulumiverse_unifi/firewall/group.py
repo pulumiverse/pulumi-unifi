@@ -174,7 +174,8 @@ class Group(pulumi.CustomResource):
 
         config = pulumi.Config()
         laptop_ips = config.require_object("laptopIps")
-        can_print = unifi.firewall.Group("canPrint",
+        can_print = unifi.firewall.Group("can_print",
+            name="can-print",
             type="address-group",
             members=laptop_ips)
         ```
@@ -203,7 +204,8 @@ class Group(pulumi.CustomResource):
 
         config = pulumi.Config()
         laptop_ips = config.require_object("laptopIps")
-        can_print = unifi.firewall.Group("canPrint",
+        can_print = unifi.firewall.Group("can_print",
+            name="can-print",
             type="address-group",
             members=laptop_ips)
         ```

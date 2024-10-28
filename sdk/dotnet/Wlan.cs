@@ -26,12 +26,13 @@ namespace Pulumiverse.Unifi
     /// {
     ///     var config = new Config();
     ///     var vlanId = config.GetDouble("vlanId") ?? 10;
-    ///     var defaultApGroup = Unifi.GetApGroup.Invoke();
+    ///     var @default = Unifi.GetApGroup.Invoke();
     /// 
-    ///     var defaultGroup = Unifi.IAM.GetGroup.Invoke();
+    ///     var defaultGetGroup = Unifi.IAM.GetGroup.Invoke();
     /// 
     ///     var vlan = new Unifi.Network("vlan", new()
     ///     {
+    ///         Name = "wifi-vlan",
     ///         Purpose = "corporate",
     ///         Subnet = "10.0.0.1/24",
     ///         VlanId = vlanId,
@@ -42,6 +43,7 @@ namespace Pulumiverse.Unifi
     /// 
     ///     var wifi = new Unifi.Wlan("wifi", new()
     ///     {
+    ///         Name = "myssid",
     ///         Passphrase = "12345678",
     ///         Security = "wpapsk",
     ///         Wpa3Support = true,
@@ -50,9 +52,9 @@ namespace Pulumiverse.Unifi
     ///         NetworkId = vlan.Id,
     ///         ApGroupIds = new[]
     ///         {
-    ///             defaultApGroup.Apply(getApGroupResult =&gt; getApGroupResult.Id),
+    ///             @default.Apply(@default =&gt; @default.Apply(getApGroupResult =&gt; getApGroupResult.Id)),
     ///         },
-    ///         UserGroupId = defaultGroup.Apply(getGroupResult =&gt; getGroupResult.Id),
+    ///         UserGroupId = defaultGetGroup.Apply(getGroupResult =&gt; getGroupResult.Id),
     ///     });
     /// 
     /// });

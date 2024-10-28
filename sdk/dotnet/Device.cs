@@ -29,18 +29,20 @@ namespace Pulumiverse.Unifi
     /// 
     ///     var poe = new Unifi.Port.Profile("poe", new()
     ///     {
+    ///         Name = "poe",
     ///         Forward = "customize",
-    ///         NativeNetworkconfId = @var.Native_network_id,
+    ///         NativeNetworkconfId = nativeNetworkId,
     ///         TaggedNetworkconfIds = new[]
     ///         {
-    ///             @var.Some_vlan_network_id,
+    ///             someVlanNetworkId,
     ///         },
     ///         PoeMode = "auto",
     ///     });
     /// 
-    ///     var us24Poe = new Unifi.Device("us24Poe", new()
+    ///     var us24Poe = new Unifi.Device("us_24_poe", new()
     ///     {
     ///         Mac = "01:23:45:67:89:AB",
+    ///         Name = "Switch with POE",
     ///         PortOverrides = new[]
     ///         {
     ///             new Unifi.Inputs.DevicePortOverrideArgs

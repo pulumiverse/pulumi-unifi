@@ -16,6 +16,7 @@ import * as utilities from "./utilities";
  * const config = new pulumi.Config();
  * const vlanId = config.getNumber("vlanId") || 10;
  * const vlan = new unifi.Network("vlan", {
+ *     name: "wifi-vlan",
  *     purpose: "corporate",
  *     subnet: "10.0.0.1/24",
  *     vlanId: vlanId,
@@ -24,6 +25,7 @@ import * as utilities from "./utilities";
  *     dhcpEnabled: true,
  * });
  * const wan = new unifi.Network("wan", {
+ *     name: "wan",
  *     purpose: "wan",
  *     wanNetworkgroup: "WAN",
  *     wanType: "pppoe",

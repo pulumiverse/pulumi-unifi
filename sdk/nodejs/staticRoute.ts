@@ -16,17 +16,20 @@ import * as utilities from "./utilities";
  * const nexthop = new unifi.StaticRoute("nexthop", {
  *     type: "nexthop-route",
  *     network: "172.17.0.0/16",
+ *     name: "basic nexthop",
  *     distance: 1,
  *     nextHop: "172.16.0.1",
  * });
  * const blackhole = new unifi.StaticRoute("blackhole", {
  *     type: "blackhole",
- *     network: _var.blackhole_cidr,
+ *     network: blackholeCidr,
+ *     name: "blackhole traffice to cidr",
  *     distance: 1,
  * });
  * const _interface = new unifi.StaticRoute("interface", {
  *     type: "interface-route",
- *     network: _var.wan2_cidr,
+ *     network: wan2Cidr,
+ *     name: "send traffic over wan2",
  *     distance: 1,
  *     "interface": "WAN2",
  * });

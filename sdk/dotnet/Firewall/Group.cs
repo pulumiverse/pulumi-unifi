@@ -25,8 +25,9 @@ namespace Pulumiverse.Unifi.Firewall
     /// {
     ///     var config = new Config();
     ///     var laptopIps = config.RequireObject&lt;string[]&gt;("laptopIps");
-    ///     var canPrint = new Unifi.Firewall.Group("canPrint", new()
+    ///     var canPrint = new Unifi.Firewall.Group("can_print", new()
     ///     {
+    ///         Name = "can-print",
     ///         Type = "address-group",
     ///         Members = laptopIps,
     ///     });

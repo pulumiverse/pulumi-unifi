@@ -28,8 +28,8 @@ namespace Pulumiverse.Unifi
     ///         Service = "dyndns",
     ///         HostName = "my-network.example.com",
     ///         Server = "domains.google.com",
-    ///         Login = @var.Dns_login,
-    ///         Password = @var.Dns_password,
+    ///         Login = dnsLogin,
+    ///         Password = dnsPassword,
     ///     });
     /// 
     /// });

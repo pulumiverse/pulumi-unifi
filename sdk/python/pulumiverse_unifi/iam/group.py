@@ -175,9 +175,9 @@ class Group(pulumi.CustomResource):
         import pulumiverse_unifi as unifi
 
         wifi = unifi.iam.Group("wifi",
+            name="wifi",
             qos_rate_max_down=2000,
             qos_rate_max_up=10)
-        # 10kbps
         ```
 
         ## Import
@@ -211,9 +211,9 @@ class Group(pulumi.CustomResource):
         import pulumiverse_unifi as unifi
 
         wifi = unifi.iam.Group("wifi",
+            name="wifi",
             qos_rate_max_down=2000,
             qos_rate_max_up=10)
-        # 10kbps
         ```
 
         ## Import

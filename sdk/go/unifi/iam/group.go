@@ -28,6 +28,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := iam.NewGroup(ctx, "wifi", &iam.GroupArgs{
+//				Name:           pulumi.String("wifi"),
 //				QosRateMaxDown: pulumi.Int(2000),
 //				QosRateMaxUp:   pulumi.Int(10),
 //			})

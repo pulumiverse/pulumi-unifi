@@ -23,14 +23,14 @@ namespace Pulumiverse.Unifi.Setting
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var exampleSite = new Unifi.Site("exampleSite", new()
+    ///     var example = new Unifi.Site("example", new()
     ///     {
     ///         Description = "example",
     ///     });
     /// 
-    ///     var exampleMgmt = new Unifi.Setting.Mgmt("exampleMgmt", new()
+    ///     var exampleMgmt = new Unifi.Setting.Mgmt("example", new()
     ///     {
-    ///         Site = exampleSite.Name,
+    ///         Site = example.Name,
     ///         AutoUpgrade = true,
     ///     });
     /// 

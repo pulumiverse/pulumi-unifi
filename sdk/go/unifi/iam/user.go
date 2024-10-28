@@ -32,9 +32,10 @@ import (
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			_, err := iam.NewUser(ctx, "test", &iam.UserArgs{
 //				Mac:       pulumi.String("01:23:45:67:89:AB"),
+//				Name:      pulumi.String("some client"),
 //				Note:      pulumi.String("my note"),
 //				FixedIp:   pulumi.String("10.0.0.50"),
-//				NetworkId: pulumi.Any(unifi_network.My_vlan.Id),
+//				NetworkId: pulumi.Any(myVlan.Id),
 //			})
 //			if err != nil {
 //				return err

@@ -28,14 +28,14 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			exampleSite, err := unifi.NewSite(ctx, "exampleSite", &unifi.SiteArgs{
+//			example, err := unifi.NewSite(ctx, "example", &unifi.SiteArgs{
 //				Description: pulumi.String("example"),
 //			})
 //			if err != nil {
 //				return err
 //			}
-//			_, err = setting.NewMgmt(ctx, "exampleMgmt", &setting.MgmtArgs{
-//				Site:        exampleSite.Name,
+//			_, err = setting.NewMgmt(ctx, "example", &setting.MgmtArgs{
+//				Site:        example.Name,
 //				AutoUpgrade: pulumi.Bool(true),
 //			})
 //			if err != nil {
