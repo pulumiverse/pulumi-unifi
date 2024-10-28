@@ -36,3 +36,8 @@ sdk/java/gradlew.bat
 .envrc
 
 go.work*
+
+__pycache__
+venv
+sdk/python/build
+sdk/python/*.egg-info
