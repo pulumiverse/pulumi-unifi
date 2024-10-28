@@ -1,6 +1,0 @@
-name: unifi-network-example
-description: A minimal Python Pulumi program
-runtime:
-    name: python
-    options:
-        virtualenv: venv

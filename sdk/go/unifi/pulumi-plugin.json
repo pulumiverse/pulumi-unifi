@@ -1,6 +1,6 @@
 {
   "resource": true,
   "name": "unifi",
-  "version": "0.0.0-alpha.0+dev",
+  "version": "0.1.0",
   "server": "github://api.github.com/pulumiverse"
 }
