@@ -1,0 +1,158 @@
+{
+    "auto-aliasing": {
+        "resources": {
+            "unifi_account": {
+                "current": "unifi:index/account:Account"
+            },
+            "unifi_device": {
+                "current": "unifi:index/device:Device",
+                "fields": {
+                    "port_override": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_dynamic_dns": {
+                "current": "unifi:index/dynamicDNS:DynamicDNS"
+            },
+            "unifi_firewall_group": {
+                "current": "unifi:firewall/group:Group",
+                "fields": {
+                    "members": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_firewall_rule": {
+                "current": "unifi:firewall/rule:Rule",
+                "fields": {
+                    "dst_firewall_group_ids": {
+                        "maxItemsOne": false
+                    },
+                    "src_firewall_group_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_network": {
+                "current": "unifi:index/network:Network",
+                "fields": {
+                    "dhcp_dns": {
+                        "maxItemsOne": false
+                    },
+                    "dhcp_v6_dns": {
+                        "maxItemsOne": false
+                    },
+                    "wan_dns": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_port_forward": {
+                "current": "unifi:port/forward:Forward"
+            },
+            "unifi_port_profile": {
+                "current": "unifi:port/profile:Profile",
+                "fields": {
+                    "port_security_mac_address": {
+                        "maxItemsOne": false
+                    },
+                    "tagged_networkconf_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_radius_profile": {
+                "current": "unifi:index/radiusProfile:RadiusProfile",
+                "fields": {
+                    "acct_server": {
+                        "maxItemsOne": false
+                    },
+                    "auth_server": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_setting_mgmt": {
+                "current": "unifi:setting/mgmt:Mgmt",
+                "fields": {
+                    "ssh_key": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_setting_radius": {
+                "current": "unifi:setting/radius:Radius"
+            },
+            "unifi_setting_usg": {
+                "current": "unifi:setting/uSG:USG",
+                "fields": {
+                    "dhcp_relay_servers": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_site": {
+                "current": "unifi:index/site:Site"
+            },
+            "unifi_static_route": {
+                "current": "unifi:index/staticRoute:StaticRoute"
+            },
+            "unifi_user": {
+                "current": "unifi:iam/user:User"
+            },
+            "unifi_user_group": {
+                "current": "unifi:iam/group:Group"
+            },
+            "unifi_wlan": {
+                "current": "unifi:index/wlan:Wlan",
+                "fields": {
+                    "ap_group_ids": {
+                        "maxItemsOne": false
+                    },
+                    "mac_filter_list": {
+                        "maxItemsOne": false
+                    },
+                    "schedule": {
+                        "maxItemsOne": false
+                    }
+                }
+            }
+        },
+        "datasources": {
+            "unifi_account": {
+                "current": "unifi:index/getAccount:getAccount"
+            },
+            "unifi_ap_group": {
+                "current": "unifi:index/getApGroup:getApGroup"
+            },
+            "unifi_network": {
+                "current": "unifi:index/getNetwork:getNetwork",
+                "fields": {
+                    "dhcp_dns": {
+                        "maxItemsOne": false
+                    },
+                    "dhcp_v6_dns": {
+                        "maxItemsOne": false
+                    },
+                    "wan_dns": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_port_profile": {
+                "current": "unifi:port/getProfile:getProfile"
+            },
+            "unifi_radius_profile": {
+                "current": "unifi:index/getRadiusProfile:getRadiusProfile"
+            },
+            "unifi_user": {
+                "current": "unifi:iam/getUser:getUser"
+            },
+            "unifi_user_group": {
+                "current": "unifi:iam/getGroup:getGroup"
+            }
+        }
+    },
+    "auto-settings": {}
+}

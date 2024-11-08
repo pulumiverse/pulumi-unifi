@@ -20,6 +20,9 @@ import (
 	"strings"
 	"unicode"
 
+	// The linter requires unnamed imports to have a doc comment
+	_ "embed"
+
 	provider "github.com/paultyng/terraform-provider-unifi/shim"
 
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
@@ -88,6 +91,9 @@ func preConfigureCallback(_ resource.PropertyMap, _ shim.ResourceConfig) error {
 	return nil
 }
 
+//go:embed cmd/pulumi-resource-unifi/bridge-metadata.json
+var metadata []byte
+
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
@@ -125,7 +131,9 @@ func Provider() tfbridge.ProviderInfo {
 		Repository: "https://github.com/pulumiverse/pulumi-unifi",
 
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg: "paultyng",
+		GitHubOrg:    "paultyng",
+		MetadataInfo: tfbridge.NewProviderMetadata(metadata),
+
 		Config: map[string]*tfbridge.SchemaInfo{
 			"username": {
 				Default: &tfbridge.DefaultInfo{
@@ -231,6 +239,7 @@ func Provider() tfbridge.ProviderInfo {
 	}
 
 	prov.SetAutonaming(255, "-")
+	prov.MustApplyAutoAliases()
 
 	return prov
 }
