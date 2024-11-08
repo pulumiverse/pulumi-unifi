@@ -26,6 +26,7 @@ import (
 	provider "github.com/paultyng/terraform-provider-unifi/shim"
 
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	tks "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -166,32 +167,12 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		PreConfigureCallback: preConfigureCallback,
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"unifi_account":        {Tok: unifiResource(mainMod, "Account")},
-			"unifi_device":         {Tok: unifiResource(mainMod, "Device")},
-			"unifi_dynamic_dns":    {Tok: unifiResource(mainMod, "DynamicDNS")},
-			"unifi_firewall_group": {Tok: unifiResource(firewallMod, "Group")},
-			"unifi_firewall_rule":  {Tok: unifiResource(firewallMod, "Rule")},
-			"unifi_network":        {Tok: unifiResource(mainMod, "Network")},
-			"unifi_port_forward":   {Tok: unifiResource(portMod, "Forward")},
-			"unifi_port_profile":   {Tok: unifiResource(portMod, "Profile")},
-			"unifi_radius_profile": {Tok: unifiResource(mainMod, "RadiusProfile")},
-			"unifi_setting_mgmt":   {Tok: unifiResource(settingMod, "Mgmt")},
-			"unifi_setting_usg":    {Tok: unifiResource(settingMod, "USG")},
-			"unifi_setting_radius": {Tok: unifiResource(settingMod, "Radius")},
-			"unifi_site":           {Tok: unifiResource(mainMod, "Site")},
-			"unifi_static_route":   {Tok: unifiResource(mainMod, "StaticRoute")},
-			"unifi_user":           {Tok: unifiResource(iamMod, "User")},
-			"unifi_user_group":     {Tok: unifiResource(iamMod, "Group")},
-			"unifi_wlan":           {Tok: unifiResource(mainMod, "Wlan")},
+			"unifi_dynamic_dns": {Tok: unifiResource(mainMod, "DynamicDNS")},
+			"unifi_setting_usg": {Tok: unifiResource(settingMod, "USG")},
+			"unifi_user":        {Tok: unifiResource(iamMod, "User")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			"unifi_account":        {Tok: unifiDataSource(mainMod, "getAccount")},
-			"unifi_ap_group":       {Tok: unifiDataSource(mainMod, "getApGroup")},
-			"unifi_network":        {Tok: unifiDataSource(mainMod, "getNetwork")},
-			"unifi_port_profile":   {Tok: unifiDataSource(portMod, "getProfile")},
-			"unifi_radius_profile": {Tok: unifiDataSource(mainMod, "getRadiusProfile")},
-			"unifi_user":           {Tok: unifiDataSource(iamMod, "getUser")},
-			"unifi_user_group":     {Tok: unifiDataSource(iamMod, "getGroup")},
+			"unifi_user": {Tok: unifiDataSource(iamMod, "getUser")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: "@pulumiverse/unifi",
@@ -241,14 +222,19 @@ func Provider() tfbridge.ProviderInfo {
 		},
 	}
 
-	// prov.MustComputeTokens(
-	// 	tks.MappedModules(
-	// 		"grafana_",
-	// 		"index",
-	// 		namespaceMap,
-	// 		tks.MakeStandard(mainPkg),
-	// 	),
-	// )
+	prov.MustComputeTokens(
+		tks.MappedModules(
+			"unifi_",
+			"index",
+			map[string]string{
+				"firewall": strings.ToLower(firewallMod),
+				"port":     strings.ToLower(portMod),
+				"setting":  strings.ToLower(settingMod),
+				"user":     strings.ToLower(iamMod),
+			},
+			tks.MakeStandard(mainPkg),
+		),
+	)
 	prov.SetAutonaming(255, "-")
 	prov.MustApplyAutoAliases()
 
