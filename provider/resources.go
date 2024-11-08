@@ -48,7 +48,10 @@ const (
 )
 
 var namespaceMap = map[string]string{
-	mainPkg: "Unifi",
+	"firewall": firewallMod,
+	"port":     portMod,
+	"setting":  settingMod,
+	"iam":      iamMod,
 }
 
 // unifiMember manufactures a type token for the IBM package and the given module, file name, and type.
@@ -238,6 +241,14 @@ func Provider() tfbridge.ProviderInfo {
 		},
 	}
 
+	// prov.MustComputeTokens(
+	// 	tks.MappedModules(
+	// 		"grafana_",
+	// 		"index",
+	// 		namespaceMap,
+	// 		tks.MakeStandard(mainPkg),
+	// 	),
+	// )
 	prov.SetAutonaming(255, "-")
 	prov.MustApplyAutoAliases()
 

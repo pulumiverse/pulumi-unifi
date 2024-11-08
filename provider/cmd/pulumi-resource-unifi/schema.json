@@ -26,8 +26,7 @@
                 "iam": "IAM",
                 "index": "index",
                 "port": "Port",
-                "setting": "Setting",
-                "unifi": "Unifi"
+                "setting": "Setting"
             },
             "compatibility": "tfbridge20",
             "rootNamespace": "Pulumiverse",
