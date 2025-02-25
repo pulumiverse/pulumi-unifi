@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   unifi:
     image: "jacobalberty/unifi:${UNIFI_VERSION:-v7}"
@@ -11,21 +9,3 @@ services:
       - "${UNIFI_HTTPS_PORT:-8443}:8443/tcp"
     volumes:
       - "./scripts/init.d:/usr/local/unifi/init.d:ro"
-
-  bootstrap:
-    image: python:3.12-alpine
-    environment:
-      - UNIFI_EMAIL=${UNIFI_EMAIL:-pulumi-unifi@pulumi.com}
-      - UNIFI_PASSWORD=${UNIFI_PASSWORD:-pulumi-unifi-password}
-      - UNIFI_USERNAME=${UNIFI_USERNAME:-pulumi-unifi-admin}
-    deploy:
-      mode: replicated-job
-      replicas: 1
-    depends_on:
-      unifi:
-        condition: service_healthy
-    command:
-      - python3
-      - /usr/local/bin/setup-controller.py
-    volumes:
-      - "./scripts/setup-controller.py:/usr/local/bin/setup-controller.py:ro"
