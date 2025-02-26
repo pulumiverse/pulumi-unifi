@@ -2,7 +2,6 @@ services:
   unifi:
     image: "jacobalberty/unifi:${UNIFI_VERSION:-v7}"
     init: true
-    restart: "always"
     user: "unifi"
     ports:
       - "${UNIFI_HTTP_PORT:-8080}:8080/tcp"

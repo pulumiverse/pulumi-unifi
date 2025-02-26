@@ -21,10 +21,10 @@ func getPythonBaseOptions(t *testing.T) integration.ProgramTestOptions {
 	return basePython
 }
 
-// func TestNetworkExamplePython(t *testing.T) {
-// 	test := getPythonBaseOptions(t).
-// 		With(integration.ProgramTestOptions{
-// 			Dir: filepath.Join(getCwd(t), "network", "python"),
-// 		})
-// 	integration.ProgramTest(t, &test)
-// }
+func TestNetworkExamplePython(t *testing.T) {
+	test := getPythonBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir: filepath.Join(getCwd(t), "network", "python"),
+		})
+	integration.ProgramTest(t, &test)
+}

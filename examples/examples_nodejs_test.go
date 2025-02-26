@@ -4,6 +4,7 @@
 package examples
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
@@ -20,10 +21,10 @@ func getJSBaseOptions(t *testing.T) integration.ProgramTestOptions {
 	return baseJS
 }
 
-// func TestNetworkExampleTypescript(t *testing.T) {
-//     test := getJSBaseOptions(t).
-//         With(integration.ProgramTestOptions{
-//             Dir: filepath.Join(getCwd(t), "network", "typescript"),
-//         })
-//     integration.ProgramTest(t, &test)
-// }
+func TestNetworkExampleTypescript(t *testing.T) {
+	test := getJSBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir: filepath.Join(getCwd(t), "network", "typescript"),
+		})
+	integration.ProgramTest(t, &test)
+}
