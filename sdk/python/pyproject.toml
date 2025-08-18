@@ -1,10 +1,10 @@
 [project]
   name = "pulumiverse_unifi"
   description = "A Pulumi package for creating and managing Unifi network resources."
-  dependencies = ["parver>=0.2.1", "pulumi>=3.0.0,<4.0.0", "semver>=2.8.1"]
+  dependencies = ["parver>=0.2.1", "pulumi>=3.0.0,<4.0.0", "semver>=2.8.1", "typing-extensions>=4.11,<5; python_version < \"3.11\""]
   keywords = ["pulumi", "unifi", "category/network"]
   readme = "README.md"
-  requires-python = ">=3.8"
+  requires-python = ">=3.9"
   version = "0.0.0a0+dev"
   [project.license]
     text = "Apache-2.0"
