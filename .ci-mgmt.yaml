@@ -5,10 +5,6 @@ major-version: 0
 providerDefaultBranch: main
 upstreamProviderOrg: paultyng
 publishRegistry: false
-plugins:
-    - name: terraform
-      version: "1.0.19"
-      kind: converter
 languages:
     - dotnet
     - go
