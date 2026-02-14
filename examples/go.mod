@@ -1,6 +1,6 @@
 module github.com/pulumiverse/pulumi-unifi/examples
 
-go 1.25.0
+go 1.25.4
 
 require (
 	github.com/pulumi/pulumi/pkg/v3 v3.188.0

@@ -18,3 +18,7 @@ license:
         # Don't check for the license of the local shim package
         - github.com/paultyng/terraform-provider-unifi/shim
 pulumiConvert: 1
+github-app:
+    enabled: false
+esc:
+    enabled: false
