@@ -71,6 +71,7 @@ utilities.lazyLoad(exports, ["Wlan"], () => require("./wlan"));
 
 // Export sub-modules:
 import * as config from "./config";
+import * as dns from "./dns";
 import * as firewall from "./firewall";
 import * as iam from "./iam";
 import * as port from "./port";
@@ -79,6 +80,7 @@ import * as types from "./types";
 
 export {
     config,
+    dns,
     firewall,
     iam,
     port,

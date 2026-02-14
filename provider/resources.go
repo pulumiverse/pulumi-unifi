@@ -15,6 +15,7 @@
 package unifi
 
 import (
+	"context"
 	"fmt"
 	"path/filepath"
 	"strings"
@@ -23,8 +24,9 @@ import (
 	// The linter requires unnamed imports to have a doc comment
 	_ "embed"
 
-	provider "github.com/paultyng/terraform-provider-unifi/shim"
+	provider "github.com/filipowm/terraform-provider-unifi/shim"
 
+	pfbridge "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	tks "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
@@ -35,13 +37,14 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/provider/pkg/version"
 )
 
-// all of the token components used below.
+// all the token components used below.
 const (
 	// This variable controls the default name of the package in the package
 	// registries for nodejs and python:
 	mainPkg = "unifi"
 	// modules:
 	mainMod     = "index" // the unifi module
+	dnsMod      = "Dns"
 	firewallMod = "Firewall"
 	portMod     = "Port"
 	settingMod  = "Setting"
@@ -50,6 +53,7 @@ const (
 
 var namespaceMap = map[string]string{
 	"firewall": firewallMod,
+	"dns":      dnsMod,
 	"port":     portMod,
 	"setting":  settingMod,
 	"iam":      iamMod,
@@ -101,7 +105,11 @@ var metadata []byte
 // Provider returns additional overlaid schema and metadata associated with the provider..
 func Provider() tfbridge.ProviderInfo {
 	// Instantiate the Terraform provider
-	p := shimv2.NewProvider(provider.NewProvider())
+
+	p := pfbridge.MuxShimWithPF(context.Background(),
+		shimv2.NewProvider(provider.NewProvider()),
+		provider.NewProviderV2(),
+	)
 
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
@@ -133,9 +141,10 @@ func Provider() tfbridge.ProviderInfo {
 		License:    "Apache-2.0",
 		Homepage:   "https://github.com/pulumiverse",
 		Repository: "https://github.com/pulumiverse/pulumi-unifi",
+		Version:    version.Version,
 
 		// The GitHub Org for the provider - defaults to `terraform-providers`
-		GitHubOrg:    "paultyng",
+		GitHubOrg:    "filipowm",
 		MetadataInfo: tfbridge.NewProviderMetadata(metadata),
 
 		Config: map[string]*tfbridge.SchemaInfo{
@@ -170,9 +179,36 @@ func Provider() tfbridge.ProviderInfo {
 			"unifi_dynamic_dns": {Tok: unifiResource(mainMod, "DynamicDNS")},
 			"unifi_setting_usg": {Tok: unifiResource(settingMod, "USG")},
 			"unifi_user":        {Tok: unifiResource(iamMod, "User")},
+			"unifi_dns_record": {
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"record": {
+						Name: "value",
+					},
+				},
+			},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
 			"unifi_user": {Tok: unifiDataSource(iamMod, "getUser")},
+			"unifi_dns_record": {
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"record": {
+						Name: "value",
+					},
+				},
+			},
+			"unifi_dns_records": {
+				Fields: map[string]*tfbridge.SchemaInfo{
+					"result": {
+						Elem: &tfbridge.SchemaInfo{
+							Fields: map[string]*tfbridge.SchemaInfo{
+								"record": {
+									Name: "value",
+								},
+							},
+						},
+					},
+				},
+			},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			PackageName: "@pulumiverse/unifi",
@@ -227,6 +263,7 @@ func Provider() tfbridge.ProviderInfo {
 			"unifi_",
 			"index",
 			map[string]string{
+				"dns":      strings.ToLower(dnsMod),
 				"firewall": strings.ToLower(firewallMod),
 				"port":     strings.ToLower(portMod),
 				"setting":  strings.ToLower(settingMod),

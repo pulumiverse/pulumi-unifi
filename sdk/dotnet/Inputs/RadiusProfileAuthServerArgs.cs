@@ -14,13 +14,13 @@ namespace Pulumiverse.Unifi.Inputs
     public sealed class RadiusProfileAuthServerArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// IP address of authentication service server.
+        /// The IPv4 address of the RADIUS authentication server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
         /// </summary>
         [Input("ip", required: true)]
         public Input<string> Ip { get; set; } = null!;
 
         /// <summary>
-        /// Port of authentication service. Defaults to `1812`.
+        /// The UDP port number where the RADIUS authentication service is listening. The standard port is 1812, but this can be changed if needed to match your server configuration.
         /// </summary>
         [Input("port")]
         public Input<int>? Port { get; set; }
@@ -29,7 +29,7 @@ namespace Pulumiverse.Unifi.Inputs
         private Input<string>? _xsecret;
 
         /// <summary>
-        /// RADIUS secret.
+        /// The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
         /// </summary>
         public Input<string>? Xsecret
         {

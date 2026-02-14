@@ -87,7 +87,7 @@ class GetUserResult:
     @pulumi.getter(name="fixedIp")
     def fixed_ip(self) -> _builtins.str:
         """
-        fixed IPv4 address set for this user.
+        Fixed IPv4 address set for this user.
         """
         return pulumi.get(self, "fixed_ip")
 

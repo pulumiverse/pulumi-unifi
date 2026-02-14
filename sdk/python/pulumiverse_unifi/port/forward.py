@@ -31,16 +31,22 @@ class ForwardArgs:
                  src_ip: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Forward resource.
-        :param pulumi.Input[_builtins.str] dst_port: The destination port for the forwarding.
-        :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
-        :param pulumi.Input[_builtins.str] fwd_ip: The IPv4 address to forward traffic to.
-        :param pulumi.Input[_builtins.str] fwd_port: The port to forward traffic to.
-        :param pulumi.Input[_builtins.bool] log: Specifies whether to log forwarded traffic or not. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] name: The name of the port forwarding rule.
-        :param pulumi.Input[_builtins.str] port_forward_interface: The port forwarding interface. Can be `wan`, `wan2`, or `both`.
-        :param pulumi.Input[_builtins.str] protocol: The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the port forwarding rule with.
-        :param pulumi.Input[_builtins.str] src_ip: The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        :param pulumi.Input[_builtins.str] dst_port: The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
+        :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not.
+        :param pulumi.Input[_builtins.str] fwd_ip: The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
+        :param pulumi.Input[_builtins.str] fwd_port: The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
+        :param pulumi.Input[_builtins.bool] log: Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
+        :param pulumi.Input[_builtins.str] port_forward_interface: The WAN interface to apply the port forwarding rule to. Valid values are:
+                 * `wan` - Primary WAN interface
+                 * `wan2` - Secondary WAN interface
+                 * `both` - Both WAN interfaces
+        :param pulumi.Input[_builtins.str] protocol: The network protocol(s) this rule applies to. Valid values are:
+                 * `tcp_udp` - Both TCP and UDP (default)
+                 * `tcp` - TCP only
+                 * `udp` - UDP only
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] src_ip: The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         if dst_port is not None:
             pulumi.set(__self__, "dst_port", dst_port)
@@ -70,7 +76,7 @@ class ForwardArgs:
     @pulumi.getter(name="dstPort")
     def dst_port(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The destination port for the forwarding.
+        The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "dst_port")
 
@@ -83,7 +89,7 @@ class ForwardArgs:
     @_utilities.deprecated("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
     def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        Specifies whether the port forwarding rule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
@@ -95,7 +101,7 @@ class ForwardArgs:
     @pulumi.getter(name="fwdIp")
     def fwd_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 address to forward traffic to.
+        The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
         """
         return pulumi.get(self, "fwd_ip")
 
@@ -107,7 +113,7 @@ class ForwardArgs:
     @pulumi.getter(name="fwdPort")
     def fwd_port(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The port to forward traffic to.
+        The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "fwd_port")
 
@@ -119,7 +125,7 @@ class ForwardArgs:
     @pulumi.getter
     def log(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
         """
         return pulumi.get(self, "log")
 
@@ -131,7 +137,7 @@ class ForwardArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the port forwarding rule.
+        A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
         """
         return pulumi.get(self, "name")
 
@@ -143,7 +149,10 @@ class ForwardArgs:
     @pulumi.getter(name="portForwardInterface")
     def port_forward_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        The WAN interface to apply the port forwarding rule to. Valid values are:
+          * `wan` - Primary WAN interface
+          * `wan2` - Secondary WAN interface
+          * `both` - Both WAN interfaces
         """
         return pulumi.get(self, "port_forward_interface")
 
@@ -155,7 +164,10 @@ class ForwardArgs:
     @pulumi.getter
     def protocol(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        The network protocol(s) this rule applies to. Valid values are:
+          * `tcp_udp` - Both TCP and UDP (default)
+          * `tcp` - TCP only
+          * `udp` - UDP only
         """
         return pulumi.get(self, "protocol")
 
@@ -167,7 +179,7 @@ class ForwardArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the port forwarding rule with.
+        The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -179,7 +191,7 @@ class ForwardArgs:
     @pulumi.getter(name="srcIp")
     def src_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         return pulumi.get(self, "src_ip")
 
@@ -203,16 +215,22 @@ class _ForwardState:
                  src_ip: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Forward resources.
-        :param pulumi.Input[_builtins.str] dst_port: The destination port for the forwarding.
-        :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
-        :param pulumi.Input[_builtins.str] fwd_ip: The IPv4 address to forward traffic to.
-        :param pulumi.Input[_builtins.str] fwd_port: The port to forward traffic to.
-        :param pulumi.Input[_builtins.bool] log: Specifies whether to log forwarded traffic or not. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] name: The name of the port forwarding rule.
-        :param pulumi.Input[_builtins.str] port_forward_interface: The port forwarding interface. Can be `wan`, `wan2`, or `both`.
-        :param pulumi.Input[_builtins.str] protocol: The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the port forwarding rule with.
-        :param pulumi.Input[_builtins.str] src_ip: The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        :param pulumi.Input[_builtins.str] dst_port: The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
+        :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not.
+        :param pulumi.Input[_builtins.str] fwd_ip: The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
+        :param pulumi.Input[_builtins.str] fwd_port: The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
+        :param pulumi.Input[_builtins.bool] log: Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
+        :param pulumi.Input[_builtins.str] port_forward_interface: The WAN interface to apply the port forwarding rule to. Valid values are:
+                 * `wan` - Primary WAN interface
+                 * `wan2` - Secondary WAN interface
+                 * `both` - Both WAN interfaces
+        :param pulumi.Input[_builtins.str] protocol: The network protocol(s) this rule applies to. Valid values are:
+                 * `tcp_udp` - Both TCP and UDP (default)
+                 * `tcp` - TCP only
+                 * `udp` - UDP only
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] src_ip: The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         if dst_port is not None:
             pulumi.set(__self__, "dst_port", dst_port)
@@ -242,7 +260,7 @@ class _ForwardState:
     @pulumi.getter(name="dstPort")
     def dst_port(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The destination port for the forwarding.
+        The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "dst_port")
 
@@ -255,7 +273,7 @@ class _ForwardState:
     @_utilities.deprecated("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
     def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        Specifies whether the port forwarding rule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
@@ -267,7 +285,7 @@ class _ForwardState:
     @pulumi.getter(name="fwdIp")
     def fwd_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 address to forward traffic to.
+        The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
         """
         return pulumi.get(self, "fwd_ip")
 
@@ -279,7 +297,7 @@ class _ForwardState:
     @pulumi.getter(name="fwdPort")
     def fwd_port(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The port to forward traffic to.
+        The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "fwd_port")
 
@@ -291,7 +309,7 @@ class _ForwardState:
     @pulumi.getter
     def log(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
         """
         return pulumi.get(self, "log")
 
@@ -303,7 +321,7 @@ class _ForwardState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the port forwarding rule.
+        A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
         """
         return pulumi.get(self, "name")
 
@@ -315,7 +333,10 @@ class _ForwardState:
     @pulumi.getter(name="portForwardInterface")
     def port_forward_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        The WAN interface to apply the port forwarding rule to. Valid values are:
+          * `wan` - Primary WAN interface
+          * `wan2` - Secondary WAN interface
+          * `both` - Both WAN interfaces
         """
         return pulumi.get(self, "port_forward_interface")
 
@@ -327,7 +348,10 @@ class _ForwardState:
     @pulumi.getter
     def protocol(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        The network protocol(s) this rule applies to. Valid values are:
+          * `tcp_udp` - Both TCP and UDP (default)
+          * `tcp` - TCP only
+          * `udp` - UDP only
         """
         return pulumi.get(self, "protocol")
 
@@ -339,7 +363,7 @@ class _ForwardState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the port forwarding rule with.
+        The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -351,7 +375,7 @@ class _ForwardState:
     @pulumi.getter(name="srcIp")
     def src_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         return pulumi.get(self, "src_ip")
 
@@ -378,20 +402,33 @@ class Forward(pulumi.CustomResource):
                  src_ip: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `port.Forward` manages a port forwarding rule on the gateway.
+        The `port.Forward` resource manages port forwarding rules on UniFi controllers.
+
+        Port forwarding allows external traffic to reach services hosted on your internal network by mapping external ports to internal IP addresses and ports. This is commonly used for:
+          * Hosting web servers, game servers, or other services
+          * Remote access to internal services
+          * Application-specific requirements
+
+        Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] dst_port: The destination port for the forwarding.
-        :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
-        :param pulumi.Input[_builtins.str] fwd_ip: The IPv4 address to forward traffic to.
-        :param pulumi.Input[_builtins.str] fwd_port: The port to forward traffic to.
-        :param pulumi.Input[_builtins.bool] log: Specifies whether to log forwarded traffic or not. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] name: The name of the port forwarding rule.
-        :param pulumi.Input[_builtins.str] port_forward_interface: The port forwarding interface. Can be `wan`, `wan2`, or `both`.
-        :param pulumi.Input[_builtins.str] protocol: The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the port forwarding rule with.
-        :param pulumi.Input[_builtins.str] src_ip: The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        :param pulumi.Input[_builtins.str] dst_port: The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
+        :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not.
+        :param pulumi.Input[_builtins.str] fwd_ip: The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
+        :param pulumi.Input[_builtins.str] fwd_port: The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
+        :param pulumi.Input[_builtins.bool] log: Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
+        :param pulumi.Input[_builtins.str] port_forward_interface: The WAN interface to apply the port forwarding rule to. Valid values are:
+                 * `wan` - Primary WAN interface
+                 * `wan2` - Secondary WAN interface
+                 * `both` - Both WAN interfaces
+        :param pulumi.Input[_builtins.str] protocol: The network protocol(s) this rule applies to. Valid values are:
+                 * `tcp_udp` - Both TCP and UDP (default)
+                 * `tcp` - TCP only
+                 * `udp` - UDP only
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] src_ip: The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         ...
     @overload
@@ -400,7 +437,14 @@ class Forward(pulumi.CustomResource):
                  args: Optional[ForwardArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `port.Forward` manages a port forwarding rule on the gateway.
+        The `port.Forward` resource manages port forwarding rules on UniFi controllers.
+
+        Port forwarding allows external traffic to reach services hosted on your internal network by mapping external ports to internal IP addresses and ports. This is commonly used for:
+          * Hosting web servers, game servers, or other services
+          * Remote access to internal services
+          * Application-specific requirements
+
+        Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
 
         :param str resource_name: The name of the resource.
         :param ForwardArgs args: The arguments to use to populate this resource's properties.
@@ -473,16 +517,22 @@ class Forward(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] dst_port: The destination port for the forwarding.
-        :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
-        :param pulumi.Input[_builtins.str] fwd_ip: The IPv4 address to forward traffic to.
-        :param pulumi.Input[_builtins.str] fwd_port: The port to forward traffic to.
-        :param pulumi.Input[_builtins.bool] log: Specifies whether to log forwarded traffic or not. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] name: The name of the port forwarding rule.
-        :param pulumi.Input[_builtins.str] port_forward_interface: The port forwarding interface. Can be `wan`, `wan2`, or `both`.
-        :param pulumi.Input[_builtins.str] protocol: The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the port forwarding rule with.
-        :param pulumi.Input[_builtins.str] src_ip: The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        :param pulumi.Input[_builtins.str] dst_port: The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
+        :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not.
+        :param pulumi.Input[_builtins.str] fwd_ip: The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
+        :param pulumi.Input[_builtins.str] fwd_port: The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
+        :param pulumi.Input[_builtins.bool] log: Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
+        :param pulumi.Input[_builtins.str] port_forward_interface: The WAN interface to apply the port forwarding rule to. Valid values are:
+                 * `wan` - Primary WAN interface
+                 * `wan2` - Secondary WAN interface
+                 * `both` - Both WAN interfaces
+        :param pulumi.Input[_builtins.str] protocol: The network protocol(s) this rule applies to. Valid values are:
+                 * `tcp_udp` - Both TCP and UDP (default)
+                 * `tcp` - TCP only
+                 * `udp` - UDP only
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] src_ip: The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -504,7 +554,7 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter(name="dstPort")
     def dst_port(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The destination port for the forwarding.
+        The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "dst_port")
 
@@ -513,7 +563,7 @@ class Forward(pulumi.CustomResource):
     @_utilities.deprecated("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
     def enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        Specifies whether the port forwarding rule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
@@ -521,7 +571,7 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter(name="fwdIp")
     def fwd_ip(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IPv4 address to forward traffic to.
+        The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
         """
         return pulumi.get(self, "fwd_ip")
 
@@ -529,7 +579,7 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter(name="fwdPort")
     def fwd_port(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The port to forward traffic to.
+        The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "fwd_port")
 
@@ -537,7 +587,7 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter
     def log(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
         """
         return pulumi.get(self, "log")
 
@@ -545,7 +595,7 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the port forwarding rule.
+        A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
         """
         return pulumi.get(self, "name")
 
@@ -553,7 +603,10 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter(name="portForwardInterface")
     def port_forward_interface(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        The WAN interface to apply the port forwarding rule to. Valid values are:
+          * `wan` - Primary WAN interface
+          * `wan2` - Secondary WAN interface
+          * `both` - Both WAN interfaces
         """
         return pulumi.get(self, "port_forward_interface")
 
@@ -561,7 +614,10 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter
     def protocol(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        The network protocol(s) this rule applies to. Valid values are:
+          * `tcp_udp` - Both TCP and UDP (default)
+          * `tcp` - TCP only
+          * `udp` - UDP only
         """
         return pulumi.get(self, "protocol")
 
@@ -569,7 +625,7 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the port forwarding rule with.
+        The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -577,7 +633,7 @@ class Forward(pulumi.CustomResource):
     @pulumi.getter(name="srcIp")
     def src_ip(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         return pulumi.get(self, "src_ip")
 

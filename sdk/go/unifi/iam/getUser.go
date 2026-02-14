@@ -62,7 +62,7 @@ type LookupUserResult struct {
 	Blocked bool `pulumi:"blocked"`
 	// Override the device fingerprint.
 	DevIdOverride int `pulumi:"devIdOverride"`
-	// fixed IPv4 address set for this user.
+	// Fixed IPv4 address set for this user.
 	FixedIp string `pulumi:"fixedIp"`
 	// The hostname of the user.
 	Hostname string `pulumi:"hostname"`
@@ -132,7 +132,7 @@ func (o LookupUserResultOutput) DevIdOverride() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupUserResult) int { return v.DevIdOverride }).(pulumi.IntOutput)
 }
 
-// fixed IPv4 address set for this user.
+// Fixed IPv4 address set for this user.
 func (o LookupUserResultOutput) FixedIp() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.FixedIp }).(pulumi.StringOutput)
 }

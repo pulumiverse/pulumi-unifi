@@ -19,6 +19,17 @@ Object.defineProperty(exports, "allowInsecure", {
 });
 
 /**
+ * API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+ */
+export declare const apiKey: string | undefined;
+Object.defineProperty(exports, "apiKey", {
+    get() {
+        return __config.get("apiKey");
+    },
+    enumerable: true,
+});
+
+/**
  * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
  */
 export declare const apiUrl: string | undefined;

@@ -21,6 +21,8 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "unifi:port/alFile:AlFile":
+		r = &AlFile{}
 	case "unifi:port/forward:Forward":
 		r = &Forward{}
 	case "unifi:port/profile:Profile":
@@ -38,6 +40,11 @@ func init() {
 	if err != nil {
 		version = semver.Version{Major: 1}
 	}
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"port/alFile",
+		&module{version},
+	)
 	pulumi.RegisterResourceModule(
 		"unifi",
 		"port/forward",

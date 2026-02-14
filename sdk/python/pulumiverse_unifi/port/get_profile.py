@@ -41,7 +41,7 @@ class GetProfileResult:
     @pulumi.getter
     def id(self) -> _builtins.str:
         """
-        The ID of this port profile.
+        The unique identifier of the port profile. This is automatically assigned by UniFi and can be used to reference this port profile in other resources.
         """
         return pulumi.get(self, "id")
 
@@ -49,7 +49,7 @@ class GetProfileResult:
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         """
-        The name of the port profile to look up. Defaults to `All`.
+        The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
         """
         return pulumi.get(self, "name")
 
@@ -57,7 +57,7 @@ class GetProfileResult:
     @pulumi.getter
     def site(self) -> _builtins.str:
         """
-        The name of the site the port profile is associated with.
+        The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -77,7 +77,7 @@ def get_profile(name: Optional[_builtins.str] = None,
                 site: Optional[_builtins.str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetProfileResult:
     """
-    `port.Profile` data source can be used to retrieve the ID for a port profile by name.
+    `port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.
 
     ## Example Usage
 
@@ -89,8 +89,8 @@ def get_profile(name: Optional[_builtins.str] = None,
     ```
 
 
-    :param _builtins.str name: The name of the port profile to look up. Defaults to `All`.
-    :param _builtins.str site: The name of the site the port profile is associated with.
+    :param _builtins.str name: The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
+    :param _builtins.str site: The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -106,7 +106,7 @@ def get_profile_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = N
                        site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetProfileResult]:
     """
-    `port.Profile` data source can be used to retrieve the ID for a port profile by name.
+    `port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.
 
     ## Example Usage
 
@@ -118,8 +118,8 @@ def get_profile_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = N
     ```
 
 
-    :param _builtins.str name: The name of the port profile to look up. Defaults to `All`.
-    :param _builtins.str site: The name of the site the port profile is associated with.
+    :param _builtins.str name: The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
+    :param _builtins.str site: The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
     """
     __args__ = dict()
     __args__['name'] = name

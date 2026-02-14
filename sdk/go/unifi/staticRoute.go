@@ -12,7 +12,15 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `StaticRoute` manages a static route.
+// The `StaticRoute` resource manages static routes on UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+//
+// Static routes allow you to manually configure routing paths for specific networks. This is useful for:
+//   - Connecting to networks not directly connected to your UniFi gateway
+//   - Creating backup routes for redundancy
+//   - Implementing policy-based routing
+//   - Blocking traffic to specific networks using blackhole routes
+//
+// Routes can be configured to use either a next-hop IP address, a specific interface, or as a blackhole route.
 //
 // ## Example Usage
 //
@@ -65,19 +73,25 @@ import (
 type StaticRoute struct {
 	pulumi.CustomResourceState
 
-	// The distance of the static route.
+	// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
 	Distance pulumi.IntOutput `pulumi:"distance"`
-	// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+	// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+	//   * `WAN1` - Primary WAN interface
+	//   * `WAN2` - Secondary WAN interface
+	//   * A network ID for internal networks
 	Interface pulumi.StringPtrOutput `pulumi:"interface"`
-	// The name of the static route.
+	// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The network subnet address.
+	// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
 	Network pulumi.StringOutput `pulumi:"network"`
-	// The next hop of the static route (only valid for `nexthop-route` type).
+	// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
 	NextHop pulumi.StringPtrOutput `pulumi:"nextHop"`
-	// The name of the site to associate the static route with.
+	// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
-	// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+	// The type of static route. Valid values are:
+	//   * `interface-route` - Route traffic through a specific interface
+	//   * `nexthop-route` - Route traffic to a specific next-hop IP address
+	//   * `blackhole` - Drop all traffic to this network
 	Type pulumi.StringOutput `pulumi:"type"`
 }
 
@@ -120,36 +134,48 @@ func GetStaticRoute(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering StaticRoute resources.
 type staticRouteState struct {
-	// The distance of the static route.
+	// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
 	Distance *int `pulumi:"distance"`
-	// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+	// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+	//   * `WAN1` - Primary WAN interface
+	//   * `WAN2` - Secondary WAN interface
+	//   * A network ID for internal networks
 	Interface *string `pulumi:"interface"`
-	// The name of the static route.
+	// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
 	Name *string `pulumi:"name"`
-	// The network subnet address.
+	// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
 	Network *string `pulumi:"network"`
-	// The next hop of the static route (only valid for `nexthop-route` type).
+	// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
 	NextHop *string `pulumi:"nextHop"`
-	// The name of the site to associate the static route with.
+	// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+	// The type of static route. Valid values are:
+	//   * `interface-route` - Route traffic through a specific interface
+	//   * `nexthop-route` - Route traffic to a specific next-hop IP address
+	//   * `blackhole` - Drop all traffic to this network
 	Type *string `pulumi:"type"`
 }
 
 type StaticRouteState struct {
-	// The distance of the static route.
+	// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
 	Distance pulumi.IntPtrInput
-	// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+	// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+	//   * `WAN1` - Primary WAN interface
+	//   * `WAN2` - Secondary WAN interface
+	//   * A network ID for internal networks
 	Interface pulumi.StringPtrInput
-	// The name of the static route.
+	// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
 	Name pulumi.StringPtrInput
-	// The network subnet address.
+	// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
 	Network pulumi.StringPtrInput
-	// The next hop of the static route (only valid for `nexthop-route` type).
+	// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
 	NextHop pulumi.StringPtrInput
-	// The name of the site to associate the static route with.
+	// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+	// The type of static route. Valid values are:
+	//   * `interface-route` - Route traffic through a specific interface
+	//   * `nexthop-route` - Route traffic to a specific next-hop IP address
+	//   * `blackhole` - Drop all traffic to this network
 	Type pulumi.StringPtrInput
 }
 
@@ -158,37 +184,49 @@ func (StaticRouteState) ElementType() reflect.Type {
 }
 
 type staticRouteArgs struct {
-	// The distance of the static route.
+	// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
 	Distance int `pulumi:"distance"`
-	// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+	// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+	//   * `WAN1` - Primary WAN interface
+	//   * `WAN2` - Secondary WAN interface
+	//   * A network ID for internal networks
 	Interface *string `pulumi:"interface"`
-	// The name of the static route.
+	// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
 	Name *string `pulumi:"name"`
-	// The network subnet address.
+	// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
 	Network string `pulumi:"network"`
-	// The next hop of the static route (only valid for `nexthop-route` type).
+	// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
 	NextHop *string `pulumi:"nextHop"`
-	// The name of the site to associate the static route with.
+	// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+	// The type of static route. Valid values are:
+	//   * `interface-route` - Route traffic through a specific interface
+	//   * `nexthop-route` - Route traffic to a specific next-hop IP address
+	//   * `blackhole` - Drop all traffic to this network
 	Type string `pulumi:"type"`
 }
 
 // The set of arguments for constructing a StaticRoute resource.
 type StaticRouteArgs struct {
-	// The distance of the static route.
+	// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
 	Distance pulumi.IntInput
-	// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+	// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+	//   * `WAN1` - Primary WAN interface
+	//   * `WAN2` - Secondary WAN interface
+	//   * A network ID for internal networks
 	Interface pulumi.StringPtrInput
-	// The name of the static route.
+	// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
 	Name pulumi.StringPtrInput
-	// The network subnet address.
+	// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
 	Network pulumi.StringInput
-	// The next hop of the static route (only valid for `nexthop-route` type).
+	// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
 	NextHop pulumi.StringPtrInput
-	// The name of the site to associate the static route with.
+	// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+	// The type of static route. Valid values are:
+	//   * `interface-route` - Route traffic through a specific interface
+	//   * `nexthop-route` - Route traffic to a specific next-hop IP address
+	//   * `blackhole` - Drop all traffic to this network
 	Type pulumi.StringInput
 }
 
@@ -279,37 +317,43 @@ func (o StaticRouteOutput) ToStaticRouteOutputWithContext(ctx context.Context) S
 	return o
 }
 
-// The distance of the static route.
+// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
 func (o StaticRouteOutput) Distance() pulumi.IntOutput {
 	return o.ApplyT(func(v *StaticRoute) pulumi.IntOutput { return v.Distance }).(pulumi.IntOutput)
 }
 
-// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+//   - `WAN1` - Primary WAN interface
+//   - `WAN2` - Secondary WAN interface
+//   - A network ID for internal networks
 func (o StaticRouteOutput) Interface() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StaticRoute) pulumi.StringPtrOutput { return v.Interface }).(pulumi.StringPtrOutput)
 }
 
-// The name of the static route.
+// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
 func (o StaticRouteOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *StaticRoute) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The network subnet address.
+// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
 func (o StaticRouteOutput) Network() pulumi.StringOutput {
 	return o.ApplyT(func(v *StaticRoute) pulumi.StringOutput { return v.Network }).(pulumi.StringOutput)
 }
 
-// The next hop of the static route (only valid for `nexthop-route` type).
+// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
 func (o StaticRouteOutput) NextHop() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StaticRoute) pulumi.StringPtrOutput { return v.NextHop }).(pulumi.StringPtrOutput)
 }
 
-// The name of the site to associate the static route with.
+// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
 func (o StaticRouteOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *StaticRoute) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
 }
 
-// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+// The type of static route. Valid values are:
+//   - `interface-route` - Route traffic through a specific interface
+//   - `nexthop-route` - Route traffic to a specific next-hop IP address
+//   - `blackhole` - Drop all traffic to this network
 func (o StaticRouteOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v *StaticRoute) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }

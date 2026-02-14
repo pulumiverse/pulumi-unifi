@@ -95,7 +95,7 @@ export interface GetNetworkResult {
      */
     readonly dhcpV6Lease: number;
     /**
-     * Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+     * start address of the DHCPv6 range. Used in static DHCPv6 configuration.
      */
     readonly dhcpV6Start: string;
     /**
@@ -139,7 +139,7 @@ export interface GetNetworkResult {
      */
     readonly ipv6PdPrefixid: string;
     /**
-     * Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+     * start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
      */
     readonly ipv6PdStart: string;
     /**

@@ -18,6 +18,8 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
+	// API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+	ApiKey pulumi.StringPtrOutput `pulumi:"apiKey"`
 	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 	ApiUrl pulumi.StringPtrOutput `pulumi:"apiUrl"`
 	// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
@@ -60,6 +62,17 @@ func NewProvider(ctx *pulumi.Context,
 			args.Username = pulumi.StringPtr(d.(string))
 		}
 	}
+	if args.ApiKey != nil {
+		args.ApiKey = pulumi.ToSecret(args.ApiKey).(pulumi.StringPtrInput)
+	}
+	if args.Password != nil {
+		args.Password = pulumi.ToSecret(args.Password).(pulumi.StringPtrInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"apiKey",
+		"password",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:unifi", name, args, &resource, opts...)
@@ -72,6 +85,8 @@ func NewProvider(ctx *pulumi.Context,
 type providerArgs struct {
 	// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
 	AllowInsecure *bool `pulumi:"allowInsecure"`
+	// API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+	ApiKey *string `pulumi:"apiKey"`
 	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 	ApiUrl *string `pulumi:"apiUrl"`
 	// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
@@ -86,6 +101,8 @@ type providerArgs struct {
 type ProviderArgs struct {
 	// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
 	AllowInsecure pulumi.BoolPtrInput
+	// API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+	ApiKey pulumi.StringPtrInput
 	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 	ApiUrl pulumi.StringPtrInput
 	// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
@@ -154,6 +171,11 @@ func (o ProviderOutput) ToProviderOutput() ProviderOutput {
 
 func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) ProviderOutput {
 	return o
+}
+
+// API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+func (o ProviderOutput) ApiKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiKey }).(pulumi.StringPtrOutput)
 }
 
 // URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.

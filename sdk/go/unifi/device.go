@@ -11,9 +11,11 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `Device` manages a device of the network.
+// The `Device` resource manages UniFi network devices such as access points, switches, gateways, etc.
 //
-// Devices are adopted by the controller, so it is not possible for this resource to be created through Terraform, the create operation instead will simply start managing the device specified by MAC address. It's safer to start this process with an explicit import of the device.
+// Devices must first be adopted by the UniFi controller before they can be managed through Terraform. This resource cannot create new devices, but instead allows you to manage existing devices that have already been adopted. The recommended approach is to adopt devices through the UniFi controller UI first, then import them into Terraform using the device's MAC address.
+//
+// This resource supports managing device names, port configurations, and other device-specific settings.
 //
 // ## Example Usage
 //
@@ -40,7 +42,7 @@ import (
 //				Name:                pulumi.String("poe"),
 //				Forward:             pulumi.String("customize"),
 //				NativeNetworkconfId: pulumi.Any(nativeNetworkId),
-//				TaggedNetworkconfIds: pulumi.StringArray{
+//				TaggedNetworkconfIds: []interface{}{
 //					someVlanNetworkId,
 //				},
 //				PoeMode: pulumi.String("auto"),
@@ -80,19 +82,40 @@ import (
 type Device struct {
 	pulumi.CustomResourceState
 
-	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	// Whether to automatically adopt the device when creating this resource. When true:
+	// * The controller will attempt to adopt the device
+	// * Device must be in a pending adoption state
+	// * Device must be accessible on the network
+	//   Set to false if you want to manage adoption manually.
 	AllowAdoption pulumi.BoolPtrOutput `pulumi:"allowAdoption"`
-	// Specifies whether this device should be disabled.
+	// Whether the device is administratively disabled. When true, the device will not forward traffic or provide services.
 	Disabled pulumi.BoolOutput `pulumi:"disabled"`
-	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
+	// * The device will be removed from the controller
+	// * The device will need to be readopted to be managed again
+	// * Device configuration will be reset
+	//   Set to false to keep the device adopted when removing from Terraform management.
 	ForgetOnDestroy pulumi.BoolPtrOutput `pulumi:"forgetOnDestroy"`
-	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
+	// The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
 	Mac pulumi.StringOutput `pulumi:"mac"`
-	// The name of the device.
+	// A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
+	// * 'Office-AP-1' for an access point
+	// * 'Core-Switch-01' for a switch
+	// * 'Main-Gateway' for a gateway
+	//   Choose descriptive names that indicate location and purpose.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// Settings overrides for specific switch ports.
+	// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
+	//   * Port names and labels for easy identification
+	//   * Port profiles for VLAN and security settings
+	//   * Operating modes for special functions
+	//
+	// Common use cases include:
+	//   * Setting up trunk ports for inter-switch connections
+	//   * Configuring PoE settings for powered devices
+	//   * Creating mirrored ports for network monitoring
+	//   * Setting up link aggregation between switches or servers
 	PortOverrides DevicePortOverrideArrayOutput `pulumi:"portOverrides"`
-	// The name of the site to associate the device with.
+	// The name of the UniFi site where the device is located. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
 }
 
@@ -126,36 +149,78 @@ func GetDevice(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Device resources.
 type deviceState struct {
-	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	// Whether to automatically adopt the device when creating this resource. When true:
+	// * The controller will attempt to adopt the device
+	// * Device must be in a pending adoption state
+	// * Device must be accessible on the network
+	//   Set to false if you want to manage adoption manually.
 	AllowAdoption *bool `pulumi:"allowAdoption"`
-	// Specifies whether this device should be disabled.
+	// Whether the device is administratively disabled. When true, the device will not forward traffic or provide services.
 	Disabled *bool `pulumi:"disabled"`
-	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
+	// * The device will be removed from the controller
+	// * The device will need to be readopted to be managed again
+	// * Device configuration will be reset
+	//   Set to false to keep the device adopted when removing from Terraform management.
 	ForgetOnDestroy *bool `pulumi:"forgetOnDestroy"`
-	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
+	// The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
 	Mac *string `pulumi:"mac"`
-	// The name of the device.
+	// A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
+	// * 'Office-AP-1' for an access point
+	// * 'Core-Switch-01' for a switch
+	// * 'Main-Gateway' for a gateway
+	//   Choose descriptive names that indicate location and purpose.
 	Name *string `pulumi:"name"`
-	// Settings overrides for specific switch ports.
+	// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
+	//   * Port names and labels for easy identification
+	//   * Port profiles for VLAN and security settings
+	//   * Operating modes for special functions
+	//
+	// Common use cases include:
+	//   * Setting up trunk ports for inter-switch connections
+	//   * Configuring PoE settings for powered devices
+	//   * Creating mirrored ports for network monitoring
+	//   * Setting up link aggregation between switches or servers
 	PortOverrides []DevicePortOverride `pulumi:"portOverrides"`
-	// The name of the site to associate the device with.
+	// The name of the UniFi site where the device is located. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 type DeviceState struct {
-	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	// Whether to automatically adopt the device when creating this resource. When true:
+	// * The controller will attempt to adopt the device
+	// * Device must be in a pending adoption state
+	// * Device must be accessible on the network
+	//   Set to false if you want to manage adoption manually.
 	AllowAdoption pulumi.BoolPtrInput
-	// Specifies whether this device should be disabled.
+	// Whether the device is administratively disabled. When true, the device will not forward traffic or provide services.
 	Disabled pulumi.BoolPtrInput
-	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
+	// * The device will be removed from the controller
+	// * The device will need to be readopted to be managed again
+	// * Device configuration will be reset
+	//   Set to false to keep the device adopted when removing from Terraform management.
 	ForgetOnDestroy pulumi.BoolPtrInput
-	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
+	// The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
 	Mac pulumi.StringPtrInput
-	// The name of the device.
+	// A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
+	// * 'Office-AP-1' for an access point
+	// * 'Core-Switch-01' for a switch
+	// * 'Main-Gateway' for a gateway
+	//   Choose descriptive names that indicate location and purpose.
 	Name pulumi.StringPtrInput
-	// Settings overrides for specific switch ports.
+	// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
+	//   * Port names and labels for easy identification
+	//   * Port profiles for VLAN and security settings
+	//   * Operating modes for special functions
+	//
+	// Common use cases include:
+	//   * Setting up trunk ports for inter-switch connections
+	//   * Configuring PoE settings for powered devices
+	//   * Creating mirrored ports for network monitoring
+	//   * Setting up link aggregation between switches or servers
 	PortOverrides DevicePortOverrideArrayInput
-	// The name of the site to associate the device with.
+	// The name of the UniFi site where the device is located. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
 }
 
@@ -164,33 +229,75 @@ func (DeviceState) ElementType() reflect.Type {
 }
 
 type deviceArgs struct {
-	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	// Whether to automatically adopt the device when creating this resource. When true:
+	// * The controller will attempt to adopt the device
+	// * Device must be in a pending adoption state
+	// * Device must be accessible on the network
+	//   Set to false if you want to manage adoption manually.
 	AllowAdoption *bool `pulumi:"allowAdoption"`
-	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
+	// * The device will be removed from the controller
+	// * The device will need to be readopted to be managed again
+	// * Device configuration will be reset
+	//   Set to false to keep the device adopted when removing from Terraform management.
 	ForgetOnDestroy *bool `pulumi:"forgetOnDestroy"`
-	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
+	// The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
 	Mac *string `pulumi:"mac"`
-	// The name of the device.
+	// A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
+	// * 'Office-AP-1' for an access point
+	// * 'Core-Switch-01' for a switch
+	// * 'Main-Gateway' for a gateway
+	//   Choose descriptive names that indicate location and purpose.
 	Name *string `pulumi:"name"`
-	// Settings overrides for specific switch ports.
+	// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
+	//   * Port names and labels for easy identification
+	//   * Port profiles for VLAN and security settings
+	//   * Operating modes for special functions
+	//
+	// Common use cases include:
+	//   * Setting up trunk ports for inter-switch connections
+	//   * Configuring PoE settings for powered devices
+	//   * Creating mirrored ports for network monitoring
+	//   * Setting up link aggregation between switches or servers
 	PortOverrides []DevicePortOverride `pulumi:"portOverrides"`
-	// The name of the site to associate the device with.
+	// The name of the UniFi site where the device is located. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 // The set of arguments for constructing a Device resource.
 type DeviceArgs struct {
-	// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+	// Whether to automatically adopt the device when creating this resource. When true:
+	// * The controller will attempt to adopt the device
+	// * Device must be in a pending adoption state
+	// * Device must be accessible on the network
+	//   Set to false if you want to manage adoption manually.
 	AllowAdoption pulumi.BoolPtrInput
-	// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+	// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
+	// * The device will be removed from the controller
+	// * The device will need to be readopted to be managed again
+	// * Device configuration will be reset
+	//   Set to false to keep the device adopted when removing from Terraform management.
 	ForgetOnDestroy pulumi.BoolPtrInput
-	// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
+	// The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
 	Mac pulumi.StringPtrInput
-	// The name of the device.
+	// A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
+	// * 'Office-AP-1' for an access point
+	// * 'Core-Switch-01' for a switch
+	// * 'Main-Gateway' for a gateway
+	//   Choose descriptive names that indicate location and purpose.
 	Name pulumi.StringPtrInput
-	// Settings overrides for specific switch ports.
+	// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
+	//   * Port names and labels for easy identification
+	//   * Port profiles for VLAN and security settings
+	//   * Operating modes for special functions
+	//
+	// Common use cases include:
+	//   * Setting up trunk ports for inter-switch connections
+	//   * Configuring PoE settings for powered devices
+	//   * Creating mirrored ports for network monitoring
+	//   * Setting up link aggregation between switches or servers
 	PortOverrides DevicePortOverrideArrayInput
-	// The name of the site to associate the device with.
+	// The name of the UniFi site where the device is located. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
 }
 
@@ -281,37 +388,58 @@ func (o DeviceOutput) ToDeviceOutputWithContext(ctx context.Context) DeviceOutpu
 	return o
 }
 
-// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+// Whether to automatically adopt the device when creating this resource. When true:
+//   - The controller will attempt to adopt the device
+//   - Device must be in a pending adoption state
+//   - Device must be accessible on the network
+//     Set to false if you want to manage adoption manually.
 func (o DeviceOutput) AllowAdoption() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Device) pulumi.BoolPtrOutput { return v.AllowAdoption }).(pulumi.BoolPtrOutput)
 }
 
-// Specifies whether this device should be disabled.
+// Whether the device is administratively disabled. When true, the device will not forward traffic or provide services.
 func (o DeviceOutput) Disabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *Device) pulumi.BoolOutput { return v.Disabled }).(pulumi.BoolOutput)
 }
 
-// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
+//   - The device will be removed from the controller
+//   - The device will need to be readopted to be managed again
+//   - Device configuration will be reset
+//     Set to false to keep the device adopted when removing from Terraform management.
 func (o DeviceOutput) ForgetOnDestroy() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Device) pulumi.BoolPtrOutput { return v.ForgetOnDestroy }).(pulumi.BoolPtrOutput)
 }
 
-// The MAC address of the device. This can be specified so that the provider can take control of a device (since devices are created through adoption).
+// The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
 func (o DeviceOutput) Mac() pulumi.StringOutput {
 	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Mac }).(pulumi.StringOutput)
 }
 
-// The name of the device.
+// A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
+//   - 'Office-AP-1' for an access point
+//   - 'Core-Switch-01' for a switch
+//   - 'Main-Gateway' for a gateway
+//     Choose descriptive names that indicate location and purpose.
 func (o DeviceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// Settings overrides for specific switch ports.
+// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
+//   - Port names and labels for easy identification
+//   - Port profiles for VLAN and security settings
+//   - Operating modes for special functions
+//
+// Common use cases include:
+//   - Setting up trunk ports for inter-switch connections
+//   - Configuring PoE settings for powered devices
+//   - Creating mirrored ports for network monitoring
+//   - Setting up link aggregation between switches or servers
 func (o DeviceOutput) PortOverrides() DevicePortOverrideArrayOutput {
 	return o.ApplyT(func(v *Device) DevicePortOverrideArrayOutput { return v.PortOverrides }).(DevicePortOverrideArrayOutput)
 }
 
-// The name of the site to associate the device with.
+// The name of the UniFi site where the device is located. If not specified, the default site will be used.
 func (o DeviceOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *Device) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
 }

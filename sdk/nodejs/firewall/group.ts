@@ -5,7 +5,18 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).
+ * The `unifi.firewall.Group` resource manages reusable groups of addresses or ports that can be referenced in firewall rules (`unifi.firewall.Rule`).
+ *
+ * Firewall groups help organize and simplify firewall rule management by allowing you to:
+ *   * Create collections of IP addresses or networks
+ *   * Define sets of ports for specific services
+ *   * Group IPv6 addresses for IPv6-specific rules
+ *
+ * Common use cases include:
+ *   * Creating groups of trusted IP addresses
+ *   * Defining port groups for specific applications
+ *   * Managing access control lists
+ *   * Simplifying rule maintenance by using groups instead of individual IPs/ports
  *
  * ## Example Usage
  *
@@ -51,21 +62,27 @@ export class Group extends pulumi.CustomResource {
     }
 
     /**
-     * The members of the firewall group.
+     * List of members in the group. The format depends on the group type:
+     *   * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+     *   * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+     *   * For ipv6-address-group: IPv6 addresses or CIDR notation
      */
-    public readonly members!: pulumi.Output<string[]>;
+    declare public readonly members: pulumi.Output<string[]>;
     /**
-     * The name of the firewall group.
+     * A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
-     * The name of the site to associate the firewall group with.
+     * The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
      */
-    public readonly site!: pulumi.Output<string>;
+    declare public readonly site: pulumi.Output<string>;
     /**
-     * The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+     * The type of firewall group. Valid values are:
+     *   * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+     *   * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+     *   * `ipv6-address-group` - Group of IPv6 addresses and/or networks
      */
-    public readonly type!: pulumi.Output<string>;
+    declare public readonly type: pulumi.Output<string>;
 
     /**
      * Create a Group resource with the given unique name, arguments, and options.
@@ -80,22 +97,22 @@ export class Group extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as GroupState | undefined;
-            resourceInputs["members"] = state ? state.members : undefined;
-            resourceInputs["name"] = state ? state.name : undefined;
-            resourceInputs["site"] = state ? state.site : undefined;
-            resourceInputs["type"] = state ? state.type : undefined;
+            resourceInputs["members"] = state?.members;
+            resourceInputs["name"] = state?.name;
+            resourceInputs["site"] = state?.site;
+            resourceInputs["type"] = state?.type;
         } else {
             const args = argsOrState as GroupArgs | undefined;
-            if ((!args || args.members === undefined) && !opts.urn) {
+            if (args?.members === undefined && !opts.urn) {
                 throw new Error("Missing required property 'members'");
             }
-            if ((!args || args.type === undefined) && !opts.urn) {
+            if (args?.type === undefined && !opts.urn) {
                 throw new Error("Missing required property 'type'");
             }
-            resourceInputs["members"] = args ? args.members : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["site"] = args ? args.site : undefined;
-            resourceInputs["type"] = args ? args.type : undefined;
+            resourceInputs["members"] = args?.members;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["site"] = args?.site;
+            resourceInputs["type"] = args?.type;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Group.__pulumiType, name, resourceInputs, opts);
@@ -107,19 +124,25 @@ export class Group extends pulumi.CustomResource {
  */
 export interface GroupState {
     /**
-     * The members of the firewall group.
+     * List of members in the group. The format depends on the group type:
+     *   * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+     *   * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+     *   * For ipv6-address-group: IPv6 addresses or CIDR notation
      */
     members?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The name of the firewall group.
+     * A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
      */
     name?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the firewall group with.
+     * The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+     * The type of firewall group. Valid values are:
+     *   * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+     *   * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+     *   * `ipv6-address-group` - Group of IPv6 addresses and/or networks
      */
     type?: pulumi.Input<string>;
 }
@@ -129,19 +152,25 @@ export interface GroupState {
  */
 export interface GroupArgs {
     /**
-     * The members of the firewall group.
+     * List of members in the group. The format depends on the group type:
+     *   * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+     *   * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+     *   * For ipv6-address-group: IPv6 addresses or CIDR notation
      */
     members: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The name of the firewall group.
+     * A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
      */
     name?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the firewall group with.
+     * The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+     * The type of firewall group. Valid values are:
+     *   * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+     *   * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+     *   * `ipv6-address-group` - Group of IPv6 addresses and/or networks
      */
     type: pulumi.Input<string>;
 }

@@ -11,50 +11,72 @@ using Pulumi;
 namespace Pulumiverse.Unifi
 {
     /// <summary>
-    /// `unifi.Account` manages a RADIUS user account
+    /// The `unifi.Account` resource manages RADIUS user accounts in the UniFi controller's built-in RADIUS server.
     /// 
-    /// To authenticate devices based on MAC address, use the MAC address as the username and password under client creation.
-    /// Convert lowercase letters to uppercase, and also remove colons or periods from the MAC address.
+    /// This resource is used for:
+    ///   * WPA2/WPA3-Enterprise wireless authentication
+    ///   * 802.1X wired authentication
+    ///   * MAC-based device authentication
+    ///   * VLAN assignment through RADIUS attributes
     /// 
-    /// ATTENTION: If the user profile does not include a VLAN, the client will fall back to the untagged VLAN.
+    /// Important Notes:
+    /// 1. For MAC-based authentication:
+    ///    * Use the device's MAC address as both username and password
+    ///    * Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
+    /// 2. VLAN Assignment:
+    ///    * If no VLAN is specified in the profile, clients will use the network's untagged VLAN
+    ///    * VLAN assignment uses standard RADIUS tunnel attributes
     /// 
-    /// NOTE: MAC-based authentication accounts can only be used for wireless and wired clients. L2TP remote access does not apply.
+    /// Limitations:
+    ///   * MAC-based authentication works only for wireless and wired clients
+    ///   * L2TP remote access VPN is not supported with MAC authentication
+    ///   * Accounts must be unique within a site
     /// </summary>
     [UnifiResourceType("unifi:index/account:Account")]
     public partial class Account : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The name of the account.
+        /// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// ID of the network for this account
+        /// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
         /// </summary>
         [Output("networkId")]
         public Output<string?> NetworkId { get; private set; } = null!;
 
         /// <summary>
-        /// The password of the account.
+        /// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         /// </summary>
         [Output("password")]
         public Output<string> Password { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the account with.
+        /// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+        /// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+        ///   * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+        ///   * `1` - IPv4
+        ///   * `2` - IPv6
+        /// 
+        /// Only change this if you need specific tunneling behavior.
         /// </summary>
         [Output("tunnelMediumType")]
         public Output<int?> TunnelMediumType { get; private set; } = null!;
 
         /// <summary>
-        /// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        /// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+        ///   * `13` - VLAN (default)
+        ///   * `1` - Point-to-Point Protocol (PPTP)
+        ///   * `9` - Point-to-Point Protocol (L2TP)
+        /// 
+        /// Only change this if you need specific tunneling behavior.
         /// </summary>
         [Output("tunnelType")]
         public Output<int?> TunnelType { get; private set; } = null!;
@@ -111,13 +133,13 @@ namespace Pulumiverse.Unifi
     public sealed class AccountArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the account.
+        /// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// ID of the network for this account
+        /// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
         /// </summary>
         [Input("networkId")]
         public Input<string>? NetworkId { get; set; }
@@ -126,7 +148,7 @@ namespace Pulumiverse.Unifi
         private Input<string>? _password;
 
         /// <summary>
-        /// The password of the account.
+        /// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         /// </summary>
         public Input<string>? Password
         {
@@ -139,19 +161,29 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// The name of the site to associate the account with.
+        /// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+        /// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+        ///   * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+        ///   * `1` - IPv4
+        ///   * `2` - IPv6
+        /// 
+        /// Only change this if you need specific tunneling behavior.
         /// </summary>
         [Input("tunnelMediumType")]
         public Input<int>? TunnelMediumType { get; set; }
 
         /// <summary>
-        /// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        /// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+        ///   * `13` - VLAN (default)
+        ///   * `1` - Point-to-Point Protocol (PPTP)
+        ///   * `9` - Point-to-Point Protocol (L2TP)
+        /// 
+        /// Only change this if you need specific tunneling behavior.
         /// </summary>
         [Input("tunnelType")]
         public Input<int>? TunnelType { get; set; }
@@ -165,13 +197,13 @@ namespace Pulumiverse.Unifi
     public sealed class AccountState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the account.
+        /// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// ID of the network for this account
+        /// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
         /// </summary>
         [Input("networkId")]
         public Input<string>? NetworkId { get; set; }
@@ -180,7 +212,7 @@ namespace Pulumiverse.Unifi
         private Input<string>? _password;
 
         /// <summary>
-        /// The password of the account.
+        /// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         /// </summary>
         public Input<string>? Password
         {
@@ -193,19 +225,29 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// The name of the site to associate the account with.
+        /// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+        /// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+        ///   * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+        ///   * `1` - IPv4
+        ///   * `2` - IPv6
+        /// 
+        /// Only change this if you need specific tunneling behavior.
         /// </summary>
         [Input("tunnelMediumType")]
         public Input<int>? TunnelMediumType { get; set; }
 
         /// <summary>
-        /// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        /// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+        ///   * `13` - VLAN (default)
+        ///   * `1` - Point-to-Point Protocol (PPTP)
+        ///   * `9` - Point-to-Point Protocol (L2TP)
+        /// 
+        /// Only change this if you need specific tunneling behavior.
         /// </summary>
         [Input("tunnelType")]
         public Input<int>? TunnelType { get; set; }

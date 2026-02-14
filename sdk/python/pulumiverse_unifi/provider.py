@@ -20,6 +20,7 @@ __all__ = ['ProviderArgs', 'Provider']
 class ProviderArgs:
     def __init__(__self__, *,
                  allow_insecure: Optional[pulumi.Input[_builtins.bool]] = None,
+                 api_key: Optional[pulumi.Input[_builtins.str]] = None,
                  api_url: Optional[pulumi.Input[_builtins.str]] = None,
                  password: Optional[pulumi.Input[_builtins.str]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
@@ -27,6 +28,7 @@ class ProviderArgs:
         """
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[_builtins.bool] allow_insecure: Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+        :param pulumi.Input[_builtins.str] api_key: API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
         :param pulumi.Input[_builtins.str] api_url: URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         :param pulumi.Input[_builtins.str] password: Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
         :param pulumi.Input[_builtins.str] site: The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
@@ -36,6 +38,8 @@ class ProviderArgs:
             allow_insecure = _utilities.get_env_bool('UNIFI_INSECURE')
         if allow_insecure is not None:
             pulumi.set(__self__, "allow_insecure", allow_insecure)
+        if api_key is not None:
+            pulumi.set(__self__, "api_key", api_key)
         if api_url is None:
             api_url = _utilities.get_env('UNIFI_API')
         if api_url is not None:
@@ -64,6 +68,18 @@ class ProviderArgs:
     @allow_insecure.setter
     def allow_insecure(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "allow_insecure", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+        """
+        return pulumi.get(self, "api_key")
+
+    @api_key.setter
+    def api_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "api_key", value)
 
     @_builtins.property
     @pulumi.getter(name="apiUrl")
@@ -121,6 +137,7 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_insecure: Optional[pulumi.Input[_builtins.bool]] = None,
+                 api_key: Optional[pulumi.Input[_builtins.str]] = None,
                  api_url: Optional[pulumi.Input[_builtins.str]] = None,
                  password: Optional[pulumi.Input[_builtins.str]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
@@ -135,6 +152,7 @@ class Provider(pulumi.ProviderResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_insecure: Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+        :param pulumi.Input[_builtins.str] api_key: API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
         :param pulumi.Input[_builtins.str] api_url: URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         :param pulumi.Input[_builtins.str] password: Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
         :param pulumi.Input[_builtins.str] site: The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
@@ -168,6 +186,7 @@ class Provider(pulumi.ProviderResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_insecure: Optional[pulumi.Input[_builtins.bool]] = None,
+                 api_key: Optional[pulumi.Input[_builtins.str]] = None,
                  api_url: Optional[pulumi.Input[_builtins.str]] = None,
                  password: Optional[pulumi.Input[_builtins.str]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
@@ -184,23 +203,34 @@ class Provider(pulumi.ProviderResource):
             if allow_insecure is None:
                 allow_insecure = _utilities.get_env_bool('UNIFI_INSECURE')
             __props__.__dict__["allow_insecure"] = pulumi.Output.from_input(allow_insecure).apply(pulumi.runtime.to_json) if allow_insecure is not None else None
+            __props__.__dict__["api_key"] = None if api_key is None else pulumi.Output.secret(api_key)
             if api_url is None:
                 api_url = _utilities.get_env('UNIFI_API')
             __props__.__dict__["api_url"] = api_url
             if password is None:
                 password = _utilities.get_env('UNIFI_PASSWORD')
-            __props__.__dict__["password"] = password
+            __props__.__dict__["password"] = None if password is None else pulumi.Output.secret(password)
             if site is None:
                 site = _utilities.get_env('UNIFI_SITE')
             __props__.__dict__["site"] = site
             if username is None:
                 username = _utilities.get_env('UNIFI_USERNAME')
             __props__.__dict__["username"] = username
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["apiKey", "password"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Provider, __self__).__init__(
             'unifi',
             resource_name,
             __props__,
             opts)
+
+    @_builtins.property
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+        """
+        return pulumi.get(self, "api_key")
 
     @_builtins.property
     @pulumi.getter(name="apiUrl")

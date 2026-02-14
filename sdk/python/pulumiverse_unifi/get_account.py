@@ -125,7 +125,7 @@ def get_account(name: Optional[_builtins.str] = None,
                 site: Optional[_builtins.str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAccountResult:
     """
-    `Account` data source can be used to retrieve RADIUS user accounts
+    unifi_account data source can be used to retrieve RADIUS user accounts
 
 
     :param _builtins.str name: The name of the account to look up
@@ -149,7 +149,7 @@ def get_account_output(name: Optional[pulumi.Input[_builtins.str]] = None,
                        site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetAccountResult]:
     """
-    `Account` data source can be used to retrieve RADIUS user accounts
+    unifi_account data source can be used to retrieve RADIUS user accounts
 
 
     :param _builtins.str name: The name of the account to look up

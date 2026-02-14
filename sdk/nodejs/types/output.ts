@@ -7,98 +7,885 @@ import * as outputs from "../types/output";
 
 export interface DevicePortOverride {
     /**
-     * Number of ports in the aggregate.
+     * The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
+     * * Creating switch-to-switch uplinks for increased bandwidth
+     * * Setting up high-availability connections
+     * * Connecting to servers requiring more bandwidth
+     * Note: All ports in the LAG must be sequential and have matching configurations.
      */
     aggregateNumPorts?: number;
     /**
-     * Human-readable name of the port.
+     * A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
+     *   * 'Uplink to Core Switch'
+     *   * 'Conference Room AP'
+     *   * 'Server LACP Group 1'
+     *   * 'VoIP Phone Port'
      */
     name?: string;
     /**
-     * Switch port number.
+     * The physical port number on the switch to configure.
      */
     number: number;
     /**
-     * Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+     * The operating mode of the port. Valid values are:
+     *   * `switch` - Normal switching mode (default)
+     *     - Standard port operation for connecting devices
+     *     - Supports VLANs and all standard switching features
+     *   * `mirror` - Port mirroring for traffic analysis
+     *     - Copies traffic from other ports for monitoring
+     *     - Useful for network troubleshooting and security
+     *   * `aggregate` - Link aggregation/bonding mode
+     *     - Combines multiple ports for increased bandwidth
+     *     - Used for switch uplinks or high-bandwidth servers
      */
     opMode?: string;
     /**
-     * ID of the Port Profile used on this port.
+     * The Power over Ethernet (PoE) mode for the port. Valid values are:
+     * * `auto` - Automatically detect and power PoE devices (recommended)
+     *   - Provides power based on device negotiation
+     *   - Safest option for most PoE devices
+     * * `pasv24` - Passive 24V PoE
+     *   - For older UniFi devices requiring passive 24V
+     *   - Use with caution to avoid damage
+     * * `passthrough` - PoE passthrough mode
+     *   - For daisy-chaining PoE devices
+     *   - Available on select UniFi switches
+     * * `off` - Disable PoE on the port
+     *   - For non-PoE devices
+     *   - To prevent unwanted power delivery
+     */
+    poeMode?: string;
+    /**
+     * The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
      */
     portProfileId?: string;
 }
 
 export interface RadiusProfileAcctServer {
     /**
-     * IP address of accounting service server.
+     * The IPv4 address of the RADIUS accounting server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
      */
     ip: string;
     /**
-     * Port of accounting service. Defaults to `1813`.
+     * The UDP port number where the RADIUS accounting service is listening. The standard port is 1813, but this can be changed if needed to match your server configuration.
      */
     port?: number;
     /**
-     * RADIUS secret.
+     * The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
      */
     xsecret: string;
 }
 
 export interface RadiusProfileAuthServer {
     /**
-     * IP address of authentication service server.
+     * The IPv4 address of the RADIUS authentication server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
      */
     ip: string;
     /**
-     * Port of authentication service. Defaults to `1812`.
+     * The UDP port number where the RADIUS authentication service is listening. The standard port is 1812, but this can be changed if needed to match your server configuration.
      */
     port?: number;
     /**
-     * RADIUS secret.
+     * The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
      */
     xsecret: string;
 }
 
 export interface WlanSchedule {
     /**
-     * Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+     * Day of week. Valid values: `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
      */
     dayOfWeek: string;
     /**
-     * Length of the block in minutes.
+     * Duration in minutes that the network should remain active.
      */
     duration: number;
     /**
-     * Name of the block.
+     * Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
      */
     name?: string;
     /**
-     * Start hour for the block (0-23).
+     * Start hour in 24-hour format (0-23).
      */
     startHour: number;
     /**
-     * Start minute for the block (0-59). Defaults to `0`.
+     * Start minute (0-59).
      */
     startMinute?: number;
 }
 
-export namespace setting {
-    export interface MgmtSshKey {
+export namespace dns {
+    export interface GetRecordsResult {
         /**
-         * Comment.
+         * Whether the DNS record is enabled.
          */
-        comment?: string;
+        enabled: boolean;
         /**
-         * Public SSH key.
+         * The unique identifier of this resource.
          */
-        key?: string;
+        id: string;
         /**
-         * Name of SSH key.
+         * DNS record name.
          */
         name: string;
         /**
-         * Type of SSH key, e.g. ssh-rsa.
+         * The port of the DNS record.
+         */
+        port: number;
+        /**
+         * Priority of the DNS records. Present only for MX and SRV records; unused by other record types.
+         */
+        priority: number;
+        /**
+         * DNS record content.
+         */
+        record: string;
+        /**
+         * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+         */
+        site: string;
+        /**
+         * Time To Live (TTL) of the DNS record in seconds. Setting to 0 means 'automatic'.
+         */
+        ttl: number;
+        /**
+         * The type of the DNS record.
          */
         type: string;
+        /**
+         * A numeric value indicating the relative weight of the record.
+         */
+        weight: number;
+    }
+
+}
+
+export namespace firewall {
+    export interface ZonePolicyDestination {
+        /**
+         * List of application category IDs.
+         */
+        appCategoryIds?: string[];
+        /**
+         * List of application IDs.
+         */
+        appIds?: string[];
+        /**
+         * ID of the source IP group.
+         */
+        ipGroupId?: string;
+        /**
+         * List of source IPs.
+         */
+        ips?: string[];
+        /**
+         * Whether to match opposite IPs.
+         */
+        matchOppositeIps: boolean;
+        /**
+         * Whether to match opposite ports.
+         */
+        matchOppositePorts: boolean;
+        /**
+         * Source port.
+         */
+        port?: number;
+        /**
+         * ID of the source port group.
+         */
+        portGroupId?: string;
+        /**
+         * List of regions.
+         */
+        regions?: string[];
+        /**
+         * List of web domains.
+         */
+        webDomains?: string[];
+        /**
+         * ID of the firewall zone.
+         */
+        zoneId: string;
+    }
+
+    export interface ZonePolicySchedule {
+        /**
+         * Date for the schedule.
+         */
+        date?: string;
+        /**
+         * End date for the schedule.
+         */
+        dateEnd?: string;
+        /**
+         * Start date for the schedule.
+         */
+        dateStart?: string;
+        /**
+         * Schedule mode. Valid values are `ALWAYS`, `EVERY_DAY`, `EVERY_WEEK`, `ONE_TIME_ONLY`, or `CUSTOM`.
+         */
+        mode: string;
+        /**
+         * Days of the week when schedule repeats. Valid values include `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, and `sun`.
+         */
+        repeatOnDays?: string[];
+        /**
+         * Whether the schedule applies all day.
+         */
+        timeAllDay: boolean;
+        /**
+         * Schedule starting time in 24-hour format (HH:MM).
+         */
+        timeFrom?: string;
+        /**
+         * Schedule ending time in 24-hour format (HH:MM).
+         */
+        timeTo?: string;
+    }
+
+    export interface ZonePolicySource {
+        /**
+         * List of client MAC addresses.
+         */
+        clientMacs?: string[];
+        /**
+         * ID of the source IP group.
+         */
+        ipGroupId?: string;
+        /**
+         * List of source IPs.
+         */
+        ips?: string[];
+        /**
+         * Source MAC address.
+         */
+        mac?: string;
+        /**
+         * List of MAC addresses.
+         */
+        macs?: string[];
+        /**
+         * Whether to match opposite IPs.
+         */
+        matchOppositeIps: boolean;
+        /**
+         * Whether to match opposite networks.
+         */
+        matchOppositeNetworks: boolean;
+        /**
+         * Whether to match opposite ports.
+         */
+        matchOppositePorts: boolean;
+        /**
+         * List of network IDs.
+         */
+        networkIds?: string[];
+        /**
+         * Source port.
+         */
+        port?: number;
+        /**
+         * ID of the source port group.
+         */
+        portGroupId?: string;
+        /**
+         * ID of the firewall zone.
+         */
+        zoneId: string;
+    }
+
+}
+
+export namespace setting {
+    export interface GuestAccessAuthorize {
+        /**
+         * Authorize.net login ID for authentication.
+         */
+        loginId: string;
+        /**
+         * Authorize.net transaction key for authentication.
+         */
+        transactionKey: string;
+        /**
+         * Use sandbox mode for Authorize.net payments.
+         */
+        useSandbox: boolean;
+    }
+
+    export interface GuestAccessFacebook {
+        /**
+         * Facebook application ID for authentication.
+         */
+        appId: string;
+        /**
+         * Facebook application secret for authentication.
+         */
+        appSecret: string;
+        /**
+         * Request email scope for Facebook authentication.
+         */
+        scopeEmail: boolean;
+    }
+
+    export interface GuestAccessFacebookWifi {
+        /**
+         * Mode HTTPS for Facebook WiFi.
+         */
+        blockHttps: boolean;
+        /**
+         * Facebook WiFi gateway ID.
+         */
+        gatewayId: string;
+        /**
+         * Facebook WiFi gateway name.
+         */
+        gatewayName: string;
+        /**
+         * Facebook WiFi gateway secret.
+         */
+        gatewaySecret: string;
+    }
+
+    export interface GuestAccessGoogle {
+        /**
+         * Google client ID for authentication.
+         */
+        clientId: string;
+        /**
+         * Google client secret for authentication.
+         */
+        clientSecret: string;
+        /**
+         * Restrict Google authentication to specific domain.
+         */
+        domain: string;
+        /**
+         * Request email scope for Google authentication.
+         */
+        scopeEmail: boolean;
+    }
+
+    export interface GuestAccessIppay {
+        /**
+         * Terminal ID for IP Payments.
+         */
+        terminalId: string;
+        /**
+         * Whether to use sandbox mode for IPPay payments.
+         */
+        useSandbox: boolean;
+    }
+
+    export interface GuestAccessMerchantWarrior {
+        /**
+         * MerchantWarrior API key.
+         */
+        apiKey: string;
+        /**
+         * MerchantWarrior API passphrase.
+         */
+        apiPassphrase: string;
+        /**
+         * MerchantWarrior merchant UUID.
+         */
+        merchantUuid: string;
+        /**
+         * Whether to use sandbox mode for MerchantWarrior payments.
+         */
+        useSandbox: boolean;
+    }
+
+    export interface GuestAccessPaypal {
+        /**
+         * PayPal password.
+         */
+        password: string;
+        /**
+         * PayPal signature.
+         */
+        signature: string;
+        /**
+         * Whether to use sandbox mode for PayPal payments.
+         */
+        useSandbox: boolean;
+        /**
+         * PayPal username. Must be a valid email address.
+         */
+        username: string;
+    }
+
+    export interface GuestAccessPortalCustomization {
+        /**
+         * Custom authentication text for the portal.
+         */
+        authenticationText: string;
+        /**
+         * Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+         */
+        bgColor: string;
+        /**
+         * ID of the background image portal file. File must exist in controller, use `unifi.port.AlFile` to manage it.
+         */
+        bgImageFileId: string;
+        /**
+         * Tile the background image.
+         */
+        bgImageTile: boolean;
+        /**
+         * Type of portal background. Valid values are:
+         */
+        bgType: string;
+        /**
+         * Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+         */
+        boxColor: string;
+        /**
+         * Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+         */
+        boxLinkColor: string;
+        /**
+         * Opacity of the login box (0-100).
+         */
+        boxOpacity: number;
+        /**
+         * Border radius of the login box in pixels.
+         */
+        boxRadius: number;
+        /**
+         * Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+         */
+        boxTextColor: string;
+        /**
+         * Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+         */
+        buttonColor: string;
+        /**
+         * Custom text for the login button.
+         */
+        buttonText: string;
+        /**
+         * Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+         */
+        buttonTextColor: string;
+        /**
+         * Whether the portal is customized.
+         */
+        customized: boolean;
+        /**
+         * List of enabled languages for the portal.
+         */
+        languages: string[];
+        /**
+         * Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+         */
+        linkColor: string;
+        /**
+         * ID of the logo image portal file. File must exist in controller, use `unifi.port.AlFile` to manage it.
+         */
+        logoFileId: string;
+        /**
+         * Position of the logo in the portal. Valid values are: left, center, right.
+         */
+        logoPosition: string;
+        /**
+         * Size of the logo in pixels.
+         */
+        logoSize: number;
+        /**
+         * Text displayed after successful authentication.
+         */
+        successText: string;
+        /**
+         * Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+         */
+        textColor: string;
+        /**
+         * Title of the portal page.
+         */
+        title: string;
+        /**
+         * Terms of service text.
+         */
+        tos: string;
+        /**
+         * Enable terms of service acceptance requirement.
+         */
+        tosEnabled: boolean;
+        /**
+         * Name of the Unsplash author for gallery background.
+         */
+        unsplashAuthorName: string;
+        /**
+         * Username of the Unsplash author for gallery background.
+         */
+        unsplashAuthorUsername: string;
+        /**
+         * Welcome text displayed on the portal.
+         */
+        welcomeText: string;
+        /**
+         * Enable welcome text display.
+         */
+        welcomeTextEnabled: boolean;
+        /**
+         * Position of the welcome text. Valid values are: `underLogo`, `aboveBoxes`.
+         */
+        welcomeTextPosition: string;
+    }
+
+    export interface GuestAccessQuickpay {
+        /**
+         * QuickPay agreement ID.
+         */
+        agreementId: string;
+        /**
+         * QuickPay API key.
+         */
+        apiKey: string;
+        /**
+         * QuickPay merchant ID.
+         */
+        merchantId: string;
+        /**
+         * Enable sandbox mode for QuickPay payments.
+         */
+        useSandbox: boolean;
+    }
+
+    export interface GuestAccessRadius {
+        /**
+         * RADIUS authentication type. Valid values are: `chap`, `mschapv2`.
+         */
+        authType: string;
+        /**
+         * Enable RADIUS disconnect messages.
+         */
+        disconnectEnabled: boolean;
+        /**
+         * Port for RADIUS disconnect messages.
+         */
+        disconnectPort: number;
+        /**
+         * ID of the RADIUS profile to use.
+         */
+        profileId: string;
+    }
+
+    export interface GuestAccessRedirect {
+        /**
+         * Redirect HTTP requests to HTTPS.
+         */
+        toHttps: boolean;
+        /**
+         * URL to redirect to after authentication. Must be a valid URL.
+         */
+        url: string;
+        /**
+         * Use HTTPS for the redirect URL.
+         */
+        useHttps: boolean;
+    }
+
+    export interface GuestAccessStripe {
+        /**
+         * Stripe API key.
+         */
+        apiKey: string;
+    }
+
+    export interface GuestAccessWechat {
+        /**
+         * WeChat App ID for social authentication.
+         */
+        appId: string;
+        /**
+         * WeChat App secret.
+         */
+        appSecret: string;
+        /**
+         * WeChat secret key.
+         */
+        secretKey: string;
+        /**
+         * WeChat Shop ID for payments.
+         */
+        shopId: string;
+    }
+
+    export interface IpsDnsFilter {
+        /**
+         * List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+         */
+        allowedSites?: string[];
+        /**
+         * List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+         */
+        blockedSites?: string[];
+        /**
+         * List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
+         */
+        blockedTlds?: string[];
+        /**
+         * Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
+         */
+        description: string;
+        /**
+         * Filter type that determines the predefined filtering level. Valid values are:
+         *   * `none` - No predefined filtering
+         *   * `work` - Work-appropriate filtering that blocks adult content
+         *   * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
+         */
+        filter: string;
+        /**
+         * Name of the DNS filter. This is used to identify the filter in the UniFi interface.
+         */
+        name: string;
+        /**
+         * Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
+         */
+        networkId: string;
+    }
+
+    export interface IpsHoneypot {
+        /**
+         * IP address for the honeypot. This should be an unused IPv4 address within your network range that will be used as a decoy system.
+         */
+        ipAddress: string;
+        /**
+         * Network ID for the honeypot. This should be a valid network ID from your UniFi configuration where the honeypot will be deployed.
+         */
+        networkId: string;
+    }
+
+    export interface IpsSuppression {
+        /**
+         * Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
+         */
+        alerts?: outputs.setting.IpsSuppressionAlert[];
+        /**
+         * Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
+         */
+        whitelists: outputs.setting.IpsSuppressionWhitelist[];
+    }
+
+    export interface IpsSuppressionAlert {
+        /**
+         * Category of the alert to suppress. This should match one of the categories from the enabledCategories list.
+         */
+        category: string;
+        /**
+         * Signature name of the alert to suppress. This is a human-readable identifier for the alert in the IPS ruleset.
+         */
+        signature: string;
+        /**
+         * Tracking configuration for the alert. This defines how the system should track occurrences of this alert based on source/destination addresses.
+         */
+        trackings: outputs.setting.IpsSuppressionAlertTracking[];
+        /**
+         * Type of suppression. Valid values are:
+         *   * `all` - Suppress all occurrences of this alert
+         *   * `track` - Only track this alert according to the tracking configuration
+         */
+        type: string;
+    }
+
+    export interface IpsSuppressionAlertTracking {
+        /**
+         * Direction for tracking. Valid values are:
+         *   * `src` - Track by source address
+         *   * `dest` - Track by destination address
+         *   * `both` - Track by both source and destination addresses
+         */
+        direction: string;
+        /**
+         * Mode for tracking. Valid values are:
+         *   * `ip` - Track by individual IP address
+         *   * `subnet` - Track by subnet
+         *   * `network` - Track by network ID
+         */
+        mode: string;
+        /**
+         * Value for tracking. The meaning depends on the mode:
+         *   * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+         *   * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+         *   * For `network` mode: A network ID from your UniFi configuration
+         */
+        value: string;
+    }
+
+    export interface IpsSuppressionWhitelist {
+        /**
+         * Direction for whitelist. Valid values are:
+         *   * `src` - Whitelist by source address
+         *   * `dst` - Whitelist by destination address
+         *   * `both` - Whitelist by both source and destination addresses
+         */
+        direction: string;
+        /**
+         * Mode for whitelist. Valid values are:
+         *   * `ip` - Whitelist by individual IP address
+         *   * `subnet` - Whitelist by subnet
+         *   * `network` - Whitelist by network ID
+         */
+        mode: string;
+        /**
+         * Value for whitelist. The meaning depends on the mode:
+         *   * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+         *   * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+         *   * For `network` mode: A network ID from your UniFi configuration
+         */
+        value: string;
+    }
+
+    export interface MgmtSshKey {
+        /**
+         * An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
+         */
+        comment?: string;
+        /**
+         * The public key string. This is the content that would normally go in an authorizedKeys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
+         */
+        key?: string;
+        /**
+         * A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
+         */
+        name: string;
+        /**
+         * The type of SSH key. Common values include:
+         *   * `ssh-rsa` - RSA key (most common)
+         *   * `ssh-ed25519` - Ed25519 key (more secure)
+         *   * `ecdsa-sha2-nistp256` - ECDSA key
+         */
+        type: string;
+    }
+
+    export interface USGDhcpRelay {
+        /**
+         * Specifies how to handle DHCP relay agent information in packets. Valid values are:
+         *   * `append` - Add relay agent information to packets that may already contain it
+         *   * `discard` - Drop packets that already contain relay agent information
+         *   * `forward` - Forward packets regardless of relay agent information
+         *   * `replace` - Replace existing relay agent information with the gateway's information
+         */
+        agentsPackets: string;
+        /**
+         * Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
+         */
+        hopCount: number;
+        /**
+         * Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
+         */
+        maxSize: number;
+        /**
+         * UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
+         */
+        port: number;
+    }
+
+    export interface USGDnsVerification {
+        /**
+         * The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `settingPreference` is set to `manual`.
+         */
+        domain: string;
+        /**
+         * The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `settingPreference` is set to `manual`. Must be a valid IPv4 address.
+         */
+        primaryDnsServer: string;
+        /**
+         * The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `settingPreference` is set to `manual`. Must be a valid IPv4 address if specified.
+         */
+        secondaryDnsServer: string;
+        /**
+         * Determines how DNS verification servers are configured. Valid values are:
+         *   * `auto` - The gateway will automatically select DNS servers for verification
+         *   * `manual` - Use the manually specified `primaryDnsServer` and optionally `secondaryDnsServer`
+         *
+         * When set to `manual`, you must also specify `primaryDnsServer` and `domain` values.
+         */
+        settingPreference: string;
+    }
+
+    export interface USGGeoIpFiltering {
+        /**
+         * List of two-letter ISO 3166-1 alpha-2 country codes to block or allow, depending on the `block` setting. Must contain at least one country code when geo IP filtering is enabled. Country codes are case-insensitive but are typically written in uppercase.
+         *
+         * Examples:
+         *   * `['US', 'CA', 'MX']` - United States, Canada, and Mexico
+         *   * `['CN', 'RU', 'IR']` - China, Russia, and Iran
+         *   * `['GB', 'DE', 'FR']` - United Kingdom, Germany, and France
+         */
+        countries: string[];
+        /**
+         * Specifies whether the selected countries should be blocked or allowed. Valid values are:
+         *   * `block` (default) - Traffic from the specified countries will be blocked, while traffic from all other countries will be allowed
+         *   * `allow` - Only traffic from the specified countries will be allowed, while traffic from all other countries will be blocked
+         *
+         * This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
+         */
+        mode: string;
+        /**
+         * Specifies which traffic direction the geo IP filtering applies to. Valid values are:
+         *   * `both` (default) - Filters traffic in both directions (incoming and outgoing)
+         *   * `ingress` - Filters only incoming traffic (from WAN to LAN)
+         *   * `egress` - Filters only outgoing traffic (from LAN to WAN)
+         *
+         * This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
+         */
+        trafficDirection: string;
+    }
+
+    export interface USGTcpTimeouts {
+        /**
+         * Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
+         */
+        closeTimeout: number;
+        /**
+         * Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
+         */
+        closeWaitTimeout: number;
+        /**
+         * Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
+         */
+        establishedTimeout: number;
+        /**
+         * Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
+         */
+        finWaitTimeout: number;
+        /**
+         * Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
+         */
+        lastAckTimeout: number;
+        /**
+         * Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
+         */
+        synRecvTimeout: number;
+        /**
+         * Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
+         */
+        synSentTimeout: number;
+        /**
+         * Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
+         */
+        timeWaitTimeout: number;
+    }
+
+    export interface USGUpnp {
+        /**
+         * Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
+         */
+        natPmpEnabled: boolean;
+        /**
+         * Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
+         */
+        secureMode: boolean;
+        /**
+         * Specify which WAN interface to use for UPNP service. Valid values are:
+         *   * `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
+         *   * `WAN2` - Use the secondary WAN interface for UPNP port forwarding (if available)
+         *
+         * This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
+         */
+        wanInterface: string;
     }
 
 }

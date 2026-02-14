@@ -13,7 +13,7 @@ namespace Pulumiverse.Unifi.Port
     public static class GetProfile
     {
         /// <summary>
-        /// `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
+        /// `unifi.port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.
         /// 
         /// ## Example Usage
         /// 
@@ -34,7 +34,7 @@ namespace Pulumiverse.Unifi.Port
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
+        /// `unifi.port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.
         /// 
         /// ## Example Usage
         /// 
@@ -55,7 +55,7 @@ namespace Pulumiverse.Unifi.Port
             => global::Pulumi.Deployment.Instance.Invoke<GetProfileResult>("unifi:port/getProfile:getProfile", args ?? new GetProfileInvokeArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.port.Profile` data source can be used to retrieve the ID for a port profile by name.
+        /// `unifi.port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.
         /// 
         /// ## Example Usage
         /// 
@@ -80,13 +80,13 @@ namespace Pulumiverse.Unifi.Port
     public sealed class GetProfileArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The name of the port profile to look up. Defaults to `All`.
+        /// The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
         /// </summary>
         [Input("name")]
         public string? Name { get; set; }
 
         /// <summary>
-        /// The name of the site the port profile is associated with.
+        /// The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public string? Site { get; set; }
@@ -100,13 +100,13 @@ namespace Pulumiverse.Unifi.Port
     public sealed class GetProfileInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
-        /// The name of the port profile to look up. Defaults to `All`.
+        /// The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The name of the site the port profile is associated with.
+        /// The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
@@ -122,15 +122,15 @@ namespace Pulumiverse.Unifi.Port
     public sealed class GetProfileResult
     {
         /// <summary>
-        /// The ID of this port profile.
+        /// The unique identifier of the port profile. This is automatically assigned by UniFi and can be used to reference this port profile in other resources.
         /// </summary>
         public readonly string Id;
         /// <summary>
-        /// The name of the port profile to look up. Defaults to `All`.
+        /// The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
         /// </summary>
         public readonly string? Name;
         /// <summary>
-        /// The name of the site the port profile is associated with.
+        /// The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
         /// </summary>
         public readonly string Site;
 

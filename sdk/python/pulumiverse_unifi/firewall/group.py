@@ -25,10 +25,16 @@ class GroupArgs:
                  site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Group resource.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: The members of the firewall group.
-        :param pulumi.Input[_builtins.str] type: The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
-        :param pulumi.Input[_builtins.str] name: The name of the firewall group.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the firewall group with.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: List of members in the group. The format depends on the group type:
+                 * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+                 * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+                 * For ipv6-address-group: IPv6 addresses or CIDR notation
+        :param pulumi.Input[_builtins.str] type: The type of firewall group. Valid values are:
+                 * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+                 * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+                 * `ipv6-address-group` - Group of IPv6 addresses and/or networks
+        :param pulumi.Input[_builtins.str] name: A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
         """
         pulumi.set(__self__, "members", members)
         pulumi.set(__self__, "type", type)
@@ -41,7 +47,10 @@ class GroupArgs:
     @pulumi.getter
     def members(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
         """
-        The members of the firewall group.
+        List of members in the group. The format depends on the group type:
+          * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+          * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+          * For ipv6-address-group: IPv6 addresses or CIDR notation
         """
         return pulumi.get(self, "members")
 
@@ -53,7 +62,10 @@ class GroupArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[_builtins.str]:
         """
-        The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        The type of firewall group. Valid values are:
+          * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+          * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+          * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         """
         return pulumi.get(self, "type")
 
@@ -65,7 +77,7 @@ class GroupArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the firewall group.
+        A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
         """
         return pulumi.get(self, "name")
 
@@ -77,7 +89,7 @@ class GroupArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the firewall group with.
+        The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -95,10 +107,16 @@ class _GroupState:
                  type: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Group resources.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: The members of the firewall group.
-        :param pulumi.Input[_builtins.str] name: The name of the firewall group.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the firewall group with.
-        :param pulumi.Input[_builtins.str] type: The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: List of members in the group. The format depends on the group type:
+                 * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+                 * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+                 * For ipv6-address-group: IPv6 addresses or CIDR notation
+        :param pulumi.Input[_builtins.str] name: A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] type: The type of firewall group. Valid values are:
+                 * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+                 * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+                 * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         """
         if members is not None:
             pulumi.set(__self__, "members", members)
@@ -113,7 +131,10 @@ class _GroupState:
     @pulumi.getter
     def members(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        The members of the firewall group.
+        List of members in the group. The format depends on the group type:
+          * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+          * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+          * For ipv6-address-group: IPv6 addresses or CIDR notation
         """
         return pulumi.get(self, "members")
 
@@ -125,7 +146,7 @@ class _GroupState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the firewall group.
+        A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
         """
         return pulumi.get(self, "name")
 
@@ -137,7 +158,7 @@ class _GroupState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the firewall group with.
+        The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -149,7 +170,10 @@ class _GroupState:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        The type of firewall group. Valid values are:
+          * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+          * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+          * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         """
         return pulumi.get(self, "type")
 
@@ -170,7 +194,18 @@ class Group(pulumi.CustomResource):
                  type: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `firewall.Group` manages groups of addresses or ports for use in firewall rules (`firewall.Rule`).
+        The `firewall.Group` resource manages reusable groups of addresses or ports that can be referenced in firewall rules (`firewall.Rule`).
+
+        Firewall groups help organize and simplify firewall rule management by allowing you to:
+          * Create collections of IP addresses or networks
+          * Define sets of ports for specific services
+          * Group IPv6 addresses for IPv6-specific rules
+
+        Common use cases include:
+          * Creating groups of trusted IP addresses
+          * Defining port groups for specific applications
+          * Managing access control lists
+          * Simplifying rule maintenance by using groups instead of individual IPs/ports
 
         ## Example Usage
 
@@ -188,10 +223,16 @@ class Group(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: The members of the firewall group.
-        :param pulumi.Input[_builtins.str] name: The name of the firewall group.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the firewall group with.
-        :param pulumi.Input[_builtins.str] type: The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: List of members in the group. The format depends on the group type:
+                 * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+                 * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+                 * For ipv6-address-group: IPv6 addresses or CIDR notation
+        :param pulumi.Input[_builtins.str] name: A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] type: The type of firewall group. Valid values are:
+                 * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+                 * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+                 * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         """
         ...
     @overload
@@ -200,7 +241,18 @@ class Group(pulumi.CustomResource):
                  args: GroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `firewall.Group` manages groups of addresses or ports for use in firewall rules (`firewall.Rule`).
+        The `firewall.Group` resource manages reusable groups of addresses or ports that can be referenced in firewall rules (`firewall.Rule`).
+
+        Firewall groups help organize and simplify firewall rule management by allowing you to:
+          * Create collections of IP addresses or networks
+          * Define sets of ports for specific services
+          * Group IPv6 addresses for IPv6-specific rules
+
+        Common use cases include:
+          * Creating groups of trusted IP addresses
+          * Defining port groups for specific applications
+          * Managing access control lists
+          * Simplifying rule maintenance by using groups instead of individual IPs/ports
 
         ## Example Usage
 
@@ -273,10 +325,16 @@ class Group(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: The members of the firewall group.
-        :param pulumi.Input[_builtins.str] name: The name of the firewall group.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the firewall group with.
-        :param pulumi.Input[_builtins.str] type: The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: List of members in the group. The format depends on the group type:
+                 * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+                 * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+                 * For ipv6-address-group: IPv6 addresses or CIDR notation
+        :param pulumi.Input[_builtins.str] name: A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] type: The type of firewall group. Valid values are:
+                 * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+                 * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+                 * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -292,7 +350,10 @@ class Group(pulumi.CustomResource):
     @pulumi.getter
     def members(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        The members of the firewall group.
+        List of members in the group. The format depends on the group type:
+          * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+          * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+          * For ipv6-address-group: IPv6 addresses or CIDR notation
         """
         return pulumi.get(self, "members")
 
@@ -300,7 +361,7 @@ class Group(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the firewall group.
+        A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
         """
         return pulumi.get(self, "name")
 
@@ -308,7 +369,7 @@ class Group(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the firewall group with.
+        The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -316,7 +377,10 @@ class Group(pulumi.CustomResource):
     @pulumi.getter
     def type(self) -> pulumi.Output[_builtins.str]:
         """
-        The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        The type of firewall group. Valid values are:
+          * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+          * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+          * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         """
         return pulumi.get(self, "type")
 

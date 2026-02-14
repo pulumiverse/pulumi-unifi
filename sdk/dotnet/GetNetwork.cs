@@ -215,7 +215,7 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly int DhcpV6Lease;
         /// <summary>
-        /// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// start address of the DHCPv6 range. Used in static DHCPv6 configuration.
         /// </summary>
         public readonly string DhcpV6Start;
         /// <summary>
@@ -259,7 +259,7 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string Ipv6PdPrefixid;
         /// <summary>
-        /// Start address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
+        /// start address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
         /// </summary>
         public readonly string Ipv6PdStart;
         /// <summary>

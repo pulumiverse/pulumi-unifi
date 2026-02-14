@@ -17,12 +17,13 @@
 package main
 
 import (
+	"context"
+
 	_ "embed"
 
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
+	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/pf/tfbridge"
 
 	unifi "github.com/pulumiverse/pulumi-unifi/provider"
-	"github.com/pulumiverse/pulumi-unifi/provider/pkg/version"
 )
 
 //go:embed schema-embed.json
@@ -30,5 +31,5 @@ var pulumiSchema []byte
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.Main("unifi", version.Version, unifi.Provider(), pulumiSchema)
+	tfbridge.MainWithMuxer(context.Background(), "unifi", unifi.Provider(), pulumiSchema)
 }

@@ -28,13 +28,19 @@ class StaticRouteArgs:
                  site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a StaticRoute resource.
-        :param pulumi.Input[_builtins.int] distance: The distance of the static route.
-        :param pulumi.Input[_builtins.str] network: The network subnet address.
-        :param pulumi.Input[_builtins.str] type: The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
-        :param pulumi.Input[_builtins.str] interface: The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
-        :param pulumi.Input[_builtins.str] name: The name of the static route.
-        :param pulumi.Input[_builtins.str] next_hop: The next hop of the static route (only valid for `nexthop-route` type).
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the static route with.
+        :param pulumi.Input[_builtins.int] distance: The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
+        :param pulumi.Input[_builtins.str] network: The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
+        :param pulumi.Input[_builtins.str] type: The type of static route. Valid values are:
+                 * `interface-route` - Route traffic through a specific interface
+                 * `nexthop-route` - Route traffic to a specific next-hop IP address
+                 * `blackhole` - Drop all traffic to this network
+        :param pulumi.Input[_builtins.str] interface: The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+                 * `WAN1` - Primary WAN interface
+                 * `WAN2` - Secondary WAN interface
+                 * A network ID for internal networks
+        :param pulumi.Input[_builtins.str] name: A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
+        :param pulumi.Input[_builtins.str] next_hop: The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
         """
         pulumi.set(__self__, "distance", distance)
         pulumi.set(__self__, "network", network)
@@ -52,7 +58,7 @@ class StaticRouteArgs:
     @pulumi.getter
     def distance(self) -> pulumi.Input[_builtins.int]:
         """
-        The distance of the static route.
+        The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
         """
         return pulumi.get(self, "distance")
 
@@ -64,7 +70,7 @@ class StaticRouteArgs:
     @pulumi.getter
     def network(self) -> pulumi.Input[_builtins.str]:
         """
-        The network subnet address.
+        The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
         """
         return pulumi.get(self, "network")
 
@@ -76,7 +82,10 @@ class StaticRouteArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[_builtins.str]:
         """
-        The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        The type of static route. Valid values are:
+          * `interface-route` - Route traffic through a specific interface
+          * `nexthop-route` - Route traffic to a specific next-hop IP address
+          * `blackhole` - Drop all traffic to this network
         """
         return pulumi.get(self, "type")
 
@@ -88,7 +97,10 @@ class StaticRouteArgs:
     @pulumi.getter
     def interface(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+        The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+          * `WAN1` - Primary WAN interface
+          * `WAN2` - Secondary WAN interface
+          * A network ID for internal networks
         """
         return pulumi.get(self, "interface")
 
@@ -100,7 +112,7 @@ class StaticRouteArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the static route.
+        A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
         """
         return pulumi.get(self, "name")
 
@@ -112,7 +124,7 @@ class StaticRouteArgs:
     @pulumi.getter(name="nextHop")
     def next_hop(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The next hop of the static route (only valid for `nexthop-route` type).
+        The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
         """
         return pulumi.get(self, "next_hop")
 
@@ -124,7 +136,7 @@ class StaticRouteArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the static route with.
+        The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -145,13 +157,19 @@ class _StaticRouteState:
                  type: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering StaticRoute resources.
-        :param pulumi.Input[_builtins.int] distance: The distance of the static route.
-        :param pulumi.Input[_builtins.str] interface: The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
-        :param pulumi.Input[_builtins.str] name: The name of the static route.
-        :param pulumi.Input[_builtins.str] network: The network subnet address.
-        :param pulumi.Input[_builtins.str] next_hop: The next hop of the static route (only valid for `nexthop-route` type).
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the static route with.
-        :param pulumi.Input[_builtins.str] type: The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        :param pulumi.Input[_builtins.int] distance: The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
+        :param pulumi.Input[_builtins.str] interface: The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+                 * `WAN1` - Primary WAN interface
+                 * `WAN2` - Secondary WAN interface
+                 * A network ID for internal networks
+        :param pulumi.Input[_builtins.str] name: A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
+        :param pulumi.Input[_builtins.str] network: The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
+        :param pulumi.Input[_builtins.str] next_hop: The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] type: The type of static route. Valid values are:
+                 * `interface-route` - Route traffic through a specific interface
+                 * `nexthop-route` - Route traffic to a specific next-hop IP address
+                 * `blackhole` - Drop all traffic to this network
         """
         if distance is not None:
             pulumi.set(__self__, "distance", distance)
@@ -172,7 +190,7 @@ class _StaticRouteState:
     @pulumi.getter
     def distance(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The distance of the static route.
+        The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
         """
         return pulumi.get(self, "distance")
 
@@ -184,7 +202,10 @@ class _StaticRouteState:
     @pulumi.getter
     def interface(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+        The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+          * `WAN1` - Primary WAN interface
+          * `WAN2` - Secondary WAN interface
+          * A network ID for internal networks
         """
         return pulumi.get(self, "interface")
 
@@ -196,7 +217,7 @@ class _StaticRouteState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the static route.
+        A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
         """
         return pulumi.get(self, "name")
 
@@ -208,7 +229,7 @@ class _StaticRouteState:
     @pulumi.getter
     def network(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The network subnet address.
+        The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
         """
         return pulumi.get(self, "network")
 
@@ -220,7 +241,7 @@ class _StaticRouteState:
     @pulumi.getter(name="nextHop")
     def next_hop(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The next hop of the static route (only valid for `nexthop-route` type).
+        The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
         """
         return pulumi.get(self, "next_hop")
 
@@ -232,7 +253,7 @@ class _StaticRouteState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the static route with.
+        The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -244,7 +265,10 @@ class _StaticRouteState:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        The type of static route. Valid values are:
+          * `interface-route` - Route traffic through a specific interface
+          * `nexthop-route` - Route traffic to a specific next-hop IP address
+          * `blackhole` - Drop all traffic to this network
         """
         return pulumi.get(self, "type")
 
@@ -268,7 +292,15 @@ class StaticRoute(pulumi.CustomResource):
                  type: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `StaticRoute` manages a static route.
+        The `StaticRoute` resource manages static routes on UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+
+        Static routes allow you to manually configure routing paths for specific networks. This is useful for:
+          * Connecting to networks not directly connected to your UniFi gateway
+          * Creating backup routes for redundancy
+          * Implementing policy-based routing
+          * Blocking traffic to specific networks using blackhole routes
+
+        Routes can be configured to use either a next-hop IP address, a specific interface, or as a blackhole route.
 
         ## Example Usage
 
@@ -297,13 +329,19 @@ class StaticRoute(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.int] distance: The distance of the static route.
-        :param pulumi.Input[_builtins.str] interface: The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
-        :param pulumi.Input[_builtins.str] name: The name of the static route.
-        :param pulumi.Input[_builtins.str] network: The network subnet address.
-        :param pulumi.Input[_builtins.str] next_hop: The next hop of the static route (only valid for `nexthop-route` type).
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the static route with.
-        :param pulumi.Input[_builtins.str] type: The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        :param pulumi.Input[_builtins.int] distance: The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
+        :param pulumi.Input[_builtins.str] interface: The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+                 * `WAN1` - Primary WAN interface
+                 * `WAN2` - Secondary WAN interface
+                 * A network ID for internal networks
+        :param pulumi.Input[_builtins.str] name: A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
+        :param pulumi.Input[_builtins.str] network: The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
+        :param pulumi.Input[_builtins.str] next_hop: The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] type: The type of static route. Valid values are:
+                 * `interface-route` - Route traffic through a specific interface
+                 * `nexthop-route` - Route traffic to a specific next-hop IP address
+                 * `blackhole` - Drop all traffic to this network
         """
         ...
     @overload
@@ -312,7 +350,15 @@ class StaticRoute(pulumi.CustomResource):
                  args: StaticRouteArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `StaticRoute` manages a static route.
+        The `StaticRoute` resource manages static routes on UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+
+        Static routes allow you to manually configure routing paths for specific networks. This is useful for:
+          * Connecting to networks not directly connected to your UniFi gateway
+          * Creating backup routes for redundancy
+          * Implementing policy-based routing
+          * Blocking traffic to specific networks using blackhole routes
+
+        Routes can be configured to use either a next-hop IP address, a specific interface, or as a blackhole route.
 
         ## Example Usage
 
@@ -407,13 +453,19 @@ class StaticRoute(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.int] distance: The distance of the static route.
-        :param pulumi.Input[_builtins.str] interface: The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
-        :param pulumi.Input[_builtins.str] name: The name of the static route.
-        :param pulumi.Input[_builtins.str] network: The network subnet address.
-        :param pulumi.Input[_builtins.str] next_hop: The next hop of the static route (only valid for `nexthop-route` type).
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the static route with.
-        :param pulumi.Input[_builtins.str] type: The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        :param pulumi.Input[_builtins.int] distance: The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
+        :param pulumi.Input[_builtins.str] interface: The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+                 * `WAN1` - Primary WAN interface
+                 * `WAN2` - Secondary WAN interface
+                 * A network ID for internal networks
+        :param pulumi.Input[_builtins.str] name: A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
+        :param pulumi.Input[_builtins.str] network: The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
+        :param pulumi.Input[_builtins.str] next_hop: The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.str] type: The type of static route. Valid values are:
+                 * `interface-route` - Route traffic through a specific interface
+                 * `nexthop-route` - Route traffic to a specific next-hop IP address
+                 * `blackhole` - Drop all traffic to this network
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -432,7 +484,7 @@ class StaticRoute(pulumi.CustomResource):
     @pulumi.getter
     def distance(self) -> pulumi.Output[_builtins.int]:
         """
-        The distance of the static route.
+        The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
         """
         return pulumi.get(self, "distance")
 
@@ -440,7 +492,10 @@ class StaticRoute(pulumi.CustomResource):
     @pulumi.getter
     def interface(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+        The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+          * `WAN1` - Primary WAN interface
+          * `WAN2` - Secondary WAN interface
+          * A network ID for internal networks
         """
         return pulumi.get(self, "interface")
 
@@ -448,7 +503,7 @@ class StaticRoute(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the static route.
+        A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
         """
         return pulumi.get(self, "name")
 
@@ -456,7 +511,7 @@ class StaticRoute(pulumi.CustomResource):
     @pulumi.getter
     def network(self) -> pulumi.Output[_builtins.str]:
         """
-        The network subnet address.
+        The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
         """
         return pulumi.get(self, "network")
 
@@ -464,7 +519,7 @@ class StaticRoute(pulumi.CustomResource):
     @pulumi.getter(name="nextHop")
     def next_hop(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The next hop of the static route (only valid for `nexthop-route` type).
+        The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
         """
         return pulumi.get(self, "next_hop")
 
@@ -472,7 +527,7 @@ class StaticRoute(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the static route with.
+        The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -480,7 +535,10 @@ class StaticRoute(pulumi.CustomResource):
     @pulumi.getter
     def type(self) -> pulumi.Output[_builtins.str]:
         """
-        The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        The type of static route. Valid values are:
+          * `interface-route` - Route traffic through a specific interface
+          * `nexthop-route` - Route traffic to a specific next-hop IP address
+          * `blackhole` - Drop all traffic to this network
         """
         return pulumi.get(self, "type")
 

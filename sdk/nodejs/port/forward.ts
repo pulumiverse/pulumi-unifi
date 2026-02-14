@@ -5,7 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.port.Forward` manages a port forwarding rule on the gateway.
+ * The `unifi.port.Forward` resource manages port forwarding rules on UniFi controllers.
+ *
+ * Port forwarding allows external traffic to reach services hosted on your internal network by mapping external ports to internal IP addresses and ports. This is commonly used for:
+ *   * Hosting web servers, game servers, or other services
+ *   * Remote access to internal services
+ *   * Application-specific requirements
+ *
+ * Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
  */
 export class Forward extends pulumi.CustomResource {
     /**
@@ -36,47 +43,53 @@ export class Forward extends pulumi.CustomResource {
     }
 
     /**
-     * The destination port for the forwarding.
+     * The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
      */
-    public readonly dstPort!: pulumi.Output<string | undefined>;
+    declare public readonly dstPort: pulumi.Output<string | undefined>;
     /**
-     * Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * Specifies whether the port forwarding rule is enabled or not.
      *
      * @deprecated This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      */
-    public readonly enabled!: pulumi.Output<boolean | undefined>;
+    declare public readonly enabled: pulumi.Output<boolean | undefined>;
     /**
-     * The IPv4 address to forward traffic to.
+     * The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
      */
-    public readonly fwdIp!: pulumi.Output<string | undefined>;
+    declare public readonly fwdIp: pulumi.Output<string | undefined>;
     /**
-     * The port to forward traffic to.
+     * The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
      */
-    public readonly fwdPort!: pulumi.Output<string | undefined>;
+    declare public readonly fwdPort: pulumi.Output<string | undefined>;
     /**
-     * Specifies whether to log forwarded traffic or not. Defaults to `false`.
+     * Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
      */
-    public readonly log!: pulumi.Output<boolean | undefined>;
+    declare public readonly log: pulumi.Output<boolean | undefined>;
     /**
-     * The name of the port forwarding rule.
+     * A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
-     * The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+     * The WAN interface to apply the port forwarding rule to. Valid values are:
+     *   * `wan` - Primary WAN interface
+     *   * `wan2` - Secondary WAN interface
+     *   * `both` - Both WAN interfaces
      */
-    public readonly portForwardInterface!: pulumi.Output<string | undefined>;
+    declare public readonly portForwardInterface: pulumi.Output<string | undefined>;
     /**
-     * The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+     * The network protocol(s) this rule applies to. Valid values are:
+     *   * `tcpUdp` - Both TCP and UDP (default)
+     *   * `tcp` - TCP only
+     *   * `udp` - UDP only
      */
-    public readonly protocol!: pulumi.Output<string | undefined>;
+    declare public readonly protocol: pulumi.Output<string | undefined>;
     /**
-     * The name of the site to associate the port forwarding rule with.
+     * The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
      */
-    public readonly site!: pulumi.Output<string>;
+    declare public readonly site: pulumi.Output<string>;
     /**
-     * The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+     * The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
      */
-    public readonly srcIp!: pulumi.Output<string | undefined>;
+    declare public readonly srcIp: pulumi.Output<string | undefined>;
 
     /**
      * Create a Forward resource with the given unique name, arguments, and options.
@@ -91,28 +104,28 @@ export class Forward extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as ForwardState | undefined;
-            resourceInputs["dstPort"] = state ? state.dstPort : undefined;
-            resourceInputs["enabled"] = state ? state.enabled : undefined;
-            resourceInputs["fwdIp"] = state ? state.fwdIp : undefined;
-            resourceInputs["fwdPort"] = state ? state.fwdPort : undefined;
-            resourceInputs["log"] = state ? state.log : undefined;
-            resourceInputs["name"] = state ? state.name : undefined;
-            resourceInputs["portForwardInterface"] = state ? state.portForwardInterface : undefined;
-            resourceInputs["protocol"] = state ? state.protocol : undefined;
-            resourceInputs["site"] = state ? state.site : undefined;
-            resourceInputs["srcIp"] = state ? state.srcIp : undefined;
+            resourceInputs["dstPort"] = state?.dstPort;
+            resourceInputs["enabled"] = state?.enabled;
+            resourceInputs["fwdIp"] = state?.fwdIp;
+            resourceInputs["fwdPort"] = state?.fwdPort;
+            resourceInputs["log"] = state?.log;
+            resourceInputs["name"] = state?.name;
+            resourceInputs["portForwardInterface"] = state?.portForwardInterface;
+            resourceInputs["protocol"] = state?.protocol;
+            resourceInputs["site"] = state?.site;
+            resourceInputs["srcIp"] = state?.srcIp;
         } else {
             const args = argsOrState as ForwardArgs | undefined;
-            resourceInputs["dstPort"] = args ? args.dstPort : undefined;
-            resourceInputs["enabled"] = args ? args.enabled : undefined;
-            resourceInputs["fwdIp"] = args ? args.fwdIp : undefined;
-            resourceInputs["fwdPort"] = args ? args.fwdPort : undefined;
-            resourceInputs["log"] = args ? args.log : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["portForwardInterface"] = args ? args.portForwardInterface : undefined;
-            resourceInputs["protocol"] = args ? args.protocol : undefined;
-            resourceInputs["site"] = args ? args.site : undefined;
-            resourceInputs["srcIp"] = args ? args.srcIp : undefined;
+            resourceInputs["dstPort"] = args?.dstPort;
+            resourceInputs["enabled"] = args?.enabled;
+            resourceInputs["fwdIp"] = args?.fwdIp;
+            resourceInputs["fwdPort"] = args?.fwdPort;
+            resourceInputs["log"] = args?.log;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["portForwardInterface"] = args?.portForwardInterface;
+            resourceInputs["protocol"] = args?.protocol;
+            resourceInputs["site"] = args?.site;
+            resourceInputs["srcIp"] = args?.srcIp;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Forward.__pulumiType, name, resourceInputs, opts);
@@ -124,45 +137,51 @@ export class Forward extends pulumi.CustomResource {
  */
 export interface ForwardState {
     /**
-     * The destination port for the forwarding.
+     * The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
      */
     dstPort?: pulumi.Input<string>;
     /**
-     * Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * Specifies whether the port forwarding rule is enabled or not.
      *
      * @deprecated This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      */
     enabled?: pulumi.Input<boolean>;
     /**
-     * The IPv4 address to forward traffic to.
+     * The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
      */
     fwdIp?: pulumi.Input<string>;
     /**
-     * The port to forward traffic to.
+     * The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
      */
     fwdPort?: pulumi.Input<string>;
     /**
-     * Specifies whether to log forwarded traffic or not. Defaults to `false`.
+     * Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
      */
     log?: pulumi.Input<boolean>;
     /**
-     * The name of the port forwarding rule.
+     * A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
      */
     name?: pulumi.Input<string>;
     /**
-     * The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+     * The WAN interface to apply the port forwarding rule to. Valid values are:
+     *   * `wan` - Primary WAN interface
+     *   * `wan2` - Secondary WAN interface
+     *   * `both` - Both WAN interfaces
      */
     portForwardInterface?: pulumi.Input<string>;
     /**
-     * The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+     * The network protocol(s) this rule applies to. Valid values are:
+     *   * `tcpUdp` - Both TCP and UDP (default)
+     *   * `tcp` - TCP only
+     *   * `udp` - UDP only
      */
     protocol?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the port forwarding rule with.
+     * The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+     * The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
      */
     srcIp?: pulumi.Input<string>;
 }
@@ -172,45 +191,51 @@ export interface ForwardState {
  */
 export interface ForwardArgs {
     /**
-     * The destination port for the forwarding.
+     * The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
      */
     dstPort?: pulumi.Input<string>;
     /**
-     * Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+     * Specifies whether the port forwarding rule is enabled or not.
      *
      * @deprecated This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
      */
     enabled?: pulumi.Input<boolean>;
     /**
-     * The IPv4 address to forward traffic to.
+     * The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
      */
     fwdIp?: pulumi.Input<string>;
     /**
-     * The port to forward traffic to.
+     * The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
      */
     fwdPort?: pulumi.Input<string>;
     /**
-     * Specifies whether to log forwarded traffic or not. Defaults to `false`.
+     * Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
      */
     log?: pulumi.Input<boolean>;
     /**
-     * The name of the port forwarding rule.
+     * A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
      */
     name?: pulumi.Input<string>;
     /**
-     * The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+     * The WAN interface to apply the port forwarding rule to. Valid values are:
+     *   * `wan` - Primary WAN interface
+     *   * `wan2` - Secondary WAN interface
+     *   * `both` - Both WAN interfaces
      */
     portForwardInterface?: pulumi.Input<string>;
     /**
-     * The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+     * The network protocol(s) this rule applies to. Valid values are:
+     *   * `tcpUdp` - Both TCP and UDP (default)
+     *   * `tcp` - TCP only
+     *   * `udp` - UDP only
      */
     protocol?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the port forwarding rule with.
+     * The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+     * The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
      */
     srcIp?: pulumi.Input<string>;
 }

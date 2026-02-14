@@ -28,6 +28,13 @@ class _ExportableConfig(types.ModuleType):
         return __config__.get_bool('allowInsecure') or _utilities.get_env_bool('UNIFI_INSECURE')
 
     @_builtins.property
+    def api_key(self) -> Optional[str]:
+        """
+        API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+        """
+        return __config__.get('apiKey')
+
+    @_builtins.property
     def api_url(self) -> Optional[str]:
         """
         URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.

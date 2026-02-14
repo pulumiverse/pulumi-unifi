@@ -30,6 +30,8 @@ class DevicePortOverride(dict):
             suggest = "aggregate_num_ports"
         elif key == "opMode":
             suggest = "op_mode"
+        elif key == "poeMode":
+            suggest = "poe_mode"
         elif key == "portProfileId":
             suggest = "port_profile_id"
 
@@ -49,13 +51,44 @@ class DevicePortOverride(dict):
                  aggregate_num_ports: Optional[_builtins.int] = None,
                  name: Optional[_builtins.str] = None,
                  op_mode: Optional[_builtins.str] = None,
+                 poe_mode: Optional[_builtins.str] = None,
                  port_profile_id: Optional[_builtins.str] = None):
         """
-        :param _builtins.int number: Switch port number.
-        :param _builtins.int aggregate_num_ports: Number of ports in the aggregate.
-        :param _builtins.str name: Human-readable name of the port.
-        :param _builtins.str op_mode: Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
-        :param _builtins.str port_profile_id: ID of the Port Profile used on this port.
+        :param _builtins.int number: The physical port number on the switch to configure.
+        :param _builtins.int aggregate_num_ports: The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
+               * Creating switch-to-switch uplinks for increased bandwidth
+               * Setting up high-availability connections
+               * Connecting to servers requiring more bandwidth
+               Note: All ports in the LAG must be sequential and have matching configurations.
+        :param _builtins.str name: A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
+                 * 'Uplink to Core Switch'
+                 * 'Conference Room AP'
+                 * 'Server LACP Group 1'
+                 * 'VoIP Phone Port'
+        :param _builtins.str op_mode: The operating mode of the port. Valid values are:
+                 * `switch` - Normal switching mode (default)
+                   - Standard port operation for connecting devices
+                   - Supports VLANs and all standard switching features
+                 * `mirror` - Port mirroring for traffic analysis
+                   - Copies traffic from other ports for monitoring
+                   - Useful for network troubleshooting and security
+                 * `aggregate` - Link aggregation/bonding mode
+                   - Combines multiple ports for increased bandwidth
+                   - Used for switch uplinks or high-bandwidth servers
+        :param _builtins.str poe_mode: The Power over Ethernet (PoE) mode for the port. Valid values are:
+               * `auto` - Automatically detect and power PoE devices (recommended)
+                 - Provides power based on device negotiation
+                 - Safest option for most PoE devices
+               * `pasv24` - Passive 24V PoE
+                 - For older UniFi devices requiring passive 24V
+                 - Use with caution to avoid damage
+               * `passthrough` - PoE passthrough mode
+                 - For daisy-chaining PoE devices
+                 - Available on select UniFi switches
+               * `off` - Disable PoE on the port
+                 - For non-PoE devices
+                 - To prevent unwanted power delivery
+        :param _builtins.str port_profile_id: The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
         """
         pulumi.set(__self__, "number", number)
         if aggregate_num_ports is not None:
@@ -64,6 +97,8 @@ class DevicePortOverride(dict):
             pulumi.set(__self__, "name", name)
         if op_mode is not None:
             pulumi.set(__self__, "op_mode", op_mode)
+        if poe_mode is not None:
+            pulumi.set(__self__, "poe_mode", poe_mode)
         if port_profile_id is not None:
             pulumi.set(__self__, "port_profile_id", port_profile_id)
 
@@ -71,7 +106,7 @@ class DevicePortOverride(dict):
     @pulumi.getter
     def number(self) -> _builtins.int:
         """
-        Switch port number.
+        The physical port number on the switch to configure.
         """
         return pulumi.get(self, "number")
 
@@ -79,7 +114,11 @@ class DevicePortOverride(dict):
     @pulumi.getter(name="aggregateNumPorts")
     def aggregate_num_ports(self) -> Optional[_builtins.int]:
         """
-        Number of ports in the aggregate.
+        The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
+        * Creating switch-to-switch uplinks for increased bandwidth
+        * Setting up high-availability connections
+        * Connecting to servers requiring more bandwidth
+        Note: All ports in the LAG must be sequential and have matching configurations.
         """
         return pulumi.get(self, "aggregate_num_ports")
 
@@ -87,7 +126,11 @@ class DevicePortOverride(dict):
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         """
-        Human-readable name of the port.
+        A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
+          * 'Uplink to Core Switch'
+          * 'Conference Room AP'
+          * 'Server LACP Group 1'
+          * 'VoIP Phone Port'
         """
         return pulumi.get(self, "name")
 
@@ -95,15 +138,44 @@ class DevicePortOverride(dict):
     @pulumi.getter(name="opMode")
     def op_mode(self) -> Optional[_builtins.str]:
         """
-        Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+        The operating mode of the port. Valid values are:
+          * `switch` - Normal switching mode (default)
+            - Standard port operation for connecting devices
+            - Supports VLANs and all standard switching features
+          * `mirror` - Port mirroring for traffic analysis
+            - Copies traffic from other ports for monitoring
+            - Useful for network troubleshooting and security
+          * `aggregate` - Link aggregation/bonding mode
+            - Combines multiple ports for increased bandwidth
+            - Used for switch uplinks or high-bandwidth servers
         """
         return pulumi.get(self, "op_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="poeMode")
+    def poe_mode(self) -> Optional[_builtins.str]:
+        """
+        The Power over Ethernet (PoE) mode for the port. Valid values are:
+        * `auto` - Automatically detect and power PoE devices (recommended)
+          - Provides power based on device negotiation
+          - Safest option for most PoE devices
+        * `pasv24` - Passive 24V PoE
+          - For older UniFi devices requiring passive 24V
+          - Use with caution to avoid damage
+        * `passthrough` - PoE passthrough mode
+          - For daisy-chaining PoE devices
+          - Available on select UniFi switches
+        * `off` - Disable PoE on the port
+          - For non-PoE devices
+          - To prevent unwanted power delivery
+        """
+        return pulumi.get(self, "poe_mode")
 
     @_builtins.property
     @pulumi.getter(name="portProfileId")
     def port_profile_id(self) -> Optional[_builtins.str]:
         """
-        ID of the Port Profile used on this port.
+        The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
         """
         return pulumi.get(self, "port_profile_id")
 
@@ -115,9 +187,9 @@ class RadiusProfileAcctServer(dict):
                  xsecret: _builtins.str,
                  port: Optional[_builtins.int] = None):
         """
-        :param _builtins.str ip: IP address of accounting service server.
-        :param _builtins.str xsecret: RADIUS secret.
-        :param _builtins.int port: Port of accounting service. Defaults to `1813`.
+        :param _builtins.str ip: The IPv4 address of the RADIUS accounting server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
+        :param _builtins.str xsecret: The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
+        :param _builtins.int port: The UDP port number where the RADIUS accounting service is listening. The standard port is 1813, but this can be changed if needed to match your server configuration.
         """
         pulumi.set(__self__, "ip", ip)
         pulumi.set(__self__, "xsecret", xsecret)
@@ -128,7 +200,7 @@ class RadiusProfileAcctServer(dict):
     @pulumi.getter
     def ip(self) -> _builtins.str:
         """
-        IP address of accounting service server.
+        The IPv4 address of the RADIUS accounting server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
         """
         return pulumi.get(self, "ip")
 
@@ -136,7 +208,7 @@ class RadiusProfileAcctServer(dict):
     @pulumi.getter
     def xsecret(self) -> _builtins.str:
         """
-        RADIUS secret.
+        The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
         """
         return pulumi.get(self, "xsecret")
 
@@ -144,7 +216,7 @@ class RadiusProfileAcctServer(dict):
     @pulumi.getter
     def port(self) -> Optional[_builtins.int]:
         """
-        Port of accounting service. Defaults to `1813`.
+        The UDP port number where the RADIUS accounting service is listening. The standard port is 1813, but this can be changed if needed to match your server configuration.
         """
         return pulumi.get(self, "port")
 
@@ -156,9 +228,9 @@ class RadiusProfileAuthServer(dict):
                  xsecret: _builtins.str,
                  port: Optional[_builtins.int] = None):
         """
-        :param _builtins.str ip: IP address of authentication service server.
-        :param _builtins.str xsecret: RADIUS secret.
-        :param _builtins.int port: Port of authentication service. Defaults to `1812`.
+        :param _builtins.str ip: The IPv4 address of the RADIUS authentication server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
+        :param _builtins.str xsecret: The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
+        :param _builtins.int port: The UDP port number where the RADIUS authentication service is listening. The standard port is 1812, but this can be changed if needed to match your server configuration.
         """
         pulumi.set(__self__, "ip", ip)
         pulumi.set(__self__, "xsecret", xsecret)
@@ -169,7 +241,7 @@ class RadiusProfileAuthServer(dict):
     @pulumi.getter
     def ip(self) -> _builtins.str:
         """
-        IP address of authentication service server.
+        The IPv4 address of the RADIUS authentication server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
         """
         return pulumi.get(self, "ip")
 
@@ -177,7 +249,7 @@ class RadiusProfileAuthServer(dict):
     @pulumi.getter
     def xsecret(self) -> _builtins.str:
         """
-        RADIUS secret.
+        The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
         """
         return pulumi.get(self, "xsecret")
 
@@ -185,7 +257,7 @@ class RadiusProfileAuthServer(dict):
     @pulumi.getter
     def port(self) -> Optional[_builtins.int]:
         """
-        Port of authentication service. Defaults to `1812`.
+        The UDP port number where the RADIUS authentication service is listening. The standard port is 1812, but this can be changed if needed to match your server configuration.
         """
         return pulumi.get(self, "port")
 
@@ -220,11 +292,11 @@ class WlanSchedule(dict):
                  name: Optional[_builtins.str] = None,
                  start_minute: Optional[_builtins.int] = None):
         """
-        :param _builtins.str day_of_week: Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
-        :param _builtins.int duration: Length of the block in minutes.
-        :param _builtins.int start_hour: Start hour for the block (0-23).
-        :param _builtins.str name: Name of the block.
-        :param _builtins.int start_minute: Start minute for the block (0-59). Defaults to `0`.
+        :param _builtins.str day_of_week: Day of week. Valid values: `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+        :param _builtins.int duration: Duration in minutes that the network should remain active.
+        :param _builtins.int start_hour: Start hour in 24-hour format (0-23).
+        :param _builtins.str name: Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
+        :param _builtins.int start_minute: Start minute (0-59).
         """
         pulumi.set(__self__, "day_of_week", day_of_week)
         pulumi.set(__self__, "duration", duration)
@@ -238,7 +310,7 @@ class WlanSchedule(dict):
     @pulumi.getter(name="dayOfWeek")
     def day_of_week(self) -> _builtins.str:
         """
-        Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+        Day of week. Valid values: `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
         """
         return pulumi.get(self, "day_of_week")
 
@@ -246,7 +318,7 @@ class WlanSchedule(dict):
     @pulumi.getter
     def duration(self) -> _builtins.int:
         """
-        Length of the block in minutes.
+        Duration in minutes that the network should remain active.
         """
         return pulumi.get(self, "duration")
 
@@ -254,7 +326,7 @@ class WlanSchedule(dict):
     @pulumi.getter(name="startHour")
     def start_hour(self) -> _builtins.int:
         """
-        Start hour for the block (0-23).
+        Start hour in 24-hour format (0-23).
         """
         return pulumi.get(self, "start_hour")
 
@@ -262,7 +334,7 @@ class WlanSchedule(dict):
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         """
-        Name of the block.
+        Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
         """
         return pulumi.get(self, "name")
 
@@ -270,7 +342,7 @@ class WlanSchedule(dict):
     @pulumi.getter(name="startMinute")
     def start_minute(self) -> Optional[_builtins.int]:
         """
-        Start minute for the block (0-59). Defaults to `0`.
+        Start minute (0-59).
         """
         return pulumi.get(self, "start_minute")
 

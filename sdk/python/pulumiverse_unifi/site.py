@@ -22,7 +22,7 @@ class SiteArgs:
                  description: pulumi.Input[_builtins.str]):
         """
         The set of arguments for constructing a Site resource.
-        :param pulumi.Input[_builtins.str] description: The description of the site.
+        :param pulumi.Input[_builtins.str] description: A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
         """
         pulumi.set(__self__, "description", description)
 
@@ -30,7 +30,7 @@ class SiteArgs:
     @pulumi.getter
     def description(self) -> pulumi.Input[_builtins.str]:
         """
-        The description of the site.
+        A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
         """
         return pulumi.get(self, "description")
 
@@ -46,8 +46,8 @@ class _SiteState:
                  name: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Site resources.
-        :param pulumi.Input[_builtins.str] description: The description of the site.
-        :param pulumi.Input[_builtins.str] name: The name of the site.
+        :param pulumi.Input[_builtins.str] description: A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
+        :param pulumi.Input[_builtins.str] name: The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
         """
         if description is not None:
             pulumi.set(__self__, "description", description)
@@ -58,7 +58,7 @@ class _SiteState:
     @pulumi.getter
     def description(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The description of the site.
+        A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
         """
         return pulumi.get(self, "description")
 
@@ -70,7 +70,7 @@ class _SiteState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site.
+        The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
         """
         return pulumi.get(self, "name")
 
@@ -88,7 +88,20 @@ class Site(pulumi.CustomResource):
                  description: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `Site` manages Unifi sites
+        The `Site` resource manages UniFi sites, which are logical groupings of UniFi devices and their configurations.
+
+        Sites in UniFi are used to:
+          * Organize network devices and settings for different physical locations
+          * Isolate configurations between different networks or customers
+          * Apply different policies and configurations to different groups of devices
+
+        Each site maintains its own:
+          * Network configurations
+          * Wireless networks (WLANs)
+          * Security policies
+          * Device configurations
+
+        A UniFi controller can manage multiple sites, making it ideal for multi-tenant or distributed network deployments.
 
         ## Example Usage
 
@@ -115,7 +128,7 @@ class Site(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] description: The description of the site.
+        :param pulumi.Input[_builtins.str] description: A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
         """
         ...
     @overload
@@ -124,7 +137,20 @@ class Site(pulumi.CustomResource):
                  args: SiteArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Site` manages Unifi sites
+        The `Site` resource manages UniFi sites, which are logical groupings of UniFi devices and their configurations.
+
+        Sites in UniFi are used to:
+          * Organize network devices and settings for different physical locations
+          * Isolate configurations between different networks or customers
+          * Apply different policies and configurations to different groups of devices
+
+        Each site maintains its own:
+          * Network configurations
+          * Wireless networks (WLANs)
+          * Security policies
+          * Device configurations
+
+        A UniFi controller can manage multiple sites, making it ideal for multi-tenant or distributed network deployments.
 
         ## Example Usage
 
@@ -197,8 +223,8 @@ class Site(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] description: The description of the site.
-        :param pulumi.Input[_builtins.str] name: The name of the site.
+        :param pulumi.Input[_builtins.str] description: A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
+        :param pulumi.Input[_builtins.str] name: The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -212,7 +238,7 @@ class Site(pulumi.CustomResource):
     @pulumi.getter
     def description(self) -> pulumi.Output[_builtins.str]:
         """
-        The description of the site.
+        A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
         """
         return pulumi.get(self, "description")
 
@@ -220,7 +246,7 @@ class Site(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site.
+        The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
         """
         return pulumi.get(self, "name")
 

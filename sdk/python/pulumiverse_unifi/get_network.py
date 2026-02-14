@@ -248,7 +248,7 @@ class GetNetworkResult:
     @pulumi.getter(name="dhcpV6Start")
     def dhcp_v6_start(self) -> _builtins.str:
         """
-        Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        start address of the DHCPv6 range. Used in static DHCPv6 configuration.
         """
         return pulumi.get(self, "dhcp_v6_start")
 
@@ -336,7 +336,7 @@ class GetNetworkResult:
     @pulumi.getter(name="ipv6PdStart")
     def ipv6_pd_start(self) -> _builtins.str:
         """
-        Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
         """
         return pulumi.get(self, "ipv6_pd_start")
 

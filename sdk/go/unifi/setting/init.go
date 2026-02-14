@@ -21,12 +21,40 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "unifi:setting/autoSpeedtest:AutoSpeedtest":
+		r = &AutoSpeedtest{}
+	case "unifi:setting/country:Country":
+		r = &Country{}
+	case "unifi:setting/dpi:Dpi":
+		r = &Dpi{}
+	case "unifi:setting/guestAccess:GuestAccess":
+		r = &GuestAccess{}
+	case "unifi:setting/ips:Ips":
+		r = &Ips{}
+	case "unifi:setting/lcdMonitor:LcdMonitor":
+		r = &LcdMonitor{}
+	case "unifi:setting/locale:Locale":
+		r = &Locale{}
+	case "unifi:setting/magicSiteToSiteVpn:MagicSiteToSiteVpn":
+		r = &MagicSiteToSiteVpn{}
 	case "unifi:setting/mgmt:Mgmt":
 		r = &Mgmt{}
+	case "unifi:setting/networkOptimization:NetworkOptimization":
+		r = &NetworkOptimization{}
+	case "unifi:setting/ntp:Ntp":
+		r = &Ntp{}
 	case "unifi:setting/radius:Radius":
 		r = &Radius{}
+	case "unifi:setting/rsyslogd:Rsyslogd":
+		r = &Rsyslogd{}
+	case "unifi:setting/sslInspection:SslInspection":
+		r = &SslInspection{}
+	case "unifi:setting/teleport:Teleport":
+		r = &Teleport{}
 	case "unifi:setting/uSG:USG":
 		r = &USG{}
+	case "unifi:setting/usw:Usw":
+		r = &Usw{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -42,7 +70,57 @@ func init() {
 	}
 	pulumi.RegisterResourceModule(
 		"unifi",
+		"setting/autoSpeedtest",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/country",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/dpi",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/guestAccess",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/ips",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/lcdMonitor",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/locale",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/magicSiteToSiteVpn",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
 		"setting/mgmt",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/networkOptimization",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/ntp",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -52,7 +130,27 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"unifi",
+		"setting/rsyslogd",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/sslInspection",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/teleport",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
 		"setting/uSG",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/usw",
 		&module{version},
 	)
 }

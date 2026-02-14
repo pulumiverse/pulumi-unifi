@@ -12,7 +12,20 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `DynamicDNS` manages dynamic DNS settings for different providers.
+// The `DynamicDNS` resource manages Dynamic DNS (DDNS).
+//
+// Dynamic DNS allows you to access your network using a domain name even when your public IP address changes. This is useful for:
+//   - Remote access to your network
+//   - Hosting services from your home/office network
+//   - VPN connections to your network
+//
+// The resource supports various DDNS providers including:
+//   - DynDNS
+//   - No-IP
+//   - Duck DNS
+//   - And many others
+//
+// Each DDNS configuration can be associated with either the primary (WAN) or secondary (WAN2) interface.
 //
 // ## Example Usage
 //
@@ -46,19 +59,25 @@ import (
 type DynamicDNS struct {
 	pulumi.CustomResourceState
 
-	// The host name to update in the dynamic DNS service.
+	// The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
 	HostName pulumi.StringOutput `pulumi:"hostName"`
-	// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+	// The WAN interface to use for the dynamic DNS updates. Valid values are:
+	//   * `wan` - Primary WAN interface (default)
+	//   * `wan2` - Secondary WAN interface
 	Interface pulumi.StringPtrOutput `pulumi:"interface"`
-	// The server for the dynamic DNS service.
+	// The username or login for your DDNS provider account.
 	Login pulumi.StringPtrOutput `pulumi:"login"`
-	// The server for the dynamic DNS service.
+	// The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
 	Password pulumi.StringPtrOutput `pulumi:"password"`
-	// The server for the dynamic DNS service.
+	// The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
 	Server pulumi.StringPtrOutput `pulumi:"server"`
-	// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+	// The Dynamic DNS service provider. Common values include:
+	//   * `dyndns` - DynDNS service
+	//   * `noip` - No-IP service
+	//   * `duckdns` - Duck DNS service
+	//     Check your UniFi controller for the complete list of supported providers.
 	Service pulumi.StringOutput `pulumi:"service"`
-	// The name of the site to associate the dynamic DNS with.
+	// The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
 }
 
@@ -105,36 +124,48 @@ func GetDynamicDNS(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering DynamicDNS resources.
 type dynamicDNSState struct {
-	// The host name to update in the dynamic DNS service.
+	// The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
 	HostName *string `pulumi:"hostName"`
-	// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+	// The WAN interface to use for the dynamic DNS updates. Valid values are:
+	//   * `wan` - Primary WAN interface (default)
+	//   * `wan2` - Secondary WAN interface
 	Interface *string `pulumi:"interface"`
-	// The server for the dynamic DNS service.
+	// The username or login for your DDNS provider account.
 	Login *string `pulumi:"login"`
-	// The server for the dynamic DNS service.
+	// The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
 	Password *string `pulumi:"password"`
-	// The server for the dynamic DNS service.
+	// The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
 	Server *string `pulumi:"server"`
-	// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+	// The Dynamic DNS service provider. Common values include:
+	//   * `dyndns` - DynDNS service
+	//   * `noip` - No-IP service
+	//   * `duckdns` - Duck DNS service
+	//     Check your UniFi controller for the complete list of supported providers.
 	Service *string `pulumi:"service"`
-	// The name of the site to associate the dynamic DNS with.
+	// The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 type DynamicDNSState struct {
-	// The host name to update in the dynamic DNS service.
+	// The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
 	HostName pulumi.StringPtrInput
-	// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+	// The WAN interface to use for the dynamic DNS updates. Valid values are:
+	//   * `wan` - Primary WAN interface (default)
+	//   * `wan2` - Secondary WAN interface
 	Interface pulumi.StringPtrInput
-	// The server for the dynamic DNS service.
+	// The username or login for your DDNS provider account.
 	Login pulumi.StringPtrInput
-	// The server for the dynamic DNS service.
+	// The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
 	Password pulumi.StringPtrInput
-	// The server for the dynamic DNS service.
+	// The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
 	Server pulumi.StringPtrInput
-	// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+	// The Dynamic DNS service provider. Common values include:
+	//   * `dyndns` - DynDNS service
+	//   * `noip` - No-IP service
+	//   * `duckdns` - Duck DNS service
+	//     Check your UniFi controller for the complete list of supported providers.
 	Service pulumi.StringPtrInput
-	// The name of the site to associate the dynamic DNS with.
+	// The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
 }
 
@@ -143,37 +174,49 @@ func (DynamicDNSState) ElementType() reflect.Type {
 }
 
 type dynamicDNSArgs struct {
-	// The host name to update in the dynamic DNS service.
+	// The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
 	HostName string `pulumi:"hostName"`
-	// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+	// The WAN interface to use for the dynamic DNS updates. Valid values are:
+	//   * `wan` - Primary WAN interface (default)
+	//   * `wan2` - Secondary WAN interface
 	Interface *string `pulumi:"interface"`
-	// The server for the dynamic DNS service.
+	// The username or login for your DDNS provider account.
 	Login *string `pulumi:"login"`
-	// The server for the dynamic DNS service.
+	// The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
 	Password *string `pulumi:"password"`
-	// The server for the dynamic DNS service.
+	// The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
 	Server *string `pulumi:"server"`
-	// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+	// The Dynamic DNS service provider. Common values include:
+	//   * `dyndns` - DynDNS service
+	//   * `noip` - No-IP service
+	//   * `duckdns` - Duck DNS service
+	//     Check your UniFi controller for the complete list of supported providers.
 	Service string `pulumi:"service"`
-	// The name of the site to associate the dynamic DNS with.
+	// The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 // The set of arguments for constructing a DynamicDNS resource.
 type DynamicDNSArgs struct {
-	// The host name to update in the dynamic DNS service.
+	// The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
 	HostName pulumi.StringInput
-	// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+	// The WAN interface to use for the dynamic DNS updates. Valid values are:
+	//   * `wan` - Primary WAN interface (default)
+	//   * `wan2` - Secondary WAN interface
 	Interface pulumi.StringPtrInput
-	// The server for the dynamic DNS service.
+	// The username or login for your DDNS provider account.
 	Login pulumi.StringPtrInput
-	// The server for the dynamic DNS service.
+	// The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
 	Password pulumi.StringPtrInput
-	// The server for the dynamic DNS service.
+	// The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
 	Server pulumi.StringPtrInput
-	// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+	// The Dynamic DNS service provider. Common values include:
+	//   * `dyndns` - DynDNS service
+	//   * `noip` - No-IP service
+	//   * `duckdns` - Duck DNS service
+	//     Check your UniFi controller for the complete list of supported providers.
 	Service pulumi.StringInput
-	// The name of the site to associate the dynamic DNS with.
+	// The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
 }
 
@@ -264,37 +307,43 @@ func (o DynamicDNSOutput) ToDynamicDNSOutputWithContext(ctx context.Context) Dyn
 	return o
 }
 
-// The host name to update in the dynamic DNS service.
+// The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
 func (o DynamicDNSOutput) HostName() pulumi.StringOutput {
 	return o.ApplyT(func(v *DynamicDNS) pulumi.StringOutput { return v.HostName }).(pulumi.StringOutput)
 }
 
-// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+// The WAN interface to use for the dynamic DNS updates. Valid values are:
+//   - `wan` - Primary WAN interface (default)
+//   - `wan2` - Secondary WAN interface
 func (o DynamicDNSOutput) Interface() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DynamicDNS) pulumi.StringPtrOutput { return v.Interface }).(pulumi.StringPtrOutput)
 }
 
-// The server for the dynamic DNS service.
+// The username or login for your DDNS provider account.
 func (o DynamicDNSOutput) Login() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DynamicDNS) pulumi.StringPtrOutput { return v.Login }).(pulumi.StringPtrOutput)
 }
 
-// The server for the dynamic DNS service.
+// The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
 func (o DynamicDNSOutput) Password() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DynamicDNS) pulumi.StringPtrOutput { return v.Password }).(pulumi.StringPtrOutput)
 }
 
-// The server for the dynamic DNS service.
+// The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
 func (o DynamicDNSOutput) Server() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DynamicDNS) pulumi.StringPtrOutput { return v.Server }).(pulumi.StringPtrOutput)
 }
 
-// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+// The Dynamic DNS service provider. Common values include:
+//   - `dyndns` - DynDNS service
+//   - `noip` - No-IP service
+//   - `duckdns` - Duck DNS service
+//     Check your UniFi controller for the complete list of supported providers.
 func (o DynamicDNSOutput) Service() pulumi.StringOutput {
 	return o.ApplyT(func(v *DynamicDNS) pulumi.StringOutput { return v.Service }).(pulumi.StringOutput)
 }
 
-// The name of the site to associate the dynamic DNS with.
+// The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
 func (o DynamicDNSOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *DynamicDNS) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
 }

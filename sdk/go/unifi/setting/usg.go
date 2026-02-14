@@ -11,22 +11,201 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `setting.USG` manages settings for a Unifi Security Gateway.
+// The `setting.USG` resource manages advanced settings for UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+//
+// This resource allows you to configure gateway-specific features including:
+//   - Multicast DNS (mDNS) for cross-VLAN service discovery
+//   - DHCP relay for forwarding DHCP requests to external servers
+//   - Geo IP filtering for country-based traffic control
+//   - UPNP/NAT-PMP for automatic port forwarding
+//   - Protocol helpers for FTP, GRE, H323, PPTP, SIP, and TFTP
+//   - TCP/UDP timeout settings for connection tracking
+//   - Security features like SYN cookies and ICMP redirect controls
+//   - MSS clamping for optimizing MTU issues
+//
+// Note: Some settings may not be available on all controller versions. For example, multicastDnsEnabled is not supported on UniFi OS v7+. Changes to certain attributes may not be reflected in the plan unless explicitly modified in the configuration.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := setting.NewUSG(ctx, "example", &setting.USGArgs{
+//				GeoIpFiltering: &setting.USGGeoIpFilteringArgs{
+//					Block: "block",
+//					Countries: pulumi.StringArray{
+//						pulumi.String("UK"),
+//						pulumi.String("CN"),
+//						pulumi.String("AU"),
+//					},
+//					TrafficDirection: pulumi.String("both"),
+//				},
+//				Upnp: &setting.USGUpnpArgs{
+//					NatPmpEnabled: pulumi.Bool(true),
+//					SecureMode:    pulumi.Bool(true),
+//					WanInterface:  pulumi.String("WAN"),
+//				},
+//				DnsVerification: &setting.USGDnsVerificationArgs{
+//					Domain:             pulumi.String("example.com"),
+//					PrimaryDnsServer:   pulumi.String("1.1.1.1"),
+//					SecondaryDnsServer: pulumi.String("1.0.0.1"),
+//					SettingPreference:  pulumi.String("manual"),
+//				},
+//				TcpTimeouts: &setting.USGTcpTimeoutsArgs{
+//					CloseTimeout:       pulumi.Int(10),
+//					EstablishedTimeout: pulumi.Int(3600),
+//					CloseWaitTimeout:   pulumi.Int(20),
+//					FinWaitTimeout:     pulumi.Int(30),
+//					LastAckTimeout:     pulumi.Int(30),
+//					SynRecvTimeout:     pulumi.Int(60),
+//					SynSentTimeout:     pulumi.Int(120),
+//					TimeWaitTimeout:    pulumi.Int(120),
+//				},
+//				ArpCacheTimeout:       pulumi.String("custom"),
+//				ArpCacheBaseReachable: pulumi.Int(60),
+//				BroadcastPing:         pulumi.Bool(true),
+//				DhcpdHostfileUpdate:   pulumi.Bool(true),
+//				DhcpdUseDnsmasq:       pulumi.Bool(true),
+//				DnsmasqAllServers:     pulumi.Bool(true),
+//				DhcpRelay: &setting.USGDhcpRelayArgs{
+//					AgentsPackets: pulumi.String("forward"),
+//					HopCount:      pulumi.Int(5),
+//				},
+//				DhcpRelayServers: pulumi.StringArray{
+//					pulumi.String("10.1.2.3"),
+//					pulumi.String("10.1.2.4"),
+//				},
+//				EchoServer:               pulumi.String("echo.example.com"),
+//				FtpModule:                pulumi.Bool(true),
+//				GreModule:                pulumi.Bool(true),
+//				TftpModule:               pulumi.Bool(true),
+//				IcmpTimeout:              pulumi.Int(20),
+//				LldpEnableAll:            pulumi.Bool(true),
+//				MssClamp:                 pulumi.String("auto"),
+//				MssClampMss:              pulumi.Int(1452),
+//				OffloadAccounting:        pulumi.Bool(true),
+//				OffloadL2Blocking:        pulumi.Bool(true),
+//				OffloadScheduling:        false,
+//				OtherTimeout:             pulumi.Int(600),
+//				TimeoutSettingPreference: pulumi.String("auto"),
+//				ReceiveRedirects:         pulumi.Bool(false),
+//				SendRedirects:            pulumi.Bool(true),
+//				SynCookies:               pulumi.Bool(true),
+//				UdpOtherTimeout:          pulumi.Int(30),
+//				UdpStreamTimeout:         pulumi.Int(120),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type USG struct {
 	pulumi.CustomResourceState
 
-	// The DHCP relay servers.
+	// The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
+	ArpCacheBaseReachable pulumi.IntOutput `pulumi:"arpCacheBaseReachable"`
+	// The timeout strategy for ARP cache entries. Valid values are:
+	//   * `normal` - Use system default timeouts
+	//   * `min-dhcp-lease` - Set ARP timeout to match the minimum DHCP lease time
+	//   * `custom` - Use the custom timeout value specified in `arpCacheBaseReachable`
+	//
+	// This setting determines how long MAC-to-IP mappings are stored in the ARP cache before being refreshed.
+	ArpCacheTimeout pulumi.StringOutput `pulumi:"arpCacheTimeout"`
+	// Enable responding to broadcast ping requests (ICMP echo requests sent to the broadcast address). When enabled, the gateway will respond to pings sent to the broadcast address of the network (e.g., 192.168.1.255). This can be useful for network diagnostics but may also be used in certain denial-of-service attacks.
+	BroadcastPing pulumi.BoolOutput `pulumi:"broadcastPing"`
+	// Advanced DHCP relay configuration settings. Controls how the gateway forwards DHCP requests to external servers and manages DHCP relay agent behavior. Use this block to fine-tune DHCP relay functionality beyond simply specifying relay servers.
+	DhcpRelay USGDhcpRelayOutput `pulumi:"dhcpRelay"`
+	// List of up to 5 DHCP relay servers (specified by IP address) that will receive forwarded DHCP requests. This is useful when you want to use external DHCP servers instead of the built-in DHCP server on the USG/UDM. When configured, the gateway will forward DHCP discovery packets from clients to these external servers, allowing centralized IP address management across multiple networks. Example: `['192.168.1.5', '192.168.2.5']`
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future release. `dhcp_relay.servers` attribute will be introduced as a replacement.
 	DhcpRelayServers pulumi.StringArrayOutput `pulumi:"dhcpRelayServers"`
-	// Whether the guest firewall log is enabled.
-	FirewallGuestDefaultLog pulumi.BoolOutput `pulumi:"firewallGuestDefaultLog"`
-	// Whether the LAN firewall log is enabled.
-	FirewallLanDefaultLog pulumi.BoolOutput `pulumi:"firewallLanDefaultLog"`
-	// Whether the WAN firewall log is enabled.
-	FirewallWanDefaultLog pulumi.BoolOutput `pulumi:"firewallWanDefaultLog"`
-	// Whether multicast DNS is enabled.
+	// Enable updating the gateway's host files with DHCP client information. When enabled, the gateway will automatically add entries to its host file for each DHCP client, allowing hostname resolution for devices that receive IP addresses via DHCP. This improves name resolution on the local network.
+	DhcpdHostfileUpdate pulumi.BoolOutput `pulumi:"dhcpdHostfileUpdate"`
+	// Use dnsmasq for DHCP services instead of the default DHCP server. Dnsmasq provides integrated DNS and DHCP functionality with additional features like DNS caching, DHCP static leases, and local domain name resolution. This can improve DNS resolution performance and provide more flexible DHCP options.
+	DhcpdUseDnsmasq pulumi.BoolOutput `pulumi:"dhcpdUseDnsmasq"`
+	// DNS verification settings for validating DNS responses. This feature helps detect and prevent DNS spoofing attacks by verifying DNS responses against trusted DNS servers. When configured, the gateway can compare DNS responses with those from known trusted servers to identify potential tampering or poisoning attempts. Requires controller version 8.5 or later.
+	DnsVerification USGDnsVerificationOutput `pulumi:"dnsVerification"`
+	// When enabled, dnsmasq will query all configured DNS servers simultaneously and use the fastest response. This can improve DNS resolution speed but may increase DNS traffic. By default, dnsmasq queries servers sequentially, only trying the next server if the current one fails to respond.
+	DnsmasqAllServers pulumi.BoolOutput `pulumi:"dnsmasqAllServers"`
+	// The hostname or IP address of a server to use for network echo tests. Echo tests send packets to this server and measure response times to evaluate network connectivity and performance. This can be used for network diagnostics and monitoring.
+	EchoServer pulumi.StringOutput `pulumi:"echoServer"`
+	// Enable the FTP (File Transfer Protocol) helper module. This module allows the gateway to properly handle FTP connections through NAT by tracking the control channel and dynamically opening required data ports. Without this helper, passive FTP connections may fail when clients are behind NAT.
+	FtpModule pulumi.BoolOutput `pulumi:"ftpModule"`
+	// Geographic IP filtering configuration that allows blocking or allowing traffic based on country of origin. This feature uses IP geolocation databases to identify the country associated with IP addresses and apply filtering rules. Useful for implementing country-specific access policies or blocking traffic from high-risk regions. Requires controller version 7.0 or later.
+	GeoIpFiltering USGGeoIpFilteringPtrOutput `pulumi:"geoIpFiltering"`
+	// Whether Geo IP Filtering is enabled. When enabled, the gateway will apply the specified country-based
+	GeoIpFilteringEnabled pulumi.BoolOutput `pulumi:"geoIpFilteringEnabled"`
+	// Enable the GRE (Generic Routing Encapsulation) protocol helper module. This module allows proper handling of GRE tunneling protocol through the gateway's firewall. GRE is commonly used for VPN tunnels and other encapsulation needs. Required if you plan to use PPTP VPNs (see `pptpModule`).
+	GreModule pulumi.BoolOutput `pulumi:"greModule"`
+	// Enable the H.323 protocol helper module. H.323 is a standard for multimedia communications (audio, video, and data) over packet-based networks. This helper allows H.323-based applications like video conferencing systems to work properly through NAT by tracking connection details and opening required ports.
+	H323Module pulumi.BoolOutput `pulumi:"h323Module"`
+	// ICMP timeout in seconds for connection tracking. This controls how long the gateway maintains state information for ICMP (ping) packets in its connection tracking table. Higher values maintain ICMP connection state longer, while lower values reclaim resources more quickly but may affect some diagnostic tools.
+	IcmpTimeout pulumi.IntOutput `pulumi:"icmpTimeout"`
+	// Enable Link Layer Discovery Protocol (LLDP) on all interfaces. LLDP is a vendor-neutral protocol that allows network devices to advertise their identity, capabilities, and neighbors on a local network. When enabled, the gateway will both send and receive LLDP packets, facilitating network discovery and management tools.
+	LldpEnableAll pulumi.BoolOutput `pulumi:"lldpEnableAll"`
+	// TCP Maximum Segment Size (MSS) clamping mode. MSS clamping adjusts the maximum segment size of TCP packets to prevent fragmentation issues when packets traverse networks with different MTU sizes. Valid values include:
+	//   * `auto` - Automatically determine appropriate MSS values based on interface MTUs
+	//   * `custom` - Use the custom MSS value specified in `mssClampMss`
+	//   * `disabled` - Do not perform MSS clamping
+	//
+	// This setting is particularly important for VPN connections and networks with non-standard MTU sizes.
+	MssClamp pulumi.StringOutput `pulumi:"mssClamp"`
+	// Custom TCP Maximum Segment Size (MSS) value in bytes. This value is used when `mssClamp` is set to `custom`. The MSS value should typically be set to the path MTU minus 40 bytes (for IPv4) or minus 60 bytes (for IPv6) to account for TCP/IP header overhead. Valid values range from 100 to 9999, with common values being 1460 (for standard 1500 MTU) or 1400 (for VPN tunnels).
+	MssClampMss pulumi.IntOutput `pulumi:"mssClampMss"`
+	// Enable multicast DNS (mDNS/Bonjour/Avahi) forwarding across VLANs. This allows devices to discover services (like printers, Chromecasts, Apple devices, etc.) even when they are on different networks or VLANs. When enabled, the gateway will forward mDNS packets between networks, facilitating cross-VLAN service discovery. Note: This setting is not supported on UniFi OS v7+ as it has been replaced by mDNS settings in the network configuration.
 	MulticastDnsEnabled pulumi.BoolOutput `pulumi:"multicastDnsEnabled"`
-	// The name of the site to associate the settings with.
+	// Enable hardware accounting offload. When enabled, the gateway will use hardware acceleration for traffic accounting functions, reducing CPU load and potentially improving throughput for high-traffic environments. This setting may not be supported on all hardware models.
+	OffloadAccounting pulumi.BoolOutput `pulumi:"offloadAccounting"`
+	// Enable hardware offload for Layer 2 (L2) blocking functions. When enabled, the gateway will use hardware acceleration for blocking traffic at the data link layer (MAC address level), which can improve performance when implementing MAC-based filtering or isolation. This setting may not be supported on all hardware models.
+	OffloadL2Blocking pulumi.BoolOutput `pulumi:"offloadL2Blocking"`
+	// Enable hardware scheduling offload. When enabled, the gateway will use hardware acceleration for packet scheduling functions, which can improve QoS (Quality of Service) performance and throughput for prioritized traffic. This setting may not be supported on all hardware models and may affect other hardware offload capabilities.
+	OffloadSch pulumi.BoolOutput `pulumi:"offloadSch"`
+	// Timeout (in seconds) for connection tracking of protocols other than TCP, UDP, and ICMP. This controls how long the gateway maintains state information for connections using other protocols. Higher values maintain connection state longer, while lower values reclaim resources more quickly but may affect some applications using non-standard protocols.
+	OtherTimeout pulumi.IntOutput `pulumi:"otherTimeout"`
+	// Enable the PPTP (Point-to-Point Tunneling Protocol) helper module. This module allows PPTP VPN connections to work properly through the gateway's firewall and NAT. PPTP uses GRE for tunneling, so the `greModule` must also be enabled for PPTP to function correctly. Note that PPTP has known security vulnerabilities and more secure VPN protocols are generally recommended.
+	PptpModule pulumi.BoolOutput `pulumi:"pptpModule"`
+	// Enable accepting ICMP redirect messages. ICMP redirects are messages sent by routers to inform hosts of better routes to specific destinations. When enabled, the gateway will update its routing table based on these messages. While useful for route optimization, this can potentially be exploited for man-in-the-middle attacks, so it's often disabled in security-sensitive environments.
+	ReceiveRedirects pulumi.BoolOutput `pulumi:"receiveRedirects"`
+	// Enable sending ICMP redirect messages. When enabled, the gateway will send ICMP redirect messages to hosts on the local network to inform them of better routes to specific destinations. This can help optimize network traffic but is typically only needed when the gateway has multiple interfaces on the same subnet or in complex routing scenarios.
+	SendRedirects pulumi.BoolOutput `pulumi:"sendRedirects"`
+	// Enable the SIP (Session Initiation Protocol) helper module. SIP is used for initiating, maintaining, and terminating real-time sessions for voice, video, and messaging applications (VoIP, video conferencing). This helper allows SIP-based applications to work correctly through NAT by tracking SIP connections and dynamically opening the necessary ports for media streams.
+	SipModule pulumi.BoolOutput `pulumi:"sipModule"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
+	// Enable SYN cookies to protect against SYN flood attacks. SYN cookies are a technique that helps mitigate TCP SYN flood attacks by avoiding the need to track incomplete connections in a backlog queue. When enabled, the gateway can continue to establish legitimate connections even when under a SYN flood attack. This is a recommended security setting for internet-facing gateways.
+	SynCookies pulumi.BoolOutput `pulumi:"synCookies"`
+	// TCP connection timeout settings for various TCP connection states. These settings control how long the gateway maintains state information for TCP connections in different states before removing them from the connection tracking table. Proper timeout values balance resource usage with connection reliability. These settings are particularly relevant when `timeoutSettingPreference` is set to `manual`.
+	TcpTimeouts USGTcpTimeoutsOutput `pulumi:"tcpTimeouts"`
+	// Enable the TFTP (Trivial File Transfer Protocol) helper module. This module allows TFTP connections to work properly through the gateway's firewall and NAT. TFTP is commonly used for firmware updates, configuration file transfers, and network booting of devices. The helper tracks TFTP connections and ensures return traffic is properly handled.
+	TftpModule pulumi.BoolOutput `pulumi:"tftpModule"`
+	// Determines how connection timeout values are configured. Valid values are:
+	//   * `auto` - The gateway will automatically determine appropriate timeout values based on system defaults
+	//   * `manual` - Use the manually specified timeout values for various connection types
+	//
+	// When set to `manual`, you should specify values for the various timeout settings like `tcpTimeouts`, `udpStreamTimeout`, `udpOtherTimeout`, `icmpTimeout`, and `otherTimeout`. Requires controller version 7.0 or later.
+	TimeoutSettingPreference pulumi.StringOutput `pulumi:"timeoutSettingPreference"`
+	// Timeout (in seconds) for general UDP connections. Since UDP is connectionless, this timeout determines how long the gateway maintains state information for UDP packets that don't match the criteria for stream connections. This applies to most short-lived UDP communications like DNS queries. Lower values free resources more quickly but may affect some applications that expect longer session persistence.
+	UdpOtherTimeout pulumi.IntOutput `pulumi:"udpOtherTimeout"`
+	// Timeout (in seconds) for UDP stream connections. This applies to UDP traffic patterns that resemble ongoing streams, such as VoIP calls, video streaming, or online gaming. The gateway identifies these based on traffic patterns and maintains state information longer than for regular UDP traffic. Higher values improve reliability for streaming applications but consume more connection tracking resources.
+	UdpStreamTimeout pulumi.IntOutput `pulumi:"udpStreamTimeout"`
+	// Unbind WAN monitors to prevent unnecessary traffic. When enabled, the gateway will stop certain monitoring processes that periodically check WAN connectivity. This can reduce unnecessary traffic on metered connections or in environments where the monitoring traffic might trigger security alerts. However, disabling these monitors may affect the gateway's ability to detect and respond to WAN connectivity issues. Requires controller version 9.0 or later.
+	UnbindWanMonitors pulumi.BoolOutput `pulumi:"unbindWanMonitors"`
+	// UPNP (Universal Plug and Play) configuration settings. UPNP allows compatible applications and devices to automatically configure port forwarding rules on the gateway without manual intervention. This is commonly used by gaming consoles, media servers, VoIP applications, and other network services that require incoming connections.
+	Upnp USGUpnpPtrOutput `pulumi:"upnp"`
+	// Whether UPNP is enabled. When enabled, the gateway will automatically forward ports for UPNP-compatible devices
+	UpnpEnabled pulumi.BoolOutput `pulumi:"upnpEnabled"`
 }
 
 // NewUSG registers a new resource with the given unique name, arguments, and options.
@@ -59,33 +238,193 @@ func GetUSG(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering USG resources.
 type usgState struct {
-	// The DHCP relay servers.
+	// The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
+	ArpCacheBaseReachable *int `pulumi:"arpCacheBaseReachable"`
+	// The timeout strategy for ARP cache entries. Valid values are:
+	//   * `normal` - Use system default timeouts
+	//   * `min-dhcp-lease` - Set ARP timeout to match the minimum DHCP lease time
+	//   * `custom` - Use the custom timeout value specified in `arpCacheBaseReachable`
+	//
+	// This setting determines how long MAC-to-IP mappings are stored in the ARP cache before being refreshed.
+	ArpCacheTimeout *string `pulumi:"arpCacheTimeout"`
+	// Enable responding to broadcast ping requests (ICMP echo requests sent to the broadcast address). When enabled, the gateway will respond to pings sent to the broadcast address of the network (e.g., 192.168.1.255). This can be useful for network diagnostics but may also be used in certain denial-of-service attacks.
+	BroadcastPing *bool `pulumi:"broadcastPing"`
+	// Advanced DHCP relay configuration settings. Controls how the gateway forwards DHCP requests to external servers and manages DHCP relay agent behavior. Use this block to fine-tune DHCP relay functionality beyond simply specifying relay servers.
+	DhcpRelay *USGDhcpRelay `pulumi:"dhcpRelay"`
+	// List of up to 5 DHCP relay servers (specified by IP address) that will receive forwarded DHCP requests. This is useful when you want to use external DHCP servers instead of the built-in DHCP server on the USG/UDM. When configured, the gateway will forward DHCP discovery packets from clients to these external servers, allowing centralized IP address management across multiple networks. Example: `['192.168.1.5', '192.168.2.5']`
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future release. `dhcp_relay.servers` attribute will be introduced as a replacement.
 	DhcpRelayServers []string `pulumi:"dhcpRelayServers"`
-	// Whether the guest firewall log is enabled.
-	FirewallGuestDefaultLog *bool `pulumi:"firewallGuestDefaultLog"`
-	// Whether the LAN firewall log is enabled.
-	FirewallLanDefaultLog *bool `pulumi:"firewallLanDefaultLog"`
-	// Whether the WAN firewall log is enabled.
-	FirewallWanDefaultLog *bool `pulumi:"firewallWanDefaultLog"`
-	// Whether multicast DNS is enabled.
+	// Enable updating the gateway's host files with DHCP client information. When enabled, the gateway will automatically add entries to its host file for each DHCP client, allowing hostname resolution for devices that receive IP addresses via DHCP. This improves name resolution on the local network.
+	DhcpdHostfileUpdate *bool `pulumi:"dhcpdHostfileUpdate"`
+	// Use dnsmasq for DHCP services instead of the default DHCP server. Dnsmasq provides integrated DNS and DHCP functionality with additional features like DNS caching, DHCP static leases, and local domain name resolution. This can improve DNS resolution performance and provide more flexible DHCP options.
+	DhcpdUseDnsmasq *bool `pulumi:"dhcpdUseDnsmasq"`
+	// DNS verification settings for validating DNS responses. This feature helps detect and prevent DNS spoofing attacks by verifying DNS responses against trusted DNS servers. When configured, the gateway can compare DNS responses with those from known trusted servers to identify potential tampering or poisoning attempts. Requires controller version 8.5 or later.
+	DnsVerification *USGDnsVerification `pulumi:"dnsVerification"`
+	// When enabled, dnsmasq will query all configured DNS servers simultaneously and use the fastest response. This can improve DNS resolution speed but may increase DNS traffic. By default, dnsmasq queries servers sequentially, only trying the next server if the current one fails to respond.
+	DnsmasqAllServers *bool `pulumi:"dnsmasqAllServers"`
+	// The hostname or IP address of a server to use for network echo tests. Echo tests send packets to this server and measure response times to evaluate network connectivity and performance. This can be used for network diagnostics and monitoring.
+	EchoServer *string `pulumi:"echoServer"`
+	// Enable the FTP (File Transfer Protocol) helper module. This module allows the gateway to properly handle FTP connections through NAT by tracking the control channel and dynamically opening required data ports. Without this helper, passive FTP connections may fail when clients are behind NAT.
+	FtpModule *bool `pulumi:"ftpModule"`
+	// Geographic IP filtering configuration that allows blocking or allowing traffic based on country of origin. This feature uses IP geolocation databases to identify the country associated with IP addresses and apply filtering rules. Useful for implementing country-specific access policies or blocking traffic from high-risk regions. Requires controller version 7.0 or later.
+	GeoIpFiltering *USGGeoIpFiltering `pulumi:"geoIpFiltering"`
+	// Whether Geo IP Filtering is enabled. When enabled, the gateway will apply the specified country-based
+	GeoIpFilteringEnabled *bool `pulumi:"geoIpFilteringEnabled"`
+	// Enable the GRE (Generic Routing Encapsulation) protocol helper module. This module allows proper handling of GRE tunneling protocol through the gateway's firewall. GRE is commonly used for VPN tunnels and other encapsulation needs. Required if you plan to use PPTP VPNs (see `pptpModule`).
+	GreModule *bool `pulumi:"greModule"`
+	// Enable the H.323 protocol helper module. H.323 is a standard for multimedia communications (audio, video, and data) over packet-based networks. This helper allows H.323-based applications like video conferencing systems to work properly through NAT by tracking connection details and opening required ports.
+	H323Module *bool `pulumi:"h323Module"`
+	// ICMP timeout in seconds for connection tracking. This controls how long the gateway maintains state information for ICMP (ping) packets in its connection tracking table. Higher values maintain ICMP connection state longer, while lower values reclaim resources more quickly but may affect some diagnostic tools.
+	IcmpTimeout *int `pulumi:"icmpTimeout"`
+	// Enable Link Layer Discovery Protocol (LLDP) on all interfaces. LLDP is a vendor-neutral protocol that allows network devices to advertise their identity, capabilities, and neighbors on a local network. When enabled, the gateway will both send and receive LLDP packets, facilitating network discovery and management tools.
+	LldpEnableAll *bool `pulumi:"lldpEnableAll"`
+	// TCP Maximum Segment Size (MSS) clamping mode. MSS clamping adjusts the maximum segment size of TCP packets to prevent fragmentation issues when packets traverse networks with different MTU sizes. Valid values include:
+	//   * `auto` - Automatically determine appropriate MSS values based on interface MTUs
+	//   * `custom` - Use the custom MSS value specified in `mssClampMss`
+	//   * `disabled` - Do not perform MSS clamping
+	//
+	// This setting is particularly important for VPN connections and networks with non-standard MTU sizes.
+	MssClamp *string `pulumi:"mssClamp"`
+	// Custom TCP Maximum Segment Size (MSS) value in bytes. This value is used when `mssClamp` is set to `custom`. The MSS value should typically be set to the path MTU minus 40 bytes (for IPv4) or minus 60 bytes (for IPv6) to account for TCP/IP header overhead. Valid values range from 100 to 9999, with common values being 1460 (for standard 1500 MTU) or 1400 (for VPN tunnels).
+	MssClampMss *int `pulumi:"mssClampMss"`
+	// Enable multicast DNS (mDNS/Bonjour/Avahi) forwarding across VLANs. This allows devices to discover services (like printers, Chromecasts, Apple devices, etc.) even when they are on different networks or VLANs. When enabled, the gateway will forward mDNS packets between networks, facilitating cross-VLAN service discovery. Note: This setting is not supported on UniFi OS v7+ as it has been replaced by mDNS settings in the network configuration.
 	MulticastDnsEnabled *bool `pulumi:"multicastDnsEnabled"`
-	// The name of the site to associate the settings with.
+	// Enable hardware accounting offload. When enabled, the gateway will use hardware acceleration for traffic accounting functions, reducing CPU load and potentially improving throughput for high-traffic environments. This setting may not be supported on all hardware models.
+	OffloadAccounting *bool `pulumi:"offloadAccounting"`
+	// Enable hardware offload for Layer 2 (L2) blocking functions. When enabled, the gateway will use hardware acceleration for blocking traffic at the data link layer (MAC address level), which can improve performance when implementing MAC-based filtering or isolation. This setting may not be supported on all hardware models.
+	OffloadL2Blocking *bool `pulumi:"offloadL2Blocking"`
+	// Enable hardware scheduling offload. When enabled, the gateway will use hardware acceleration for packet scheduling functions, which can improve QoS (Quality of Service) performance and throughput for prioritized traffic. This setting may not be supported on all hardware models and may affect other hardware offload capabilities.
+	OffloadSch *bool `pulumi:"offloadSch"`
+	// Timeout (in seconds) for connection tracking of protocols other than TCP, UDP, and ICMP. This controls how long the gateway maintains state information for connections using other protocols. Higher values maintain connection state longer, while lower values reclaim resources more quickly but may affect some applications using non-standard protocols.
+	OtherTimeout *int `pulumi:"otherTimeout"`
+	// Enable the PPTP (Point-to-Point Tunneling Protocol) helper module. This module allows PPTP VPN connections to work properly through the gateway's firewall and NAT. PPTP uses GRE for tunneling, so the `greModule` must also be enabled for PPTP to function correctly. Note that PPTP has known security vulnerabilities and more secure VPN protocols are generally recommended.
+	PptpModule *bool `pulumi:"pptpModule"`
+	// Enable accepting ICMP redirect messages. ICMP redirects are messages sent by routers to inform hosts of better routes to specific destinations. When enabled, the gateway will update its routing table based on these messages. While useful for route optimization, this can potentially be exploited for man-in-the-middle attacks, so it's often disabled in security-sensitive environments.
+	ReceiveRedirects *bool `pulumi:"receiveRedirects"`
+	// Enable sending ICMP redirect messages. When enabled, the gateway will send ICMP redirect messages to hosts on the local network to inform them of better routes to specific destinations. This can help optimize network traffic but is typically only needed when the gateway has multiple interfaces on the same subnet or in complex routing scenarios.
+	SendRedirects *bool `pulumi:"sendRedirects"`
+	// Enable the SIP (Session Initiation Protocol) helper module. SIP is used for initiating, maintaining, and terminating real-time sessions for voice, video, and messaging applications (VoIP, video conferencing). This helper allows SIP-based applications to work correctly through NAT by tracking SIP connections and dynamically opening the necessary ports for media streams.
+	SipModule *bool `pulumi:"sipModule"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
+	// Enable SYN cookies to protect against SYN flood attacks. SYN cookies are a technique that helps mitigate TCP SYN flood attacks by avoiding the need to track incomplete connections in a backlog queue. When enabled, the gateway can continue to establish legitimate connections even when under a SYN flood attack. This is a recommended security setting for internet-facing gateways.
+	SynCookies *bool `pulumi:"synCookies"`
+	// TCP connection timeout settings for various TCP connection states. These settings control how long the gateway maintains state information for TCP connections in different states before removing them from the connection tracking table. Proper timeout values balance resource usage with connection reliability. These settings are particularly relevant when `timeoutSettingPreference` is set to `manual`.
+	TcpTimeouts *USGTcpTimeouts `pulumi:"tcpTimeouts"`
+	// Enable the TFTP (Trivial File Transfer Protocol) helper module. This module allows TFTP connections to work properly through the gateway's firewall and NAT. TFTP is commonly used for firmware updates, configuration file transfers, and network booting of devices. The helper tracks TFTP connections and ensures return traffic is properly handled.
+	TftpModule *bool `pulumi:"tftpModule"`
+	// Determines how connection timeout values are configured. Valid values are:
+	//   * `auto` - The gateway will automatically determine appropriate timeout values based on system defaults
+	//   * `manual` - Use the manually specified timeout values for various connection types
+	//
+	// When set to `manual`, you should specify values for the various timeout settings like `tcpTimeouts`, `udpStreamTimeout`, `udpOtherTimeout`, `icmpTimeout`, and `otherTimeout`. Requires controller version 7.0 or later.
+	TimeoutSettingPreference *string `pulumi:"timeoutSettingPreference"`
+	// Timeout (in seconds) for general UDP connections. Since UDP is connectionless, this timeout determines how long the gateway maintains state information for UDP packets that don't match the criteria for stream connections. This applies to most short-lived UDP communications like DNS queries. Lower values free resources more quickly but may affect some applications that expect longer session persistence.
+	UdpOtherTimeout *int `pulumi:"udpOtherTimeout"`
+	// Timeout (in seconds) for UDP stream connections. This applies to UDP traffic patterns that resemble ongoing streams, such as VoIP calls, video streaming, or online gaming. The gateway identifies these based on traffic patterns and maintains state information longer than for regular UDP traffic. Higher values improve reliability for streaming applications but consume more connection tracking resources.
+	UdpStreamTimeout *int `pulumi:"udpStreamTimeout"`
+	// Unbind WAN monitors to prevent unnecessary traffic. When enabled, the gateway will stop certain monitoring processes that periodically check WAN connectivity. This can reduce unnecessary traffic on metered connections or in environments where the monitoring traffic might trigger security alerts. However, disabling these monitors may affect the gateway's ability to detect and respond to WAN connectivity issues. Requires controller version 9.0 or later.
+	UnbindWanMonitors *bool `pulumi:"unbindWanMonitors"`
+	// UPNP (Universal Plug and Play) configuration settings. UPNP allows compatible applications and devices to automatically configure port forwarding rules on the gateway without manual intervention. This is commonly used by gaming consoles, media servers, VoIP applications, and other network services that require incoming connections.
+	Upnp *USGUpnp `pulumi:"upnp"`
+	// Whether UPNP is enabled. When enabled, the gateway will automatically forward ports for UPNP-compatible devices
+	UpnpEnabled *bool `pulumi:"upnpEnabled"`
 }
 
 type USGState struct {
-	// The DHCP relay servers.
+	// The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
+	ArpCacheBaseReachable pulumi.IntPtrInput
+	// The timeout strategy for ARP cache entries. Valid values are:
+	//   * `normal` - Use system default timeouts
+	//   * `min-dhcp-lease` - Set ARP timeout to match the minimum DHCP lease time
+	//   * `custom` - Use the custom timeout value specified in `arpCacheBaseReachable`
+	//
+	// This setting determines how long MAC-to-IP mappings are stored in the ARP cache before being refreshed.
+	ArpCacheTimeout pulumi.StringPtrInput
+	// Enable responding to broadcast ping requests (ICMP echo requests sent to the broadcast address). When enabled, the gateway will respond to pings sent to the broadcast address of the network (e.g., 192.168.1.255). This can be useful for network diagnostics but may also be used in certain denial-of-service attacks.
+	BroadcastPing pulumi.BoolPtrInput
+	// Advanced DHCP relay configuration settings. Controls how the gateway forwards DHCP requests to external servers and manages DHCP relay agent behavior. Use this block to fine-tune DHCP relay functionality beyond simply specifying relay servers.
+	DhcpRelay USGDhcpRelayPtrInput
+	// List of up to 5 DHCP relay servers (specified by IP address) that will receive forwarded DHCP requests. This is useful when you want to use external DHCP servers instead of the built-in DHCP server on the USG/UDM. When configured, the gateway will forward DHCP discovery packets from clients to these external servers, allowing centralized IP address management across multiple networks. Example: `['192.168.1.5', '192.168.2.5']`
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future release. `dhcp_relay.servers` attribute will be introduced as a replacement.
 	DhcpRelayServers pulumi.StringArrayInput
-	// Whether the guest firewall log is enabled.
-	FirewallGuestDefaultLog pulumi.BoolPtrInput
-	// Whether the LAN firewall log is enabled.
-	FirewallLanDefaultLog pulumi.BoolPtrInput
-	// Whether the WAN firewall log is enabled.
-	FirewallWanDefaultLog pulumi.BoolPtrInput
-	// Whether multicast DNS is enabled.
+	// Enable updating the gateway's host files with DHCP client information. When enabled, the gateway will automatically add entries to its host file for each DHCP client, allowing hostname resolution for devices that receive IP addresses via DHCP. This improves name resolution on the local network.
+	DhcpdHostfileUpdate pulumi.BoolPtrInput
+	// Use dnsmasq for DHCP services instead of the default DHCP server. Dnsmasq provides integrated DNS and DHCP functionality with additional features like DNS caching, DHCP static leases, and local domain name resolution. This can improve DNS resolution performance and provide more flexible DHCP options.
+	DhcpdUseDnsmasq pulumi.BoolPtrInput
+	// DNS verification settings for validating DNS responses. This feature helps detect and prevent DNS spoofing attacks by verifying DNS responses against trusted DNS servers. When configured, the gateway can compare DNS responses with those from known trusted servers to identify potential tampering or poisoning attempts. Requires controller version 8.5 or later.
+	DnsVerification USGDnsVerificationPtrInput
+	// When enabled, dnsmasq will query all configured DNS servers simultaneously and use the fastest response. This can improve DNS resolution speed but may increase DNS traffic. By default, dnsmasq queries servers sequentially, only trying the next server if the current one fails to respond.
+	DnsmasqAllServers pulumi.BoolPtrInput
+	// The hostname or IP address of a server to use for network echo tests. Echo tests send packets to this server and measure response times to evaluate network connectivity and performance. This can be used for network diagnostics and monitoring.
+	EchoServer pulumi.StringPtrInput
+	// Enable the FTP (File Transfer Protocol) helper module. This module allows the gateway to properly handle FTP connections through NAT by tracking the control channel and dynamically opening required data ports. Without this helper, passive FTP connections may fail when clients are behind NAT.
+	FtpModule pulumi.BoolPtrInput
+	// Geographic IP filtering configuration that allows blocking or allowing traffic based on country of origin. This feature uses IP geolocation databases to identify the country associated with IP addresses and apply filtering rules. Useful for implementing country-specific access policies or blocking traffic from high-risk regions. Requires controller version 7.0 or later.
+	GeoIpFiltering USGGeoIpFilteringPtrInput
+	// Whether Geo IP Filtering is enabled. When enabled, the gateway will apply the specified country-based
+	GeoIpFilteringEnabled pulumi.BoolPtrInput
+	// Enable the GRE (Generic Routing Encapsulation) protocol helper module. This module allows proper handling of GRE tunneling protocol through the gateway's firewall. GRE is commonly used for VPN tunnels and other encapsulation needs. Required if you plan to use PPTP VPNs (see `pptpModule`).
+	GreModule pulumi.BoolPtrInput
+	// Enable the H.323 protocol helper module. H.323 is a standard for multimedia communications (audio, video, and data) over packet-based networks. This helper allows H.323-based applications like video conferencing systems to work properly through NAT by tracking connection details and opening required ports.
+	H323Module pulumi.BoolPtrInput
+	// ICMP timeout in seconds for connection tracking. This controls how long the gateway maintains state information for ICMP (ping) packets in its connection tracking table. Higher values maintain ICMP connection state longer, while lower values reclaim resources more quickly but may affect some diagnostic tools.
+	IcmpTimeout pulumi.IntPtrInput
+	// Enable Link Layer Discovery Protocol (LLDP) on all interfaces. LLDP is a vendor-neutral protocol that allows network devices to advertise their identity, capabilities, and neighbors on a local network. When enabled, the gateway will both send and receive LLDP packets, facilitating network discovery and management tools.
+	LldpEnableAll pulumi.BoolPtrInput
+	// TCP Maximum Segment Size (MSS) clamping mode. MSS clamping adjusts the maximum segment size of TCP packets to prevent fragmentation issues when packets traverse networks with different MTU sizes. Valid values include:
+	//   * `auto` - Automatically determine appropriate MSS values based on interface MTUs
+	//   * `custom` - Use the custom MSS value specified in `mssClampMss`
+	//   * `disabled` - Do not perform MSS clamping
+	//
+	// This setting is particularly important for VPN connections and networks with non-standard MTU sizes.
+	MssClamp pulumi.StringPtrInput
+	// Custom TCP Maximum Segment Size (MSS) value in bytes. This value is used when `mssClamp` is set to `custom`. The MSS value should typically be set to the path MTU minus 40 bytes (for IPv4) or minus 60 bytes (for IPv6) to account for TCP/IP header overhead. Valid values range from 100 to 9999, with common values being 1460 (for standard 1500 MTU) or 1400 (for VPN tunnels).
+	MssClampMss pulumi.IntPtrInput
+	// Enable multicast DNS (mDNS/Bonjour/Avahi) forwarding across VLANs. This allows devices to discover services (like printers, Chromecasts, Apple devices, etc.) even when they are on different networks or VLANs. When enabled, the gateway will forward mDNS packets between networks, facilitating cross-VLAN service discovery. Note: This setting is not supported on UniFi OS v7+ as it has been replaced by mDNS settings in the network configuration.
 	MulticastDnsEnabled pulumi.BoolPtrInput
-	// The name of the site to associate the settings with.
+	// Enable hardware accounting offload. When enabled, the gateway will use hardware acceleration for traffic accounting functions, reducing CPU load and potentially improving throughput for high-traffic environments. This setting may not be supported on all hardware models.
+	OffloadAccounting pulumi.BoolPtrInput
+	// Enable hardware offload for Layer 2 (L2) blocking functions. When enabled, the gateway will use hardware acceleration for blocking traffic at the data link layer (MAC address level), which can improve performance when implementing MAC-based filtering or isolation. This setting may not be supported on all hardware models.
+	OffloadL2Blocking pulumi.BoolPtrInput
+	// Enable hardware scheduling offload. When enabled, the gateway will use hardware acceleration for packet scheduling functions, which can improve QoS (Quality of Service) performance and throughput for prioritized traffic. This setting may not be supported on all hardware models and may affect other hardware offload capabilities.
+	OffloadSch pulumi.BoolPtrInput
+	// Timeout (in seconds) for connection tracking of protocols other than TCP, UDP, and ICMP. This controls how long the gateway maintains state information for connections using other protocols. Higher values maintain connection state longer, while lower values reclaim resources more quickly but may affect some applications using non-standard protocols.
+	OtherTimeout pulumi.IntPtrInput
+	// Enable the PPTP (Point-to-Point Tunneling Protocol) helper module. This module allows PPTP VPN connections to work properly through the gateway's firewall and NAT. PPTP uses GRE for tunneling, so the `greModule` must also be enabled for PPTP to function correctly. Note that PPTP has known security vulnerabilities and more secure VPN protocols are generally recommended.
+	PptpModule pulumi.BoolPtrInput
+	// Enable accepting ICMP redirect messages. ICMP redirects are messages sent by routers to inform hosts of better routes to specific destinations. When enabled, the gateway will update its routing table based on these messages. While useful for route optimization, this can potentially be exploited for man-in-the-middle attacks, so it's often disabled in security-sensitive environments.
+	ReceiveRedirects pulumi.BoolPtrInput
+	// Enable sending ICMP redirect messages. When enabled, the gateway will send ICMP redirect messages to hosts on the local network to inform them of better routes to specific destinations. This can help optimize network traffic but is typically only needed when the gateway has multiple interfaces on the same subnet or in complex routing scenarios.
+	SendRedirects pulumi.BoolPtrInput
+	// Enable the SIP (Session Initiation Protocol) helper module. SIP is used for initiating, maintaining, and terminating real-time sessions for voice, video, and messaging applications (VoIP, video conferencing). This helper allows SIP-based applications to work correctly through NAT by tracking SIP connections and dynamically opening the necessary ports for media streams.
+	SipModule pulumi.BoolPtrInput
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
+	// Enable SYN cookies to protect against SYN flood attacks. SYN cookies are a technique that helps mitigate TCP SYN flood attacks by avoiding the need to track incomplete connections in a backlog queue. When enabled, the gateway can continue to establish legitimate connections even when under a SYN flood attack. This is a recommended security setting for internet-facing gateways.
+	SynCookies pulumi.BoolPtrInput
+	// TCP connection timeout settings for various TCP connection states. These settings control how long the gateway maintains state information for TCP connections in different states before removing them from the connection tracking table. Proper timeout values balance resource usage with connection reliability. These settings are particularly relevant when `timeoutSettingPreference` is set to `manual`.
+	TcpTimeouts USGTcpTimeoutsPtrInput
+	// Enable the TFTP (Trivial File Transfer Protocol) helper module. This module allows TFTP connections to work properly through the gateway's firewall and NAT. TFTP is commonly used for firmware updates, configuration file transfers, and network booting of devices. The helper tracks TFTP connections and ensures return traffic is properly handled.
+	TftpModule pulumi.BoolPtrInput
+	// Determines how connection timeout values are configured. Valid values are:
+	//   * `auto` - The gateway will automatically determine appropriate timeout values based on system defaults
+	//   * `manual` - Use the manually specified timeout values for various connection types
+	//
+	// When set to `manual`, you should specify values for the various timeout settings like `tcpTimeouts`, `udpStreamTimeout`, `udpOtherTimeout`, `icmpTimeout`, and `otherTimeout`. Requires controller version 7.0 or later.
+	TimeoutSettingPreference pulumi.StringPtrInput
+	// Timeout (in seconds) for general UDP connections. Since UDP is connectionless, this timeout determines how long the gateway maintains state information for UDP packets that don't match the criteria for stream connections. This applies to most short-lived UDP communications like DNS queries. Lower values free resources more quickly but may affect some applications that expect longer session persistence.
+	UdpOtherTimeout pulumi.IntPtrInput
+	// Timeout (in seconds) for UDP stream connections. This applies to UDP traffic patterns that resemble ongoing streams, such as VoIP calls, video streaming, or online gaming. The gateway identifies these based on traffic patterns and maintains state information longer than for regular UDP traffic. Higher values improve reliability for streaming applications but consume more connection tracking resources.
+	UdpStreamTimeout pulumi.IntPtrInput
+	// Unbind WAN monitors to prevent unnecessary traffic. When enabled, the gateway will stop certain monitoring processes that periodically check WAN connectivity. This can reduce unnecessary traffic on metered connections or in environments where the monitoring traffic might trigger security alerts. However, disabling these monitors may affect the gateway's ability to detect and respond to WAN connectivity issues. Requires controller version 9.0 or later.
+	UnbindWanMonitors pulumi.BoolPtrInput
+	// UPNP (Universal Plug and Play) configuration settings. UPNP allows compatible applications and devices to automatically configure port forwarding rules on the gateway without manual intervention. This is commonly used by gaming consoles, media servers, VoIP applications, and other network services that require incoming connections.
+	Upnp USGUpnpPtrInput
+	// Whether UPNP is enabled. When enabled, the gateway will automatically forward ports for UPNP-compatible devices
+	UpnpEnabled pulumi.BoolPtrInput
 }
 
 func (USGState) ElementType() reflect.Type {
@@ -93,34 +432,186 @@ func (USGState) ElementType() reflect.Type {
 }
 
 type usgArgs struct {
-	// The DHCP relay servers.
+	// The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
+	ArpCacheBaseReachable *int `pulumi:"arpCacheBaseReachable"`
+	// The timeout strategy for ARP cache entries. Valid values are:
+	//   * `normal` - Use system default timeouts
+	//   * `min-dhcp-lease` - Set ARP timeout to match the minimum DHCP lease time
+	//   * `custom` - Use the custom timeout value specified in `arpCacheBaseReachable`
+	//
+	// This setting determines how long MAC-to-IP mappings are stored in the ARP cache before being refreshed.
+	ArpCacheTimeout *string `pulumi:"arpCacheTimeout"`
+	// Enable responding to broadcast ping requests (ICMP echo requests sent to the broadcast address). When enabled, the gateway will respond to pings sent to the broadcast address of the network (e.g., 192.168.1.255). This can be useful for network diagnostics but may also be used in certain denial-of-service attacks.
+	BroadcastPing *bool `pulumi:"broadcastPing"`
+	// Advanced DHCP relay configuration settings. Controls how the gateway forwards DHCP requests to external servers and manages DHCP relay agent behavior. Use this block to fine-tune DHCP relay functionality beyond simply specifying relay servers.
+	DhcpRelay *USGDhcpRelay `pulumi:"dhcpRelay"`
+	// List of up to 5 DHCP relay servers (specified by IP address) that will receive forwarded DHCP requests. This is useful when you want to use external DHCP servers instead of the built-in DHCP server on the USG/UDM. When configured, the gateway will forward DHCP discovery packets from clients to these external servers, allowing centralized IP address management across multiple networks. Example: `['192.168.1.5', '192.168.2.5']`
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future release. `dhcp_relay.servers` attribute will be introduced as a replacement.
 	DhcpRelayServers []string `pulumi:"dhcpRelayServers"`
-	// Whether the guest firewall log is enabled.
-	FirewallGuestDefaultLog *bool `pulumi:"firewallGuestDefaultLog"`
-	// Whether the LAN firewall log is enabled.
-	FirewallLanDefaultLog *bool `pulumi:"firewallLanDefaultLog"`
-	// Whether the WAN firewall log is enabled.
-	FirewallWanDefaultLog *bool `pulumi:"firewallWanDefaultLog"`
-	// Whether multicast DNS is enabled.
+	// Enable updating the gateway's host files with DHCP client information. When enabled, the gateway will automatically add entries to its host file for each DHCP client, allowing hostname resolution for devices that receive IP addresses via DHCP. This improves name resolution on the local network.
+	DhcpdHostfileUpdate *bool `pulumi:"dhcpdHostfileUpdate"`
+	// Use dnsmasq for DHCP services instead of the default DHCP server. Dnsmasq provides integrated DNS and DHCP functionality with additional features like DNS caching, DHCP static leases, and local domain name resolution. This can improve DNS resolution performance and provide more flexible DHCP options.
+	DhcpdUseDnsmasq *bool `pulumi:"dhcpdUseDnsmasq"`
+	// DNS verification settings for validating DNS responses. This feature helps detect and prevent DNS spoofing attacks by verifying DNS responses against trusted DNS servers. When configured, the gateway can compare DNS responses with those from known trusted servers to identify potential tampering or poisoning attempts. Requires controller version 8.5 or later.
+	DnsVerification *USGDnsVerification `pulumi:"dnsVerification"`
+	// When enabled, dnsmasq will query all configured DNS servers simultaneously and use the fastest response. This can improve DNS resolution speed but may increase DNS traffic. By default, dnsmasq queries servers sequentially, only trying the next server if the current one fails to respond.
+	DnsmasqAllServers *bool `pulumi:"dnsmasqAllServers"`
+	// The hostname or IP address of a server to use for network echo tests. Echo tests send packets to this server and measure response times to evaluate network connectivity and performance. This can be used for network diagnostics and monitoring.
+	EchoServer *string `pulumi:"echoServer"`
+	// Enable the FTP (File Transfer Protocol) helper module. This module allows the gateway to properly handle FTP connections through NAT by tracking the control channel and dynamically opening required data ports. Without this helper, passive FTP connections may fail when clients are behind NAT.
+	FtpModule *bool `pulumi:"ftpModule"`
+	// Geographic IP filtering configuration that allows blocking or allowing traffic based on country of origin. This feature uses IP geolocation databases to identify the country associated with IP addresses and apply filtering rules. Useful for implementing country-specific access policies or blocking traffic from high-risk regions. Requires controller version 7.0 or later.
+	GeoIpFiltering *USGGeoIpFiltering `pulumi:"geoIpFiltering"`
+	// Enable the GRE (Generic Routing Encapsulation) protocol helper module. This module allows proper handling of GRE tunneling protocol through the gateway's firewall. GRE is commonly used for VPN tunnels and other encapsulation needs. Required if you plan to use PPTP VPNs (see `pptpModule`).
+	GreModule *bool `pulumi:"greModule"`
+	// Enable the H.323 protocol helper module. H.323 is a standard for multimedia communications (audio, video, and data) over packet-based networks. This helper allows H.323-based applications like video conferencing systems to work properly through NAT by tracking connection details and opening required ports.
+	H323Module *bool `pulumi:"h323Module"`
+	// ICMP timeout in seconds for connection tracking. This controls how long the gateway maintains state information for ICMP (ping) packets in its connection tracking table. Higher values maintain ICMP connection state longer, while lower values reclaim resources more quickly but may affect some diagnostic tools.
+	IcmpTimeout *int `pulumi:"icmpTimeout"`
+	// Enable Link Layer Discovery Protocol (LLDP) on all interfaces. LLDP is a vendor-neutral protocol that allows network devices to advertise their identity, capabilities, and neighbors on a local network. When enabled, the gateway will both send and receive LLDP packets, facilitating network discovery and management tools.
+	LldpEnableAll *bool `pulumi:"lldpEnableAll"`
+	// TCP Maximum Segment Size (MSS) clamping mode. MSS clamping adjusts the maximum segment size of TCP packets to prevent fragmentation issues when packets traverse networks with different MTU sizes. Valid values include:
+	//   * `auto` - Automatically determine appropriate MSS values based on interface MTUs
+	//   * `custom` - Use the custom MSS value specified in `mssClampMss`
+	//   * `disabled` - Do not perform MSS clamping
+	//
+	// This setting is particularly important for VPN connections and networks with non-standard MTU sizes.
+	MssClamp *string `pulumi:"mssClamp"`
+	// Custom TCP Maximum Segment Size (MSS) value in bytes. This value is used when `mssClamp` is set to `custom`. The MSS value should typically be set to the path MTU minus 40 bytes (for IPv4) or minus 60 bytes (for IPv6) to account for TCP/IP header overhead. Valid values range from 100 to 9999, with common values being 1460 (for standard 1500 MTU) or 1400 (for VPN tunnels).
+	MssClampMss *int `pulumi:"mssClampMss"`
+	// Enable multicast DNS (mDNS/Bonjour/Avahi) forwarding across VLANs. This allows devices to discover services (like printers, Chromecasts, Apple devices, etc.) even when they are on different networks or VLANs. When enabled, the gateway will forward mDNS packets between networks, facilitating cross-VLAN service discovery. Note: This setting is not supported on UniFi OS v7+ as it has been replaced by mDNS settings in the network configuration.
 	MulticastDnsEnabled *bool `pulumi:"multicastDnsEnabled"`
-	// The name of the site to associate the settings with.
+	// Enable hardware accounting offload. When enabled, the gateway will use hardware acceleration for traffic accounting functions, reducing CPU load and potentially improving throughput for high-traffic environments. This setting may not be supported on all hardware models.
+	OffloadAccounting *bool `pulumi:"offloadAccounting"`
+	// Enable hardware offload for Layer 2 (L2) blocking functions. When enabled, the gateway will use hardware acceleration for blocking traffic at the data link layer (MAC address level), which can improve performance when implementing MAC-based filtering or isolation. This setting may not be supported on all hardware models.
+	OffloadL2Blocking *bool `pulumi:"offloadL2Blocking"`
+	// Enable hardware scheduling offload. When enabled, the gateway will use hardware acceleration for packet scheduling functions, which can improve QoS (Quality of Service) performance and throughput for prioritized traffic. This setting may not be supported on all hardware models and may affect other hardware offload capabilities.
+	OffloadSch *bool `pulumi:"offloadSch"`
+	// Timeout (in seconds) for connection tracking of protocols other than TCP, UDP, and ICMP. This controls how long the gateway maintains state information for connections using other protocols. Higher values maintain connection state longer, while lower values reclaim resources more quickly but may affect some applications using non-standard protocols.
+	OtherTimeout *int `pulumi:"otherTimeout"`
+	// Enable the PPTP (Point-to-Point Tunneling Protocol) helper module. This module allows PPTP VPN connections to work properly through the gateway's firewall and NAT. PPTP uses GRE for tunneling, so the `greModule` must also be enabled for PPTP to function correctly. Note that PPTP has known security vulnerabilities and more secure VPN protocols are generally recommended.
+	PptpModule *bool `pulumi:"pptpModule"`
+	// Enable accepting ICMP redirect messages. ICMP redirects are messages sent by routers to inform hosts of better routes to specific destinations. When enabled, the gateway will update its routing table based on these messages. While useful for route optimization, this can potentially be exploited for man-in-the-middle attacks, so it's often disabled in security-sensitive environments.
+	ReceiveRedirects *bool `pulumi:"receiveRedirects"`
+	// Enable sending ICMP redirect messages. When enabled, the gateway will send ICMP redirect messages to hosts on the local network to inform them of better routes to specific destinations. This can help optimize network traffic but is typically only needed when the gateway has multiple interfaces on the same subnet or in complex routing scenarios.
+	SendRedirects *bool `pulumi:"sendRedirects"`
+	// Enable the SIP (Session Initiation Protocol) helper module. SIP is used for initiating, maintaining, and terminating real-time sessions for voice, video, and messaging applications (VoIP, video conferencing). This helper allows SIP-based applications to work correctly through NAT by tracking SIP connections and dynamically opening the necessary ports for media streams.
+	SipModule *bool `pulumi:"sipModule"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
+	// Enable SYN cookies to protect against SYN flood attacks. SYN cookies are a technique that helps mitigate TCP SYN flood attacks by avoiding the need to track incomplete connections in a backlog queue. When enabled, the gateway can continue to establish legitimate connections even when under a SYN flood attack. This is a recommended security setting for internet-facing gateways.
+	SynCookies *bool `pulumi:"synCookies"`
+	// TCP connection timeout settings for various TCP connection states. These settings control how long the gateway maintains state information for TCP connections in different states before removing them from the connection tracking table. Proper timeout values balance resource usage with connection reliability. These settings are particularly relevant when `timeoutSettingPreference` is set to `manual`.
+	TcpTimeouts *USGTcpTimeouts `pulumi:"tcpTimeouts"`
+	// Enable the TFTP (Trivial File Transfer Protocol) helper module. This module allows TFTP connections to work properly through the gateway's firewall and NAT. TFTP is commonly used for firmware updates, configuration file transfers, and network booting of devices. The helper tracks TFTP connections and ensures return traffic is properly handled.
+	TftpModule *bool `pulumi:"tftpModule"`
+	// Determines how connection timeout values are configured. Valid values are:
+	//   * `auto` - The gateway will automatically determine appropriate timeout values based on system defaults
+	//   * `manual` - Use the manually specified timeout values for various connection types
+	//
+	// When set to `manual`, you should specify values for the various timeout settings like `tcpTimeouts`, `udpStreamTimeout`, `udpOtherTimeout`, `icmpTimeout`, and `otherTimeout`. Requires controller version 7.0 or later.
+	TimeoutSettingPreference *string `pulumi:"timeoutSettingPreference"`
+	// Timeout (in seconds) for general UDP connections. Since UDP is connectionless, this timeout determines how long the gateway maintains state information for UDP packets that don't match the criteria for stream connections. This applies to most short-lived UDP communications like DNS queries. Lower values free resources more quickly but may affect some applications that expect longer session persistence.
+	UdpOtherTimeout *int `pulumi:"udpOtherTimeout"`
+	// Timeout (in seconds) for UDP stream connections. This applies to UDP traffic patterns that resemble ongoing streams, such as VoIP calls, video streaming, or online gaming. The gateway identifies these based on traffic patterns and maintains state information longer than for regular UDP traffic. Higher values improve reliability for streaming applications but consume more connection tracking resources.
+	UdpStreamTimeout *int `pulumi:"udpStreamTimeout"`
+	// Unbind WAN monitors to prevent unnecessary traffic. When enabled, the gateway will stop certain monitoring processes that periodically check WAN connectivity. This can reduce unnecessary traffic on metered connections or in environments where the monitoring traffic might trigger security alerts. However, disabling these monitors may affect the gateway's ability to detect and respond to WAN connectivity issues. Requires controller version 9.0 or later.
+	UnbindWanMonitors *bool `pulumi:"unbindWanMonitors"`
+	// UPNP (Universal Plug and Play) configuration settings. UPNP allows compatible applications and devices to automatically configure port forwarding rules on the gateway without manual intervention. This is commonly used by gaming consoles, media servers, VoIP applications, and other network services that require incoming connections.
+	Upnp *USGUpnp `pulumi:"upnp"`
 }
 
 // The set of arguments for constructing a USG resource.
 type USGArgs struct {
-	// The DHCP relay servers.
+	// The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
+	ArpCacheBaseReachable pulumi.IntPtrInput
+	// The timeout strategy for ARP cache entries. Valid values are:
+	//   * `normal` - Use system default timeouts
+	//   * `min-dhcp-lease` - Set ARP timeout to match the minimum DHCP lease time
+	//   * `custom` - Use the custom timeout value specified in `arpCacheBaseReachable`
+	//
+	// This setting determines how long MAC-to-IP mappings are stored in the ARP cache before being refreshed.
+	ArpCacheTimeout pulumi.StringPtrInput
+	// Enable responding to broadcast ping requests (ICMP echo requests sent to the broadcast address). When enabled, the gateway will respond to pings sent to the broadcast address of the network (e.g., 192.168.1.255). This can be useful for network diagnostics but may also be used in certain denial-of-service attacks.
+	BroadcastPing pulumi.BoolPtrInput
+	// Advanced DHCP relay configuration settings. Controls how the gateway forwards DHCP requests to external servers and manages DHCP relay agent behavior. Use this block to fine-tune DHCP relay functionality beyond simply specifying relay servers.
+	DhcpRelay USGDhcpRelayPtrInput
+	// List of up to 5 DHCP relay servers (specified by IP address) that will receive forwarded DHCP requests. This is useful when you want to use external DHCP servers instead of the built-in DHCP server on the USG/UDM. When configured, the gateway will forward DHCP discovery packets from clients to these external servers, allowing centralized IP address management across multiple networks. Example: `['192.168.1.5', '192.168.2.5']`
+	//
+	// Deprecated: This attribute is deprecated and will be removed in a future release. `dhcp_relay.servers` attribute will be introduced as a replacement.
 	DhcpRelayServers pulumi.StringArrayInput
-	// Whether the guest firewall log is enabled.
-	FirewallGuestDefaultLog pulumi.BoolPtrInput
-	// Whether the LAN firewall log is enabled.
-	FirewallLanDefaultLog pulumi.BoolPtrInput
-	// Whether the WAN firewall log is enabled.
-	FirewallWanDefaultLog pulumi.BoolPtrInput
-	// Whether multicast DNS is enabled.
+	// Enable updating the gateway's host files with DHCP client information. When enabled, the gateway will automatically add entries to its host file for each DHCP client, allowing hostname resolution for devices that receive IP addresses via DHCP. This improves name resolution on the local network.
+	DhcpdHostfileUpdate pulumi.BoolPtrInput
+	// Use dnsmasq for DHCP services instead of the default DHCP server. Dnsmasq provides integrated DNS and DHCP functionality with additional features like DNS caching, DHCP static leases, and local domain name resolution. This can improve DNS resolution performance and provide more flexible DHCP options.
+	DhcpdUseDnsmasq pulumi.BoolPtrInput
+	// DNS verification settings for validating DNS responses. This feature helps detect and prevent DNS spoofing attacks by verifying DNS responses against trusted DNS servers. When configured, the gateway can compare DNS responses with those from known trusted servers to identify potential tampering or poisoning attempts. Requires controller version 8.5 or later.
+	DnsVerification USGDnsVerificationPtrInput
+	// When enabled, dnsmasq will query all configured DNS servers simultaneously and use the fastest response. This can improve DNS resolution speed but may increase DNS traffic. By default, dnsmasq queries servers sequentially, only trying the next server if the current one fails to respond.
+	DnsmasqAllServers pulumi.BoolPtrInput
+	// The hostname or IP address of a server to use for network echo tests. Echo tests send packets to this server and measure response times to evaluate network connectivity and performance. This can be used for network diagnostics and monitoring.
+	EchoServer pulumi.StringPtrInput
+	// Enable the FTP (File Transfer Protocol) helper module. This module allows the gateway to properly handle FTP connections through NAT by tracking the control channel and dynamically opening required data ports. Without this helper, passive FTP connections may fail when clients are behind NAT.
+	FtpModule pulumi.BoolPtrInput
+	// Geographic IP filtering configuration that allows blocking or allowing traffic based on country of origin. This feature uses IP geolocation databases to identify the country associated with IP addresses and apply filtering rules. Useful for implementing country-specific access policies or blocking traffic from high-risk regions. Requires controller version 7.0 or later.
+	GeoIpFiltering USGGeoIpFilteringPtrInput
+	// Enable the GRE (Generic Routing Encapsulation) protocol helper module. This module allows proper handling of GRE tunneling protocol through the gateway's firewall. GRE is commonly used for VPN tunnels and other encapsulation needs. Required if you plan to use PPTP VPNs (see `pptpModule`).
+	GreModule pulumi.BoolPtrInput
+	// Enable the H.323 protocol helper module. H.323 is a standard for multimedia communications (audio, video, and data) over packet-based networks. This helper allows H.323-based applications like video conferencing systems to work properly through NAT by tracking connection details and opening required ports.
+	H323Module pulumi.BoolPtrInput
+	// ICMP timeout in seconds for connection tracking. This controls how long the gateway maintains state information for ICMP (ping) packets in its connection tracking table. Higher values maintain ICMP connection state longer, while lower values reclaim resources more quickly but may affect some diagnostic tools.
+	IcmpTimeout pulumi.IntPtrInput
+	// Enable Link Layer Discovery Protocol (LLDP) on all interfaces. LLDP is a vendor-neutral protocol that allows network devices to advertise their identity, capabilities, and neighbors on a local network. When enabled, the gateway will both send and receive LLDP packets, facilitating network discovery and management tools.
+	LldpEnableAll pulumi.BoolPtrInput
+	// TCP Maximum Segment Size (MSS) clamping mode. MSS clamping adjusts the maximum segment size of TCP packets to prevent fragmentation issues when packets traverse networks with different MTU sizes. Valid values include:
+	//   * `auto` - Automatically determine appropriate MSS values based on interface MTUs
+	//   * `custom` - Use the custom MSS value specified in `mssClampMss`
+	//   * `disabled` - Do not perform MSS clamping
+	//
+	// This setting is particularly important for VPN connections and networks with non-standard MTU sizes.
+	MssClamp pulumi.StringPtrInput
+	// Custom TCP Maximum Segment Size (MSS) value in bytes. This value is used when `mssClamp` is set to `custom`. The MSS value should typically be set to the path MTU minus 40 bytes (for IPv4) or minus 60 bytes (for IPv6) to account for TCP/IP header overhead. Valid values range from 100 to 9999, with common values being 1460 (for standard 1500 MTU) or 1400 (for VPN tunnels).
+	MssClampMss pulumi.IntPtrInput
+	// Enable multicast DNS (mDNS/Bonjour/Avahi) forwarding across VLANs. This allows devices to discover services (like printers, Chromecasts, Apple devices, etc.) even when they are on different networks or VLANs. When enabled, the gateway will forward mDNS packets between networks, facilitating cross-VLAN service discovery. Note: This setting is not supported on UniFi OS v7+ as it has been replaced by mDNS settings in the network configuration.
 	MulticastDnsEnabled pulumi.BoolPtrInput
-	// The name of the site to associate the settings with.
+	// Enable hardware accounting offload. When enabled, the gateway will use hardware acceleration for traffic accounting functions, reducing CPU load and potentially improving throughput for high-traffic environments. This setting may not be supported on all hardware models.
+	OffloadAccounting pulumi.BoolPtrInput
+	// Enable hardware offload for Layer 2 (L2) blocking functions. When enabled, the gateway will use hardware acceleration for blocking traffic at the data link layer (MAC address level), which can improve performance when implementing MAC-based filtering or isolation. This setting may not be supported on all hardware models.
+	OffloadL2Blocking pulumi.BoolPtrInput
+	// Enable hardware scheduling offload. When enabled, the gateway will use hardware acceleration for packet scheduling functions, which can improve QoS (Quality of Service) performance and throughput for prioritized traffic. This setting may not be supported on all hardware models and may affect other hardware offload capabilities.
+	OffloadSch pulumi.BoolPtrInput
+	// Timeout (in seconds) for connection tracking of protocols other than TCP, UDP, and ICMP. This controls how long the gateway maintains state information for connections using other protocols. Higher values maintain connection state longer, while lower values reclaim resources more quickly but may affect some applications using non-standard protocols.
+	OtherTimeout pulumi.IntPtrInput
+	// Enable the PPTP (Point-to-Point Tunneling Protocol) helper module. This module allows PPTP VPN connections to work properly through the gateway's firewall and NAT. PPTP uses GRE for tunneling, so the `greModule` must also be enabled for PPTP to function correctly. Note that PPTP has known security vulnerabilities and more secure VPN protocols are generally recommended.
+	PptpModule pulumi.BoolPtrInput
+	// Enable accepting ICMP redirect messages. ICMP redirects are messages sent by routers to inform hosts of better routes to specific destinations. When enabled, the gateway will update its routing table based on these messages. While useful for route optimization, this can potentially be exploited for man-in-the-middle attacks, so it's often disabled in security-sensitive environments.
+	ReceiveRedirects pulumi.BoolPtrInput
+	// Enable sending ICMP redirect messages. When enabled, the gateway will send ICMP redirect messages to hosts on the local network to inform them of better routes to specific destinations. This can help optimize network traffic but is typically only needed when the gateway has multiple interfaces on the same subnet or in complex routing scenarios.
+	SendRedirects pulumi.BoolPtrInput
+	// Enable the SIP (Session Initiation Protocol) helper module. SIP is used for initiating, maintaining, and terminating real-time sessions for voice, video, and messaging applications (VoIP, video conferencing). This helper allows SIP-based applications to work correctly through NAT by tracking SIP connections and dynamically opening the necessary ports for media streams.
+	SipModule pulumi.BoolPtrInput
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
+	// Enable SYN cookies to protect against SYN flood attacks. SYN cookies are a technique that helps mitigate TCP SYN flood attacks by avoiding the need to track incomplete connections in a backlog queue. When enabled, the gateway can continue to establish legitimate connections even when under a SYN flood attack. This is a recommended security setting for internet-facing gateways.
+	SynCookies pulumi.BoolPtrInput
+	// TCP connection timeout settings for various TCP connection states. These settings control how long the gateway maintains state information for TCP connections in different states before removing them from the connection tracking table. Proper timeout values balance resource usage with connection reliability. These settings are particularly relevant when `timeoutSettingPreference` is set to `manual`.
+	TcpTimeouts USGTcpTimeoutsPtrInput
+	// Enable the TFTP (Trivial File Transfer Protocol) helper module. This module allows TFTP connections to work properly through the gateway's firewall and NAT. TFTP is commonly used for firmware updates, configuration file transfers, and network booting of devices. The helper tracks TFTP connections and ensures return traffic is properly handled.
+	TftpModule pulumi.BoolPtrInput
+	// Determines how connection timeout values are configured. Valid values are:
+	//   * `auto` - The gateway will automatically determine appropriate timeout values based on system defaults
+	//   * `manual` - Use the manually specified timeout values for various connection types
+	//
+	// When set to `manual`, you should specify values for the various timeout settings like `tcpTimeouts`, `udpStreamTimeout`, `udpOtherTimeout`, `icmpTimeout`, and `otherTimeout`. Requires controller version 7.0 or later.
+	TimeoutSettingPreference pulumi.StringPtrInput
+	// Timeout (in seconds) for general UDP connections. Since UDP is connectionless, this timeout determines how long the gateway maintains state information for UDP packets that don't match the criteria for stream connections. This applies to most short-lived UDP communications like DNS queries. Lower values free resources more quickly but may affect some applications that expect longer session persistence.
+	UdpOtherTimeout pulumi.IntPtrInput
+	// Timeout (in seconds) for UDP stream connections. This applies to UDP traffic patterns that resemble ongoing streams, such as VoIP calls, video streaming, or online gaming. The gateway identifies these based on traffic patterns and maintains state information longer than for regular UDP traffic. Higher values improve reliability for streaming applications but consume more connection tracking resources.
+	UdpStreamTimeout pulumi.IntPtrInput
+	// Unbind WAN monitors to prevent unnecessary traffic. When enabled, the gateway will stop certain monitoring processes that periodically check WAN connectivity. This can reduce unnecessary traffic on metered connections or in environments where the monitoring traffic might trigger security alerts. However, disabling these monitors may affect the gateway's ability to detect and respond to WAN connectivity issues. Requires controller version 9.0 or later.
+	UnbindWanMonitors pulumi.BoolPtrInput
+	// UPNP (Universal Plug and Play) configuration settings. UPNP allows compatible applications and devices to automatically configure port forwarding rules on the gateway without manual intervention. This is commonly used by gaming consoles, media servers, VoIP applications, and other network services that require incoming connections.
+	Upnp USGUpnpPtrInput
 }
 
 func (USGArgs) ElementType() reflect.Type {
@@ -210,34 +701,210 @@ func (o USGOutput) ToUSGOutputWithContext(ctx context.Context) USGOutput {
 	return o
 }
 
-// The DHCP relay servers.
+// The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
+func (o USGOutput) ArpCacheBaseReachable() pulumi.IntOutput {
+	return o.ApplyT(func(v *USG) pulumi.IntOutput { return v.ArpCacheBaseReachable }).(pulumi.IntOutput)
+}
+
+// The timeout strategy for ARP cache entries. Valid values are:
+//   - `normal` - Use system default timeouts
+//   - `min-dhcp-lease` - Set ARP timeout to match the minimum DHCP lease time
+//   - `custom` - Use the custom timeout value specified in `arpCacheBaseReachable`
+//
+// This setting determines how long MAC-to-IP mappings are stored in the ARP cache before being refreshed.
+func (o USGOutput) ArpCacheTimeout() pulumi.StringOutput {
+	return o.ApplyT(func(v *USG) pulumi.StringOutput { return v.ArpCacheTimeout }).(pulumi.StringOutput)
+}
+
+// Enable responding to broadcast ping requests (ICMP echo requests sent to the broadcast address). When enabled, the gateway will respond to pings sent to the broadcast address of the network (e.g., 192.168.1.255). This can be useful for network diagnostics but may also be used in certain denial-of-service attacks.
+func (o USGOutput) BroadcastPing() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.BroadcastPing }).(pulumi.BoolOutput)
+}
+
+// Advanced DHCP relay configuration settings. Controls how the gateway forwards DHCP requests to external servers and manages DHCP relay agent behavior. Use this block to fine-tune DHCP relay functionality beyond simply specifying relay servers.
+func (o USGOutput) DhcpRelay() USGDhcpRelayOutput {
+	return o.ApplyT(func(v *USG) USGDhcpRelayOutput { return v.DhcpRelay }).(USGDhcpRelayOutput)
+}
+
+// List of up to 5 DHCP relay servers (specified by IP address) that will receive forwarded DHCP requests. This is useful when you want to use external DHCP servers instead of the built-in DHCP server on the USG/UDM. When configured, the gateway will forward DHCP discovery packets from clients to these external servers, allowing centralized IP address management across multiple networks. Example: `['192.168.1.5', '192.168.2.5']`
+//
+// Deprecated: This attribute is deprecated and will be removed in a future release. `dhcp_relay.servers` attribute will be introduced as a replacement.
 func (o USGOutput) DhcpRelayServers() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *USG) pulumi.StringArrayOutput { return v.DhcpRelayServers }).(pulumi.StringArrayOutput)
 }
 
-// Whether the guest firewall log is enabled.
-func (o USGOutput) FirewallGuestDefaultLog() pulumi.BoolOutput {
-	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.FirewallGuestDefaultLog }).(pulumi.BoolOutput)
+// Enable updating the gateway's host files with DHCP client information. When enabled, the gateway will automatically add entries to its host file for each DHCP client, allowing hostname resolution for devices that receive IP addresses via DHCP. This improves name resolution on the local network.
+func (o USGOutput) DhcpdHostfileUpdate() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.DhcpdHostfileUpdate }).(pulumi.BoolOutput)
 }
 
-// Whether the LAN firewall log is enabled.
-func (o USGOutput) FirewallLanDefaultLog() pulumi.BoolOutput {
-	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.FirewallLanDefaultLog }).(pulumi.BoolOutput)
+// Use dnsmasq for DHCP services instead of the default DHCP server. Dnsmasq provides integrated DNS and DHCP functionality with additional features like DNS caching, DHCP static leases, and local domain name resolution. This can improve DNS resolution performance and provide more flexible DHCP options.
+func (o USGOutput) DhcpdUseDnsmasq() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.DhcpdUseDnsmasq }).(pulumi.BoolOutput)
 }
 
-// Whether the WAN firewall log is enabled.
-func (o USGOutput) FirewallWanDefaultLog() pulumi.BoolOutput {
-	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.FirewallWanDefaultLog }).(pulumi.BoolOutput)
+// DNS verification settings for validating DNS responses. This feature helps detect and prevent DNS spoofing attacks by verifying DNS responses against trusted DNS servers. When configured, the gateway can compare DNS responses with those from known trusted servers to identify potential tampering or poisoning attempts. Requires controller version 8.5 or later.
+func (o USGOutput) DnsVerification() USGDnsVerificationOutput {
+	return o.ApplyT(func(v *USG) USGDnsVerificationOutput { return v.DnsVerification }).(USGDnsVerificationOutput)
 }
 
-// Whether multicast DNS is enabled.
+// When enabled, dnsmasq will query all configured DNS servers simultaneously and use the fastest response. This can improve DNS resolution speed but may increase DNS traffic. By default, dnsmasq queries servers sequentially, only trying the next server if the current one fails to respond.
+func (o USGOutput) DnsmasqAllServers() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.DnsmasqAllServers }).(pulumi.BoolOutput)
+}
+
+// The hostname or IP address of a server to use for network echo tests. Echo tests send packets to this server and measure response times to evaluate network connectivity and performance. This can be used for network diagnostics and monitoring.
+func (o USGOutput) EchoServer() pulumi.StringOutput {
+	return o.ApplyT(func(v *USG) pulumi.StringOutput { return v.EchoServer }).(pulumi.StringOutput)
+}
+
+// Enable the FTP (File Transfer Protocol) helper module. This module allows the gateway to properly handle FTP connections through NAT by tracking the control channel and dynamically opening required data ports. Without this helper, passive FTP connections may fail when clients are behind NAT.
+func (o USGOutput) FtpModule() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.FtpModule }).(pulumi.BoolOutput)
+}
+
+// Geographic IP filtering configuration that allows blocking or allowing traffic based on country of origin. This feature uses IP geolocation databases to identify the country associated with IP addresses and apply filtering rules. Useful for implementing country-specific access policies or blocking traffic from high-risk regions. Requires controller version 7.0 or later.
+func (o USGOutput) GeoIpFiltering() USGGeoIpFilteringPtrOutput {
+	return o.ApplyT(func(v *USG) USGGeoIpFilteringPtrOutput { return v.GeoIpFiltering }).(USGGeoIpFilteringPtrOutput)
+}
+
+// Whether Geo IP Filtering is enabled. When enabled, the gateway will apply the specified country-based
+func (o USGOutput) GeoIpFilteringEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.GeoIpFilteringEnabled }).(pulumi.BoolOutput)
+}
+
+// Enable the GRE (Generic Routing Encapsulation) protocol helper module. This module allows proper handling of GRE tunneling protocol through the gateway's firewall. GRE is commonly used for VPN tunnels and other encapsulation needs. Required if you plan to use PPTP VPNs (see `pptpModule`).
+func (o USGOutput) GreModule() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.GreModule }).(pulumi.BoolOutput)
+}
+
+// Enable the H.323 protocol helper module. H.323 is a standard for multimedia communications (audio, video, and data) over packet-based networks. This helper allows H.323-based applications like video conferencing systems to work properly through NAT by tracking connection details and opening required ports.
+func (o USGOutput) H323Module() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.H323Module }).(pulumi.BoolOutput)
+}
+
+// ICMP timeout in seconds for connection tracking. This controls how long the gateway maintains state information for ICMP (ping) packets in its connection tracking table. Higher values maintain ICMP connection state longer, while lower values reclaim resources more quickly but may affect some diagnostic tools.
+func (o USGOutput) IcmpTimeout() pulumi.IntOutput {
+	return o.ApplyT(func(v *USG) pulumi.IntOutput { return v.IcmpTimeout }).(pulumi.IntOutput)
+}
+
+// Enable Link Layer Discovery Protocol (LLDP) on all interfaces. LLDP is a vendor-neutral protocol that allows network devices to advertise their identity, capabilities, and neighbors on a local network. When enabled, the gateway will both send and receive LLDP packets, facilitating network discovery and management tools.
+func (o USGOutput) LldpEnableAll() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.LldpEnableAll }).(pulumi.BoolOutput)
+}
+
+// TCP Maximum Segment Size (MSS) clamping mode. MSS clamping adjusts the maximum segment size of TCP packets to prevent fragmentation issues when packets traverse networks with different MTU sizes. Valid values include:
+//   - `auto` - Automatically determine appropriate MSS values based on interface MTUs
+//   - `custom` - Use the custom MSS value specified in `mssClampMss`
+//   - `disabled` - Do not perform MSS clamping
+//
+// This setting is particularly important for VPN connections and networks with non-standard MTU sizes.
+func (o USGOutput) MssClamp() pulumi.StringOutput {
+	return o.ApplyT(func(v *USG) pulumi.StringOutput { return v.MssClamp }).(pulumi.StringOutput)
+}
+
+// Custom TCP Maximum Segment Size (MSS) value in bytes. This value is used when `mssClamp` is set to `custom`. The MSS value should typically be set to the path MTU minus 40 bytes (for IPv4) or minus 60 bytes (for IPv6) to account for TCP/IP header overhead. Valid values range from 100 to 9999, with common values being 1460 (for standard 1500 MTU) or 1400 (for VPN tunnels).
+func (o USGOutput) MssClampMss() pulumi.IntOutput {
+	return o.ApplyT(func(v *USG) pulumi.IntOutput { return v.MssClampMss }).(pulumi.IntOutput)
+}
+
+// Enable multicast DNS (mDNS/Bonjour/Avahi) forwarding across VLANs. This allows devices to discover services (like printers, Chromecasts, Apple devices, etc.) even when they are on different networks or VLANs. When enabled, the gateway will forward mDNS packets between networks, facilitating cross-VLAN service discovery. Note: This setting is not supported on UniFi OS v7+ as it has been replaced by mDNS settings in the network configuration.
 func (o USGOutput) MulticastDnsEnabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.MulticastDnsEnabled }).(pulumi.BoolOutput)
 }
 
-// The name of the site to associate the settings with.
+// Enable hardware accounting offload. When enabled, the gateway will use hardware acceleration for traffic accounting functions, reducing CPU load and potentially improving throughput for high-traffic environments. This setting may not be supported on all hardware models.
+func (o USGOutput) OffloadAccounting() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.OffloadAccounting }).(pulumi.BoolOutput)
+}
+
+// Enable hardware offload for Layer 2 (L2) blocking functions. When enabled, the gateway will use hardware acceleration for blocking traffic at the data link layer (MAC address level), which can improve performance when implementing MAC-based filtering or isolation. This setting may not be supported on all hardware models.
+func (o USGOutput) OffloadL2Blocking() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.OffloadL2Blocking }).(pulumi.BoolOutput)
+}
+
+// Enable hardware scheduling offload. When enabled, the gateway will use hardware acceleration for packet scheduling functions, which can improve QoS (Quality of Service) performance and throughput for prioritized traffic. This setting may not be supported on all hardware models and may affect other hardware offload capabilities.
+func (o USGOutput) OffloadSch() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.OffloadSch }).(pulumi.BoolOutput)
+}
+
+// Timeout (in seconds) for connection tracking of protocols other than TCP, UDP, and ICMP. This controls how long the gateway maintains state information for connections using other protocols. Higher values maintain connection state longer, while lower values reclaim resources more quickly but may affect some applications using non-standard protocols.
+func (o USGOutput) OtherTimeout() pulumi.IntOutput {
+	return o.ApplyT(func(v *USG) pulumi.IntOutput { return v.OtherTimeout }).(pulumi.IntOutput)
+}
+
+// Enable the PPTP (Point-to-Point Tunneling Protocol) helper module. This module allows PPTP VPN connections to work properly through the gateway's firewall and NAT. PPTP uses GRE for tunneling, so the `greModule` must also be enabled for PPTP to function correctly. Note that PPTP has known security vulnerabilities and more secure VPN protocols are generally recommended.
+func (o USGOutput) PptpModule() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.PptpModule }).(pulumi.BoolOutput)
+}
+
+// Enable accepting ICMP redirect messages. ICMP redirects are messages sent by routers to inform hosts of better routes to specific destinations. When enabled, the gateway will update its routing table based on these messages. While useful for route optimization, this can potentially be exploited for man-in-the-middle attacks, so it's often disabled in security-sensitive environments.
+func (o USGOutput) ReceiveRedirects() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.ReceiveRedirects }).(pulumi.BoolOutput)
+}
+
+// Enable sending ICMP redirect messages. When enabled, the gateway will send ICMP redirect messages to hosts on the local network to inform them of better routes to specific destinations. This can help optimize network traffic but is typically only needed when the gateway has multiple interfaces on the same subnet or in complex routing scenarios.
+func (o USGOutput) SendRedirects() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.SendRedirects }).(pulumi.BoolOutput)
+}
+
+// Enable the SIP (Session Initiation Protocol) helper module. SIP is used for initiating, maintaining, and terminating real-time sessions for voice, video, and messaging applications (VoIP, video conferencing). This helper allows SIP-based applications to work correctly through NAT by tracking SIP connections and dynamically opening the necessary ports for media streams.
+func (o USGOutput) SipModule() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.SipModule }).(pulumi.BoolOutput)
+}
+
+// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 func (o USGOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *USG) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
+}
+
+// Enable SYN cookies to protect against SYN flood attacks. SYN cookies are a technique that helps mitigate TCP SYN flood attacks by avoiding the need to track incomplete connections in a backlog queue. When enabled, the gateway can continue to establish legitimate connections even when under a SYN flood attack. This is a recommended security setting for internet-facing gateways.
+func (o USGOutput) SynCookies() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.SynCookies }).(pulumi.BoolOutput)
+}
+
+// TCP connection timeout settings for various TCP connection states. These settings control how long the gateway maintains state information for TCP connections in different states before removing them from the connection tracking table. Proper timeout values balance resource usage with connection reliability. These settings are particularly relevant when `timeoutSettingPreference` is set to `manual`.
+func (o USGOutput) TcpTimeouts() USGTcpTimeoutsOutput {
+	return o.ApplyT(func(v *USG) USGTcpTimeoutsOutput { return v.TcpTimeouts }).(USGTcpTimeoutsOutput)
+}
+
+// Enable the TFTP (Trivial File Transfer Protocol) helper module. This module allows TFTP connections to work properly through the gateway's firewall and NAT. TFTP is commonly used for firmware updates, configuration file transfers, and network booting of devices. The helper tracks TFTP connections and ensures return traffic is properly handled.
+func (o USGOutput) TftpModule() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.TftpModule }).(pulumi.BoolOutput)
+}
+
+// Determines how connection timeout values are configured. Valid values are:
+//   - `auto` - The gateway will automatically determine appropriate timeout values based on system defaults
+//   - `manual` - Use the manually specified timeout values for various connection types
+//
+// When set to `manual`, you should specify values for the various timeout settings like `tcpTimeouts`, `udpStreamTimeout`, `udpOtherTimeout`, `icmpTimeout`, and `otherTimeout`. Requires controller version 7.0 or later.
+func (o USGOutput) TimeoutSettingPreference() pulumi.StringOutput {
+	return o.ApplyT(func(v *USG) pulumi.StringOutput { return v.TimeoutSettingPreference }).(pulumi.StringOutput)
+}
+
+// Timeout (in seconds) for general UDP connections. Since UDP is connectionless, this timeout determines how long the gateway maintains state information for UDP packets that don't match the criteria for stream connections. This applies to most short-lived UDP communications like DNS queries. Lower values free resources more quickly but may affect some applications that expect longer session persistence.
+func (o USGOutput) UdpOtherTimeout() pulumi.IntOutput {
+	return o.ApplyT(func(v *USG) pulumi.IntOutput { return v.UdpOtherTimeout }).(pulumi.IntOutput)
+}
+
+// Timeout (in seconds) for UDP stream connections. This applies to UDP traffic patterns that resemble ongoing streams, such as VoIP calls, video streaming, or online gaming. The gateway identifies these based on traffic patterns and maintains state information longer than for regular UDP traffic. Higher values improve reliability for streaming applications but consume more connection tracking resources.
+func (o USGOutput) UdpStreamTimeout() pulumi.IntOutput {
+	return o.ApplyT(func(v *USG) pulumi.IntOutput { return v.UdpStreamTimeout }).(pulumi.IntOutput)
+}
+
+// Unbind WAN monitors to prevent unnecessary traffic. When enabled, the gateway will stop certain monitoring processes that periodically check WAN connectivity. This can reduce unnecessary traffic on metered connections or in environments where the monitoring traffic might trigger security alerts. However, disabling these monitors may affect the gateway's ability to detect and respond to WAN connectivity issues. Requires controller version 9.0 or later.
+func (o USGOutput) UnbindWanMonitors() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.UnbindWanMonitors }).(pulumi.BoolOutput)
+}
+
+// UPNP (Universal Plug and Play) configuration settings. UPNP allows compatible applications and devices to automatically configure port forwarding rules on the gateway without manual intervention. This is commonly used by gaming consoles, media servers, VoIP applications, and other network services that require incoming connections.
+func (o USGOutput) Upnp() USGUpnpPtrOutput {
+	return o.ApplyT(func(v *USG) USGUpnpPtrOutput { return v.Upnp }).(USGUpnpPtrOutput)
+}
+
+// Whether UPNP is enabled. When enabled, the gateway will automatically forward ports for UPNP-compatible devices
+func (o USGOutput) UpnpEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *USG) pulumi.BoolOutput { return v.UpnpEnabled }).(pulumi.BoolOutput)
 }
 
 type USGArrayOutput struct{ *pulumi.OutputState }

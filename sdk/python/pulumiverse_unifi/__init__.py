@@ -26,6 +26,8 @@ from . import outputs
 if typing.TYPE_CHECKING:
     import pulumiverse_unifi.config as __config
     config = __config
+    import pulumiverse_unifi.dns as __dns
+    dns = __dns
     import pulumiverse_unifi.firewall as __firewall
     firewall = __firewall
     import pulumiverse_unifi.iam as __iam
@@ -36,6 +38,7 @@ if typing.TYPE_CHECKING:
     setting = __setting
 else:
     config = _utilities.lazy_import('pulumiverse_unifi.config')
+    dns = _utilities.lazy_import('pulumiverse_unifi.dns')
     firewall = _utilities.lazy_import('pulumiverse_unifi.firewall')
     iam = _utilities.lazy_import('pulumiverse_unifi.iam')
     port = _utilities.lazy_import('pulumiverse_unifi.port')
@@ -44,6 +47,14 @@ else:
 _utilities.register(
     resource_modules="""
 [
+ {
+  "pkg": "unifi",
+  "mod": "dns/record",
+  "fqn": "pulumiverse_unifi.dns",
+  "classes": {
+   "unifi:dns/record:Record": "Record"
+  }
+ },
  {
   "pkg": "unifi",
   "mod": "firewall/group",
@@ -58,6 +69,22 @@ _utilities.register(
   "fqn": "pulumiverse_unifi.firewall",
   "classes": {
    "unifi:firewall/rule:Rule": "Rule"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "firewall/zone",
+  "fqn": "pulumiverse_unifi.firewall",
+  "classes": {
+   "unifi:firewall/zone:Zone": "Zone"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "firewall/zonePolicy",
+  "fqn": "pulumiverse_unifi.firewall",
+  "classes": {
+   "unifi:firewall/zonePolicy:ZonePolicy": "ZonePolicy"
   }
  },
  {
@@ -142,6 +169,14 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
+  "mod": "port/alFile",
+  "fqn": "pulumiverse_unifi.port",
+  "classes": {
+   "unifi:port/alFile:AlFile": "AlFile"
+  }
+ },
+ {
+  "pkg": "unifi",
   "mod": "port/forward",
   "fqn": "pulumiverse_unifi.port",
   "classes": {
@@ -158,10 +193,90 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
+  "mod": "setting/autoSpeedtest",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/autoSpeedtest:AutoSpeedtest": "AutoSpeedtest"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/country",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/country:Country": "Country"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/dpi",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/dpi:Dpi": "Dpi"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/guestAccess",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/guestAccess:GuestAccess": "GuestAccess"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/ips",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/ips:Ips": "Ips"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/lcdMonitor",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/lcdMonitor:LcdMonitor": "LcdMonitor"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/locale",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/locale:Locale": "Locale"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/magicSiteToSiteVpn",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/magicSiteToSiteVpn:MagicSiteToSiteVpn": "MagicSiteToSiteVpn"
+  }
+ },
+ {
+  "pkg": "unifi",
   "mod": "setting/mgmt",
   "fqn": "pulumiverse_unifi.setting",
   "classes": {
    "unifi:setting/mgmt:Mgmt": "Mgmt"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/networkOptimization",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/networkOptimization:NetworkOptimization": "NetworkOptimization"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/ntp",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/ntp:Ntp": "Ntp"
   }
  },
  {
@@ -174,10 +289,42 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
+  "mod": "setting/rsyslogd",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/rsyslogd:Rsyslogd": "Rsyslogd"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/sslInspection",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/sslInspection:SslInspection": "SslInspection"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/teleport",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/teleport:Teleport": "Teleport"
+  }
+ },
+ {
+  "pkg": "unifi",
   "mod": "setting/uSG",
   "fqn": "pulumiverse_unifi.setting",
   "classes": {
    "unifi:setting/uSG:USG": "USG"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/usw",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/usw:Usw": "Usw"
   }
  }
 ]

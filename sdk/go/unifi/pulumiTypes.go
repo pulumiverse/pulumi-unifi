@@ -14,15 +14,46 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type DevicePortOverride struct {
-	// Number of ports in the aggregate.
+	// The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
+	// * Creating switch-to-switch uplinks for increased bandwidth
+	// * Setting up high-availability connections
+	// * Connecting to servers requiring more bandwidth
+	//   Note: All ports in the LAG must be sequential and have matching configurations.
 	AggregateNumPorts *int `pulumi:"aggregateNumPorts"`
-	// Human-readable name of the port.
+	// A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
+	//   * 'Uplink to Core Switch'
+	//   * 'Conference Room AP'
+	//   * 'Server LACP Group 1'
+	//   * 'VoIP Phone Port'
 	Name *string `pulumi:"name"`
-	// Switch port number.
+	// The physical port number on the switch to configure.
 	Number int `pulumi:"number"`
-	// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+	// The operating mode of the port. Valid values are:
+	//   * `switch` - Normal switching mode (default)
+	//     - Standard port operation for connecting devices
+	//     - Supports VLANs and all standard switching features
+	//   * `mirror` - Port mirroring for traffic analysis
+	//     - Copies traffic from other ports for monitoring
+	//     - Useful for network troubleshooting and security
+	//   * `aggregate` - Link aggregation/bonding mode
+	//     - Combines multiple ports for increased bandwidth
+	//     - Used for switch uplinks or high-bandwidth servers
 	OpMode *string `pulumi:"opMode"`
-	// ID of the Port Profile used on this port.
+	// The Power over Ethernet (PoE) mode for the port. Valid values are:
+	// * `auto` - Automatically detect and power PoE devices (recommended)
+	//   - Provides power based on device negotiation
+	//   - Safest option for most PoE devices
+	// * `pasv24` - Passive 24V PoE
+	//   - For older UniFi devices requiring passive 24V
+	//   - Use with caution to avoid damage
+	// * `passthrough` - PoE passthrough mode
+	//   - For daisy-chaining PoE devices
+	//   - Available on select UniFi switches
+	// * `off` - Disable PoE on the port
+	//   - For non-PoE devices
+	//   - To prevent unwanted power delivery
+	PoeMode *string `pulumi:"poeMode"`
+	// The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
 	PortProfileId *string `pulumi:"portProfileId"`
 }
 
@@ -38,15 +69,46 @@ type DevicePortOverrideInput interface {
 }
 
 type DevicePortOverrideArgs struct {
-	// Number of ports in the aggregate.
+	// The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
+	// * Creating switch-to-switch uplinks for increased bandwidth
+	// * Setting up high-availability connections
+	// * Connecting to servers requiring more bandwidth
+	//   Note: All ports in the LAG must be sequential and have matching configurations.
 	AggregateNumPorts pulumi.IntPtrInput `pulumi:"aggregateNumPorts"`
-	// Human-readable name of the port.
+	// A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
+	//   * 'Uplink to Core Switch'
+	//   * 'Conference Room AP'
+	//   * 'Server LACP Group 1'
+	//   * 'VoIP Phone Port'
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Switch port number.
+	// The physical port number on the switch to configure.
 	Number pulumi.IntInput `pulumi:"number"`
-	// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+	// The operating mode of the port. Valid values are:
+	//   * `switch` - Normal switching mode (default)
+	//     - Standard port operation for connecting devices
+	//     - Supports VLANs and all standard switching features
+	//   * `mirror` - Port mirroring for traffic analysis
+	//     - Copies traffic from other ports for monitoring
+	//     - Useful for network troubleshooting and security
+	//   * `aggregate` - Link aggregation/bonding mode
+	//     - Combines multiple ports for increased bandwidth
+	//     - Used for switch uplinks or high-bandwidth servers
 	OpMode pulumi.StringPtrInput `pulumi:"opMode"`
-	// ID of the Port Profile used on this port.
+	// The Power over Ethernet (PoE) mode for the port. Valid values are:
+	// * `auto` - Automatically detect and power PoE devices (recommended)
+	//   - Provides power based on device negotiation
+	//   - Safest option for most PoE devices
+	// * `pasv24` - Passive 24V PoE
+	//   - For older UniFi devices requiring passive 24V
+	//   - Use with caution to avoid damage
+	// * `passthrough` - PoE passthrough mode
+	//   - For daisy-chaining PoE devices
+	//   - Available on select UniFi switches
+	// * `off` - Disable PoE on the port
+	//   - For non-PoE devices
+	//   - To prevent unwanted power delivery
+	PoeMode pulumi.StringPtrInput `pulumi:"poeMode"`
+	// The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
 	PortProfileId pulumi.StringPtrInput `pulumi:"portProfileId"`
 }
 
@@ -101,27 +163,64 @@ func (o DevicePortOverrideOutput) ToDevicePortOverrideOutputWithContext(ctx cont
 	return o
 }
 
-// Number of ports in the aggregate.
+// The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
+//   - Creating switch-to-switch uplinks for increased bandwidth
+//   - Setting up high-availability connections
+//   - Connecting to servers requiring more bandwidth
+//     Note: All ports in the LAG must be sequential and have matching configurations.
 func (o DevicePortOverrideOutput) AggregateNumPorts() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DevicePortOverride) *int { return v.AggregateNumPorts }).(pulumi.IntPtrOutput)
 }
 
-// Human-readable name of the port.
+// A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
+//   - 'Uplink to Core Switch'
+//   - 'Conference Room AP'
+//   - 'Server LACP Group 1'
+//   - 'VoIP Phone Port'
 func (o DevicePortOverrideOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DevicePortOverride) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Switch port number.
+// The physical port number on the switch to configure.
 func (o DevicePortOverrideOutput) Number() pulumi.IntOutput {
 	return o.ApplyT(func(v DevicePortOverride) int { return v.Number }).(pulumi.IntOutput)
 }
 
-// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+// The operating mode of the port. Valid values are:
+//   - `switch` - Normal switching mode (default)
+//   - Standard port operation for connecting devices
+//   - Supports VLANs and all standard switching features
+//   - `mirror` - Port mirroring for traffic analysis
+//   - Copies traffic from other ports for monitoring
+//   - Useful for network troubleshooting and security
+//   - `aggregate` - Link aggregation/bonding mode
+//   - Combines multiple ports for increased bandwidth
+//   - Used for switch uplinks or high-bandwidth servers
 func (o DevicePortOverrideOutput) OpMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DevicePortOverride) *string { return v.OpMode }).(pulumi.StringPtrOutput)
 }
 
-// ID of the Port Profile used on this port.
+// The Power over Ethernet (PoE) mode for the port. Valid values are:
+// * `auto` - Automatically detect and power PoE devices (recommended)
+//   - Provides power based on device negotiation
+//   - Safest option for most PoE devices
+//
+// * `pasv24` - Passive 24V PoE
+//   - For older UniFi devices requiring passive 24V
+//   - Use with caution to avoid damage
+//
+// * `passthrough` - PoE passthrough mode
+//   - For daisy-chaining PoE devices
+//   - Available on select UniFi switches
+//
+// * `off` - Disable PoE on the port
+//   - For non-PoE devices
+//   - To prevent unwanted power delivery
+func (o DevicePortOverrideOutput) PoeMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DevicePortOverride) *string { return v.PoeMode }).(pulumi.StringPtrOutput)
+}
+
+// The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
 func (o DevicePortOverrideOutput) PortProfileId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DevicePortOverride) *string { return v.PortProfileId }).(pulumi.StringPtrOutput)
 }
@@ -147,11 +246,11 @@ func (o DevicePortOverrideArrayOutput) Index(i pulumi.IntInput) DevicePortOverri
 }
 
 type RadiusProfileAcctServer struct {
-	// IP address of accounting service server.
+	// The IPv4 address of the RADIUS accounting server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
 	Ip string `pulumi:"ip"`
-	// Port of accounting service. Defaults to `1813`.
+	// The UDP port number where the RADIUS accounting service is listening. The standard port is 1813, but this can be changed if needed to match your server configuration.
 	Port *int `pulumi:"port"`
-	// RADIUS secret.
+	// The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
 	Xsecret string `pulumi:"xsecret"`
 }
 
@@ -167,11 +266,11 @@ type RadiusProfileAcctServerInput interface {
 }
 
 type RadiusProfileAcctServerArgs struct {
-	// IP address of accounting service server.
+	// The IPv4 address of the RADIUS accounting server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
 	Ip pulumi.StringInput `pulumi:"ip"`
-	// Port of accounting service. Defaults to `1813`.
+	// The UDP port number where the RADIUS accounting service is listening. The standard port is 1813, but this can be changed if needed to match your server configuration.
 	Port pulumi.IntPtrInput `pulumi:"port"`
-	// RADIUS secret.
+	// The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
 	Xsecret pulumi.StringInput `pulumi:"xsecret"`
 }
 
@@ -226,17 +325,17 @@ func (o RadiusProfileAcctServerOutput) ToRadiusProfileAcctServerOutputWithContex
 	return o
 }
 
-// IP address of accounting service server.
+// The IPv4 address of the RADIUS accounting server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
 func (o RadiusProfileAcctServerOutput) Ip() pulumi.StringOutput {
 	return o.ApplyT(func(v RadiusProfileAcctServer) string { return v.Ip }).(pulumi.StringOutput)
 }
 
-// Port of accounting service. Defaults to `1813`.
+// The UDP port number where the RADIUS accounting service is listening. The standard port is 1813, but this can be changed if needed to match your server configuration.
 func (o RadiusProfileAcctServerOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v RadiusProfileAcctServer) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-// RADIUS secret.
+// The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
 func (o RadiusProfileAcctServerOutput) Xsecret() pulumi.StringOutput {
 	return o.ApplyT(func(v RadiusProfileAcctServer) string { return v.Xsecret }).(pulumi.StringOutput)
 }
@@ -262,11 +361,11 @@ func (o RadiusProfileAcctServerArrayOutput) Index(i pulumi.IntInput) RadiusProfi
 }
 
 type RadiusProfileAuthServer struct {
-	// IP address of authentication service server.
+	// The IPv4 address of the RADIUS authentication server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
 	Ip string `pulumi:"ip"`
-	// Port of authentication service. Defaults to `1812`.
+	// The UDP port number where the RADIUS authentication service is listening. The standard port is 1812, but this can be changed if needed to match your server configuration.
 	Port *int `pulumi:"port"`
-	// RADIUS secret.
+	// The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
 	Xsecret string `pulumi:"xsecret"`
 }
 
@@ -282,11 +381,11 @@ type RadiusProfileAuthServerInput interface {
 }
 
 type RadiusProfileAuthServerArgs struct {
-	// IP address of authentication service server.
+	// The IPv4 address of the RADIUS authentication server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
 	Ip pulumi.StringInput `pulumi:"ip"`
-	// Port of authentication service. Defaults to `1812`.
+	// The UDP port number where the RADIUS authentication service is listening. The standard port is 1812, but this can be changed if needed to match your server configuration.
 	Port pulumi.IntPtrInput `pulumi:"port"`
-	// RADIUS secret.
+	// The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
 	Xsecret pulumi.StringInput `pulumi:"xsecret"`
 }
 
@@ -341,17 +440,17 @@ func (o RadiusProfileAuthServerOutput) ToRadiusProfileAuthServerOutputWithContex
 	return o
 }
 
-// IP address of authentication service server.
+// The IPv4 address of the RADIUS authentication server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
 func (o RadiusProfileAuthServerOutput) Ip() pulumi.StringOutput {
 	return o.ApplyT(func(v RadiusProfileAuthServer) string { return v.Ip }).(pulumi.StringOutput)
 }
 
-// Port of authentication service. Defaults to `1812`.
+// The UDP port number where the RADIUS authentication service is listening. The standard port is 1812, but this can be changed if needed to match your server configuration.
 func (o RadiusProfileAuthServerOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v RadiusProfileAuthServer) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-// RADIUS secret.
+// The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
 func (o RadiusProfileAuthServerOutput) Xsecret() pulumi.StringOutput {
 	return o.ApplyT(func(v RadiusProfileAuthServer) string { return v.Xsecret }).(pulumi.StringOutput)
 }
@@ -377,15 +476,15 @@ func (o RadiusProfileAuthServerArrayOutput) Index(i pulumi.IntInput) RadiusProfi
 }
 
 type WlanSchedule struct {
-	// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+	// Day of week. Valid values: `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
 	DayOfWeek string `pulumi:"dayOfWeek"`
-	// Length of the block in minutes.
+	// Duration in minutes that the network should remain active.
 	Duration int `pulumi:"duration"`
-	// Name of the block.
+	// Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
 	Name *string `pulumi:"name"`
-	// Start hour for the block (0-23).
+	// Start hour in 24-hour format (0-23).
 	StartHour int `pulumi:"startHour"`
-	// Start minute for the block (0-59). Defaults to `0`.
+	// Start minute (0-59).
 	StartMinute *int `pulumi:"startMinute"`
 }
 
@@ -401,15 +500,15 @@ type WlanScheduleInput interface {
 }
 
 type WlanScheduleArgs struct {
-	// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+	// Day of week. Valid values: `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
 	DayOfWeek pulumi.StringInput `pulumi:"dayOfWeek"`
-	// Length of the block in minutes.
+	// Duration in minutes that the network should remain active.
 	Duration pulumi.IntInput `pulumi:"duration"`
-	// Name of the block.
+	// Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Start hour for the block (0-23).
+	// Start hour in 24-hour format (0-23).
 	StartHour pulumi.IntInput `pulumi:"startHour"`
-	// Start minute for the block (0-59). Defaults to `0`.
+	// Start minute (0-59).
 	StartMinute pulumi.IntPtrInput `pulumi:"startMinute"`
 }
 
@@ -464,27 +563,27 @@ func (o WlanScheduleOutput) ToWlanScheduleOutputWithContext(ctx context.Context)
 	return o
 }
 
-// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+// Day of week. Valid values: `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
 func (o WlanScheduleOutput) DayOfWeek() pulumi.StringOutput {
 	return o.ApplyT(func(v WlanSchedule) string { return v.DayOfWeek }).(pulumi.StringOutput)
 }
 
-// Length of the block in minutes.
+// Duration in minutes that the network should remain active.
 func (o WlanScheduleOutput) Duration() pulumi.IntOutput {
 	return o.ApplyT(func(v WlanSchedule) int { return v.Duration }).(pulumi.IntOutput)
 }
 
-// Name of the block.
+// Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
 func (o WlanScheduleOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WlanSchedule) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Start hour for the block (0-23).
+// Start hour in 24-hour format (0-23).
 func (o WlanScheduleOutput) StartHour() pulumi.IntOutput {
 	return o.ApplyT(func(v WlanSchedule) int { return v.StartHour }).(pulumi.IntOutput)
 }
 
-// Start minute for the block (0-59). Defaults to `0`.
+// Start minute (0-59).
 func (o WlanScheduleOutput) StartMinute() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v WlanSchedule) *int { return v.StartMinute }).(pulumi.IntPtrOutput)
 }

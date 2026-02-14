@@ -33,18 +33,23 @@ class UserArgs:
                  user_group_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a User resource.
-        :param pulumi.Input[_builtins.str] mac: The MAC address of the user.
-        :param pulumi.Input[_builtins.bool] allow_existing: Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] blocked: Specifies whether this user should be blocked from the network.
+        :param pulumi.Input[_builtins.str] mac: The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
+        :param pulumi.Input[_builtins.bool] allow_existing: Allow this resource to take over management of an existing user in the UniFi controller. When true:
+                 * The resource can manage users that were automatically created when devices connected
+                 * Existing settings will be overwritten with the values specified in this resource
+                 * If false, attempting to manage an existing user will result in an error
+               
+               Use with caution as it can modify settings for devices already connected to your network.
+        :param pulumi.Input[_builtins.bool] blocked: When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         :param pulumi.Input[_builtins.int] dev_id_override: Override the device fingerprint.
-        :param pulumi.Input[_builtins.str] fixed_ip: A fixed IPv4 address for this user.
-        :param pulumi.Input[_builtins.str] local_dns_record: Specifies the local DNS record for this user.
-        :param pulumi.Input[_builtins.str] name: The name of the user.
-        :param pulumi.Input[_builtins.str] network_id: The network ID for this user.
-        :param pulumi.Input[_builtins.str] note: A note with additional information for the user.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the user with.
-        :param pulumi.Input[_builtins.bool] skip_forget_on_destroy: Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] user_group_id: The user group ID for the user.
+        :param pulumi.Input[_builtins.str] fixed_ip: A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
+        :param pulumi.Input[_builtins.str] local_dns_record: A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
+        :param pulumi.Input[_builtins.str] network_id: The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
+        :param pulumi.Input[_builtins.str] note: Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] skip_forget_on_destroy: When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
+        :param pulumi.Input[_builtins.str] user_group_id: The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         pulumi.set(__self__, "mac", mac)
         if allow_existing is not None:
@@ -74,7 +79,7 @@ class UserArgs:
     @pulumi.getter
     def mac(self) -> pulumi.Input[_builtins.str]:
         """
-        The MAC address of the user.
+        The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
         """
         return pulumi.get(self, "mac")
 
@@ -86,7 +91,12 @@ class UserArgs:
     @pulumi.getter(name="allowExisting")
     def allow_existing(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        Allow this resource to take over management of an existing user in the UniFi controller. When true:
+          * The resource can manage users that were automatically created when devices connected
+          * Existing settings will be overwritten with the values specified in this resource
+          * If false, attempting to manage an existing user will result in an error
+
+        Use with caution as it can modify settings for devices already connected to your network.
         """
         return pulumi.get(self, "allow_existing")
 
@@ -98,7 +108,7 @@ class UserArgs:
     @pulumi.getter
     def blocked(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether this user should be blocked from the network.
+        When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         """
         return pulumi.get(self, "blocked")
 
@@ -122,7 +132,7 @@ class UserArgs:
     @pulumi.getter(name="fixedIp")
     def fixed_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A fixed IPv4 address for this user.
+        A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         """
         return pulumi.get(self, "fixed_ip")
 
@@ -134,7 +144,7 @@ class UserArgs:
     @pulumi.getter(name="localDnsRecord")
     def local_dns_record(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the local DNS record for this user.
+        A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
         """
         return pulumi.get(self, "local_dns_record")
 
@@ -146,7 +156,7 @@ class UserArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the user.
+        A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
         """
         return pulumi.get(self, "name")
 
@@ -158,7 +168,7 @@ class UserArgs:
     @pulumi.getter(name="networkId")
     def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The network ID for this user.
+        The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
         """
         return pulumi.get(self, "network_id")
 
@@ -170,7 +180,7 @@ class UserArgs:
     @pulumi.getter
     def note(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A note with additional information for the user.
+        Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
         """
         return pulumi.get(self, "note")
 
@@ -182,7 +192,7 @@ class UserArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the user with.
+        The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -194,7 +204,7 @@ class UserArgs:
     @pulumi.getter(name="skipForgetOnDestroy")
     def skip_forget_on_destroy(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
         """
         return pulumi.get(self, "skip_forget_on_destroy")
 
@@ -206,7 +216,7 @@ class UserArgs:
     @pulumi.getter(name="userGroupId")
     def user_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The user group ID for the user.
+        The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         return pulumi.get(self, "user_group_id")
 
@@ -234,20 +244,25 @@ class _UserState:
                  user_group_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering User resources.
-        :param pulumi.Input[_builtins.bool] allow_existing: Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] blocked: Specifies whether this user should be blocked from the network.
+        :param pulumi.Input[_builtins.bool] allow_existing: Allow this resource to take over management of an existing user in the UniFi controller. When true:
+                 * The resource can manage users that were automatically created when devices connected
+                 * Existing settings will be overwritten with the values specified in this resource
+                 * If false, attempting to manage an existing user will result in an error
+               
+               Use with caution as it can modify settings for devices already connected to your network.
+        :param pulumi.Input[_builtins.bool] blocked: When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         :param pulumi.Input[_builtins.int] dev_id_override: Override the device fingerprint.
-        :param pulumi.Input[_builtins.str] fixed_ip: A fixed IPv4 address for this user.
+        :param pulumi.Input[_builtins.str] fixed_ip: A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         :param pulumi.Input[_builtins.str] hostname: The hostname of the user.
         :param pulumi.Input[_builtins.str] ip: The IP address of the user.
-        :param pulumi.Input[_builtins.str] local_dns_record: Specifies the local DNS record for this user.
-        :param pulumi.Input[_builtins.str] mac: The MAC address of the user.
-        :param pulumi.Input[_builtins.str] name: The name of the user.
-        :param pulumi.Input[_builtins.str] network_id: The network ID for this user.
-        :param pulumi.Input[_builtins.str] note: A note with additional information for the user.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the user with.
-        :param pulumi.Input[_builtins.bool] skip_forget_on_destroy: Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] user_group_id: The user group ID for the user.
+        :param pulumi.Input[_builtins.str] local_dns_record: A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
+        :param pulumi.Input[_builtins.str] mac: The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
+        :param pulumi.Input[_builtins.str] network_id: The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
+        :param pulumi.Input[_builtins.str] note: Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] skip_forget_on_destroy: When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
+        :param pulumi.Input[_builtins.str] user_group_id: The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         if allow_existing is not None:
             pulumi.set(__self__, "allow_existing", allow_existing)
@@ -282,7 +297,12 @@ class _UserState:
     @pulumi.getter(name="allowExisting")
     def allow_existing(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        Allow this resource to take over management of an existing user in the UniFi controller. When true:
+          * The resource can manage users that were automatically created when devices connected
+          * Existing settings will be overwritten with the values specified in this resource
+          * If false, attempting to manage an existing user will result in an error
+
+        Use with caution as it can modify settings for devices already connected to your network.
         """
         return pulumi.get(self, "allow_existing")
 
@@ -294,7 +314,7 @@ class _UserState:
     @pulumi.getter
     def blocked(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether this user should be blocked from the network.
+        When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         """
         return pulumi.get(self, "blocked")
 
@@ -318,7 +338,7 @@ class _UserState:
     @pulumi.getter(name="fixedIp")
     def fixed_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A fixed IPv4 address for this user.
+        A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         """
         return pulumi.get(self, "fixed_ip")
 
@@ -354,7 +374,7 @@ class _UserState:
     @pulumi.getter(name="localDnsRecord")
     def local_dns_record(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the local DNS record for this user.
+        A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
         """
         return pulumi.get(self, "local_dns_record")
 
@@ -366,7 +386,7 @@ class _UserState:
     @pulumi.getter
     def mac(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The MAC address of the user.
+        The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
         """
         return pulumi.get(self, "mac")
 
@@ -378,7 +398,7 @@ class _UserState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the user.
+        A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
         """
         return pulumi.get(self, "name")
 
@@ -390,7 +410,7 @@ class _UserState:
     @pulumi.getter(name="networkId")
     def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The network ID for this user.
+        The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
         """
         return pulumi.get(self, "network_id")
 
@@ -402,7 +422,7 @@ class _UserState:
     @pulumi.getter
     def note(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        A note with additional information for the user.
+        Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
         """
         return pulumi.get(self, "note")
 
@@ -414,7 +434,7 @@ class _UserState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the user with.
+        The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -426,7 +446,7 @@ class _UserState:
     @pulumi.getter(name="skipForgetOnDestroy")
     def skip_forget_on_destroy(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
         """
         return pulumi.get(self, "skip_forget_on_destroy")
 
@@ -438,7 +458,7 @@ class _UserState:
     @pulumi.getter(name="userGroupId")
     def user_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The user group ID for the user.
+        The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         return pulumi.get(self, "user_group_id")
 
@@ -467,9 +487,24 @@ class User(pulumi.CustomResource):
                  user_group_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `iam.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
+        The `iam.User` resource manages network clients in the UniFi controller, which are identified by their unique MAC addresses.
 
-        Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
+        This resource allows you to manage:
+          * Fixed IP assignments
+          * User groups and network access
+          * Network blocking and restrictions
+          * Local DNS records
+
+        Important Notes:
+          * Users are automatically created in the controller when devices connect to the network
+          * By default, this resource can take over management of existing users (controlled by `allow_existing`)
+          * Users can be 'forgotten' on destroy (controlled by `skip_forget_on_destroy`)
+
+        This resource is particularly useful for:
+          * Managing static IP assignments
+          * Implementing access control
+          * Setting up local DNS records
+          * Organizing devices into user groups
 
         ## Example Usage
 
@@ -487,18 +522,23 @@ class User(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] allow_existing: Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] blocked: Specifies whether this user should be blocked from the network.
+        :param pulumi.Input[_builtins.bool] allow_existing: Allow this resource to take over management of an existing user in the UniFi controller. When true:
+                 * The resource can manage users that were automatically created when devices connected
+                 * Existing settings will be overwritten with the values specified in this resource
+                 * If false, attempting to manage an existing user will result in an error
+               
+               Use with caution as it can modify settings for devices already connected to your network.
+        :param pulumi.Input[_builtins.bool] blocked: When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         :param pulumi.Input[_builtins.int] dev_id_override: Override the device fingerprint.
-        :param pulumi.Input[_builtins.str] fixed_ip: A fixed IPv4 address for this user.
-        :param pulumi.Input[_builtins.str] local_dns_record: Specifies the local DNS record for this user.
-        :param pulumi.Input[_builtins.str] mac: The MAC address of the user.
-        :param pulumi.Input[_builtins.str] name: The name of the user.
-        :param pulumi.Input[_builtins.str] network_id: The network ID for this user.
-        :param pulumi.Input[_builtins.str] note: A note with additional information for the user.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the user with.
-        :param pulumi.Input[_builtins.bool] skip_forget_on_destroy: Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] user_group_id: The user group ID for the user.
+        :param pulumi.Input[_builtins.str] fixed_ip: A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
+        :param pulumi.Input[_builtins.str] local_dns_record: A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
+        :param pulumi.Input[_builtins.str] mac: The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
+        :param pulumi.Input[_builtins.str] network_id: The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
+        :param pulumi.Input[_builtins.str] note: Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] skip_forget_on_destroy: When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
+        :param pulumi.Input[_builtins.str] user_group_id: The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         ...
     @overload
@@ -507,9 +547,24 @@ class User(pulumi.CustomResource):
                  args: UserArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `iam.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
+        The `iam.User` resource manages network clients in the UniFi controller, which are identified by their unique MAC addresses.
 
-        Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
+        This resource allows you to manage:
+          * Fixed IP assignments
+          * User groups and network access
+          * Network blocking and restrictions
+          * Local DNS records
+
+        Important Notes:
+          * Users are automatically created in the controller when devices connect to the network
+          * By default, this resource can take over management of existing users (controlled by `allow_existing`)
+          * Users can be 'forgotten' on destroy (controlled by `skip_forget_on_destroy`)
+
+        This resource is particularly useful for:
+          * Managing static IP assignments
+          * Implementing access control
+          * Setting up local DNS records
+          * Organizing devices into user groups
 
         ## Example Usage
 
@@ -608,20 +663,25 @@ class User(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] allow_existing: Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] blocked: Specifies whether this user should be blocked from the network.
+        :param pulumi.Input[_builtins.bool] allow_existing: Allow this resource to take over management of an existing user in the UniFi controller. When true:
+                 * The resource can manage users that were automatically created when devices connected
+                 * Existing settings will be overwritten with the values specified in this resource
+                 * If false, attempting to manage an existing user will result in an error
+               
+               Use with caution as it can modify settings for devices already connected to your network.
+        :param pulumi.Input[_builtins.bool] blocked: When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         :param pulumi.Input[_builtins.int] dev_id_override: Override the device fingerprint.
-        :param pulumi.Input[_builtins.str] fixed_ip: A fixed IPv4 address for this user.
+        :param pulumi.Input[_builtins.str] fixed_ip: A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         :param pulumi.Input[_builtins.str] hostname: The hostname of the user.
         :param pulumi.Input[_builtins.str] ip: The IP address of the user.
-        :param pulumi.Input[_builtins.str] local_dns_record: Specifies the local DNS record for this user.
-        :param pulumi.Input[_builtins.str] mac: The MAC address of the user.
-        :param pulumi.Input[_builtins.str] name: The name of the user.
-        :param pulumi.Input[_builtins.str] network_id: The network ID for this user.
-        :param pulumi.Input[_builtins.str] note: A note with additional information for the user.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the user with.
-        :param pulumi.Input[_builtins.bool] skip_forget_on_destroy: Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] user_group_id: The user group ID for the user.
+        :param pulumi.Input[_builtins.str] local_dns_record: A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
+        :param pulumi.Input[_builtins.str] mac: The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
+        :param pulumi.Input[_builtins.str] network_id: The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
+        :param pulumi.Input[_builtins.str] note: Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] skip_forget_on_destroy: When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
+        :param pulumi.Input[_builtins.str] user_group_id: The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -647,7 +707,12 @@ class User(pulumi.CustomResource):
     @pulumi.getter(name="allowExisting")
     def allow_existing(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        Allow this resource to take over management of an existing user in the UniFi controller. When true:
+          * The resource can manage users that were automatically created when devices connected
+          * Existing settings will be overwritten with the values specified in this resource
+          * If false, attempting to manage an existing user will result in an error
+
+        Use with caution as it can modify settings for devices already connected to your network.
         """
         return pulumi.get(self, "allow_existing")
 
@@ -655,7 +720,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter
     def blocked(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether this user should be blocked from the network.
+        When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         """
         return pulumi.get(self, "blocked")
 
@@ -671,7 +736,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter(name="fixedIp")
     def fixed_ip(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        A fixed IPv4 address for this user.
+        A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         """
         return pulumi.get(self, "fixed_ip")
 
@@ -695,7 +760,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter(name="localDnsRecord")
     def local_dns_record(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the local DNS record for this user.
+        A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
         """
         return pulumi.get(self, "local_dns_record")
 
@@ -703,7 +768,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter
     def mac(self) -> pulumi.Output[_builtins.str]:
         """
-        The MAC address of the user.
+        The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
         """
         return pulumi.get(self, "mac")
 
@@ -711,7 +776,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the user.
+        A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
         """
         return pulumi.get(self, "name")
 
@@ -719,7 +784,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter(name="networkId")
     def network_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The network ID for this user.
+        The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
         """
         return pulumi.get(self, "network_id")
 
@@ -727,7 +792,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter
     def note(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        A note with additional information for the user.
+        Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
         """
         return pulumi.get(self, "note")
 
@@ -735,7 +800,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the user with.
+        The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -743,7 +808,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter(name="skipForgetOnDestroy")
     def skip_forget_on_destroy(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
         """
         return pulumi.get(self, "skip_forget_on_destroy")
 
@@ -751,7 +816,7 @@ class User(pulumi.CustomResource):
     @pulumi.getter(name="userGroupId")
     def user_group_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The user group ID for the user.
+        The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         return pulumi.get(self, "user_group_id")
 

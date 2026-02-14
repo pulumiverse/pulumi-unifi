@@ -36,9 +36,9 @@ class NetworkArgs:
                  dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
                  dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
                  domain_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
                  internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 intra_network_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
                  ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
                  ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
@@ -52,6 +52,7 @@ class NetworkArgs:
                  multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  network_group: Optional[pulumi.Input[_builtins.str]] = None,
+                 network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  subnet: Optional[pulumi.Input[_builtins.str]] = None,
                  vlan_id: Optional[pulumi.Input[_builtins.int]] = None,
@@ -71,56 +72,197 @@ class NetworkArgs:
                  x_wan_password: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Network resource.
-        :param pulumi.Input[_builtins.str] purpose: The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
-        :param pulumi.Input[_builtins.bool] dhcp_enabled: Specifies whether DHCP is enabled or not on this network.
-        :param pulumi.Input[_builtins.int] dhcp_lease: Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
-        :param pulumi.Input[_builtins.bool] dhcp_relay_enabled: Specifies whether DHCP relay is enabled or not on this network.
-        :param pulumi.Input[_builtins.str] dhcp_start: The IPv4 address where the DHCP range of addresses starts.
-        :param pulumi.Input[_builtins.str] dhcp_stop: The IPv4 address where the DHCP range of addresses stops.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_v6_dns: Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
-        :param pulumi.Input[_builtins.bool] dhcp_v6_dns_auto: Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] dhcp_v6_enabled: Enable stateful DHCPv6 for static configuration.
-        :param pulumi.Input[_builtins.int] dhcp_v6_lease: Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
-        :param pulumi.Input[_builtins.str] dhcp_v6_start: Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
-        :param pulumi.Input[_builtins.str] dhcp_v6_stop: End address of the DHCPv6 range. Used in static DHCPv6 configuration.
-        :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
-        :param pulumi.Input[_builtins.str] dhcpd_boot_filename: Specifies the file to PXE boot from on the dhcpd*boot*server.
-        :param pulumi.Input[_builtins.str] dhcpd_boot_server: Specifies the IPv4 address of a TFTP server to network boot from.
-        :param pulumi.Input[_builtins.str] domain_name: The domain name of this network.
-        :param pulumi.Input[_builtins.bool] igmp_snooping: Specifies whether IGMP snooping is enabled or not.
-        :param pulumi.Input[_builtins.bool] internet_access_enabled: Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] intra_network_access_enabled: Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
-        :param pulumi.Input[_builtins.str] ipv6_interface_type: Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_interface: Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: Specifies the IPv6 Prefix ID.
-        :param pulumi.Input[_builtins.str] ipv6_pd_start: Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_stop: End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
-        :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Specifies whether to enable router advertisements or not.
-        :param pulumi.Input[_builtins.int] ipv6_ra_preferred_lifetime: Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
-        :param pulumi.Input[_builtins.str] ipv6_ra_priority: IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
-        :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
-        :param pulumi.Input[_builtins.str] ipv6_static_subnet: Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
-        :param pulumi.Input[_builtins.bool] multicast_dns: Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
-        :param pulumi.Input[_builtins.str] name: The name of the network.
-        :param pulumi.Input[_builtins.str] network_group: The group of the network. Defaults to `LAN`.
+        :param pulumi.Input[_builtins.str] purpose: The purpose/type of the network. Must be one of:
+               * `corporate` - Standard network for corporate use with full access
+               * `guest` - Isolated network for guest access with limited permissions
+               * `wan` - External network connection (WAN uplink)
+               * `vlan-only` - VLAN network without DHCP services
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+               * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+               * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+               * Use internal DNS servers for corporate networks
+               Maximum 4 servers can be specified.
+        :param pulumi.Input[_builtins.bool] dhcp_enabled: Controls whether DHCP server is enabled for this network. When enabled:
+               * The network will automatically assign IP addresses to clients
+               * DHCP options (DNS, lease time) will be provided to clients
+               * Static IP assignments can still be made outside the DHCP range
+        :param pulumi.Input[_builtins.int] dhcp_lease: The DHCP lease time in seconds. Common values:
+               * 86400 (1 day) - Default, suitable for most networks
+               * 3600 (1 hour) - For testing or temporary networks
+               * 604800 (1 week) - For stable networks with static clients
+               * 2592000 (30 days) - For very stable networks
+        :param pulumi.Input[_builtins.bool] dhcp_relay_enabled: Enables DHCP relay for this network. When enabled:
+               * DHCP requests are forwarded to an external DHCP server
+               * Local DHCP server is disabled
+               * Useful for centralized DHCP management
+        :param pulumi.Input[_builtins.str] dhcp_start: The starting IPv4 address of the DHCP range. Examples:
+               * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+               * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+               Ensure this address is within the network's subnet.
+        :param pulumi.Input[_builtins.str] dhcp_stop: The ending IPv4 address of the DHCP range. Examples:
+               * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+               * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+               Must be greater than dhcp_start and within the network's subnet.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_v6_dns: List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+               * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+               * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+               Only used when dhcp_v6_dns_auto is false. Maximum of 4 addresses are allowed.
+        :param pulumi.Input[_builtins.bool] dhcp_v6_dns_auto: Controls DNS server source for DHCPv6 clients:
+               * true - Use upstream DNS servers (recommended)
+               * false - Use manually specified servers from dhcp_v6_dns
+               Default is true for easier management.
+        :param pulumi.Input[_builtins.bool] dhcp_v6_enabled: Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+               * Provides IPv6 addresses to clients
+               * Works alongside SLAAC if configured
+               * Allows for more controlled IPv6 addressing
+        :param pulumi.Input[_builtins.int] dhcp_v6_lease: The DHCPv6 lease time in seconds. Common values:
+               * 86400 (1 day) - Default setting
+               * 3600 (1 hour) - For testing
+               * 604800 (1 week) - For stable networks
+               Typically longer than IPv4 DHCP leases.
+        :param pulumi.Input[_builtins.str] dhcp_v6_start: The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+               Must be a valid IPv6 address within your allocated IPv6 subnet.
+        :param pulumi.Input[_builtins.str] dhcp_v6_stop: The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+               Must be after dhcp_v6_start in the IPv6 address space.
+        :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+               * Allows network devices to boot from a TFTP server
+               * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
+               * Commonly used for diskless workstations or network installations
+        :param pulumi.Input[_builtins.str] dhcpd_boot_filename: The boot filename to be loaded from the TFTP server. Examples:
+               * 'pxelinux.0' - Standard PXE boot loader
+               * 'undionly.kpxe' - iPXE boot loader
+               * Custom paths for specific boot images
+        :param pulumi.Input[_builtins.str] dhcpd_boot_server: The IPv4 address of the TFTP server for network boot. This setting:
+               * Is required when dhcpd_boot_enabled is true
+               * Should be a reliable, always-on server
+               * Must be accessible to all clients that need to boot
+        :param pulumi.Input[_builtins.str] domain_name: The domain name for this network. Examples:
+               * 'corp.example.com' - For corporate networks
+               * 'guest.example.com' - For guest networks
+               * 'iot.example.com' - For IoT networks
+               Used for internal DNS resolution and DHCP options.
+        :param pulumi.Input[_builtins.bool] enabled: Controls whether this network is active. When disabled:
+               * Network will not be available to clients
+               * DHCP services will be stopped
+               * Existing clients will be disconnected
+               Useful for temporary network maintenance or security measures.
+        :param pulumi.Input[_builtins.bool] igmp_snooping: Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+               * Optimizes multicast traffic flow
+               * Reduces network congestion
+               * Improves performance for multicast applications (e.g., IPTV)
+               Recommended for networks with multicast traffic.
+        :param pulumi.Input[_builtins.bool] internet_access_enabled: Controls internet access for this network. When disabled:
+               * Clients cannot access external networks
+               * Internal network access remains available
+               * Useful for creating isolated or secure networks
+        :param pulumi.Input[_builtins.str] ipv6_interface_type: Specifies the IPv6 connection type. Must be one of:
+               * `none` - IPv6 disabled (default)
+               * `static` - Static IPv6 addressing
+               * `pd` - Prefix Delegation from upstream
+               
+               Choose based on your IPv6 deployment strategy and ISP capabilities.
+        :param pulumi.Input[_builtins.str] ipv6_pd_interface: The WAN interface to use for IPv6 Prefix Delegation. Options:
+               * `wan` - Primary WAN interface
+               * `wan2` - Secondary WAN interface
+               Only applicable when `ipv6_interface_type` is 'pd'.
+        :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: The IPv6 Prefix ID for Prefix Delegation. Used to:
+               * Differentiate multiple delegated prefixes
+               * Create unique subnets from the delegated prefix
+               Typically a hexadecimal value (e.g., '0', '1', 'a1').
+        :param pulumi.Input[_builtins.str] ipv6_pd_start: The starting IPv6 address for Prefix Delegation range.
+               Only used when `ipv6_interface_type` is 'pd'.
+               Must be within the delegated prefix range.
+        :param pulumi.Input[_builtins.str] ipv6_pd_stop: The ending IPv6 address for Prefix Delegation range.
+               Only used when `ipv6_interface_type` is 'pd'.
+               Must be after `ipv6_pd_start` within the delegated prefix.
+        :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Enables IPv6 Router Advertisements (RA). When enabled:
+               * Announces IPv6 prefix information to clients
+               * Enables SLAAC address configuration
+               * Required for most IPv6 deployments
+        :param pulumi.Input[_builtins.int] ipv6_ra_preferred_lifetime: The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+               * Must be less than or equal to `ipv6_ra_valid_lifetime`
+               * Default: 14400 (4 hours)
+               * After this time, addresses become deprecated but still usable
+        :param pulumi.Input[_builtins.str] ipv6_ra_priority: Sets the priority for IPv6 Router Advertisements. Options:
+               * `high` - Preferred for primary networks
+               * `medium` - Standard priority
+               * `low` - For backup or secondary networks
+               Affects router selection when multiple IPv6 routers exist.
+        :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+               * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
+               * Default: 86400 (24 hours)
+               * After this time, addresses become invalid
+        :param pulumi.Input[_builtins.str] ipv6_static_subnet: The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+               Only applicable when `ipv6_interface_type` is 'static'.
+               Must be a valid IPv6 subnet allocated to your organization.
+        :param pulumi.Input[_builtins.bool] multicast_dns: Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+               * Allows device discovery (e.g., printers, Chromecasts)
+               * Supports zero-configuration networking
+               * Available on Controller version 7 and later
+        :param pulumi.Input[_builtins.str] name: The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
+        :param pulumi.Input[_builtins.str] network_group: The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
+        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Enables network isolation. When enabled:
+               * Prevents communication between clients on this network
+               * Each client can only communicate with the gateway
+               * Commonly used for guest networks or IoT devices
         :param pulumi.Input[_builtins.str] site: The name of the site to associate the network with.
-        :param pulumi.Input[_builtins.str] subnet: The subnet of the network. Must be a valid CIDR address.
-        :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID of the network.
-        :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: DNS servers IPs of the WAN.
-        :param pulumi.Input[_builtins.int] wan_egress_qos: Specifies the WAN egress quality of service. Defaults to `0`.
-        :param pulumi.Input[_builtins.str] wan_gateway: The IPv4 gateway of the WAN.
-        :param pulumi.Input[_builtins.str] wan_gateway_v6: The IPv6 gateway of the WAN.
-        :param pulumi.Input[_builtins.str] wan_ip: The IPv4 address of the WAN.
-        :param pulumi.Input[_builtins.str] wan_ipv6: The IPv6 address of the WAN.
-        :param pulumi.Input[_builtins.str] wan_netmask: The IPv4 netmask of the WAN.
-        :param pulumi.Input[_builtins.str] wan_networkgroup: Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
-        :param pulumi.Input[_builtins.int] wan_prefixlen: The IPv6 prefix length of the WAN. Must be between 1 and 128.
-        :param pulumi.Input[_builtins.str] wan_type: Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
-        :param pulumi.Input[_builtins.str] wan_type_v6: Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
-        :param pulumi.Input[_builtins.str] wan_username: Specifies the IPV4 WAN username.
-        :param pulumi.Input[_builtins.str] x_wan_password: Specifies the IPV4 WAN password.
+        :param pulumi.Input[_builtins.str] subnet: The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
+        :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID for this network. Valid range is 0-4096. Common uses:
+               * 1-4094: Standard VLAN range for network segmentation
+               * 0: Untagged/native VLAN
+               * >4094: Reserved for special purposes
+        :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+               Only applicable when `wan_type_v6` is 'dhcpv6'.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: List of IPv4 DNS servers for WAN interface. Examples:
+               * ISP provided DNS servers
+               * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+               * Maximum 4 servers can be specified
+        :param pulumi.Input[_builtins.int] wan_egress_qos: Quality of Service (QoS) priority for WAN egress traffic (0-7).
+               * 0 (default) - Best effort
+               * 1-4 - Increasing priority
+               * 5-7 - Highest priority, use sparingly
+               Higher values get preferential treatment.
+        :param pulumi.Input[_builtins.str] wan_gateway: The IPv4 gateway address for WAN interface.
+               Required when `wan_type` is 'static'.
+               Typically the ISP's router IP address.
+        :param pulumi.Input[_builtins.str] wan_gateway_v6: The IPv6 gateway address for WAN interface.
+               Required when `wan_type_v6` is 'static'.
+               Typically the ISP's router IPv6 address.
+        :param pulumi.Input[_builtins.str] wan_ip: The static IPv4 address for WAN interface.
+               Required when `wan_type` is 'static'.
+               Must be a valid public IP address assigned by your ISP.
+        :param pulumi.Input[_builtins.str] wan_ipv6: The static IPv6 address for WAN interface.
+               Required when `wan_type_v6` is 'static'.
+               Must be a valid public IPv6 address assigned by your ISP.
+        :param pulumi.Input[_builtins.str] wan_netmask: The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+               Required when `wan_type` is 'static'.
+               Must match the subnet mask provided by your ISP.
+        :param pulumi.Input[_builtins.str] wan_networkgroup: The WAN interface group assignment. Options:
+               * `WAN` - Primary WAN interface
+               * `WAN2` - Secondary WAN interface
+               * `WAN_LTE_FAILOVER` - LTE backup connection
+               Used for dual WAN and failover configurations.
+        :param pulumi.Input[_builtins.int] wan_prefixlen: The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+               Only applicable when `wan_type_v6` is 'static'.
+        :param pulumi.Input[_builtins.str] wan_type: The IPv4 WAN connection type. Options:
+               * `disabled` - WAN interface disabled
+               * `static` - Static IP configuration
+               * `dhcp` - Dynamic IP from ISP
+               * `pppoe` - PPPoE connection (common for DSL)
+               Choose based on your ISP's requirements.
+        :param pulumi.Input[_builtins.str] wan_type_v6: The IPv6 WAN connection type. Options:
+               * `disabled` - IPv6 disabled
+               * `static` - Static IPv6 configuration
+               * `dhcpv6` - Dynamic IPv6 from ISP
+               Choose based on your ISP's requirements.
+        :param pulumi.Input[_builtins.str] wan_username: Username for WAN authentication.
+               * Required for PPPoE connections
+               * May be needed for some ISP configurations
+               * Cannot contain spaces or special characters
+        :param pulumi.Input[_builtins.str] x_wan_password: Password for WAN authentication.
+               * Required for PPPoE connections
+               * May be needed for some ISP configurations
+               * Must be kept secret
         """
         pulumi.set(__self__, "purpose", purpose)
         if dhcp_dns is not None:
@@ -155,12 +297,12 @@ class NetworkArgs:
             pulumi.set(__self__, "dhcpd_boot_server", dhcpd_boot_server)
         if domain_name is not None:
             pulumi.set(__self__, "domain_name", domain_name)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
         if igmp_snooping is not None:
             pulumi.set(__self__, "igmp_snooping", igmp_snooping)
         if internet_access_enabled is not None:
             pulumi.set(__self__, "internet_access_enabled", internet_access_enabled)
-        if intra_network_access_enabled is not None:
-            pulumi.set(__self__, "intra_network_access_enabled", intra_network_access_enabled)
         if ipv6_interface_type is not None:
             pulumi.set(__self__, "ipv6_interface_type", ipv6_interface_type)
         if ipv6_pd_interface is not None:
@@ -187,6 +329,8 @@ class NetworkArgs:
             pulumi.set(__self__, "name", name)
         if network_group is not None:
             pulumi.set(__self__, "network_group", network_group)
+        if network_isolation_enabled is not None:
+            pulumi.set(__self__, "network_isolation_enabled", network_isolation_enabled)
         if site is not None:
             pulumi.set(__self__, "site", site)
         if subnet is not None:
@@ -226,7 +370,11 @@ class NetworkArgs:
     @pulumi.getter
     def purpose(self) -> pulumi.Input[_builtins.str]:
         """
-        The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
+        The purpose/type of the network. Must be one of:
+        * `corporate` - Standard network for corporate use with full access
+        * `guest` - Isolated network for guest access with limited permissions
+        * `wan` - External network connection (WAN uplink)
+        * `vlan-only` - VLAN network without DHCP services
         """
         return pulumi.get(self, "purpose")
 
@@ -238,7 +386,11 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpDns")
     def dhcp_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
+        List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+        * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+        * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+        * Use internal DNS servers for corporate networks
+        Maximum 4 servers can be specified.
         """
         return pulumi.get(self, "dhcp_dns")
 
@@ -250,7 +402,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpEnabled")
     def dhcp_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether DHCP is enabled or not on this network.
+        Controls whether DHCP server is enabled for this network. When enabled:
+        * The network will automatically assign IP addresses to clients
+        * DHCP options (DNS, lease time) will be provided to clients
+        * Static IP assignments can still be made outside the DHCP range
         """
         return pulumi.get(self, "dhcp_enabled")
 
@@ -262,7 +417,11 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpLease")
     def dhcp_lease(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
+        The DHCP lease time in seconds. Common values:
+        * 86400 (1 day) - Default, suitable for most networks
+        * 3600 (1 hour) - For testing or temporary networks
+        * 604800 (1 week) - For stable networks with static clients
+        * 2592000 (30 days) - For very stable networks
         """
         return pulumi.get(self, "dhcp_lease")
 
@@ -274,7 +433,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpRelayEnabled")
     def dhcp_relay_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether DHCP relay is enabled or not on this network.
+        Enables DHCP relay for this network. When enabled:
+        * DHCP requests are forwarded to an external DHCP server
+        * Local DHCP server is disabled
+        * Useful for centralized DHCP management
         """
         return pulumi.get(self, "dhcp_relay_enabled")
 
@@ -286,7 +448,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpStart")
     def dhcp_start(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 address where the DHCP range of addresses starts.
+        The starting IPv4 address of the DHCP range. Examples:
+        * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+        * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+        Ensure this address is within the network's subnet.
         """
         return pulumi.get(self, "dhcp_start")
 
@@ -298,7 +463,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpStop")
     def dhcp_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 address where the DHCP range of addresses stops.
+        The ending IPv4 address of the DHCP range. Examples:
+        * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+        * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+        Must be greater than dhcp_start and within the network's subnet.
         """
         return pulumi.get(self, "dhcp_stop")
 
@@ -310,7 +478,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpV6Dns")
     def dhcp_v6_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+        * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+        * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+        Only used when dhcp_v6_dns_auto is false. Maximum of 4 addresses are allowed.
         """
         return pulumi.get(self, "dhcp_v6_dns")
 
@@ -322,7 +493,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpV6DnsAuto")
     def dhcp_v6_dns_auto(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+        Controls DNS server source for DHCPv6 clients:
+        * true - Use upstream DNS servers (recommended)
+        * false - Use manually specified servers from dhcp_v6_dns
+        Default is true for easier management.
         """
         return pulumi.get(self, "dhcp_v6_dns_auto")
 
@@ -334,7 +508,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpV6Enabled")
     def dhcp_v6_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable stateful DHCPv6 for static configuration.
+        Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+        * Provides IPv6 addresses to clients
+        * Works alongside SLAAC if configured
+        * Allows for more controlled IPv6 addressing
         """
         return pulumi.get(self, "dhcp_v6_enabled")
 
@@ -346,7 +523,11 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpV6Lease")
     def dhcp_v6_lease(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        The DHCPv6 lease time in seconds. Common values:
+        * 86400 (1 day) - Default setting
+        * 3600 (1 hour) - For testing
+        * 604800 (1 week) - For stable networks
+        Typically longer than IPv4 DHCP leases.
         """
         return pulumi.get(self, "dhcp_v6_lease")
 
@@ -358,7 +539,8 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpV6Start")
     def dhcp_v6_start(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        Must be a valid IPv6 address within your allocated IPv6 subnet.
         """
         return pulumi.get(self, "dhcp_v6_start")
 
@@ -370,7 +552,8 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpV6Stop")
     def dhcp_v6_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        Must be after dhcp_v6_start in the IPv6 address space.
         """
         return pulumi.get(self, "dhcp_v6_stop")
 
@@ -382,7 +565,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpdBootEnabled")
     def dhcpd_boot_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
+        Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+        * Allows network devices to boot from a TFTP server
+        * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
+        * Commonly used for diskless workstations or network installations
         """
         return pulumi.get(self, "dhcpd_boot_enabled")
 
@@ -394,7 +580,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpdBootFilename")
     def dhcpd_boot_filename(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the file to PXE boot from on the dhcpd*boot*server.
+        The boot filename to be loaded from the TFTP server. Examples:
+        * 'pxelinux.0' - Standard PXE boot loader
+        * 'undionly.kpxe' - iPXE boot loader
+        * Custom paths for specific boot images
         """
         return pulumi.get(self, "dhcpd_boot_filename")
 
@@ -406,7 +595,10 @@ class NetworkArgs:
     @pulumi.getter(name="dhcpdBootServer")
     def dhcpd_boot_server(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPv4 address of a TFTP server to network boot from.
+        The IPv4 address of the TFTP server for network boot. This setting:
+        * Is required when dhcpd_boot_enabled is true
+        * Should be a reliable, always-on server
+        * Must be accessible to all clients that need to boot
         """
         return pulumi.get(self, "dhcpd_boot_server")
 
@@ -418,7 +610,11 @@ class NetworkArgs:
     @pulumi.getter(name="domainName")
     def domain_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The domain name of this network.
+        The domain name for this network. Examples:
+        * 'corp.example.com' - For corporate networks
+        * 'guest.example.com' - For guest networks
+        * 'iot.example.com' - For IoT networks
+        Used for internal DNS resolution and DHCP options.
         """
         return pulumi.get(self, "domain_name")
 
@@ -427,10 +623,30 @@ class NetworkArgs:
         pulumi.set(self, "domain_name", value)
 
     @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Controls whether this network is active. When disabled:
+        * Network will not be available to clients
+        * DHCP services will be stopped
+        * Existing clients will be disconnected
+        Useful for temporary network maintenance or security measures.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+    @_builtins.property
     @pulumi.getter(name="igmpSnooping")
     def igmp_snooping(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether IGMP snooping is enabled or not.
+        Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+        * Optimizes multicast traffic flow
+        * Reduces network congestion
+        * Improves performance for multicast applications (e.g., IPTV)
+        Recommended for networks with multicast traffic.
         """
         return pulumi.get(self, "igmp_snooping")
 
@@ -442,7 +658,10 @@ class NetworkArgs:
     @pulumi.getter(name="internetAccessEnabled")
     def internet_access_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+        Controls internet access for this network. When disabled:
+        * Clients cannot access external networks
+        * Internal network access remains available
+        * Useful for creating isolated or secure networks
         """
         return pulumi.get(self, "internet_access_enabled")
 
@@ -451,22 +670,15 @@ class NetworkArgs:
         pulumi.set(self, "internet_access_enabled", value)
 
     @_builtins.property
-    @pulumi.getter(name="intraNetworkAccessEnabled")
-    def intra_network_access_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
-        """
-        return pulumi.get(self, "intra_network_access_enabled")
-
-    @intra_network_access_enabled.setter
-    def intra_network_access_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "intra_network_access_enabled", value)
-
-    @_builtins.property
     @pulumi.getter(name="ipv6InterfaceType")
     def ipv6_interface_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
+        Specifies the IPv6 connection type. Must be one of:
+        * `none` - IPv6 disabled (default)
+        * `static` - Static IPv6 addressing
+        * `pd` - Prefix Delegation from upstream
+
+        Choose based on your IPv6 deployment strategy and ISP capabilities.
         """
         return pulumi.get(self, "ipv6_interface_type")
 
@@ -478,7 +690,10 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6PdInterface")
     def ipv6_pd_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
+        The WAN interface to use for IPv6 Prefix Delegation. Options:
+        * `wan` - Primary WAN interface
+        * `wan2` - Secondary WAN interface
+        Only applicable when `ipv6_interface_type` is 'pd'.
         """
         return pulumi.get(self, "ipv6_pd_interface")
 
@@ -490,7 +705,10 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6PdPrefixid")
     def ipv6_pd_prefixid(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPv6 Prefix ID.
+        The IPv6 Prefix ID for Prefix Delegation. Used to:
+        * Differentiate multiple delegated prefixes
+        * Create unique subnets from the delegated prefix
+        Typically a hexadecimal value (e.g., '0', '1', 'a1').
         """
         return pulumi.get(self, "ipv6_pd_prefixid")
 
@@ -502,7 +720,9 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6PdStart")
     def ipv6_pd_start(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        The starting IPv6 address for Prefix Delegation range.
+        Only used when `ipv6_interface_type` is 'pd'.
+        Must be within the delegated prefix range.
         """
         return pulumi.get(self, "ipv6_pd_start")
 
@@ -514,7 +734,9 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6PdStop")
     def ipv6_pd_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        The ending IPv6 address for Prefix Delegation range.
+        Only used when `ipv6_interface_type` is 'pd'.
+        Must be after `ipv6_pd_start` within the delegated prefix.
         """
         return pulumi.get(self, "ipv6_pd_stop")
 
@@ -526,7 +748,10 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6RaEnable")
     def ipv6_ra_enable(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to enable router advertisements or not.
+        Enables IPv6 Router Advertisements (RA). When enabled:
+        * Announces IPv6 prefix information to clients
+        * Enables SLAAC address configuration
+        * Required for most IPv6 deployments
         """
         return pulumi.get(self, "ipv6_ra_enable")
 
@@ -538,7 +763,10 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6RaPreferredLifetime")
     def ipv6_ra_preferred_lifetime(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+        The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        * Must be less than or equal to `ipv6_ra_valid_lifetime`
+        * Default: 14400 (4 hours)
+        * After this time, addresses become deprecated but still usable
         """
         return pulumi.get(self, "ipv6_ra_preferred_lifetime")
 
@@ -550,7 +778,11 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6RaPriority")
     def ipv6_ra_priority(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        Sets the priority for IPv6 Router Advertisements. Options:
+        * `high` - Preferred for primary networks
+        * `medium` - Standard priority
+        * `low` - For backup or secondary networks
+        Affects router selection when multiple IPv6 routers exist.
         """
         return pulumi.get(self, "ipv6_ra_priority")
 
@@ -562,7 +794,10 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6RaValidLifetime")
     def ipv6_ra_valid_lifetime(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+        The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
+        * Default: 86400 (24 hours)
+        * After this time, addresses become invalid
         """
         return pulumi.get(self, "ipv6_ra_valid_lifetime")
 
@@ -574,7 +809,9 @@ class NetworkArgs:
     @pulumi.getter(name="ipv6StaticSubnet")
     def ipv6_static_subnet(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
+        The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+        Only applicable when `ipv6_interface_type` is 'static'.
+        Must be a valid IPv6 subnet allocated to your organization.
         """
         return pulumi.get(self, "ipv6_static_subnet")
 
@@ -586,7 +823,10 @@ class NetworkArgs:
     @pulumi.getter(name="multicastDns")
     def multicast_dns(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+        Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+        * Allows device discovery (e.g., printers, Chromecasts)
+        * Supports zero-configuration networking
+        * Available on Controller version 7 and later
         """
         return pulumi.get(self, "multicast_dns")
 
@@ -598,7 +838,7 @@ class NetworkArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the network.
+        The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         """
         return pulumi.get(self, "name")
 
@@ -610,13 +850,28 @@ class NetworkArgs:
     @pulumi.getter(name="networkGroup")
     def network_group(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The group of the network. Defaults to `LAN`.
+        The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
         """
         return pulumi.get(self, "network_group")
 
     @network_group.setter
     def network_group(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "network_group", value)
+
+    @_builtins.property
+    @pulumi.getter(name="networkIsolationEnabled")
+    def network_isolation_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enables network isolation. When enabled:
+        * Prevents communication between clients on this network
+        * Each client can only communicate with the gateway
+        * Commonly used for guest networks or IoT devices
+        """
+        return pulumi.get(self, "network_isolation_enabled")
+
+    @network_isolation_enabled.setter
+    def network_isolation_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "network_isolation_enabled", value)
 
     @_builtins.property
     @pulumi.getter
@@ -634,7 +889,7 @@ class NetworkArgs:
     @pulumi.getter
     def subnet(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The subnet of the network. Must be a valid CIDR address.
+        The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
         """
         return pulumi.get(self, "subnet")
 
@@ -646,7 +901,10 @@ class NetworkArgs:
     @pulumi.getter(name="vlanId")
     def vlan_id(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The VLAN ID of the network.
+        The VLAN ID for this network. Valid range is 0-4096. Common uses:
+        * 1-4094: Standard VLAN range for network segmentation
+        * 0: Untagged/native VLAN
+        * >4094: Reserved for special purposes
         """
         return pulumi.get(self, "vlan_id")
 
@@ -658,7 +916,8 @@ class NetworkArgs:
     @pulumi.getter(name="wanDhcpV6PdSize")
     def wan_dhcp_v6_pd_size(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        Only applicable when `wan_type_v6` is 'dhcpv6'.
         """
         return pulumi.get(self, "wan_dhcp_v6_pd_size")
 
@@ -670,7 +929,10 @@ class NetworkArgs:
     @pulumi.getter(name="wanDns")
     def wan_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        DNS servers IPs of the WAN.
+        List of IPv4 DNS servers for WAN interface. Examples:
+        * ISP provided DNS servers
+        * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+        * Maximum 4 servers can be specified
         """
         return pulumi.get(self, "wan_dns")
 
@@ -682,7 +944,11 @@ class NetworkArgs:
     @pulumi.getter(name="wanEgressQos")
     def wan_egress_qos(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the WAN egress quality of service. Defaults to `0`.
+        Quality of Service (QoS) priority for WAN egress traffic (0-7).
+        * 0 (default) - Best effort
+        * 1-4 - Increasing priority
+        * 5-7 - Highest priority, use sparingly
+        Higher values get preferential treatment.
         """
         return pulumi.get(self, "wan_egress_qos")
 
@@ -694,7 +960,9 @@ class NetworkArgs:
     @pulumi.getter(name="wanGateway")
     def wan_gateway(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 gateway of the WAN.
+        The IPv4 gateway address for WAN interface.
+        Required when `wan_type` is 'static'.
+        Typically the ISP's router IP address.
         """
         return pulumi.get(self, "wan_gateway")
 
@@ -706,7 +974,9 @@ class NetworkArgs:
     @pulumi.getter(name="wanGatewayV6")
     def wan_gateway_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv6 gateway of the WAN.
+        The IPv6 gateway address for WAN interface.
+        Required when `wan_type_v6` is 'static'.
+        Typically the ISP's router IPv6 address.
         """
         return pulumi.get(self, "wan_gateway_v6")
 
@@ -718,7 +988,9 @@ class NetworkArgs:
     @pulumi.getter(name="wanIp")
     def wan_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 address of the WAN.
+        The static IPv4 address for WAN interface.
+        Required when `wan_type` is 'static'.
+        Must be a valid public IP address assigned by your ISP.
         """
         return pulumi.get(self, "wan_ip")
 
@@ -730,7 +1002,9 @@ class NetworkArgs:
     @pulumi.getter(name="wanIpv6")
     def wan_ipv6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv6 address of the WAN.
+        The static IPv6 address for WAN interface.
+        Required when `wan_type_v6` is 'static'.
+        Must be a valid public IPv6 address assigned by your ISP.
         """
         return pulumi.get(self, "wan_ipv6")
 
@@ -742,7 +1016,9 @@ class NetworkArgs:
     @pulumi.getter(name="wanNetmask")
     def wan_netmask(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 netmask of the WAN.
+        The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+        Required when `wan_type` is 'static'.
+        Must match the subnet mask provided by your ISP.
         """
         return pulumi.get(self, "wan_netmask")
 
@@ -754,7 +1030,11 @@ class NetworkArgs:
     @pulumi.getter(name="wanNetworkgroup")
     def wan_networkgroup(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
+        The WAN interface group assignment. Options:
+        * `WAN` - Primary WAN interface
+        * `WAN2` - Secondary WAN interface
+        * `WAN_LTE_FAILOVER` - LTE backup connection
+        Used for dual WAN and failover configurations.
         """
         return pulumi.get(self, "wan_networkgroup")
 
@@ -766,7 +1046,8 @@ class NetworkArgs:
     @pulumi.getter(name="wanPrefixlen")
     def wan_prefixlen(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+        Only applicable when `wan_type_v6` is 'static'.
         """
         return pulumi.get(self, "wan_prefixlen")
 
@@ -778,7 +1059,12 @@ class NetworkArgs:
     @pulumi.getter(name="wanType")
     def wan_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
+        The IPv4 WAN connection type. Options:
+        * `disabled` - WAN interface disabled
+        * `static` - Static IP configuration
+        * `dhcp` - Dynamic IP from ISP
+        * `pppoe` - PPPoE connection (common for DSL)
+        Choose based on your ISP's requirements.
         """
         return pulumi.get(self, "wan_type")
 
@@ -790,7 +1076,11 @@ class NetworkArgs:
     @pulumi.getter(name="wanTypeV6")
     def wan_type_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        The IPv6 WAN connection type. Options:
+        * `disabled` - IPv6 disabled
+        * `static` - Static IPv6 configuration
+        * `dhcpv6` - Dynamic IPv6 from ISP
+        Choose based on your ISP's requirements.
         """
         return pulumi.get(self, "wan_type_v6")
 
@@ -802,7 +1092,10 @@ class NetworkArgs:
     @pulumi.getter(name="wanUsername")
     def wan_username(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPV4 WAN username.
+        Username for WAN authentication.
+        * Required for PPPoE connections
+        * May be needed for some ISP configurations
+        * Cannot contain spaces or special characters
         """
         return pulumi.get(self, "wan_username")
 
@@ -814,7 +1107,10 @@ class NetworkArgs:
     @pulumi.getter(name="xWanPassword")
     def x_wan_password(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPV4 WAN password.
+        Password for WAN authentication.
+        * Required for PPPoE connections
+        * May be needed for some ISP configurations
+        * Must be kept secret
         """
         return pulumi.get(self, "x_wan_password")
 
@@ -842,9 +1138,9 @@ class _NetworkState:
                  dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
                  dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
                  domain_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
                  internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 intra_network_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
                  ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
                  ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
@@ -858,6 +1154,7 @@ class _NetworkState:
                  multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  network_group: Optional[pulumi.Input[_builtins.str]] = None,
+                 network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  purpose: Optional[pulumi.Input[_builtins.str]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  subnet: Optional[pulumi.Input[_builtins.str]] = None,
@@ -878,56 +1175,197 @@ class _NetworkState:
                  x_wan_password: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Network resources.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
-        :param pulumi.Input[_builtins.bool] dhcp_enabled: Specifies whether DHCP is enabled or not on this network.
-        :param pulumi.Input[_builtins.int] dhcp_lease: Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
-        :param pulumi.Input[_builtins.bool] dhcp_relay_enabled: Specifies whether DHCP relay is enabled or not on this network.
-        :param pulumi.Input[_builtins.str] dhcp_start: The IPv4 address where the DHCP range of addresses starts.
-        :param pulumi.Input[_builtins.str] dhcp_stop: The IPv4 address where the DHCP range of addresses stops.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_v6_dns: Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
-        :param pulumi.Input[_builtins.bool] dhcp_v6_dns_auto: Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] dhcp_v6_enabled: Enable stateful DHCPv6 for static configuration.
-        :param pulumi.Input[_builtins.int] dhcp_v6_lease: Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
-        :param pulumi.Input[_builtins.str] dhcp_v6_start: Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
-        :param pulumi.Input[_builtins.str] dhcp_v6_stop: End address of the DHCPv6 range. Used in static DHCPv6 configuration.
-        :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
-        :param pulumi.Input[_builtins.str] dhcpd_boot_filename: Specifies the file to PXE boot from on the dhcpd*boot*server.
-        :param pulumi.Input[_builtins.str] dhcpd_boot_server: Specifies the IPv4 address of a TFTP server to network boot from.
-        :param pulumi.Input[_builtins.str] domain_name: The domain name of this network.
-        :param pulumi.Input[_builtins.bool] igmp_snooping: Specifies whether IGMP snooping is enabled or not.
-        :param pulumi.Input[_builtins.bool] internet_access_enabled: Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] intra_network_access_enabled: Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
-        :param pulumi.Input[_builtins.str] ipv6_interface_type: Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_interface: Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: Specifies the IPv6 Prefix ID.
-        :param pulumi.Input[_builtins.str] ipv6_pd_start: Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_stop: End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
-        :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Specifies whether to enable router advertisements or not.
-        :param pulumi.Input[_builtins.int] ipv6_ra_preferred_lifetime: Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
-        :param pulumi.Input[_builtins.str] ipv6_ra_priority: IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
-        :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
-        :param pulumi.Input[_builtins.str] ipv6_static_subnet: Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
-        :param pulumi.Input[_builtins.bool] multicast_dns: Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
-        :param pulumi.Input[_builtins.str] name: The name of the network.
-        :param pulumi.Input[_builtins.str] network_group: The group of the network. Defaults to `LAN`.
-        :param pulumi.Input[_builtins.str] purpose: The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+               * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+               * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+               * Use internal DNS servers for corporate networks
+               Maximum 4 servers can be specified.
+        :param pulumi.Input[_builtins.bool] dhcp_enabled: Controls whether DHCP server is enabled for this network. When enabled:
+               * The network will automatically assign IP addresses to clients
+               * DHCP options (DNS, lease time) will be provided to clients
+               * Static IP assignments can still be made outside the DHCP range
+        :param pulumi.Input[_builtins.int] dhcp_lease: The DHCP lease time in seconds. Common values:
+               * 86400 (1 day) - Default, suitable for most networks
+               * 3600 (1 hour) - For testing or temporary networks
+               * 604800 (1 week) - For stable networks with static clients
+               * 2592000 (30 days) - For very stable networks
+        :param pulumi.Input[_builtins.bool] dhcp_relay_enabled: Enables DHCP relay for this network. When enabled:
+               * DHCP requests are forwarded to an external DHCP server
+               * Local DHCP server is disabled
+               * Useful for centralized DHCP management
+        :param pulumi.Input[_builtins.str] dhcp_start: The starting IPv4 address of the DHCP range. Examples:
+               * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+               * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+               Ensure this address is within the network's subnet.
+        :param pulumi.Input[_builtins.str] dhcp_stop: The ending IPv4 address of the DHCP range. Examples:
+               * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+               * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+               Must be greater than dhcp_start and within the network's subnet.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_v6_dns: List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+               * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+               * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+               Only used when dhcp_v6_dns_auto is false. Maximum of 4 addresses are allowed.
+        :param pulumi.Input[_builtins.bool] dhcp_v6_dns_auto: Controls DNS server source for DHCPv6 clients:
+               * true - Use upstream DNS servers (recommended)
+               * false - Use manually specified servers from dhcp_v6_dns
+               Default is true for easier management.
+        :param pulumi.Input[_builtins.bool] dhcp_v6_enabled: Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+               * Provides IPv6 addresses to clients
+               * Works alongside SLAAC if configured
+               * Allows for more controlled IPv6 addressing
+        :param pulumi.Input[_builtins.int] dhcp_v6_lease: The DHCPv6 lease time in seconds. Common values:
+               * 86400 (1 day) - Default setting
+               * 3600 (1 hour) - For testing
+               * 604800 (1 week) - For stable networks
+               Typically longer than IPv4 DHCP leases.
+        :param pulumi.Input[_builtins.str] dhcp_v6_start: The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+               Must be a valid IPv6 address within your allocated IPv6 subnet.
+        :param pulumi.Input[_builtins.str] dhcp_v6_stop: The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+               Must be after dhcp_v6_start in the IPv6 address space.
+        :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+               * Allows network devices to boot from a TFTP server
+               * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
+               * Commonly used for diskless workstations or network installations
+        :param pulumi.Input[_builtins.str] dhcpd_boot_filename: The boot filename to be loaded from the TFTP server. Examples:
+               * 'pxelinux.0' - Standard PXE boot loader
+               * 'undionly.kpxe' - iPXE boot loader
+               * Custom paths for specific boot images
+        :param pulumi.Input[_builtins.str] dhcpd_boot_server: The IPv4 address of the TFTP server for network boot. This setting:
+               * Is required when dhcpd_boot_enabled is true
+               * Should be a reliable, always-on server
+               * Must be accessible to all clients that need to boot
+        :param pulumi.Input[_builtins.str] domain_name: The domain name for this network. Examples:
+               * 'corp.example.com' - For corporate networks
+               * 'guest.example.com' - For guest networks
+               * 'iot.example.com' - For IoT networks
+               Used for internal DNS resolution and DHCP options.
+        :param pulumi.Input[_builtins.bool] enabled: Controls whether this network is active. When disabled:
+               * Network will not be available to clients
+               * DHCP services will be stopped
+               * Existing clients will be disconnected
+               Useful for temporary network maintenance or security measures.
+        :param pulumi.Input[_builtins.bool] igmp_snooping: Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+               * Optimizes multicast traffic flow
+               * Reduces network congestion
+               * Improves performance for multicast applications (e.g., IPTV)
+               Recommended for networks with multicast traffic.
+        :param pulumi.Input[_builtins.bool] internet_access_enabled: Controls internet access for this network. When disabled:
+               * Clients cannot access external networks
+               * Internal network access remains available
+               * Useful for creating isolated or secure networks
+        :param pulumi.Input[_builtins.str] ipv6_interface_type: Specifies the IPv6 connection type. Must be one of:
+               * `none` - IPv6 disabled (default)
+               * `static` - Static IPv6 addressing
+               * `pd` - Prefix Delegation from upstream
+               
+               Choose based on your IPv6 deployment strategy and ISP capabilities.
+        :param pulumi.Input[_builtins.str] ipv6_pd_interface: The WAN interface to use for IPv6 Prefix Delegation. Options:
+               * `wan` - Primary WAN interface
+               * `wan2` - Secondary WAN interface
+               Only applicable when `ipv6_interface_type` is 'pd'.
+        :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: The IPv6 Prefix ID for Prefix Delegation. Used to:
+               * Differentiate multiple delegated prefixes
+               * Create unique subnets from the delegated prefix
+               Typically a hexadecimal value (e.g., '0', '1', 'a1').
+        :param pulumi.Input[_builtins.str] ipv6_pd_start: The starting IPv6 address for Prefix Delegation range.
+               Only used when `ipv6_interface_type` is 'pd'.
+               Must be within the delegated prefix range.
+        :param pulumi.Input[_builtins.str] ipv6_pd_stop: The ending IPv6 address for Prefix Delegation range.
+               Only used when `ipv6_interface_type` is 'pd'.
+               Must be after `ipv6_pd_start` within the delegated prefix.
+        :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Enables IPv6 Router Advertisements (RA). When enabled:
+               * Announces IPv6 prefix information to clients
+               * Enables SLAAC address configuration
+               * Required for most IPv6 deployments
+        :param pulumi.Input[_builtins.int] ipv6_ra_preferred_lifetime: The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+               * Must be less than or equal to `ipv6_ra_valid_lifetime`
+               * Default: 14400 (4 hours)
+               * After this time, addresses become deprecated but still usable
+        :param pulumi.Input[_builtins.str] ipv6_ra_priority: Sets the priority for IPv6 Router Advertisements. Options:
+               * `high` - Preferred for primary networks
+               * `medium` - Standard priority
+               * `low` - For backup or secondary networks
+               Affects router selection when multiple IPv6 routers exist.
+        :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+               * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
+               * Default: 86400 (24 hours)
+               * After this time, addresses become invalid
+        :param pulumi.Input[_builtins.str] ipv6_static_subnet: The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+               Only applicable when `ipv6_interface_type` is 'static'.
+               Must be a valid IPv6 subnet allocated to your organization.
+        :param pulumi.Input[_builtins.bool] multicast_dns: Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+               * Allows device discovery (e.g., printers, Chromecasts)
+               * Supports zero-configuration networking
+               * Available on Controller version 7 and later
+        :param pulumi.Input[_builtins.str] name: The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
+        :param pulumi.Input[_builtins.str] network_group: The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
+        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Enables network isolation. When enabled:
+               * Prevents communication between clients on this network
+               * Each client can only communicate with the gateway
+               * Commonly used for guest networks or IoT devices
+        :param pulumi.Input[_builtins.str] purpose: The purpose/type of the network. Must be one of:
+               * `corporate` - Standard network for corporate use with full access
+               * `guest` - Isolated network for guest access with limited permissions
+               * `wan` - External network connection (WAN uplink)
+               * `vlan-only` - VLAN network without DHCP services
         :param pulumi.Input[_builtins.str] site: The name of the site to associate the network with.
-        :param pulumi.Input[_builtins.str] subnet: The subnet of the network. Must be a valid CIDR address.
-        :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID of the network.
-        :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: DNS servers IPs of the WAN.
-        :param pulumi.Input[_builtins.int] wan_egress_qos: Specifies the WAN egress quality of service. Defaults to `0`.
-        :param pulumi.Input[_builtins.str] wan_gateway: The IPv4 gateway of the WAN.
-        :param pulumi.Input[_builtins.str] wan_gateway_v6: The IPv6 gateway of the WAN.
-        :param pulumi.Input[_builtins.str] wan_ip: The IPv4 address of the WAN.
-        :param pulumi.Input[_builtins.str] wan_ipv6: The IPv6 address of the WAN.
-        :param pulumi.Input[_builtins.str] wan_netmask: The IPv4 netmask of the WAN.
-        :param pulumi.Input[_builtins.str] wan_networkgroup: Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
-        :param pulumi.Input[_builtins.int] wan_prefixlen: The IPv6 prefix length of the WAN. Must be between 1 and 128.
-        :param pulumi.Input[_builtins.str] wan_type: Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
-        :param pulumi.Input[_builtins.str] wan_type_v6: Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
-        :param pulumi.Input[_builtins.str] wan_username: Specifies the IPV4 WAN username.
-        :param pulumi.Input[_builtins.str] x_wan_password: Specifies the IPV4 WAN password.
+        :param pulumi.Input[_builtins.str] subnet: The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
+        :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID for this network. Valid range is 0-4096. Common uses:
+               * 1-4094: Standard VLAN range for network segmentation
+               * 0: Untagged/native VLAN
+               * >4094: Reserved for special purposes
+        :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+               Only applicable when `wan_type_v6` is 'dhcpv6'.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: List of IPv4 DNS servers for WAN interface. Examples:
+               * ISP provided DNS servers
+               * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+               * Maximum 4 servers can be specified
+        :param pulumi.Input[_builtins.int] wan_egress_qos: Quality of Service (QoS) priority for WAN egress traffic (0-7).
+               * 0 (default) - Best effort
+               * 1-4 - Increasing priority
+               * 5-7 - Highest priority, use sparingly
+               Higher values get preferential treatment.
+        :param pulumi.Input[_builtins.str] wan_gateway: The IPv4 gateway address for WAN interface.
+               Required when `wan_type` is 'static'.
+               Typically the ISP's router IP address.
+        :param pulumi.Input[_builtins.str] wan_gateway_v6: The IPv6 gateway address for WAN interface.
+               Required when `wan_type_v6` is 'static'.
+               Typically the ISP's router IPv6 address.
+        :param pulumi.Input[_builtins.str] wan_ip: The static IPv4 address for WAN interface.
+               Required when `wan_type` is 'static'.
+               Must be a valid public IP address assigned by your ISP.
+        :param pulumi.Input[_builtins.str] wan_ipv6: The static IPv6 address for WAN interface.
+               Required when `wan_type_v6` is 'static'.
+               Must be a valid public IPv6 address assigned by your ISP.
+        :param pulumi.Input[_builtins.str] wan_netmask: The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+               Required when `wan_type` is 'static'.
+               Must match the subnet mask provided by your ISP.
+        :param pulumi.Input[_builtins.str] wan_networkgroup: The WAN interface group assignment. Options:
+               * `WAN` - Primary WAN interface
+               * `WAN2` - Secondary WAN interface
+               * `WAN_LTE_FAILOVER` - LTE backup connection
+               Used for dual WAN and failover configurations.
+        :param pulumi.Input[_builtins.int] wan_prefixlen: The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+               Only applicable when `wan_type_v6` is 'static'.
+        :param pulumi.Input[_builtins.str] wan_type: The IPv4 WAN connection type. Options:
+               * `disabled` - WAN interface disabled
+               * `static` - Static IP configuration
+               * `dhcp` - Dynamic IP from ISP
+               * `pppoe` - PPPoE connection (common for DSL)
+               Choose based on your ISP's requirements.
+        :param pulumi.Input[_builtins.str] wan_type_v6: The IPv6 WAN connection type. Options:
+               * `disabled` - IPv6 disabled
+               * `static` - Static IPv6 configuration
+               * `dhcpv6` - Dynamic IPv6 from ISP
+               Choose based on your ISP's requirements.
+        :param pulumi.Input[_builtins.str] wan_username: Username for WAN authentication.
+               * Required for PPPoE connections
+               * May be needed for some ISP configurations
+               * Cannot contain spaces or special characters
+        :param pulumi.Input[_builtins.str] x_wan_password: Password for WAN authentication.
+               * Required for PPPoE connections
+               * May be needed for some ISP configurations
+               * Must be kept secret
         """
         if dhcp_dns is not None:
             pulumi.set(__self__, "dhcp_dns", dhcp_dns)
@@ -961,12 +1399,12 @@ class _NetworkState:
             pulumi.set(__self__, "dhcpd_boot_server", dhcpd_boot_server)
         if domain_name is not None:
             pulumi.set(__self__, "domain_name", domain_name)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
         if igmp_snooping is not None:
             pulumi.set(__self__, "igmp_snooping", igmp_snooping)
         if internet_access_enabled is not None:
             pulumi.set(__self__, "internet_access_enabled", internet_access_enabled)
-        if intra_network_access_enabled is not None:
-            pulumi.set(__self__, "intra_network_access_enabled", intra_network_access_enabled)
         if ipv6_interface_type is not None:
             pulumi.set(__self__, "ipv6_interface_type", ipv6_interface_type)
         if ipv6_pd_interface is not None:
@@ -993,6 +1431,8 @@ class _NetworkState:
             pulumi.set(__self__, "name", name)
         if network_group is not None:
             pulumi.set(__self__, "network_group", network_group)
+        if network_isolation_enabled is not None:
+            pulumi.set(__self__, "network_isolation_enabled", network_isolation_enabled)
         if purpose is not None:
             pulumi.set(__self__, "purpose", purpose)
         if site is not None:
@@ -1034,7 +1474,11 @@ class _NetworkState:
     @pulumi.getter(name="dhcpDns")
     def dhcp_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
+        List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+        * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+        * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+        * Use internal DNS servers for corporate networks
+        Maximum 4 servers can be specified.
         """
         return pulumi.get(self, "dhcp_dns")
 
@@ -1046,7 +1490,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpEnabled")
     def dhcp_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether DHCP is enabled or not on this network.
+        Controls whether DHCP server is enabled for this network. When enabled:
+        * The network will automatically assign IP addresses to clients
+        * DHCP options (DNS, lease time) will be provided to clients
+        * Static IP assignments can still be made outside the DHCP range
         """
         return pulumi.get(self, "dhcp_enabled")
 
@@ -1058,7 +1505,11 @@ class _NetworkState:
     @pulumi.getter(name="dhcpLease")
     def dhcp_lease(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
+        The DHCP lease time in seconds. Common values:
+        * 86400 (1 day) - Default, suitable for most networks
+        * 3600 (1 hour) - For testing or temporary networks
+        * 604800 (1 week) - For stable networks with static clients
+        * 2592000 (30 days) - For very stable networks
         """
         return pulumi.get(self, "dhcp_lease")
 
@@ -1070,7 +1521,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpRelayEnabled")
     def dhcp_relay_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether DHCP relay is enabled or not on this network.
+        Enables DHCP relay for this network. When enabled:
+        * DHCP requests are forwarded to an external DHCP server
+        * Local DHCP server is disabled
+        * Useful for centralized DHCP management
         """
         return pulumi.get(self, "dhcp_relay_enabled")
 
@@ -1082,7 +1536,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpStart")
     def dhcp_start(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 address where the DHCP range of addresses starts.
+        The starting IPv4 address of the DHCP range. Examples:
+        * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+        * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+        Ensure this address is within the network's subnet.
         """
         return pulumi.get(self, "dhcp_start")
 
@@ -1094,7 +1551,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpStop")
     def dhcp_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 address where the DHCP range of addresses stops.
+        The ending IPv4 address of the DHCP range. Examples:
+        * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+        * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+        Must be greater than dhcp_start and within the network's subnet.
         """
         return pulumi.get(self, "dhcp_stop")
 
@@ -1106,7 +1566,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpV6Dns")
     def dhcp_v6_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+        * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+        * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+        Only used when dhcp_v6_dns_auto is false. Maximum of 4 addresses are allowed.
         """
         return pulumi.get(self, "dhcp_v6_dns")
 
@@ -1118,7 +1581,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpV6DnsAuto")
     def dhcp_v6_dns_auto(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+        Controls DNS server source for DHCPv6 clients:
+        * true - Use upstream DNS servers (recommended)
+        * false - Use manually specified servers from dhcp_v6_dns
+        Default is true for easier management.
         """
         return pulumi.get(self, "dhcp_v6_dns_auto")
 
@@ -1130,7 +1596,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpV6Enabled")
     def dhcp_v6_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable stateful DHCPv6 for static configuration.
+        Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+        * Provides IPv6 addresses to clients
+        * Works alongside SLAAC if configured
+        * Allows for more controlled IPv6 addressing
         """
         return pulumi.get(self, "dhcp_v6_enabled")
 
@@ -1142,7 +1611,11 @@ class _NetworkState:
     @pulumi.getter(name="dhcpV6Lease")
     def dhcp_v6_lease(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        The DHCPv6 lease time in seconds. Common values:
+        * 86400 (1 day) - Default setting
+        * 3600 (1 hour) - For testing
+        * 604800 (1 week) - For stable networks
+        Typically longer than IPv4 DHCP leases.
         """
         return pulumi.get(self, "dhcp_v6_lease")
 
@@ -1154,7 +1627,8 @@ class _NetworkState:
     @pulumi.getter(name="dhcpV6Start")
     def dhcp_v6_start(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        Must be a valid IPv6 address within your allocated IPv6 subnet.
         """
         return pulumi.get(self, "dhcp_v6_start")
 
@@ -1166,7 +1640,8 @@ class _NetworkState:
     @pulumi.getter(name="dhcpV6Stop")
     def dhcp_v6_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        Must be after dhcp_v6_start in the IPv6 address space.
         """
         return pulumi.get(self, "dhcp_v6_stop")
 
@@ -1178,7 +1653,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpdBootEnabled")
     def dhcpd_boot_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
+        Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+        * Allows network devices to boot from a TFTP server
+        * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
+        * Commonly used for diskless workstations or network installations
         """
         return pulumi.get(self, "dhcpd_boot_enabled")
 
@@ -1190,7 +1668,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpdBootFilename")
     def dhcpd_boot_filename(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the file to PXE boot from on the dhcpd*boot*server.
+        The boot filename to be loaded from the TFTP server. Examples:
+        * 'pxelinux.0' - Standard PXE boot loader
+        * 'undionly.kpxe' - iPXE boot loader
+        * Custom paths for specific boot images
         """
         return pulumi.get(self, "dhcpd_boot_filename")
 
@@ -1202,7 +1683,10 @@ class _NetworkState:
     @pulumi.getter(name="dhcpdBootServer")
     def dhcpd_boot_server(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPv4 address of a TFTP server to network boot from.
+        The IPv4 address of the TFTP server for network boot. This setting:
+        * Is required when dhcpd_boot_enabled is true
+        * Should be a reliable, always-on server
+        * Must be accessible to all clients that need to boot
         """
         return pulumi.get(self, "dhcpd_boot_server")
 
@@ -1214,7 +1698,11 @@ class _NetworkState:
     @pulumi.getter(name="domainName")
     def domain_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The domain name of this network.
+        The domain name for this network. Examples:
+        * 'corp.example.com' - For corporate networks
+        * 'guest.example.com' - For guest networks
+        * 'iot.example.com' - For IoT networks
+        Used for internal DNS resolution and DHCP options.
         """
         return pulumi.get(self, "domain_name")
 
@@ -1223,10 +1711,30 @@ class _NetworkState:
         pulumi.set(self, "domain_name", value)
 
     @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Controls whether this network is active. When disabled:
+        * Network will not be available to clients
+        * DHCP services will be stopped
+        * Existing clients will be disconnected
+        Useful for temporary network maintenance or security measures.
+        """
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "enabled", value)
+
+    @_builtins.property
     @pulumi.getter(name="igmpSnooping")
     def igmp_snooping(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether IGMP snooping is enabled or not.
+        Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+        * Optimizes multicast traffic flow
+        * Reduces network congestion
+        * Improves performance for multicast applications (e.g., IPTV)
+        Recommended for networks with multicast traffic.
         """
         return pulumi.get(self, "igmp_snooping")
 
@@ -1238,7 +1746,10 @@ class _NetworkState:
     @pulumi.getter(name="internetAccessEnabled")
     def internet_access_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+        Controls internet access for this network. When disabled:
+        * Clients cannot access external networks
+        * Internal network access remains available
+        * Useful for creating isolated or secure networks
         """
         return pulumi.get(self, "internet_access_enabled")
 
@@ -1247,22 +1758,15 @@ class _NetworkState:
         pulumi.set(self, "internet_access_enabled", value)
 
     @_builtins.property
-    @pulumi.getter(name="intraNetworkAccessEnabled")
-    def intra_network_access_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
-        """
-        Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
-        """
-        return pulumi.get(self, "intra_network_access_enabled")
-
-    @intra_network_access_enabled.setter
-    def intra_network_access_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
-        pulumi.set(self, "intra_network_access_enabled", value)
-
-    @_builtins.property
     @pulumi.getter(name="ipv6InterfaceType")
     def ipv6_interface_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
+        Specifies the IPv6 connection type. Must be one of:
+        * `none` - IPv6 disabled (default)
+        * `static` - Static IPv6 addressing
+        * `pd` - Prefix Delegation from upstream
+
+        Choose based on your IPv6 deployment strategy and ISP capabilities.
         """
         return pulumi.get(self, "ipv6_interface_type")
 
@@ -1274,7 +1778,10 @@ class _NetworkState:
     @pulumi.getter(name="ipv6PdInterface")
     def ipv6_pd_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
+        The WAN interface to use for IPv6 Prefix Delegation. Options:
+        * `wan` - Primary WAN interface
+        * `wan2` - Secondary WAN interface
+        Only applicable when `ipv6_interface_type` is 'pd'.
         """
         return pulumi.get(self, "ipv6_pd_interface")
 
@@ -1286,7 +1793,10 @@ class _NetworkState:
     @pulumi.getter(name="ipv6PdPrefixid")
     def ipv6_pd_prefixid(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPv6 Prefix ID.
+        The IPv6 Prefix ID for Prefix Delegation. Used to:
+        * Differentiate multiple delegated prefixes
+        * Create unique subnets from the delegated prefix
+        Typically a hexadecimal value (e.g., '0', '1', 'a1').
         """
         return pulumi.get(self, "ipv6_pd_prefixid")
 
@@ -1298,7 +1808,9 @@ class _NetworkState:
     @pulumi.getter(name="ipv6PdStart")
     def ipv6_pd_start(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        The starting IPv6 address for Prefix Delegation range.
+        Only used when `ipv6_interface_type` is 'pd'.
+        Must be within the delegated prefix range.
         """
         return pulumi.get(self, "ipv6_pd_start")
 
@@ -1310,7 +1822,9 @@ class _NetworkState:
     @pulumi.getter(name="ipv6PdStop")
     def ipv6_pd_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        The ending IPv6 address for Prefix Delegation range.
+        Only used when `ipv6_interface_type` is 'pd'.
+        Must be after `ipv6_pd_start` within the delegated prefix.
         """
         return pulumi.get(self, "ipv6_pd_stop")
 
@@ -1322,7 +1836,10 @@ class _NetworkState:
     @pulumi.getter(name="ipv6RaEnable")
     def ipv6_ra_enable(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to enable router advertisements or not.
+        Enables IPv6 Router Advertisements (RA). When enabled:
+        * Announces IPv6 prefix information to clients
+        * Enables SLAAC address configuration
+        * Required for most IPv6 deployments
         """
         return pulumi.get(self, "ipv6_ra_enable")
 
@@ -1334,7 +1851,10 @@ class _NetworkState:
     @pulumi.getter(name="ipv6RaPreferredLifetime")
     def ipv6_ra_preferred_lifetime(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+        The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        * Must be less than or equal to `ipv6_ra_valid_lifetime`
+        * Default: 14400 (4 hours)
+        * After this time, addresses become deprecated but still usable
         """
         return pulumi.get(self, "ipv6_ra_preferred_lifetime")
 
@@ -1346,7 +1866,11 @@ class _NetworkState:
     @pulumi.getter(name="ipv6RaPriority")
     def ipv6_ra_priority(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        Sets the priority for IPv6 Router Advertisements. Options:
+        * `high` - Preferred for primary networks
+        * `medium` - Standard priority
+        * `low` - For backup or secondary networks
+        Affects router selection when multiple IPv6 routers exist.
         """
         return pulumi.get(self, "ipv6_ra_priority")
 
@@ -1358,7 +1882,10 @@ class _NetworkState:
     @pulumi.getter(name="ipv6RaValidLifetime")
     def ipv6_ra_valid_lifetime(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+        The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
+        * Default: 86400 (24 hours)
+        * After this time, addresses become invalid
         """
         return pulumi.get(self, "ipv6_ra_valid_lifetime")
 
@@ -1370,7 +1897,9 @@ class _NetworkState:
     @pulumi.getter(name="ipv6StaticSubnet")
     def ipv6_static_subnet(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
+        The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+        Only applicable when `ipv6_interface_type` is 'static'.
+        Must be a valid IPv6 subnet allocated to your organization.
         """
         return pulumi.get(self, "ipv6_static_subnet")
 
@@ -1382,7 +1911,10 @@ class _NetworkState:
     @pulumi.getter(name="multicastDns")
     def multicast_dns(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+        Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+        * Allows device discovery (e.g., printers, Chromecasts)
+        * Supports zero-configuration networking
+        * Available on Controller version 7 and later
         """
         return pulumi.get(self, "multicast_dns")
 
@@ -1394,7 +1926,7 @@ class _NetworkState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the network.
+        The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         """
         return pulumi.get(self, "name")
 
@@ -1406,7 +1938,7 @@ class _NetworkState:
     @pulumi.getter(name="networkGroup")
     def network_group(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The group of the network. Defaults to `LAN`.
+        The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
         """
         return pulumi.get(self, "network_group")
 
@@ -1415,10 +1947,29 @@ class _NetworkState:
         pulumi.set(self, "network_group", value)
 
     @_builtins.property
+    @pulumi.getter(name="networkIsolationEnabled")
+    def network_isolation_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enables network isolation. When enabled:
+        * Prevents communication between clients on this network
+        * Each client can only communicate with the gateway
+        * Commonly used for guest networks or IoT devices
+        """
+        return pulumi.get(self, "network_isolation_enabled")
+
+    @network_isolation_enabled.setter
+    def network_isolation_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "network_isolation_enabled", value)
+
+    @_builtins.property
     @pulumi.getter
     def purpose(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
+        The purpose/type of the network. Must be one of:
+        * `corporate` - Standard network for corporate use with full access
+        * `guest` - Isolated network for guest access with limited permissions
+        * `wan` - External network connection (WAN uplink)
+        * `vlan-only` - VLAN network without DHCP services
         """
         return pulumi.get(self, "purpose")
 
@@ -1442,7 +1993,7 @@ class _NetworkState:
     @pulumi.getter
     def subnet(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The subnet of the network. Must be a valid CIDR address.
+        The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
         """
         return pulumi.get(self, "subnet")
 
@@ -1454,7 +2005,10 @@ class _NetworkState:
     @pulumi.getter(name="vlanId")
     def vlan_id(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The VLAN ID of the network.
+        The VLAN ID for this network. Valid range is 0-4096. Common uses:
+        * 1-4094: Standard VLAN range for network segmentation
+        * 0: Untagged/native VLAN
+        * >4094: Reserved for special purposes
         """
         return pulumi.get(self, "vlan_id")
 
@@ -1466,7 +2020,8 @@ class _NetworkState:
     @pulumi.getter(name="wanDhcpV6PdSize")
     def wan_dhcp_v6_pd_size(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        Only applicable when `wan_type_v6` is 'dhcpv6'.
         """
         return pulumi.get(self, "wan_dhcp_v6_pd_size")
 
@@ -1478,7 +2033,10 @@ class _NetworkState:
     @pulumi.getter(name="wanDns")
     def wan_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        DNS servers IPs of the WAN.
+        List of IPv4 DNS servers for WAN interface. Examples:
+        * ISP provided DNS servers
+        * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+        * Maximum 4 servers can be specified
         """
         return pulumi.get(self, "wan_dns")
 
@@ -1490,7 +2048,11 @@ class _NetworkState:
     @pulumi.getter(name="wanEgressQos")
     def wan_egress_qos(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies the WAN egress quality of service. Defaults to `0`.
+        Quality of Service (QoS) priority for WAN egress traffic (0-7).
+        * 0 (default) - Best effort
+        * 1-4 - Increasing priority
+        * 5-7 - Highest priority, use sparingly
+        Higher values get preferential treatment.
         """
         return pulumi.get(self, "wan_egress_qos")
 
@@ -1502,7 +2064,9 @@ class _NetworkState:
     @pulumi.getter(name="wanGateway")
     def wan_gateway(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 gateway of the WAN.
+        The IPv4 gateway address for WAN interface.
+        Required when `wan_type` is 'static'.
+        Typically the ISP's router IP address.
         """
         return pulumi.get(self, "wan_gateway")
 
@@ -1514,7 +2078,9 @@ class _NetworkState:
     @pulumi.getter(name="wanGatewayV6")
     def wan_gateway_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv6 gateway of the WAN.
+        The IPv6 gateway address for WAN interface.
+        Required when `wan_type_v6` is 'static'.
+        Typically the ISP's router IPv6 address.
         """
         return pulumi.get(self, "wan_gateway_v6")
 
@@ -1526,7 +2092,9 @@ class _NetworkState:
     @pulumi.getter(name="wanIp")
     def wan_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 address of the WAN.
+        The static IPv4 address for WAN interface.
+        Required when `wan_type` is 'static'.
+        Must be a valid public IP address assigned by your ISP.
         """
         return pulumi.get(self, "wan_ip")
 
@@ -1538,7 +2106,9 @@ class _NetworkState:
     @pulumi.getter(name="wanIpv6")
     def wan_ipv6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv6 address of the WAN.
+        The static IPv6 address for WAN interface.
+        Required when `wan_type_v6` is 'static'.
+        Must be a valid public IPv6 address assigned by your ISP.
         """
         return pulumi.get(self, "wan_ipv6")
 
@@ -1550,7 +2120,9 @@ class _NetworkState:
     @pulumi.getter(name="wanNetmask")
     def wan_netmask(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IPv4 netmask of the WAN.
+        The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+        Required when `wan_type` is 'static'.
+        Must match the subnet mask provided by your ISP.
         """
         return pulumi.get(self, "wan_netmask")
 
@@ -1562,7 +2134,11 @@ class _NetworkState:
     @pulumi.getter(name="wanNetworkgroup")
     def wan_networkgroup(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
+        The WAN interface group assignment. Options:
+        * `WAN` - Primary WAN interface
+        * `WAN2` - Secondary WAN interface
+        * `WAN_LTE_FAILOVER` - LTE backup connection
+        Used for dual WAN and failover configurations.
         """
         return pulumi.get(self, "wan_networkgroup")
 
@@ -1574,7 +2150,8 @@ class _NetworkState:
     @pulumi.getter(name="wanPrefixlen")
     def wan_prefixlen(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+        Only applicable when `wan_type_v6` is 'static'.
         """
         return pulumi.get(self, "wan_prefixlen")
 
@@ -1586,7 +2163,12 @@ class _NetworkState:
     @pulumi.getter(name="wanType")
     def wan_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
+        The IPv4 WAN connection type. Options:
+        * `disabled` - WAN interface disabled
+        * `static` - Static IP configuration
+        * `dhcp` - Dynamic IP from ISP
+        * `pppoe` - PPPoE connection (common for DSL)
+        Choose based on your ISP's requirements.
         """
         return pulumi.get(self, "wan_type")
 
@@ -1598,7 +2180,11 @@ class _NetworkState:
     @pulumi.getter(name="wanTypeV6")
     def wan_type_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        The IPv6 WAN connection type. Options:
+        * `disabled` - IPv6 disabled
+        * `static` - Static IPv6 configuration
+        * `dhcpv6` - Dynamic IPv6 from ISP
+        Choose based on your ISP's requirements.
         """
         return pulumi.get(self, "wan_type_v6")
 
@@ -1610,7 +2196,10 @@ class _NetworkState:
     @pulumi.getter(name="wanUsername")
     def wan_username(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPV4 WAN username.
+        Username for WAN authentication.
+        * Required for PPPoE connections
+        * May be needed for some ISP configurations
+        * Cannot contain spaces or special characters
         """
         return pulumi.get(self, "wan_username")
 
@@ -1622,7 +2211,10 @@ class _NetworkState:
     @pulumi.getter(name="xWanPassword")
     def x_wan_password(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies the IPV4 WAN password.
+        Password for WAN authentication.
+        * Required for PPPoE connections
+        * May be needed for some ISP configurations
+        * Must be kept secret
         """
         return pulumi.get(self, "x_wan_password")
 
@@ -1653,9 +2245,9 @@ class Network(pulumi.CustomResource):
                  dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
                  dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
                  domain_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
                  internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 intra_network_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
                  ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
                  ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1669,6 +2261,7 @@ class Network(pulumi.CustomResource):
                  multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  network_group: Optional[pulumi.Input[_builtins.str]] = None,
+                 network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  purpose: Optional[pulumi.Input[_builtins.str]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  subnet: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1689,7 +2282,19 @@ class Network(pulumi.CustomResource):
                  x_wan_password: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `Network` manages WAN/LAN/VLAN networks.
+        The `Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
+
+        * Create and manage different types of networks (corporate, guest, WAN, VLAN-only)
+        * Configure network addressing and DHCP settings
+        * Set up IPv6 networking features
+        * Manage DHCP relay and DNS settings
+        * Configure network groups and VLANs
+
+        Common use cases include:
+        * Setting up corporate and guest networks with different security policies
+        * Configuring WAN connectivity with various authentication methods
+        * Creating VLANs for network segmentation
+        * Managing DHCP and DNS services for network clients
 
         ## Example Usage
 
@@ -1742,56 +2347,197 @@ class Network(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
-        :param pulumi.Input[_builtins.bool] dhcp_enabled: Specifies whether DHCP is enabled or not on this network.
-        :param pulumi.Input[_builtins.int] dhcp_lease: Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
-        :param pulumi.Input[_builtins.bool] dhcp_relay_enabled: Specifies whether DHCP relay is enabled or not on this network.
-        :param pulumi.Input[_builtins.str] dhcp_start: The IPv4 address where the DHCP range of addresses starts.
-        :param pulumi.Input[_builtins.str] dhcp_stop: The IPv4 address where the DHCP range of addresses stops.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_v6_dns: Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
-        :param pulumi.Input[_builtins.bool] dhcp_v6_dns_auto: Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] dhcp_v6_enabled: Enable stateful DHCPv6 for static configuration.
-        :param pulumi.Input[_builtins.int] dhcp_v6_lease: Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
-        :param pulumi.Input[_builtins.str] dhcp_v6_start: Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
-        :param pulumi.Input[_builtins.str] dhcp_v6_stop: End address of the DHCPv6 range. Used in static DHCPv6 configuration.
-        :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
-        :param pulumi.Input[_builtins.str] dhcpd_boot_filename: Specifies the file to PXE boot from on the dhcpd*boot*server.
-        :param pulumi.Input[_builtins.str] dhcpd_boot_server: Specifies the IPv4 address of a TFTP server to network boot from.
-        :param pulumi.Input[_builtins.str] domain_name: The domain name of this network.
-        :param pulumi.Input[_builtins.bool] igmp_snooping: Specifies whether IGMP snooping is enabled or not.
-        :param pulumi.Input[_builtins.bool] internet_access_enabled: Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] intra_network_access_enabled: Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
-        :param pulumi.Input[_builtins.str] ipv6_interface_type: Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_interface: Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: Specifies the IPv6 Prefix ID.
-        :param pulumi.Input[_builtins.str] ipv6_pd_start: Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_stop: End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
-        :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Specifies whether to enable router advertisements or not.
-        :param pulumi.Input[_builtins.int] ipv6_ra_preferred_lifetime: Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
-        :param pulumi.Input[_builtins.str] ipv6_ra_priority: IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
-        :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
-        :param pulumi.Input[_builtins.str] ipv6_static_subnet: Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
-        :param pulumi.Input[_builtins.bool] multicast_dns: Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
-        :param pulumi.Input[_builtins.str] name: The name of the network.
-        :param pulumi.Input[_builtins.str] network_group: The group of the network. Defaults to `LAN`.
-        :param pulumi.Input[_builtins.str] purpose: The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+               * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+               * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+               * Use internal DNS servers for corporate networks
+               Maximum 4 servers can be specified.
+        :param pulumi.Input[_builtins.bool] dhcp_enabled: Controls whether DHCP server is enabled for this network. When enabled:
+               * The network will automatically assign IP addresses to clients
+               * DHCP options (DNS, lease time) will be provided to clients
+               * Static IP assignments can still be made outside the DHCP range
+        :param pulumi.Input[_builtins.int] dhcp_lease: The DHCP lease time in seconds. Common values:
+               * 86400 (1 day) - Default, suitable for most networks
+               * 3600 (1 hour) - For testing or temporary networks
+               * 604800 (1 week) - For stable networks with static clients
+               * 2592000 (30 days) - For very stable networks
+        :param pulumi.Input[_builtins.bool] dhcp_relay_enabled: Enables DHCP relay for this network. When enabled:
+               * DHCP requests are forwarded to an external DHCP server
+               * Local DHCP server is disabled
+               * Useful for centralized DHCP management
+        :param pulumi.Input[_builtins.str] dhcp_start: The starting IPv4 address of the DHCP range. Examples:
+               * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+               * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+               Ensure this address is within the network's subnet.
+        :param pulumi.Input[_builtins.str] dhcp_stop: The ending IPv4 address of the DHCP range. Examples:
+               * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+               * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+               Must be greater than dhcp_start and within the network's subnet.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_v6_dns: List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+               * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+               * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+               Only used when dhcp_v6_dns_auto is false. Maximum of 4 addresses are allowed.
+        :param pulumi.Input[_builtins.bool] dhcp_v6_dns_auto: Controls DNS server source for DHCPv6 clients:
+               * true - Use upstream DNS servers (recommended)
+               * false - Use manually specified servers from dhcp_v6_dns
+               Default is true for easier management.
+        :param pulumi.Input[_builtins.bool] dhcp_v6_enabled: Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+               * Provides IPv6 addresses to clients
+               * Works alongside SLAAC if configured
+               * Allows for more controlled IPv6 addressing
+        :param pulumi.Input[_builtins.int] dhcp_v6_lease: The DHCPv6 lease time in seconds. Common values:
+               * 86400 (1 day) - Default setting
+               * 3600 (1 hour) - For testing
+               * 604800 (1 week) - For stable networks
+               Typically longer than IPv4 DHCP leases.
+        :param pulumi.Input[_builtins.str] dhcp_v6_start: The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+               Must be a valid IPv6 address within your allocated IPv6 subnet.
+        :param pulumi.Input[_builtins.str] dhcp_v6_stop: The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+               Must be after dhcp_v6_start in the IPv6 address space.
+        :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+               * Allows network devices to boot from a TFTP server
+               * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
+               * Commonly used for diskless workstations or network installations
+        :param pulumi.Input[_builtins.str] dhcpd_boot_filename: The boot filename to be loaded from the TFTP server. Examples:
+               * 'pxelinux.0' - Standard PXE boot loader
+               * 'undionly.kpxe' - iPXE boot loader
+               * Custom paths for specific boot images
+        :param pulumi.Input[_builtins.str] dhcpd_boot_server: The IPv4 address of the TFTP server for network boot. This setting:
+               * Is required when dhcpd_boot_enabled is true
+               * Should be a reliable, always-on server
+               * Must be accessible to all clients that need to boot
+        :param pulumi.Input[_builtins.str] domain_name: The domain name for this network. Examples:
+               * 'corp.example.com' - For corporate networks
+               * 'guest.example.com' - For guest networks
+               * 'iot.example.com' - For IoT networks
+               Used for internal DNS resolution and DHCP options.
+        :param pulumi.Input[_builtins.bool] enabled: Controls whether this network is active. When disabled:
+               * Network will not be available to clients
+               * DHCP services will be stopped
+               * Existing clients will be disconnected
+               Useful for temporary network maintenance or security measures.
+        :param pulumi.Input[_builtins.bool] igmp_snooping: Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+               * Optimizes multicast traffic flow
+               * Reduces network congestion
+               * Improves performance for multicast applications (e.g., IPTV)
+               Recommended for networks with multicast traffic.
+        :param pulumi.Input[_builtins.bool] internet_access_enabled: Controls internet access for this network. When disabled:
+               * Clients cannot access external networks
+               * Internal network access remains available
+               * Useful for creating isolated or secure networks
+        :param pulumi.Input[_builtins.str] ipv6_interface_type: Specifies the IPv6 connection type. Must be one of:
+               * `none` - IPv6 disabled (default)
+               * `static` - Static IPv6 addressing
+               * `pd` - Prefix Delegation from upstream
+               
+               Choose based on your IPv6 deployment strategy and ISP capabilities.
+        :param pulumi.Input[_builtins.str] ipv6_pd_interface: The WAN interface to use for IPv6 Prefix Delegation. Options:
+               * `wan` - Primary WAN interface
+               * `wan2` - Secondary WAN interface
+               Only applicable when `ipv6_interface_type` is 'pd'.
+        :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: The IPv6 Prefix ID for Prefix Delegation. Used to:
+               * Differentiate multiple delegated prefixes
+               * Create unique subnets from the delegated prefix
+               Typically a hexadecimal value (e.g., '0', '1', 'a1').
+        :param pulumi.Input[_builtins.str] ipv6_pd_start: The starting IPv6 address for Prefix Delegation range.
+               Only used when `ipv6_interface_type` is 'pd'.
+               Must be within the delegated prefix range.
+        :param pulumi.Input[_builtins.str] ipv6_pd_stop: The ending IPv6 address for Prefix Delegation range.
+               Only used when `ipv6_interface_type` is 'pd'.
+               Must be after `ipv6_pd_start` within the delegated prefix.
+        :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Enables IPv6 Router Advertisements (RA). When enabled:
+               * Announces IPv6 prefix information to clients
+               * Enables SLAAC address configuration
+               * Required for most IPv6 deployments
+        :param pulumi.Input[_builtins.int] ipv6_ra_preferred_lifetime: The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+               * Must be less than or equal to `ipv6_ra_valid_lifetime`
+               * Default: 14400 (4 hours)
+               * After this time, addresses become deprecated but still usable
+        :param pulumi.Input[_builtins.str] ipv6_ra_priority: Sets the priority for IPv6 Router Advertisements. Options:
+               * `high` - Preferred for primary networks
+               * `medium` - Standard priority
+               * `low` - For backup or secondary networks
+               Affects router selection when multiple IPv6 routers exist.
+        :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+               * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
+               * Default: 86400 (24 hours)
+               * After this time, addresses become invalid
+        :param pulumi.Input[_builtins.str] ipv6_static_subnet: The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+               Only applicable when `ipv6_interface_type` is 'static'.
+               Must be a valid IPv6 subnet allocated to your organization.
+        :param pulumi.Input[_builtins.bool] multicast_dns: Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+               * Allows device discovery (e.g., printers, Chromecasts)
+               * Supports zero-configuration networking
+               * Available on Controller version 7 and later
+        :param pulumi.Input[_builtins.str] name: The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
+        :param pulumi.Input[_builtins.str] network_group: The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
+        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Enables network isolation. When enabled:
+               * Prevents communication between clients on this network
+               * Each client can only communicate with the gateway
+               * Commonly used for guest networks or IoT devices
+        :param pulumi.Input[_builtins.str] purpose: The purpose/type of the network. Must be one of:
+               * `corporate` - Standard network for corporate use with full access
+               * `guest` - Isolated network for guest access with limited permissions
+               * `wan` - External network connection (WAN uplink)
+               * `vlan-only` - VLAN network without DHCP services
         :param pulumi.Input[_builtins.str] site: The name of the site to associate the network with.
-        :param pulumi.Input[_builtins.str] subnet: The subnet of the network. Must be a valid CIDR address.
-        :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID of the network.
-        :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: DNS servers IPs of the WAN.
-        :param pulumi.Input[_builtins.int] wan_egress_qos: Specifies the WAN egress quality of service. Defaults to `0`.
-        :param pulumi.Input[_builtins.str] wan_gateway: The IPv4 gateway of the WAN.
-        :param pulumi.Input[_builtins.str] wan_gateway_v6: The IPv6 gateway of the WAN.
-        :param pulumi.Input[_builtins.str] wan_ip: The IPv4 address of the WAN.
-        :param pulumi.Input[_builtins.str] wan_ipv6: The IPv6 address of the WAN.
-        :param pulumi.Input[_builtins.str] wan_netmask: The IPv4 netmask of the WAN.
-        :param pulumi.Input[_builtins.str] wan_networkgroup: Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
-        :param pulumi.Input[_builtins.int] wan_prefixlen: The IPv6 prefix length of the WAN. Must be between 1 and 128.
-        :param pulumi.Input[_builtins.str] wan_type: Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
-        :param pulumi.Input[_builtins.str] wan_type_v6: Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
-        :param pulumi.Input[_builtins.str] wan_username: Specifies the IPV4 WAN username.
-        :param pulumi.Input[_builtins.str] x_wan_password: Specifies the IPV4 WAN password.
+        :param pulumi.Input[_builtins.str] subnet: The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
+        :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID for this network. Valid range is 0-4096. Common uses:
+               * 1-4094: Standard VLAN range for network segmentation
+               * 0: Untagged/native VLAN
+               * >4094: Reserved for special purposes
+        :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+               Only applicable when `wan_type_v6` is 'dhcpv6'.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: List of IPv4 DNS servers for WAN interface. Examples:
+               * ISP provided DNS servers
+               * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+               * Maximum 4 servers can be specified
+        :param pulumi.Input[_builtins.int] wan_egress_qos: Quality of Service (QoS) priority for WAN egress traffic (0-7).
+               * 0 (default) - Best effort
+               * 1-4 - Increasing priority
+               * 5-7 - Highest priority, use sparingly
+               Higher values get preferential treatment.
+        :param pulumi.Input[_builtins.str] wan_gateway: The IPv4 gateway address for WAN interface.
+               Required when `wan_type` is 'static'.
+               Typically the ISP's router IP address.
+        :param pulumi.Input[_builtins.str] wan_gateway_v6: The IPv6 gateway address for WAN interface.
+               Required when `wan_type_v6` is 'static'.
+               Typically the ISP's router IPv6 address.
+        :param pulumi.Input[_builtins.str] wan_ip: The static IPv4 address for WAN interface.
+               Required when `wan_type` is 'static'.
+               Must be a valid public IP address assigned by your ISP.
+        :param pulumi.Input[_builtins.str] wan_ipv6: The static IPv6 address for WAN interface.
+               Required when `wan_type_v6` is 'static'.
+               Must be a valid public IPv6 address assigned by your ISP.
+        :param pulumi.Input[_builtins.str] wan_netmask: The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+               Required when `wan_type` is 'static'.
+               Must match the subnet mask provided by your ISP.
+        :param pulumi.Input[_builtins.str] wan_networkgroup: The WAN interface group assignment. Options:
+               * `WAN` - Primary WAN interface
+               * `WAN2` - Secondary WAN interface
+               * `WAN_LTE_FAILOVER` - LTE backup connection
+               Used for dual WAN and failover configurations.
+        :param pulumi.Input[_builtins.int] wan_prefixlen: The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+               Only applicable when `wan_type_v6` is 'static'.
+        :param pulumi.Input[_builtins.str] wan_type: The IPv4 WAN connection type. Options:
+               * `disabled` - WAN interface disabled
+               * `static` - Static IP configuration
+               * `dhcp` - Dynamic IP from ISP
+               * `pppoe` - PPPoE connection (common for DSL)
+               Choose based on your ISP's requirements.
+        :param pulumi.Input[_builtins.str] wan_type_v6: The IPv6 WAN connection type. Options:
+               * `disabled` - IPv6 disabled
+               * `static` - Static IPv6 configuration
+               * `dhcpv6` - Dynamic IPv6 from ISP
+               Choose based on your ISP's requirements.
+        :param pulumi.Input[_builtins.str] wan_username: Username for WAN authentication.
+               * Required for PPPoE connections
+               * May be needed for some ISP configurations
+               * Cannot contain spaces or special characters
+        :param pulumi.Input[_builtins.str] x_wan_password: Password for WAN authentication.
+               * Required for PPPoE connections
+               * May be needed for some ISP configurations
+               * Must be kept secret
         """
         ...
     @overload
@@ -1800,7 +2546,19 @@ class Network(pulumi.CustomResource):
                  args: NetworkArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Network` manages WAN/LAN/VLAN networks.
+        The `Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
+
+        * Create and manage different types of networks (corporate, guest, WAN, VLAN-only)
+        * Configure network addressing and DHCP settings
+        * Set up IPv6 networking features
+        * Manage DHCP relay and DNS settings
+        * Configure network groups and VLANs
+
+        Common use cases include:
+        * Setting up corporate and guest networks with different security policies
+        * Configuring WAN connectivity with various authentication methods
+        * Creating VLANs for network segmentation
+        * Managing DHCP and DNS services for network clients
 
         ## Example Usage
 
@@ -1882,9 +2640,9 @@ class Network(pulumi.CustomResource):
                  dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
                  dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
                  domain_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
                  internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 intra_network_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
                  ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
                  ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1898,6 +2656,7 @@ class Network(pulumi.CustomResource):
                  multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
                  name: Optional[pulumi.Input[_builtins.str]] = None,
                  network_group: Optional[pulumi.Input[_builtins.str]] = None,
+                 network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  purpose: Optional[pulumi.Input[_builtins.str]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  subnet: Optional[pulumi.Input[_builtins.str]] = None,
@@ -1941,9 +2700,9 @@ class Network(pulumi.CustomResource):
             __props__.__dict__["dhcpd_boot_filename"] = dhcpd_boot_filename
             __props__.__dict__["dhcpd_boot_server"] = dhcpd_boot_server
             __props__.__dict__["domain_name"] = domain_name
+            __props__.__dict__["enabled"] = enabled
             __props__.__dict__["igmp_snooping"] = igmp_snooping
             __props__.__dict__["internet_access_enabled"] = internet_access_enabled
-            __props__.__dict__["intra_network_access_enabled"] = intra_network_access_enabled
             __props__.__dict__["ipv6_interface_type"] = ipv6_interface_type
             __props__.__dict__["ipv6_pd_interface"] = ipv6_pd_interface
             __props__.__dict__["ipv6_pd_prefixid"] = ipv6_pd_prefixid
@@ -1957,6 +2716,7 @@ class Network(pulumi.CustomResource):
             __props__.__dict__["multicast_dns"] = multicast_dns
             __props__.__dict__["name"] = name
             __props__.__dict__["network_group"] = network_group
+            __props__.__dict__["network_isolation_enabled"] = network_isolation_enabled
             if purpose is None and not opts.urn:
                 raise TypeError("Missing required property 'purpose'")
             __props__.__dict__["purpose"] = purpose
@@ -2003,9 +2763,9 @@ class Network(pulumi.CustomResource):
             dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
             dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
             domain_name: Optional[pulumi.Input[_builtins.str]] = None,
+            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
             igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
             internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            intra_network_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
             ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
             ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
             ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
@@ -2019,6 +2779,7 @@ class Network(pulumi.CustomResource):
             multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
             name: Optional[pulumi.Input[_builtins.str]] = None,
             network_group: Optional[pulumi.Input[_builtins.str]] = None,
+            network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
             purpose: Optional[pulumi.Input[_builtins.str]] = None,
             site: Optional[pulumi.Input[_builtins.str]] = None,
             subnet: Optional[pulumi.Input[_builtins.str]] = None,
@@ -2044,56 +2805,197 @@ class Network(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
-        :param pulumi.Input[_builtins.bool] dhcp_enabled: Specifies whether DHCP is enabled or not on this network.
-        :param pulumi.Input[_builtins.int] dhcp_lease: Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
-        :param pulumi.Input[_builtins.bool] dhcp_relay_enabled: Specifies whether DHCP relay is enabled or not on this network.
-        :param pulumi.Input[_builtins.str] dhcp_start: The IPv4 address where the DHCP range of addresses starts.
-        :param pulumi.Input[_builtins.str] dhcp_stop: The IPv4 address where the DHCP range of addresses stops.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_v6_dns: Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
-        :param pulumi.Input[_builtins.bool] dhcp_v6_dns_auto: Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] dhcp_v6_enabled: Enable stateful DHCPv6 for static configuration.
-        :param pulumi.Input[_builtins.int] dhcp_v6_lease: Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
-        :param pulumi.Input[_builtins.str] dhcp_v6_start: Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
-        :param pulumi.Input[_builtins.str] dhcp_v6_stop: End address of the DHCPv6 range. Used in static DHCPv6 configuration.
-        :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
-        :param pulumi.Input[_builtins.str] dhcpd_boot_filename: Specifies the file to PXE boot from on the dhcpd*boot*server.
-        :param pulumi.Input[_builtins.str] dhcpd_boot_server: Specifies the IPv4 address of a TFTP server to network boot from.
-        :param pulumi.Input[_builtins.str] domain_name: The domain name of this network.
-        :param pulumi.Input[_builtins.bool] igmp_snooping: Specifies whether IGMP snooping is enabled or not.
-        :param pulumi.Input[_builtins.bool] internet_access_enabled: Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] intra_network_access_enabled: Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
-        :param pulumi.Input[_builtins.str] ipv6_interface_type: Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_interface: Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: Specifies the IPv6 Prefix ID.
-        :param pulumi.Input[_builtins.str] ipv6_pd_start: Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
-        :param pulumi.Input[_builtins.str] ipv6_pd_stop: End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
-        :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Specifies whether to enable router advertisements or not.
-        :param pulumi.Input[_builtins.int] ipv6_ra_preferred_lifetime: Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
-        :param pulumi.Input[_builtins.str] ipv6_ra_priority: IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
-        :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
-        :param pulumi.Input[_builtins.str] ipv6_static_subnet: Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
-        :param pulumi.Input[_builtins.bool] multicast_dns: Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
-        :param pulumi.Input[_builtins.str] name: The name of the network.
-        :param pulumi.Input[_builtins.str] network_group: The group of the network. Defaults to `LAN`.
-        :param pulumi.Input[_builtins.str] purpose: The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+               * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+               * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+               * Use internal DNS servers for corporate networks
+               Maximum 4 servers can be specified.
+        :param pulumi.Input[_builtins.bool] dhcp_enabled: Controls whether DHCP server is enabled for this network. When enabled:
+               * The network will automatically assign IP addresses to clients
+               * DHCP options (DNS, lease time) will be provided to clients
+               * Static IP assignments can still be made outside the DHCP range
+        :param pulumi.Input[_builtins.int] dhcp_lease: The DHCP lease time in seconds. Common values:
+               * 86400 (1 day) - Default, suitable for most networks
+               * 3600 (1 hour) - For testing or temporary networks
+               * 604800 (1 week) - For stable networks with static clients
+               * 2592000 (30 days) - For very stable networks
+        :param pulumi.Input[_builtins.bool] dhcp_relay_enabled: Enables DHCP relay for this network. When enabled:
+               * DHCP requests are forwarded to an external DHCP server
+               * Local DHCP server is disabled
+               * Useful for centralized DHCP management
+        :param pulumi.Input[_builtins.str] dhcp_start: The starting IPv4 address of the DHCP range. Examples:
+               * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+               * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+               Ensure this address is within the network's subnet.
+        :param pulumi.Input[_builtins.str] dhcp_stop: The ending IPv4 address of the DHCP range. Examples:
+               * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+               * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+               Must be greater than dhcp_start and within the network's subnet.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_v6_dns: List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+               * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+               * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+               Only used when dhcp_v6_dns_auto is false. Maximum of 4 addresses are allowed.
+        :param pulumi.Input[_builtins.bool] dhcp_v6_dns_auto: Controls DNS server source for DHCPv6 clients:
+               * true - Use upstream DNS servers (recommended)
+               * false - Use manually specified servers from dhcp_v6_dns
+               Default is true for easier management.
+        :param pulumi.Input[_builtins.bool] dhcp_v6_enabled: Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+               * Provides IPv6 addresses to clients
+               * Works alongside SLAAC if configured
+               * Allows for more controlled IPv6 addressing
+        :param pulumi.Input[_builtins.int] dhcp_v6_lease: The DHCPv6 lease time in seconds. Common values:
+               * 86400 (1 day) - Default setting
+               * 3600 (1 hour) - For testing
+               * 604800 (1 week) - For stable networks
+               Typically longer than IPv4 DHCP leases.
+        :param pulumi.Input[_builtins.str] dhcp_v6_start: The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+               Must be a valid IPv6 address within your allocated IPv6 subnet.
+        :param pulumi.Input[_builtins.str] dhcp_v6_stop: The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+               Must be after dhcp_v6_start in the IPv6 address space.
+        :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+               * Allows network devices to boot from a TFTP server
+               * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
+               * Commonly used for diskless workstations or network installations
+        :param pulumi.Input[_builtins.str] dhcpd_boot_filename: The boot filename to be loaded from the TFTP server. Examples:
+               * 'pxelinux.0' - Standard PXE boot loader
+               * 'undionly.kpxe' - iPXE boot loader
+               * Custom paths for specific boot images
+        :param pulumi.Input[_builtins.str] dhcpd_boot_server: The IPv4 address of the TFTP server for network boot. This setting:
+               * Is required when dhcpd_boot_enabled is true
+               * Should be a reliable, always-on server
+               * Must be accessible to all clients that need to boot
+        :param pulumi.Input[_builtins.str] domain_name: The domain name for this network. Examples:
+               * 'corp.example.com' - For corporate networks
+               * 'guest.example.com' - For guest networks
+               * 'iot.example.com' - For IoT networks
+               Used for internal DNS resolution and DHCP options.
+        :param pulumi.Input[_builtins.bool] enabled: Controls whether this network is active. When disabled:
+               * Network will not be available to clients
+               * DHCP services will be stopped
+               * Existing clients will be disconnected
+               Useful for temporary network maintenance or security measures.
+        :param pulumi.Input[_builtins.bool] igmp_snooping: Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+               * Optimizes multicast traffic flow
+               * Reduces network congestion
+               * Improves performance for multicast applications (e.g., IPTV)
+               Recommended for networks with multicast traffic.
+        :param pulumi.Input[_builtins.bool] internet_access_enabled: Controls internet access for this network. When disabled:
+               * Clients cannot access external networks
+               * Internal network access remains available
+               * Useful for creating isolated or secure networks
+        :param pulumi.Input[_builtins.str] ipv6_interface_type: Specifies the IPv6 connection type. Must be one of:
+               * `none` - IPv6 disabled (default)
+               * `static` - Static IPv6 addressing
+               * `pd` - Prefix Delegation from upstream
+               
+               Choose based on your IPv6 deployment strategy and ISP capabilities.
+        :param pulumi.Input[_builtins.str] ipv6_pd_interface: The WAN interface to use for IPv6 Prefix Delegation. Options:
+               * `wan` - Primary WAN interface
+               * `wan2` - Secondary WAN interface
+               Only applicable when `ipv6_interface_type` is 'pd'.
+        :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: The IPv6 Prefix ID for Prefix Delegation. Used to:
+               * Differentiate multiple delegated prefixes
+               * Create unique subnets from the delegated prefix
+               Typically a hexadecimal value (e.g., '0', '1', 'a1').
+        :param pulumi.Input[_builtins.str] ipv6_pd_start: The starting IPv6 address for Prefix Delegation range.
+               Only used when `ipv6_interface_type` is 'pd'.
+               Must be within the delegated prefix range.
+        :param pulumi.Input[_builtins.str] ipv6_pd_stop: The ending IPv6 address for Prefix Delegation range.
+               Only used when `ipv6_interface_type` is 'pd'.
+               Must be after `ipv6_pd_start` within the delegated prefix.
+        :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Enables IPv6 Router Advertisements (RA). When enabled:
+               * Announces IPv6 prefix information to clients
+               * Enables SLAAC address configuration
+               * Required for most IPv6 deployments
+        :param pulumi.Input[_builtins.int] ipv6_ra_preferred_lifetime: The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+               * Must be less than or equal to `ipv6_ra_valid_lifetime`
+               * Default: 14400 (4 hours)
+               * After this time, addresses become deprecated but still usable
+        :param pulumi.Input[_builtins.str] ipv6_ra_priority: Sets the priority for IPv6 Router Advertisements. Options:
+               * `high` - Preferred for primary networks
+               * `medium` - Standard priority
+               * `low` - For backup or secondary networks
+               Affects router selection when multiple IPv6 routers exist.
+        :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+               * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
+               * Default: 86400 (24 hours)
+               * After this time, addresses become invalid
+        :param pulumi.Input[_builtins.str] ipv6_static_subnet: The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+               Only applicable when `ipv6_interface_type` is 'static'.
+               Must be a valid IPv6 subnet allocated to your organization.
+        :param pulumi.Input[_builtins.bool] multicast_dns: Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+               * Allows device discovery (e.g., printers, Chromecasts)
+               * Supports zero-configuration networking
+               * Available on Controller version 7 and later
+        :param pulumi.Input[_builtins.str] name: The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
+        :param pulumi.Input[_builtins.str] network_group: The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
+        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Enables network isolation. When enabled:
+               * Prevents communication between clients on this network
+               * Each client can only communicate with the gateway
+               * Commonly used for guest networks or IoT devices
+        :param pulumi.Input[_builtins.str] purpose: The purpose/type of the network. Must be one of:
+               * `corporate` - Standard network for corporate use with full access
+               * `guest` - Isolated network for guest access with limited permissions
+               * `wan` - External network connection (WAN uplink)
+               * `vlan-only` - VLAN network without DHCP services
         :param pulumi.Input[_builtins.str] site: The name of the site to associate the network with.
-        :param pulumi.Input[_builtins.str] subnet: The subnet of the network. Must be a valid CIDR address.
-        :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID of the network.
-        :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: DNS servers IPs of the WAN.
-        :param pulumi.Input[_builtins.int] wan_egress_qos: Specifies the WAN egress quality of service. Defaults to `0`.
-        :param pulumi.Input[_builtins.str] wan_gateway: The IPv4 gateway of the WAN.
-        :param pulumi.Input[_builtins.str] wan_gateway_v6: The IPv6 gateway of the WAN.
-        :param pulumi.Input[_builtins.str] wan_ip: The IPv4 address of the WAN.
-        :param pulumi.Input[_builtins.str] wan_ipv6: The IPv6 address of the WAN.
-        :param pulumi.Input[_builtins.str] wan_netmask: The IPv4 netmask of the WAN.
-        :param pulumi.Input[_builtins.str] wan_networkgroup: Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
-        :param pulumi.Input[_builtins.int] wan_prefixlen: The IPv6 prefix length of the WAN. Must be between 1 and 128.
-        :param pulumi.Input[_builtins.str] wan_type: Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
-        :param pulumi.Input[_builtins.str] wan_type_v6: Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
-        :param pulumi.Input[_builtins.str] wan_username: Specifies the IPV4 WAN username.
-        :param pulumi.Input[_builtins.str] x_wan_password: Specifies the IPV4 WAN password.
+        :param pulumi.Input[_builtins.str] subnet: The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
+        :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID for this network. Valid range is 0-4096. Common uses:
+               * 1-4094: Standard VLAN range for network segmentation
+               * 0: Untagged/native VLAN
+               * >4094: Reserved for special purposes
+        :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+               Only applicable when `wan_type_v6` is 'dhcpv6'.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: List of IPv4 DNS servers for WAN interface. Examples:
+               * ISP provided DNS servers
+               * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+               * Maximum 4 servers can be specified
+        :param pulumi.Input[_builtins.int] wan_egress_qos: Quality of Service (QoS) priority for WAN egress traffic (0-7).
+               * 0 (default) - Best effort
+               * 1-4 - Increasing priority
+               * 5-7 - Highest priority, use sparingly
+               Higher values get preferential treatment.
+        :param pulumi.Input[_builtins.str] wan_gateway: The IPv4 gateway address for WAN interface.
+               Required when `wan_type` is 'static'.
+               Typically the ISP's router IP address.
+        :param pulumi.Input[_builtins.str] wan_gateway_v6: The IPv6 gateway address for WAN interface.
+               Required when `wan_type_v6` is 'static'.
+               Typically the ISP's router IPv6 address.
+        :param pulumi.Input[_builtins.str] wan_ip: The static IPv4 address for WAN interface.
+               Required when `wan_type` is 'static'.
+               Must be a valid public IP address assigned by your ISP.
+        :param pulumi.Input[_builtins.str] wan_ipv6: The static IPv6 address for WAN interface.
+               Required when `wan_type_v6` is 'static'.
+               Must be a valid public IPv6 address assigned by your ISP.
+        :param pulumi.Input[_builtins.str] wan_netmask: The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+               Required when `wan_type` is 'static'.
+               Must match the subnet mask provided by your ISP.
+        :param pulumi.Input[_builtins.str] wan_networkgroup: The WAN interface group assignment. Options:
+               * `WAN` - Primary WAN interface
+               * `WAN2` - Secondary WAN interface
+               * `WAN_LTE_FAILOVER` - LTE backup connection
+               Used for dual WAN and failover configurations.
+        :param pulumi.Input[_builtins.int] wan_prefixlen: The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+               Only applicable when `wan_type_v6` is 'static'.
+        :param pulumi.Input[_builtins.str] wan_type: The IPv4 WAN connection type. Options:
+               * `disabled` - WAN interface disabled
+               * `static` - Static IP configuration
+               * `dhcp` - Dynamic IP from ISP
+               * `pppoe` - PPPoE connection (common for DSL)
+               Choose based on your ISP's requirements.
+        :param pulumi.Input[_builtins.str] wan_type_v6: The IPv6 WAN connection type. Options:
+               * `disabled` - IPv6 disabled
+               * `static` - Static IPv6 configuration
+               * `dhcpv6` - Dynamic IPv6 from ISP
+               Choose based on your ISP's requirements.
+        :param pulumi.Input[_builtins.str] wan_username: Username for WAN authentication.
+               * Required for PPPoE connections
+               * May be needed for some ISP configurations
+               * Cannot contain spaces or special characters
+        :param pulumi.Input[_builtins.str] x_wan_password: Password for WAN authentication.
+               * Required for PPPoE connections
+               * May be needed for some ISP configurations
+               * Must be kept secret
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -2115,9 +3017,9 @@ class Network(pulumi.CustomResource):
         __props__.__dict__["dhcpd_boot_filename"] = dhcpd_boot_filename
         __props__.__dict__["dhcpd_boot_server"] = dhcpd_boot_server
         __props__.__dict__["domain_name"] = domain_name
+        __props__.__dict__["enabled"] = enabled
         __props__.__dict__["igmp_snooping"] = igmp_snooping
         __props__.__dict__["internet_access_enabled"] = internet_access_enabled
-        __props__.__dict__["intra_network_access_enabled"] = intra_network_access_enabled
         __props__.__dict__["ipv6_interface_type"] = ipv6_interface_type
         __props__.__dict__["ipv6_pd_interface"] = ipv6_pd_interface
         __props__.__dict__["ipv6_pd_prefixid"] = ipv6_pd_prefixid
@@ -2131,6 +3033,7 @@ class Network(pulumi.CustomResource):
         __props__.__dict__["multicast_dns"] = multicast_dns
         __props__.__dict__["name"] = name
         __props__.__dict__["network_group"] = network_group
+        __props__.__dict__["network_isolation_enabled"] = network_isolation_enabled
         __props__.__dict__["purpose"] = purpose
         __props__.__dict__["site"] = site
         __props__.__dict__["subnet"] = subnet
@@ -2155,7 +3058,11 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpDns")
     def dhcp_dns(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
-        Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
+        List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+        * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+        * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+        * Use internal DNS servers for corporate networks
+        Maximum 4 servers can be specified.
         """
         return pulumi.get(self, "dhcp_dns")
 
@@ -2163,7 +3070,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpEnabled")
     def dhcp_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether DHCP is enabled or not on this network.
+        Controls whether DHCP server is enabled for this network. When enabled:
+        * The network will automatically assign IP addresses to clients
+        * DHCP options (DNS, lease time) will be provided to clients
+        * Static IP assignments can still be made outside the DHCP range
         """
         return pulumi.get(self, "dhcp_enabled")
 
@@ -2171,7 +3081,11 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpLease")
     def dhcp_lease(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
+        The DHCP lease time in seconds. Common values:
+        * 86400 (1 day) - Default, suitable for most networks
+        * 3600 (1 hour) - For testing or temporary networks
+        * 604800 (1 week) - For stable networks with static clients
+        * 2592000 (30 days) - For very stable networks
         """
         return pulumi.get(self, "dhcp_lease")
 
@@ -2179,7 +3093,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpRelayEnabled")
     def dhcp_relay_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether DHCP relay is enabled or not on this network.
+        Enables DHCP relay for this network. When enabled:
+        * DHCP requests are forwarded to an external DHCP server
+        * Local DHCP server is disabled
+        * Useful for centralized DHCP management
         """
         return pulumi.get(self, "dhcp_relay_enabled")
 
@@ -2187,7 +3104,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpStart")
     def dhcp_start(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IPv4 address where the DHCP range of addresses starts.
+        The starting IPv4 address of the DHCP range. Examples:
+        * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+        * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+        Ensure this address is within the network's subnet.
         """
         return pulumi.get(self, "dhcp_start")
 
@@ -2195,7 +3115,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpStop")
     def dhcp_stop(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IPv4 address where the DHCP range of addresses stops.
+        The ending IPv4 address of the DHCP range. Examples:
+        * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+        * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+        Must be greater than dhcp_start and within the network's subnet.
         """
         return pulumi.get(self, "dhcp_stop")
 
@@ -2203,7 +3126,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpV6Dns")
     def dhcp_v6_dns(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
-        Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+        * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+        * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+        Only used when dhcp_v6_dns_auto is false. Maximum of 4 addresses are allowed.
         """
         return pulumi.get(self, "dhcp_v6_dns")
 
@@ -2211,7 +3137,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpV6DnsAuto")
     def dhcp_v6_dns_auto(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise Defaults to `true`.
+        Controls DNS server source for DHCPv6 clients:
+        * true - Use upstream DNS servers (recommended)
+        * false - Use manually specified servers from dhcp_v6_dns
+        Default is true for easier management.
         """
         return pulumi.get(self, "dhcp_v6_dns_auto")
 
@@ -2219,7 +3148,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpV6Enabled")
     def dhcp_v6_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable stateful DHCPv6 for static configuration.
+        Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+        * Provides IPv6 addresses to clients
+        * Works alongside SLAAC if configured
+        * Allows for more controlled IPv6 addressing
         """
         return pulumi.get(self, "dhcp_v6_enabled")
 
@@ -2227,7 +3159,11 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpV6Lease")
     def dhcp_v6_lease(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        The DHCPv6 lease time in seconds. Common values:
+        * 86400 (1 day) - Default setting
+        * 3600 (1 hour) - For testing
+        * 604800 (1 week) - For stable networks
+        Typically longer than IPv4 DHCP leases.
         """
         return pulumi.get(self, "dhcp_v6_lease")
 
@@ -2235,7 +3171,8 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpV6Start")
     def dhcp_v6_start(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        Must be a valid IPv6 address within your allocated IPv6 subnet.
         """
         return pulumi.get(self, "dhcp_v6_start")
 
@@ -2243,7 +3180,8 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpV6Stop")
     def dhcp_v6_stop(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        Must be after dhcp_v6_start in the IPv6 address space.
         """
         return pulumi.get(self, "dhcp_v6_stop")
 
@@ -2251,7 +3189,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpdBootEnabled")
     def dhcpd_boot_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
+        Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+        * Allows network devices to boot from a TFTP server
+        * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
+        * Commonly used for diskless workstations or network installations
         """
         return pulumi.get(self, "dhcpd_boot_enabled")
 
@@ -2259,7 +3200,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpdBootFilename")
     def dhcpd_boot_filename(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the file to PXE boot from on the dhcpd*boot*server.
+        The boot filename to be loaded from the TFTP server. Examples:
+        * 'pxelinux.0' - Standard PXE boot loader
+        * 'undionly.kpxe' - iPXE boot loader
+        * Custom paths for specific boot images
         """
         return pulumi.get(self, "dhcpd_boot_filename")
 
@@ -2267,7 +3211,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="dhcpdBootServer")
     def dhcpd_boot_server(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the IPv4 address of a TFTP server to network boot from.
+        The IPv4 address of the TFTP server for network boot. This setting:
+        * Is required when dhcpd_boot_enabled is true
+        * Should be a reliable, always-on server
+        * Must be accessible to all clients that need to boot
         """
         return pulumi.get(self, "dhcpd_boot_server")
 
@@ -2275,15 +3222,35 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="domainName")
     def domain_name(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The domain name of this network.
+        The domain name for this network. Examples:
+        * 'corp.example.com' - For corporate networks
+        * 'guest.example.com' - For guest networks
+        * 'iot.example.com' - For IoT networks
+        Used for internal DNS resolution and DHCP options.
         """
         return pulumi.get(self, "domain_name")
+
+    @_builtins.property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Controls whether this network is active. When disabled:
+        * Network will not be available to clients
+        * DHCP services will be stopped
+        * Existing clients will be disconnected
+        Useful for temporary network maintenance or security measures.
+        """
+        return pulumi.get(self, "enabled")
 
     @_builtins.property
     @pulumi.getter(name="igmpSnooping")
     def igmp_snooping(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether IGMP snooping is enabled or not.
+        Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+        * Optimizes multicast traffic flow
+        * Reduces network congestion
+        * Improves performance for multicast applications (e.g., IPTV)
+        Recommended for networks with multicast traffic.
         """
         return pulumi.get(self, "igmp_snooping")
 
@@ -2291,23 +3258,23 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="internetAccessEnabled")
     def internet_access_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether this network should be allowed to access the internet or not. Defaults to `true`.
+        Controls internet access for this network. When disabled:
+        * Clients cannot access external networks
+        * Internal network access remains available
+        * Useful for creating isolated or secure networks
         """
         return pulumi.get(self, "internet_access_enabled")
-
-    @_builtins.property
-    @pulumi.getter(name="intraNetworkAccessEnabled")
-    def intra_network_access_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
-        """
-        Specifies whether this network should be allowed to access other local networks or not. Defaults to `true`.
-        """
-        return pulumi.get(self, "intra_network_access_enabled")
 
     @_builtins.property
     @pulumi.getter(name="ipv6InterfaceType")
     def ipv6_interface_type(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`. Defaults to `none`.
+        Specifies the IPv6 connection type. Must be one of:
+        * `none` - IPv6 disabled (default)
+        * `static` - Static IPv6 addressing
+        * `pd` - Prefix Delegation from upstream
+
+        Choose based on your IPv6 deployment strategy and ISP capabilities.
         """
         return pulumi.get(self, "ipv6_interface_type")
 
@@ -2315,7 +3282,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6PdInterface")
     def ipv6_pd_interface(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
+        The WAN interface to use for IPv6 Prefix Delegation. Options:
+        * `wan` - Primary WAN interface
+        * `wan2` - Secondary WAN interface
+        Only applicable when `ipv6_interface_type` is 'pd'.
         """
         return pulumi.get(self, "ipv6_pd_interface")
 
@@ -2323,7 +3293,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6PdPrefixid")
     def ipv6_pd_prefixid(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the IPv6 Prefix ID.
+        The IPv6 Prefix ID for Prefix Delegation. Used to:
+        * Differentiate multiple delegated prefixes
+        * Create unique subnets from the delegated prefix
+        Typically a hexadecimal value (e.g., '0', '1', 'a1').
         """
         return pulumi.get(self, "ipv6_pd_prefixid")
 
@@ -2331,7 +3304,9 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6PdStart")
     def ipv6_pd_start(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        The starting IPv6 address for Prefix Delegation range.
+        Only used when `ipv6_interface_type` is 'pd'.
+        Must be within the delegated prefix range.
         """
         return pulumi.get(self, "ipv6_pd_start")
 
@@ -2339,7 +3314,9 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6PdStop")
     def ipv6_pd_stop(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        The ending IPv6 address for Prefix Delegation range.
+        Only used when `ipv6_interface_type` is 'pd'.
+        Must be after `ipv6_pd_start` within the delegated prefix.
         """
         return pulumi.get(self, "ipv6_pd_stop")
 
@@ -2347,7 +3324,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6RaEnable")
     def ipv6_ra_enable(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether to enable router advertisements or not.
+        Enables IPv6 Router Advertisements (RA). When enabled:
+        * Announces IPv6 prefix information to clients
+        * Enables SLAAC address configuration
+        * Required for most IPv6 deployments
         """
         return pulumi.get(self, "ipv6_ra_enable")
 
@@ -2355,7 +3335,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6RaPreferredLifetime")
     def ipv6_ra_preferred_lifetime(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime` Defaults to `14400`.
+        The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        * Must be less than or equal to `ipv6_ra_valid_lifetime`
+        * Default: 14400 (4 hours)
+        * After this time, addresses become deprecated but still usable
         """
         return pulumi.get(self, "ipv6_ra_preferred_lifetime")
 
@@ -2363,7 +3346,11 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6RaPriority")
     def ipv6_ra_priority(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        Sets the priority for IPv6 Router Advertisements. Options:
+        * `high` - Preferred for primary networks
+        * `medium` - Standard priority
+        * `low` - For backup or secondary networks
+        Affects router selection when multiple IPv6 routers exist.
         """
         return pulumi.get(self, "ipv6_ra_priority")
 
@@ -2371,7 +3358,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6RaValidLifetime")
     def ipv6_ra_valid_lifetime(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`. Defaults to `86400`.
+        The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
+        * Default: 86400 (24 hours)
+        * After this time, addresses become invalid
         """
         return pulumi.get(self, "ipv6_ra_valid_lifetime")
 
@@ -2379,7 +3369,9 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="ipv6StaticSubnet")
     def ipv6_static_subnet(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the static IPv6 subnet when `ipv6_interface_type` is 'static'.
+        The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+        Only applicable when `ipv6_interface_type` is 'static'.
+        Must be a valid IPv6 subnet allocated to your organization.
         """
         return pulumi.get(self, "ipv6_static_subnet")
 
@@ -2387,7 +3379,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="multicastDns")
     def multicast_dns(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+        Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+        * Allows device discovery (e.g., printers, Chromecasts)
+        * Supports zero-configuration networking
+        * Available on Controller version 7 and later
         """
         return pulumi.get(self, "multicast_dns")
 
@@ -2395,7 +3390,7 @@ class Network(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the network.
+        The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         """
         return pulumi.get(self, "name")
 
@@ -2403,15 +3398,30 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="networkGroup")
     def network_group(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The group of the network. Defaults to `LAN`.
+        The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
         """
         return pulumi.get(self, "network_group")
+
+    @_builtins.property
+    @pulumi.getter(name="networkIsolationEnabled")
+    def network_isolation_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Enables network isolation. When enabled:
+        * Prevents communication between clients on this network
+        * Each client can only communicate with the gateway
+        * Commonly used for guest networks or IoT devices
+        """
+        return pulumi.get(self, "network_isolation_enabled")
 
     @_builtins.property
     @pulumi.getter
     def purpose(self) -> pulumi.Output[_builtins.str]:
         """
-        The purpose of the network. Must be one of `corporate`, `guest`, `wan`, or `vlan-only`.
+        The purpose/type of the network. Must be one of:
+        * `corporate` - Standard network for corporate use with full access
+        * `guest` - Isolated network for guest access with limited permissions
+        * `wan` - External network connection (WAN uplink)
+        * `vlan-only` - VLAN network without DHCP services
         """
         return pulumi.get(self, "purpose")
 
@@ -2427,7 +3437,7 @@ class Network(pulumi.CustomResource):
     @pulumi.getter
     def subnet(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The subnet of the network. Must be a valid CIDR address.
+        The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
         """
         return pulumi.get(self, "subnet")
 
@@ -2435,7 +3445,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="vlanId")
     def vlan_id(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The VLAN ID of the network.
+        The VLAN ID for this network. Valid range is 0-4096. Common uses:
+        * 1-4094: Standard VLAN range for network segmentation
+        * 0: Untagged/native VLAN
+        * >4094: Reserved for special purposes
         """
         return pulumi.get(self, "vlan_id")
 
@@ -2443,7 +3456,8 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanDhcpV6PdSize")
     def wan_dhcp_v6_pd_size(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        Only applicable when `wan_type_v6` is 'dhcpv6'.
         """
         return pulumi.get(self, "wan_dhcp_v6_pd_size")
 
@@ -2451,7 +3465,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanDns")
     def wan_dns(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
-        DNS servers IPs of the WAN.
+        List of IPv4 DNS servers for WAN interface. Examples:
+        * ISP provided DNS servers
+        * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+        * Maximum 4 servers can be specified
         """
         return pulumi.get(self, "wan_dns")
 
@@ -2459,7 +3476,11 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanEgressQos")
     def wan_egress_qos(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Specifies the WAN egress quality of service. Defaults to `0`.
+        Quality of Service (QoS) priority for WAN egress traffic (0-7).
+        * 0 (default) - Best effort
+        * 1-4 - Increasing priority
+        * 5-7 - Highest priority, use sparingly
+        Higher values get preferential treatment.
         """
         return pulumi.get(self, "wan_egress_qos")
 
@@ -2467,7 +3488,9 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanGateway")
     def wan_gateway(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IPv4 gateway of the WAN.
+        The IPv4 gateway address for WAN interface.
+        Required when `wan_type` is 'static'.
+        Typically the ISP's router IP address.
         """
         return pulumi.get(self, "wan_gateway")
 
@@ -2475,7 +3498,9 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanGatewayV6")
     def wan_gateway_v6(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IPv6 gateway of the WAN.
+        The IPv6 gateway address for WAN interface.
+        Required when `wan_type_v6` is 'static'.
+        Typically the ISP's router IPv6 address.
         """
         return pulumi.get(self, "wan_gateway_v6")
 
@@ -2483,7 +3508,9 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanIp")
     def wan_ip(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IPv4 address of the WAN.
+        The static IPv4 address for WAN interface.
+        Required when `wan_type` is 'static'.
+        Must be a valid public IP address assigned by your ISP.
         """
         return pulumi.get(self, "wan_ip")
 
@@ -2491,7 +3518,9 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanIpv6")
     def wan_ipv6(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IPv6 address of the WAN.
+        The static IPv6 address for WAN interface.
+        Required when `wan_type_v6` is 'static'.
+        Must be a valid public IPv6 address assigned by your ISP.
         """
         return pulumi.get(self, "wan_ipv6")
 
@@ -2499,7 +3528,9 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanNetmask")
     def wan_netmask(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IPv4 netmask of the WAN.
+        The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+        Required when `wan_type` is 'static'.
+        Must match the subnet mask provided by your ISP.
         """
         return pulumi.get(self, "wan_netmask")
 
@@ -2507,7 +3538,11 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanNetworkgroup")
     def wan_networkgroup(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
+        The WAN interface group assignment. Options:
+        * `WAN` - Primary WAN interface
+        * `WAN2` - Secondary WAN interface
+        * `WAN_LTE_FAILOVER` - LTE backup connection
+        Used for dual WAN and failover configurations.
         """
         return pulumi.get(self, "wan_networkgroup")
 
@@ -2515,7 +3550,8 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanPrefixlen")
     def wan_prefixlen(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+        Only applicable when `wan_type_v6` is 'static'.
         """
         return pulumi.get(self, "wan_prefixlen")
 
@@ -2523,7 +3559,12 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanType")
     def wan_type(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the IPV4 WAN connection type. Must be one of either `disabled`, `static`, `dhcp`, or `pppoe`.
+        The IPv4 WAN connection type. Options:
+        * `disabled` - WAN interface disabled
+        * `static` - Static IP configuration
+        * `dhcp` - Dynamic IP from ISP
+        * `pppoe` - PPPoE connection (common for DSL)
+        Choose based on your ISP's requirements.
         """
         return pulumi.get(self, "wan_type")
 
@@ -2531,7 +3572,11 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanTypeV6")
     def wan_type_v6(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        The IPv6 WAN connection type. Options:
+        * `disabled` - IPv6 disabled
+        * `static` - Static IPv6 configuration
+        * `dhcpv6` - Dynamic IPv6 from ISP
+        Choose based on your ISP's requirements.
         """
         return pulumi.get(self, "wan_type_v6")
 
@@ -2539,7 +3584,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="wanUsername")
     def wan_username(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the IPV4 WAN username.
+        Username for WAN authentication.
+        * Required for PPPoE connections
+        * May be needed for some ISP configurations
+        * Cannot contain spaces or special characters
         """
         return pulumi.get(self, "wan_username")
 
@@ -2547,7 +3595,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="xWanPassword")
     def x_wan_password(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies the IPV4 WAN password.
+        Password for WAN authentication.
+        * Required for PPPoE connections
+        * May be needed for some ISP configurations
+        * Must be kept secret
         """
         return pulumi.get(self, "x_wan_password")
 

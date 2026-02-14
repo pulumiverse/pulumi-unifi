@@ -24,6 +24,7 @@ class ProfileArgs:
                  dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
                  egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
                  egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  forward: Optional[pulumi.Input[_builtins.str]] = None,
                  full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
                  isolation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -52,45 +53,155 @@ class ProfileArgs:
                  stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
                  stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
                  stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tagged_networkconf_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Profile resource.
-        :param pulumi.Input[_builtins.bool] autoneg: Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
-        :param pulumi.Input[_builtins.str] dot1x_ctrl: The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
-        :param pulumi.Input[_builtins.int] dot1x_idle_timeout: The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
-        :param pulumi.Input[_builtins.int] egress_rate_limit_kbps: The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
-        :param pulumi.Input[_builtins.bool] egress_rate_limit_kbps_enabled: Enable egress rate limiting for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] forward: The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
-        :param pulumi.Input[_builtins.bool] full_duplex: Enable full duplex for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] isolation: Enable port isolation for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] lldpmed_enabled: Enable LLDP-MED for the port profile. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] lldpmed_notify_enabled: Enable LLDP-MED topology change notifications for the port profile.
-        :param pulumi.Input[_builtins.str] name: The name of the port profile.
-        :param pulumi.Input[_builtins.str] native_networkconf_id: The ID of network to use as the main network on the port profile.
-        :param pulumi.Input[_builtins.str] op_mode: The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        :param pulumi.Input[_builtins.bool] autoneg: Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
+        :param pulumi.Input[_builtins.str] dot1x_ctrl: 802.1X port-based network access control (PNAC) mode. Valid values are:
+                 * `force_authorized` - Port allows all traffic, no authentication required (default)
+                 * `force_unauthorized` - Port blocks all traffic regardless of authentication
+                 * `auto` - Standard 802.1X authentication required before port access is granted
+                 * `mac_based` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+                 * `multi_host` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+               
+               Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
+        :param pulumi.Input[_builtins.int] dot1x_idle_timeout: The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
+        :param pulumi.Input[_builtins.int] egress_rate_limit_kbps: The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
+        :param pulumi.Input[_builtins.bool] egress_rate_limit_kbps_enabled: Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] excluded_network_ids: List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        :param pulumi.Input[_builtins.str] forward: VLAN forwarding mode for the port. Valid values are:
+                 * `all` - Forward all VLANs (trunk port)
+                 * `native` - Only forward untagged traffic (access port)
+                 * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+                 * `disabled` - Disable VLAN forwarding
+               
+               Examples:
+                 * Use 'all' for uplink ports or connections to VLAN-aware devices
+                 * Use 'native' for end-user devices or simple network connections
+                 * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+        :param pulumi.Input[_builtins.bool] full_duplex: Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
+        :param pulumi.Input[_builtins.bool] isolation: Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
+        :param pulumi.Input[_builtins.bool] lldpmed_enabled: Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
+        :param pulumi.Input[_builtins.bool] lldpmed_notify_enabled: Enable LLDP-MED topology change notifications. When enabled:
+               * Network devices will be notified of topology changes
+               * Useful for VoIP phones and other LLDP-MED capable devices
+               * Helps maintain accurate network topology information
+               * Facilitates faster device configuration and provisioning
+        :param pulumi.Input[_builtins.str] name: A descriptive name for the port profile. Examples:
+               * 'AP-Trunk-Port' - For access point uplinks
+               * 'VoIP-Phone-Port' - For VoIP phone connections
+               * 'User-Access-Port' - For standard user connections
+               * 'IoT-Device-Port' - For IoT device connections
+        :param pulumi.Input[_builtins.str] native_networkconf_id: The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+               * Access ports where devices need untagged access
+               * Trunk ports to specify the native VLAN
+               * Management networks for network devices
+        :param pulumi.Input[_builtins.str] op_mode: The operation mode for the port profile. Can only be `switch`
         :param pulumi.Input[_builtins.str] poe_mode: The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
-        :param pulumi.Input[_builtins.bool] port_security_enabled: Enable port security for the port profile. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] port_security_mac_addresses: The MAC addresses associated with the port security for the port profile.
-        :param pulumi.Input[_builtins.int] priority_queue1_level: The priority queue 1 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue2_level: The priority queue 2 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue3_level: The priority queue 3 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue4_level: The priority queue 4 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the port profile with.
-        :param pulumi.Input[_builtins.int] speed: The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
-        :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] port_security_enabled: Enable MAC address-based port security. When enabled:
+               * Only devices with specified MAC addresses can connect
+               * Unauthorized devices will be blocked
+               * Provides protection against unauthorized network access
+               * Must be used with port_security_mac_address list
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] port_security_mac_addresses: List of allowed MAC addresses when port security is enabled. Each address should be:
+               * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+               * Unique per device
+               * Verified to belong to authorized devices
+               Only effective when port_security_enabled is true
+        :param pulumi.Input[_builtins.int] priority_queue1_level: Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+               * Low-priority background traffic
+               * Bulk data transfers
+               * Non-time-sensitive applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue2_level: Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+               * Standard user traffic
+               * Web browsing and email
+               * General business applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue3_level: Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+               * High-priority traffic
+               * Voice and video conferencing
+               * Time-sensitive applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue4_level: Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+               * Highest priority traffic
+               * Critical real-time applications
+               * Emergency communications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.int] speed: Port speed in Mbps when auto-negotiation is disabled. Common values:
+               * 10 - 10 Mbps (legacy devices)
+               * 100 - 100 Mbps (Fast Ethernet)
+               * 1000 - 1 Gbps (Gigabit Ethernet)
+               * 2500 - 2.5 Gbps (Multi-Gigabit)
+               * 5000 - 5 Gbps (Multi-Gigabit)
+               * 10000 - 10 Gbps (10 Gigabit)
+               Only used when autoneg is false
+        :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast storm control. When enabled:
+               * Limits broadcast traffic to prevent network flooding
+               * Protects against broadcast storms
+               * Helps maintain network stability
+               Use with stormctrl_bcast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_bcast_level: The broadcast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
-        :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control broadcast traffic levels
+               * Prevent network congestion
+               * Balance between necessary broadcasts and network protection
+               Only effective when `stormctrl_bcast_enabled` is true
+        :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast storm control. When enabled:
+               * Limits multicast traffic to prevent network flooding
+               * Important for networks with multicast applications
+               * Helps maintain quality of service
+               Use with `stormctrl_mcast_rate` to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_mcast_level: The multicast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control multicast traffic levels
+               * Ensure bandwidth for critical multicast services
+               * Prevent multicast traffic from overwhelming the network
+               Only effective when stormctrl_mcast_enabled is true
         :param pulumi.Input[_builtins.str] stormctrl_type: The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
-        :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast storm control. When enabled:
+               * Limits unknown unicast traffic to prevent flooding
+               * Protects against MAC spoofing attacks
+               * Helps maintain network performance
+               Use with stormctrl_ucast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_ucast_level: The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
-        :param pulumi.Input[_builtins.bool] stp_port_mode: Enable spanning tree protocol on the port profile. Defaults to `true`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tagged_networkconf_ids: The IDs of networks to tag traffic with for the port profile.
-        :param pulumi.Input[_builtins.str] voice_networkconf_id: The ID of network to use as the voice network on the port profile.
+        :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control unknown unicast traffic levels
+               * Prevent network saturation from unknown destinations
+               * Balance security with network usability
+               Only effective when stormctrl_ucast_enabled is true
+        :param pulumi.Input[_builtins.bool] stp_port_mode: Spanning Tree Protocol (STP) configuration for the port. When enabled:
+               * Prevents network loops in switch-to-switch connections
+               * Provides automatic failover in redundant topologies
+               * Helps maintain network stability
+               
+               Best practices:
+               * Enable on switch uplink ports
+               * Enable on ports connecting to other switches
+               * Can be disabled on end-device ports for faster initialization
+        :param pulumi.Input[_builtins.str] tagged_vlan_mgmt: VLAN tagging behavior for the port. Valid values are:
+               * `auto` - Automatically handle VLAN tags (recommended)
+                   - Intelligently manages tagged and untagged traffic
+                   - Best for most deployments
+               * `block_all` - Block all VLAN tagged traffic
+                   - Use for security-sensitive ports
+                   - Prevents VLAN hopping attacks
+               * `custom` - Custom VLAN configuration
+                   - Manual control over VLAN behavior
+                   - For specific VLAN requirements
+        :param pulumi.Input[_builtins.str] voice_networkconf_id: The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+               * Automatic VoIP VLAN configuration
+               * Voice traffic prioritization
+               * QoS settings for voice packets
+               
+               Common scenarios:
+               * IP phone deployments with separate voice VLAN
+               * Unified communications systems
+               * Converged voice/data networks
+               
+               Works in conjunction with LLDP-MED for automatic phone provisioning.
         """
         if autoneg is not None:
             pulumi.set(__self__, "autoneg", autoneg)
@@ -102,6 +213,8 @@ class ProfileArgs:
             pulumi.set(__self__, "egress_rate_limit_kbps", egress_rate_limit_kbps)
         if egress_rate_limit_kbps_enabled is not None:
             pulumi.set(__self__, "egress_rate_limit_kbps_enabled", egress_rate_limit_kbps_enabled)
+        if excluded_network_ids is not None:
+            pulumi.set(__self__, "excluded_network_ids", excluded_network_ids)
         if forward is not None:
             pulumi.set(__self__, "forward", forward)
         if full_duplex is not None:
@@ -158,8 +271,8 @@ class ProfileArgs:
             pulumi.set(__self__, "stormctrl_ucast_rate", stormctrl_ucast_rate)
         if stp_port_mode is not None:
             pulumi.set(__self__, "stp_port_mode", stp_port_mode)
-        if tagged_networkconf_ids is not None:
-            pulumi.set(__self__, "tagged_networkconf_ids", tagged_networkconf_ids)
+        if tagged_vlan_mgmt is not None:
+            pulumi.set(__self__, "tagged_vlan_mgmt", tagged_vlan_mgmt)
         if voice_networkconf_id is not None:
             pulumi.set(__self__, "voice_networkconf_id", voice_networkconf_id)
 
@@ -167,7 +280,7 @@ class ProfileArgs:
     @pulumi.getter
     def autoneg(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         """
         return pulumi.get(self, "autoneg")
 
@@ -179,7 +292,14 @@ class ProfileArgs:
     @pulumi.getter(name="dot1xCtrl")
     def dot1x_ctrl(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        802.1X port-based network access control (PNAC) mode. Valid values are:
+          * `force_authorized` - Port allows all traffic, no authentication required (default)
+          * `force_unauthorized` - Port blocks all traffic regardless of authentication
+          * `auto` - Standard 802.1X authentication required before port access is granted
+          * `mac_based` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+          * `multi_host` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+
+        Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
         """
         return pulumi.get(self, "dot1x_ctrl")
 
@@ -191,7 +311,7 @@ class ProfileArgs:
     @pulumi.getter(name="dot1xIdleTimeout")
     def dot1x_idle_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
+        The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
         """
         return pulumi.get(self, "dot1x_idle_timeout")
 
@@ -203,7 +323,7 @@ class ProfileArgs:
     @pulumi.getter(name="egressRateLimitKbps")
     def egress_rate_limit_kbps(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
+        The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
         """
         return pulumi.get(self, "egress_rate_limit_kbps")
 
@@ -215,7 +335,7 @@ class ProfileArgs:
     @pulumi.getter(name="egressRateLimitKbpsEnabled")
     def egress_rate_limit_kbps_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable egress rate limiting for the port profile. Defaults to `false`.
+        Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
         """
         return pulumi.get(self, "egress_rate_limit_kbps_enabled")
 
@@ -224,10 +344,31 @@ class ProfileArgs:
         pulumi.set(self, "egress_rate_limit_kbps_enabled", value)
 
     @_builtins.property
+    @pulumi.getter(name="excludedNetworkIds")
+    def excluded_network_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        """
+        return pulumi.get(self, "excluded_network_ids")
+
+    @excluded_network_ids.setter
+    def excluded_network_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "excluded_network_ids", value)
+
+    @_builtins.property
     @pulumi.getter
     def forward(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        VLAN forwarding mode for the port. Valid values are:
+          * `all` - Forward all VLANs (trunk port)
+          * `native` - Only forward untagged traffic (access port)
+          * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+          * `disabled` - Disable VLAN forwarding
+
+        Examples:
+          * Use 'all' for uplink ports or connections to VLAN-aware devices
+          * Use 'native' for end-user devices or simple network connections
+          * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
         """
         return pulumi.get(self, "forward")
 
@@ -239,7 +380,7 @@ class ProfileArgs:
     @pulumi.getter(name="fullDuplex")
     def full_duplex(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable full duplex for the port profile. Defaults to `false`.
+        Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
         """
         return pulumi.get(self, "full_duplex")
 
@@ -251,7 +392,7 @@ class ProfileArgs:
     @pulumi.getter
     def isolation(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable port isolation for the port profile. Defaults to `false`.
+        Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
         """
         return pulumi.get(self, "isolation")
 
@@ -263,7 +404,7 @@ class ProfileArgs:
     @pulumi.getter(name="lldpmedEnabled")
     def lldpmed_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable LLDP-MED for the port profile. Defaults to `true`.
+        Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
         """
         return pulumi.get(self, "lldpmed_enabled")
 
@@ -275,7 +416,11 @@ class ProfileArgs:
     @pulumi.getter(name="lldpmedNotifyEnabled")
     def lldpmed_notify_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable LLDP-MED topology change notifications for the port profile.
+        Enable LLDP-MED topology change notifications. When enabled:
+        * Network devices will be notified of topology changes
+        * Useful for VoIP phones and other LLDP-MED capable devices
+        * Helps maintain accurate network topology information
+        * Facilitates faster device configuration and provisioning
         """
         return pulumi.get(self, "lldpmed_notify_enabled")
 
@@ -287,7 +432,11 @@ class ProfileArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the port profile.
+        A descriptive name for the port profile. Examples:
+        * 'AP-Trunk-Port' - For access point uplinks
+        * 'VoIP-Phone-Port' - For VoIP phone connections
+        * 'User-Access-Port' - For standard user connections
+        * 'IoT-Device-Port' - For IoT device connections
         """
         return pulumi.get(self, "name")
 
@@ -299,7 +448,10 @@ class ProfileArgs:
     @pulumi.getter(name="nativeNetworkconfId")
     def native_networkconf_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The ID of network to use as the main network on the port profile.
+        The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+        * Access ports where devices need untagged access
+        * Trunk ports to specify the native VLAN
+        * Management networks for network devices
         """
         return pulumi.get(self, "native_networkconf_id")
 
@@ -311,7 +463,7 @@ class ProfileArgs:
     @pulumi.getter(name="opMode")
     def op_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        The operation mode for the port profile. Can only be `switch`
         """
         return pulumi.get(self, "op_mode")
 
@@ -335,7 +487,11 @@ class ProfileArgs:
     @pulumi.getter(name="portSecurityEnabled")
     def port_security_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable port security for the port profile. Defaults to `false`.
+        Enable MAC address-based port security. When enabled:
+        * Only devices with specified MAC addresses can connect
+        * Unauthorized devices will be blocked
+        * Provides protection against unauthorized network access
+        * Must be used with port_security_mac_address list
         """
         return pulumi.get(self, "port_security_enabled")
 
@@ -347,7 +503,11 @@ class ProfileArgs:
     @pulumi.getter(name="portSecurityMacAddresses")
     def port_security_mac_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        The MAC addresses associated with the port security for the port profile.
+        List of allowed MAC addresses when port security is enabled. Each address should be:
+        * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+        * Unique per device
+        * Verified to belong to authorized devices
+        Only effective when port_security_enabled is true
         """
         return pulumi.get(self, "port_security_mac_addresses")
 
@@ -359,7 +519,11 @@ class ProfileArgs:
     @pulumi.getter(name="priorityQueue1Level")
     def priority_queue1_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The priority queue 1 level for the port profile. Can be between 0 and 100.
+        Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+        * Low-priority background traffic
+        * Bulk data transfers
+        * Non-time-sensitive applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue1_level")
 
@@ -371,7 +535,11 @@ class ProfileArgs:
     @pulumi.getter(name="priorityQueue2Level")
     def priority_queue2_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The priority queue 2 level for the port profile. Can be between 0 and 100.
+        Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+        * Standard user traffic
+        * Web browsing and email
+        * General business applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue2_level")
 
@@ -383,7 +551,11 @@ class ProfileArgs:
     @pulumi.getter(name="priorityQueue3Level")
     def priority_queue3_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The priority queue 3 level for the port profile. Can be between 0 and 100.
+        Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+        * High-priority traffic
+        * Voice and video conferencing
+        * Time-sensitive applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue3_level")
 
@@ -395,7 +567,11 @@ class ProfileArgs:
     @pulumi.getter(name="priorityQueue4Level")
     def priority_queue4_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The priority queue 4 level for the port profile. Can be between 0 and 100.
+        Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+        * Highest priority traffic
+        * Critical real-time applications
+        * Emergency communications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue4_level")
 
@@ -407,7 +583,7 @@ class ProfileArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the port profile with.
+        The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -419,7 +595,14 @@ class ProfileArgs:
     @pulumi.getter
     def speed(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
+        Port speed in Mbps when auto-negotiation is disabled. Common values:
+        * 10 - 10 Mbps (legacy devices)
+        * 100 - 100 Mbps (Fast Ethernet)
+        * 1000 - 1 Gbps (Gigabit Ethernet)
+        * 2500 - 2.5 Gbps (Multi-Gigabit)
+        * 5000 - 5 Gbps (Multi-Gigabit)
+        * 10000 - 10 Gbps (10 Gigabit)
+        Only used when autoneg is false
         """
         return pulumi.get(self, "speed")
 
@@ -431,7 +614,11 @@ class ProfileArgs:
     @pulumi.getter(name="stormctrlBcastEnabled")
     def stormctrl_bcast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        Enable broadcast storm control. When enabled:
+        * Limits broadcast traffic to prevent network flooding
+        * Protects against broadcast storms
+        * Helps maintain network stability
+        Use with stormctrl_bcast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_bcast_enabled")
 
@@ -455,7 +642,11 @@ class ProfileArgs:
     @pulumi.getter(name="stormctrlBcastRate")
     def stormctrl_bcast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control broadcast traffic levels
+        * Prevent network congestion
+        * Balance between necessary broadcasts and network protection
+        Only effective when `stormctrl_bcast_enabled` is true
         """
         return pulumi.get(self, "stormctrl_bcast_rate")
 
@@ -467,7 +658,11 @@ class ProfileArgs:
     @pulumi.getter(name="stormctrlMcastEnabled")
     def stormctrl_mcast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable multicast Storm Control for the port profile. Defaults to `false`.
+        Enable multicast storm control. When enabled:
+        * Limits multicast traffic to prevent network flooding
+        * Important for networks with multicast applications
+        * Helps maintain quality of service
+        Use with `stormctrl_mcast_rate` to set threshold
         """
         return pulumi.get(self, "stormctrl_mcast_enabled")
 
@@ -491,7 +686,11 @@ class ProfileArgs:
     @pulumi.getter(name="stormctrlMcastRate")
     def stormctrl_mcast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control multicast traffic levels
+        * Ensure bandwidth for critical multicast services
+        * Prevent multicast traffic from overwhelming the network
+        Only effective when stormctrl_mcast_enabled is true
         """
         return pulumi.get(self, "stormctrl_mcast_rate")
 
@@ -515,7 +714,11 @@ class ProfileArgs:
     @pulumi.getter(name="stormctrlUcastEnabled")
     def stormctrl_ucast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        Enable unknown unicast storm control. When enabled:
+        * Limits unknown unicast traffic to prevent flooding
+        * Protects against MAC spoofing attacks
+        * Helps maintain network performance
+        Use with stormctrl_ucast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_ucast_enabled")
 
@@ -539,7 +742,11 @@ class ProfileArgs:
     @pulumi.getter(name="stormctrlUcastRate")
     def stormctrl_ucast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control unknown unicast traffic levels
+        * Prevent network saturation from unknown destinations
+        * Balance security with network usability
+        Only effective when stormctrl_ucast_enabled is true
         """
         return pulumi.get(self, "stormctrl_ucast_rate")
 
@@ -551,7 +758,15 @@ class ProfileArgs:
     @pulumi.getter(name="stpPortMode")
     def stp_port_mode(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable spanning tree protocol on the port profile. Defaults to `true`.
+        Spanning Tree Protocol (STP) configuration for the port. When enabled:
+        * Prevents network loops in switch-to-switch connections
+        * Provides automatic failover in redundant topologies
+        * Helps maintain network stability
+
+        Best practices:
+        * Enable on switch uplink ports
+        * Enable on ports connecting to other switches
+        * Can be disabled on end-device ports for faster initialization
         """
         return pulumi.get(self, "stp_port_mode")
 
@@ -560,22 +775,41 @@ class ProfileArgs:
         pulumi.set(self, "stp_port_mode", value)
 
     @_builtins.property
-    @pulumi.getter(name="taggedNetworkconfIds")
-    def tagged_networkconf_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    @pulumi.getter(name="taggedVlanMgmt")
+    def tagged_vlan_mgmt(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IDs of networks to tag traffic with for the port profile.
+        VLAN tagging behavior for the port. Valid values are:
+        * `auto` - Automatically handle VLAN tags (recommended)
+            - Intelligently manages tagged and untagged traffic
+            - Best for most deployments
+        * `block_all` - Block all VLAN tagged traffic
+            - Use for security-sensitive ports
+            - Prevents VLAN hopping attacks
+        * `custom` - Custom VLAN configuration
+            - Manual control over VLAN behavior
+            - For specific VLAN requirements
         """
-        return pulumi.get(self, "tagged_networkconf_ids")
+        return pulumi.get(self, "tagged_vlan_mgmt")
 
-    @tagged_networkconf_ids.setter
-    def tagged_networkconf_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "tagged_networkconf_ids", value)
+    @tagged_vlan_mgmt.setter
+    def tagged_vlan_mgmt(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "tagged_vlan_mgmt", value)
 
     @_builtins.property
     @pulumi.getter(name="voiceNetworkconfId")
     def voice_networkconf_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The ID of network to use as the voice network on the port profile.
+        The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+        * Automatic VoIP VLAN configuration
+        * Voice traffic prioritization
+        * QoS settings for voice packets
+
+        Common scenarios:
+        * IP phone deployments with separate voice VLAN
+        * Unified communications systems
+        * Converged voice/data networks
+
+        Works in conjunction with LLDP-MED for automatic phone provisioning.
         """
         return pulumi.get(self, "voice_networkconf_id")
 
@@ -592,6 +826,7 @@ class _ProfileState:
                  dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
                  egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
                  egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  forward: Optional[pulumi.Input[_builtins.str]] = None,
                  full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
                  isolation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -620,45 +855,155 @@ class _ProfileState:
                  stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
                  stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
                  stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tagged_networkconf_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Profile resources.
-        :param pulumi.Input[_builtins.bool] autoneg: Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
-        :param pulumi.Input[_builtins.str] dot1x_ctrl: The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
-        :param pulumi.Input[_builtins.int] dot1x_idle_timeout: The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
-        :param pulumi.Input[_builtins.int] egress_rate_limit_kbps: The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
-        :param pulumi.Input[_builtins.bool] egress_rate_limit_kbps_enabled: Enable egress rate limiting for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] forward: The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
-        :param pulumi.Input[_builtins.bool] full_duplex: Enable full duplex for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] isolation: Enable port isolation for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] lldpmed_enabled: Enable LLDP-MED for the port profile. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] lldpmed_notify_enabled: Enable LLDP-MED topology change notifications for the port profile.
-        :param pulumi.Input[_builtins.str] name: The name of the port profile.
-        :param pulumi.Input[_builtins.str] native_networkconf_id: The ID of network to use as the main network on the port profile.
-        :param pulumi.Input[_builtins.str] op_mode: The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        :param pulumi.Input[_builtins.bool] autoneg: Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
+        :param pulumi.Input[_builtins.str] dot1x_ctrl: 802.1X port-based network access control (PNAC) mode. Valid values are:
+                 * `force_authorized` - Port allows all traffic, no authentication required (default)
+                 * `force_unauthorized` - Port blocks all traffic regardless of authentication
+                 * `auto` - Standard 802.1X authentication required before port access is granted
+                 * `mac_based` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+                 * `multi_host` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+               
+               Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
+        :param pulumi.Input[_builtins.int] dot1x_idle_timeout: The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
+        :param pulumi.Input[_builtins.int] egress_rate_limit_kbps: The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
+        :param pulumi.Input[_builtins.bool] egress_rate_limit_kbps_enabled: Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] excluded_network_ids: List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        :param pulumi.Input[_builtins.str] forward: VLAN forwarding mode for the port. Valid values are:
+                 * `all` - Forward all VLANs (trunk port)
+                 * `native` - Only forward untagged traffic (access port)
+                 * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+                 * `disabled` - Disable VLAN forwarding
+               
+               Examples:
+                 * Use 'all' for uplink ports or connections to VLAN-aware devices
+                 * Use 'native' for end-user devices or simple network connections
+                 * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+        :param pulumi.Input[_builtins.bool] full_duplex: Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
+        :param pulumi.Input[_builtins.bool] isolation: Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
+        :param pulumi.Input[_builtins.bool] lldpmed_enabled: Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
+        :param pulumi.Input[_builtins.bool] lldpmed_notify_enabled: Enable LLDP-MED topology change notifications. When enabled:
+               * Network devices will be notified of topology changes
+               * Useful for VoIP phones and other LLDP-MED capable devices
+               * Helps maintain accurate network topology information
+               * Facilitates faster device configuration and provisioning
+        :param pulumi.Input[_builtins.str] name: A descriptive name for the port profile. Examples:
+               * 'AP-Trunk-Port' - For access point uplinks
+               * 'VoIP-Phone-Port' - For VoIP phone connections
+               * 'User-Access-Port' - For standard user connections
+               * 'IoT-Device-Port' - For IoT device connections
+        :param pulumi.Input[_builtins.str] native_networkconf_id: The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+               * Access ports where devices need untagged access
+               * Trunk ports to specify the native VLAN
+               * Management networks for network devices
+        :param pulumi.Input[_builtins.str] op_mode: The operation mode for the port profile. Can only be `switch`
         :param pulumi.Input[_builtins.str] poe_mode: The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
-        :param pulumi.Input[_builtins.bool] port_security_enabled: Enable port security for the port profile. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] port_security_mac_addresses: The MAC addresses associated with the port security for the port profile.
-        :param pulumi.Input[_builtins.int] priority_queue1_level: The priority queue 1 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue2_level: The priority queue 2 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue3_level: The priority queue 3 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue4_level: The priority queue 4 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the port profile with.
-        :param pulumi.Input[_builtins.int] speed: The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
-        :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] port_security_enabled: Enable MAC address-based port security. When enabled:
+               * Only devices with specified MAC addresses can connect
+               * Unauthorized devices will be blocked
+               * Provides protection against unauthorized network access
+               * Must be used with port_security_mac_address list
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] port_security_mac_addresses: List of allowed MAC addresses when port security is enabled. Each address should be:
+               * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+               * Unique per device
+               * Verified to belong to authorized devices
+               Only effective when port_security_enabled is true
+        :param pulumi.Input[_builtins.int] priority_queue1_level: Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+               * Low-priority background traffic
+               * Bulk data transfers
+               * Non-time-sensitive applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue2_level: Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+               * Standard user traffic
+               * Web browsing and email
+               * General business applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue3_level: Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+               * High-priority traffic
+               * Voice and video conferencing
+               * Time-sensitive applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue4_level: Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+               * Highest priority traffic
+               * Critical real-time applications
+               * Emergency communications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.int] speed: Port speed in Mbps when auto-negotiation is disabled. Common values:
+               * 10 - 10 Mbps (legacy devices)
+               * 100 - 100 Mbps (Fast Ethernet)
+               * 1000 - 1 Gbps (Gigabit Ethernet)
+               * 2500 - 2.5 Gbps (Multi-Gigabit)
+               * 5000 - 5 Gbps (Multi-Gigabit)
+               * 10000 - 10 Gbps (10 Gigabit)
+               Only used when autoneg is false
+        :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast storm control. When enabled:
+               * Limits broadcast traffic to prevent network flooding
+               * Protects against broadcast storms
+               * Helps maintain network stability
+               Use with stormctrl_bcast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_bcast_level: The broadcast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
-        :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control broadcast traffic levels
+               * Prevent network congestion
+               * Balance between necessary broadcasts and network protection
+               Only effective when `stormctrl_bcast_enabled` is true
+        :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast storm control. When enabled:
+               * Limits multicast traffic to prevent network flooding
+               * Important for networks with multicast applications
+               * Helps maintain quality of service
+               Use with `stormctrl_mcast_rate` to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_mcast_level: The multicast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control multicast traffic levels
+               * Ensure bandwidth for critical multicast services
+               * Prevent multicast traffic from overwhelming the network
+               Only effective when stormctrl_mcast_enabled is true
         :param pulumi.Input[_builtins.str] stormctrl_type: The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
-        :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast storm control. When enabled:
+               * Limits unknown unicast traffic to prevent flooding
+               * Protects against MAC spoofing attacks
+               * Helps maintain network performance
+               Use with stormctrl_ucast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_ucast_level: The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
-        :param pulumi.Input[_builtins.bool] stp_port_mode: Enable spanning tree protocol on the port profile. Defaults to `true`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tagged_networkconf_ids: The IDs of networks to tag traffic with for the port profile.
-        :param pulumi.Input[_builtins.str] voice_networkconf_id: The ID of network to use as the voice network on the port profile.
+        :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control unknown unicast traffic levels
+               * Prevent network saturation from unknown destinations
+               * Balance security with network usability
+               Only effective when stormctrl_ucast_enabled is true
+        :param pulumi.Input[_builtins.bool] stp_port_mode: Spanning Tree Protocol (STP) configuration for the port. When enabled:
+               * Prevents network loops in switch-to-switch connections
+               * Provides automatic failover in redundant topologies
+               * Helps maintain network stability
+               
+               Best practices:
+               * Enable on switch uplink ports
+               * Enable on ports connecting to other switches
+               * Can be disabled on end-device ports for faster initialization
+        :param pulumi.Input[_builtins.str] tagged_vlan_mgmt: VLAN tagging behavior for the port. Valid values are:
+               * `auto` - Automatically handle VLAN tags (recommended)
+                   - Intelligently manages tagged and untagged traffic
+                   - Best for most deployments
+               * `block_all` - Block all VLAN tagged traffic
+                   - Use for security-sensitive ports
+                   - Prevents VLAN hopping attacks
+               * `custom` - Custom VLAN configuration
+                   - Manual control over VLAN behavior
+                   - For specific VLAN requirements
+        :param pulumi.Input[_builtins.str] voice_networkconf_id: The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+               * Automatic VoIP VLAN configuration
+               * Voice traffic prioritization
+               * QoS settings for voice packets
+               
+               Common scenarios:
+               * IP phone deployments with separate voice VLAN
+               * Unified communications systems
+               * Converged voice/data networks
+               
+               Works in conjunction with LLDP-MED for automatic phone provisioning.
         """
         if autoneg is not None:
             pulumi.set(__self__, "autoneg", autoneg)
@@ -670,6 +1015,8 @@ class _ProfileState:
             pulumi.set(__self__, "egress_rate_limit_kbps", egress_rate_limit_kbps)
         if egress_rate_limit_kbps_enabled is not None:
             pulumi.set(__self__, "egress_rate_limit_kbps_enabled", egress_rate_limit_kbps_enabled)
+        if excluded_network_ids is not None:
+            pulumi.set(__self__, "excluded_network_ids", excluded_network_ids)
         if forward is not None:
             pulumi.set(__self__, "forward", forward)
         if full_duplex is not None:
@@ -726,8 +1073,8 @@ class _ProfileState:
             pulumi.set(__self__, "stormctrl_ucast_rate", stormctrl_ucast_rate)
         if stp_port_mode is not None:
             pulumi.set(__self__, "stp_port_mode", stp_port_mode)
-        if tagged_networkconf_ids is not None:
-            pulumi.set(__self__, "tagged_networkconf_ids", tagged_networkconf_ids)
+        if tagged_vlan_mgmt is not None:
+            pulumi.set(__self__, "tagged_vlan_mgmt", tagged_vlan_mgmt)
         if voice_networkconf_id is not None:
             pulumi.set(__self__, "voice_networkconf_id", voice_networkconf_id)
 
@@ -735,7 +1082,7 @@ class _ProfileState:
     @pulumi.getter
     def autoneg(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         """
         return pulumi.get(self, "autoneg")
 
@@ -747,7 +1094,14 @@ class _ProfileState:
     @pulumi.getter(name="dot1xCtrl")
     def dot1x_ctrl(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        802.1X port-based network access control (PNAC) mode. Valid values are:
+          * `force_authorized` - Port allows all traffic, no authentication required (default)
+          * `force_unauthorized` - Port blocks all traffic regardless of authentication
+          * `auto` - Standard 802.1X authentication required before port access is granted
+          * `mac_based` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+          * `multi_host` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+
+        Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
         """
         return pulumi.get(self, "dot1x_ctrl")
 
@@ -759,7 +1113,7 @@ class _ProfileState:
     @pulumi.getter(name="dot1xIdleTimeout")
     def dot1x_idle_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
+        The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
         """
         return pulumi.get(self, "dot1x_idle_timeout")
 
@@ -771,7 +1125,7 @@ class _ProfileState:
     @pulumi.getter(name="egressRateLimitKbps")
     def egress_rate_limit_kbps(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
+        The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
         """
         return pulumi.get(self, "egress_rate_limit_kbps")
 
@@ -783,7 +1137,7 @@ class _ProfileState:
     @pulumi.getter(name="egressRateLimitKbpsEnabled")
     def egress_rate_limit_kbps_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable egress rate limiting for the port profile. Defaults to `false`.
+        Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
         """
         return pulumi.get(self, "egress_rate_limit_kbps_enabled")
 
@@ -792,10 +1146,31 @@ class _ProfileState:
         pulumi.set(self, "egress_rate_limit_kbps_enabled", value)
 
     @_builtins.property
+    @pulumi.getter(name="excludedNetworkIds")
+    def excluded_network_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        """
+        return pulumi.get(self, "excluded_network_ids")
+
+    @excluded_network_ids.setter
+    def excluded_network_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "excluded_network_ids", value)
+
+    @_builtins.property
     @pulumi.getter
     def forward(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        VLAN forwarding mode for the port. Valid values are:
+          * `all` - Forward all VLANs (trunk port)
+          * `native` - Only forward untagged traffic (access port)
+          * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+          * `disabled` - Disable VLAN forwarding
+
+        Examples:
+          * Use 'all' for uplink ports or connections to VLAN-aware devices
+          * Use 'native' for end-user devices or simple network connections
+          * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
         """
         return pulumi.get(self, "forward")
 
@@ -807,7 +1182,7 @@ class _ProfileState:
     @pulumi.getter(name="fullDuplex")
     def full_duplex(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable full duplex for the port profile. Defaults to `false`.
+        Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
         """
         return pulumi.get(self, "full_duplex")
 
@@ -819,7 +1194,7 @@ class _ProfileState:
     @pulumi.getter
     def isolation(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable port isolation for the port profile. Defaults to `false`.
+        Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
         """
         return pulumi.get(self, "isolation")
 
@@ -831,7 +1206,7 @@ class _ProfileState:
     @pulumi.getter(name="lldpmedEnabled")
     def lldpmed_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable LLDP-MED for the port profile. Defaults to `true`.
+        Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
         """
         return pulumi.get(self, "lldpmed_enabled")
 
@@ -843,7 +1218,11 @@ class _ProfileState:
     @pulumi.getter(name="lldpmedNotifyEnabled")
     def lldpmed_notify_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable LLDP-MED topology change notifications for the port profile.
+        Enable LLDP-MED topology change notifications. When enabled:
+        * Network devices will be notified of topology changes
+        * Useful for VoIP phones and other LLDP-MED capable devices
+        * Helps maintain accurate network topology information
+        * Facilitates faster device configuration and provisioning
         """
         return pulumi.get(self, "lldpmed_notify_enabled")
 
@@ -855,7 +1234,11 @@ class _ProfileState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the port profile.
+        A descriptive name for the port profile. Examples:
+        * 'AP-Trunk-Port' - For access point uplinks
+        * 'VoIP-Phone-Port' - For VoIP phone connections
+        * 'User-Access-Port' - For standard user connections
+        * 'IoT-Device-Port' - For IoT device connections
         """
         return pulumi.get(self, "name")
 
@@ -867,7 +1250,10 @@ class _ProfileState:
     @pulumi.getter(name="nativeNetworkconfId")
     def native_networkconf_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The ID of network to use as the main network on the port profile.
+        The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+        * Access ports where devices need untagged access
+        * Trunk ports to specify the native VLAN
+        * Management networks for network devices
         """
         return pulumi.get(self, "native_networkconf_id")
 
@@ -879,7 +1265,7 @@ class _ProfileState:
     @pulumi.getter(name="opMode")
     def op_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        The operation mode for the port profile. Can only be `switch`
         """
         return pulumi.get(self, "op_mode")
 
@@ -903,7 +1289,11 @@ class _ProfileState:
     @pulumi.getter(name="portSecurityEnabled")
     def port_security_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable port security for the port profile. Defaults to `false`.
+        Enable MAC address-based port security. When enabled:
+        * Only devices with specified MAC addresses can connect
+        * Unauthorized devices will be blocked
+        * Provides protection against unauthorized network access
+        * Must be used with port_security_mac_address list
         """
         return pulumi.get(self, "port_security_enabled")
 
@@ -915,7 +1305,11 @@ class _ProfileState:
     @pulumi.getter(name="portSecurityMacAddresses")
     def port_security_mac_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        The MAC addresses associated with the port security for the port profile.
+        List of allowed MAC addresses when port security is enabled. Each address should be:
+        * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+        * Unique per device
+        * Verified to belong to authorized devices
+        Only effective when port_security_enabled is true
         """
         return pulumi.get(self, "port_security_mac_addresses")
 
@@ -927,7 +1321,11 @@ class _ProfileState:
     @pulumi.getter(name="priorityQueue1Level")
     def priority_queue1_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The priority queue 1 level for the port profile. Can be between 0 and 100.
+        Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+        * Low-priority background traffic
+        * Bulk data transfers
+        * Non-time-sensitive applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue1_level")
 
@@ -939,7 +1337,11 @@ class _ProfileState:
     @pulumi.getter(name="priorityQueue2Level")
     def priority_queue2_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The priority queue 2 level for the port profile. Can be between 0 and 100.
+        Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+        * Standard user traffic
+        * Web browsing and email
+        * General business applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue2_level")
 
@@ -951,7 +1353,11 @@ class _ProfileState:
     @pulumi.getter(name="priorityQueue3Level")
     def priority_queue3_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The priority queue 3 level for the port profile. Can be between 0 and 100.
+        Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+        * High-priority traffic
+        * Voice and video conferencing
+        * Time-sensitive applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue3_level")
 
@@ -963,7 +1369,11 @@ class _ProfileState:
     @pulumi.getter(name="priorityQueue4Level")
     def priority_queue4_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The priority queue 4 level for the port profile. Can be between 0 and 100.
+        Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+        * Highest priority traffic
+        * Critical real-time applications
+        * Emergency communications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue4_level")
 
@@ -975,7 +1385,7 @@ class _ProfileState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the port profile with.
+        The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -987,7 +1397,14 @@ class _ProfileState:
     @pulumi.getter
     def speed(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
+        Port speed in Mbps when auto-negotiation is disabled. Common values:
+        * 10 - 10 Mbps (legacy devices)
+        * 100 - 100 Mbps (Fast Ethernet)
+        * 1000 - 1 Gbps (Gigabit Ethernet)
+        * 2500 - 2.5 Gbps (Multi-Gigabit)
+        * 5000 - 5 Gbps (Multi-Gigabit)
+        * 10000 - 10 Gbps (10 Gigabit)
+        Only used when autoneg is false
         """
         return pulumi.get(self, "speed")
 
@@ -999,7 +1416,11 @@ class _ProfileState:
     @pulumi.getter(name="stormctrlBcastEnabled")
     def stormctrl_bcast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        Enable broadcast storm control. When enabled:
+        * Limits broadcast traffic to prevent network flooding
+        * Protects against broadcast storms
+        * Helps maintain network stability
+        Use with stormctrl_bcast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_bcast_enabled")
 
@@ -1023,7 +1444,11 @@ class _ProfileState:
     @pulumi.getter(name="stormctrlBcastRate")
     def stormctrl_bcast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control broadcast traffic levels
+        * Prevent network congestion
+        * Balance between necessary broadcasts and network protection
+        Only effective when `stormctrl_bcast_enabled` is true
         """
         return pulumi.get(self, "stormctrl_bcast_rate")
 
@@ -1035,7 +1460,11 @@ class _ProfileState:
     @pulumi.getter(name="stormctrlMcastEnabled")
     def stormctrl_mcast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable multicast Storm Control for the port profile. Defaults to `false`.
+        Enable multicast storm control. When enabled:
+        * Limits multicast traffic to prevent network flooding
+        * Important for networks with multicast applications
+        * Helps maintain quality of service
+        Use with `stormctrl_mcast_rate` to set threshold
         """
         return pulumi.get(self, "stormctrl_mcast_enabled")
 
@@ -1059,7 +1488,11 @@ class _ProfileState:
     @pulumi.getter(name="stormctrlMcastRate")
     def stormctrl_mcast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control multicast traffic levels
+        * Ensure bandwidth for critical multicast services
+        * Prevent multicast traffic from overwhelming the network
+        Only effective when stormctrl_mcast_enabled is true
         """
         return pulumi.get(self, "stormctrl_mcast_rate")
 
@@ -1083,7 +1516,11 @@ class _ProfileState:
     @pulumi.getter(name="stormctrlUcastEnabled")
     def stormctrl_ucast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        Enable unknown unicast storm control. When enabled:
+        * Limits unknown unicast traffic to prevent flooding
+        * Protects against MAC spoofing attacks
+        * Helps maintain network performance
+        Use with stormctrl_ucast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_ucast_enabled")
 
@@ -1107,7 +1544,11 @@ class _ProfileState:
     @pulumi.getter(name="stormctrlUcastRate")
     def stormctrl_ucast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control unknown unicast traffic levels
+        * Prevent network saturation from unknown destinations
+        * Balance security with network usability
+        Only effective when stormctrl_ucast_enabled is true
         """
         return pulumi.get(self, "stormctrl_ucast_rate")
 
@@ -1119,7 +1560,15 @@ class _ProfileState:
     @pulumi.getter(name="stpPortMode")
     def stp_port_mode(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable spanning tree protocol on the port profile. Defaults to `true`.
+        Spanning Tree Protocol (STP) configuration for the port. When enabled:
+        * Prevents network loops in switch-to-switch connections
+        * Provides automatic failover in redundant topologies
+        * Helps maintain network stability
+
+        Best practices:
+        * Enable on switch uplink ports
+        * Enable on ports connecting to other switches
+        * Can be disabled on end-device ports for faster initialization
         """
         return pulumi.get(self, "stp_port_mode")
 
@@ -1128,22 +1577,41 @@ class _ProfileState:
         pulumi.set(self, "stp_port_mode", value)
 
     @_builtins.property
-    @pulumi.getter(name="taggedNetworkconfIds")
-    def tagged_networkconf_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    @pulumi.getter(name="taggedVlanMgmt")
+    def tagged_vlan_mgmt(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The IDs of networks to tag traffic with for the port profile.
+        VLAN tagging behavior for the port. Valid values are:
+        * `auto` - Automatically handle VLAN tags (recommended)
+            - Intelligently manages tagged and untagged traffic
+            - Best for most deployments
+        * `block_all` - Block all VLAN tagged traffic
+            - Use for security-sensitive ports
+            - Prevents VLAN hopping attacks
+        * `custom` - Custom VLAN configuration
+            - Manual control over VLAN behavior
+            - For specific VLAN requirements
         """
-        return pulumi.get(self, "tagged_networkconf_ids")
+        return pulumi.get(self, "tagged_vlan_mgmt")
 
-    @tagged_networkconf_ids.setter
-    def tagged_networkconf_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
-        pulumi.set(self, "tagged_networkconf_ids", value)
+    @tagged_vlan_mgmt.setter
+    def tagged_vlan_mgmt(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "tagged_vlan_mgmt", value)
 
     @_builtins.property
     @pulumi.getter(name="voiceNetworkconfId")
     def voice_networkconf_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The ID of network to use as the voice network on the port profile.
+        The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+        * Automatic VoIP VLAN configuration
+        * Voice traffic prioritization
+        * QoS settings for voice packets
+
+        Common scenarios:
+        * IP phone deployments with separate voice VLAN
+        * Unified communications systems
+        * Converged voice/data networks
+
+        Works in conjunction with LLDP-MED for automatic phone provisioning.
         """
         return pulumi.get(self, "voice_networkconf_id")
 
@@ -1163,6 +1631,7 @@ class Profile(pulumi.CustomResource):
                  dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
                  egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
                  egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  forward: Optional[pulumi.Input[_builtins.str]] = None,
                  full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
                  isolation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -1191,11 +1660,20 @@ class Profile(pulumi.CustomResource):
                  stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
                  stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
                  stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tagged_networkconf_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `port.Profile` manages a port profile for use on network switches.
+        The `port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
+
+        Port profiles define a collection of settings that can be applied to one or more switch ports, including:
+          * Network and VLAN settings
+          * Port speed and duplex settings
+          * Security features like 802.1X authentication and port isolation
+          * Rate limiting and QoS settings
+          * Network protocols like LLDP and STP
+
+        Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
 
         ## Example Usage
 
@@ -1223,41 +1701,151 @@ class Profile(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] autoneg: Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
-        :param pulumi.Input[_builtins.str] dot1x_ctrl: The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
-        :param pulumi.Input[_builtins.int] dot1x_idle_timeout: The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
-        :param pulumi.Input[_builtins.int] egress_rate_limit_kbps: The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
-        :param pulumi.Input[_builtins.bool] egress_rate_limit_kbps_enabled: Enable egress rate limiting for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] forward: The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
-        :param pulumi.Input[_builtins.bool] full_duplex: Enable full duplex for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] isolation: Enable port isolation for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] lldpmed_enabled: Enable LLDP-MED for the port profile. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] lldpmed_notify_enabled: Enable LLDP-MED topology change notifications for the port profile.
-        :param pulumi.Input[_builtins.str] name: The name of the port profile.
-        :param pulumi.Input[_builtins.str] native_networkconf_id: The ID of network to use as the main network on the port profile.
-        :param pulumi.Input[_builtins.str] op_mode: The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        :param pulumi.Input[_builtins.bool] autoneg: Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
+        :param pulumi.Input[_builtins.str] dot1x_ctrl: 802.1X port-based network access control (PNAC) mode. Valid values are:
+                 * `force_authorized` - Port allows all traffic, no authentication required (default)
+                 * `force_unauthorized` - Port blocks all traffic regardless of authentication
+                 * `auto` - Standard 802.1X authentication required before port access is granted
+                 * `mac_based` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+                 * `multi_host` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+               
+               Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
+        :param pulumi.Input[_builtins.int] dot1x_idle_timeout: The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
+        :param pulumi.Input[_builtins.int] egress_rate_limit_kbps: The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
+        :param pulumi.Input[_builtins.bool] egress_rate_limit_kbps_enabled: Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] excluded_network_ids: List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        :param pulumi.Input[_builtins.str] forward: VLAN forwarding mode for the port. Valid values are:
+                 * `all` - Forward all VLANs (trunk port)
+                 * `native` - Only forward untagged traffic (access port)
+                 * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+                 * `disabled` - Disable VLAN forwarding
+               
+               Examples:
+                 * Use 'all' for uplink ports or connections to VLAN-aware devices
+                 * Use 'native' for end-user devices or simple network connections
+                 * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+        :param pulumi.Input[_builtins.bool] full_duplex: Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
+        :param pulumi.Input[_builtins.bool] isolation: Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
+        :param pulumi.Input[_builtins.bool] lldpmed_enabled: Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
+        :param pulumi.Input[_builtins.bool] lldpmed_notify_enabled: Enable LLDP-MED topology change notifications. When enabled:
+               * Network devices will be notified of topology changes
+               * Useful for VoIP phones and other LLDP-MED capable devices
+               * Helps maintain accurate network topology information
+               * Facilitates faster device configuration and provisioning
+        :param pulumi.Input[_builtins.str] name: A descriptive name for the port profile. Examples:
+               * 'AP-Trunk-Port' - For access point uplinks
+               * 'VoIP-Phone-Port' - For VoIP phone connections
+               * 'User-Access-Port' - For standard user connections
+               * 'IoT-Device-Port' - For IoT device connections
+        :param pulumi.Input[_builtins.str] native_networkconf_id: The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+               * Access ports where devices need untagged access
+               * Trunk ports to specify the native VLAN
+               * Management networks for network devices
+        :param pulumi.Input[_builtins.str] op_mode: The operation mode for the port profile. Can only be `switch`
         :param pulumi.Input[_builtins.str] poe_mode: The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
-        :param pulumi.Input[_builtins.bool] port_security_enabled: Enable port security for the port profile. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] port_security_mac_addresses: The MAC addresses associated with the port security for the port profile.
-        :param pulumi.Input[_builtins.int] priority_queue1_level: The priority queue 1 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue2_level: The priority queue 2 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue3_level: The priority queue 3 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue4_level: The priority queue 4 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the port profile with.
-        :param pulumi.Input[_builtins.int] speed: The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
-        :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] port_security_enabled: Enable MAC address-based port security. When enabled:
+               * Only devices with specified MAC addresses can connect
+               * Unauthorized devices will be blocked
+               * Provides protection against unauthorized network access
+               * Must be used with port_security_mac_address list
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] port_security_mac_addresses: List of allowed MAC addresses when port security is enabled. Each address should be:
+               * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+               * Unique per device
+               * Verified to belong to authorized devices
+               Only effective when port_security_enabled is true
+        :param pulumi.Input[_builtins.int] priority_queue1_level: Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+               * Low-priority background traffic
+               * Bulk data transfers
+               * Non-time-sensitive applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue2_level: Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+               * Standard user traffic
+               * Web browsing and email
+               * General business applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue3_level: Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+               * High-priority traffic
+               * Voice and video conferencing
+               * Time-sensitive applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue4_level: Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+               * Highest priority traffic
+               * Critical real-time applications
+               * Emergency communications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.int] speed: Port speed in Mbps when auto-negotiation is disabled. Common values:
+               * 10 - 10 Mbps (legacy devices)
+               * 100 - 100 Mbps (Fast Ethernet)
+               * 1000 - 1 Gbps (Gigabit Ethernet)
+               * 2500 - 2.5 Gbps (Multi-Gigabit)
+               * 5000 - 5 Gbps (Multi-Gigabit)
+               * 10000 - 10 Gbps (10 Gigabit)
+               Only used when autoneg is false
+        :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast storm control. When enabled:
+               * Limits broadcast traffic to prevent network flooding
+               * Protects against broadcast storms
+               * Helps maintain network stability
+               Use with stormctrl_bcast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_bcast_level: The broadcast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
-        :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control broadcast traffic levels
+               * Prevent network congestion
+               * Balance between necessary broadcasts and network protection
+               Only effective when `stormctrl_bcast_enabled` is true
+        :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast storm control. When enabled:
+               * Limits multicast traffic to prevent network flooding
+               * Important for networks with multicast applications
+               * Helps maintain quality of service
+               Use with `stormctrl_mcast_rate` to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_mcast_level: The multicast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control multicast traffic levels
+               * Ensure bandwidth for critical multicast services
+               * Prevent multicast traffic from overwhelming the network
+               Only effective when stormctrl_mcast_enabled is true
         :param pulumi.Input[_builtins.str] stormctrl_type: The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
-        :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast storm control. When enabled:
+               * Limits unknown unicast traffic to prevent flooding
+               * Protects against MAC spoofing attacks
+               * Helps maintain network performance
+               Use with stormctrl_ucast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_ucast_level: The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
-        :param pulumi.Input[_builtins.bool] stp_port_mode: Enable spanning tree protocol on the port profile. Defaults to `true`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tagged_networkconf_ids: The IDs of networks to tag traffic with for the port profile.
-        :param pulumi.Input[_builtins.str] voice_networkconf_id: The ID of network to use as the voice network on the port profile.
+        :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control unknown unicast traffic levels
+               * Prevent network saturation from unknown destinations
+               * Balance security with network usability
+               Only effective when stormctrl_ucast_enabled is true
+        :param pulumi.Input[_builtins.bool] stp_port_mode: Spanning Tree Protocol (STP) configuration for the port. When enabled:
+               * Prevents network loops in switch-to-switch connections
+               * Provides automatic failover in redundant topologies
+               * Helps maintain network stability
+               
+               Best practices:
+               * Enable on switch uplink ports
+               * Enable on ports connecting to other switches
+               * Can be disabled on end-device ports for faster initialization
+        :param pulumi.Input[_builtins.str] tagged_vlan_mgmt: VLAN tagging behavior for the port. Valid values are:
+               * `auto` - Automatically handle VLAN tags (recommended)
+                   - Intelligently manages tagged and untagged traffic
+                   - Best for most deployments
+               * `block_all` - Block all VLAN tagged traffic
+                   - Use for security-sensitive ports
+                   - Prevents VLAN hopping attacks
+               * `custom` - Custom VLAN configuration
+                   - Manual control over VLAN behavior
+                   - For specific VLAN requirements
+        :param pulumi.Input[_builtins.str] voice_networkconf_id: The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+               * Automatic VoIP VLAN configuration
+               * Voice traffic prioritization
+               * QoS settings for voice packets
+               
+               Common scenarios:
+               * IP phone deployments with separate voice VLAN
+               * Unified communications systems
+               * Converged voice/data networks
+               
+               Works in conjunction with LLDP-MED for automatic phone provisioning.
         """
         ...
     @overload
@@ -1266,7 +1854,16 @@ class Profile(pulumi.CustomResource):
                  args: Optional[ProfileArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `port.Profile` manages a port profile for use on network switches.
+        The `port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
+
+        Port profiles define a collection of settings that can be applied to one or more switch ports, including:
+          * Network and VLAN settings
+          * Port speed and duplex settings
+          * Security features like 802.1X authentication and port isolation
+          * Rate limiting and QoS settings
+          * Network protocols like LLDP and STP
+
+        Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
 
         ## Example Usage
 
@@ -1312,6 +1909,7 @@ class Profile(pulumi.CustomResource):
                  dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
                  egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
                  egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  forward: Optional[pulumi.Input[_builtins.str]] = None,
                  full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
                  isolation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -1340,7 +1938,7 @@ class Profile(pulumi.CustomResource):
                  stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
                  stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
                  stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tagged_networkconf_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
                  voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -1356,6 +1954,7 @@ class Profile(pulumi.CustomResource):
             __props__.__dict__["dot1x_idle_timeout"] = dot1x_idle_timeout
             __props__.__dict__["egress_rate_limit_kbps"] = egress_rate_limit_kbps
             __props__.__dict__["egress_rate_limit_kbps_enabled"] = egress_rate_limit_kbps_enabled
+            __props__.__dict__["excluded_network_ids"] = excluded_network_ids
             __props__.__dict__["forward"] = forward
             __props__.__dict__["full_duplex"] = full_duplex
             __props__.__dict__["isolation"] = isolation
@@ -1384,7 +1983,7 @@ class Profile(pulumi.CustomResource):
             __props__.__dict__["stormctrl_ucast_level"] = stormctrl_ucast_level
             __props__.__dict__["stormctrl_ucast_rate"] = stormctrl_ucast_rate
             __props__.__dict__["stp_port_mode"] = stp_port_mode
-            __props__.__dict__["tagged_networkconf_ids"] = tagged_networkconf_ids
+            __props__.__dict__["tagged_vlan_mgmt"] = tagged_vlan_mgmt
             __props__.__dict__["voice_networkconf_id"] = voice_networkconf_id
         super(Profile, __self__).__init__(
             'unifi:port/profile:Profile',
@@ -1401,6 +2000,7 @@ class Profile(pulumi.CustomResource):
             dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
             egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
             egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
             forward: Optional[pulumi.Input[_builtins.str]] = None,
             full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
             isolation: Optional[pulumi.Input[_builtins.bool]] = None,
@@ -1429,7 +2029,7 @@ class Profile(pulumi.CustomResource):
             stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
             stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
             stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
-            tagged_networkconf_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
             voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'Profile':
         """
         Get an existing Profile resource's state with the given name, id, and optional extra
@@ -1438,41 +2038,151 @@ class Profile(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] autoneg: Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
-        :param pulumi.Input[_builtins.str] dot1x_ctrl: The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
-        :param pulumi.Input[_builtins.int] dot1x_idle_timeout: The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
-        :param pulumi.Input[_builtins.int] egress_rate_limit_kbps: The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
-        :param pulumi.Input[_builtins.bool] egress_rate_limit_kbps_enabled: Enable egress rate limiting for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] forward: The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
-        :param pulumi.Input[_builtins.bool] full_duplex: Enable full duplex for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] isolation: Enable port isolation for the port profile. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] lldpmed_enabled: Enable LLDP-MED for the port profile. Defaults to `true`.
-        :param pulumi.Input[_builtins.bool] lldpmed_notify_enabled: Enable LLDP-MED topology change notifications for the port profile.
-        :param pulumi.Input[_builtins.str] name: The name of the port profile.
-        :param pulumi.Input[_builtins.str] native_networkconf_id: The ID of network to use as the main network on the port profile.
-        :param pulumi.Input[_builtins.str] op_mode: The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        :param pulumi.Input[_builtins.bool] autoneg: Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
+        :param pulumi.Input[_builtins.str] dot1x_ctrl: 802.1X port-based network access control (PNAC) mode. Valid values are:
+                 * `force_authorized` - Port allows all traffic, no authentication required (default)
+                 * `force_unauthorized` - Port blocks all traffic regardless of authentication
+                 * `auto` - Standard 802.1X authentication required before port access is granted
+                 * `mac_based` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+                 * `multi_host` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+               
+               Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
+        :param pulumi.Input[_builtins.int] dot1x_idle_timeout: The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
+        :param pulumi.Input[_builtins.int] egress_rate_limit_kbps: The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
+        :param pulumi.Input[_builtins.bool] egress_rate_limit_kbps_enabled: Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] excluded_network_ids: List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        :param pulumi.Input[_builtins.str] forward: VLAN forwarding mode for the port. Valid values are:
+                 * `all` - Forward all VLANs (trunk port)
+                 * `native` - Only forward untagged traffic (access port)
+                 * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+                 * `disabled` - Disable VLAN forwarding
+               
+               Examples:
+                 * Use 'all' for uplink ports or connections to VLAN-aware devices
+                 * Use 'native' for end-user devices or simple network connections
+                 * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+        :param pulumi.Input[_builtins.bool] full_duplex: Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
+        :param pulumi.Input[_builtins.bool] isolation: Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
+        :param pulumi.Input[_builtins.bool] lldpmed_enabled: Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
+        :param pulumi.Input[_builtins.bool] lldpmed_notify_enabled: Enable LLDP-MED topology change notifications. When enabled:
+               * Network devices will be notified of topology changes
+               * Useful for VoIP phones and other LLDP-MED capable devices
+               * Helps maintain accurate network topology information
+               * Facilitates faster device configuration and provisioning
+        :param pulumi.Input[_builtins.str] name: A descriptive name for the port profile. Examples:
+               * 'AP-Trunk-Port' - For access point uplinks
+               * 'VoIP-Phone-Port' - For VoIP phone connections
+               * 'User-Access-Port' - For standard user connections
+               * 'IoT-Device-Port' - For IoT device connections
+        :param pulumi.Input[_builtins.str] native_networkconf_id: The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+               * Access ports where devices need untagged access
+               * Trunk ports to specify the native VLAN
+               * Management networks for network devices
+        :param pulumi.Input[_builtins.str] op_mode: The operation mode for the port profile. Can only be `switch`
         :param pulumi.Input[_builtins.str] poe_mode: The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
-        :param pulumi.Input[_builtins.bool] port_security_enabled: Enable port security for the port profile. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] port_security_mac_addresses: The MAC addresses associated with the port security for the port profile.
-        :param pulumi.Input[_builtins.int] priority_queue1_level: The priority queue 1 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue2_level: The priority queue 2 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue3_level: The priority queue 3 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] priority_queue4_level: The priority queue 4 level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the port profile with.
-        :param pulumi.Input[_builtins.int] speed: The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
-        :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] port_security_enabled: Enable MAC address-based port security. When enabled:
+               * Only devices with specified MAC addresses can connect
+               * Unauthorized devices will be blocked
+               * Provides protection against unauthorized network access
+               * Must be used with port_security_mac_address list
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] port_security_mac_addresses: List of allowed MAC addresses when port security is enabled. Each address should be:
+               * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+               * Unique per device
+               * Verified to belong to authorized devices
+               Only effective when port_security_enabled is true
+        :param pulumi.Input[_builtins.int] priority_queue1_level: Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+               * Low-priority background traffic
+               * Bulk data transfers
+               * Non-time-sensitive applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue2_level: Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+               * Standard user traffic
+               * Web browsing and email
+               * General business applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue3_level: Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+               * High-priority traffic
+               * Voice and video conferencing
+               * Time-sensitive applications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.int] priority_queue4_level: Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+               * Highest priority traffic
+               * Critical real-time applications
+               * Emergency communications
+               Higher values give more bandwidth to this queue
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.int] speed: Port speed in Mbps when auto-negotiation is disabled. Common values:
+               * 10 - 10 Mbps (legacy devices)
+               * 100 - 100 Mbps (Fast Ethernet)
+               * 1000 - 1 Gbps (Gigabit Ethernet)
+               * 2500 - 2.5 Gbps (Multi-Gigabit)
+               * 5000 - 5 Gbps (Multi-Gigabit)
+               * 10000 - 10 Gbps (10 Gigabit)
+               Only used when autoneg is false
+        :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast storm control. When enabled:
+               * Limits broadcast traffic to prevent network flooding
+               * Protects against broadcast storms
+               * Helps maintain network stability
+               Use with stormctrl_bcast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_bcast_level: The broadcast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
-        :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control broadcast traffic levels
+               * Prevent network congestion
+               * Balance between necessary broadcasts and network protection
+               Only effective when `stormctrl_bcast_enabled` is true
+        :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast storm control. When enabled:
+               * Limits multicast traffic to prevent network flooding
+               * Important for networks with multicast applications
+               * Helps maintain quality of service
+               Use with `stormctrl_mcast_rate` to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_mcast_level: The multicast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control multicast traffic levels
+               * Ensure bandwidth for critical multicast services
+               * Prevent multicast traffic from overwhelming the network
+               Only effective when stormctrl_mcast_enabled is true
         :param pulumi.Input[_builtins.str] stormctrl_type: The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
-        :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast storm control. When enabled:
+               * Limits unknown unicast traffic to prevent flooding
+               * Protects against MAC spoofing attacks
+               * Helps maintain network performance
+               Use with stormctrl_ucast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_ucast_level: The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
-        :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
-        :param pulumi.Input[_builtins.bool] stp_port_mode: Enable spanning tree protocol on the port profile. Defaults to `true`.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] tagged_networkconf_ids: The IDs of networks to tag traffic with for the port profile.
-        :param pulumi.Input[_builtins.str] voice_networkconf_id: The ID of network to use as the voice network on the port profile.
+        :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+               * Control unknown unicast traffic levels
+               * Prevent network saturation from unknown destinations
+               * Balance security with network usability
+               Only effective when stormctrl_ucast_enabled is true
+        :param pulumi.Input[_builtins.bool] stp_port_mode: Spanning Tree Protocol (STP) configuration for the port. When enabled:
+               * Prevents network loops in switch-to-switch connections
+               * Provides automatic failover in redundant topologies
+               * Helps maintain network stability
+               
+               Best practices:
+               * Enable on switch uplink ports
+               * Enable on ports connecting to other switches
+               * Can be disabled on end-device ports for faster initialization
+        :param pulumi.Input[_builtins.str] tagged_vlan_mgmt: VLAN tagging behavior for the port. Valid values are:
+               * `auto` - Automatically handle VLAN tags (recommended)
+                   - Intelligently manages tagged and untagged traffic
+                   - Best for most deployments
+               * `block_all` - Block all VLAN tagged traffic
+                   - Use for security-sensitive ports
+                   - Prevents VLAN hopping attacks
+               * `custom` - Custom VLAN configuration
+                   - Manual control over VLAN behavior
+                   - For specific VLAN requirements
+        :param pulumi.Input[_builtins.str] voice_networkconf_id: The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+               * Automatic VoIP VLAN configuration
+               * Voice traffic prioritization
+               * QoS settings for voice packets
+               
+               Common scenarios:
+               * IP phone deployments with separate voice VLAN
+               * Unified communications systems
+               * Converged voice/data networks
+               
+               Works in conjunction with LLDP-MED for automatic phone provisioning.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -1483,6 +2193,7 @@ class Profile(pulumi.CustomResource):
         __props__.__dict__["dot1x_idle_timeout"] = dot1x_idle_timeout
         __props__.__dict__["egress_rate_limit_kbps"] = egress_rate_limit_kbps
         __props__.__dict__["egress_rate_limit_kbps_enabled"] = egress_rate_limit_kbps_enabled
+        __props__.__dict__["excluded_network_ids"] = excluded_network_ids
         __props__.__dict__["forward"] = forward
         __props__.__dict__["full_duplex"] = full_duplex
         __props__.__dict__["isolation"] = isolation
@@ -1511,7 +2222,7 @@ class Profile(pulumi.CustomResource):
         __props__.__dict__["stormctrl_ucast_level"] = stormctrl_ucast_level
         __props__.__dict__["stormctrl_ucast_rate"] = stormctrl_ucast_rate
         __props__.__dict__["stp_port_mode"] = stp_port_mode
-        __props__.__dict__["tagged_networkconf_ids"] = tagged_networkconf_ids
+        __props__.__dict__["tagged_vlan_mgmt"] = tagged_vlan_mgmt
         __props__.__dict__["voice_networkconf_id"] = voice_networkconf_id
         return Profile(resource_name, opts=opts, __props__=__props__)
 
@@ -1519,7 +2230,7 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter
     def autoneg(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         """
         return pulumi.get(self, "autoneg")
 
@@ -1527,7 +2238,14 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="dot1xCtrl")
     def dot1x_ctrl(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        802.1X port-based network access control (PNAC) mode. Valid values are:
+          * `force_authorized` - Port allows all traffic, no authentication required (default)
+          * `force_unauthorized` - Port blocks all traffic regardless of authentication
+          * `auto` - Standard 802.1X authentication required before port access is granted
+          * `mac_based` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+          * `multi_host` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+
+        Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
         """
         return pulumi.get(self, "dot1x_ctrl")
 
@@ -1535,7 +2253,7 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="dot1xIdleTimeout")
     def dot1x_idle_timeout(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
+        The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
         """
         return pulumi.get(self, "dot1x_idle_timeout")
 
@@ -1543,7 +2261,7 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="egressRateLimitKbps")
     def egress_rate_limit_kbps(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
+        The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
         """
         return pulumi.get(self, "egress_rate_limit_kbps")
 
@@ -1551,15 +2269,32 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="egressRateLimitKbpsEnabled")
     def egress_rate_limit_kbps_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable egress rate limiting for the port profile. Defaults to `false`.
+        Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
         """
         return pulumi.get(self, "egress_rate_limit_kbps_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="excludedNetworkIds")
+    def excluded_network_ids(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        """
+        return pulumi.get(self, "excluded_network_ids")
 
     @_builtins.property
     @pulumi.getter
     def forward(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        VLAN forwarding mode for the port. Valid values are:
+          * `all` - Forward all VLANs (trunk port)
+          * `native` - Only forward untagged traffic (access port)
+          * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+          * `disabled` - Disable VLAN forwarding
+
+        Examples:
+          * Use 'all' for uplink ports or connections to VLAN-aware devices
+          * Use 'native' for end-user devices or simple network connections
+          * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
         """
         return pulumi.get(self, "forward")
 
@@ -1567,7 +2302,7 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="fullDuplex")
     def full_duplex(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable full duplex for the port profile. Defaults to `false`.
+        Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
         """
         return pulumi.get(self, "full_duplex")
 
@@ -1575,7 +2310,7 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter
     def isolation(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable port isolation for the port profile. Defaults to `false`.
+        Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
         """
         return pulumi.get(self, "isolation")
 
@@ -1583,7 +2318,7 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="lldpmedEnabled")
     def lldpmed_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable LLDP-MED for the port profile. Defaults to `true`.
+        Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
         """
         return pulumi.get(self, "lldpmed_enabled")
 
@@ -1591,7 +2326,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="lldpmedNotifyEnabled")
     def lldpmed_notify_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable LLDP-MED topology change notifications for the port profile.
+        Enable LLDP-MED topology change notifications. When enabled:
+        * Network devices will be notified of topology changes
+        * Useful for VoIP phones and other LLDP-MED capable devices
+        * Helps maintain accurate network topology information
+        * Facilitates faster device configuration and provisioning
         """
         return pulumi.get(self, "lldpmed_notify_enabled")
 
@@ -1599,7 +2338,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the port profile.
+        A descriptive name for the port profile. Examples:
+        * 'AP-Trunk-Port' - For access point uplinks
+        * 'VoIP-Phone-Port' - For VoIP phone connections
+        * 'User-Access-Port' - For standard user connections
+        * 'IoT-Device-Port' - For IoT device connections
         """
         return pulumi.get(self, "name")
 
@@ -1607,7 +2350,10 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="nativeNetworkconfId")
     def native_networkconf_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The ID of network to use as the main network on the port profile.
+        The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+        * Access ports where devices need untagged access
+        * Trunk ports to specify the native VLAN
+        * Management networks for network devices
         """
         return pulumi.get(self, "native_networkconf_id")
 
@@ -1615,7 +2361,7 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="opMode")
     def op_mode(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        The operation mode for the port profile. Can only be `switch`
         """
         return pulumi.get(self, "op_mode")
 
@@ -1631,7 +2377,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="portSecurityEnabled")
     def port_security_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable port security for the port profile. Defaults to `false`.
+        Enable MAC address-based port security. When enabled:
+        * Only devices with specified MAC addresses can connect
+        * Unauthorized devices will be blocked
+        * Provides protection against unauthorized network access
+        * Must be used with port_security_mac_address list
         """
         return pulumi.get(self, "port_security_enabled")
 
@@ -1639,7 +2389,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="portSecurityMacAddresses")
     def port_security_mac_addresses(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
         """
-        The MAC addresses associated with the port security for the port profile.
+        List of allowed MAC addresses when port security is enabled. Each address should be:
+        * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+        * Unique per device
+        * Verified to belong to authorized devices
+        Only effective when port_security_enabled is true
         """
         return pulumi.get(self, "port_security_mac_addresses")
 
@@ -1647,7 +2401,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="priorityQueue1Level")
     def priority_queue1_level(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The priority queue 1 level for the port profile. Can be between 0 and 100.
+        Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+        * Low-priority background traffic
+        * Bulk data transfers
+        * Non-time-sensitive applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue1_level")
 
@@ -1655,7 +2413,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="priorityQueue2Level")
     def priority_queue2_level(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The priority queue 2 level for the port profile. Can be between 0 and 100.
+        Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+        * Standard user traffic
+        * Web browsing and email
+        * General business applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue2_level")
 
@@ -1663,7 +2425,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="priorityQueue3Level")
     def priority_queue3_level(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The priority queue 3 level for the port profile. Can be between 0 and 100.
+        Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+        * High-priority traffic
+        * Voice and video conferencing
+        * Time-sensitive applications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue3_level")
 
@@ -1671,7 +2437,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="priorityQueue4Level")
     def priority_queue4_level(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The priority queue 4 level for the port profile. Can be between 0 and 100.
+        Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+        * Highest priority traffic
+        * Critical real-time applications
+        * Emergency communications
+        Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue4_level")
 
@@ -1679,7 +2449,7 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the port profile with.
+        The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -1687,7 +2457,14 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter
     def speed(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
+        Port speed in Mbps when auto-negotiation is disabled. Common values:
+        * 10 - 10 Mbps (legacy devices)
+        * 100 - 100 Mbps (Fast Ethernet)
+        * 1000 - 1 Gbps (Gigabit Ethernet)
+        * 2500 - 2.5 Gbps (Multi-Gigabit)
+        * 5000 - 5 Gbps (Multi-Gigabit)
+        * 10000 - 10 Gbps (10 Gigabit)
+        Only used when autoneg is false
         """
         return pulumi.get(self, "speed")
 
@@ -1695,7 +2472,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="stormctrlBcastEnabled")
     def stormctrl_bcast_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        Enable broadcast storm control. When enabled:
+        * Limits broadcast traffic to prevent network flooding
+        * Protects against broadcast storms
+        * Helps maintain network stability
+        Use with stormctrl_bcast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_bcast_enabled")
 
@@ -1711,7 +2492,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="stormctrlBcastRate")
     def stormctrl_bcast_rate(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control broadcast traffic levels
+        * Prevent network congestion
+        * Balance between necessary broadcasts and network protection
+        Only effective when `stormctrl_bcast_enabled` is true
         """
         return pulumi.get(self, "stormctrl_bcast_rate")
 
@@ -1719,7 +2504,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="stormctrlMcastEnabled")
     def stormctrl_mcast_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable multicast Storm Control for the port profile. Defaults to `false`.
+        Enable multicast storm control. When enabled:
+        * Limits multicast traffic to prevent network flooding
+        * Important for networks with multicast applications
+        * Helps maintain quality of service
+        Use with `stormctrl_mcast_rate` to set threshold
         """
         return pulumi.get(self, "stormctrl_mcast_enabled")
 
@@ -1735,7 +2524,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="stormctrlMcastRate")
     def stormctrl_mcast_rate(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control multicast traffic levels
+        * Ensure bandwidth for critical multicast services
+        * Prevent multicast traffic from overwhelming the network
+        Only effective when stormctrl_mcast_enabled is true
         """
         return pulumi.get(self, "stormctrl_mcast_rate")
 
@@ -1751,7 +2544,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="stormctrlUcastEnabled")
     def stormctrl_ucast_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        Enable unknown unicast storm control. When enabled:
+        * Limits unknown unicast traffic to prevent flooding
+        * Protects against MAC spoofing attacks
+        * Helps maintain network performance
+        Use with stormctrl_ucast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_ucast_enabled")
 
@@ -1767,7 +2564,11 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="stormctrlUcastRate")
     def stormctrl_ucast_rate(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+        * Control unknown unicast traffic levels
+        * Prevent network saturation from unknown destinations
+        * Balance security with network usability
+        Only effective when stormctrl_ucast_enabled is true
         """
         return pulumi.get(self, "stormctrl_ucast_rate")
 
@@ -1775,23 +2576,50 @@ class Profile(pulumi.CustomResource):
     @pulumi.getter(name="stpPortMode")
     def stp_port_mode(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable spanning tree protocol on the port profile. Defaults to `true`.
+        Spanning Tree Protocol (STP) configuration for the port. When enabled:
+        * Prevents network loops in switch-to-switch connections
+        * Provides automatic failover in redundant topologies
+        * Helps maintain network stability
+
+        Best practices:
+        * Enable on switch uplink ports
+        * Enable on ports connecting to other switches
+        * Can be disabled on end-device ports for faster initialization
         """
         return pulumi.get(self, "stp_port_mode")
 
     @_builtins.property
-    @pulumi.getter(name="taggedNetworkconfIds")
-    def tagged_networkconf_ids(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+    @pulumi.getter(name="taggedVlanMgmt")
+    def tagged_vlan_mgmt(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The IDs of networks to tag traffic with for the port profile.
+        VLAN tagging behavior for the port. Valid values are:
+        * `auto` - Automatically handle VLAN tags (recommended)
+            - Intelligently manages tagged and untagged traffic
+            - Best for most deployments
+        * `block_all` - Block all VLAN tagged traffic
+            - Use for security-sensitive ports
+            - Prevents VLAN hopping attacks
+        * `custom` - Custom VLAN configuration
+            - Manual control over VLAN behavior
+            - For specific VLAN requirements
         """
-        return pulumi.get(self, "tagged_networkconf_ids")
+        return pulumi.get(self, "tagged_vlan_mgmt")
 
     @_builtins.property
     @pulumi.getter(name="voiceNetworkconfId")
     def voice_networkconf_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The ID of network to use as the voice network on the port profile.
+        The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+        * Automatic VoIP VLAN configuration
+        * Voice traffic prioritization
+        * QoS settings for voice packets
+
+        Common scenarios:
+        * IP phone deployments with separate voice VLAN
+        * Unified communications systems
+        * Converged voice/data networks
+
+        Works in conjunction with LLDP-MED for automatic phone provisioning.
         """
         return pulumi.get(self, "voice_networkconf_id")
 

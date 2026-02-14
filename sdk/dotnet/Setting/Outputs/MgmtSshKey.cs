@@ -15,19 +15,22 @@ namespace Pulumiverse.Unifi.Setting.Outputs
     public sealed class MgmtSshKey
     {
         /// <summary>
-        /// Comment.
+        /// An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
         /// </summary>
         public readonly string? Comment;
         /// <summary>
-        /// Public SSH key.
+        /// The public key string. This is the content that would normally go in an AuthorizedKeys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
         /// </summary>
         public readonly string? Key;
         /// <summary>
-        /// Name of SSH key.
+        /// A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Type of SSH key, e.g. ssh-rsa.
+        /// The type of SSH key. Common values include:
+        ///   * `ssh-rsa` - RSA key (most common)
+        ///   * `ssh-ed25519` - Ed25519 key (more secure)
+        ///   * `ecdsa-sha2-nistp256` - ECDSA key
         /// </summary>
         public readonly string Type;
 

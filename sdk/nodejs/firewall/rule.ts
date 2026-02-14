@@ -5,7 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.firewall.Rule` manages an individual firewall rule on the gateway.
+ * The `unifi.firewall.Rule` resource manages firewall rules.
+ *
+ * This resource allows you to create and manage firewall rules that control traffic flow between different network segments (WAN, LAN, Guest) for both IPv4 and IPv6 traffic. Rules can be configured to allow, drop, or reject traffic based on various criteria including protocols, ports, and IP addresses.
+ *
+ * Rules are processed in order based on their `ruleIndex`, with lower numbers being processed first. Custom rules should use indices between 2000-2999 or 4000-4999 to avoid conflicts with system rules.
  *
  * ## Example Usage
  *
@@ -62,121 +66,182 @@ export class Rule extends pulumi.CustomResource {
     }
 
     /**
-     * The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
+     * The action to take when traffic matches this rule. Valid values are:
+     *   * `accept` - Allow the traffic
+     *   * `drop` - Silently block the traffic
+     *   * `reject` - Block the traffic and send an ICMP rejection message
      */
-    public readonly action!: pulumi.Output<string>;
+    declare public readonly action: pulumi.Output<string>;
     /**
-     * The destination address of the firewall rule.
+     * The destination IPv4 address or network in CIDR notation (e.g., '192.168.1.10' or '192.168.0.0/24'). The format must match dstNetworkType - use a single IP for ADDRv4 or CIDR for NETv4.
      */
-    public readonly dstAddress!: pulumi.Output<string | undefined>;
+    declare public readonly dstAddress: pulumi.Output<string | undefined>;
     /**
-     * The IPv6 destination address of the firewall rule.
+     * The destination IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
      */
-    public readonly dstAddressIpv6!: pulumi.Output<string | undefined>;
+    declare public readonly dstAddressIpv6: pulumi.Output<string | undefined>;
     /**
-     * The destination firewall group IDs of the firewall rule.
+     * A list of firewall group IDs to use as destinations. Groups can contain IP addresses, networks, or port numbers. This allows you to create reusable sets of addresses/ports and reference them in multiple rules.
      */
-    public readonly dstFirewallGroupIds!: pulumi.Output<string[] | undefined>;
+    declare public readonly dstFirewallGroupIds: pulumi.Output<string[] | undefined>;
     /**
-     * The destination network ID of the firewall rule.
+     * The ID of the destination network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller.
      */
-    public readonly dstNetworkId!: pulumi.Output<string | undefined>;
+    declare public readonly dstNetworkId: pulumi.Output<string | undefined>;
     /**
-     * The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+     * The type of destination network address. Valid values are:
+     *   * `ADDRv4` - Single IPv4 address
+     *   * `NETv4` - IPv4 network in CIDR notation
      */
-    public readonly dstNetworkType!: pulumi.Output<string | undefined>;
+    declare public readonly dstNetworkType: pulumi.Output<string | undefined>;
     /**
-     * The destination port of the firewall rule.
+     * The destination port(s) for this rule. Can be:
+     *   * A single port number (e.g., '80')
+     *   * A port range (e.g., '8000:8080')
+     *   * A list of ports/ranges separated by commas
      */
-    public readonly dstPort!: pulumi.Output<string | undefined>;
+    declare public readonly dstPort: pulumi.Output<string | undefined>;
     /**
-     * Specifies whether the rule should be enabled. Defaults to `true`.
+     * Whether this firewall rule is active (true) or disabled (false). Defaults to true.
      */
-    public readonly enabled!: pulumi.Output<boolean | undefined>;
+    declare public readonly enabled: pulumi.Output<boolean | undefined>;
     /**
-     * ICMP type name.
+     * The ICMP type name when protocol is set to 'icmp'. Common values include:
+     *   * `echo-request` - ICMP ping requests
+     *   * `echo-reply` - ICMP ping replies
+     *   * `destination-unreachable` - Host/network unreachable messages
+     *   * `time-exceeded` - TTL exceeded messages (traceroute)
      */
-    public readonly icmpTypename!: pulumi.Output<string | undefined>;
+    declare public readonly icmpTypename: pulumi.Output<string | undefined>;
     /**
-     * ICMPv6 type name.
+     * The ICMPv6 type name when protocolV6 is set to 'ipv6-icmp'. Common values (not all are listed) include:
+     *   * `echo-request` - IPv6 ping requests
+     *   * `echo-reply` - IPv6 ping replies
+     *   * `neighbor-solicitation` - IPv6 neighbor discovery
+     *   * `neighbor-advertisement` - IPv6 neighbor announcements
+     *   * `destination-unreachable` - Host/network unreachable messages
+     *   * `packet-too-big` - Path MTU discovery messages
      */
-    public readonly icmpV6Typename!: pulumi.Output<string | undefined>;
+    declare public readonly icmpV6Typename: pulumi.Output<string | undefined>;
     /**
-     * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
+     * Specify whether the rule matches on IPsec packets. Can be one of `match-ipsec` or `match-none`.
      */
-    public readonly ipSec!: pulumi.Output<string | undefined>;
+    declare public readonly ipSec: pulumi.Output<string | undefined>;
     /**
      * Enable logging for the firewall rule.
      */
-    public readonly logging!: pulumi.Output<boolean | undefined>;
+    declare public readonly logging: pulumi.Output<boolean | undefined>;
     /**
-     * The name of the firewall rule.
+     * A friendly name for the firewall rule. This helps identify the rule's purpose in the UniFi controller UI.
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
-     * The protocol of the rule.
+     * The IPv4 protocol this rule applies to. Common values (not all are listed) include:
+     *   * `all` - Match all protocols
+     *   * `tcp` - TCP traffic only (e.g., web, email)
+     *   * `udp` - UDP traffic only (e.g., DNS, VoIP)
+     *   * `tcpUdp` - Both TCP and UDP
+     *   * `icmp` - ICMP traffic (ping, traceroute)
+     *   * Protocol numbers (1-255) for other protocols
+     *
+     * Examples:
+     *   * Use 'tcp' for web server rules (ports 80, 443)
+     *   * Use 'udp' for VoIP or gaming traffic
+     *   * Use 'all' for general network access rules
      */
-    public readonly protocol!: pulumi.Output<string | undefined>;
+    declare public readonly protocol: pulumi.Output<string | undefined>;
     /**
-     * The IPv6 protocol of the rule.
+     * The IPv6 protocol this rule applies to. Similar to 'protocol' but for IPv6 traffic. Common values (not all are listed) include:
+     *   * `all` - Match all protocols
+     *   * `tcp` - TCP traffic only
+     *   * `udp` - UDP traffic only
+     *   * `tcpUdp` - Both TCP and UDP traffic
+     *   * `ipv6-icmp` - ICMPv6 traffic
      */
-    public readonly protocolV6!: pulumi.Output<string | undefined>;
+    declare public readonly protocolV6: pulumi.Output<string | undefined>;
     /**
-     * The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
+     * The processing order for this rule. Lower numbers are processed first. Custom rules should use:
+     *   * 2000-2999 for rules processed before auto-generated rules
+     *   * 4000-4999 for rules processed after auto-generated rules
      */
-    public readonly ruleIndex!: pulumi.Output<number>;
+    declare public readonly ruleIndex: pulumi.Output<number>;
     /**
-     * The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
+     * Defines which traffic flow this rule applies to. The format is [NETWORK]_[DIRECTION], where:
+     *   * NETWORK can be: WAN, LAN, GUEST (or their IPv6 variants WANv6, LANv6, GUESTv6)
+     *   * DIRECTION can be:
+     *     * IN - Traffic entering the network
+     *     * OUT - Traffic leaving the network
+     *     * LOCAL - Traffic destined for the USG/UDM itself
+     *
+     * Examples: WAN_IN (incoming WAN traffic), LAN_OUT (outgoing LAN traffic), GUEST_LOCAL (traffic to Controller from guest network)
      */
-    public readonly ruleset!: pulumi.Output<string>;
+    declare public readonly ruleset: pulumi.Output<string>;
     /**
-     * The name of the site to associate the firewall rule with.
+     * The name of the UniFi site where the firewall rule should be created. If not specified, the default site will be used.
      */
-    public readonly site!: pulumi.Output<string>;
+    declare public readonly site: pulumi.Output<string>;
     /**
-     * The source address for the firewall rule.
+     * The source IPv4 address for the firewall rule.
      */
-    public readonly srcAddress!: pulumi.Output<string | undefined>;
+    declare public readonly srcAddress: pulumi.Output<string | undefined>;
     /**
-     * The IPv6 source address for the firewall rule.
+     * The source IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
      */
-    public readonly srcAddressIpv6!: pulumi.Output<string | undefined>;
+    declare public readonly srcAddressIpv6: pulumi.Output<string | undefined>;
     /**
-     * The source firewall group IDs for the firewall rule.
+     * A list of firewall group IDs to use as sources. Groups can contain:
+     *   * IP Address Groups - For matching specific IP addresses
+     *   * Network Groups - For matching entire subnets
+     *   * Port Groups - For matching specific port numbers
+     *
+     * Example uses:
+     *   * Group of trusted admin IPs for remote access
+     *   * Group of IoT device networks for isolation
+     *   * Group of common service ports for allowing specific applications
      */
-    public readonly srcFirewallGroupIds!: pulumi.Output<string[] | undefined>;
+    declare public readonly srcFirewallGroupIds: pulumi.Output<string[] | undefined>;
     /**
-     * The source MAC address of the firewall rule.
+     * The source MAC address this rule applies to. Use this to create rules that match specific devices regardless of their IP address. Format: 'XX:XX:XX:XX:XX:XX'. MAC addresses are case-insensitive.
      */
-    public readonly srcMac!: pulumi.Output<string | undefined>;
+    declare public readonly srcMac: pulumi.Output<string | undefined>;
     /**
-     * The source network ID for the firewall rule.
+     * The ID of the source network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller, or by using the network's name in the form `[site]/[networkName]`.
      */
-    public readonly srcNetworkId!: pulumi.Output<string | undefined>;
+    declare public readonly srcNetworkId: pulumi.Output<string | undefined>;
     /**
-     * The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+     * The type of source network address. Valid values are:
+     *   * `ADDRv4` - Single IPv4 address
+     *   * `NETv4` - IPv4 network in CIDR notation
      */
-    public readonly srcNetworkType!: pulumi.Output<string | undefined>;
+    declare public readonly srcNetworkType: pulumi.Output<string | undefined>;
     /**
-     * The source port of the firewall rule.
+     * The source port(s) for this rule. Can be:
+     *   * A single port number (e.g., '80')
+     *   * A port range (e.g., '8000:8080')
+     *   * A list of ports/ranges separated by commas
      */
-    public readonly srcPort!: pulumi.Output<string | undefined>;
+    declare public readonly srcPort: pulumi.Output<string | undefined>;
     /**
-     * Match where the state is established.
+     * Match established connections. When enabled:
+     *   * Rule only applies to packets that are part of an existing connection
+     *   * Useful for allowing return traffic without creating separate rules
+     *   * Common in WAN_IN rules to allow responses to outbound connections
+     *
+     * Example: Allow established connections from WAN while blocking new incoming connections
      */
-    public readonly stateEstablished!: pulumi.Output<boolean | undefined>;
+    declare public readonly stateEstablished: pulumi.Output<boolean | undefined>;
     /**
      * Match where the state is invalid.
      */
-    public readonly stateInvalid!: pulumi.Output<boolean | undefined>;
+    declare public readonly stateInvalid: pulumi.Output<boolean | undefined>;
     /**
      * Match where the state is new.
      */
-    public readonly stateNew!: pulumi.Output<boolean | undefined>;
+    declare public readonly stateNew: pulumi.Output<boolean | undefined>;
     /**
      * Match where the state is related.
      */
-    public readonly stateRelated!: pulumi.Output<boolean | undefined>;
+    declare public readonly stateRelated: pulumi.Output<boolean | undefined>;
 
     /**
      * Create a Rule resource with the given unique name, arguments, and options.
@@ -191,75 +256,75 @@ export class Rule extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as RuleState | undefined;
-            resourceInputs["action"] = state ? state.action : undefined;
-            resourceInputs["dstAddress"] = state ? state.dstAddress : undefined;
-            resourceInputs["dstAddressIpv6"] = state ? state.dstAddressIpv6 : undefined;
-            resourceInputs["dstFirewallGroupIds"] = state ? state.dstFirewallGroupIds : undefined;
-            resourceInputs["dstNetworkId"] = state ? state.dstNetworkId : undefined;
-            resourceInputs["dstNetworkType"] = state ? state.dstNetworkType : undefined;
-            resourceInputs["dstPort"] = state ? state.dstPort : undefined;
-            resourceInputs["enabled"] = state ? state.enabled : undefined;
-            resourceInputs["icmpTypename"] = state ? state.icmpTypename : undefined;
-            resourceInputs["icmpV6Typename"] = state ? state.icmpV6Typename : undefined;
-            resourceInputs["ipSec"] = state ? state.ipSec : undefined;
-            resourceInputs["logging"] = state ? state.logging : undefined;
-            resourceInputs["name"] = state ? state.name : undefined;
-            resourceInputs["protocol"] = state ? state.protocol : undefined;
-            resourceInputs["protocolV6"] = state ? state.protocolV6 : undefined;
-            resourceInputs["ruleIndex"] = state ? state.ruleIndex : undefined;
-            resourceInputs["ruleset"] = state ? state.ruleset : undefined;
-            resourceInputs["site"] = state ? state.site : undefined;
-            resourceInputs["srcAddress"] = state ? state.srcAddress : undefined;
-            resourceInputs["srcAddressIpv6"] = state ? state.srcAddressIpv6 : undefined;
-            resourceInputs["srcFirewallGroupIds"] = state ? state.srcFirewallGroupIds : undefined;
-            resourceInputs["srcMac"] = state ? state.srcMac : undefined;
-            resourceInputs["srcNetworkId"] = state ? state.srcNetworkId : undefined;
-            resourceInputs["srcNetworkType"] = state ? state.srcNetworkType : undefined;
-            resourceInputs["srcPort"] = state ? state.srcPort : undefined;
-            resourceInputs["stateEstablished"] = state ? state.stateEstablished : undefined;
-            resourceInputs["stateInvalid"] = state ? state.stateInvalid : undefined;
-            resourceInputs["stateNew"] = state ? state.stateNew : undefined;
-            resourceInputs["stateRelated"] = state ? state.stateRelated : undefined;
+            resourceInputs["action"] = state?.action;
+            resourceInputs["dstAddress"] = state?.dstAddress;
+            resourceInputs["dstAddressIpv6"] = state?.dstAddressIpv6;
+            resourceInputs["dstFirewallGroupIds"] = state?.dstFirewallGroupIds;
+            resourceInputs["dstNetworkId"] = state?.dstNetworkId;
+            resourceInputs["dstNetworkType"] = state?.dstNetworkType;
+            resourceInputs["dstPort"] = state?.dstPort;
+            resourceInputs["enabled"] = state?.enabled;
+            resourceInputs["icmpTypename"] = state?.icmpTypename;
+            resourceInputs["icmpV6Typename"] = state?.icmpV6Typename;
+            resourceInputs["ipSec"] = state?.ipSec;
+            resourceInputs["logging"] = state?.logging;
+            resourceInputs["name"] = state?.name;
+            resourceInputs["protocol"] = state?.protocol;
+            resourceInputs["protocolV6"] = state?.protocolV6;
+            resourceInputs["ruleIndex"] = state?.ruleIndex;
+            resourceInputs["ruleset"] = state?.ruleset;
+            resourceInputs["site"] = state?.site;
+            resourceInputs["srcAddress"] = state?.srcAddress;
+            resourceInputs["srcAddressIpv6"] = state?.srcAddressIpv6;
+            resourceInputs["srcFirewallGroupIds"] = state?.srcFirewallGroupIds;
+            resourceInputs["srcMac"] = state?.srcMac;
+            resourceInputs["srcNetworkId"] = state?.srcNetworkId;
+            resourceInputs["srcNetworkType"] = state?.srcNetworkType;
+            resourceInputs["srcPort"] = state?.srcPort;
+            resourceInputs["stateEstablished"] = state?.stateEstablished;
+            resourceInputs["stateInvalid"] = state?.stateInvalid;
+            resourceInputs["stateNew"] = state?.stateNew;
+            resourceInputs["stateRelated"] = state?.stateRelated;
         } else {
             const args = argsOrState as RuleArgs | undefined;
-            if ((!args || args.action === undefined) && !opts.urn) {
+            if (args?.action === undefined && !opts.urn) {
                 throw new Error("Missing required property 'action'");
             }
-            if ((!args || args.ruleIndex === undefined) && !opts.urn) {
+            if (args?.ruleIndex === undefined && !opts.urn) {
                 throw new Error("Missing required property 'ruleIndex'");
             }
-            if ((!args || args.ruleset === undefined) && !opts.urn) {
+            if (args?.ruleset === undefined && !opts.urn) {
                 throw new Error("Missing required property 'ruleset'");
             }
-            resourceInputs["action"] = args ? args.action : undefined;
-            resourceInputs["dstAddress"] = args ? args.dstAddress : undefined;
-            resourceInputs["dstAddressIpv6"] = args ? args.dstAddressIpv6 : undefined;
-            resourceInputs["dstFirewallGroupIds"] = args ? args.dstFirewallGroupIds : undefined;
-            resourceInputs["dstNetworkId"] = args ? args.dstNetworkId : undefined;
-            resourceInputs["dstNetworkType"] = args ? args.dstNetworkType : undefined;
-            resourceInputs["dstPort"] = args ? args.dstPort : undefined;
-            resourceInputs["enabled"] = args ? args.enabled : undefined;
-            resourceInputs["icmpTypename"] = args ? args.icmpTypename : undefined;
-            resourceInputs["icmpV6Typename"] = args ? args.icmpV6Typename : undefined;
-            resourceInputs["ipSec"] = args ? args.ipSec : undefined;
-            resourceInputs["logging"] = args ? args.logging : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["protocol"] = args ? args.protocol : undefined;
-            resourceInputs["protocolV6"] = args ? args.protocolV6 : undefined;
-            resourceInputs["ruleIndex"] = args ? args.ruleIndex : undefined;
-            resourceInputs["ruleset"] = args ? args.ruleset : undefined;
-            resourceInputs["site"] = args ? args.site : undefined;
-            resourceInputs["srcAddress"] = args ? args.srcAddress : undefined;
-            resourceInputs["srcAddressIpv6"] = args ? args.srcAddressIpv6 : undefined;
-            resourceInputs["srcFirewallGroupIds"] = args ? args.srcFirewallGroupIds : undefined;
-            resourceInputs["srcMac"] = args ? args.srcMac : undefined;
-            resourceInputs["srcNetworkId"] = args ? args.srcNetworkId : undefined;
-            resourceInputs["srcNetworkType"] = args ? args.srcNetworkType : undefined;
-            resourceInputs["srcPort"] = args ? args.srcPort : undefined;
-            resourceInputs["stateEstablished"] = args ? args.stateEstablished : undefined;
-            resourceInputs["stateInvalid"] = args ? args.stateInvalid : undefined;
-            resourceInputs["stateNew"] = args ? args.stateNew : undefined;
-            resourceInputs["stateRelated"] = args ? args.stateRelated : undefined;
+            resourceInputs["action"] = args?.action;
+            resourceInputs["dstAddress"] = args?.dstAddress;
+            resourceInputs["dstAddressIpv6"] = args?.dstAddressIpv6;
+            resourceInputs["dstFirewallGroupIds"] = args?.dstFirewallGroupIds;
+            resourceInputs["dstNetworkId"] = args?.dstNetworkId;
+            resourceInputs["dstNetworkType"] = args?.dstNetworkType;
+            resourceInputs["dstPort"] = args?.dstPort;
+            resourceInputs["enabled"] = args?.enabled;
+            resourceInputs["icmpTypename"] = args?.icmpTypename;
+            resourceInputs["icmpV6Typename"] = args?.icmpV6Typename;
+            resourceInputs["ipSec"] = args?.ipSec;
+            resourceInputs["logging"] = args?.logging;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["protocol"] = args?.protocol;
+            resourceInputs["protocolV6"] = args?.protocolV6;
+            resourceInputs["ruleIndex"] = args?.ruleIndex;
+            resourceInputs["ruleset"] = args?.ruleset;
+            resourceInputs["site"] = args?.site;
+            resourceInputs["srcAddress"] = args?.srcAddress;
+            resourceInputs["srcAddressIpv6"] = args?.srcAddressIpv6;
+            resourceInputs["srcFirewallGroupIds"] = args?.srcFirewallGroupIds;
+            resourceInputs["srcMac"] = args?.srcMac;
+            resourceInputs["srcNetworkId"] = args?.srcNetworkId;
+            resourceInputs["srcNetworkType"] = args?.srcNetworkType;
+            resourceInputs["srcPort"] = args?.srcPort;
+            resourceInputs["stateEstablished"] = args?.stateEstablished;
+            resourceInputs["stateInvalid"] = args?.stateInvalid;
+            resourceInputs["stateNew"] = args?.stateNew;
+            resourceInputs["stateRelated"] = args?.stateRelated;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Rule.__pulumiType, name, resourceInputs, opts);
@@ -271,47 +336,65 @@ export class Rule extends pulumi.CustomResource {
  */
 export interface RuleState {
     /**
-     * The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
+     * The action to take when traffic matches this rule. Valid values are:
+     *   * `accept` - Allow the traffic
+     *   * `drop` - Silently block the traffic
+     *   * `reject` - Block the traffic and send an ICMP rejection message
      */
     action?: pulumi.Input<string>;
     /**
-     * The destination address of the firewall rule.
+     * The destination IPv4 address or network in CIDR notation (e.g., '192.168.1.10' or '192.168.0.0/24'). The format must match dstNetworkType - use a single IP for ADDRv4 or CIDR for NETv4.
      */
     dstAddress?: pulumi.Input<string>;
     /**
-     * The IPv6 destination address of the firewall rule.
+     * The destination IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
      */
     dstAddressIpv6?: pulumi.Input<string>;
     /**
-     * The destination firewall group IDs of the firewall rule.
+     * A list of firewall group IDs to use as destinations. Groups can contain IP addresses, networks, or port numbers. This allows you to create reusable sets of addresses/ports and reference them in multiple rules.
      */
     dstFirewallGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The destination network ID of the firewall rule.
+     * The ID of the destination network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller.
      */
     dstNetworkId?: pulumi.Input<string>;
     /**
-     * The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+     * The type of destination network address. Valid values are:
+     *   * `ADDRv4` - Single IPv4 address
+     *   * `NETv4` - IPv4 network in CIDR notation
      */
     dstNetworkType?: pulumi.Input<string>;
     /**
-     * The destination port of the firewall rule.
+     * The destination port(s) for this rule. Can be:
+     *   * A single port number (e.g., '80')
+     *   * A port range (e.g., '8000:8080')
+     *   * A list of ports/ranges separated by commas
      */
     dstPort?: pulumi.Input<string>;
     /**
-     * Specifies whether the rule should be enabled. Defaults to `true`.
+     * Whether this firewall rule is active (true) or disabled (false). Defaults to true.
      */
     enabled?: pulumi.Input<boolean>;
     /**
-     * ICMP type name.
+     * The ICMP type name when protocol is set to 'icmp'. Common values include:
+     *   * `echo-request` - ICMP ping requests
+     *   * `echo-reply` - ICMP ping replies
+     *   * `destination-unreachable` - Host/network unreachable messages
+     *   * `time-exceeded` - TTL exceeded messages (traceroute)
      */
     icmpTypename?: pulumi.Input<string>;
     /**
-     * ICMPv6 type name.
+     * The ICMPv6 type name when protocolV6 is set to 'ipv6-icmp'. Common values (not all are listed) include:
+     *   * `echo-request` - IPv6 ping requests
+     *   * `echo-reply` - IPv6 ping replies
+     *   * `neighbor-solicitation` - IPv6 neighbor discovery
+     *   * `neighbor-advertisement` - IPv6 neighbor announcements
+     *   * `destination-unreachable` - Host/network unreachable messages
+     *   * `packet-too-big` - Path MTU discovery messages
      */
     icmpV6Typename?: pulumi.Input<string>;
     /**
-     * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
+     * Specify whether the rule matches on IPsec packets. Can be one of `match-ipsec` or `match-none`.
      */
     ipSec?: pulumi.Input<string>;
     /**
@@ -319,59 +402,102 @@ export interface RuleState {
      */
     logging?: pulumi.Input<boolean>;
     /**
-     * The name of the firewall rule.
+     * A friendly name for the firewall rule. This helps identify the rule's purpose in the UniFi controller UI.
      */
     name?: pulumi.Input<string>;
     /**
-     * The protocol of the rule.
+     * The IPv4 protocol this rule applies to. Common values (not all are listed) include:
+     *   * `all` - Match all protocols
+     *   * `tcp` - TCP traffic only (e.g., web, email)
+     *   * `udp` - UDP traffic only (e.g., DNS, VoIP)
+     *   * `tcpUdp` - Both TCP and UDP
+     *   * `icmp` - ICMP traffic (ping, traceroute)
+     *   * Protocol numbers (1-255) for other protocols
+     *
+     * Examples:
+     *   * Use 'tcp' for web server rules (ports 80, 443)
+     *   * Use 'udp' for VoIP or gaming traffic
+     *   * Use 'all' for general network access rules
      */
     protocol?: pulumi.Input<string>;
     /**
-     * The IPv6 protocol of the rule.
+     * The IPv6 protocol this rule applies to. Similar to 'protocol' but for IPv6 traffic. Common values (not all are listed) include:
+     *   * `all` - Match all protocols
+     *   * `tcp` - TCP traffic only
+     *   * `udp` - UDP traffic only
+     *   * `tcpUdp` - Both TCP and UDP traffic
+     *   * `ipv6-icmp` - ICMPv6 traffic
      */
     protocolV6?: pulumi.Input<string>;
     /**
-     * The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
+     * The processing order for this rule. Lower numbers are processed first. Custom rules should use:
+     *   * 2000-2999 for rules processed before auto-generated rules
+     *   * 4000-4999 for rules processed after auto-generated rules
      */
     ruleIndex?: pulumi.Input<number>;
     /**
-     * The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
+     * Defines which traffic flow this rule applies to. The format is [NETWORK]_[DIRECTION], where:
+     *   * NETWORK can be: WAN, LAN, GUEST (or their IPv6 variants WANv6, LANv6, GUESTv6)
+     *   * DIRECTION can be:
+     *     * IN - Traffic entering the network
+     *     * OUT - Traffic leaving the network
+     *     * LOCAL - Traffic destined for the USG/UDM itself
+     *
+     * Examples: WAN_IN (incoming WAN traffic), LAN_OUT (outgoing LAN traffic), GUEST_LOCAL (traffic to Controller from guest network)
      */
     ruleset?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the firewall rule with.
+     * The name of the UniFi site where the firewall rule should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * The source address for the firewall rule.
+     * The source IPv4 address for the firewall rule.
      */
     srcAddress?: pulumi.Input<string>;
     /**
-     * The IPv6 source address for the firewall rule.
+     * The source IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
      */
     srcAddressIpv6?: pulumi.Input<string>;
     /**
-     * The source firewall group IDs for the firewall rule.
+     * A list of firewall group IDs to use as sources. Groups can contain:
+     *   * IP Address Groups - For matching specific IP addresses
+     *   * Network Groups - For matching entire subnets
+     *   * Port Groups - For matching specific port numbers
+     *
+     * Example uses:
+     *   * Group of trusted admin IPs for remote access
+     *   * Group of IoT device networks for isolation
+     *   * Group of common service ports for allowing specific applications
      */
     srcFirewallGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The source MAC address of the firewall rule.
+     * The source MAC address this rule applies to. Use this to create rules that match specific devices regardless of their IP address. Format: 'XX:XX:XX:XX:XX:XX'. MAC addresses are case-insensitive.
      */
     srcMac?: pulumi.Input<string>;
     /**
-     * The source network ID for the firewall rule.
+     * The ID of the source network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller, or by using the network's name in the form `[site]/[networkName]`.
      */
     srcNetworkId?: pulumi.Input<string>;
     /**
-     * The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+     * The type of source network address. Valid values are:
+     *   * `ADDRv4` - Single IPv4 address
+     *   * `NETv4` - IPv4 network in CIDR notation
      */
     srcNetworkType?: pulumi.Input<string>;
     /**
-     * The source port of the firewall rule.
+     * The source port(s) for this rule. Can be:
+     *   * A single port number (e.g., '80')
+     *   * A port range (e.g., '8000:8080')
+     *   * A list of ports/ranges separated by commas
      */
     srcPort?: pulumi.Input<string>;
     /**
-     * Match where the state is established.
+     * Match established connections. When enabled:
+     *   * Rule only applies to packets that are part of an existing connection
+     *   * Useful for allowing return traffic without creating separate rules
+     *   * Common in WAN_IN rules to allow responses to outbound connections
+     *
+     * Example: Allow established connections from WAN while blocking new incoming connections
      */
     stateEstablished?: pulumi.Input<boolean>;
     /**
@@ -393,47 +519,65 @@ export interface RuleState {
  */
 export interface RuleArgs {
     /**
-     * The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
+     * The action to take when traffic matches this rule. Valid values are:
+     *   * `accept` - Allow the traffic
+     *   * `drop` - Silently block the traffic
+     *   * `reject` - Block the traffic and send an ICMP rejection message
      */
     action: pulumi.Input<string>;
     /**
-     * The destination address of the firewall rule.
+     * The destination IPv4 address or network in CIDR notation (e.g., '192.168.1.10' or '192.168.0.0/24'). The format must match dstNetworkType - use a single IP for ADDRv4 or CIDR for NETv4.
      */
     dstAddress?: pulumi.Input<string>;
     /**
-     * The IPv6 destination address of the firewall rule.
+     * The destination IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
      */
     dstAddressIpv6?: pulumi.Input<string>;
     /**
-     * The destination firewall group IDs of the firewall rule.
+     * A list of firewall group IDs to use as destinations. Groups can contain IP addresses, networks, or port numbers. This allows you to create reusable sets of addresses/ports and reference them in multiple rules.
      */
     dstFirewallGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The destination network ID of the firewall rule.
+     * The ID of the destination network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller.
      */
     dstNetworkId?: pulumi.Input<string>;
     /**
-     * The destination network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+     * The type of destination network address. Valid values are:
+     *   * `ADDRv4` - Single IPv4 address
+     *   * `NETv4` - IPv4 network in CIDR notation
      */
     dstNetworkType?: pulumi.Input<string>;
     /**
-     * The destination port of the firewall rule.
+     * The destination port(s) for this rule. Can be:
+     *   * A single port number (e.g., '80')
+     *   * A port range (e.g., '8000:8080')
+     *   * A list of ports/ranges separated by commas
      */
     dstPort?: pulumi.Input<string>;
     /**
-     * Specifies whether the rule should be enabled. Defaults to `true`.
+     * Whether this firewall rule is active (true) or disabled (false). Defaults to true.
      */
     enabled?: pulumi.Input<boolean>;
     /**
-     * ICMP type name.
+     * The ICMP type name when protocol is set to 'icmp'. Common values include:
+     *   * `echo-request` - ICMP ping requests
+     *   * `echo-reply` - ICMP ping replies
+     *   * `destination-unreachable` - Host/network unreachable messages
+     *   * `time-exceeded` - TTL exceeded messages (traceroute)
      */
     icmpTypename?: pulumi.Input<string>;
     /**
-     * ICMPv6 type name.
+     * The ICMPv6 type name when protocolV6 is set to 'ipv6-icmp'. Common values (not all are listed) include:
+     *   * `echo-request` - IPv6 ping requests
+     *   * `echo-reply` - IPv6 ping replies
+     *   * `neighbor-solicitation` - IPv6 neighbor discovery
+     *   * `neighbor-advertisement` - IPv6 neighbor announcements
+     *   * `destination-unreachable` - Host/network unreachable messages
+     *   * `packet-too-big` - Path MTU discovery messages
      */
     icmpV6Typename?: pulumi.Input<string>;
     /**
-     * Specify whether the rule matches on IPsec packets. Can be one of `match-ipset` or `match-none`.
+     * Specify whether the rule matches on IPsec packets. Can be one of `match-ipsec` or `match-none`.
      */
     ipSec?: pulumi.Input<string>;
     /**
@@ -441,59 +585,102 @@ export interface RuleArgs {
      */
     logging?: pulumi.Input<boolean>;
     /**
-     * The name of the firewall rule.
+     * A friendly name for the firewall rule. This helps identify the rule's purpose in the UniFi controller UI.
      */
     name?: pulumi.Input<string>;
     /**
-     * The protocol of the rule.
+     * The IPv4 protocol this rule applies to. Common values (not all are listed) include:
+     *   * `all` - Match all protocols
+     *   * `tcp` - TCP traffic only (e.g., web, email)
+     *   * `udp` - UDP traffic only (e.g., DNS, VoIP)
+     *   * `tcpUdp` - Both TCP and UDP
+     *   * `icmp` - ICMP traffic (ping, traceroute)
+     *   * Protocol numbers (1-255) for other protocols
+     *
+     * Examples:
+     *   * Use 'tcp' for web server rules (ports 80, 443)
+     *   * Use 'udp' for VoIP or gaming traffic
+     *   * Use 'all' for general network access rules
      */
     protocol?: pulumi.Input<string>;
     /**
-     * The IPv6 protocol of the rule.
+     * The IPv6 protocol this rule applies to. Similar to 'protocol' but for IPv6 traffic. Common values (not all are listed) include:
+     *   * `all` - Match all protocols
+     *   * `tcp` - TCP traffic only
+     *   * `udp` - UDP traffic only
+     *   * `tcpUdp` - Both TCP and UDP traffic
+     *   * `ipv6-icmp` - ICMPv6 traffic
      */
     protocolV6?: pulumi.Input<string>;
     /**
-     * The index of the rule. Must be >= 2000 < 3000 or >= 4000 < 5000.
+     * The processing order for this rule. Lower numbers are processed first. Custom rules should use:
+     *   * 2000-2999 for rules processed before auto-generated rules
+     *   * 4000-4999 for rules processed after auto-generated rules
      */
     ruleIndex: pulumi.Input<number>;
     /**
-     * The ruleset for the rule. This is from the perspective of the security gateway. Must be one of `WAN_IN`, `WAN_OUT`, `WAN_LOCAL`, `LAN_IN`, `LAN_OUT`, `LAN_LOCAL`, `GUEST_IN`, `GUEST_OUT`, `GUEST_LOCAL`, `WANv6_IN`, `WANv6_OUT`, `WANv6_LOCAL`, `LANv6_IN`, `LANv6_OUT`, `LANv6_LOCAL`, `GUESTv6_IN`, `GUESTv6_OUT`, or `GUESTv6_LOCAL`.
+     * Defines which traffic flow this rule applies to. The format is [NETWORK]_[DIRECTION], where:
+     *   * NETWORK can be: WAN, LAN, GUEST (or their IPv6 variants WANv6, LANv6, GUESTv6)
+     *   * DIRECTION can be:
+     *     * IN - Traffic entering the network
+     *     * OUT - Traffic leaving the network
+     *     * LOCAL - Traffic destined for the USG/UDM itself
+     *
+     * Examples: WAN_IN (incoming WAN traffic), LAN_OUT (outgoing LAN traffic), GUEST_LOCAL (traffic to Controller from guest network)
      */
     ruleset: pulumi.Input<string>;
     /**
-     * The name of the site to associate the firewall rule with.
+     * The name of the UniFi site where the firewall rule should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * The source address for the firewall rule.
+     * The source IPv4 address for the firewall rule.
      */
     srcAddress?: pulumi.Input<string>;
     /**
-     * The IPv6 source address for the firewall rule.
+     * The source IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
      */
     srcAddressIpv6?: pulumi.Input<string>;
     /**
-     * The source firewall group IDs for the firewall rule.
+     * A list of firewall group IDs to use as sources. Groups can contain:
+     *   * IP Address Groups - For matching specific IP addresses
+     *   * Network Groups - For matching entire subnets
+     *   * Port Groups - For matching specific port numbers
+     *
+     * Example uses:
+     *   * Group of trusted admin IPs for remote access
+     *   * Group of IoT device networks for isolation
+     *   * Group of common service ports for allowing specific applications
      */
     srcFirewallGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * The source MAC address of the firewall rule.
+     * The source MAC address this rule applies to. Use this to create rules that match specific devices regardless of their IP address. Format: 'XX:XX:XX:XX:XX:XX'. MAC addresses are case-insensitive.
      */
     srcMac?: pulumi.Input<string>;
     /**
-     * The source network ID for the firewall rule.
+     * The ID of the source network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller, or by using the network's name in the form `[site]/[networkName]`.
      */
     srcNetworkId?: pulumi.Input<string>;
     /**
-     * The source network type of the firewall rule. Can be one of `ADDRv4` or `NETv4`. Defaults to `NETv4`.
+     * The type of source network address. Valid values are:
+     *   * `ADDRv4` - Single IPv4 address
+     *   * `NETv4` - IPv4 network in CIDR notation
      */
     srcNetworkType?: pulumi.Input<string>;
     /**
-     * The source port of the firewall rule.
+     * The source port(s) for this rule. Can be:
+     *   * A single port number (e.g., '80')
+     *   * A port range (e.g., '8000:8080')
+     *   * A list of ports/ranges separated by commas
      */
     srcPort?: pulumi.Input<string>;
     /**
-     * Match where the state is established.
+     * Match established connections. When enabled:
+     *   * Rule only applies to packets that are part of an existing connection
+     *   * Useful for allowing return traffic without creating separate rules
+     *   * Common in WAN_IN rules to allow responses to outbound connections
+     *
+     * Example: Allow established connections from WAN while blocking new incoming connections
      */
     stateEstablished?: pulumi.Input<boolean>;
     /**

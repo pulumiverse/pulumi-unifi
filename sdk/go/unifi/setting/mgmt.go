@@ -11,7 +11,17 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `setting.Mgmt` manages settings for a unifi site.
+// The `setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
+//
+// This resource allows you to configure important management features including:
+//   - Automatic firmware upgrades for UniFi devices
+//   - SSH access for advanced configuration and troubleshooting
+//   - SSH key management for secure remote access
+//
+// These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
+//   - Maintaining device security through automatic updates
+//   - Enabling secure remote administration
+//   - Implementing SSH key-based authentication
 //
 // ## Example Usage
 //
@@ -35,8 +45,30 @@ import (
 //				return err
 //			}
 //			_, err = setting.NewMgmt(ctx, "example", &setting.MgmtArgs{
-//				Site:        example.Name,
-//				AutoUpgrade: pulumi.Bool(true),
+//				Site:                   example.Name,
+//				AutoUpgrade:            pulumi.Bool(true),
+//				AutoUpgradeHour:        pulumi.Int(3),
+//				AdvancedFeatureEnabled: pulumi.Bool(true),
+//				AlertEnabled:           pulumi.Bool(true),
+//				BootSound:              pulumi.Bool(false),
+//				DebugToolsEnabled:      pulumi.Bool(true),
+//				DirectConnectEnabled:   pulumi.Bool(false),
+//				LedEnabled:             pulumi.Bool(true),
+//				OutdoorModeEnabled:     pulumi.Bool(false),
+//				UnifiIdpEnabled:        pulumi.Bool(false),
+//				WifimanEnabled:         pulumi.Bool(true),
+//				SshEnabled:             pulumi.Bool(true),
+//				SshAuthPasswordEnabled: pulumi.Bool(true),
+//				SshBindWildcard:        pulumi.Bool(false),
+//				SshUsername:            pulumi.String("admin"),
+//				SshKeys: setting.MgmtSshKeyArray{
+//					&setting.MgmtSshKeyArgs{
+//						Name:    pulumi.String("Admin Key"),
+//						Type:    pulumi.String("ssh-rsa"),
+//						Key:     pulumi.String("AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx..."),
+//						Comment: pulumi.String("admin@example.com"),
+//					},
+//				},
 //			})
 //			if err != nil {
 //				return err
@@ -49,14 +81,42 @@ import (
 type Mgmt struct {
 	pulumi.CustomResourceState
 
-	// Automatically upgrade device firmware.
-	AutoUpgrade pulumi.BoolPtrOutput `pulumi:"autoUpgrade"`
-	// The name of the site to associate the settings with.
+	// Enable advanced features for UniFi devices at this site.
+	AdvancedFeatureEnabled pulumi.BoolOutput `pulumi:"advancedFeatureEnabled"`
+	// Enable alerts for UniFi devices at this site.
+	AlertEnabled pulumi.BoolOutput `pulumi:"alertEnabled"`
+	// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
+	AutoUpgrade pulumi.BoolOutput `pulumi:"autoUpgrade"`
+	// The hour of the day (0-23) when automatic firmware upgrades will occur.
+	AutoUpgradeHour pulumi.IntOutput `pulumi:"autoUpgradeHour"`
+	// Enable the boot sound for UniFi devices at this site.
+	BootSound pulumi.BoolOutput `pulumi:"bootSound"`
+	// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+	DebugToolsEnabled pulumi.BoolOutput `pulumi:"debugToolsEnabled"`
+	// Enable direct connect for UniFi devices at this site.
+	DirectConnectEnabled pulumi.BoolOutput `pulumi:"directConnectEnabled"`
+	// Enable the LED light for UniFi devices at this site.
+	LedEnabled pulumi.BoolOutput `pulumi:"ledEnabled"`
+	// Enable outdoor mode for UniFi devices at this site.
+	OutdoorModeEnabled pulumi.BoolOutput `pulumi:"outdoorModeEnabled"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
-	// Enable SSH authentication.
-	SshEnabled pulumi.BoolPtrOutput `pulumi:"sshEnabled"`
-	// SSH key.
+	// Enable SSH password authentication for UniFi devices at this site.
+	SshAuthPasswordEnabled pulumi.BoolOutput `pulumi:"sshAuthPasswordEnabled"`
+	// Enable SSH bind wildcard for UniFi devices at this site.
+	SshBindWildcard pulumi.BoolOutput `pulumi:"sshBindWildcard"`
+	// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
+	SshEnabled pulumi.BoolOutput `pulumi:"sshEnabled"`
+	// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
 	SshKeys MgmtSshKeyArrayOutput `pulumi:"sshKeys"`
+	// The SSH password for UniFi devices at this site.
+	SshPassword pulumi.StringOutput `pulumi:"sshPassword"`
+	// The SSH username for UniFi devices at this site.
+	SshUsername pulumi.StringOutput `pulumi:"sshUsername"`
+	// Enable UniFi IDP for UniFi devices at this site.
+	UnifiIdpEnabled pulumi.BoolOutput `pulumi:"unifiIdpEnabled"`
+	// Enable WiFiman for UniFi devices at this site.
+	WifimanEnabled pulumi.BoolOutput `pulumi:"wifimanEnabled"`
 }
 
 // NewMgmt registers a new resource with the given unique name, arguments, and options.
@@ -66,6 +126,13 @@ func NewMgmt(ctx *pulumi.Context,
 		args = &MgmtArgs{}
 	}
 
+	if args.SshPassword != nil {
+		args.SshPassword = pulumi.ToSecret(args.SshPassword).(pulumi.StringPtrInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"sshPassword",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Mgmt
 	err := ctx.RegisterResource("unifi:setting/mgmt:Mgmt", name, args, &resource, opts...)
@@ -89,25 +156,81 @@ func GetMgmt(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Mgmt resources.
 type mgmtState struct {
-	// Automatically upgrade device firmware.
+	// Enable advanced features for UniFi devices at this site.
+	AdvancedFeatureEnabled *bool `pulumi:"advancedFeatureEnabled"`
+	// Enable alerts for UniFi devices at this site.
+	AlertEnabled *bool `pulumi:"alertEnabled"`
+	// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
 	AutoUpgrade *bool `pulumi:"autoUpgrade"`
-	// The name of the site to associate the settings with.
+	// The hour of the day (0-23) when automatic firmware upgrades will occur.
+	AutoUpgradeHour *int `pulumi:"autoUpgradeHour"`
+	// Enable the boot sound for UniFi devices at this site.
+	BootSound *bool `pulumi:"bootSound"`
+	// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+	DebugToolsEnabled *bool `pulumi:"debugToolsEnabled"`
+	// Enable direct connect for UniFi devices at this site.
+	DirectConnectEnabled *bool `pulumi:"directConnectEnabled"`
+	// Enable the LED light for UniFi devices at this site.
+	LedEnabled *bool `pulumi:"ledEnabled"`
+	// Enable outdoor mode for UniFi devices at this site.
+	OutdoorModeEnabled *bool `pulumi:"outdoorModeEnabled"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// Enable SSH authentication.
+	// Enable SSH password authentication for UniFi devices at this site.
+	SshAuthPasswordEnabled *bool `pulumi:"sshAuthPasswordEnabled"`
+	// Enable SSH bind wildcard for UniFi devices at this site.
+	SshBindWildcard *bool `pulumi:"sshBindWildcard"`
+	// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
 	SshEnabled *bool `pulumi:"sshEnabled"`
-	// SSH key.
+	// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
 	SshKeys []MgmtSshKey `pulumi:"sshKeys"`
+	// The SSH password for UniFi devices at this site.
+	SshPassword *string `pulumi:"sshPassword"`
+	// The SSH username for UniFi devices at this site.
+	SshUsername *string `pulumi:"sshUsername"`
+	// Enable UniFi IDP for UniFi devices at this site.
+	UnifiIdpEnabled *bool `pulumi:"unifiIdpEnabled"`
+	// Enable WiFiman for UniFi devices at this site.
+	WifimanEnabled *bool `pulumi:"wifimanEnabled"`
 }
 
 type MgmtState struct {
-	// Automatically upgrade device firmware.
+	// Enable advanced features for UniFi devices at this site.
+	AdvancedFeatureEnabled pulumi.BoolPtrInput
+	// Enable alerts for UniFi devices at this site.
+	AlertEnabled pulumi.BoolPtrInput
+	// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
 	AutoUpgrade pulumi.BoolPtrInput
-	// The name of the site to associate the settings with.
+	// The hour of the day (0-23) when automatic firmware upgrades will occur.
+	AutoUpgradeHour pulumi.IntPtrInput
+	// Enable the boot sound for UniFi devices at this site.
+	BootSound pulumi.BoolPtrInput
+	// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+	DebugToolsEnabled pulumi.BoolPtrInput
+	// Enable direct connect for UniFi devices at this site.
+	DirectConnectEnabled pulumi.BoolPtrInput
+	// Enable the LED light for UniFi devices at this site.
+	LedEnabled pulumi.BoolPtrInput
+	// Enable outdoor mode for UniFi devices at this site.
+	OutdoorModeEnabled pulumi.BoolPtrInput
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// Enable SSH authentication.
+	// Enable SSH password authentication for UniFi devices at this site.
+	SshAuthPasswordEnabled pulumi.BoolPtrInput
+	// Enable SSH bind wildcard for UniFi devices at this site.
+	SshBindWildcard pulumi.BoolPtrInput
+	// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
 	SshEnabled pulumi.BoolPtrInput
-	// SSH key.
+	// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
 	SshKeys MgmtSshKeyArrayInput
+	// The SSH password for UniFi devices at this site.
+	SshPassword pulumi.StringPtrInput
+	// The SSH username for UniFi devices at this site.
+	SshUsername pulumi.StringPtrInput
+	// Enable UniFi IDP for UniFi devices at this site.
+	UnifiIdpEnabled pulumi.BoolPtrInput
+	// Enable WiFiman for UniFi devices at this site.
+	WifimanEnabled pulumi.BoolPtrInput
 }
 
 func (MgmtState) ElementType() reflect.Type {
@@ -115,26 +238,82 @@ func (MgmtState) ElementType() reflect.Type {
 }
 
 type mgmtArgs struct {
-	// Automatically upgrade device firmware.
+	// Enable advanced features for UniFi devices at this site.
+	AdvancedFeatureEnabled *bool `pulumi:"advancedFeatureEnabled"`
+	// Enable alerts for UniFi devices at this site.
+	AlertEnabled *bool `pulumi:"alertEnabled"`
+	// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
 	AutoUpgrade *bool `pulumi:"autoUpgrade"`
-	// The name of the site to associate the settings with.
+	// The hour of the day (0-23) when automatic firmware upgrades will occur.
+	AutoUpgradeHour *int `pulumi:"autoUpgradeHour"`
+	// Enable the boot sound for UniFi devices at this site.
+	BootSound *bool `pulumi:"bootSound"`
+	// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+	DebugToolsEnabled *bool `pulumi:"debugToolsEnabled"`
+	// Enable direct connect for UniFi devices at this site.
+	DirectConnectEnabled *bool `pulumi:"directConnectEnabled"`
+	// Enable the LED light for UniFi devices at this site.
+	LedEnabled *bool `pulumi:"ledEnabled"`
+	// Enable outdoor mode for UniFi devices at this site.
+	OutdoorModeEnabled *bool `pulumi:"outdoorModeEnabled"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// Enable SSH authentication.
+	// Enable SSH password authentication for UniFi devices at this site.
+	SshAuthPasswordEnabled *bool `pulumi:"sshAuthPasswordEnabled"`
+	// Enable SSH bind wildcard for UniFi devices at this site.
+	SshBindWildcard *bool `pulumi:"sshBindWildcard"`
+	// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
 	SshEnabled *bool `pulumi:"sshEnabled"`
-	// SSH key.
+	// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
 	SshKeys []MgmtSshKey `pulumi:"sshKeys"`
+	// The SSH password for UniFi devices at this site.
+	SshPassword *string `pulumi:"sshPassword"`
+	// The SSH username for UniFi devices at this site.
+	SshUsername *string `pulumi:"sshUsername"`
+	// Enable UniFi IDP for UniFi devices at this site.
+	UnifiIdpEnabled *bool `pulumi:"unifiIdpEnabled"`
+	// Enable WiFiman for UniFi devices at this site.
+	WifimanEnabled *bool `pulumi:"wifimanEnabled"`
 }
 
 // The set of arguments for constructing a Mgmt resource.
 type MgmtArgs struct {
-	// Automatically upgrade device firmware.
+	// Enable advanced features for UniFi devices at this site.
+	AdvancedFeatureEnabled pulumi.BoolPtrInput
+	// Enable alerts for UniFi devices at this site.
+	AlertEnabled pulumi.BoolPtrInput
+	// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
 	AutoUpgrade pulumi.BoolPtrInput
-	// The name of the site to associate the settings with.
+	// The hour of the day (0-23) when automatic firmware upgrades will occur.
+	AutoUpgradeHour pulumi.IntPtrInput
+	// Enable the boot sound for UniFi devices at this site.
+	BootSound pulumi.BoolPtrInput
+	// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+	DebugToolsEnabled pulumi.BoolPtrInput
+	// Enable direct connect for UniFi devices at this site.
+	DirectConnectEnabled pulumi.BoolPtrInput
+	// Enable the LED light for UniFi devices at this site.
+	LedEnabled pulumi.BoolPtrInput
+	// Enable outdoor mode for UniFi devices at this site.
+	OutdoorModeEnabled pulumi.BoolPtrInput
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// Enable SSH authentication.
+	// Enable SSH password authentication for UniFi devices at this site.
+	SshAuthPasswordEnabled pulumi.BoolPtrInput
+	// Enable SSH bind wildcard for UniFi devices at this site.
+	SshBindWildcard pulumi.BoolPtrInput
+	// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
 	SshEnabled pulumi.BoolPtrInput
-	// SSH key.
+	// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
 	SshKeys MgmtSshKeyArrayInput
+	// The SSH password for UniFi devices at this site.
+	SshPassword pulumi.StringPtrInput
+	// The SSH username for UniFi devices at this site.
+	SshUsername pulumi.StringPtrInput
+	// Enable UniFi IDP for UniFi devices at this site.
+	UnifiIdpEnabled pulumi.BoolPtrInput
+	// Enable WiFiman for UniFi devices at this site.
+	WifimanEnabled pulumi.BoolPtrInput
 }
 
 func (MgmtArgs) ElementType() reflect.Type {
@@ -224,24 +403,94 @@ func (o MgmtOutput) ToMgmtOutputWithContext(ctx context.Context) MgmtOutput {
 	return o
 }
 
-// Automatically upgrade device firmware.
-func (o MgmtOutput) AutoUpgrade() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Mgmt) pulumi.BoolPtrOutput { return v.AutoUpgrade }).(pulumi.BoolPtrOutput)
+// Enable advanced features for UniFi devices at this site.
+func (o MgmtOutput) AdvancedFeatureEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.AdvancedFeatureEnabled }).(pulumi.BoolOutput)
 }
 
-// The name of the site to associate the settings with.
+// Enable alerts for UniFi devices at this site.
+func (o MgmtOutput) AlertEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.AlertEnabled }).(pulumi.BoolOutput)
+}
+
+// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
+func (o MgmtOutput) AutoUpgrade() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.AutoUpgrade }).(pulumi.BoolOutput)
+}
+
+// The hour of the day (0-23) when automatic firmware upgrades will occur.
+func (o MgmtOutput) AutoUpgradeHour() pulumi.IntOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.IntOutput { return v.AutoUpgradeHour }).(pulumi.IntOutput)
+}
+
+// Enable the boot sound for UniFi devices at this site.
+func (o MgmtOutput) BootSound() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.BootSound }).(pulumi.BoolOutput)
+}
+
+// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+func (o MgmtOutput) DebugToolsEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.DebugToolsEnabled }).(pulumi.BoolOutput)
+}
+
+// Enable direct connect for UniFi devices at this site.
+func (o MgmtOutput) DirectConnectEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.DirectConnectEnabled }).(pulumi.BoolOutput)
+}
+
+// Enable the LED light for UniFi devices at this site.
+func (o MgmtOutput) LedEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.LedEnabled }).(pulumi.BoolOutput)
+}
+
+// Enable outdoor mode for UniFi devices at this site.
+func (o MgmtOutput) OutdoorModeEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.OutdoorModeEnabled }).(pulumi.BoolOutput)
+}
+
+// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 func (o MgmtOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *Mgmt) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
 }
 
-// Enable SSH authentication.
-func (o MgmtOutput) SshEnabled() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Mgmt) pulumi.BoolPtrOutput { return v.SshEnabled }).(pulumi.BoolPtrOutput)
+// Enable SSH password authentication for UniFi devices at this site.
+func (o MgmtOutput) SshAuthPasswordEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.SshAuthPasswordEnabled }).(pulumi.BoolOutput)
 }
 
-// SSH key.
+// Enable SSH bind wildcard for UniFi devices at this site.
+func (o MgmtOutput) SshBindWildcard() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.SshBindWildcard }).(pulumi.BoolOutput)
+}
+
+// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
+func (o MgmtOutput) SshEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.SshEnabled }).(pulumi.BoolOutput)
+}
+
+// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
 func (o MgmtOutput) SshKeys() MgmtSshKeyArrayOutput {
 	return o.ApplyT(func(v *Mgmt) MgmtSshKeyArrayOutput { return v.SshKeys }).(MgmtSshKeyArrayOutput)
+}
+
+// The SSH password for UniFi devices at this site.
+func (o MgmtOutput) SshPassword() pulumi.StringOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.StringOutput { return v.SshPassword }).(pulumi.StringOutput)
+}
+
+// The SSH username for UniFi devices at this site.
+func (o MgmtOutput) SshUsername() pulumi.StringOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.StringOutput { return v.SshUsername }).(pulumi.StringOutput)
+}
+
+// Enable UniFi IDP for UniFi devices at this site.
+func (o MgmtOutput) UnifiIdpEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.UnifiIdpEnabled }).(pulumi.BoolOutput)
+}
+
+// Enable WiFiman for UniFi devices at this site.
+func (o MgmtOutput) WifimanEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Mgmt) pulumi.BoolOutput { return v.WifimanEnabled }).(pulumi.BoolOutput)
 }
 
 type MgmtArrayOutput struct{ *pulumi.OutputState }

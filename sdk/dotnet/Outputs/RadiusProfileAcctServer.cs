@@ -15,15 +15,15 @@ namespace Pulumiverse.Unifi.Outputs
     public sealed class RadiusProfileAcctServer
     {
         /// <summary>
-        /// IP address of accounting service server.
+        /// The IPv4 address of the RADIUS accounting server (e.g., '192.168.1.100'). Must be reachable from your UniFi network.
         /// </summary>
         public readonly string Ip;
         /// <summary>
-        /// Port of accounting service. Defaults to `1813`.
+        /// The UDP port number where the RADIUS accounting service is listening. The standard port is 1813, but this can be changed if needed to match your server configuration.
         /// </summary>
         public readonly int? Port;
         /// <summary>
-        /// RADIUS secret.
+        /// The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
         /// </summary>
         public readonly string Xsecret;
 

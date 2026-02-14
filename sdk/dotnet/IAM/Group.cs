@@ -11,7 +11,22 @@ using Pulumi;
 namespace Pulumiverse.Unifi.IAM
 {
     /// <summary>
-    /// `unifi.iam.Group` manages a user group (called "client group" in the UI), which can be used to limit bandwidth for groups of users.
+    /// The `unifi.iam.Group` resource manages client groups in the UniFi controller, which allow you to apply common settings and restrictions to multiple network clients.
+    /// 
+    /// User groups are primarily used for:
+    ///   * Implementing Quality of Service (QoS) policies
+    ///   * Setting bandwidth limits for different types of users
+    ///   * Organizing clients into logical groups (e.g., Staff, Guests, IoT devices)
+    /// 
+    /// Key features include:
+    ///   * Download rate limiting
+    ///   * Upload rate limiting
+    ///   * Group-based policy application
+    /// 
+    /// User groups are particularly useful in:
+    ///   * Educational environments (different policies for staff and students)
+    ///   * Guest networks (limiting guest bandwidth)
+    ///   * Shared office spaces (managing different tenant groups)
     /// 
     /// ## Example Usage
     /// 
@@ -45,25 +60,25 @@ namespace Pulumiverse.Unifi.IAM
     public partial class Group : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The name of the user group.
+        /// A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The QOS maximum download rate. Defaults to `-1`.
+        /// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         /// </summary>
         [Output("qosRateMaxDown")]
         public Output<int?> QosRateMaxDown { get; private set; } = null!;
 
         /// <summary>
-        /// The QOS maximum upload rate. Defaults to `-1`.
+        /// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         /// </summary>
         [Output("qosRateMaxUp")]
         public Output<int?> QosRateMaxUp { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the user group with.
+        /// The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
@@ -116,25 +131,25 @@ namespace Pulumiverse.Unifi.IAM
     public sealed class GroupArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the user group.
+        /// A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The QOS maximum download rate. Defaults to `-1`.
+        /// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         /// </summary>
         [Input("qosRateMaxDown")]
         public Input<int>? QosRateMaxDown { get; set; }
 
         /// <summary>
-        /// The QOS maximum upload rate. Defaults to `-1`.
+        /// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         /// </summary>
         [Input("qosRateMaxUp")]
         public Input<int>? QosRateMaxUp { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the user group with.
+        /// The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
@@ -148,25 +163,25 @@ namespace Pulumiverse.Unifi.IAM
     public sealed class GroupState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The name of the user group.
+        /// A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The QOS maximum download rate. Defaults to `-1`.
+        /// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         /// </summary>
         [Input("qosRateMaxDown")]
         public Input<int>? QosRateMaxDown { get; set; }
 
         /// <summary>
-        /// The QOS maximum upload rate. Defaults to `-1`.
+        /// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         /// </summary>
         [Input("qosRateMaxUp")]
         public Input<int>? QosRateMaxUp { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the user group with.
+        /// The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }

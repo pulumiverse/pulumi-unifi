@@ -29,14 +29,14 @@ class RadiusArgs:
                  tunneled_reply: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Radius resource.
-        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting Defaults to `false`.
-        :param pulumi.Input[_builtins.int] accounting_port: The port for accounting communications. Defaults to `1813`.
-        :param pulumi.Input[_builtins.int] auth_port: The port for authentication communications. Defaults to `1812`.
-        :param pulumi.Input[_builtins.bool] enabled: RAIDUS server enabled. Defaults to `true`.
-        :param pulumi.Input[_builtins.int] interim_update_interval: Statistics will be collected from connected clients at this interval. Defaults to `3600`.
-        :param pulumi.Input[_builtins.str] secret: RAIDUS secret passphrase. Defaults to ``.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] tunneled_reply: Encrypt communication between the server and the client. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] accounting_port: The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+        :param pulumi.Input[_builtins.int] auth_port: The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+        :param pulumi.Input[_builtins.bool] enabled: Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+        :param pulumi.Input[_builtins.int] interim_update_interval: The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+        :param pulumi.Input[_builtins.str] secret: The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] tunneled_reply: Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
         """
         if accounting_enabled is not None:
             pulumi.set(__self__, "accounting_enabled", accounting_enabled)
@@ -59,7 +59,7 @@ class RadiusArgs:
     @pulumi.getter(name="accountingEnabled")
     def accounting_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable RADIUS accounting Defaults to `false`.
+        Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
         """
         return pulumi.get(self, "accounting_enabled")
 
@@ -71,7 +71,7 @@ class RadiusArgs:
     @pulumi.getter(name="accountingPort")
     def accounting_port(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The port for accounting communications. Defaults to `1813`.
+        The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
         """
         return pulumi.get(self, "accounting_port")
 
@@ -83,7 +83,7 @@ class RadiusArgs:
     @pulumi.getter(name="authPort")
     def auth_port(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The port for authentication communications. Defaults to `1812`.
+        The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
         """
         return pulumi.get(self, "auth_port")
 
@@ -95,7 +95,7 @@ class RadiusArgs:
     @pulumi.getter
     def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        RAIDUS server enabled. Defaults to `true`.
+        Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
         """
         return pulumi.get(self, "enabled")
 
@@ -107,7 +107,7 @@ class RadiusArgs:
     @pulumi.getter(name="interimUpdateInterval")
     def interim_update_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Statistics will be collected from connected clients at this interval. Defaults to `3600`.
+        The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
         """
         return pulumi.get(self, "interim_update_interval")
 
@@ -119,7 +119,7 @@ class RadiusArgs:
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        RAIDUS secret passphrase. Defaults to ``.
+        The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
         """
         return pulumi.get(self, "secret")
 
@@ -131,7 +131,7 @@ class RadiusArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -143,7 +143,7 @@ class RadiusArgs:
     @pulumi.getter(name="tunneledReply")
     def tunneled_reply(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Encrypt communication between the server and the client. Defaults to `true`.
+        Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
         """
         return pulumi.get(self, "tunneled_reply")
 
@@ -165,14 +165,14 @@ class _RadiusState:
                  tunneled_reply: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering Radius resources.
-        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting Defaults to `false`.
-        :param pulumi.Input[_builtins.int] accounting_port: The port for accounting communications. Defaults to `1813`.
-        :param pulumi.Input[_builtins.int] auth_port: The port for authentication communications. Defaults to `1812`.
-        :param pulumi.Input[_builtins.bool] enabled: RAIDUS server enabled. Defaults to `true`.
-        :param pulumi.Input[_builtins.int] interim_update_interval: Statistics will be collected from connected clients at this interval. Defaults to `3600`.
-        :param pulumi.Input[_builtins.str] secret: RAIDUS secret passphrase. Defaults to ``.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] tunneled_reply: Encrypt communication between the server and the client. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] accounting_port: The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+        :param pulumi.Input[_builtins.int] auth_port: The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+        :param pulumi.Input[_builtins.bool] enabled: Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+        :param pulumi.Input[_builtins.int] interim_update_interval: The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+        :param pulumi.Input[_builtins.str] secret: The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] tunneled_reply: Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
         """
         if accounting_enabled is not None:
             pulumi.set(__self__, "accounting_enabled", accounting_enabled)
@@ -195,7 +195,7 @@ class _RadiusState:
     @pulumi.getter(name="accountingEnabled")
     def accounting_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable RADIUS accounting Defaults to `false`.
+        Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
         """
         return pulumi.get(self, "accounting_enabled")
 
@@ -207,7 +207,7 @@ class _RadiusState:
     @pulumi.getter(name="accountingPort")
     def accounting_port(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The port for accounting communications. Defaults to `1813`.
+        The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
         """
         return pulumi.get(self, "accounting_port")
 
@@ -219,7 +219,7 @@ class _RadiusState:
     @pulumi.getter(name="authPort")
     def auth_port(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The port for authentication communications. Defaults to `1812`.
+        The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
         """
         return pulumi.get(self, "auth_port")
 
@@ -231,7 +231,7 @@ class _RadiusState:
     @pulumi.getter
     def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        RAIDUS server enabled. Defaults to `true`.
+        Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
         """
         return pulumi.get(self, "enabled")
 
@@ -243,7 +243,7 @@ class _RadiusState:
     @pulumi.getter(name="interimUpdateInterval")
     def interim_update_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Statistics will be collected from connected clients at this interval. Defaults to `3600`.
+        The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
         """
         return pulumi.get(self, "interim_update_interval")
 
@@ -255,7 +255,7 @@ class _RadiusState:
     @pulumi.getter
     def secret(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        RAIDUS secret passphrase. Defaults to ``.
+        The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
         """
         return pulumi.get(self, "secret")
 
@@ -267,7 +267,7 @@ class _RadiusState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -279,7 +279,7 @@ class _RadiusState:
     @pulumi.getter(name="tunneledReply")
     def tunneled_reply(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Encrypt communication between the server and the client. Defaults to `true`.
+        Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
         """
         return pulumi.get(self, "tunneled_reply")
 
@@ -304,18 +304,44 @@ class Radius(pulumi.CustomResource):
                  tunneled_reply: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        `setting.Radius` manages settings for the built-in RADIUS server.
+        The `setting.Radius` resource manages the built-in RADIUS server configuration in the UniFi controller.
+
+        This resource allows you to configure:
+          * Authentication settings for network access control
+          * Accounting settings for tracking user sessions
+          * Security features like tunneled replies
+
+        The RADIUS server is commonly used for:
+          * Enterprise WPA2/WPA3-Enterprise wireless networks
+          * 802.1X port-based network access control
+          * Centralized user authentication and accounting
+
+        When enabled, the RADIUS server can authenticate clients using the UniFi user database or external authentication sources.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Radius("example",
+            enabled=True,
+            secret="your-secure-secret",
+            accounting_enabled=True,
+            auth_port=1812,
+            accounting_port=1813)
+        ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting Defaults to `false`.
-        :param pulumi.Input[_builtins.int] accounting_port: The port for accounting communications. Defaults to `1813`.
-        :param pulumi.Input[_builtins.int] auth_port: The port for authentication communications. Defaults to `1812`.
-        :param pulumi.Input[_builtins.bool] enabled: RAIDUS server enabled. Defaults to `true`.
-        :param pulumi.Input[_builtins.int] interim_update_interval: Statistics will be collected from connected clients at this interval. Defaults to `3600`.
-        :param pulumi.Input[_builtins.str] secret: RAIDUS secret passphrase. Defaults to ``.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] tunneled_reply: Encrypt communication between the server and the client. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] accounting_port: The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+        :param pulumi.Input[_builtins.int] auth_port: The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+        :param pulumi.Input[_builtins.bool] enabled: Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+        :param pulumi.Input[_builtins.int] interim_update_interval: The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+        :param pulumi.Input[_builtins.str] secret: The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] tunneled_reply: Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
         """
         ...
     @overload
@@ -324,7 +350,33 @@ class Radius(pulumi.CustomResource):
                  args: Optional[RadiusArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `setting.Radius` manages settings for the built-in RADIUS server.
+        The `setting.Radius` resource manages the built-in RADIUS server configuration in the UniFi controller.
+
+        This resource allows you to configure:
+          * Authentication settings for network access control
+          * Accounting settings for tracking user sessions
+          * Security features like tunneled replies
+
+        The RADIUS server is commonly used for:
+          * Enterprise WPA2/WPA3-Enterprise wireless networks
+          * 802.1X port-based network access control
+          * Centralized user authentication and accounting
+
+        When enabled, the RADIUS server can authenticate clients using the UniFi user database or external authentication sources.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Radius("example",
+            enabled=True,
+            secret="your-secure-secret",
+            accounting_enabled=True,
+            auth_port=1812,
+            accounting_port=1813)
+        ```
 
         :param str resource_name: The name of the resource.
         :param RadiusArgs args: The arguments to use to populate this resource's properties.
@@ -393,14 +445,14 @@ class Radius(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting Defaults to `false`.
-        :param pulumi.Input[_builtins.int] accounting_port: The port for accounting communications. Defaults to `1813`.
-        :param pulumi.Input[_builtins.int] auth_port: The port for authentication communications. Defaults to `1812`.
-        :param pulumi.Input[_builtins.bool] enabled: RAIDUS server enabled. Defaults to `true`.
-        :param pulumi.Input[_builtins.int] interim_update_interval: Statistics will be collected from connected clients at this interval. Defaults to `3600`.
-        :param pulumi.Input[_builtins.str] secret: RAIDUS secret passphrase. Defaults to ``.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] tunneled_reply: Encrypt communication between the server and the client. Defaults to `true`.
+        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+        :param pulumi.Input[_builtins.int] accounting_port: The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+        :param pulumi.Input[_builtins.int] auth_port: The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+        :param pulumi.Input[_builtins.bool] enabled: Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+        :param pulumi.Input[_builtins.int] interim_update_interval: The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+        :param pulumi.Input[_builtins.str] secret: The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] tunneled_reply: Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -420,7 +472,7 @@ class Radius(pulumi.CustomResource):
     @pulumi.getter(name="accountingEnabled")
     def accounting_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enable RADIUS accounting Defaults to `false`.
+        Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
         """
         return pulumi.get(self, "accounting_enabled")
 
@@ -428,7 +480,7 @@ class Radius(pulumi.CustomResource):
     @pulumi.getter(name="accountingPort")
     def accounting_port(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The port for accounting communications. Defaults to `1813`.
+        The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
         """
         return pulumi.get(self, "accounting_port")
 
@@ -436,7 +488,7 @@ class Radius(pulumi.CustomResource):
     @pulumi.getter(name="authPort")
     def auth_port(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The port for authentication communications. Defaults to `1812`.
+        The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
         """
         return pulumi.get(self, "auth_port")
 
@@ -444,7 +496,7 @@ class Radius(pulumi.CustomResource):
     @pulumi.getter
     def enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        RAIDUS server enabled. Defaults to `true`.
+        Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
         """
         return pulumi.get(self, "enabled")
 
@@ -452,7 +504,7 @@ class Radius(pulumi.CustomResource):
     @pulumi.getter(name="interimUpdateInterval")
     def interim_update_interval(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Statistics will be collected from connected clients at this interval. Defaults to `3600`.
+        The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
         """
         return pulumi.get(self, "interim_update_interval")
 
@@ -460,7 +512,7 @@ class Radius(pulumi.CustomResource):
     @pulumi.getter
     def secret(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        RAIDUS secret passphrase. Defaults to ``.
+        The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
         """
         return pulumi.get(self, "secret")
 
@@ -468,7 +520,7 @@ class Radius(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -476,7 +528,7 @@ class Radius(pulumi.CustomResource):
     @pulumi.getter(name="tunneledReply")
     def tunneled_reply(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Encrypt communication between the server and the client. Defaults to `true`.
+        Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
         """
         return pulumi.get(self, "tunneled_reply")
 

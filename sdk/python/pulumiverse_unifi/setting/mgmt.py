@@ -21,31 +21,111 @@ __all__ = ['MgmtArgs', 'Mgmt']
 @pulumi.input_type
 class MgmtArgs:
     def __init__(__self__, *,
+                 advanced_feature_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 alert_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  auto_upgrade: Optional[pulumi.Input[_builtins.bool]] = None,
+                 auto_upgrade_hour: Optional[pulumi.Input[_builtins.int]] = None,
+                 boot_sound: Optional[pulumi.Input[_builtins.bool]] = None,
+                 debug_tools_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 direct_connect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 led_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 outdoor_mode_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
+                 ssh_auth_password_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ssh_bind_wildcard: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssh_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]] = None):
+                 ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]] = None,
+                 ssh_password: Optional[pulumi.Input[_builtins.str]] = None,
+                 ssh_username: Optional[pulumi.Input[_builtins.str]] = None,
+                 unifi_idp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 wifiman_enabled: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Mgmt resource.
-        :param pulumi.Input[_builtins.bool] auto_upgrade: Automatically upgrade device firmware.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] ssh_enabled: Enable SSH authentication.
-        :param pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]] ssh_keys: SSH key.
+        :param pulumi.Input[_builtins.bool] advanced_feature_enabled: Enable advanced features for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] alert_enabled: Enable alerts for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] auto_upgrade: Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
+        :param pulumi.Input[_builtins.int] auto_upgrade_hour: The hour of the day (0-23) when automatic firmware upgrades will occur.
+        :param pulumi.Input[_builtins.bool] boot_sound: Enable the boot sound for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] debug_tools_enabled: Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        :param pulumi.Input[_builtins.bool] direct_connect_enabled: Enable direct connect for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] led_enabled: Enable the LED light for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] outdoor_mode_enabled: Enable outdoor mode for UniFi devices at this site.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] ssh_auth_password_enabled: Enable SSH password authentication for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] ssh_bind_wildcard: Enable SSH bind wildcard for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] ssh_enabled: Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
+        :param pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]] ssh_keys: List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
+        :param pulumi.Input[_builtins.str] ssh_password: The SSH password for UniFi devices at this site.
+        :param pulumi.Input[_builtins.str] ssh_username: The SSH username for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] unifi_idp_enabled: Enable UniFi IDP for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] wifiman_enabled: Enable WiFiman for UniFi devices at this site.
         """
+        if advanced_feature_enabled is not None:
+            pulumi.set(__self__, "advanced_feature_enabled", advanced_feature_enabled)
+        if alert_enabled is not None:
+            pulumi.set(__self__, "alert_enabled", alert_enabled)
         if auto_upgrade is not None:
             pulumi.set(__self__, "auto_upgrade", auto_upgrade)
+        if auto_upgrade_hour is not None:
+            pulumi.set(__self__, "auto_upgrade_hour", auto_upgrade_hour)
+        if boot_sound is not None:
+            pulumi.set(__self__, "boot_sound", boot_sound)
+        if debug_tools_enabled is not None:
+            pulumi.set(__self__, "debug_tools_enabled", debug_tools_enabled)
+        if direct_connect_enabled is not None:
+            pulumi.set(__self__, "direct_connect_enabled", direct_connect_enabled)
+        if led_enabled is not None:
+            pulumi.set(__self__, "led_enabled", led_enabled)
+        if outdoor_mode_enabled is not None:
+            pulumi.set(__self__, "outdoor_mode_enabled", outdoor_mode_enabled)
         if site is not None:
             pulumi.set(__self__, "site", site)
+        if ssh_auth_password_enabled is not None:
+            pulumi.set(__self__, "ssh_auth_password_enabled", ssh_auth_password_enabled)
+        if ssh_bind_wildcard is not None:
+            pulumi.set(__self__, "ssh_bind_wildcard", ssh_bind_wildcard)
         if ssh_enabled is not None:
             pulumi.set(__self__, "ssh_enabled", ssh_enabled)
         if ssh_keys is not None:
             pulumi.set(__self__, "ssh_keys", ssh_keys)
+        if ssh_password is not None:
+            pulumi.set(__self__, "ssh_password", ssh_password)
+        if ssh_username is not None:
+            pulumi.set(__self__, "ssh_username", ssh_username)
+        if unifi_idp_enabled is not None:
+            pulumi.set(__self__, "unifi_idp_enabled", unifi_idp_enabled)
+        if wifiman_enabled is not None:
+            pulumi.set(__self__, "wifiman_enabled", wifiman_enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="advancedFeatureEnabled")
+    def advanced_feature_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable advanced features for UniFi devices at this site.
+        """
+        return pulumi.get(self, "advanced_feature_enabled")
+
+    @advanced_feature_enabled.setter
+    def advanced_feature_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "advanced_feature_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="alertEnabled")
+    def alert_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable alerts for UniFi devices at this site.
+        """
+        return pulumi.get(self, "alert_enabled")
+
+    @alert_enabled.setter
+    def alert_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "alert_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="autoUpgrade")
     def auto_upgrade(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Automatically upgrade device firmware.
+        Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
         """
         return pulumi.get(self, "auto_upgrade")
 
@@ -54,10 +134,82 @@ class MgmtArgs:
         pulumi.set(self, "auto_upgrade", value)
 
     @_builtins.property
+    @pulumi.getter(name="autoUpgradeHour")
+    def auto_upgrade_hour(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The hour of the day (0-23) when automatic firmware upgrades will occur.
+        """
+        return pulumi.get(self, "auto_upgrade_hour")
+
+    @auto_upgrade_hour.setter
+    def auto_upgrade_hour(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "auto_upgrade_hour", value)
+
+    @_builtins.property
+    @pulumi.getter(name="bootSound")
+    def boot_sound(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable the boot sound for UniFi devices at this site.
+        """
+        return pulumi.get(self, "boot_sound")
+
+    @boot_sound.setter
+    def boot_sound(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "boot_sound", value)
+
+    @_builtins.property
+    @pulumi.getter(name="debugToolsEnabled")
+    def debug_tools_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        """
+        return pulumi.get(self, "debug_tools_enabled")
+
+    @debug_tools_enabled.setter
+    def debug_tools_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "debug_tools_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="directConnectEnabled")
+    def direct_connect_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable direct connect for UniFi devices at this site.
+        """
+        return pulumi.get(self, "direct_connect_enabled")
+
+    @direct_connect_enabled.setter
+    def direct_connect_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "direct_connect_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="ledEnabled")
+    def led_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable the LED light for UniFi devices at this site.
+        """
+        return pulumi.get(self, "led_enabled")
+
+    @led_enabled.setter
+    def led_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "led_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="outdoorModeEnabled")
+    def outdoor_mode_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable outdoor mode for UniFi devices at this site.
+        """
+        return pulumi.get(self, "outdoor_mode_enabled")
+
+    @outdoor_mode_enabled.setter
+    def outdoor_mode_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "outdoor_mode_enabled", value)
+
+    @_builtins.property
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -66,10 +218,34 @@ class MgmtArgs:
         pulumi.set(self, "site", value)
 
     @_builtins.property
+    @pulumi.getter(name="sshAuthPasswordEnabled")
+    def ssh_auth_password_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable SSH password authentication for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_auth_password_enabled")
+
+    @ssh_auth_password_enabled.setter
+    def ssh_auth_password_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "ssh_auth_password_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sshBindWildcard")
+    def ssh_bind_wildcard(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable SSH bind wildcard for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_bind_wildcard")
+
+    @ssh_bind_wildcard.setter
+    def ssh_bind_wildcard(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "ssh_bind_wildcard", value)
+
+    @_builtins.property
     @pulumi.getter(name="sshEnabled")
     def ssh_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable SSH authentication.
+        Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
         """
         return pulumi.get(self, "ssh_enabled")
 
@@ -81,43 +257,171 @@ class MgmtArgs:
     @pulumi.getter(name="sshKeys")
     def ssh_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]]:
         """
-        SSH key.
+        List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
         """
         return pulumi.get(self, "ssh_keys")
 
     @ssh_keys.setter
     def ssh_keys(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]]):
         pulumi.set(self, "ssh_keys", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sshPassword")
+    def ssh_password(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The SSH password for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_password")
+
+    @ssh_password.setter
+    def ssh_password(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "ssh_password", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sshUsername")
+    def ssh_username(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The SSH username for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_username")
+
+    @ssh_username.setter
+    def ssh_username(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "ssh_username", value)
+
+    @_builtins.property
+    @pulumi.getter(name="unifiIdpEnabled")
+    def unifi_idp_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable UniFi IDP for UniFi devices at this site.
+        """
+        return pulumi.get(self, "unifi_idp_enabled")
+
+    @unifi_idp_enabled.setter
+    def unifi_idp_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "unifi_idp_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wifimanEnabled")
+    def wifiman_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable WiFiman for UniFi devices at this site.
+        """
+        return pulumi.get(self, "wifiman_enabled")
+
+    @wifiman_enabled.setter
+    def wifiman_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "wifiman_enabled", value)
 
 
 @pulumi.input_type
 class _MgmtState:
     def __init__(__self__, *,
+                 advanced_feature_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 alert_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  auto_upgrade: Optional[pulumi.Input[_builtins.bool]] = None,
+                 auto_upgrade_hour: Optional[pulumi.Input[_builtins.int]] = None,
+                 boot_sound: Optional[pulumi.Input[_builtins.bool]] = None,
+                 debug_tools_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 direct_connect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 led_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 outdoor_mode_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
+                 ssh_auth_password_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ssh_bind_wildcard: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssh_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]] = None):
+                 ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]] = None,
+                 ssh_password: Optional[pulumi.Input[_builtins.str]] = None,
+                 ssh_username: Optional[pulumi.Input[_builtins.str]] = None,
+                 unifi_idp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 wifiman_enabled: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering Mgmt resources.
-        :param pulumi.Input[_builtins.bool] auto_upgrade: Automatically upgrade device firmware.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] ssh_enabled: Enable SSH authentication.
-        :param pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]] ssh_keys: SSH key.
+        :param pulumi.Input[_builtins.bool] advanced_feature_enabled: Enable advanced features for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] alert_enabled: Enable alerts for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] auto_upgrade: Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
+        :param pulumi.Input[_builtins.int] auto_upgrade_hour: The hour of the day (0-23) when automatic firmware upgrades will occur.
+        :param pulumi.Input[_builtins.bool] boot_sound: Enable the boot sound for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] debug_tools_enabled: Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        :param pulumi.Input[_builtins.bool] direct_connect_enabled: Enable direct connect for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] led_enabled: Enable the LED light for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] outdoor_mode_enabled: Enable outdoor mode for UniFi devices at this site.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] ssh_auth_password_enabled: Enable SSH password authentication for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] ssh_bind_wildcard: Enable SSH bind wildcard for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] ssh_enabled: Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
+        :param pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]] ssh_keys: List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
+        :param pulumi.Input[_builtins.str] ssh_password: The SSH password for UniFi devices at this site.
+        :param pulumi.Input[_builtins.str] ssh_username: The SSH username for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] unifi_idp_enabled: Enable UniFi IDP for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] wifiman_enabled: Enable WiFiman for UniFi devices at this site.
         """
+        if advanced_feature_enabled is not None:
+            pulumi.set(__self__, "advanced_feature_enabled", advanced_feature_enabled)
+        if alert_enabled is not None:
+            pulumi.set(__self__, "alert_enabled", alert_enabled)
         if auto_upgrade is not None:
             pulumi.set(__self__, "auto_upgrade", auto_upgrade)
+        if auto_upgrade_hour is not None:
+            pulumi.set(__self__, "auto_upgrade_hour", auto_upgrade_hour)
+        if boot_sound is not None:
+            pulumi.set(__self__, "boot_sound", boot_sound)
+        if debug_tools_enabled is not None:
+            pulumi.set(__self__, "debug_tools_enabled", debug_tools_enabled)
+        if direct_connect_enabled is not None:
+            pulumi.set(__self__, "direct_connect_enabled", direct_connect_enabled)
+        if led_enabled is not None:
+            pulumi.set(__self__, "led_enabled", led_enabled)
+        if outdoor_mode_enabled is not None:
+            pulumi.set(__self__, "outdoor_mode_enabled", outdoor_mode_enabled)
         if site is not None:
             pulumi.set(__self__, "site", site)
+        if ssh_auth_password_enabled is not None:
+            pulumi.set(__self__, "ssh_auth_password_enabled", ssh_auth_password_enabled)
+        if ssh_bind_wildcard is not None:
+            pulumi.set(__self__, "ssh_bind_wildcard", ssh_bind_wildcard)
         if ssh_enabled is not None:
             pulumi.set(__self__, "ssh_enabled", ssh_enabled)
         if ssh_keys is not None:
             pulumi.set(__self__, "ssh_keys", ssh_keys)
+        if ssh_password is not None:
+            pulumi.set(__self__, "ssh_password", ssh_password)
+        if ssh_username is not None:
+            pulumi.set(__self__, "ssh_username", ssh_username)
+        if unifi_idp_enabled is not None:
+            pulumi.set(__self__, "unifi_idp_enabled", unifi_idp_enabled)
+        if wifiman_enabled is not None:
+            pulumi.set(__self__, "wifiman_enabled", wifiman_enabled)
+
+    @_builtins.property
+    @pulumi.getter(name="advancedFeatureEnabled")
+    def advanced_feature_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable advanced features for UniFi devices at this site.
+        """
+        return pulumi.get(self, "advanced_feature_enabled")
+
+    @advanced_feature_enabled.setter
+    def advanced_feature_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "advanced_feature_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="alertEnabled")
+    def alert_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable alerts for UniFi devices at this site.
+        """
+        return pulumi.get(self, "alert_enabled")
+
+    @alert_enabled.setter
+    def alert_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "alert_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="autoUpgrade")
     def auto_upgrade(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Automatically upgrade device firmware.
+        Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
         """
         return pulumi.get(self, "auto_upgrade")
 
@@ -126,10 +430,82 @@ class _MgmtState:
         pulumi.set(self, "auto_upgrade", value)
 
     @_builtins.property
+    @pulumi.getter(name="autoUpgradeHour")
+    def auto_upgrade_hour(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        The hour of the day (0-23) when automatic firmware upgrades will occur.
+        """
+        return pulumi.get(self, "auto_upgrade_hour")
+
+    @auto_upgrade_hour.setter
+    def auto_upgrade_hour(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "auto_upgrade_hour", value)
+
+    @_builtins.property
+    @pulumi.getter(name="bootSound")
+    def boot_sound(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable the boot sound for UniFi devices at this site.
+        """
+        return pulumi.get(self, "boot_sound")
+
+    @boot_sound.setter
+    def boot_sound(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "boot_sound", value)
+
+    @_builtins.property
+    @pulumi.getter(name="debugToolsEnabled")
+    def debug_tools_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        """
+        return pulumi.get(self, "debug_tools_enabled")
+
+    @debug_tools_enabled.setter
+    def debug_tools_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "debug_tools_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="directConnectEnabled")
+    def direct_connect_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable direct connect for UniFi devices at this site.
+        """
+        return pulumi.get(self, "direct_connect_enabled")
+
+    @direct_connect_enabled.setter
+    def direct_connect_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "direct_connect_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="ledEnabled")
+    def led_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable the LED light for UniFi devices at this site.
+        """
+        return pulumi.get(self, "led_enabled")
+
+    @led_enabled.setter
+    def led_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "led_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="outdoorModeEnabled")
+    def outdoor_mode_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable outdoor mode for UniFi devices at this site.
+        """
+        return pulumi.get(self, "outdoor_mode_enabled")
+
+    @outdoor_mode_enabled.setter
+    def outdoor_mode_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "outdoor_mode_enabled", value)
+
+    @_builtins.property
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -138,10 +514,34 @@ class _MgmtState:
         pulumi.set(self, "site", value)
 
     @_builtins.property
+    @pulumi.getter(name="sshAuthPasswordEnabled")
+    def ssh_auth_password_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable SSH password authentication for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_auth_password_enabled")
+
+    @ssh_auth_password_enabled.setter
+    def ssh_auth_password_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "ssh_auth_password_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sshBindWildcard")
+    def ssh_bind_wildcard(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable SSH bind wildcard for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_bind_wildcard")
+
+    @ssh_bind_wildcard.setter
+    def ssh_bind_wildcard(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "ssh_bind_wildcard", value)
+
+    @_builtins.property
     @pulumi.getter(name="sshEnabled")
     def ssh_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Enable SSH authentication.
+        Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
         """
         return pulumi.get(self, "ssh_enabled")
 
@@ -153,13 +553,61 @@ class _MgmtState:
     @pulumi.getter(name="sshKeys")
     def ssh_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]]:
         """
-        SSH key.
+        List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
         """
         return pulumi.get(self, "ssh_keys")
 
     @ssh_keys.setter
     def ssh_keys(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['MgmtSshKeyArgs']]]]):
         pulumi.set(self, "ssh_keys", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sshPassword")
+    def ssh_password(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The SSH password for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_password")
+
+    @ssh_password.setter
+    def ssh_password(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "ssh_password", value)
+
+    @_builtins.property
+    @pulumi.getter(name="sshUsername")
+    def ssh_username(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The SSH username for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_username")
+
+    @ssh_username.setter
+    def ssh_username(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "ssh_username", value)
+
+    @_builtins.property
+    @pulumi.getter(name="unifiIdpEnabled")
+    def unifi_idp_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable UniFi IDP for UniFi devices at this site.
+        """
+        return pulumi.get(self, "unifi_idp_enabled")
+
+    @unifi_idp_enabled.setter
+    def unifi_idp_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "unifi_idp_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wifimanEnabled")
+    def wifiman_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable WiFiman for UniFi devices at this site.
+        """
+        return pulumi.get(self, "wifiman_enabled")
+
+    @wifiman_enabled.setter
+    def wifiman_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "wifiman_enabled", value)
 
 
 @pulumi.type_token("unifi:setting/mgmt:Mgmt")
@@ -168,13 +616,37 @@ class Mgmt(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 advanced_feature_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 alert_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  auto_upgrade: Optional[pulumi.Input[_builtins.bool]] = None,
+                 auto_upgrade_hour: Optional[pulumi.Input[_builtins.int]] = None,
+                 boot_sound: Optional[pulumi.Input[_builtins.bool]] = None,
+                 debug_tools_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 direct_connect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 led_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 outdoor_mode_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
+                 ssh_auth_password_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ssh_bind_wildcard: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssh_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]]] = None,
+                 ssh_password: Optional[pulumi.Input[_builtins.str]] = None,
+                 ssh_username: Optional[pulumi.Input[_builtins.str]] = None,
+                 unifi_idp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 wifiman_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        `setting.Mgmt` manages settings for a unifi site.
+        The `setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
+
+        This resource allows you to configure important management features including:
+          * Automatic firmware upgrades for UniFi devices
+          * SSH access for advanced configuration and troubleshooting
+          * SSH key management for secure remote access
+
+        These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
+          * Maintaining device security through automatic updates
+          * Enabling secure remote administration
+          * Implementing SSH key-based authentication
 
         ## Example Usage
 
@@ -185,15 +657,49 @@ class Mgmt(pulumi.CustomResource):
         example = unifi.Site("example", description="example")
         example_mgmt = unifi.setting.Mgmt("example",
             site=example.name,
-            auto_upgrade=True)
+            auto_upgrade=True,
+            auto_upgrade_hour=3,
+            advanced_feature_enabled=True,
+            alert_enabled=True,
+            boot_sound=False,
+            debug_tools_enabled=True,
+            direct_connect_enabled=False,
+            led_enabled=True,
+            outdoor_mode_enabled=False,
+            unifi_idp_enabled=False,
+            wifiman_enabled=True,
+            ssh_enabled=True,
+            ssh_auth_password_enabled=True,
+            ssh_bind_wildcard=False,
+            ssh_username="admin",
+            ssh_keys=[{
+                "name": "Admin Key",
+                "type": "ssh-rsa",
+                "key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx...",
+                "comment": "admin@example.com",
+            }])
         ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] auto_upgrade: Automatically upgrade device firmware.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] ssh_enabled: Enable SSH authentication.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]] ssh_keys: SSH key.
+        :param pulumi.Input[_builtins.bool] advanced_feature_enabled: Enable advanced features for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] alert_enabled: Enable alerts for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] auto_upgrade: Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
+        :param pulumi.Input[_builtins.int] auto_upgrade_hour: The hour of the day (0-23) when automatic firmware upgrades will occur.
+        :param pulumi.Input[_builtins.bool] boot_sound: Enable the boot sound for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] debug_tools_enabled: Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        :param pulumi.Input[_builtins.bool] direct_connect_enabled: Enable direct connect for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] led_enabled: Enable the LED light for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] outdoor_mode_enabled: Enable outdoor mode for UniFi devices at this site.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] ssh_auth_password_enabled: Enable SSH password authentication for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] ssh_bind_wildcard: Enable SSH bind wildcard for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] ssh_enabled: Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]] ssh_keys: List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
+        :param pulumi.Input[_builtins.str] ssh_password: The SSH password for UniFi devices at this site.
+        :param pulumi.Input[_builtins.str] ssh_username: The SSH username for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] unifi_idp_enabled: Enable UniFi IDP for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] wifiman_enabled: Enable WiFiman for UniFi devices at this site.
         """
         ...
     @overload
@@ -202,7 +708,17 @@ class Mgmt(pulumi.CustomResource):
                  args: Optional[MgmtArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `setting.Mgmt` manages settings for a unifi site.
+        The `setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
+
+        This resource allows you to configure important management features including:
+          * Automatic firmware upgrades for UniFi devices
+          * SSH access for advanced configuration and troubleshooting
+          * SSH key management for secure remote access
+
+        These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
+          * Maintaining device security through automatic updates
+          * Enabling secure remote administration
+          * Implementing SSH key-based authentication
 
         ## Example Usage
 
@@ -213,7 +729,27 @@ class Mgmt(pulumi.CustomResource):
         example = unifi.Site("example", description="example")
         example_mgmt = unifi.setting.Mgmt("example",
             site=example.name,
-            auto_upgrade=True)
+            auto_upgrade=True,
+            auto_upgrade_hour=3,
+            advanced_feature_enabled=True,
+            alert_enabled=True,
+            boot_sound=False,
+            debug_tools_enabled=True,
+            direct_connect_enabled=False,
+            led_enabled=True,
+            outdoor_mode_enabled=False,
+            unifi_idp_enabled=False,
+            wifiman_enabled=True,
+            ssh_enabled=True,
+            ssh_auth_password_enabled=True,
+            ssh_bind_wildcard=False,
+            ssh_username="admin",
+            ssh_keys=[{
+                "name": "Admin Key",
+                "type": "ssh-rsa",
+                "key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx...",
+                "comment": "admin@example.com",
+            }])
         ```
 
         :param str resource_name: The name of the resource.
@@ -231,10 +767,24 @@ class Mgmt(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 advanced_feature_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 alert_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  auto_upgrade: Optional[pulumi.Input[_builtins.bool]] = None,
+                 auto_upgrade_hour: Optional[pulumi.Input[_builtins.int]] = None,
+                 boot_sound: Optional[pulumi.Input[_builtins.bool]] = None,
+                 debug_tools_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 direct_connect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 led_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 outdoor_mode_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  site: Optional[pulumi.Input[_builtins.str]] = None,
+                 ssh_auth_password_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ssh_bind_wildcard: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssh_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]]] = None,
+                 ssh_password: Optional[pulumi.Input[_builtins.str]] = None,
+                 ssh_username: Optional[pulumi.Input[_builtins.str]] = None,
+                 unifi_idp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 wifiman_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -244,10 +794,26 @@ class Mgmt(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = MgmtArgs.__new__(MgmtArgs)
 
+            __props__.__dict__["advanced_feature_enabled"] = advanced_feature_enabled
+            __props__.__dict__["alert_enabled"] = alert_enabled
             __props__.__dict__["auto_upgrade"] = auto_upgrade
+            __props__.__dict__["auto_upgrade_hour"] = auto_upgrade_hour
+            __props__.__dict__["boot_sound"] = boot_sound
+            __props__.__dict__["debug_tools_enabled"] = debug_tools_enabled
+            __props__.__dict__["direct_connect_enabled"] = direct_connect_enabled
+            __props__.__dict__["led_enabled"] = led_enabled
+            __props__.__dict__["outdoor_mode_enabled"] = outdoor_mode_enabled
             __props__.__dict__["site"] = site
+            __props__.__dict__["ssh_auth_password_enabled"] = ssh_auth_password_enabled
+            __props__.__dict__["ssh_bind_wildcard"] = ssh_bind_wildcard
             __props__.__dict__["ssh_enabled"] = ssh_enabled
             __props__.__dict__["ssh_keys"] = ssh_keys
+            __props__.__dict__["ssh_password"] = None if ssh_password is None else pulumi.Output.secret(ssh_password)
+            __props__.__dict__["ssh_username"] = ssh_username
+            __props__.__dict__["unifi_idp_enabled"] = unifi_idp_enabled
+            __props__.__dict__["wifiman_enabled"] = wifiman_enabled
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["sshPassword"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Mgmt, __self__).__init__(
             'unifi:setting/mgmt:Mgmt',
             resource_name,
@@ -258,10 +824,24 @@ class Mgmt(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            advanced_feature_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            alert_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
             auto_upgrade: Optional[pulumi.Input[_builtins.bool]] = None,
+            auto_upgrade_hour: Optional[pulumi.Input[_builtins.int]] = None,
+            boot_sound: Optional[pulumi.Input[_builtins.bool]] = None,
+            debug_tools_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            direct_connect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            led_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            outdoor_mode_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
             site: Optional[pulumi.Input[_builtins.str]] = None,
+            ssh_auth_password_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            ssh_bind_wildcard: Optional[pulumi.Input[_builtins.bool]] = None,
             ssh_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]]] = None) -> 'Mgmt':
+            ssh_keys: Optional[pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]]] = None,
+            ssh_password: Optional[pulumi.Input[_builtins.str]] = None,
+            ssh_username: Optional[pulumi.Input[_builtins.str]] = None,
+            unifi_idp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            wifiman_enabled: Optional[pulumi.Input[_builtins.bool]] = None) -> 'Mgmt':
         """
         Get an existing Mgmt resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -269,42 +849,150 @@ class Mgmt(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] auto_upgrade: Automatically upgrade device firmware.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] ssh_enabled: Enable SSH authentication.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]] ssh_keys: SSH key.
+        :param pulumi.Input[_builtins.bool] advanced_feature_enabled: Enable advanced features for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] alert_enabled: Enable alerts for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] auto_upgrade: Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
+        :param pulumi.Input[_builtins.int] auto_upgrade_hour: The hour of the day (0-23) when automatic firmware upgrades will occur.
+        :param pulumi.Input[_builtins.bool] boot_sound: Enable the boot sound for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] debug_tools_enabled: Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        :param pulumi.Input[_builtins.bool] direct_connect_enabled: Enable direct connect for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] led_enabled: Enable the LED light for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] outdoor_mode_enabled: Enable outdoor mode for UniFi devices at this site.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] ssh_auth_password_enabled: Enable SSH password authentication for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] ssh_bind_wildcard: Enable SSH bind wildcard for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] ssh_enabled: Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['MgmtSshKeyArgs', 'MgmtSshKeyArgsDict']]]] ssh_keys: List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
+        :param pulumi.Input[_builtins.str] ssh_password: The SSH password for UniFi devices at this site.
+        :param pulumi.Input[_builtins.str] ssh_username: The SSH username for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] unifi_idp_enabled: Enable UniFi IDP for UniFi devices at this site.
+        :param pulumi.Input[_builtins.bool] wifiman_enabled: Enable WiFiman for UniFi devices at this site.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _MgmtState.__new__(_MgmtState)
 
+        __props__.__dict__["advanced_feature_enabled"] = advanced_feature_enabled
+        __props__.__dict__["alert_enabled"] = alert_enabled
         __props__.__dict__["auto_upgrade"] = auto_upgrade
+        __props__.__dict__["auto_upgrade_hour"] = auto_upgrade_hour
+        __props__.__dict__["boot_sound"] = boot_sound
+        __props__.__dict__["debug_tools_enabled"] = debug_tools_enabled
+        __props__.__dict__["direct_connect_enabled"] = direct_connect_enabled
+        __props__.__dict__["led_enabled"] = led_enabled
+        __props__.__dict__["outdoor_mode_enabled"] = outdoor_mode_enabled
         __props__.__dict__["site"] = site
+        __props__.__dict__["ssh_auth_password_enabled"] = ssh_auth_password_enabled
+        __props__.__dict__["ssh_bind_wildcard"] = ssh_bind_wildcard
         __props__.__dict__["ssh_enabled"] = ssh_enabled
         __props__.__dict__["ssh_keys"] = ssh_keys
+        __props__.__dict__["ssh_password"] = ssh_password
+        __props__.__dict__["ssh_username"] = ssh_username
+        __props__.__dict__["unifi_idp_enabled"] = unifi_idp_enabled
+        __props__.__dict__["wifiman_enabled"] = wifiman_enabled
         return Mgmt(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
-    @pulumi.getter(name="autoUpgrade")
-    def auto_upgrade(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    @pulumi.getter(name="advancedFeatureEnabled")
+    def advanced_feature_enabled(self) -> pulumi.Output[_builtins.bool]:
         """
-        Automatically upgrade device firmware.
+        Enable advanced features for UniFi devices at this site.
+        """
+        return pulumi.get(self, "advanced_feature_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="alertEnabled")
+    def alert_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable alerts for UniFi devices at this site.
+        """
+        return pulumi.get(self, "alert_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="autoUpgrade")
+    def auto_upgrade(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
         """
         return pulumi.get(self, "auto_upgrade")
+
+    @_builtins.property
+    @pulumi.getter(name="autoUpgradeHour")
+    def auto_upgrade_hour(self) -> pulumi.Output[_builtins.int]:
+        """
+        The hour of the day (0-23) when automatic firmware upgrades will occur.
+        """
+        return pulumi.get(self, "auto_upgrade_hour")
+
+    @_builtins.property
+    @pulumi.getter(name="bootSound")
+    def boot_sound(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable the boot sound for UniFi devices at this site.
+        """
+        return pulumi.get(self, "boot_sound")
+
+    @_builtins.property
+    @pulumi.getter(name="debugToolsEnabled")
+    def debug_tools_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        """
+        return pulumi.get(self, "debug_tools_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="directConnectEnabled")
+    def direct_connect_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable direct connect for UniFi devices at this site.
+        """
+        return pulumi.get(self, "direct_connect_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="ledEnabled")
+    def led_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable the LED light for UniFi devices at this site.
+        """
+        return pulumi.get(self, "led_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="outdoorModeEnabled")
+    def outdoor_mode_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable outdoor mode for UniFi devices at this site.
+        """
+        return pulumi.get(self, "outdoor_mode_enabled")
 
     @_builtins.property
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @_builtins.property
-    @pulumi.getter(name="sshEnabled")
-    def ssh_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
+    @pulumi.getter(name="sshAuthPasswordEnabled")
+    def ssh_auth_password_enabled(self) -> pulumi.Output[_builtins.bool]:
         """
-        Enable SSH authentication.
+        Enable SSH password authentication for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_auth_password_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="sshBindWildcard")
+    def ssh_bind_wildcard(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable SSH bind wildcard for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_bind_wildcard")
+
+    @_builtins.property
+    @pulumi.getter(name="sshEnabled")
+    def ssh_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
         """
         return pulumi.get(self, "ssh_enabled")
 
@@ -312,7 +1000,39 @@ class Mgmt(pulumi.CustomResource):
     @pulumi.getter(name="sshKeys")
     def ssh_keys(self) -> pulumi.Output[Optional[Sequence['outputs.MgmtSshKey']]]:
         """
-        SSH key.
+        List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
         """
         return pulumi.get(self, "ssh_keys")
+
+    @_builtins.property
+    @pulumi.getter(name="sshPassword")
+    def ssh_password(self) -> pulumi.Output[_builtins.str]:
+        """
+        The SSH password for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_password")
+
+    @_builtins.property
+    @pulumi.getter(name="sshUsername")
+    def ssh_username(self) -> pulumi.Output[_builtins.str]:
+        """
+        The SSH username for UniFi devices at this site.
+        """
+        return pulumi.get(self, "ssh_username")
+
+    @_builtins.property
+    @pulumi.getter(name="unifiIdpEnabled")
+    def unifi_idp_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable UniFi IDP for UniFi devices at this site.
+        """
+        return pulumi.get(self, "unifi_idp_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="wifimanEnabled")
+    def wifiman_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enable WiFiman for UniFi devices at this site.
+        """
+        return pulumi.get(self, "wifiman_enabled")
 

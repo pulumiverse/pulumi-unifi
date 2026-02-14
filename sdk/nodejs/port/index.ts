@@ -5,6 +5,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 // Export members:
+export { AlFileArgs, AlFileState } from "./alFile";
+export type AlFile = import("./alFile").AlFile;
+export const AlFile: typeof import("./alFile").AlFile = null as any;
+utilities.lazyLoad(exports, ["AlFile"], () => require("./alFile"));
+
 export { ForwardArgs, ForwardState } from "./forward";
 export type Forward = import("./forward").Forward;
 export const Forward: typeof import("./forward").Forward = null as any;
@@ -25,6 +30,8 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "unifi:port/alFile:AlFile":
+                return new AlFile(name, <any>undefined, { urn })
             case "unifi:port/forward:Forward":
                 return new Forward(name, <any>undefined, { urn })
             case "unifi:port/profile:Profile":
@@ -34,5 +41,6 @@ const _module = {
         }
     },
 };
+pulumi.runtime.registerResourceModule("unifi", "port/alFile", _module)
 pulumi.runtime.registerResourceModule("unifi", "port/forward", _module)
 pulumi.runtime.registerResourceModule("unifi", "port/profile", _module)

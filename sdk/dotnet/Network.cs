@@ -11,7 +11,19 @@ using Pulumi;
 namespace Pulumiverse.Unifi
 {
     /// <summary>
-    /// `unifi.Network` manages WAN/LAN/VLAN networks.
+    /// The `unifi.Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
+    /// 
+    /// * Create and manage different types of networks (corporate, guest, WAN, VLAN-only)
+    /// * Configure network addressing and DHCP settings
+    /// * Set up IPv6 networking features
+    /// * Manage DHCP relay and DNS settings
+    /// * Configure network groups and VLANs
+    /// 
+    /// Common use cases include:
+    /// * Setting up corporate and guest networks with different security policies
+    /// * Configuring WAN connectivity with various authentication methods
+    /// * Creating VLANs for network segmentation
+    /// * Managing DHCP and DNS services for network clients
     /// 
     /// ## Example Usage
     /// 
@@ -75,199 +87,304 @@ namespace Pulumiverse.Unifi
     public partial class Network : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
+        /// List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+        /// * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+        /// * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+        /// * Use internal DNS servers for corporate networks
+        /// Maximum 4 servers can be specified.
         /// </summary>
         [Output("dhcpDns")]
         public Output<ImmutableArray<string>> DhcpDns { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether DHCP is enabled or not on this network.
+        /// Controls whether DHCP server is enabled for this network. When enabled:
+        /// * The network will automatically assign IP addresses to clients
+        /// * DHCP options (DNS, lease time) will be provided to clients
+        /// * Static IP assignments can still be made outside the DHCP range
         /// </summary>
         [Output("dhcpEnabled")]
         public Output<bool?> DhcpEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
+        /// The DHCP lease time in seconds. Common values:
+        /// * 86400 (1 day) - Default, suitable for most networks
+        /// * 3600 (1 hour) - For testing or temporary networks
+        /// * 604800 (1 week) - For stable networks with static clients
+        /// * 2592000 (30 days) - For very stable networks
         /// </summary>
         [Output("dhcpLease")]
         public Output<int?> DhcpLease { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether DHCP relay is enabled or not on this network.
+        /// Enables DHCP relay for this network. When enabled:
+        /// * DHCP requests are forwarded to an external DHCP server
+        /// * Local DHCP server is disabled
+        /// * Useful for centralized DHCP management
         /// </summary>
         [Output("dhcpRelayEnabled")]
         public Output<bool?> DhcpRelayEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv4 address where the DHCP range of addresses starts.
+        /// The starting IPv4 address of the DHCP range. Examples:
+        /// * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+        /// * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+        /// Ensure this address is within the network's subnet.
         /// </summary>
         [Output("dhcpStart")]
         public Output<string?> DhcpStart { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv4 address where the DHCP range of addresses stops.
+        /// The ending IPv4 address of the DHCP range. Examples:
+        /// * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+        /// * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+        /// Must be greater than DhcpStart and within the network's subnet.
         /// </summary>
         [Output("dhcpStop")]
         public Output<string?> DhcpStop { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `DhcpV6DnsAuto` is set to `False`.
+        /// List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+        /// * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+        /// * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+        /// Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
         /// </summary>
         [Output("dhcpV6Dns")]
         public Output<ImmutableArray<string>> DhcpV6Dns { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies DNS source to propagate. If set `False` the entries in `DhcpV6Dns` are used, the upstream entries otherwise Defaults to `True`.
+        /// Controls DNS server source for DHCPv6 clients:
+        /// * true - Use upstream DNS servers (recommended)
+        /// * false - Use manually specified servers from DhcpV6Dns
+        /// Default is true for easier management.
         /// </summary>
         [Output("dhcpV6DnsAuto")]
         public Output<bool?> DhcpV6DnsAuto { get; private set; } = null!;
 
         /// <summary>
-        /// Enable stateful DHCPv6 for static configuration.
+        /// Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+        /// * Provides IPv6 addresses to clients
+        /// * Works alongside SLAAC if configured
+        /// * Allows for more controlled IPv6 addressing
         /// </summary>
         [Output("dhcpV6Enabled")]
         public Output<bool?> DhcpV6Enabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        /// The DHCPv6 lease time in seconds. Common values:
+        /// * 86400 (1 day) - Default setting
+        /// * 3600 (1 hour) - For testing
+        /// * 604800 (1 week) - For stable networks
+        /// Typically longer than IPv4 DHCP leases.
         /// </summary>
         [Output("dhcpV6Lease")]
         public Output<int?> DhcpV6Lease { get; private set; } = null!;
 
         /// <summary>
-        /// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// Must be a valid IPv6 address within your allocated IPv6 subnet.
         /// </summary>
         [Output("dhcpV6Start")]
         public Output<string?> DhcpV6Start { get; private set; } = null!;
 
         /// <summary>
-        /// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// Must be after DhcpV6Start in the IPv6 address space.
         /// </summary>
         [Output("dhcpV6Stop")]
         public Output<string?> DhcpV6Stop { get; private set; } = null!;
 
         /// <summary>
-        /// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
+        /// Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+        /// * Allows network devices to boot from a TFTP server
+        /// * Requires DhcpdBootServer and DhcpdBootFilename to be set
+        /// * Commonly used for diskless workstations or network installations
         /// </summary>
         [Output("dhcpdBootEnabled")]
         public Output<bool?> DhcpdBootEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the file to PXE boot from on the dhcpd*boot*server.
+        /// The boot filename to be loaded from the TFTP server. Examples:
+        /// * 'pxelinux.0' - Standard PXE boot loader
+        /// * 'undionly.kpxe' - iPXE boot loader
+        /// * Custom paths for specific boot images
         /// </summary>
         [Output("dhcpdBootFilename")]
         public Output<string?> DhcpdBootFilename { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the IPv4 address of a TFTP server to network boot from.
+        /// The IPv4 address of the TFTP server for network boot. This setting:
+        /// * Is required when DhcpdBootEnabled is true
+        /// * Should be a reliable, always-on server
+        /// * Must be accessible to all clients that need to boot
         /// </summary>
         [Output("dhcpdBootServer")]
         public Output<string?> DhcpdBootServer { get; private set; } = null!;
 
         /// <summary>
-        /// The domain name of this network.
+        /// The domain name for this network. Examples:
+        /// * 'corp.example.com' - For corporate networks
+        /// * 'guest.example.com' - For guest networks
+        /// * 'iot.example.com' - For IoT networks
+        /// Used for internal DNS resolution and DHCP options.
         /// </summary>
         [Output("domainName")]
         public Output<string?> DomainName { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether IGMP snooping is enabled or not.
+        /// Controls whether this network is active. When disabled:
+        /// * Network will not be available to clients
+        /// * DHCP services will be stopped
+        /// * Existing clients will be disconnected
+        /// Useful for temporary network maintenance or security measures.
+        /// </summary>
+        [Output("enabled")]
+        public Output<bool?> Enabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+        /// * Optimizes multicast traffic flow
+        /// * Reduces network congestion
+        /// * Improves performance for multicast applications (e.g., IPTV)
+        /// Recommended for networks with multicast traffic.
         /// </summary>
         [Output("igmpSnooping")]
         public Output<bool?> IgmpSnooping { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether this network should be allowed to access the internet or not. Defaults to `True`.
+        /// Controls internet access for this network. When disabled:
+        /// * Clients cannot access external networks
+        /// * Internal network access remains available
+        /// * Useful for creating isolated or secure networks
         /// </summary>
         [Output("internetAccessEnabled")]
         public Output<bool?> InternetAccessEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether this network should be allowed to access other local networks or not. Defaults to `True`.
-        /// </summary>
-        [Output("intraNetworkAccessEnabled")]
-        public Output<bool?> IntraNetworkAccessEnabled { get; private set; } = null!;
-
-        /// <summary>
-        /// Specifies which type of IPv6 connection to use. Must be one of either `Static`, `Pd`, or `None`. Defaults to `None`.
+        /// Specifies the IPv6 connection type. Must be one of:
+        /// * `None` - IPv6 disabled (default)
+        /// * `Static` - Static IPv6 addressing
+        /// * `Pd` - Prefix Delegation from upstream
+        /// 
+        /// Choose based on your IPv6 deployment strategy and ISP capabilities.
         /// </summary>
         [Output("ipv6InterfaceType")]
         public Output<string?> Ipv6InterfaceType { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `Wan` or `Wan2`.
+        /// The WAN interface to use for IPv6 Prefix Delegation. Options:
+        /// * `Wan` - Primary WAN interface
+        /// * `Wan2` - Secondary WAN interface
+        /// Only applicable when `Ipv6InterfaceType` is 'pd'.
         /// </summary>
         [Output("ipv6PdInterface")]
         public Output<string?> Ipv6PdInterface { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the IPv6 Prefix ID.
+        /// The IPv6 Prefix ID for Prefix Delegation. Used to:
+        /// * Differentiate multiple delegated prefixes
+        /// * Create unique subnets from the delegated prefix
+        /// Typically a hexadecimal value (e.g., '0', '1', 'a1').
         /// </summary>
         [Output("ipv6PdPrefixid")]
         public Output<string?> Ipv6PdPrefixid { get; private set; } = null!;
 
         /// <summary>
-        /// Start address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
+        /// The starting IPv6 address for Prefix Delegation range.
+        /// Only used when `Ipv6InterfaceType` is 'pd'.
+        /// Must be within the delegated prefix range.
         /// </summary>
         [Output("ipv6PdStart")]
         public Output<string?> Ipv6PdStart { get; private set; } = null!;
 
         /// <summary>
-        /// End address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
+        /// The ending IPv6 address for Prefix Delegation range.
+        /// Only used when `Ipv6InterfaceType` is 'pd'.
+        /// Must be after `Ipv6PdStart` within the delegated prefix.
         /// </summary>
         [Output("ipv6PdStop")]
         public Output<string?> Ipv6PdStop { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to enable router advertisements or not.
+        /// Enables IPv6 Router Advertisements (RA). When enabled:
+        /// * Announces IPv6 prefix information to clients
+        /// * Enables SLAAC address configuration
+        /// * Required for most IPv6 deployments
         /// </summary>
         [Output("ipv6RaEnable")]
         public Output<bool?> Ipv6RaEnable { get; private set; } = null!;
 
         /// <summary>
-        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `Ipv6RaValidLifetime` Defaults to `14400`.
+        /// The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        /// * Must be less than or equal to `Ipv6RaValidLifetime`
+        /// * Default: 14400 (4 hours)
+        /// * After this time, addresses become deprecated but still usable
         /// </summary>
         [Output("ipv6RaPreferredLifetime")]
         public Output<int?> Ipv6RaPreferredLifetime { get; private set; } = null!;
 
         /// <summary>
-        /// IPv6 router advertisement priority. Must be one of either `High`, `Medium`, or `Low`
+        /// Sets the priority for IPv6 Router Advertisements. Options:
+        /// * `High` - Preferred for primary networks
+        /// * `Medium` - Standard priority
+        /// * `Low` - For backup or secondary networks
+        /// Affects router selection when multiple IPv6 routers exist.
         /// </summary>
         [Output("ipv6RaPriority")]
         public Output<string?> Ipv6RaPriority { get; private set; } = null!;
 
         /// <summary>
-        /// Total lifetime in which the address can be used. Must be equal to or greater than `Ipv6RaPreferredLifetime`. Defaults to `86400`.
+        /// The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        /// * Must be greater than or equal to `Ipv6RaPreferredLifetime`
+        /// * Default: 86400 (24 hours)
+        /// * After this time, addresses become invalid
         /// </summary>
         [Output("ipv6RaValidLifetime")]
         public Output<int?> Ipv6RaValidLifetime { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the static IPv6 subnet when `Ipv6InterfaceType` is 'static'.
+        /// The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+        /// Only applicable when `Ipv6InterfaceType` is 'static'.
+        /// Must be a valid IPv6 subnet allocated to your organization.
         /// </summary>
         [Output("ipv6StaticSubnet")]
         public Output<string?> Ipv6StaticSubnet { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+        /// Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+        /// * Allows device discovery (e.g., printers, Chromecasts)
+        /// * Supports zero-configuration networking
+        /// * Available on Controller version 7 and later
         /// </summary>
         [Output("multicastDns")]
         public Output<bool?> MulticastDns { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the network.
+        /// The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The group of the network. Defaults to `LAN`.
+        /// The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
         /// </summary>
         [Output("networkGroup")]
         public Output<string?> NetworkGroup { get; private set; } = null!;
 
         /// <summary>
-        /// The purpose of the network. Must be one of `Corporate`, `Guest`, `Wan`, or `vlan-only`.
+        /// Enables network isolation. When enabled:
+        /// * Prevents communication between clients on this network
+        /// * Each client can only communicate with the gateway
+        /// * Commonly used for guest networks or IoT devices
+        /// </summary>
+        [Output("networkIsolationEnabled")]
+        public Output<bool?> NetworkIsolationEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// The purpose/type of the network. Must be one of:
+        /// * `Corporate` - Standard network for corporate use with full access
+        /// * `Guest` - Isolated network for guest access with limited permissions
+        /// * `Wan` - External network connection (WAN uplink)
+        /// * `vlan-only` - VLAN network without DHCP services
         /// </summary>
         [Output("purpose")]
         public Output<string> Purpose { get; private set; } = null!;
@@ -279,97 +396,138 @@ namespace Pulumiverse.Unifi
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// The subnet of the network. Must be a valid CIDR address.
+        /// The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
         /// </summary>
         [Output("subnet")]
         public Output<string?> Subnet { get; private set; } = null!;
 
         /// <summary>
-        /// The VLAN ID of the network.
+        /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
+        /// * 1-4094: Standard VLAN range for network segmentation
+        /// * 0: Untagged/native VLAN
+        /// * &gt;4094: Reserved for special purposes
         /// </summary>
         [Output("vlanId")]
         public Output<int?> VlanId { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// Only applicable when `WanTypeV6` is 'dhcpv6'.
         /// </summary>
         [Output("wanDhcpV6PdSize")]
         public Output<int?> WanDhcpV6PdSize { get; private set; } = null!;
 
         /// <summary>
-        /// DNS servers IPs of the WAN.
+        /// List of IPv4 DNS servers for WAN interface. Examples:
+        /// * ISP provided DNS servers
+        /// * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+        /// * Maximum 4 servers can be specified
         /// </summary>
         [Output("wanDns")]
         public Output<ImmutableArray<string>> WanDns { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the WAN egress quality of service. Defaults to `0`.
+        /// Quality of Service (QoS) priority for WAN egress traffic (0-7).
+        /// * 0 (default) - Best effort
+        /// * 1-4 - Increasing priority
+        /// * 5-7 - Highest priority, use sparingly
+        /// Higher values get preferential treatment.
         /// </summary>
         [Output("wanEgressQos")]
         public Output<int?> WanEgressQos { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv4 gateway of the WAN.
+        /// The IPv4 gateway address for WAN interface.
+        /// Required when `WanType` is 'static'.
+        /// Typically the ISP's router IP address.
         /// </summary>
         [Output("wanGateway")]
         public Output<string?> WanGateway { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv6 gateway of the WAN.
+        /// The IPv6 gateway address for WAN interface.
+        /// Required when `WanTypeV6` is 'static'.
+        /// Typically the ISP's router IPv6 address.
         /// </summary>
         [Output("wanGatewayV6")]
         public Output<string?> WanGatewayV6 { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv4 address of the WAN.
+        /// The static IPv4 address for WAN interface.
+        /// Required when `WanType` is 'static'.
+        /// Must be a valid public IP address assigned by your ISP.
         /// </summary>
         [Output("wanIp")]
         public Output<string?> WanIp { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv6 address of the WAN.
+        /// The static IPv6 address for WAN interface.
+        /// Required when `WanTypeV6` is 'static'.
+        /// Must be a valid public IPv6 address assigned by your ISP.
         /// </summary>
         [Output("wanIpv6")]
         public Output<string?> WanIpv6 { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv4 netmask of the WAN.
+        /// The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+        /// Required when `WanType` is 'static'.
+        /// Must match the subnet mask provided by your ISP.
         /// </summary>
         [Output("wanNetmask")]
         public Output<string?> WanNetmask { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
+        /// The WAN interface group assignment. Options:
+        /// * `WAN` - Primary WAN interface
+        /// * `WAN2` - Secondary WAN interface
+        /// * `WAN_LTE_FAILOVER` - LTE backup connection
+        /// Used for dual WAN and failover configurations.
         /// </summary>
         [Output("wanNetworkgroup")]
         public Output<string?> WanNetworkgroup { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        /// The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+        /// Only applicable when `WanTypeV6` is 'static'.
         /// </summary>
         [Output("wanPrefixlen")]
         public Output<int?> WanPrefixlen { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the IPV4 WAN connection type. Must be one of either `Disabled`, `Static`, `Dhcp`, or `Pppoe`.
+        /// The IPv4 WAN connection type. Options:
+        /// * `Disabled` - WAN interface disabled
+        /// * `Static` - Static IP configuration
+        /// * `Dhcp` - Dynamic IP from ISP
+        /// * `Pppoe` - PPPoE connection (common for DSL)
+        /// Choose based on your ISP's requirements.
         /// </summary>
         [Output("wanType")]
         public Output<string?> WanType { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the IPV6 WAN connection type. Must be one of either `Disabled`, `Static`, or `Dhcpv6`.
+        /// The IPv6 WAN connection type. Options:
+        /// * `Disabled` - IPv6 disabled
+        /// * `Static` - Static IPv6 configuration
+        /// * `Dhcpv6` - Dynamic IPv6 from ISP
+        /// Choose based on your ISP's requirements.
         /// </summary>
         [Output("wanTypeV6")]
         public Output<string?> WanTypeV6 { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the IPV4 WAN username.
+        /// Username for WAN authentication.
+        /// * Required for PPPoE connections
+        /// * May be needed for some ISP configurations
+        /// * Cannot contain spaces or special characters
         /// </summary>
         [Output("wanUsername")]
         public Output<string?> WanUsername { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the IPV4 WAN password.
+        /// Password for WAN authentication.
+        /// * Required for PPPoE connections
+        /// * May be needed for some ISP configurations
+        /// * Must be kept secret
         /// </summary>
         [Output("xWanPassword")]
         public Output<string?> XWanPassword { get; private set; } = null!;
@@ -425,7 +583,11 @@ namespace Pulumiverse.Unifi
         private InputList<string>? _dhcpDns;
 
         /// <summary>
-        /// Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
+        /// List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+        /// * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+        /// * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+        /// * Use internal DNS servers for corporate networks
+        /// Maximum 4 servers can be specified.
         /// </summary>
         public InputList<string> DhcpDns
         {
@@ -434,31 +596,47 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies whether DHCP is enabled or not on this network.
+        /// Controls whether DHCP server is enabled for this network. When enabled:
+        /// * The network will automatically assign IP addresses to clients
+        /// * DHCP options (DNS, lease time) will be provided to clients
+        /// * Static IP assignments can still be made outside the DHCP range
         /// </summary>
         [Input("dhcpEnabled")]
         public Input<bool>? DhcpEnabled { get; set; }
 
         /// <summary>
-        /// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
+        /// The DHCP lease time in seconds. Common values:
+        /// * 86400 (1 day) - Default, suitable for most networks
+        /// * 3600 (1 hour) - For testing or temporary networks
+        /// * 604800 (1 week) - For stable networks with static clients
+        /// * 2592000 (30 days) - For very stable networks
         /// </summary>
         [Input("dhcpLease")]
         public Input<int>? DhcpLease { get; set; }
 
         /// <summary>
-        /// Specifies whether DHCP relay is enabled or not on this network.
+        /// Enables DHCP relay for this network. When enabled:
+        /// * DHCP requests are forwarded to an external DHCP server
+        /// * Local DHCP server is disabled
+        /// * Useful for centralized DHCP management
         /// </summary>
         [Input("dhcpRelayEnabled")]
         public Input<bool>? DhcpRelayEnabled { get; set; }
 
         /// <summary>
-        /// The IPv4 address where the DHCP range of addresses starts.
+        /// The starting IPv4 address of the DHCP range. Examples:
+        /// * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+        /// * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+        /// Ensure this address is within the network's subnet.
         /// </summary>
         [Input("dhcpStart")]
         public Input<string>? DhcpStart { get; set; }
 
         /// <summary>
-        /// The IPv4 address where the DHCP range of addresses stops.
+        /// The ending IPv4 address of the DHCP range. Examples:
+        /// * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+        /// * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+        /// Must be greater than DhcpStart and within the network's subnet.
         /// </summary>
         [Input("dhcpStop")]
         public Input<string>? DhcpStop { get; set; }
@@ -467,7 +645,10 @@ namespace Pulumiverse.Unifi
         private InputList<string>? _dhcpV6Dns;
 
         /// <summary>
-        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `DhcpV6DnsAuto` is set to `False`.
+        /// List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+        /// * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+        /// * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+        /// Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
         /// </summary>
         public InputList<string> DhcpV6Dns
         {
@@ -476,157 +657,239 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies DNS source to propagate. If set `False` the entries in `DhcpV6Dns` are used, the upstream entries otherwise Defaults to `True`.
+        /// Controls DNS server source for DHCPv6 clients:
+        /// * true - Use upstream DNS servers (recommended)
+        /// * false - Use manually specified servers from DhcpV6Dns
+        /// Default is true for easier management.
         /// </summary>
         [Input("dhcpV6DnsAuto")]
         public Input<bool>? DhcpV6DnsAuto { get; set; }
 
         /// <summary>
-        /// Enable stateful DHCPv6 for static configuration.
+        /// Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+        /// * Provides IPv6 addresses to clients
+        /// * Works alongside SLAAC if configured
+        /// * Allows for more controlled IPv6 addressing
         /// </summary>
         [Input("dhcpV6Enabled")]
         public Input<bool>? DhcpV6Enabled { get; set; }
 
         /// <summary>
-        /// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        /// The DHCPv6 lease time in seconds. Common values:
+        /// * 86400 (1 day) - Default setting
+        /// * 3600 (1 hour) - For testing
+        /// * 604800 (1 week) - For stable networks
+        /// Typically longer than IPv4 DHCP leases.
         /// </summary>
         [Input("dhcpV6Lease")]
         public Input<int>? DhcpV6Lease { get; set; }
 
         /// <summary>
-        /// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// Must be a valid IPv6 address within your allocated IPv6 subnet.
         /// </summary>
         [Input("dhcpV6Start")]
         public Input<string>? DhcpV6Start { get; set; }
 
         /// <summary>
-        /// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// Must be after DhcpV6Start in the IPv6 address space.
         /// </summary>
         [Input("dhcpV6Stop")]
         public Input<string>? DhcpV6Stop { get; set; }
 
         /// <summary>
-        /// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
+        /// Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+        /// * Allows network devices to boot from a TFTP server
+        /// * Requires DhcpdBootServer and DhcpdBootFilename to be set
+        /// * Commonly used for diskless workstations or network installations
         /// </summary>
         [Input("dhcpdBootEnabled")]
         public Input<bool>? DhcpdBootEnabled { get; set; }
 
         /// <summary>
-        /// Specifies the file to PXE boot from on the dhcpd*boot*server.
+        /// The boot filename to be loaded from the TFTP server. Examples:
+        /// * 'pxelinux.0' - Standard PXE boot loader
+        /// * 'undionly.kpxe' - iPXE boot loader
+        /// * Custom paths for specific boot images
         /// </summary>
         [Input("dhcpdBootFilename")]
         public Input<string>? DhcpdBootFilename { get; set; }
 
         /// <summary>
-        /// Specifies the IPv4 address of a TFTP server to network boot from.
+        /// The IPv4 address of the TFTP server for network boot. This setting:
+        /// * Is required when DhcpdBootEnabled is true
+        /// * Should be a reliable, always-on server
+        /// * Must be accessible to all clients that need to boot
         /// </summary>
         [Input("dhcpdBootServer")]
         public Input<string>? DhcpdBootServer { get; set; }
 
         /// <summary>
-        /// The domain name of this network.
+        /// The domain name for this network. Examples:
+        /// * 'corp.example.com' - For corporate networks
+        /// * 'guest.example.com' - For guest networks
+        /// * 'iot.example.com' - For IoT networks
+        /// Used for internal DNS resolution and DHCP options.
         /// </summary>
         [Input("domainName")]
         public Input<string>? DomainName { get; set; }
 
         /// <summary>
-        /// Specifies whether IGMP snooping is enabled or not.
+        /// Controls whether this network is active. When disabled:
+        /// * Network will not be available to clients
+        /// * DHCP services will be stopped
+        /// * Existing clients will be disconnected
+        /// Useful for temporary network maintenance or security measures.
+        /// </summary>
+        [Input("enabled")]
+        public Input<bool>? Enabled { get; set; }
+
+        /// <summary>
+        /// Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+        /// * Optimizes multicast traffic flow
+        /// * Reduces network congestion
+        /// * Improves performance for multicast applications (e.g., IPTV)
+        /// Recommended for networks with multicast traffic.
         /// </summary>
         [Input("igmpSnooping")]
         public Input<bool>? IgmpSnooping { get; set; }
 
         /// <summary>
-        /// Specifies whether this network should be allowed to access the internet or not. Defaults to `True`.
+        /// Controls internet access for this network. When disabled:
+        /// * Clients cannot access external networks
+        /// * Internal network access remains available
+        /// * Useful for creating isolated or secure networks
         /// </summary>
         [Input("internetAccessEnabled")]
         public Input<bool>? InternetAccessEnabled { get; set; }
 
         /// <summary>
-        /// Specifies whether this network should be allowed to access other local networks or not. Defaults to `True`.
-        /// </summary>
-        [Input("intraNetworkAccessEnabled")]
-        public Input<bool>? IntraNetworkAccessEnabled { get; set; }
-
-        /// <summary>
-        /// Specifies which type of IPv6 connection to use. Must be one of either `Static`, `Pd`, or `None`. Defaults to `None`.
+        /// Specifies the IPv6 connection type. Must be one of:
+        /// * `None` - IPv6 disabled (default)
+        /// * `Static` - Static IPv6 addressing
+        /// * `Pd` - Prefix Delegation from upstream
+        /// 
+        /// Choose based on your IPv6 deployment strategy and ISP capabilities.
         /// </summary>
         [Input("ipv6InterfaceType")]
         public Input<string>? Ipv6InterfaceType { get; set; }
 
         /// <summary>
-        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `Wan` or `Wan2`.
+        /// The WAN interface to use for IPv6 Prefix Delegation. Options:
+        /// * `Wan` - Primary WAN interface
+        /// * `Wan2` - Secondary WAN interface
+        /// Only applicable when `Ipv6InterfaceType` is 'pd'.
         /// </summary>
         [Input("ipv6PdInterface")]
         public Input<string>? Ipv6PdInterface { get; set; }
 
         /// <summary>
-        /// Specifies the IPv6 Prefix ID.
+        /// The IPv6 Prefix ID for Prefix Delegation. Used to:
+        /// * Differentiate multiple delegated prefixes
+        /// * Create unique subnets from the delegated prefix
+        /// Typically a hexadecimal value (e.g., '0', '1', 'a1').
         /// </summary>
         [Input("ipv6PdPrefixid")]
         public Input<string>? Ipv6PdPrefixid { get; set; }
 
         /// <summary>
-        /// Start address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
+        /// The starting IPv6 address for Prefix Delegation range.
+        /// Only used when `Ipv6InterfaceType` is 'pd'.
+        /// Must be within the delegated prefix range.
         /// </summary>
         [Input("ipv6PdStart")]
         public Input<string>? Ipv6PdStart { get; set; }
 
         /// <summary>
-        /// End address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
+        /// The ending IPv6 address for Prefix Delegation range.
+        /// Only used when `Ipv6InterfaceType` is 'pd'.
+        /// Must be after `Ipv6PdStart` within the delegated prefix.
         /// </summary>
         [Input("ipv6PdStop")]
         public Input<string>? Ipv6PdStop { get; set; }
 
         /// <summary>
-        /// Specifies whether to enable router advertisements or not.
+        /// Enables IPv6 Router Advertisements (RA). When enabled:
+        /// * Announces IPv6 prefix information to clients
+        /// * Enables SLAAC address configuration
+        /// * Required for most IPv6 deployments
         /// </summary>
         [Input("ipv6RaEnable")]
         public Input<bool>? Ipv6RaEnable { get; set; }
 
         /// <summary>
-        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `Ipv6RaValidLifetime` Defaults to `14400`.
+        /// The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        /// * Must be less than or equal to `Ipv6RaValidLifetime`
+        /// * Default: 14400 (4 hours)
+        /// * After this time, addresses become deprecated but still usable
         /// </summary>
         [Input("ipv6RaPreferredLifetime")]
         public Input<int>? Ipv6RaPreferredLifetime { get; set; }
 
         /// <summary>
-        /// IPv6 router advertisement priority. Must be one of either `High`, `Medium`, or `Low`
+        /// Sets the priority for IPv6 Router Advertisements. Options:
+        /// * `High` - Preferred for primary networks
+        /// * `Medium` - Standard priority
+        /// * `Low` - For backup or secondary networks
+        /// Affects router selection when multiple IPv6 routers exist.
         /// </summary>
         [Input("ipv6RaPriority")]
         public Input<string>? Ipv6RaPriority { get; set; }
 
         /// <summary>
-        /// Total lifetime in which the address can be used. Must be equal to or greater than `Ipv6RaPreferredLifetime`. Defaults to `86400`.
+        /// The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        /// * Must be greater than or equal to `Ipv6RaPreferredLifetime`
+        /// * Default: 86400 (24 hours)
+        /// * After this time, addresses become invalid
         /// </summary>
         [Input("ipv6RaValidLifetime")]
         public Input<int>? Ipv6RaValidLifetime { get; set; }
 
         /// <summary>
-        /// Specifies the static IPv6 subnet when `Ipv6InterfaceType` is 'static'.
+        /// The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+        /// Only applicable when `Ipv6InterfaceType` is 'static'.
+        /// Must be a valid IPv6 subnet allocated to your organization.
         /// </summary>
         [Input("ipv6StaticSubnet")]
         public Input<string>? Ipv6StaticSubnet { get; set; }
 
         /// <summary>
-        /// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+        /// Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+        /// * Allows device discovery (e.g., printers, Chromecasts)
+        /// * Supports zero-configuration networking
+        /// * Available on Controller version 7 and later
         /// </summary>
         [Input("multicastDns")]
         public Input<bool>? MulticastDns { get; set; }
 
         /// <summary>
-        /// The name of the network.
+        /// The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The group of the network. Defaults to `LAN`.
+        /// The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
         /// </summary>
         [Input("networkGroup")]
         public Input<string>? NetworkGroup { get; set; }
 
         /// <summary>
-        /// The purpose of the network. Must be one of `Corporate`, `Guest`, `Wan`, or `vlan-only`.
+        /// Enables network isolation. When enabled:
+        /// * Prevents communication between clients on this network
+        /// * Each client can only communicate with the gateway
+        /// * Commonly used for guest networks or IoT devices
+        /// </summary>
+        [Input("networkIsolationEnabled")]
+        public Input<bool>? NetworkIsolationEnabled { get; set; }
+
+        /// <summary>
+        /// The purpose/type of the network. Must be one of:
+        /// * `Corporate` - Standard network for corporate use with full access
+        /// * `Guest` - Isolated network for guest access with limited permissions
+        /// * `Wan` - External network connection (WAN uplink)
+        /// * `vlan-only` - VLAN network without DHCP services
         /// </summary>
         [Input("purpose", required: true)]
         public Input<string> Purpose { get; set; } = null!;
@@ -638,19 +901,23 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The subnet of the network. Must be a valid CIDR address.
+        /// The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
         /// </summary>
         [Input("subnet")]
         public Input<string>? Subnet { get; set; }
 
         /// <summary>
-        /// The VLAN ID of the network.
+        /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
+        /// * 1-4094: Standard VLAN range for network segmentation
+        /// * 0: Untagged/native VLAN
+        /// * &gt;4094: Reserved for special purposes
         /// </summary>
         [Input("vlanId")]
         public Input<int>? VlanId { get; set; }
 
         /// <summary>
-        /// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// Only applicable when `WanTypeV6` is 'dhcpv6'.
         /// </summary>
         [Input("wanDhcpV6PdSize")]
         public Input<int>? WanDhcpV6PdSize { get; set; }
@@ -659,7 +926,10 @@ namespace Pulumiverse.Unifi
         private InputList<string>? _wanDns;
 
         /// <summary>
-        /// DNS servers IPs of the WAN.
+        /// List of IPv4 DNS servers for WAN interface. Examples:
+        /// * ISP provided DNS servers
+        /// * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+        /// * Maximum 4 servers can be specified
         /// </summary>
         public InputList<string> WanDns
         {
@@ -668,73 +938,107 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies the WAN egress quality of service. Defaults to `0`.
+        /// Quality of Service (QoS) priority for WAN egress traffic (0-7).
+        /// * 0 (default) - Best effort
+        /// * 1-4 - Increasing priority
+        /// * 5-7 - Highest priority, use sparingly
+        /// Higher values get preferential treatment.
         /// </summary>
         [Input("wanEgressQos")]
         public Input<int>? WanEgressQos { get; set; }
 
         /// <summary>
-        /// The IPv4 gateway of the WAN.
+        /// The IPv4 gateway address for WAN interface.
+        /// Required when `WanType` is 'static'.
+        /// Typically the ISP's router IP address.
         /// </summary>
         [Input("wanGateway")]
         public Input<string>? WanGateway { get; set; }
 
         /// <summary>
-        /// The IPv6 gateway of the WAN.
+        /// The IPv6 gateway address for WAN interface.
+        /// Required when `WanTypeV6` is 'static'.
+        /// Typically the ISP's router IPv6 address.
         /// </summary>
         [Input("wanGatewayV6")]
         public Input<string>? WanGatewayV6 { get; set; }
 
         /// <summary>
-        /// The IPv4 address of the WAN.
+        /// The static IPv4 address for WAN interface.
+        /// Required when `WanType` is 'static'.
+        /// Must be a valid public IP address assigned by your ISP.
         /// </summary>
         [Input("wanIp")]
         public Input<string>? WanIp { get; set; }
 
         /// <summary>
-        /// The IPv6 address of the WAN.
+        /// The static IPv6 address for WAN interface.
+        /// Required when `WanTypeV6` is 'static'.
+        /// Must be a valid public IPv6 address assigned by your ISP.
         /// </summary>
         [Input("wanIpv6")]
         public Input<string>? WanIpv6 { get; set; }
 
         /// <summary>
-        /// The IPv4 netmask of the WAN.
+        /// The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+        /// Required when `WanType` is 'static'.
+        /// Must match the subnet mask provided by your ISP.
         /// </summary>
         [Input("wanNetmask")]
         public Input<string>? WanNetmask { get; set; }
 
         /// <summary>
-        /// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
+        /// The WAN interface group assignment. Options:
+        /// * `WAN` - Primary WAN interface
+        /// * `WAN2` - Secondary WAN interface
+        /// * `WAN_LTE_FAILOVER` - LTE backup connection
+        /// Used for dual WAN and failover configurations.
         /// </summary>
         [Input("wanNetworkgroup")]
         public Input<string>? WanNetworkgroup { get; set; }
 
         /// <summary>
-        /// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        /// The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+        /// Only applicable when `WanTypeV6` is 'static'.
         /// </summary>
         [Input("wanPrefixlen")]
         public Input<int>? WanPrefixlen { get; set; }
 
         /// <summary>
-        /// Specifies the IPV4 WAN connection type. Must be one of either `Disabled`, `Static`, `Dhcp`, or `Pppoe`.
+        /// The IPv4 WAN connection type. Options:
+        /// * `Disabled` - WAN interface disabled
+        /// * `Static` - Static IP configuration
+        /// * `Dhcp` - Dynamic IP from ISP
+        /// * `Pppoe` - PPPoE connection (common for DSL)
+        /// Choose based on your ISP's requirements.
         /// </summary>
         [Input("wanType")]
         public Input<string>? WanType { get; set; }
 
         /// <summary>
-        /// Specifies the IPV6 WAN connection type. Must be one of either `Disabled`, `Static`, or `Dhcpv6`.
+        /// The IPv6 WAN connection type. Options:
+        /// * `Disabled` - IPv6 disabled
+        /// * `Static` - Static IPv6 configuration
+        /// * `Dhcpv6` - Dynamic IPv6 from ISP
+        /// Choose based on your ISP's requirements.
         /// </summary>
         [Input("wanTypeV6")]
         public Input<string>? WanTypeV6 { get; set; }
 
         /// <summary>
-        /// Specifies the IPV4 WAN username.
+        /// Username for WAN authentication.
+        /// * Required for PPPoE connections
+        /// * May be needed for some ISP configurations
+        /// * Cannot contain spaces or special characters
         /// </summary>
         [Input("wanUsername")]
         public Input<string>? WanUsername { get; set; }
 
         /// <summary>
-        /// Specifies the IPV4 WAN password.
+        /// Password for WAN authentication.
+        /// * Required for PPPoE connections
+        /// * May be needed for some ISP configurations
+        /// * Must be kept secret
         /// </summary>
         [Input("xWanPassword")]
         public Input<string>? XWanPassword { get; set; }
@@ -751,7 +1055,11 @@ namespace Pulumiverse.Unifi
         private InputList<string>? _dhcpDns;
 
         /// <summary>
-        /// Specifies the IPv4 addresses for the DNS server to be returned from the DHCP server. Leave blank to disable this feature.
+        /// List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
+        /// * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
+        /// * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
+        /// * Use internal DNS servers for corporate networks
+        /// Maximum 4 servers can be specified.
         /// </summary>
         public InputList<string> DhcpDns
         {
@@ -760,31 +1068,47 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies whether DHCP is enabled or not on this network.
+        /// Controls whether DHCP server is enabled for this network. When enabled:
+        /// * The network will automatically assign IP addresses to clients
+        /// * DHCP options (DNS, lease time) will be provided to clients
+        /// * Static IP assignments can still be made outside the DHCP range
         /// </summary>
         [Input("dhcpEnabled")]
         public Input<bool>? DhcpEnabled { get; set; }
 
         /// <summary>
-        /// Specifies the lease time for DHCP addresses in seconds. Defaults to `86400`.
+        /// The DHCP lease time in seconds. Common values:
+        /// * 86400 (1 day) - Default, suitable for most networks
+        /// * 3600 (1 hour) - For testing or temporary networks
+        /// * 604800 (1 week) - For stable networks with static clients
+        /// * 2592000 (30 days) - For very stable networks
         /// </summary>
         [Input("dhcpLease")]
         public Input<int>? DhcpLease { get; set; }
 
         /// <summary>
-        /// Specifies whether DHCP relay is enabled or not on this network.
+        /// Enables DHCP relay for this network. When enabled:
+        /// * DHCP requests are forwarded to an external DHCP server
+        /// * Local DHCP server is disabled
+        /// * Useful for centralized DHCP management
         /// </summary>
         [Input("dhcpRelayEnabled")]
         public Input<bool>? DhcpRelayEnabled { get; set; }
 
         /// <summary>
-        /// The IPv4 address where the DHCP range of addresses starts.
+        /// The starting IPv4 address of the DHCP range. Examples:
+        /// * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
+        /// * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
+        /// Ensure this address is within the network's subnet.
         /// </summary>
         [Input("dhcpStart")]
         public Input<string>? DhcpStart { get; set; }
 
         /// <summary>
-        /// The IPv4 address where the DHCP range of addresses stops.
+        /// The ending IPv4 address of the DHCP range. Examples:
+        /// * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
+        /// * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
+        /// Must be greater than DhcpStart and within the network's subnet.
         /// </summary>
         [Input("dhcpStop")]
         public Input<string>? DhcpStop { get; set; }
@@ -793,7 +1117,10 @@ namespace Pulumiverse.Unifi
         private InputList<string>? _dhcpV6Dns;
 
         /// <summary>
-        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `DhcpV6DnsAuto` is set to `False`.
+        /// List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
+        /// * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
+        /// * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
+        /// Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
         /// </summary>
         public InputList<string> DhcpV6Dns
         {
@@ -802,157 +1129,239 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies DNS source to propagate. If set `False` the entries in `DhcpV6Dns` are used, the upstream entries otherwise Defaults to `True`.
+        /// Controls DNS server source for DHCPv6 clients:
+        /// * true - Use upstream DNS servers (recommended)
+        /// * false - Use manually specified servers from DhcpV6Dns
+        /// Default is true for easier management.
         /// </summary>
         [Input("dhcpV6DnsAuto")]
         public Input<bool>? DhcpV6DnsAuto { get; set; }
 
         /// <summary>
-        /// Enable stateful DHCPv6 for static configuration.
+        /// Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
+        /// * Provides IPv6 addresses to clients
+        /// * Works alongside SLAAC if configured
+        /// * Allows for more controlled IPv6 addressing
         /// </summary>
         [Input("dhcpV6Enabled")]
         public Input<bool>? DhcpV6Enabled { get; set; }
 
         /// <summary>
-        /// Specifies the lease time for DHCPv6 addresses in seconds. Defaults to `86400`.
+        /// The DHCPv6 lease time in seconds. Common values:
+        /// * 86400 (1 day) - Default setting
+        /// * 3600 (1 hour) - For testing
+        /// * 604800 (1 week) - For stable networks
+        /// Typically longer than IPv4 DHCP leases.
         /// </summary>
         [Input("dhcpV6Lease")]
         public Input<int>? DhcpV6Lease { get; set; }
 
         /// <summary>
-        /// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// Must be a valid IPv6 address within your allocated IPv6 subnet.
         /// </summary>
         [Input("dhcpV6Start")]
         public Input<string>? DhcpV6Start { get; set; }
 
         /// <summary>
-        /// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
+        /// Must be after DhcpV6Start in the IPv6 address space.
         /// </summary>
         [Input("dhcpV6Stop")]
         public Input<string>? DhcpV6Stop { get; set; }
 
         /// <summary>
-        /// Toggles on the DHCP boot options. Should be set to true when you want to have dhcpd*boot*filename, and dhcpd*boot*server to take effect.
+        /// Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
+        /// * Allows network devices to boot from a TFTP server
+        /// * Requires DhcpdBootServer and DhcpdBootFilename to be set
+        /// * Commonly used for diskless workstations or network installations
         /// </summary>
         [Input("dhcpdBootEnabled")]
         public Input<bool>? DhcpdBootEnabled { get; set; }
 
         /// <summary>
-        /// Specifies the file to PXE boot from on the dhcpd*boot*server.
+        /// The boot filename to be loaded from the TFTP server. Examples:
+        /// * 'pxelinux.0' - Standard PXE boot loader
+        /// * 'undionly.kpxe' - iPXE boot loader
+        /// * Custom paths for specific boot images
         /// </summary>
         [Input("dhcpdBootFilename")]
         public Input<string>? DhcpdBootFilename { get; set; }
 
         /// <summary>
-        /// Specifies the IPv4 address of a TFTP server to network boot from.
+        /// The IPv4 address of the TFTP server for network boot. This setting:
+        /// * Is required when DhcpdBootEnabled is true
+        /// * Should be a reliable, always-on server
+        /// * Must be accessible to all clients that need to boot
         /// </summary>
         [Input("dhcpdBootServer")]
         public Input<string>? DhcpdBootServer { get; set; }
 
         /// <summary>
-        /// The domain name of this network.
+        /// The domain name for this network. Examples:
+        /// * 'corp.example.com' - For corporate networks
+        /// * 'guest.example.com' - For guest networks
+        /// * 'iot.example.com' - For IoT networks
+        /// Used for internal DNS resolution and DHCP options.
         /// </summary>
         [Input("domainName")]
         public Input<string>? DomainName { get; set; }
 
         /// <summary>
-        /// Specifies whether IGMP snooping is enabled or not.
+        /// Controls whether this network is active. When disabled:
+        /// * Network will not be available to clients
+        /// * DHCP services will be stopped
+        /// * Existing clients will be disconnected
+        /// Useful for temporary network maintenance or security measures.
+        /// </summary>
+        [Input("enabled")]
+        public Input<bool>? Enabled { get; set; }
+
+        /// <summary>
+        /// Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
+        /// * Optimizes multicast traffic flow
+        /// * Reduces network congestion
+        /// * Improves performance for multicast applications (e.g., IPTV)
+        /// Recommended for networks with multicast traffic.
         /// </summary>
         [Input("igmpSnooping")]
         public Input<bool>? IgmpSnooping { get; set; }
 
         /// <summary>
-        /// Specifies whether this network should be allowed to access the internet or not. Defaults to `True`.
+        /// Controls internet access for this network. When disabled:
+        /// * Clients cannot access external networks
+        /// * Internal network access remains available
+        /// * Useful for creating isolated or secure networks
         /// </summary>
         [Input("internetAccessEnabled")]
         public Input<bool>? InternetAccessEnabled { get; set; }
 
         /// <summary>
-        /// Specifies whether this network should be allowed to access other local networks or not. Defaults to `True`.
-        /// </summary>
-        [Input("intraNetworkAccessEnabled")]
-        public Input<bool>? IntraNetworkAccessEnabled { get; set; }
-
-        /// <summary>
-        /// Specifies which type of IPv6 connection to use. Must be one of either `Static`, `Pd`, or `None`. Defaults to `None`.
+        /// Specifies the IPv6 connection type. Must be one of:
+        /// * `None` - IPv6 disabled (default)
+        /// * `Static` - Static IPv6 addressing
+        /// * `Pd` - Prefix Delegation from upstream
+        /// 
+        /// Choose based on your IPv6 deployment strategy and ISP capabilities.
         /// </summary>
         [Input("ipv6InterfaceType")]
         public Input<string>? Ipv6InterfaceType { get; set; }
 
         /// <summary>
-        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `Wan` or `Wan2`.
+        /// The WAN interface to use for IPv6 Prefix Delegation. Options:
+        /// * `Wan` - Primary WAN interface
+        /// * `Wan2` - Secondary WAN interface
+        /// Only applicable when `Ipv6InterfaceType` is 'pd'.
         /// </summary>
         [Input("ipv6PdInterface")]
         public Input<string>? Ipv6PdInterface { get; set; }
 
         /// <summary>
-        /// Specifies the IPv6 Prefix ID.
+        /// The IPv6 Prefix ID for Prefix Delegation. Used to:
+        /// * Differentiate multiple delegated prefixes
+        /// * Create unique subnets from the delegated prefix
+        /// Typically a hexadecimal value (e.g., '0', '1', 'a1').
         /// </summary>
         [Input("ipv6PdPrefixid")]
         public Input<string>? Ipv6PdPrefixid { get; set; }
 
         /// <summary>
-        /// Start address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
+        /// The starting IPv6 address for Prefix Delegation range.
+        /// Only used when `Ipv6InterfaceType` is 'pd'.
+        /// Must be within the delegated prefix range.
         /// </summary>
         [Input("ipv6PdStart")]
         public Input<string>? Ipv6PdStart { get; set; }
 
         /// <summary>
-        /// End address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
+        /// The ending IPv6 address for Prefix Delegation range.
+        /// Only used when `Ipv6InterfaceType` is 'pd'.
+        /// Must be after `Ipv6PdStart` within the delegated prefix.
         /// </summary>
         [Input("ipv6PdStop")]
         public Input<string>? Ipv6PdStop { get; set; }
 
         /// <summary>
-        /// Specifies whether to enable router advertisements or not.
+        /// Enables IPv6 Router Advertisements (RA). When enabled:
+        /// * Announces IPv6 prefix information to clients
+        /// * Enables SLAAC address configuration
+        /// * Required for most IPv6 deployments
         /// </summary>
         [Input("ipv6RaEnable")]
         public Input<bool>? Ipv6RaEnable { get; set; }
 
         /// <summary>
-        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `Ipv6RaValidLifetime` Defaults to `14400`.
+        /// The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        /// * Must be less than or equal to `Ipv6RaValidLifetime`
+        /// * Default: 14400 (4 hours)
+        /// * After this time, addresses become deprecated but still usable
         /// </summary>
         [Input("ipv6RaPreferredLifetime")]
         public Input<int>? Ipv6RaPreferredLifetime { get; set; }
 
         /// <summary>
-        /// IPv6 router advertisement priority. Must be one of either `High`, `Medium`, or `Low`
+        /// Sets the priority for IPv6 Router Advertisements. Options:
+        /// * `High` - Preferred for primary networks
+        /// * `Medium` - Standard priority
+        /// * `Low` - For backup or secondary networks
+        /// Affects router selection when multiple IPv6 routers exist.
         /// </summary>
         [Input("ipv6RaPriority")]
         public Input<string>? Ipv6RaPriority { get; set; }
 
         /// <summary>
-        /// Total lifetime in which the address can be used. Must be equal to or greater than `Ipv6RaPreferredLifetime`. Defaults to `86400`.
+        /// The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
+        /// * Must be greater than or equal to `Ipv6RaPreferredLifetime`
+        /// * Default: 86400 (24 hours)
+        /// * After this time, addresses become invalid
         /// </summary>
         [Input("ipv6RaValidLifetime")]
         public Input<int>? Ipv6RaValidLifetime { get; set; }
 
         /// <summary>
-        /// Specifies the static IPv6 subnet when `Ipv6InterfaceType` is 'static'.
+        /// The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
+        /// Only applicable when `Ipv6InterfaceType` is 'static'.
+        /// Must be a valid IPv6 subnet allocated to your organization.
         /// </summary>
         [Input("ipv6StaticSubnet")]
         public Input<string>? Ipv6StaticSubnet { get; set; }
 
         /// <summary>
-        /// Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller &gt;=v7).
+        /// Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
+        /// * Allows device discovery (e.g., printers, Chromecasts)
+        /// * Supports zero-configuration networking
+        /// * Available on Controller version 7 and later
         /// </summary>
         [Input("multicastDns")]
         public Input<bool>? MulticastDns { get; set; }
 
         /// <summary>
-        /// The name of the network.
+        /// The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The group of the network. Defaults to `LAN`.
+        /// The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
         /// </summary>
         [Input("networkGroup")]
         public Input<string>? NetworkGroup { get; set; }
 
         /// <summary>
-        /// The purpose of the network. Must be one of `Corporate`, `Guest`, `Wan`, or `vlan-only`.
+        /// Enables network isolation. When enabled:
+        /// * Prevents communication between clients on this network
+        /// * Each client can only communicate with the gateway
+        /// * Commonly used for guest networks or IoT devices
+        /// </summary>
+        [Input("networkIsolationEnabled")]
+        public Input<bool>? NetworkIsolationEnabled { get; set; }
+
+        /// <summary>
+        /// The purpose/type of the network. Must be one of:
+        /// * `Corporate` - Standard network for corporate use with full access
+        /// * `Guest` - Isolated network for guest access with limited permissions
+        /// * `Wan` - External network connection (WAN uplink)
+        /// * `vlan-only` - VLAN network without DHCP services
         /// </summary>
         [Input("purpose")]
         public Input<string>? Purpose { get; set; }
@@ -964,19 +1373,23 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The subnet of the network. Must be a valid CIDR address.
+        /// The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
         /// </summary>
         [Input("subnet")]
         public Input<string>? Subnet { get; set; }
 
         /// <summary>
-        /// The VLAN ID of the network.
+        /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
+        /// * 1-4094: Standard VLAN range for network segmentation
+        /// * 0: Untagged/native VLAN
+        /// * &gt;4094: Reserved for special purposes
         /// </summary>
         [Input("vlanId")]
         public Input<int>? VlanId { get; set; }
 
         /// <summary>
-        /// Specifies the IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// The IPv6 prefix size to request from ISP. Must be between 48 and 64.
+        /// Only applicable when `WanTypeV6` is 'dhcpv6'.
         /// </summary>
         [Input("wanDhcpV6PdSize")]
         public Input<int>? WanDhcpV6PdSize { get; set; }
@@ -985,7 +1398,10 @@ namespace Pulumiverse.Unifi
         private InputList<string>? _wanDns;
 
         /// <summary>
-        /// DNS servers IPs of the WAN.
+        /// List of IPv4 DNS servers for WAN interface. Examples:
+        /// * ISP provided DNS servers
+        /// * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
+        /// * Maximum 4 servers can be specified
         /// </summary>
         public InputList<string> WanDns
         {
@@ -994,73 +1410,107 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies the WAN egress quality of service. Defaults to `0`.
+        /// Quality of Service (QoS) priority for WAN egress traffic (0-7).
+        /// * 0 (default) - Best effort
+        /// * 1-4 - Increasing priority
+        /// * 5-7 - Highest priority, use sparingly
+        /// Higher values get preferential treatment.
         /// </summary>
         [Input("wanEgressQos")]
         public Input<int>? WanEgressQos { get; set; }
 
         /// <summary>
-        /// The IPv4 gateway of the WAN.
+        /// The IPv4 gateway address for WAN interface.
+        /// Required when `WanType` is 'static'.
+        /// Typically the ISP's router IP address.
         /// </summary>
         [Input("wanGateway")]
         public Input<string>? WanGateway { get; set; }
 
         /// <summary>
-        /// The IPv6 gateway of the WAN.
+        /// The IPv6 gateway address for WAN interface.
+        /// Required when `WanTypeV6` is 'static'.
+        /// Typically the ISP's router IPv6 address.
         /// </summary>
         [Input("wanGatewayV6")]
         public Input<string>? WanGatewayV6 { get; set; }
 
         /// <summary>
-        /// The IPv4 address of the WAN.
+        /// The static IPv4 address for WAN interface.
+        /// Required when `WanType` is 'static'.
+        /// Must be a valid public IP address assigned by your ISP.
         /// </summary>
         [Input("wanIp")]
         public Input<string>? WanIp { get; set; }
 
         /// <summary>
-        /// The IPv6 address of the WAN.
+        /// The static IPv6 address for WAN interface.
+        /// Required when `WanTypeV6` is 'static'.
+        /// Must be a valid public IPv6 address assigned by your ISP.
         /// </summary>
         [Input("wanIpv6")]
         public Input<string>? WanIpv6 { get; set; }
 
         /// <summary>
-        /// The IPv4 netmask of the WAN.
+        /// The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
+        /// Required when `WanType` is 'static'.
+        /// Must match the subnet mask provided by your ISP.
         /// </summary>
         [Input("wanNetmask")]
         public Input<string>? WanNetmask { get; set; }
 
         /// <summary>
-        /// Specifies the WAN network group. Must be one of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
+        /// The WAN interface group assignment. Options:
+        /// * `WAN` - Primary WAN interface
+        /// * `WAN2` - Secondary WAN interface
+        /// * `WAN_LTE_FAILOVER` - LTE backup connection
+        /// Used for dual WAN and failover configurations.
         /// </summary>
         [Input("wanNetworkgroup")]
         public Input<string>? WanNetworkgroup { get; set; }
 
         /// <summary>
-        /// The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        /// The IPv6 prefix length for WAN interface. Must be between 1 and 128.
+        /// Only applicable when `WanTypeV6` is 'static'.
         /// </summary>
         [Input("wanPrefixlen")]
         public Input<int>? WanPrefixlen { get; set; }
 
         /// <summary>
-        /// Specifies the IPV4 WAN connection type. Must be one of either `Disabled`, `Static`, `Dhcp`, or `Pppoe`.
+        /// The IPv4 WAN connection type. Options:
+        /// * `Disabled` - WAN interface disabled
+        /// * `Static` - Static IP configuration
+        /// * `Dhcp` - Dynamic IP from ISP
+        /// * `Pppoe` - PPPoE connection (common for DSL)
+        /// Choose based on your ISP's requirements.
         /// </summary>
         [Input("wanType")]
         public Input<string>? WanType { get; set; }
 
         /// <summary>
-        /// Specifies the IPV6 WAN connection type. Must be one of either `Disabled`, `Static`, or `Dhcpv6`.
+        /// The IPv6 WAN connection type. Options:
+        /// * `Disabled` - IPv6 disabled
+        /// * `Static` - Static IPv6 configuration
+        /// * `Dhcpv6` - Dynamic IPv6 from ISP
+        /// Choose based on your ISP's requirements.
         /// </summary>
         [Input("wanTypeV6")]
         public Input<string>? WanTypeV6 { get; set; }
 
         /// <summary>
-        /// Specifies the IPV4 WAN username.
+        /// Username for WAN authentication.
+        /// * Required for PPPoE connections
+        /// * May be needed for some ISP configurations
+        /// * Cannot contain spaces or special characters
         /// </summary>
         [Input("wanUsername")]
         public Input<string>? WanUsername { get; set; }
 
         /// <summary>
-        /// Specifies the IPV4 WAN password.
+        /// Password for WAN authentication.
+        /// * Required for PPPoE connections
+        /// * May be needed for some ISP configurations
+        /// * Must be kept secret
         /// </summary>
         [Input("xWanPassword")]
         public Input<string>? XWanPassword { get; set; }

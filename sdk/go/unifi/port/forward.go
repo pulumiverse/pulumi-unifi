@@ -11,31 +11,44 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `port.Forward` manages a port forwarding rule on the gateway.
+// The `port.Forward` resource manages port forwarding rules on UniFi controllers.
+//
+// Port forwarding allows external traffic to reach services hosted on your internal network by mapping external ports to internal IP addresses and ports. This is commonly used for:
+//   - Hosting web servers, game servers, or other services
+//   - Remote access to internal services
+//   - Application-specific requirements
+//
+// Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
 type Forward struct {
 	pulumi.CustomResourceState
 
-	// The destination port for the forwarding.
+	// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
 	DstPort pulumi.StringPtrOutput `pulumi:"dstPort"`
-	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled pulumi.BoolPtrOutput `pulumi:"enabled"`
-	// The IPv4 address to forward traffic to.
+	// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
 	FwdIp pulumi.StringPtrOutput `pulumi:"fwdIp"`
-	// The port to forward traffic to.
+	// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
 	FwdPort pulumi.StringPtrOutput `pulumi:"fwdPort"`
-	// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+	// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
 	Log pulumi.BoolPtrOutput `pulumi:"log"`
-	// The name of the port forwarding rule.
+	// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+	// The WAN interface to apply the port forwarding rule to. Valid values are:
+	//   * `wan` - Primary WAN interface
+	//   * `wan2` - Secondary WAN interface
+	//   * `both` - Both WAN interfaces
 	PortForwardInterface pulumi.StringPtrOutput `pulumi:"portForwardInterface"`
-	// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+	// The network protocol(s) this rule applies to. Valid values are:
+	//   * `tcpUdp` - Both TCP and UDP (default)
+	//   * `tcp` - TCP only
+	//   * `udp` - UDP only
 	Protocol pulumi.StringPtrOutput `pulumi:"protocol"`
-	// The name of the site to associate the port forwarding rule with.
+	// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
-	// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+	// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
 	SrcIp pulumi.StringPtrOutput `pulumi:"srcIp"`
 }
 
@@ -69,52 +82,64 @@ func GetForward(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Forward resources.
 type forwardState struct {
-	// The destination port for the forwarding.
+	// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
 	DstPort *string `pulumi:"dstPort"`
-	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled *bool `pulumi:"enabled"`
-	// The IPv4 address to forward traffic to.
+	// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
 	FwdIp *string `pulumi:"fwdIp"`
-	// The port to forward traffic to.
+	// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
 	FwdPort *string `pulumi:"fwdPort"`
-	// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+	// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
 	Log *bool `pulumi:"log"`
-	// The name of the port forwarding rule.
+	// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
 	Name *string `pulumi:"name"`
-	// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+	// The WAN interface to apply the port forwarding rule to. Valid values are:
+	//   * `wan` - Primary WAN interface
+	//   * `wan2` - Secondary WAN interface
+	//   * `both` - Both WAN interfaces
 	PortForwardInterface *string `pulumi:"portForwardInterface"`
-	// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+	// The network protocol(s) this rule applies to. Valid values are:
+	//   * `tcpUdp` - Both TCP and UDP (default)
+	//   * `tcp` - TCP only
+	//   * `udp` - UDP only
 	Protocol *string `pulumi:"protocol"`
-	// The name of the site to associate the port forwarding rule with.
+	// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+	// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
 	SrcIp *string `pulumi:"srcIp"`
 }
 
 type ForwardState struct {
-	// The destination port for the forwarding.
+	// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
 	DstPort pulumi.StringPtrInput
-	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled pulumi.BoolPtrInput
-	// The IPv4 address to forward traffic to.
+	// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
 	FwdIp pulumi.StringPtrInput
-	// The port to forward traffic to.
+	// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
 	FwdPort pulumi.StringPtrInput
-	// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+	// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
 	Log pulumi.BoolPtrInput
-	// The name of the port forwarding rule.
+	// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
 	Name pulumi.StringPtrInput
-	// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+	// The WAN interface to apply the port forwarding rule to. Valid values are:
+	//   * `wan` - Primary WAN interface
+	//   * `wan2` - Secondary WAN interface
+	//   * `both` - Both WAN interfaces
 	PortForwardInterface pulumi.StringPtrInput
-	// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+	// The network protocol(s) this rule applies to. Valid values are:
+	//   * `tcpUdp` - Both TCP and UDP (default)
+	//   * `tcp` - TCP only
+	//   * `udp` - UDP only
 	Protocol pulumi.StringPtrInput
-	// The name of the site to associate the port forwarding rule with.
+	// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+	// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
 	SrcIp pulumi.StringPtrInput
 }
 
@@ -123,53 +148,65 @@ func (ForwardState) ElementType() reflect.Type {
 }
 
 type forwardArgs struct {
-	// The destination port for the forwarding.
+	// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
 	DstPort *string `pulumi:"dstPort"`
-	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled *bool `pulumi:"enabled"`
-	// The IPv4 address to forward traffic to.
+	// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
 	FwdIp *string `pulumi:"fwdIp"`
-	// The port to forward traffic to.
+	// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
 	FwdPort *string `pulumi:"fwdPort"`
-	// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+	// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
 	Log *bool `pulumi:"log"`
-	// The name of the port forwarding rule.
+	// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
 	Name *string `pulumi:"name"`
-	// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+	// The WAN interface to apply the port forwarding rule to. Valid values are:
+	//   * `wan` - Primary WAN interface
+	//   * `wan2` - Secondary WAN interface
+	//   * `both` - Both WAN interfaces
 	PortForwardInterface *string `pulumi:"portForwardInterface"`
-	// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+	// The network protocol(s) this rule applies to. Valid values are:
+	//   * `tcpUdp` - Both TCP and UDP (default)
+	//   * `tcp` - TCP only
+	//   * `udp` - UDP only
 	Protocol *string `pulumi:"protocol"`
-	// The name of the site to associate the port forwarding rule with.
+	// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+	// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
 	SrcIp *string `pulumi:"srcIp"`
 }
 
 // The set of arguments for constructing a Forward resource.
 type ForwardArgs struct {
-	// The destination port for the forwarding.
+	// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
 	DstPort pulumi.StringPtrInput
-	// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+	// Specifies whether the port forwarding rule is enabled or not.
 	//
 	// Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 	Enabled pulumi.BoolPtrInput
-	// The IPv4 address to forward traffic to.
+	// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
 	FwdIp pulumi.StringPtrInput
-	// The port to forward traffic to.
+	// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
 	FwdPort pulumi.StringPtrInput
-	// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+	// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
 	Log pulumi.BoolPtrInput
-	// The name of the port forwarding rule.
+	// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
 	Name pulumi.StringPtrInput
-	// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+	// The WAN interface to apply the port forwarding rule to. Valid values are:
+	//   * `wan` - Primary WAN interface
+	//   * `wan2` - Secondary WAN interface
+	//   * `both` - Both WAN interfaces
 	PortForwardInterface pulumi.StringPtrInput
-	// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+	// The network protocol(s) this rule applies to. Valid values are:
+	//   * `tcpUdp` - Both TCP and UDP (default)
+	//   * `tcp` - TCP only
+	//   * `udp` - UDP only
 	Protocol pulumi.StringPtrInput
-	// The name of the site to associate the port forwarding rule with.
+	// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+	// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
 	SrcIp pulumi.StringPtrInput
 }
 
@@ -260,54 +297,60 @@ func (o ForwardOutput) ToForwardOutputWithContext(ctx context.Context) ForwardOu
 	return o
 }
 
-// The destination port for the forwarding.
+// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
 func (o ForwardOutput) DstPort() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringPtrOutput { return v.DstPort }).(pulumi.StringPtrOutput)
 }
 
-// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+// Specifies whether the port forwarding rule is enabled or not.
 //
 // Deprecated: This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
 func (o ForwardOutput) Enabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.BoolPtrOutput { return v.Enabled }).(pulumi.BoolPtrOutput)
 }
 
-// The IPv4 address to forward traffic to.
+// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
 func (o ForwardOutput) FwdIp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringPtrOutput { return v.FwdIp }).(pulumi.StringPtrOutput)
 }
 
-// The port to forward traffic to.
+// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
 func (o ForwardOutput) FwdPort() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringPtrOutput { return v.FwdPort }).(pulumi.StringPtrOutput)
 }
 
-// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
 func (o ForwardOutput) Log() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.BoolPtrOutput { return v.Log }).(pulumi.BoolPtrOutput)
 }
 
-// The name of the port forwarding rule.
+// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
 func (o ForwardOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+// The WAN interface to apply the port forwarding rule to. Valid values are:
+//   - `wan` - Primary WAN interface
+//   - `wan2` - Secondary WAN interface
+//   - `both` - Both WAN interfaces
 func (o ForwardOutput) PortForwardInterface() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringPtrOutput { return v.PortForwardInterface }).(pulumi.StringPtrOutput)
 }
 
-// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcpUdp`. Defaults to `tcpUdp`.
+// The network protocol(s) this rule applies to. Valid values are:
+//   - `tcpUdp` - Both TCP and UDP (default)
+//   - `tcp` - TCP only
+//   - `udp` - UDP only
 func (o ForwardOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringPtrOutput { return v.Protocol }).(pulumi.StringPtrOutput)
 }
 
-// The name of the site to associate the port forwarding rule with.
+// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
 func (o ForwardOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
 }
 
-// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
 func (o ForwardOutput) SrcIp() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Forward) pulumi.StringPtrOutput { return v.SrcIp }).(pulumi.StringPtrOutput)
 }

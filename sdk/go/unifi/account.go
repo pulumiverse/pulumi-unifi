@@ -12,28 +12,51 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `Account` manages a RADIUS user account
+// The `Account` resource manages RADIUS user accounts in the UniFi controller's built-in RADIUS server.
 //
-// To authenticate devices based on MAC address, use the MAC address as the username and password under client creation.
-// Convert lowercase letters to uppercase, and also remove colons or periods from the MAC address.
+// This resource is used for:
+//   - WPA2/WPA3-Enterprise wireless authentication
+//   - 802.1X wired authentication
+//   - MAC-based device authentication
+//   - VLAN assignment through RADIUS attributes
 //
-// ATTENTION: If the user profile does not include a VLAN, the client will fall back to the untagged VLAN.
+// Important Notes:
+// 1. For MAC-based authentication:
+//   - Use the device's MAC address as both username and password
+//   - Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
 //
-// NOTE: MAC-based authentication accounts can only be used for wireless and wired clients. L2TP remote access does not apply.
+// 2. VLAN Assignment:
+//   - If no VLAN is specified in the profile, clients will use the network's untagged VLAN
+//   - VLAN assignment uses standard RADIUS tunnel attributes
+//
+// Limitations:
+//   - MAC-based authentication works only for wireless and wired clients
+//   - L2TP remote access VPN is not supported with MAC authentication
+//   - Accounts must be unique within a site
 type Account struct {
 	pulumi.CustomResourceState
 
-	// The name of the account.
+	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name pulumi.StringOutput `pulumi:"name"`
-	// ID of the network for this account
+	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
 	NetworkId pulumi.StringPtrOutput `pulumi:"networkId"`
-	// The password of the account.
+	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password pulumi.StringOutput `pulumi:"password"`
-	// The name of the site to associate the account with.
+	// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+	// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+	//   * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+	//   * `1` - IPv4
+	//   * `2` - IPv6
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelMediumType pulumi.IntPtrOutput `pulumi:"tunnelMediumType"`
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+	// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+	//   * `13` - VLAN (default)
+	//   * `1` - Point-to-Point Protocol (PPTP)
+	//   * `9` - Point-to-Point Protocol (L2TP)
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelType pulumi.IntPtrOutput `pulumi:"tunnelType"`
 }
 
@@ -77,32 +100,52 @@ func GetAccount(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Account resources.
 type accountState struct {
-	// The name of the account.
+	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name *string `pulumi:"name"`
-	// ID of the network for this account
+	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
 	NetworkId *string `pulumi:"networkId"`
-	// The password of the account.
+	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password *string `pulumi:"password"`
-	// The name of the site to associate the account with.
+	// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+	// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+	//   * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+	//   * `1` - IPv4
+	//   * `2` - IPv6
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelMediumType *int `pulumi:"tunnelMediumType"`
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+	// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+	//   * `13` - VLAN (default)
+	//   * `1` - Point-to-Point Protocol (PPTP)
+	//   * `9` - Point-to-Point Protocol (L2TP)
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelType *int `pulumi:"tunnelType"`
 }
 
 type AccountState struct {
-	// The name of the account.
+	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name pulumi.StringPtrInput
-	// ID of the network for this account
+	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
 	NetworkId pulumi.StringPtrInput
-	// The password of the account.
+	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password pulumi.StringPtrInput
-	// The name of the site to associate the account with.
+	// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+	// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+	//   * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+	//   * `1` - IPv4
+	//   * `2` - IPv6
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelMediumType pulumi.IntPtrInput
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+	// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+	//   * `13` - VLAN (default)
+	//   * `1` - Point-to-Point Protocol (PPTP)
+	//   * `9` - Point-to-Point Protocol (L2TP)
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelType pulumi.IntPtrInput
 }
 
@@ -111,33 +154,53 @@ func (AccountState) ElementType() reflect.Type {
 }
 
 type accountArgs struct {
-	// The name of the account.
+	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name *string `pulumi:"name"`
-	// ID of the network for this account
+	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
 	NetworkId *string `pulumi:"networkId"`
-	// The password of the account.
+	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password string `pulumi:"password"`
-	// The name of the site to associate the account with.
+	// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+	// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+	//   * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+	//   * `1` - IPv4
+	//   * `2` - IPv6
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelMediumType *int `pulumi:"tunnelMediumType"`
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+	// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+	//   * `13` - VLAN (default)
+	//   * `1` - Point-to-Point Protocol (PPTP)
+	//   * `9` - Point-to-Point Protocol (L2TP)
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelType *int `pulumi:"tunnelType"`
 }
 
 // The set of arguments for constructing a Account resource.
 type AccountArgs struct {
-	// The name of the account.
+	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name pulumi.StringPtrInput
-	// ID of the network for this account
+	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
 	NetworkId pulumi.StringPtrInput
-	// The password of the account.
+	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password pulumi.StringInput
-	// The name of the site to associate the account with.
+	// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+	// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+	//   * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+	//   * `1` - IPv4
+	//   * `2` - IPv6
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelMediumType pulumi.IntPtrInput
-	// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+	// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+	//   * `13` - VLAN (default)
+	//   * `1` - Point-to-Point Protocol (PPTP)
+	//   * `9` - Point-to-Point Protocol (L2TP)
+	//
+	// Only change this if you need specific tunneling behavior.
 	TunnelType pulumi.IntPtrInput
 }
 
@@ -228,32 +291,42 @@ func (o AccountOutput) ToAccountOutputWithContext(ctx context.Context) AccountOu
 	return o
 }
 
-// The name of the account.
+// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 func (o AccountOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Account) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// ID of the network for this account
+// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
 func (o AccountOutput) NetworkId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Account) pulumi.StringPtrOutput { return v.NetworkId }).(pulumi.StringPtrOutput)
 }
 
-// The password of the account.
+// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 func (o AccountOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v *Account) pulumi.StringOutput { return v.Password }).(pulumi.StringOutput)
 }
 
-// The name of the site to associate the account with.
+// The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
 func (o AccountOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *Account) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
 }
 
-// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+// The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+//   - `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+//   - `1` - IPv4
+//   - `2` - IPv6
+//
+// Only change this if you need specific tunneling behavior.
 func (o AccountOutput) TunnelMediumType() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Account) pulumi.IntPtrOutput { return v.TunnelMediumType }).(pulumi.IntPtrOutput)
 }
 
-// See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+// The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+//   - `13` - VLAN (default)
+//   - `1` - Point-to-Point Protocol (PPTP)
+//   - `9` - Point-to-Point Protocol (L2TP)
+//
+// Only change this if you need specific tunneling behavior.
 func (o AccountOutput) TunnelType() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Account) pulumi.IntPtrOutput { return v.TunnelType }).(pulumi.IntPtrOutput)
 }

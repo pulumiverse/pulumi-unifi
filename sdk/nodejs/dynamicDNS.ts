@@ -5,7 +5,20 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * `unifi.DynamicDNS` manages dynamic DNS settings for different providers.
+ * The `unifi.DynamicDNS` resource manages Dynamic DNS (DDNS).
+ *
+ * Dynamic DNS allows you to access your network using a domain name even when your public IP address changes. This is useful for:
+ *   * Remote access to your network
+ *   * Hosting services from your home/office network
+ *   * VPN connections to your network
+ *
+ * The resource supports various DDNS providers including:
+ *   * DynDNS
+ *   * No-IP
+ *   * Duck DNS
+ *   * And many others
+ *
+ * Each DDNS configuration can be associated with either the primary (WAN) or secondary (WAN2) interface.
  *
  * ## Example Usage
  *
@@ -51,33 +64,39 @@ export class DynamicDNS extends pulumi.CustomResource {
     }
 
     /**
-     * The host name to update in the dynamic DNS service.
+     * The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
      */
-    public readonly hostName!: pulumi.Output<string>;
+    declare public readonly hostName: pulumi.Output<string>;
     /**
-     * The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+     * The WAN interface to use for the dynamic DNS updates. Valid values are:
+     *   * `wan` - Primary WAN interface (default)
+     *   * `wan2` - Secondary WAN interface
      */
-    public readonly interface!: pulumi.Output<string | undefined>;
+    declare public readonly interface: pulumi.Output<string | undefined>;
     /**
-     * The server for the dynamic DNS service.
+     * The username or login for your DDNS provider account.
      */
-    public readonly login!: pulumi.Output<string | undefined>;
+    declare public readonly login: pulumi.Output<string | undefined>;
     /**
-     * The server for the dynamic DNS service.
+     * The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
      */
-    public readonly password!: pulumi.Output<string | undefined>;
+    declare public readonly password: pulumi.Output<string | undefined>;
     /**
-     * The server for the dynamic DNS service.
+     * The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
      */
-    public readonly server!: pulumi.Output<string | undefined>;
+    declare public readonly server: pulumi.Output<string | undefined>;
     /**
-     * The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+     * The Dynamic DNS service provider. Common values include:
+     *   * `dyndns` - DynDNS service
+     *   * `noip` - No-IP service
+     *   * `duckdns` - Duck DNS service
+     * Check your UniFi controller for the complete list of supported providers.
      */
-    public readonly service!: pulumi.Output<string>;
+    declare public readonly service: pulumi.Output<string>;
     /**
-     * The name of the site to associate the dynamic DNS with.
+     * The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
      */
-    public readonly site!: pulumi.Output<string>;
+    declare public readonly site: pulumi.Output<string>;
 
     /**
      * Create a DynamicDNS resource with the given unique name, arguments, and options.
@@ -92,28 +111,28 @@ export class DynamicDNS extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as DynamicDNSState | undefined;
-            resourceInputs["hostName"] = state ? state.hostName : undefined;
-            resourceInputs["interface"] = state ? state.interface : undefined;
-            resourceInputs["login"] = state ? state.login : undefined;
-            resourceInputs["password"] = state ? state.password : undefined;
-            resourceInputs["server"] = state ? state.server : undefined;
-            resourceInputs["service"] = state ? state.service : undefined;
-            resourceInputs["site"] = state ? state.site : undefined;
+            resourceInputs["hostName"] = state?.hostName;
+            resourceInputs["interface"] = state?.interface;
+            resourceInputs["login"] = state?.login;
+            resourceInputs["password"] = state?.password;
+            resourceInputs["server"] = state?.server;
+            resourceInputs["service"] = state?.service;
+            resourceInputs["site"] = state?.site;
         } else {
             const args = argsOrState as DynamicDNSArgs | undefined;
-            if ((!args || args.hostName === undefined) && !opts.urn) {
+            if (args?.hostName === undefined && !opts.urn) {
                 throw new Error("Missing required property 'hostName'");
             }
-            if ((!args || args.service === undefined) && !opts.urn) {
+            if (args?.service === undefined && !opts.urn) {
                 throw new Error("Missing required property 'service'");
             }
-            resourceInputs["hostName"] = args ? args.hostName : undefined;
-            resourceInputs["interface"] = args ? args.interface : undefined;
-            resourceInputs["login"] = args ? args.login : undefined;
+            resourceInputs["hostName"] = args?.hostName;
+            resourceInputs["interface"] = args?.interface;
+            resourceInputs["login"] = args?.login;
             resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
-            resourceInputs["server"] = args ? args.server : undefined;
-            resourceInputs["service"] = args ? args.service : undefined;
-            resourceInputs["site"] = args ? args.site : undefined;
+            resourceInputs["server"] = args?.server;
+            resourceInputs["service"] = args?.service;
+            resourceInputs["site"] = args?.site;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["password"] };
@@ -127,31 +146,37 @@ export class DynamicDNS extends pulumi.CustomResource {
  */
 export interface DynamicDNSState {
     /**
-     * The host name to update in the dynamic DNS service.
+     * The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
      */
     hostName?: pulumi.Input<string>;
     /**
-     * The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+     * The WAN interface to use for the dynamic DNS updates. Valid values are:
+     *   * `wan` - Primary WAN interface (default)
+     *   * `wan2` - Secondary WAN interface
      */
     interface?: pulumi.Input<string>;
     /**
-     * The server for the dynamic DNS service.
+     * The username or login for your DDNS provider account.
      */
     login?: pulumi.Input<string>;
     /**
-     * The server for the dynamic DNS service.
+     * The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
      */
     password?: pulumi.Input<string>;
     /**
-     * The server for the dynamic DNS service.
+     * The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
      */
     server?: pulumi.Input<string>;
     /**
-     * The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+     * The Dynamic DNS service provider. Common values include:
+     *   * `dyndns` - DynDNS service
+     *   * `noip` - No-IP service
+     *   * `duckdns` - Duck DNS service
+     * Check your UniFi controller for the complete list of supported providers.
      */
     service?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the dynamic DNS with.
+     * The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
 }
@@ -161,31 +186,37 @@ export interface DynamicDNSState {
  */
 export interface DynamicDNSArgs {
     /**
-     * The host name to update in the dynamic DNS service.
+     * The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
      */
     hostName: pulumi.Input<string>;
     /**
-     * The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+     * The WAN interface to use for the dynamic DNS updates. Valid values are:
+     *   * `wan` - Primary WAN interface (default)
+     *   * `wan2` - Secondary WAN interface
      */
     interface?: pulumi.Input<string>;
     /**
-     * The server for the dynamic DNS service.
+     * The username or login for your DDNS provider account.
      */
     login?: pulumi.Input<string>;
     /**
-     * The server for the dynamic DNS service.
+     * The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
      */
     password?: pulumi.Input<string>;
     /**
-     * The server for the dynamic DNS service.
+     * The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
      */
     server?: pulumi.Input<string>;
     /**
-     * The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+     * The Dynamic DNS service provider. Common values include:
+     *   * `dyndns` - DynDNS service
+     *   * `noip` - No-IP service
+     *   * `duckdns` - Duck DNS service
+     * Check your UniFi controller for the complete list of supported providers.
      */
     service: pulumi.Input<string>;
     /**
-     * The name of the site to associate the dynamic DNS with.
+     * The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
 }

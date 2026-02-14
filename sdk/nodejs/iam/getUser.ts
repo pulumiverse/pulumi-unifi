@@ -53,7 +53,7 @@ export interface GetUserResult {
      */
     readonly devIdOverride: number;
     /**
-     * fixed IPv4 address set for this user.
+     * Fixed IPv4 address set for this user.
      */
     readonly fixedIp: string;
     /**

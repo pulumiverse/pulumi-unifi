@@ -15,32 +15,2078 @@ else:
 from .. import _utilities
 
 __all__ = [
+    'GuestAccessAuthorizeArgs',
+    'GuestAccessAuthorizeArgsDict',
+    'GuestAccessFacebookArgs',
+    'GuestAccessFacebookArgsDict',
+    'GuestAccessFacebookWifiArgs',
+    'GuestAccessFacebookWifiArgsDict',
+    'GuestAccessGoogleArgs',
+    'GuestAccessGoogleArgsDict',
+    'GuestAccessIppayArgs',
+    'GuestAccessIppayArgsDict',
+    'GuestAccessMerchantWarriorArgs',
+    'GuestAccessMerchantWarriorArgsDict',
+    'GuestAccessPaypalArgs',
+    'GuestAccessPaypalArgsDict',
+    'GuestAccessPortalCustomizationArgs',
+    'GuestAccessPortalCustomizationArgsDict',
+    'GuestAccessQuickpayArgs',
+    'GuestAccessQuickpayArgsDict',
+    'GuestAccessRadiusArgs',
+    'GuestAccessRadiusArgsDict',
+    'GuestAccessRedirectArgs',
+    'GuestAccessRedirectArgsDict',
+    'GuestAccessStripeArgs',
+    'GuestAccessStripeArgsDict',
+    'GuestAccessWechatArgs',
+    'GuestAccessWechatArgsDict',
+    'IpsDnsFilterArgs',
+    'IpsDnsFilterArgsDict',
+    'IpsHoneypotArgs',
+    'IpsHoneypotArgsDict',
+    'IpsSuppressionArgs',
+    'IpsSuppressionArgsDict',
+    'IpsSuppressionAlertArgs',
+    'IpsSuppressionAlertArgsDict',
+    'IpsSuppressionAlertTrackingArgs',
+    'IpsSuppressionAlertTrackingArgsDict',
+    'IpsSuppressionWhitelistArgs',
+    'IpsSuppressionWhitelistArgsDict',
     'MgmtSshKeyArgs',
     'MgmtSshKeyArgsDict',
+    'USGDhcpRelayArgs',
+    'USGDhcpRelayArgsDict',
+    'USGDnsVerificationArgs',
+    'USGDnsVerificationArgsDict',
+    'USGGeoIpFilteringArgs',
+    'USGGeoIpFilteringArgsDict',
+    'USGTcpTimeoutsArgs',
+    'USGTcpTimeoutsArgsDict',
+    'USGUpnpArgs',
+    'USGUpnpArgsDict',
 ]
 
-MYPY = False
+class GuestAccessAuthorizeArgsDict(TypedDict):
+    login_id: pulumi.Input[_builtins.str]
+    """
+    Authorize.net login ID for authentication.
+    """
+    transaction_key: pulumi.Input[_builtins.str]
+    """
+    Authorize.net transaction key for authentication.
+    """
+    use_sandbox: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Use sandbox mode for Authorize.net payments.
+    """
 
-if not MYPY:
-    class MgmtSshKeyArgsDict(TypedDict):
-        name: pulumi.Input[_builtins.str]
+@pulumi.input_type
+class GuestAccessAuthorizeArgs:
+    def __init__(__self__, *,
+                 login_id: pulumi.Input[_builtins.str],
+                 transaction_key: pulumi.Input[_builtins.str],
+                 use_sandbox: Optional[pulumi.Input[_builtins.bool]] = None):
         """
-        Name of SSH key.
+        :param pulumi.Input[_builtins.str] login_id: Authorize.net login ID for authentication.
+        :param pulumi.Input[_builtins.str] transaction_key: Authorize.net transaction key for authentication.
+        :param pulumi.Input[_builtins.bool] use_sandbox: Use sandbox mode for Authorize.net payments.
         """
-        type: pulumi.Input[_builtins.str]
+        pulumi.set(__self__, "login_id", login_id)
+        pulumi.set(__self__, "transaction_key", transaction_key)
+        if use_sandbox is not None:
+            pulumi.set(__self__, "use_sandbox", use_sandbox)
+
+    @_builtins.property
+    @pulumi.getter(name="loginId")
+    def login_id(self) -> pulumi.Input[_builtins.str]:
         """
-        Type of SSH key, e.g. ssh-rsa.
+        Authorize.net login ID for authentication.
         """
-        comment: NotRequired[pulumi.Input[_builtins.str]]
+        return pulumi.get(self, "login_id")
+
+    @login_id.setter
+    def login_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "login_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="transactionKey")
+    def transaction_key(self) -> pulumi.Input[_builtins.str]:
         """
-        Comment.
+        Authorize.net transaction key for authentication.
         """
-        key: NotRequired[pulumi.Input[_builtins.str]]
+        return pulumi.get(self, "transaction_key")
+
+    @transaction_key.setter
+    def transaction_key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "transaction_key", value)
+
+    @_builtins.property
+    @pulumi.getter(name="useSandbox")
+    def use_sandbox(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Public SSH key.
+        Use sandbox mode for Authorize.net payments.
         """
-elif False:
-    MgmtSshKeyArgsDict: TypeAlias = Mapping[str, Any]
+        return pulumi.get(self, "use_sandbox")
+
+    @use_sandbox.setter
+    def use_sandbox(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "use_sandbox", value)
+
+
+class GuestAccessFacebookArgsDict(TypedDict):
+    app_id: pulumi.Input[_builtins.str]
+    """
+    Facebook application ID for authentication.
+    """
+    app_secret: pulumi.Input[_builtins.str]
+    """
+    Facebook application secret for authentication.
+    """
+    scope_email: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Request email scope for Facebook authentication.
+    """
+
+@pulumi.input_type
+class GuestAccessFacebookArgs:
+    def __init__(__self__, *,
+                 app_id: pulumi.Input[_builtins.str],
+                 app_secret: pulumi.Input[_builtins.str],
+                 scope_email: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] app_id: Facebook application ID for authentication.
+        :param pulumi.Input[_builtins.str] app_secret: Facebook application secret for authentication.
+        :param pulumi.Input[_builtins.bool] scope_email: Request email scope for Facebook authentication.
+        """
+        pulumi.set(__self__, "app_id", app_id)
+        pulumi.set(__self__, "app_secret", app_secret)
+        if scope_email is not None:
+            pulumi.set(__self__, "scope_email", scope_email)
+
+    @_builtins.property
+    @pulumi.getter(name="appId")
+    def app_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        Facebook application ID for authentication.
+        """
+        return pulumi.get(self, "app_id")
+
+    @app_id.setter
+    def app_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "app_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="appSecret")
+    def app_secret(self) -> pulumi.Input[_builtins.str]:
+        """
+        Facebook application secret for authentication.
+        """
+        return pulumi.get(self, "app_secret")
+
+    @app_secret.setter
+    def app_secret(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "app_secret", value)
+
+    @_builtins.property
+    @pulumi.getter(name="scopeEmail")
+    def scope_email(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Request email scope for Facebook authentication.
+        """
+        return pulumi.get(self, "scope_email")
+
+    @scope_email.setter
+    def scope_email(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "scope_email", value)
+
+
+class GuestAccessFacebookWifiArgsDict(TypedDict):
+    gateway_id: pulumi.Input[_builtins.str]
+    """
+    Facebook WiFi gateway ID.
+    """
+    gateway_name: pulumi.Input[_builtins.str]
+    """
+    Facebook WiFi gateway name.
+    """
+    gateway_secret: pulumi.Input[_builtins.str]
+    """
+    Facebook WiFi gateway secret.
+    """
+    block_https: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Mode HTTPS for Facebook WiFi.
+    """
+
+@pulumi.input_type
+class GuestAccessFacebookWifiArgs:
+    def __init__(__self__, *,
+                 gateway_id: pulumi.Input[_builtins.str],
+                 gateway_name: pulumi.Input[_builtins.str],
+                 gateway_secret: pulumi.Input[_builtins.str],
+                 block_https: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] gateway_id: Facebook WiFi gateway ID.
+        :param pulumi.Input[_builtins.str] gateway_name: Facebook WiFi gateway name.
+        :param pulumi.Input[_builtins.str] gateway_secret: Facebook WiFi gateway secret.
+        :param pulumi.Input[_builtins.bool] block_https: Mode HTTPS for Facebook WiFi.
+        """
+        pulumi.set(__self__, "gateway_id", gateway_id)
+        pulumi.set(__self__, "gateway_name", gateway_name)
+        pulumi.set(__self__, "gateway_secret", gateway_secret)
+        if block_https is not None:
+            pulumi.set(__self__, "block_https", block_https)
+
+    @_builtins.property
+    @pulumi.getter(name="gatewayId")
+    def gateway_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        Facebook WiFi gateway ID.
+        """
+        return pulumi.get(self, "gateway_id")
+
+    @gateway_id.setter
+    def gateway_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "gateway_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="gatewayName")
+    def gateway_name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Facebook WiFi gateway name.
+        """
+        return pulumi.get(self, "gateway_name")
+
+    @gateway_name.setter
+    def gateway_name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "gateway_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="gatewaySecret")
+    def gateway_secret(self) -> pulumi.Input[_builtins.str]:
+        """
+        Facebook WiFi gateway secret.
+        """
+        return pulumi.get(self, "gateway_secret")
+
+    @gateway_secret.setter
+    def gateway_secret(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "gateway_secret", value)
+
+    @_builtins.property
+    @pulumi.getter(name="blockHttps")
+    def block_https(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Mode HTTPS for Facebook WiFi.
+        """
+        return pulumi.get(self, "block_https")
+
+    @block_https.setter
+    def block_https(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "block_https", value)
+
+
+class GuestAccessGoogleArgsDict(TypedDict):
+    client_id: pulumi.Input[_builtins.str]
+    """
+    Google client ID for authentication.
+    """
+    client_secret: pulumi.Input[_builtins.str]
+    """
+    Google client secret for authentication.
+    """
+    domain: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Restrict Google authentication to specific domain.
+    """
+    scope_email: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Request email scope for Google authentication.
+    """
+
+@pulumi.input_type
+class GuestAccessGoogleArgs:
+    def __init__(__self__, *,
+                 client_id: pulumi.Input[_builtins.str],
+                 client_secret: pulumi.Input[_builtins.str],
+                 domain: Optional[pulumi.Input[_builtins.str]] = None,
+                 scope_email: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] client_id: Google client ID for authentication.
+        :param pulumi.Input[_builtins.str] client_secret: Google client secret for authentication.
+        :param pulumi.Input[_builtins.str] domain: Restrict Google authentication to specific domain.
+        :param pulumi.Input[_builtins.bool] scope_email: Request email scope for Google authentication.
+        """
+        pulumi.set(__self__, "client_id", client_id)
+        pulumi.set(__self__, "client_secret", client_secret)
+        if domain is not None:
+            pulumi.set(__self__, "domain", domain)
+        if scope_email is not None:
+            pulumi.set(__self__, "scope_email", scope_email)
+
+    @_builtins.property
+    @pulumi.getter(name="clientId")
+    def client_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        Google client ID for authentication.
+        """
+        return pulumi.get(self, "client_id")
+
+    @client_id.setter
+    def client_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "client_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="clientSecret")
+    def client_secret(self) -> pulumi.Input[_builtins.str]:
+        """
+        Google client secret for authentication.
+        """
+        return pulumi.get(self, "client_secret")
+
+    @client_secret.setter
+    def client_secret(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "client_secret", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Restrict Google authentication to specific domain.
+        """
+        return pulumi.get(self, "domain")
+
+    @domain.setter
+    def domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "domain", value)
+
+    @_builtins.property
+    @pulumi.getter(name="scopeEmail")
+    def scope_email(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Request email scope for Google authentication.
+        """
+        return pulumi.get(self, "scope_email")
+
+    @scope_email.setter
+    def scope_email(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "scope_email", value)
+
+
+class GuestAccessIppayArgsDict(TypedDict):
+    terminal_id: pulumi.Input[_builtins.str]
+    """
+    Terminal ID for IP Payments.
+    """
+    use_sandbox: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to use sandbox mode for IPPay payments.
+    """
+
+@pulumi.input_type
+class GuestAccessIppayArgs:
+    def __init__(__self__, *,
+                 terminal_id: pulumi.Input[_builtins.str],
+                 use_sandbox: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] terminal_id: Terminal ID for IP Payments.
+        :param pulumi.Input[_builtins.bool] use_sandbox: Whether to use sandbox mode for IPPay payments.
+        """
+        pulumi.set(__self__, "terminal_id", terminal_id)
+        if use_sandbox is not None:
+            pulumi.set(__self__, "use_sandbox", use_sandbox)
+
+    @_builtins.property
+    @pulumi.getter(name="terminalId")
+    def terminal_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        Terminal ID for IP Payments.
+        """
+        return pulumi.get(self, "terminal_id")
+
+    @terminal_id.setter
+    def terminal_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "terminal_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="useSandbox")
+    def use_sandbox(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to use sandbox mode for IPPay payments.
+        """
+        return pulumi.get(self, "use_sandbox")
+
+    @use_sandbox.setter
+    def use_sandbox(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "use_sandbox", value)
+
+
+class GuestAccessMerchantWarriorArgsDict(TypedDict):
+    api_key: pulumi.Input[_builtins.str]
+    """
+    MerchantWarrior API key.
+    """
+    api_passphrase: pulumi.Input[_builtins.str]
+    """
+    MerchantWarrior API passphrase.
+    """
+    merchant_uuid: pulumi.Input[_builtins.str]
+    """
+    MerchantWarrior merchant UUID.
+    """
+    use_sandbox: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to use sandbox mode for MerchantWarrior payments.
+    """
+
+@pulumi.input_type
+class GuestAccessMerchantWarriorArgs:
+    def __init__(__self__, *,
+                 api_key: pulumi.Input[_builtins.str],
+                 api_passphrase: pulumi.Input[_builtins.str],
+                 merchant_uuid: pulumi.Input[_builtins.str],
+                 use_sandbox: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] api_key: MerchantWarrior API key.
+        :param pulumi.Input[_builtins.str] api_passphrase: MerchantWarrior API passphrase.
+        :param pulumi.Input[_builtins.str] merchant_uuid: MerchantWarrior merchant UUID.
+        :param pulumi.Input[_builtins.bool] use_sandbox: Whether to use sandbox mode for MerchantWarrior payments.
+        """
+        pulumi.set(__self__, "api_key", api_key)
+        pulumi.set(__self__, "api_passphrase", api_passphrase)
+        pulumi.set(__self__, "merchant_uuid", merchant_uuid)
+        if use_sandbox is not None:
+            pulumi.set(__self__, "use_sandbox", use_sandbox)
+
+    @_builtins.property
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> pulumi.Input[_builtins.str]:
+        """
+        MerchantWarrior API key.
+        """
+        return pulumi.get(self, "api_key")
+
+    @api_key.setter
+    def api_key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "api_key", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiPassphrase")
+    def api_passphrase(self) -> pulumi.Input[_builtins.str]:
+        """
+        MerchantWarrior API passphrase.
+        """
+        return pulumi.get(self, "api_passphrase")
+
+    @api_passphrase.setter
+    def api_passphrase(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "api_passphrase", value)
+
+    @_builtins.property
+    @pulumi.getter(name="merchantUuid")
+    def merchant_uuid(self) -> pulumi.Input[_builtins.str]:
+        """
+        MerchantWarrior merchant UUID.
+        """
+        return pulumi.get(self, "merchant_uuid")
+
+    @merchant_uuid.setter
+    def merchant_uuid(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "merchant_uuid", value)
+
+    @_builtins.property
+    @pulumi.getter(name="useSandbox")
+    def use_sandbox(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to use sandbox mode for MerchantWarrior payments.
+        """
+        return pulumi.get(self, "use_sandbox")
+
+    @use_sandbox.setter
+    def use_sandbox(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "use_sandbox", value)
+
+
+class GuestAccessPaypalArgsDict(TypedDict):
+    password: pulumi.Input[_builtins.str]
+    """
+    PayPal password.
+    """
+    signature: pulumi.Input[_builtins.str]
+    """
+    PayPal signature.
+    """
+    username: pulumi.Input[_builtins.str]
+    """
+    PayPal username. Must be a valid email address.
+    """
+    use_sandbox: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether to use sandbox mode for PayPal payments.
+    """
+
+@pulumi.input_type
+class GuestAccessPaypalArgs:
+    def __init__(__self__, *,
+                 password: pulumi.Input[_builtins.str],
+                 signature: pulumi.Input[_builtins.str],
+                 username: pulumi.Input[_builtins.str],
+                 use_sandbox: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] password: PayPal password.
+        :param pulumi.Input[_builtins.str] signature: PayPal signature.
+        :param pulumi.Input[_builtins.str] username: PayPal username. Must be a valid email address.
+        :param pulumi.Input[_builtins.bool] use_sandbox: Whether to use sandbox mode for PayPal payments.
+        """
+        pulumi.set(__self__, "password", password)
+        pulumi.set(__self__, "signature", signature)
+        pulumi.set(__self__, "username", username)
+        if use_sandbox is not None:
+            pulumi.set(__self__, "use_sandbox", use_sandbox)
+
+    @_builtins.property
+    @pulumi.getter
+    def password(self) -> pulumi.Input[_builtins.str]:
+        """
+        PayPal password.
+        """
+        return pulumi.get(self, "password")
+
+    @password.setter
+    def password(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "password", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def signature(self) -> pulumi.Input[_builtins.str]:
+        """
+        PayPal signature.
+        """
+        return pulumi.get(self, "signature")
+
+    @signature.setter
+    def signature(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "signature", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def username(self) -> pulumi.Input[_builtins.str]:
+        """
+        PayPal username. Must be a valid email address.
+        """
+        return pulumi.get(self, "username")
+
+    @username.setter
+    def username(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "username", value)
+
+    @_builtins.property
+    @pulumi.getter(name="useSandbox")
+    def use_sandbox(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether to use sandbox mode for PayPal payments.
+        """
+        return pulumi.get(self, "use_sandbox")
+
+    @use_sandbox.setter
+    def use_sandbox(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "use_sandbox", value)
+
+
+class GuestAccessPortalCustomizationArgsDict(TypedDict):
+    authentication_text: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Custom authentication text for the portal.
+    """
+    bg_color: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+    """
+    bg_image_file_id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
+    """
+    bg_image_tile: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Tile the background image.
+    """
+    bg_type: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Type of portal background. Valid values are:
+    """
+    box_color: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+    """
+    box_link_color: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+    """
+    box_opacity: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Opacity of the login box (0-100).
+    """
+    box_radius: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Border radius of the login box in pixels.
+    """
+    box_text_color: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+    """
+    button_color: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+    """
+    button_text: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Custom text for the login button.
+    """
+    button_text_color: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+    """
+    customized: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Whether the portal is customized.
+    """
+    languages: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    List of enabled languages for the portal.
+    """
+    link_color: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+    """
+    logo_file_id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    ID of the logo image portal file. File must exist in controller, use `port.AlFile` to manage it.
+    """
+    logo_position: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Position of the logo in the portal. Valid values are: left, center, right.
+    """
+    logo_size: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Size of the logo in pixels.
+    """
+    success_text: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Text displayed after successful authentication.
+    """
+    text_color: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+    """
+    title: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Title of the portal page.
+    """
+    tos: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Terms of service text.
+    """
+    tos_enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Enable terms of service acceptance requirement.
+    """
+    unsplash_author_name: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Name of the Unsplash author for gallery background.
+    """
+    unsplash_author_username: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Username of the Unsplash author for gallery background.
+    """
+    welcome_text: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Welcome text displayed on the portal.
+    """
+    welcome_text_enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Enable welcome text display.
+    """
+    welcome_text_position: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Position of the welcome text. Valid values are: `under_logo`, `above_boxes`.
+    """
+
+@pulumi.input_type
+class GuestAccessPortalCustomizationArgs:
+    def __init__(__self__, *,
+                 authentication_text: Optional[pulumi.Input[_builtins.str]] = None,
+                 bg_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 bg_image_file_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 bg_image_tile: Optional[pulumi.Input[_builtins.bool]] = None,
+                 bg_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 box_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 box_link_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 box_opacity: Optional[pulumi.Input[_builtins.int]] = None,
+                 box_radius: Optional[pulumi.Input[_builtins.int]] = None,
+                 box_text_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 button_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 button_text: Optional[pulumi.Input[_builtins.str]] = None,
+                 button_text_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 customized: Optional[pulumi.Input[_builtins.bool]] = None,
+                 languages: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 link_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 logo_file_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 logo_position: Optional[pulumi.Input[_builtins.str]] = None,
+                 logo_size: Optional[pulumi.Input[_builtins.int]] = None,
+                 success_text: Optional[pulumi.Input[_builtins.str]] = None,
+                 text_color: Optional[pulumi.Input[_builtins.str]] = None,
+                 title: Optional[pulumi.Input[_builtins.str]] = None,
+                 tos: Optional[pulumi.Input[_builtins.str]] = None,
+                 tos_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 unsplash_author_name: Optional[pulumi.Input[_builtins.str]] = None,
+                 unsplash_author_username: Optional[pulumi.Input[_builtins.str]] = None,
+                 welcome_text: Optional[pulumi.Input[_builtins.str]] = None,
+                 welcome_text_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 welcome_text_position: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] authentication_text: Custom authentication text for the portal.
+        :param pulumi.Input[_builtins.str] bg_color: Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        :param pulumi.Input[_builtins.str] bg_image_file_id: ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
+        :param pulumi.Input[_builtins.bool] bg_image_tile: Tile the background image.
+        :param pulumi.Input[_builtins.str] bg_type: Type of portal background. Valid values are:
+        :param pulumi.Input[_builtins.str] box_color: Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        :param pulumi.Input[_builtins.str] box_link_color: Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        :param pulumi.Input[_builtins.int] box_opacity: Opacity of the login box (0-100).
+        :param pulumi.Input[_builtins.int] box_radius: Border radius of the login box in pixels.
+        :param pulumi.Input[_builtins.str] box_text_color: Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        :param pulumi.Input[_builtins.str] button_color: Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        :param pulumi.Input[_builtins.str] button_text: Custom text for the login button.
+        :param pulumi.Input[_builtins.str] button_text_color: Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        :param pulumi.Input[_builtins.bool] customized: Whether the portal is customized.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] languages: List of enabled languages for the portal.
+        :param pulumi.Input[_builtins.str] link_color: Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        :param pulumi.Input[_builtins.str] logo_file_id: ID of the logo image portal file. File must exist in controller, use `port.AlFile` to manage it.
+        :param pulumi.Input[_builtins.str] logo_position: Position of the logo in the portal. Valid values are: left, center, right.
+        :param pulumi.Input[_builtins.int] logo_size: Size of the logo in pixels.
+        :param pulumi.Input[_builtins.str] success_text: Text displayed after successful authentication.
+        :param pulumi.Input[_builtins.str] text_color: Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        :param pulumi.Input[_builtins.str] title: Title of the portal page.
+        :param pulumi.Input[_builtins.str] tos: Terms of service text.
+        :param pulumi.Input[_builtins.bool] tos_enabled: Enable terms of service acceptance requirement.
+        :param pulumi.Input[_builtins.str] unsplash_author_name: Name of the Unsplash author for gallery background.
+        :param pulumi.Input[_builtins.str] unsplash_author_username: Username of the Unsplash author for gallery background.
+        :param pulumi.Input[_builtins.str] welcome_text: Welcome text displayed on the portal.
+        :param pulumi.Input[_builtins.bool] welcome_text_enabled: Enable welcome text display.
+        :param pulumi.Input[_builtins.str] welcome_text_position: Position of the welcome text. Valid values are: `under_logo`, `above_boxes`.
+        """
+        if authentication_text is not None:
+            pulumi.set(__self__, "authentication_text", authentication_text)
+        if bg_color is not None:
+            pulumi.set(__self__, "bg_color", bg_color)
+        if bg_image_file_id is not None:
+            pulumi.set(__self__, "bg_image_file_id", bg_image_file_id)
+        if bg_image_tile is not None:
+            pulumi.set(__self__, "bg_image_tile", bg_image_tile)
+        if bg_type is not None:
+            pulumi.set(__self__, "bg_type", bg_type)
+        if box_color is not None:
+            pulumi.set(__self__, "box_color", box_color)
+        if box_link_color is not None:
+            pulumi.set(__self__, "box_link_color", box_link_color)
+        if box_opacity is not None:
+            pulumi.set(__self__, "box_opacity", box_opacity)
+        if box_radius is not None:
+            pulumi.set(__self__, "box_radius", box_radius)
+        if box_text_color is not None:
+            pulumi.set(__self__, "box_text_color", box_text_color)
+        if button_color is not None:
+            pulumi.set(__self__, "button_color", button_color)
+        if button_text is not None:
+            pulumi.set(__self__, "button_text", button_text)
+        if button_text_color is not None:
+            pulumi.set(__self__, "button_text_color", button_text_color)
+        if customized is not None:
+            pulumi.set(__self__, "customized", customized)
+        if languages is not None:
+            pulumi.set(__self__, "languages", languages)
+        if link_color is not None:
+            pulumi.set(__self__, "link_color", link_color)
+        if logo_file_id is not None:
+            pulumi.set(__self__, "logo_file_id", logo_file_id)
+        if logo_position is not None:
+            pulumi.set(__self__, "logo_position", logo_position)
+        if logo_size is not None:
+            pulumi.set(__self__, "logo_size", logo_size)
+        if success_text is not None:
+            pulumi.set(__self__, "success_text", success_text)
+        if text_color is not None:
+            pulumi.set(__self__, "text_color", text_color)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+        if tos is not None:
+            pulumi.set(__self__, "tos", tos)
+        if tos_enabled is not None:
+            pulumi.set(__self__, "tos_enabled", tos_enabled)
+        if unsplash_author_name is not None:
+            pulumi.set(__self__, "unsplash_author_name", unsplash_author_name)
+        if unsplash_author_username is not None:
+            pulumi.set(__self__, "unsplash_author_username", unsplash_author_username)
+        if welcome_text is not None:
+            pulumi.set(__self__, "welcome_text", welcome_text)
+        if welcome_text_enabled is not None:
+            pulumi.set(__self__, "welcome_text_enabled", welcome_text_enabled)
+        if welcome_text_position is not None:
+            pulumi.set(__self__, "welcome_text_position", welcome_text_position)
+
+    @_builtins.property
+    @pulumi.getter(name="authenticationText")
+    def authentication_text(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Custom authentication text for the portal.
+        """
+        return pulumi.get(self, "authentication_text")
+
+    @authentication_text.setter
+    def authentication_text(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "authentication_text", value)
+
+    @_builtins.property
+    @pulumi.getter(name="bgColor")
+    def bg_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        """
+        return pulumi.get(self, "bg_color")
+
+    @bg_color.setter
+    def bg_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "bg_color", value)
+
+    @_builtins.property
+    @pulumi.getter(name="bgImageFileId")
+    def bg_image_file_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
+        """
+        return pulumi.get(self, "bg_image_file_id")
+
+    @bg_image_file_id.setter
+    def bg_image_file_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "bg_image_file_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="bgImageTile")
+    def bg_image_tile(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Tile the background image.
+        """
+        return pulumi.get(self, "bg_image_tile")
+
+    @bg_image_tile.setter
+    def bg_image_tile(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "bg_image_tile", value)
+
+    @_builtins.property
+    @pulumi.getter(name="bgType")
+    def bg_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Type of portal background. Valid values are:
+        """
+        return pulumi.get(self, "bg_type")
+
+    @bg_type.setter
+    def bg_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "bg_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="boxColor")
+    def box_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        """
+        return pulumi.get(self, "box_color")
+
+    @box_color.setter
+    def box_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "box_color", value)
+
+    @_builtins.property
+    @pulumi.getter(name="boxLinkColor")
+    def box_link_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        """
+        return pulumi.get(self, "box_link_color")
+
+    @box_link_color.setter
+    def box_link_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "box_link_color", value)
+
+    @_builtins.property
+    @pulumi.getter(name="boxOpacity")
+    def box_opacity(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Opacity of the login box (0-100).
+        """
+        return pulumi.get(self, "box_opacity")
+
+    @box_opacity.setter
+    def box_opacity(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "box_opacity", value)
+
+    @_builtins.property
+    @pulumi.getter(name="boxRadius")
+    def box_radius(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Border radius of the login box in pixels.
+        """
+        return pulumi.get(self, "box_radius")
+
+    @box_radius.setter
+    def box_radius(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "box_radius", value)
+
+    @_builtins.property
+    @pulumi.getter(name="boxTextColor")
+    def box_text_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        """
+        return pulumi.get(self, "box_text_color")
+
+    @box_text_color.setter
+    def box_text_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "box_text_color", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buttonColor")
+    def button_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        """
+        return pulumi.get(self, "button_color")
+
+    @button_color.setter
+    def button_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "button_color", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buttonText")
+    def button_text(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Custom text for the login button.
+        """
+        return pulumi.get(self, "button_text")
+
+    @button_text.setter
+    def button_text(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "button_text", value)
+
+    @_builtins.property
+    @pulumi.getter(name="buttonTextColor")
+    def button_text_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        """
+        return pulumi.get(self, "button_text_color")
+
+    @button_text_color.setter
+    def button_text_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "button_text_color", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def customized(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Whether the portal is customized.
+        """
+        return pulumi.get(self, "customized")
+
+    @customized.setter
+    def customized(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "customized", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def languages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of enabled languages for the portal.
+        """
+        return pulumi.get(self, "languages")
+
+    @languages.setter
+    def languages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "languages", value)
+
+    @_builtins.property
+    @pulumi.getter(name="linkColor")
+    def link_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        """
+        return pulumi.get(self, "link_color")
+
+    @link_color.setter
+    def link_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "link_color", value)
+
+    @_builtins.property
+    @pulumi.getter(name="logoFileId")
+    def logo_file_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        ID of the logo image portal file. File must exist in controller, use `port.AlFile` to manage it.
+        """
+        return pulumi.get(self, "logo_file_id")
+
+    @logo_file_id.setter
+    def logo_file_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "logo_file_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="logoPosition")
+    def logo_position(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Position of the logo in the portal. Valid values are: left, center, right.
+        """
+        return pulumi.get(self, "logo_position")
+
+    @logo_position.setter
+    def logo_position(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "logo_position", value)
+
+    @_builtins.property
+    @pulumi.getter(name="logoSize")
+    def logo_size(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Size of the logo in pixels.
+        """
+        return pulumi.get(self, "logo_size")
+
+    @logo_size.setter
+    def logo_size(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "logo_size", value)
+
+    @_builtins.property
+    @pulumi.getter(name="successText")
+    def success_text(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Text displayed after successful authentication.
+        """
+        return pulumi.get(self, "success_text")
+
+    @success_text.setter
+    def success_text(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "success_text", value)
+
+    @_builtins.property
+    @pulumi.getter(name="textColor")
+    def text_color(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+        """
+        return pulumi.get(self, "text_color")
+
+    @text_color.setter
+    def text_color(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "text_color", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def title(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Title of the portal page.
+        """
+        return pulumi.get(self, "title")
+
+    @title.setter
+    def title(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "title", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def tos(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Terms of service text.
+        """
+        return pulumi.get(self, "tos")
+
+    @tos.setter
+    def tos(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "tos", value)
+
+    @_builtins.property
+    @pulumi.getter(name="tosEnabled")
+    def tos_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable terms of service acceptance requirement.
+        """
+        return pulumi.get(self, "tos_enabled")
+
+    @tos_enabled.setter
+    def tos_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "tos_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="unsplashAuthorName")
+    def unsplash_author_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Name of the Unsplash author for gallery background.
+        """
+        return pulumi.get(self, "unsplash_author_name")
+
+    @unsplash_author_name.setter
+    def unsplash_author_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "unsplash_author_name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="unsplashAuthorUsername")
+    def unsplash_author_username(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Username of the Unsplash author for gallery background.
+        """
+        return pulumi.get(self, "unsplash_author_username")
+
+    @unsplash_author_username.setter
+    def unsplash_author_username(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "unsplash_author_username", value)
+
+    @_builtins.property
+    @pulumi.getter(name="welcomeText")
+    def welcome_text(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Welcome text displayed on the portal.
+        """
+        return pulumi.get(self, "welcome_text")
+
+    @welcome_text.setter
+    def welcome_text(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "welcome_text", value)
+
+    @_builtins.property
+    @pulumi.getter(name="welcomeTextEnabled")
+    def welcome_text_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable welcome text display.
+        """
+        return pulumi.get(self, "welcome_text_enabled")
+
+    @welcome_text_enabled.setter
+    def welcome_text_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "welcome_text_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="welcomeTextPosition")
+    def welcome_text_position(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Position of the welcome text. Valid values are: `under_logo`, `above_boxes`.
+        """
+        return pulumi.get(self, "welcome_text_position")
+
+    @welcome_text_position.setter
+    def welcome_text_position(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "welcome_text_position", value)
+
+
+class GuestAccessQuickpayArgsDict(TypedDict):
+    agreement_id: pulumi.Input[_builtins.str]
+    """
+    QuickPay agreement ID.
+    """
+    api_key: pulumi.Input[_builtins.str]
+    """
+    QuickPay API key.
+    """
+    merchant_id: pulumi.Input[_builtins.str]
+    """
+    QuickPay merchant ID.
+    """
+    use_sandbox: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Enable sandbox mode for QuickPay payments.
+    """
+
+@pulumi.input_type
+class GuestAccessQuickpayArgs:
+    def __init__(__self__, *,
+                 agreement_id: pulumi.Input[_builtins.str],
+                 api_key: pulumi.Input[_builtins.str],
+                 merchant_id: pulumi.Input[_builtins.str],
+                 use_sandbox: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] agreement_id: QuickPay agreement ID.
+        :param pulumi.Input[_builtins.str] api_key: QuickPay API key.
+        :param pulumi.Input[_builtins.str] merchant_id: QuickPay merchant ID.
+        :param pulumi.Input[_builtins.bool] use_sandbox: Enable sandbox mode for QuickPay payments.
+        """
+        pulumi.set(__self__, "agreement_id", agreement_id)
+        pulumi.set(__self__, "api_key", api_key)
+        pulumi.set(__self__, "merchant_id", merchant_id)
+        if use_sandbox is not None:
+            pulumi.set(__self__, "use_sandbox", use_sandbox)
+
+    @_builtins.property
+    @pulumi.getter(name="agreementId")
+    def agreement_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        QuickPay agreement ID.
+        """
+        return pulumi.get(self, "agreement_id")
+
+    @agreement_id.setter
+    def agreement_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "agreement_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> pulumi.Input[_builtins.str]:
+        """
+        QuickPay API key.
+        """
+        return pulumi.get(self, "api_key")
+
+    @api_key.setter
+    def api_key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "api_key", value)
+
+    @_builtins.property
+    @pulumi.getter(name="merchantId")
+    def merchant_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        QuickPay merchant ID.
+        """
+        return pulumi.get(self, "merchant_id")
+
+    @merchant_id.setter
+    def merchant_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "merchant_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="useSandbox")
+    def use_sandbox(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable sandbox mode for QuickPay payments.
+        """
+        return pulumi.get(self, "use_sandbox")
+
+    @use_sandbox.setter
+    def use_sandbox(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "use_sandbox", value)
+
+
+class GuestAccessRadiusArgsDict(TypedDict):
+    auth_type: pulumi.Input[_builtins.str]
+    """
+    RADIUS authentication type. Valid values are: `chap`, `mschapv2`.
+    """
+    profile_id: pulumi.Input[_builtins.str]
+    """
+    ID of the RADIUS profile to use.
+    """
+    disconnect_enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Enable RADIUS disconnect messages.
+    """
+    disconnect_port: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Port for RADIUS disconnect messages.
+    """
+
+@pulumi.input_type
+class GuestAccessRadiusArgs:
+    def __init__(__self__, *,
+                 auth_type: pulumi.Input[_builtins.str],
+                 profile_id: pulumi.Input[_builtins.str],
+                 disconnect_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 disconnect_port: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.str] auth_type: RADIUS authentication type. Valid values are: `chap`, `mschapv2`.
+        :param pulumi.Input[_builtins.str] profile_id: ID of the RADIUS profile to use.
+        :param pulumi.Input[_builtins.bool] disconnect_enabled: Enable RADIUS disconnect messages.
+        :param pulumi.Input[_builtins.int] disconnect_port: Port for RADIUS disconnect messages.
+        """
+        pulumi.set(__self__, "auth_type", auth_type)
+        pulumi.set(__self__, "profile_id", profile_id)
+        if disconnect_enabled is not None:
+            pulumi.set(__self__, "disconnect_enabled", disconnect_enabled)
+        if disconnect_port is not None:
+            pulumi.set(__self__, "disconnect_port", disconnect_port)
+
+    @_builtins.property
+    @pulumi.getter(name="authType")
+    def auth_type(self) -> pulumi.Input[_builtins.str]:
+        """
+        RADIUS authentication type. Valid values are: `chap`, `mschapv2`.
+        """
+        return pulumi.get(self, "auth_type")
+
+    @auth_type.setter
+    def auth_type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "auth_type", value)
+
+    @_builtins.property
+    @pulumi.getter(name="profileId")
+    def profile_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        ID of the RADIUS profile to use.
+        """
+        return pulumi.get(self, "profile_id")
+
+    @profile_id.setter
+    def profile_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "profile_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disconnectEnabled")
+    def disconnect_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable RADIUS disconnect messages.
+        """
+        return pulumi.get(self, "disconnect_enabled")
+
+    @disconnect_enabled.setter
+    def disconnect_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "disconnect_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="disconnectPort")
+    def disconnect_port(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Port for RADIUS disconnect messages.
+        """
+        return pulumi.get(self, "disconnect_port")
+
+    @disconnect_port.setter
+    def disconnect_port(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "disconnect_port", value)
+
+
+class GuestAccessRedirectArgsDict(TypedDict):
+    url: pulumi.Input[_builtins.str]
+    """
+    URL to redirect to after authentication. Must be a valid URL.
+    """
+    to_https: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Redirect HTTP requests to HTTPS.
+    """
+    use_https: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Use HTTPS for the redirect URL.
+    """
+
+@pulumi.input_type
+class GuestAccessRedirectArgs:
+    def __init__(__self__, *,
+                 url: pulumi.Input[_builtins.str],
+                 to_https: Optional[pulumi.Input[_builtins.bool]] = None,
+                 use_https: Optional[pulumi.Input[_builtins.bool]] = None):
+        """
+        :param pulumi.Input[_builtins.str] url: URL to redirect to after authentication. Must be a valid URL.
+        :param pulumi.Input[_builtins.bool] to_https: Redirect HTTP requests to HTTPS.
+        :param pulumi.Input[_builtins.bool] use_https: Use HTTPS for the redirect URL.
+        """
+        pulumi.set(__self__, "url", url)
+        if to_https is not None:
+            pulumi.set(__self__, "to_https", to_https)
+        if use_https is not None:
+            pulumi.set(__self__, "use_https", use_https)
+
+    @_builtins.property
+    @pulumi.getter
+    def url(self) -> pulumi.Input[_builtins.str]:
+        """
+        URL to redirect to after authentication. Must be a valid URL.
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "url", value)
+
+    @_builtins.property
+    @pulumi.getter(name="toHttps")
+    def to_https(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Redirect HTTP requests to HTTPS.
+        """
+        return pulumi.get(self, "to_https")
+
+    @to_https.setter
+    def to_https(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "to_https", value)
+
+    @_builtins.property
+    @pulumi.getter(name="useHttps")
+    def use_https(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Use HTTPS for the redirect URL.
+        """
+        return pulumi.get(self, "use_https")
+
+    @use_https.setter
+    def use_https(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "use_https", value)
+
+
+class GuestAccessStripeArgsDict(TypedDict):
+    api_key: pulumi.Input[_builtins.str]
+    """
+    Stripe API key.
+    """
+
+@pulumi.input_type
+class GuestAccessStripeArgs:
+    def __init__(__self__, *,
+                 api_key: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] api_key: Stripe API key.
+        """
+        pulumi.set(__self__, "api_key", api_key)
+
+    @_builtins.property
+    @pulumi.getter(name="apiKey")
+    def api_key(self) -> pulumi.Input[_builtins.str]:
+        """
+        Stripe API key.
+        """
+        return pulumi.get(self, "api_key")
+
+    @api_key.setter
+    def api_key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "api_key", value)
+
+
+class GuestAccessWechatArgsDict(TypedDict):
+    app_id: pulumi.Input[_builtins.str]
+    """
+    WeChat App ID for social authentication.
+    """
+    app_secret: pulumi.Input[_builtins.str]
+    """
+    WeChat App secret.
+    """
+    secret_key: pulumi.Input[_builtins.str]
+    """
+    WeChat secret key.
+    """
+    shop_id: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    WeChat Shop ID for payments.
+    """
+
+@pulumi.input_type
+class GuestAccessWechatArgs:
+    def __init__(__self__, *,
+                 app_id: pulumi.Input[_builtins.str],
+                 app_secret: pulumi.Input[_builtins.str],
+                 secret_key: pulumi.Input[_builtins.str],
+                 shop_id: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] app_id: WeChat App ID for social authentication.
+        :param pulumi.Input[_builtins.str] app_secret: WeChat App secret.
+        :param pulumi.Input[_builtins.str] secret_key: WeChat secret key.
+        :param pulumi.Input[_builtins.str] shop_id: WeChat Shop ID for payments.
+        """
+        pulumi.set(__self__, "app_id", app_id)
+        pulumi.set(__self__, "app_secret", app_secret)
+        pulumi.set(__self__, "secret_key", secret_key)
+        if shop_id is not None:
+            pulumi.set(__self__, "shop_id", shop_id)
+
+    @_builtins.property
+    @pulumi.getter(name="appId")
+    def app_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        WeChat App ID for social authentication.
+        """
+        return pulumi.get(self, "app_id")
+
+    @app_id.setter
+    def app_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "app_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="appSecret")
+    def app_secret(self) -> pulumi.Input[_builtins.str]:
+        """
+        WeChat App secret.
+        """
+        return pulumi.get(self, "app_secret")
+
+    @app_secret.setter
+    def app_secret(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "app_secret", value)
+
+    @_builtins.property
+    @pulumi.getter(name="secretKey")
+    def secret_key(self) -> pulumi.Input[_builtins.str]:
+        """
+        WeChat secret key.
+        """
+        return pulumi.get(self, "secret_key")
+
+    @secret_key.setter
+    def secret_key(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "secret_key", value)
+
+    @_builtins.property
+    @pulumi.getter(name="shopId")
+    def shop_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        WeChat Shop ID for payments.
+        """
+        return pulumi.get(self, "shop_id")
+
+    @shop_id.setter
+    def shop_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "shop_id", value)
+
+
+class IpsDnsFilterArgsDict(TypedDict):
+    filter: pulumi.Input[_builtins.str]
+    """
+    Filter type that determines the predefined filtering level. Valid values are:
+      * `none` - No predefined filtering
+      * `work` - Work-appropriate filtering that blocks adult content
+      * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
+    """
+    name: pulumi.Input[_builtins.str]
+    """
+    Name of the DNS filter. This is used to identify the filter in the UniFi interface.
+    """
+    network_id: pulumi.Input[_builtins.str]
+    """
+    Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
+    """
+    allowed_sites: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+    """
+    blocked_sites: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+    """
+    blocked_tlds: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    """
+    List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
+    """
+    description: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
+    """
+
+@pulumi.input_type
+class IpsDnsFilterArgs:
+    def __init__(__self__, *,
+                 filter: pulumi.Input[_builtins.str],
+                 name: pulumi.Input[_builtins.str],
+                 network_id: pulumi.Input[_builtins.str],
+                 allowed_sites: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 blocked_sites: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 blocked_tlds: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 description: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] filter: Filter type that determines the predefined filtering level. Valid values are:
+                 * `none` - No predefined filtering
+                 * `work` - Work-appropriate filtering that blocks adult content
+                 * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
+        :param pulumi.Input[_builtins.str] name: Name of the DNS filter. This is used to identify the filter in the UniFi interface.
+        :param pulumi.Input[_builtins.str] network_id: Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] allowed_sites: List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] blocked_sites: List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] blocked_tlds: List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
+        :param pulumi.Input[_builtins.str] description: Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
+        """
+        pulumi.set(__self__, "filter", filter)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "network_id", network_id)
+        if allowed_sites is not None:
+            pulumi.set(__self__, "allowed_sites", allowed_sites)
+        if blocked_sites is not None:
+            pulumi.set(__self__, "blocked_sites", blocked_sites)
+        if blocked_tlds is not None:
+            pulumi.set(__self__, "blocked_tlds", blocked_tlds)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+
+    @_builtins.property
+    @pulumi.getter
+    def filter(self) -> pulumi.Input[_builtins.str]:
+        """
+        Filter type that determines the predefined filtering level. Valid values are:
+          * `none` - No predefined filtering
+          * `work` - Work-appropriate filtering that blocks adult content
+          * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
+        """
+        return pulumi.get(self, "filter")
+
+    @filter.setter
+    def filter(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "filter", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[_builtins.str]:
+        """
+        Name of the DNS filter. This is used to identify the filter in the UniFi interface.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "name", value)
+
+    @_builtins.property
+    @pulumi.getter(name="networkId")
+    def network_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
+        """
+        return pulumi.get(self, "network_id")
+
+    @network_id.setter
+    def network_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "network_id", value)
+
+    @_builtins.property
+    @pulumi.getter(name="allowedSites")
+    def allowed_sites(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+        """
+        return pulumi.get(self, "allowed_sites")
+
+    @allowed_sites.setter
+    def allowed_sites(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "allowed_sites", value)
+
+    @_builtins.property
+    @pulumi.getter(name="blockedSites")
+    def blocked_sites(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+        """
+        return pulumi.get(self, "blocked_sites")
+
+    @blocked_sites.setter
+    def blocked_sites(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "blocked_sites", value)
+
+    @_builtins.property
+    @pulumi.getter(name="blockedTlds")
+    def blocked_tlds(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
+        """
+        return pulumi.get(self, "blocked_tlds")
+
+    @blocked_tlds.setter
+    def blocked_tlds(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "blocked_tlds", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
+        """
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "description", value)
+
+
+class IpsHoneypotArgsDict(TypedDict):
+    ip_address: pulumi.Input[_builtins.str]
+    """
+    IP address for the honeypot. This should be an unused IPv4 address within your network range that will be used as a decoy system.
+    """
+    network_id: pulumi.Input[_builtins.str]
+    """
+    Network ID for the honeypot. This should be a valid network ID from your UniFi configuration where the honeypot will be deployed.
+    """
+
+@pulumi.input_type
+class IpsHoneypotArgs:
+    def __init__(__self__, *,
+                 ip_address: pulumi.Input[_builtins.str],
+                 network_id: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] ip_address: IP address for the honeypot. This should be an unused IPv4 address within your network range that will be used as a decoy system.
+        :param pulumi.Input[_builtins.str] network_id: Network ID for the honeypot. This should be a valid network ID from your UniFi configuration where the honeypot will be deployed.
+        """
+        pulumi.set(__self__, "ip_address", ip_address)
+        pulumi.set(__self__, "network_id", network_id)
+
+    @_builtins.property
+    @pulumi.getter(name="ipAddress")
+    def ip_address(self) -> pulumi.Input[_builtins.str]:
+        """
+        IP address for the honeypot. This should be an unused IPv4 address within your network range that will be used as a decoy system.
+        """
+        return pulumi.get(self, "ip_address")
+
+    @ip_address.setter
+    def ip_address(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "ip_address", value)
+
+    @_builtins.property
+    @pulumi.getter(name="networkId")
+    def network_id(self) -> pulumi.Input[_builtins.str]:
+        """
+        Network ID for the honeypot. This should be a valid network ID from your UniFi configuration where the honeypot will be deployed.
+        """
+        return pulumi.get(self, "network_id")
+
+    @network_id.setter
+    def network_id(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "network_id", value)
+
+
+class IpsSuppressionArgsDict(TypedDict):
+    alerts: NotRequired[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertArgsDict']]]]
+    """
+    Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
+    """
+    whitelists: NotRequired[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionWhitelistArgsDict']]]]
+    """
+    Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
+    """
+
+@pulumi.input_type
+class IpsSuppressionArgs:
+    def __init__(__self__, *,
+                 alerts: Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertArgs']]]] = None,
+                 whitelists: Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionWhitelistArgs']]]] = None):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertArgs']]] alerts: Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
+        :param pulumi.Input[Sequence[pulumi.Input['IpsSuppressionWhitelistArgs']]] whitelists: Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
+        """
+        if alerts is not None:
+            pulumi.set(__self__, "alerts", alerts)
+        if whitelists is not None:
+            pulumi.set(__self__, "whitelists", whitelists)
+
+    @_builtins.property
+    @pulumi.getter
+    def alerts(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertArgs']]]]:
+        """
+        Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
+        """
+        return pulumi.get(self, "alerts")
+
+    @alerts.setter
+    def alerts(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertArgs']]]]):
+        pulumi.set(self, "alerts", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def whitelists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionWhitelistArgs']]]]:
+        """
+        Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
+        """
+        return pulumi.get(self, "whitelists")
+
+    @whitelists.setter
+    def whitelists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionWhitelistArgs']]]]):
+        pulumi.set(self, "whitelists", value)
+
+
+class IpsSuppressionAlertArgsDict(TypedDict):
+    category: pulumi.Input[_builtins.str]
+    """
+    Category of the alert to suppress. This should match one of the categories from the enabled_categories list.
+    """
+    signature: pulumi.Input[_builtins.str]
+    """
+    Signature name of the alert to suppress. This is a human-readable identifier for the alert in the IPS ruleset.
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    Type of suppression. Valid values are:
+      * `all` - Suppress all occurrences of this alert
+      * `track` - Only track this alert according to the tracking configuration
+    """
+    trackings: NotRequired[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertTrackingArgsDict']]]]
+    """
+    Tracking configuration for the alert. This defines how the system should track occurrences of this alert based on source/destination addresses.
+    """
+
+@pulumi.input_type
+class IpsSuppressionAlertArgs:
+    def __init__(__self__, *,
+                 category: pulumi.Input[_builtins.str],
+                 signature: pulumi.Input[_builtins.str],
+                 type: pulumi.Input[_builtins.str],
+                 trackings: Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertTrackingArgs']]]] = None):
+        """
+        :param pulumi.Input[_builtins.str] category: Category of the alert to suppress. This should match one of the categories from the enabled_categories list.
+        :param pulumi.Input[_builtins.str] signature: Signature name of the alert to suppress. This is a human-readable identifier for the alert in the IPS ruleset.
+        :param pulumi.Input[_builtins.str] type: Type of suppression. Valid values are:
+                 * `all` - Suppress all occurrences of this alert
+                 * `track` - Only track this alert according to the tracking configuration
+        :param pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertTrackingArgs']]] trackings: Tracking configuration for the alert. This defines how the system should track occurrences of this alert based on source/destination addresses.
+        """
+        pulumi.set(__self__, "category", category)
+        pulumi.set(__self__, "signature", signature)
+        pulumi.set(__self__, "type", type)
+        if trackings is not None:
+            pulumi.set(__self__, "trackings", trackings)
+
+    @_builtins.property
+    @pulumi.getter
+    def category(self) -> pulumi.Input[_builtins.str]:
+        """
+        Category of the alert to suppress. This should match one of the categories from the enabled_categories list.
+        """
+        return pulumi.get(self, "category")
+
+    @category.setter
+    def category(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "category", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def signature(self) -> pulumi.Input[_builtins.str]:
+        """
+        Signature name of the alert to suppress. This is a human-readable identifier for the alert in the IPS ruleset.
+        """
+        return pulumi.get(self, "signature")
+
+    @signature.setter
+    def signature(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "signature", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[_builtins.str]:
+        """
+        Type of suppression. Valid values are:
+          * `all` - Suppress all occurrences of this alert
+          * `track` - Only track this alert according to the tracking configuration
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def trackings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertTrackingArgs']]]]:
+        """
+        Tracking configuration for the alert. This defines how the system should track occurrences of this alert based on source/destination addresses.
+        """
+        return pulumi.get(self, "trackings")
+
+    @trackings.setter
+    def trackings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IpsSuppressionAlertTrackingArgs']]]]):
+        pulumi.set(self, "trackings", value)
+
+
+class IpsSuppressionAlertTrackingArgsDict(TypedDict):
+    direction: pulumi.Input[_builtins.str]
+    """
+    Direction for tracking. Valid values are:
+      * `src` - Track by source address
+      * `dest` - Track by destination address
+      * `both` - Track by both source and destination addresses
+    """
+    mode: pulumi.Input[_builtins.str]
+    """
+    Mode for tracking. Valid values are:
+      * `ip` - Track by individual IP address
+      * `subnet` - Track by subnet
+      * `network` - Track by network ID
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value for tracking. The meaning depends on the mode:
+      * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+      * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+      * For `network` mode: A network ID from your UniFi configuration
+    """
+
+@pulumi.input_type
+class IpsSuppressionAlertTrackingArgs:
+    def __init__(__self__, *,
+                 direction: pulumi.Input[_builtins.str],
+                 mode: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] direction: Direction for tracking. Valid values are:
+                 * `src` - Track by source address
+                 * `dest` - Track by destination address
+                 * `both` - Track by both source and destination addresses
+        :param pulumi.Input[_builtins.str] mode: Mode for tracking. Valid values are:
+                 * `ip` - Track by individual IP address
+                 * `subnet` - Track by subnet
+                 * `network` - Track by network ID
+        :param pulumi.Input[_builtins.str] value: Value for tracking. The meaning depends on the mode:
+                 * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+                 * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+                 * For `network` mode: A network ID from your UniFi configuration
+        """
+        pulumi.set(__self__, "direction", direction)
+        pulumi.set(__self__, "mode", mode)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def direction(self) -> pulumi.Input[_builtins.str]:
+        """
+        Direction for tracking. Valid values are:
+          * `src` - Track by source address
+          * `dest` - Track by destination address
+          * `both` - Track by both source and destination addresses
+        """
+        return pulumi.get(self, "direction")
+
+    @direction.setter
+    def direction(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "direction", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> pulumi.Input[_builtins.str]:
+        """
+        Mode for tracking. Valid values are:
+          * `ip` - Track by individual IP address
+          * `subnet` - Track by subnet
+          * `network` - Track by network ID
+        """
+        return pulumi.get(self, "mode")
+
+    @mode.setter
+    def mode(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "mode", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value for tracking. The meaning depends on the mode:
+          * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+          * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+          * For `network` mode: A network ID from your UniFi configuration
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class IpsSuppressionWhitelistArgsDict(TypedDict):
+    direction: pulumi.Input[_builtins.str]
+    """
+    Direction for whitelist. Valid values are:
+      * `src` - Whitelist by source address
+      * `dst` - Whitelist by destination address
+      * `both` - Whitelist by both source and destination addresses
+    """
+    mode: pulumi.Input[_builtins.str]
+    """
+    Mode for whitelist. Valid values are:
+      * `ip` - Whitelist by individual IP address
+      * `subnet` - Whitelist by subnet
+      * `network` - Whitelist by network ID
+    """
+    value: pulumi.Input[_builtins.str]
+    """
+    Value for whitelist. The meaning depends on the mode:
+      * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+      * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+      * For `network` mode: A network ID from your UniFi configuration
+    """
+
+@pulumi.input_type
+class IpsSuppressionWhitelistArgs:
+    def __init__(__self__, *,
+                 direction: pulumi.Input[_builtins.str],
+                 mode: pulumi.Input[_builtins.str],
+                 value: pulumi.Input[_builtins.str]):
+        """
+        :param pulumi.Input[_builtins.str] direction: Direction for whitelist. Valid values are:
+                 * `src` - Whitelist by source address
+                 * `dst` - Whitelist by destination address
+                 * `both` - Whitelist by both source and destination addresses
+        :param pulumi.Input[_builtins.str] mode: Mode for whitelist. Valid values are:
+                 * `ip` - Whitelist by individual IP address
+                 * `subnet` - Whitelist by subnet
+                 * `network` - Whitelist by network ID
+        :param pulumi.Input[_builtins.str] value: Value for whitelist. The meaning depends on the mode:
+                 * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+                 * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+                 * For `network` mode: A network ID from your UniFi configuration
+        """
+        pulumi.set(__self__, "direction", direction)
+        pulumi.set(__self__, "mode", mode)
+        pulumi.set(__self__, "value", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def direction(self) -> pulumi.Input[_builtins.str]:
+        """
+        Direction for whitelist. Valid values are:
+          * `src` - Whitelist by source address
+          * `dst` - Whitelist by destination address
+          * `both` - Whitelist by both source and destination addresses
+        """
+        return pulumi.get(self, "direction")
+
+    @direction.setter
+    def direction(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "direction", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> pulumi.Input[_builtins.str]:
+        """
+        Mode for whitelist. Valid values are:
+          * `ip` - Whitelist by individual IP address
+          * `subnet` - Whitelist by subnet
+          * `network` - Whitelist by network ID
+        """
+        return pulumi.get(self, "mode")
+
+    @mode.setter
+    def mode(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "mode", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[_builtins.str]:
+        """
+        Value for whitelist. The meaning depends on the mode:
+          * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+          * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+          * For `network` mode: A network ID from your UniFi configuration
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[_builtins.str]):
+        pulumi.set(self, "value", value)
+
+
+class MgmtSshKeyArgsDict(TypedDict):
+    name: pulumi.Input[_builtins.str]
+    """
+    A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
+    """
+    type: pulumi.Input[_builtins.str]
+    """
+    The type of SSH key. Common values include:
+      * `ssh-rsa` - RSA key (most common)
+      * `ssh-ed25519` - Ed25519 key (more secure)
+      * `ecdsa-sha2-nistp256` - ECDSA key
+    """
+    comment: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
+    """
+    key: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The public key string. This is the content that would normally go in an authorized_keys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
+    """
 
 @pulumi.input_type
 class MgmtSshKeyArgs:
@@ -50,10 +2096,13 @@ class MgmtSshKeyArgs:
                  comment: Optional[pulumi.Input[_builtins.str]] = None,
                  key: Optional[pulumi.Input[_builtins.str]] = None):
         """
-        :param pulumi.Input[_builtins.str] name: Name of SSH key.
-        :param pulumi.Input[_builtins.str] type: Type of SSH key, e.g. ssh-rsa.
-        :param pulumi.Input[_builtins.str] comment: Comment.
-        :param pulumi.Input[_builtins.str] key: Public SSH key.
+        :param pulumi.Input[_builtins.str] name: A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
+        :param pulumi.Input[_builtins.str] type: The type of SSH key. Common values include:
+                 * `ssh-rsa` - RSA key (most common)
+                 * `ssh-ed25519` - Ed25519 key (more secure)
+                 * `ecdsa-sha2-nistp256` - ECDSA key
+        :param pulumi.Input[_builtins.str] comment: An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
+        :param pulumi.Input[_builtins.str] key: The public key string. This is the content that would normally go in an authorized_keys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
         """
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "type", type)
@@ -66,7 +2115,7 @@ class MgmtSshKeyArgs:
     @pulumi.getter
     def name(self) -> pulumi.Input[_builtins.str]:
         """
-        Name of SSH key.
+        A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
         """
         return pulumi.get(self, "name")
 
@@ -78,7 +2127,10 @@ class MgmtSshKeyArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[_builtins.str]:
         """
-        Type of SSH key, e.g. ssh-rsa.
+        The type of SSH key. Common values include:
+          * `ssh-rsa` - RSA key (most common)
+          * `ssh-ed25519` - Ed25519 key (more secure)
+          * `ecdsa-sha2-nistp256` - ECDSA key
         """
         return pulumi.get(self, "type")
 
@@ -90,7 +2142,7 @@ class MgmtSshKeyArgs:
     @pulumi.getter
     def comment(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Comment.
+        An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
         """
         return pulumi.get(self, "comment")
 
@@ -102,12 +2154,574 @@ class MgmtSshKeyArgs:
     @pulumi.getter
     def key(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Public SSH key.
+        The public key string. This is the content that would normally go in an authorized_keys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
         """
         return pulumi.get(self, "key")
 
     @key.setter
     def key(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "key", value)
+
+
+class USGDhcpRelayArgsDict(TypedDict):
+    agents_packets: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Specifies how to handle DHCP relay agent information in packets. Valid values are:
+      * `append` - Add relay agent information to packets that may already contain it
+      * `discard` - Drop packets that already contain relay agent information
+      * `forward` - Forward packets regardless of relay agent information
+      * `replace` - Replace existing relay agent information with the gateway's information
+    """
+    hop_count: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
+    """
+    max_size: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
+    """
+    port: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
+    """
+
+@pulumi.input_type
+class USGDhcpRelayArgs:
+    def __init__(__self__, *,
+                 agents_packets: Optional[pulumi.Input[_builtins.str]] = None,
+                 hop_count: Optional[pulumi.Input[_builtins.int]] = None,
+                 max_size: Optional[pulumi.Input[_builtins.int]] = None,
+                 port: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.str] agents_packets: Specifies how to handle DHCP relay agent information in packets. Valid values are:
+                 * `append` - Add relay agent information to packets that may already contain it
+                 * `discard` - Drop packets that already contain relay agent information
+                 * `forward` - Forward packets regardless of relay agent information
+                 * `replace` - Replace existing relay agent information with the gateway's information
+        :param pulumi.Input[_builtins.int] hop_count: Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
+        :param pulumi.Input[_builtins.int] max_size: Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
+        :param pulumi.Input[_builtins.int] port: UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
+        """
+        if agents_packets is not None:
+            pulumi.set(__self__, "agents_packets", agents_packets)
+        if hop_count is not None:
+            pulumi.set(__self__, "hop_count", hop_count)
+        if max_size is not None:
+            pulumi.set(__self__, "max_size", max_size)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @_builtins.property
+    @pulumi.getter(name="agentsPackets")
+    def agents_packets(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Specifies how to handle DHCP relay agent information in packets. Valid values are:
+          * `append` - Add relay agent information to packets that may already contain it
+          * `discard` - Drop packets that already contain relay agent information
+          * `forward` - Forward packets regardless of relay agent information
+          * `replace` - Replace existing relay agent information with the gateway's information
+        """
+        return pulumi.get(self, "agents_packets")
+
+    @agents_packets.setter
+    def agents_packets(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "agents_packets", value)
+
+    @_builtins.property
+    @pulumi.getter(name="hopCount")
+    def hop_count(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
+        """
+        return pulumi.get(self, "hop_count")
+
+    @hop_count.setter
+    def hop_count(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "hop_count", value)
+
+    @_builtins.property
+    @pulumi.getter(name="maxSize")
+    def max_size(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
+        """
+        return pulumi.get(self, "max_size")
+
+    @max_size.setter
+    def max_size(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "max_size", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "port", value)
+
+
+class USGDnsVerificationArgsDict(TypedDict):
+    domain: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `setting_preference` is set to `manual`.
+    """
+    primary_dns_server: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `setting_preference` is set to `manual`. Must be a valid IPv4 address.
+    """
+    secondary_dns_server: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `setting_preference` is set to `manual`. Must be a valid IPv4 address if specified.
+    """
+    setting_preference: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Determines how DNS verification servers are configured. Valid values are:
+      * `auto` - The gateway will automatically select DNS servers for verification
+      * `manual` - Use the manually specified `primary_dns_server` and optionally `secondary_dns_server`
+
+    When set to `manual`, you must also specify `primary_dns_server` and `domain` values.
+    """
+
+@pulumi.input_type
+class USGDnsVerificationArgs:
+    def __init__(__self__, *,
+                 domain: Optional[pulumi.Input[_builtins.str]] = None,
+                 primary_dns_server: Optional[pulumi.Input[_builtins.str]] = None,
+                 secondary_dns_server: Optional[pulumi.Input[_builtins.str]] = None,
+                 setting_preference: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.str] domain: The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `setting_preference` is set to `manual`.
+        :param pulumi.Input[_builtins.str] primary_dns_server: The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `setting_preference` is set to `manual`. Must be a valid IPv4 address.
+        :param pulumi.Input[_builtins.str] secondary_dns_server: The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `setting_preference` is set to `manual`. Must be a valid IPv4 address if specified.
+        :param pulumi.Input[_builtins.str] setting_preference: Determines how DNS verification servers are configured. Valid values are:
+                 * `auto` - The gateway will automatically select DNS servers for verification
+                 * `manual` - Use the manually specified `primary_dns_server` and optionally `secondary_dns_server`
+               
+               When set to `manual`, you must also specify `primary_dns_server` and `domain` values.
+        """
+        if domain is not None:
+            pulumi.set(__self__, "domain", domain)
+        if primary_dns_server is not None:
+            pulumi.set(__self__, "primary_dns_server", primary_dns_server)
+        if secondary_dns_server is not None:
+            pulumi.set(__self__, "secondary_dns_server", secondary_dns_server)
+        if setting_preference is not None:
+            pulumi.set(__self__, "setting_preference", setting_preference)
+
+    @_builtins.property
+    @pulumi.getter
+    def domain(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `setting_preference` is set to `manual`.
+        """
+        return pulumi.get(self, "domain")
+
+    @domain.setter
+    def domain(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "domain", value)
+
+    @_builtins.property
+    @pulumi.getter(name="primaryDnsServer")
+    def primary_dns_server(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `setting_preference` is set to `manual`. Must be a valid IPv4 address.
+        """
+        return pulumi.get(self, "primary_dns_server")
+
+    @primary_dns_server.setter
+    def primary_dns_server(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "primary_dns_server", value)
+
+    @_builtins.property
+    @pulumi.getter(name="secondaryDnsServer")
+    def secondary_dns_server(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `setting_preference` is set to `manual`. Must be a valid IPv4 address if specified.
+        """
+        return pulumi.get(self, "secondary_dns_server")
+
+    @secondary_dns_server.setter
+    def secondary_dns_server(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "secondary_dns_server", value)
+
+    @_builtins.property
+    @pulumi.getter(name="settingPreference")
+    def setting_preference(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Determines how DNS verification servers are configured. Valid values are:
+          * `auto` - The gateway will automatically select DNS servers for verification
+          * `manual` - Use the manually specified `primary_dns_server` and optionally `secondary_dns_server`
+
+        When set to `manual`, you must also specify `primary_dns_server` and `domain` values.
+        """
+        return pulumi.get(self, "setting_preference")
+
+    @setting_preference.setter
+    def setting_preference(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "setting_preference", value)
+
+
+class USGGeoIpFilteringArgsDict(TypedDict):
+    countries: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]
+    """
+    List of two-letter ISO 3166-1 alpha-2 country codes to block or allow, depending on the `block` setting. Must contain at least one country code when geo IP filtering is enabled. Country codes are case-insensitive but are typically written in uppercase.
+
+    Examples:
+      * `['US', 'CA', 'MX']` - United States, Canada, and Mexico
+      * `['CN', 'RU', 'IR']` - China, Russia, and Iran
+      * `['GB', 'DE', 'FR']` - United Kingdom, Germany, and France
+    """
+    mode: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Specifies whether the selected countries should be blocked or allowed. Valid values are:
+      * `block` (default) - Traffic from the specified countries will be blocked, while traffic from all other countries will be allowed
+      * `allow` - Only traffic from the specified countries will be allowed, while traffic from all other countries will be blocked
+
+    This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
+    """
+    traffic_direction: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Specifies which traffic direction the geo IP filtering applies to. Valid values are:
+      * `both` (default) - Filters traffic in both directions (incoming and outgoing)
+      * `ingress` - Filters only incoming traffic (from WAN to LAN)
+      * `egress` - Filters only outgoing traffic (from LAN to WAN)
+
+    This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
+    """
+
+@pulumi.input_type
+class USGGeoIpFilteringArgs:
+    def __init__(__self__, *,
+                 countries: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
+                 mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 traffic_direction: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] countries: List of two-letter ISO 3166-1 alpha-2 country codes to block or allow, depending on the `block` setting. Must contain at least one country code when geo IP filtering is enabled. Country codes are case-insensitive but are typically written in uppercase.
+               
+               Examples:
+                 * `['US', 'CA', 'MX']` - United States, Canada, and Mexico
+                 * `['CN', 'RU', 'IR']` - China, Russia, and Iran
+                 * `['GB', 'DE', 'FR']` - United Kingdom, Germany, and France
+        :param pulumi.Input[_builtins.str] mode: Specifies whether the selected countries should be blocked or allowed. Valid values are:
+                 * `block` (default) - Traffic from the specified countries will be blocked, while traffic from all other countries will be allowed
+                 * `allow` - Only traffic from the specified countries will be allowed, while traffic from all other countries will be blocked
+               
+               This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
+        :param pulumi.Input[_builtins.str] traffic_direction: Specifies which traffic direction the geo IP filtering applies to. Valid values are:
+                 * `both` (default) - Filters traffic in both directions (incoming and outgoing)
+                 * `ingress` - Filters only incoming traffic (from WAN to LAN)
+                 * `egress` - Filters only outgoing traffic (from LAN to WAN)
+               
+               This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
+        """
+        pulumi.set(__self__, "countries", countries)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if traffic_direction is not None:
+            pulumi.set(__self__, "traffic_direction", traffic_direction)
+
+    @_builtins.property
+    @pulumi.getter
+    def countries(self) -> pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]:
+        """
+        List of two-letter ISO 3166-1 alpha-2 country codes to block or allow, depending on the `block` setting. Must contain at least one country code when geo IP filtering is enabled. Country codes are case-insensitive but are typically written in uppercase.
+
+        Examples:
+          * `['US', 'CA', 'MX']` - United States, Canada, and Mexico
+          * `['CN', 'RU', 'IR']` - China, Russia, and Iran
+          * `['GB', 'DE', 'FR']` - United Kingdom, Germany, and France
+        """
+        return pulumi.get(self, "countries")
+
+    @countries.setter
+    def countries(self, value: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]):
+        pulumi.set(self, "countries", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Specifies whether the selected countries should be blocked or allowed. Valid values are:
+          * `block` (default) - Traffic from the specified countries will be blocked, while traffic from all other countries will be allowed
+          * `allow` - Only traffic from the specified countries will be allowed, while traffic from all other countries will be blocked
+
+        This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
+        """
+        return pulumi.get(self, "mode")
+
+    @mode.setter
+    def mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="trafficDirection")
+    def traffic_direction(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Specifies which traffic direction the geo IP filtering applies to. Valid values are:
+          * `both` (default) - Filters traffic in both directions (incoming and outgoing)
+          * `ingress` - Filters only incoming traffic (from WAN to LAN)
+          * `egress` - Filters only outgoing traffic (from LAN to WAN)
+
+        This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
+        """
+        return pulumi.get(self, "traffic_direction")
+
+    @traffic_direction.setter
+    def traffic_direction(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "traffic_direction", value)
+
+
+class USGTcpTimeoutsArgsDict(TypedDict):
+    close_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
+    """
+    close_wait_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
+    """
+    established_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
+    """
+    fin_wait_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
+    """
+    last_ack_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
+    """
+    syn_recv_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
+    """
+    syn_sent_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
+    """
+    time_wait_timeout: NotRequired[pulumi.Input[_builtins.int]]
+    """
+    Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
+    """
+
+@pulumi.input_type
+class USGTcpTimeoutsArgs:
+    def __init__(__self__, *,
+                 close_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 close_wait_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 established_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 fin_wait_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 last_ack_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 syn_recv_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 syn_sent_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 time_wait_timeout: Optional[pulumi.Input[_builtins.int]] = None):
+        """
+        :param pulumi.Input[_builtins.int] close_timeout: Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
+        :param pulumi.Input[_builtins.int] close_wait_timeout: Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
+        :param pulumi.Input[_builtins.int] established_timeout: Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
+        :param pulumi.Input[_builtins.int] fin_wait_timeout: Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
+        :param pulumi.Input[_builtins.int] last_ack_timeout: Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
+        :param pulumi.Input[_builtins.int] syn_recv_timeout: Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
+        :param pulumi.Input[_builtins.int] syn_sent_timeout: Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
+        :param pulumi.Input[_builtins.int] time_wait_timeout: Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
+        """
+        if close_timeout is not None:
+            pulumi.set(__self__, "close_timeout", close_timeout)
+        if close_wait_timeout is not None:
+            pulumi.set(__self__, "close_wait_timeout", close_wait_timeout)
+        if established_timeout is not None:
+            pulumi.set(__self__, "established_timeout", established_timeout)
+        if fin_wait_timeout is not None:
+            pulumi.set(__self__, "fin_wait_timeout", fin_wait_timeout)
+        if last_ack_timeout is not None:
+            pulumi.set(__self__, "last_ack_timeout", last_ack_timeout)
+        if syn_recv_timeout is not None:
+            pulumi.set(__self__, "syn_recv_timeout", syn_recv_timeout)
+        if syn_sent_timeout is not None:
+            pulumi.set(__self__, "syn_sent_timeout", syn_sent_timeout)
+        if time_wait_timeout is not None:
+            pulumi.set(__self__, "time_wait_timeout", time_wait_timeout)
+
+    @_builtins.property
+    @pulumi.getter(name="closeTimeout")
+    def close_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
+        """
+        return pulumi.get(self, "close_timeout")
+
+    @close_timeout.setter
+    def close_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "close_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="closeWaitTimeout")
+    def close_wait_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
+        """
+        return pulumi.get(self, "close_wait_timeout")
+
+    @close_wait_timeout.setter
+    def close_wait_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "close_wait_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="establishedTimeout")
+    def established_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
+        """
+        return pulumi.get(self, "established_timeout")
+
+    @established_timeout.setter
+    def established_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "established_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="finWaitTimeout")
+    def fin_wait_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
+        """
+        return pulumi.get(self, "fin_wait_timeout")
+
+    @fin_wait_timeout.setter
+    def fin_wait_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "fin_wait_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="lastAckTimeout")
+    def last_ack_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
+        """
+        return pulumi.get(self, "last_ack_timeout")
+
+    @last_ack_timeout.setter
+    def last_ack_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "last_ack_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="synRecvTimeout")
+    def syn_recv_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
+        """
+        return pulumi.get(self, "syn_recv_timeout")
+
+    @syn_recv_timeout.setter
+    def syn_recv_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "syn_recv_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="synSentTimeout")
+    def syn_sent_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
+        """
+        return pulumi.get(self, "syn_sent_timeout")
+
+    @syn_sent_timeout.setter
+    def syn_sent_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "syn_sent_timeout", value)
+
+    @_builtins.property
+    @pulumi.getter(name="timeWaitTimeout")
+    def time_wait_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+        """
+        Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
+        """
+        return pulumi.get(self, "time_wait_timeout")
+
+    @time_wait_timeout.setter
+    def time_wait_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+        pulumi.set(self, "time_wait_timeout", value)
+
+
+class USGUpnpArgsDict(TypedDict):
+    nat_pmp_enabled: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
+    """
+    secure_mode: NotRequired[pulumi.Input[_builtins.bool]]
+    """
+    Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
+    """
+    wan_interface: NotRequired[pulumi.Input[_builtins.str]]
+    """
+    Specify which WAN interface to use for UPNP service. Valid values are:
+      * `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
+      * `WAN2` - Use the secondary WAN interface for UPNP port forwarding (if available)
+
+    This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
+    """
+
+@pulumi.input_type
+class USGUpnpArgs:
+    def __init__(__self__, *,
+                 nat_pmp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 secure_mode: Optional[pulumi.Input[_builtins.bool]] = None,
+                 wan_interface: Optional[pulumi.Input[_builtins.str]] = None):
+        """
+        :param pulumi.Input[_builtins.bool] nat_pmp_enabled: Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
+        :param pulumi.Input[_builtins.bool] secure_mode: Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
+        :param pulumi.Input[_builtins.str] wan_interface: Specify which WAN interface to use for UPNP service. Valid values are:
+                 * `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
+                 * `WAN2` - Use the secondary WAN interface for UPNP port forwarding (if available)
+               
+               This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
+        """
+        if nat_pmp_enabled is not None:
+            pulumi.set(__self__, "nat_pmp_enabled", nat_pmp_enabled)
+        if secure_mode is not None:
+            pulumi.set(__self__, "secure_mode", secure_mode)
+        if wan_interface is not None:
+            pulumi.set(__self__, "wan_interface", wan_interface)
+
+    @_builtins.property
+    @pulumi.getter(name="natPmpEnabled")
+    def nat_pmp_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
+        """
+        return pulumi.get(self, "nat_pmp_enabled")
+
+    @nat_pmp_enabled.setter
+    def nat_pmp_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "nat_pmp_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="secureMode")
+    def secure_mode(self) -> Optional[pulumi.Input[_builtins.bool]]:
+        """
+        Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
+        """
+        return pulumi.get(self, "secure_mode")
+
+    @secure_mode.setter
+    def secure_mode(self, value: Optional[pulumi.Input[_builtins.bool]]):
+        pulumi.set(self, "secure_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wanInterface")
+    def wan_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
+        """
+        Specify which WAN interface to use for UPNP service. Valid values are:
+          * `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
+          * `WAN2` - Use the secondary WAN interface for UPNP port forwarding (if available)
+
+        This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
+        """
+        return pulumi.get(self, "wan_interface")
+
+    @wan_interface.setter
+    def wan_interface(self, value: Optional[pulumi.Input[_builtins.str]]):
+        pulumi.set(self, "wan_interface", value)
 
 

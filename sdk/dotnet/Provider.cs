@@ -20,6 +20,12 @@ namespace Pulumiverse.Unifi
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
+        /// API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+        /// </summary>
+        [Output("apiKey")]
+        public Output<string?> ApiKey { get; private set; } = null!;
+
+        /// <summary>
         /// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         /// </summary>
         [Output("apiUrl")]
@@ -62,6 +68,11 @@ namespace Pulumiverse.Unifi
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "apiKey",
+                    "password",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -84,17 +95,43 @@ namespace Pulumiverse.Unifi
         [Input("allowInsecure", json: true)]
         public Input<bool>? AllowInsecure { get; set; }
 
+        [Input("apiKey")]
+        private Input<string>? _apiKey;
+
+        /// <summary>
+        /// API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+        /// </summary>
+        public Input<string>? ApiKey
+        {
+            get => _apiKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _apiKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
         /// <summary>
         /// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         /// </summary>
         [Input("apiUrl")]
         public Input<string>? ApiUrl { get; set; }
 
+        [Input("password")]
+        private Input<string>? _password;
+
         /// <summary>
         /// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
         /// </summary>
-        [Input("password")]
-        public Input<string>? Password { get; set; }
+        public Input<string>? Password
+        {
+            get => _password;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _password = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         /// <summary>
         /// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `Default`

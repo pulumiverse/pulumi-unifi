@@ -25,6 +25,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Group{}
 	case "unifi:firewall/rule:Rule":
 		r = &Rule{}
+	case "unifi:firewall/zone:Zone":
+		r = &Zone{}
+	case "unifi:firewall/zonePolicy:ZonePolicy":
+		r = &ZonePolicy{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -46,6 +50,16 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"unifi",
 		"firewall/rule",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"firewall/zone",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"firewall/zonePolicy",
 		&module{version},
 	)
 }
