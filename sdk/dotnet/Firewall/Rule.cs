@@ -50,7 +50,7 @@ namespace Pulumiverse.Unifi.Firewall
     public partial class Rule : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
+        /// The action of the firewall rule. Must be one of `Drop`, `Accept`, or `Reject`.
         /// </summary>
         [Output("action")]
         public Output<string> Action { get; private set; } = null!;
@@ -92,7 +92,7 @@ namespace Pulumiverse.Unifi.Firewall
         public Output<string?> DstPort { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether the rule should be enabled. Defaults to `true`.
+        /// Specifies whether the rule should be enabled. Defaults to `True`.
         /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
@@ -271,7 +271,7 @@ namespace Pulumiverse.Unifi.Firewall
     public sealed class RuleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
+        /// The action of the firewall rule. Must be one of `Drop`, `Accept`, or `Reject`.
         /// </summary>
         [Input("action", required: true)]
         public Input<string> Action { get; set; } = null!;
@@ -319,7 +319,7 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
-        /// Specifies whether the rule should be enabled. Defaults to `true`.
+        /// Specifies whether the rule should be enabled. Defaults to `True`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -465,7 +465,7 @@ namespace Pulumiverse.Unifi.Firewall
     public sealed class RuleState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.
+        /// The action of the firewall rule. Must be one of `Drop`, `Accept`, or `Reject`.
         /// </summary>
         [Input("action")]
         public Input<string>? Action { get; set; }
@@ -513,7 +513,7 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
-        /// Specifies whether the rule should be enabled. Defaults to `true`.
+        /// Specifies whether the rule should be enabled. Defaults to `True`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }

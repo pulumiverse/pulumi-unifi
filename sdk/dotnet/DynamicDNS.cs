@@ -45,7 +45,7 @@ namespace Pulumiverse.Unifi
         public Output<string> HostName { get; private set; } = null!;
 
         /// <summary>
-        /// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+        /// The interface for the dynamic DNS. Can be `Wan` or `Wan2`. Defaults to `Wan`.
         /// </summary>
         [Output("interface")]
         public Output<string?> Interface { get; private set; } = null!;
@@ -69,7 +69,7 @@ namespace Pulumiverse.Unifi
         public Output<string?> Server { get; private set; } = null!;
 
         /// <summary>
-        /// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+        /// The Dynamic DNS service provider, various values are supported (for example `Dyndns`, etc.).
         /// </summary>
         [Output("service")]
         public Output<string> Service { get; private set; } = null!;
@@ -138,7 +138,7 @@ namespace Pulumiverse.Unifi
         public Input<string> HostName { get; set; } = null!;
 
         /// <summary>
-        /// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+        /// The interface for the dynamic DNS. Can be `Wan` or `Wan2`. Defaults to `Wan`.
         /// </summary>
         [Input("interface")]
         public Input<string>? Interface { get; set; }
@@ -172,7 +172,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Server { get; set; }
 
         /// <summary>
-        /// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+        /// The Dynamic DNS service provider, various values are supported (for example `Dyndns`, etc.).
         /// </summary>
         [Input("service", required: true)]
         public Input<string> Service { get; set; } = null!;
@@ -198,7 +198,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? HostName { get; set; }
 
         /// <summary>
-        /// The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+        /// The interface for the dynamic DNS. Can be `Wan` or `Wan2`. Defaults to `Wan`.
         /// </summary>
         [Input("interface")]
         public Input<string>? Interface { get; set; }
@@ -232,7 +232,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Server { get; set; }
 
         /// <summary>
-        /// The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+        /// The Dynamic DNS service provider, various values are supported (for example `Dyndns`, etc.).
         /// </summary>
         [Input("service")]
         public Input<string>? Service { get; set; }

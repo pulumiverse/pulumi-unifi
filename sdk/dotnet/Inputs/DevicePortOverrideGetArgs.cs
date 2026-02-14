@@ -32,7 +32,7 @@ namespace Pulumiverse.Unifi.Inputs
         public Input<int> Number { get; set; } = null!;
 
         /// <summary>
-        /// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+        /// Operating mode of the port, valid values are `Switch`, `Mirror`, and `Aggregate`. Defaults to `Switch`.
         /// </summary>
         [Input("opMode")]
         public Input<string>? OpMode { get; set; }

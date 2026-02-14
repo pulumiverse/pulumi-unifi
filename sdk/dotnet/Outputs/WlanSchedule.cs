@@ -15,7 +15,7 @@ namespace Pulumiverse.Unifi.Outputs
     public sealed class WlanSchedule
     {
         /// <summary>
-        /// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+        /// Day of week for the block. Valid values are `Sun`, `Mon`, `Tue`, `Wed`, `Thu`, `Fri`, `Sat`.
         /// </summary>
         public readonly string DayOfWeek;
         /// <summary>

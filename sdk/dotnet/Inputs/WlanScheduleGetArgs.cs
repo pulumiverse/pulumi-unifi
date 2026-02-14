@@ -14,7 +14,7 @@ namespace Pulumiverse.Unifi.Inputs
     public sealed class WlanScheduleGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+        /// Day of week for the block. Valid values are `Sun`, `Mon`, `Tue`, `Wed`, `Thu`, `Fri`, `Sat`.
         /// </summary>
         [Input("dayOfWeek", required: true)]
         public Input<string> DayOfWeek { get; set; } = null!;

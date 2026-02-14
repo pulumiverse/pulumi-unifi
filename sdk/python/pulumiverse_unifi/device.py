@@ -256,6 +256,10 @@ class Device(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
+        `Device` manages a device of the network.
+
+        Devices are adopted by the controller, so it is not possible for this resource to be created through Terraform, the create operation instead will simply start managing the device specified by MAC address. It's safer to start this process with an explicit import of the device.
+
         ## Example Usage
 
         ```python
@@ -308,6 +312,10 @@ class Device(pulumi.CustomResource):
                  args: Optional[DeviceArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        `Device` manages a device of the network.
+
+        Devices are adopted by the controller, so it is not possible for this resource to be created through Terraform, the create operation instead will simply start managing the device specified by MAC address. It's safer to start this process with an explicit import of the device.
+
         ## Example Usage
 
         ```python

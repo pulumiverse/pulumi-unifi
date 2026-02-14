@@ -34,8 +34,7 @@ namespace Pulumiverse.Unifi
 
         private static readonly __Value<bool?> _allowInsecure = new __Value<bool?>(() => __config.GetBoolean("allowInsecure") ?? Utilities.GetEnvBoolean("UNIFI_INSECURE"));
         /// <summary>
-        /// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-        /// API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+        /// Skip verification of TLS certificates of API requests. You may need to set this to `True` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
         /// </summary>
         public static bool? AllowInsecure
         {
@@ -45,9 +44,7 @@ namespace Pulumiverse.Unifi
 
         private static readonly __Value<string?> _apiUrl = new __Value<string?>(() => __config.Get("apiUrl") ?? Utilities.GetEnv("UNIFI_API"));
         /// <summary>
-        /// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-        /// path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-        /// standard controller paths.
+        /// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         /// </summary>
         public static string? ApiUrl
         {
@@ -67,8 +64,7 @@ namespace Pulumiverse.Unifi
 
         private static readonly __Value<string?> _site = new __Value<string?>(() => __config.Get("site") ?? Utilities.GetEnv("UNIFI_SITE"));
         /// <summary>
-        /// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-        /// Default: `default`
+        /// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `Default`
         /// </summary>
         public static string? Site
         {

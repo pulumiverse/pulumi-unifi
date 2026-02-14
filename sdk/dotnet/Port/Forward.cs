@@ -23,7 +23,7 @@ namespace Pulumiverse.Unifi.Port
         public Output<string?> DstPort { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `True`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
@@ -41,7 +41,7 @@ namespace Pulumiverse.Unifi.Port
         public Output<string?> FwdPort { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        /// Specifies whether to log forwarded traffic or not. Defaults to `False`.
         /// </summary>
         [Output("log")]
         public Output<bool?> Log { get; private set; } = null!;
@@ -53,13 +53,13 @@ namespace Pulumiverse.Unifi.Port
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        /// The port forwarding interface. Can be `Wan`, `Wan2`, or `Both`.
         /// </summary>
         [Output("portForwardInterface")]
         public Output<string?> PortForwardInterface { get; private set; } = null!;
 
         /// <summary>
-        /// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        /// The protocol for the port forwarding rule. Can be `Tcp`, `Udp`, or `TcpUdp`. Defaults to `TcpUdp`.
         /// </summary>
         [Output("protocol")]
         public Output<string?> Protocol { get; private set; } = null!;
@@ -71,7 +71,7 @@ namespace Pulumiverse.Unifi.Port
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `Any`. Defaults to `Any`.
         /// </summary>
         [Output("srcIp")]
         public Output<string?> SrcIp { get; private set; } = null!;
@@ -130,7 +130,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `True`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -148,7 +148,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? FwdPort { get; set; }
 
         /// <summary>
-        /// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        /// Specifies whether to log forwarded traffic or not. Defaults to `False`.
         /// </summary>
         [Input("log")]
         public Input<bool>? Log { get; set; }
@@ -160,13 +160,13 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        /// The port forwarding interface. Can be `Wan`, `Wan2`, or `Both`.
         /// </summary>
         [Input("portForwardInterface")]
         public Input<string>? PortForwardInterface { get; set; }
 
         /// <summary>
-        /// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        /// The protocol for the port forwarding rule. Can be `Tcp`, `Udp`, or `TcpUdp`. Defaults to `TcpUdp`.
         /// </summary>
         [Input("protocol")]
         public Input<string>? Protocol { get; set; }
@@ -178,7 +178,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `Any`. Defaults to `Any`.
         /// </summary>
         [Input("srcIp")]
         public Input<string>? SrcIp { get; set; }
@@ -198,7 +198,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `True`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -216,7 +216,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? FwdPort { get; set; }
 
         /// <summary>
-        /// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        /// Specifies whether to log forwarded traffic or not. Defaults to `False`.
         /// </summary>
         [Input("log")]
         public Input<bool>? Log { get; set; }
@@ -228,13 +228,13 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        /// The port forwarding interface. Can be `Wan`, `Wan2`, or `Both`.
         /// </summary>
         [Input("portForwardInterface")]
         public Input<string>? PortForwardInterface { get; set; }
 
         /// <summary>
-        /// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        /// The protocol for the port forwarding rule. Can be `Tcp`, `Udp`, or `TcpUdp`. Defaults to `TcpUdp`.
         /// </summary>
         [Input("protocol")]
         public Input<string>? Protocol { get; set; }
@@ -246,7 +246,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `Any`. Defaults to `Any`.
         /// </summary>
         [Input("srcIp")]
         public Input<string>? SrcIp { get; set; }

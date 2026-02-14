@@ -11,8 +11,7 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-// API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
 func GetAllowInsecure(ctx *pulumi.Context) bool {
 	v, err := config.TryBool(ctx, "unifi:allowInsecure")
 	if err == nil {
@@ -25,9 +24,7 @@ func GetAllowInsecure(ctx *pulumi.Context) bool {
 	return value
 }
 
-// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-// path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-// standard controller paths.
+// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 func GetApiUrl(ctx *pulumi.Context) string {
 	v, err := config.Try(ctx, "unifi:apiUrl")
 	if err == nil {
@@ -53,8 +50,7 @@ func GetPassword(ctx *pulumi.Context) string {
 	return value
 }
 
-// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-// Default: `default`
+// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
 func GetSite(ctx *pulumi.Context) string {
 	v, err := config.Try(ctx, "unifi:site")
 	if err == nil {

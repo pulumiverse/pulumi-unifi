@@ -19,7 +19,6 @@ namespace Pulumiverse.Unifi
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
-    /// using Unifi = Pulumi.Unifi;
     /// using Unifi = Pulumiverse.Unifi;
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
@@ -84,13 +83,13 @@ namespace Pulumiverse.Unifi
         public Output<ImmutableArray<string>> ApGroupIds { get; private set; } = null!;
 
         /// <summary>
-        /// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        /// Improves client transitions between APs when they have a weak signal. Defaults to `True`.
         /// </summary>
         [Output("bssTransition")]
         public Output<bool?> BssTransition { get; private set; } = null!;
 
         /// <summary>
-        /// Enables 802.11r fast roaming. Defaults to `false`.
+        /// Enables 802.11r fast roaming. Defaults to `False`.
         /// </summary>
         [Output("fastRoamingEnabled")]
         public Output<bool?> FastRoamingEnabled { get; private set; } = null!;
@@ -108,7 +107,7 @@ namespace Pulumiverse.Unifi
         public Output<bool?> IsGuest { get; private set; } = null!;
 
         /// <summary>
-        /// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
+        /// Isolates stations on layer 2 (ethernet) level. Defaults to `False`.
         /// </summary>
         [Output("l2Isolation")]
         public Output<bool?> L2Isolation { get; private set; } = null!;
@@ -120,13 +119,13 @@ namespace Pulumiverse.Unifi
         public Output<bool?> MacFilterEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
+        /// List of MAC addresses to filter (only valid if `MacFilterEnabled` is `True`).
         /// </summary>
         [Output("macFilterLists")]
         public Output<ImmutableArray<string>> MacFilterLists { get; private set; } = null!;
 
         /// <summary>
-        /// MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
+        /// MAC address filter policy (only valid if `MacFilterEnabled` is `True`). Defaults to `Deny`.
         /// </summary>
         [Output("macFilterPolicy")]
         public Output<string?> MacFilterPolicy { get; private set; } = null!;
@@ -162,31 +161,31 @@ namespace Pulumiverse.Unifi
         public Output<string?> NetworkId { get; private set; } = null!;
 
         /// <summary>
-        /// Connect high performance clients to 5 GHz only. Defaults to `true`.
+        /// Connect high performance clients to 5 GHz only. Defaults to `True`.
         /// </summary>
         [Output("no2ghzOui")]
         public Output<bool?> No2ghzOui { get; private set; } = null!;
 
         /// <summary>
-        /// The passphrase for the network, this is only required if `security` is not set to `open`.
+        /// The passphrase for the network, this is only required if `Security` is not set to `Open`.
         /// </summary>
         [Output("passphrase")]
         public Output<string?> Passphrase { get; private set; } = null!;
 
         /// <summary>
-        /// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
+        /// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `Required`, `Optional` and `Disabled`. Defaults to `Disabled`.
         /// </summary>
         [Output("pmfMode")]
         public Output<string?> PmfMode { get; private set; } = null!;
 
         /// <summary>
-        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `False`.
         /// </summary>
         [Output("proxyArp")]
         public Output<bool?> ProxyArp { get; private set; } = null!;
 
         /// <summary>
-        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
+        /// ID of the RADIUS profile to use when security `Wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
         /// </summary>
         [Output("radiusProfileId")]
         public Output<string?> RadiusProfileId { get; private set; } = null!;
@@ -198,7 +197,7 @@ namespace Pulumiverse.Unifi
         public Output<ImmutableArray<Outputs.WlanSchedule>> Schedules { get; private set; } = null!;
 
         /// <summary>
-        /// The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
+        /// The type of WiFi security for this network. Valid values are: `Wpapsk`, `Wpaeap`, and `Open`.
         /// </summary>
         [Output("security")]
         public Output<string> Security { get; private set; } = null!;
@@ -210,7 +209,7 @@ namespace Pulumiverse.Unifi
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
+        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `False`.
         /// </summary>
         [Output("uapsd")]
         public Output<bool?> Uapsd { get; private set; } = null!;
@@ -222,19 +221,19 @@ namespace Pulumiverse.Unifi
         public Output<string> UserGroupId { get; private set; } = null!;
 
         /// <summary>
-        /// Radio band your WiFi network will use. Defaults to `both`.
+        /// Radio band your WiFi network will use. Defaults to `Both`.
         /// </summary>
         [Output("wlanBand")]
         public Output<string?> WlanBand { get; private set; } = null!;
 
         /// <summary>
-        /// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
+        /// Enable WPA 3 support (security must be `Wpapsk` and PMF must be turned on).
         /// </summary>
         [Output("wpa3Support")]
         public Output<bool?> Wpa3Support { get; private set; } = null!;
 
         /// <summary>
-        /// Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
+        /// Enable WPA 3 and WPA 2 support (security must be `Wpapsk` and `Wpa3Support` must be true).
         /// </summary>
         [Output("wpa3Transition")]
         public Output<bool?> Wpa3Transition { get; private set; } = null!;
@@ -303,13 +302,13 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        /// Improves client transitions between APs when they have a weak signal. Defaults to `True`.
         /// </summary>
         [Input("bssTransition")]
         public Input<bool>? BssTransition { get; set; }
 
         /// <summary>
-        /// Enables 802.11r fast roaming. Defaults to `false`.
+        /// Enables 802.11r fast roaming. Defaults to `False`.
         /// </summary>
         [Input("fastRoamingEnabled")]
         public Input<bool>? FastRoamingEnabled { get; set; }
@@ -327,7 +326,7 @@ namespace Pulumiverse.Unifi
         public Input<bool>? IsGuest { get; set; }
 
         /// <summary>
-        /// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
+        /// Isolates stations on layer 2 (ethernet) level. Defaults to `False`.
         /// </summary>
         [Input("l2Isolation")]
         public Input<bool>? L2Isolation { get; set; }
@@ -342,7 +341,7 @@ namespace Pulumiverse.Unifi
         private InputList<string>? _macFilterLists;
 
         /// <summary>
-        /// List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
+        /// List of MAC addresses to filter (only valid if `MacFilterEnabled` is `True`).
         /// </summary>
         public InputList<string> MacFilterLists
         {
@@ -351,7 +350,7 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
+        /// MAC address filter policy (only valid if `MacFilterEnabled` is `True`). Defaults to `Deny`.
         /// </summary>
         [Input("macFilterPolicy")]
         public Input<string>? MacFilterPolicy { get; set; }
@@ -387,7 +386,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? NetworkId { get; set; }
 
         /// <summary>
-        /// Connect high performance clients to 5 GHz only. Defaults to `true`.
+        /// Connect high performance clients to 5 GHz only. Defaults to `True`.
         /// </summary>
         [Input("no2ghzOui")]
         public Input<bool>? No2ghzOui { get; set; }
@@ -396,7 +395,7 @@ namespace Pulumiverse.Unifi
         private Input<string>? _passphrase;
 
         /// <summary>
-        /// The passphrase for the network, this is only required if `security` is not set to `open`.
+        /// The passphrase for the network, this is only required if `Security` is not set to `Open`.
         /// </summary>
         public Input<string>? Passphrase
         {
@@ -409,19 +408,19 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
+        /// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `Required`, `Optional` and `Disabled`. Defaults to `Disabled`.
         /// </summary>
         [Input("pmfMode")]
         public Input<string>? PmfMode { get; set; }
 
         /// <summary>
-        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `False`.
         /// </summary>
         [Input("proxyArp")]
         public Input<bool>? ProxyArp { get; set; }
 
         /// <summary>
-        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
+        /// ID of the RADIUS profile to use when security `Wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
         /// </summary>
         [Input("radiusProfileId")]
         public Input<string>? RadiusProfileId { get; set; }
@@ -439,7 +438,7 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
+        /// The type of WiFi security for this network. Valid values are: `Wpapsk`, `Wpaeap`, and `Open`.
         /// </summary>
         [Input("security", required: true)]
         public Input<string> Security { get; set; } = null!;
@@ -451,7 +450,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
+        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `False`.
         /// </summary>
         [Input("uapsd")]
         public Input<bool>? Uapsd { get; set; }
@@ -463,19 +462,19 @@ namespace Pulumiverse.Unifi
         public Input<string> UserGroupId { get; set; } = null!;
 
         /// <summary>
-        /// Radio band your WiFi network will use. Defaults to `both`.
+        /// Radio band your WiFi network will use. Defaults to `Both`.
         /// </summary>
         [Input("wlanBand")]
         public Input<string>? WlanBand { get; set; }
 
         /// <summary>
-        /// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
+        /// Enable WPA 3 support (security must be `Wpapsk` and PMF must be turned on).
         /// </summary>
         [Input("wpa3Support")]
         public Input<bool>? Wpa3Support { get; set; }
 
         /// <summary>
-        /// Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
+        /// Enable WPA 3 and WPA 2 support (security must be `Wpapsk` and `Wpa3Support` must be true).
         /// </summary>
         [Input("wpa3Transition")]
         public Input<bool>? Wpa3Transition { get; set; }
@@ -501,13 +500,13 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Improves client transitions between APs when they have a weak signal. Defaults to `true`.
+        /// Improves client transitions between APs when they have a weak signal. Defaults to `True`.
         /// </summary>
         [Input("bssTransition")]
         public Input<bool>? BssTransition { get; set; }
 
         /// <summary>
-        /// Enables 802.11r fast roaming. Defaults to `false`.
+        /// Enables 802.11r fast roaming. Defaults to `False`.
         /// </summary>
         [Input("fastRoamingEnabled")]
         public Input<bool>? FastRoamingEnabled { get; set; }
@@ -525,7 +524,7 @@ namespace Pulumiverse.Unifi
         public Input<bool>? IsGuest { get; set; }
 
         /// <summary>
-        /// Isolates stations on layer 2 (ethernet) level. Defaults to `false`.
+        /// Isolates stations on layer 2 (ethernet) level. Defaults to `False`.
         /// </summary>
         [Input("l2Isolation")]
         public Input<bool>? L2Isolation { get; set; }
@@ -540,7 +539,7 @@ namespace Pulumiverse.Unifi
         private InputList<string>? _macFilterLists;
 
         /// <summary>
-        /// List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
+        /// List of MAC addresses to filter (only valid if `MacFilterEnabled` is `True`).
         /// </summary>
         public InputList<string> MacFilterLists
         {
@@ -549,7 +548,7 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
+        /// MAC address filter policy (only valid if `MacFilterEnabled` is `True`). Defaults to `Deny`.
         /// </summary>
         [Input("macFilterPolicy")]
         public Input<string>? MacFilterPolicy { get; set; }
@@ -585,7 +584,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? NetworkId { get; set; }
 
         /// <summary>
-        /// Connect high performance clients to 5 GHz only. Defaults to `true`.
+        /// Connect high performance clients to 5 GHz only. Defaults to `True`.
         /// </summary>
         [Input("no2ghzOui")]
         public Input<bool>? No2ghzOui { get; set; }
@@ -594,7 +593,7 @@ namespace Pulumiverse.Unifi
         private Input<string>? _passphrase;
 
         /// <summary>
-        /// The passphrase for the network, this is only required if `security` is not set to `open`.
+        /// The passphrase for the network, this is only required if `Security` is not set to `Open`.
         /// </summary>
         public Input<string>? Passphrase
         {
@@ -607,19 +606,19 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `required`, `optional` and `disabled`. Defaults to `disabled`.
+        /// Enable Protected Management Frames. This cannot be disabled if using WPA 3. Valid values are `Required`, `Optional` and `Disabled`. Defaults to `Disabled`.
         /// </summary>
         [Input("pmfMode")]
         public Input<string>? PmfMode { get; set; }
 
         /// <summary>
-        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `false`.
+        /// Reduces airtime usage by allowing APs to "proxy" common broadcast frames as unicast. Defaults to `False`.
         /// </summary>
         [Input("proxyArp")]
         public Input<bool>? ProxyArp { get; set; }
 
         /// <summary>
-        /// ID of the RADIUS profile to use when security `wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
+        /// ID of the RADIUS profile to use when security `Wpaeap`. You can query this via the `unifi.RadiusProfile` data source.
         /// </summary>
         [Input("radiusProfileId")]
         public Input<string>? RadiusProfileId { get; set; }
@@ -637,7 +636,7 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// The type of WiFi security for this network. Valid values are: `wpapsk`, `wpaeap`, and `open`.
+        /// The type of WiFi security for this network. Valid values are: `Wpapsk`, `Wpaeap`, and `Open`.
         /// </summary>
         [Input("security")]
         public Input<string>? Security { get; set; }
@@ -649,7 +648,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `false`.
+        /// Enable Unscheduled Automatic Power Save Delivery. Defaults to `False`.
         /// </summary>
         [Input("uapsd")]
         public Input<bool>? Uapsd { get; set; }
@@ -661,19 +660,19 @@ namespace Pulumiverse.Unifi
         public Input<string>? UserGroupId { get; set; }
 
         /// <summary>
-        /// Radio band your WiFi network will use. Defaults to `both`.
+        /// Radio band your WiFi network will use. Defaults to `Both`.
         /// </summary>
         [Input("wlanBand")]
         public Input<string>? WlanBand { get; set; }
 
         /// <summary>
-        /// Enable WPA 3 support (security must be `wpapsk` and PMF must be turned on).
+        /// Enable WPA 3 support (security must be `Wpapsk` and PMF must be turned on).
         /// </summary>
         [Input("wpa3Support")]
         public Input<bool>? Wpa3Support { get; set; }
 
         /// <summary>
-        /// Enable WPA 3 and WPA 2 support (security must be `wpapsk` and `wpa3_support` must be true).
+        /// Enable WPA 3 and WPA 2 support (security must be `Wpapsk` and `Wpa3Support` must be true).
         /// </summary>
         [Input("wpa3Transition")]
         public Input<bool>? Wpa3Transition { get; set; }

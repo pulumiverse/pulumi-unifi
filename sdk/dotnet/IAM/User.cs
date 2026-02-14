@@ -41,7 +41,7 @@ namespace Pulumiverse.Unifi.IAM
     public partial class User : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        /// Specifies whether this resource should just take over control of an existing user. Defaults to `True`.
         /// </summary>
         [Output("allowExisting")]
         public Output<bool?> AllowExisting { get; private set; } = null!;
@@ -113,7 +113,7 @@ namespace Pulumiverse.Unifi.IAM
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `False`.
         /// </summary>
         [Output("skipForgetOnDestroy")]
         public Output<bool?> SkipForgetOnDestroy { get; private set; } = null!;
@@ -172,7 +172,7 @@ namespace Pulumiverse.Unifi.IAM
     public sealed class UserArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        /// Specifies whether this resource should just take over control of an existing user. Defaults to `True`.
         /// </summary>
         [Input("allowExisting")]
         public Input<bool>? AllowExisting { get; set; }
@@ -232,7 +232,7 @@ namespace Pulumiverse.Unifi.IAM
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `False`.
         /// </summary>
         [Input("skipForgetOnDestroy")]
         public Input<bool>? SkipForgetOnDestroy { get; set; }
@@ -252,7 +252,7 @@ namespace Pulumiverse.Unifi.IAM
     public sealed class UserState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        /// Specifies whether this resource should just take over control of an existing user. Defaults to `True`.
         /// </summary>
         [Input("allowExisting")]
         public Input<bool>? AllowExisting { get; set; }
@@ -324,7 +324,7 @@ namespace Pulumiverse.Unifi.IAM
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `False`.
         /// </summary>
         [Input("skipForgetOnDestroy")]
         public Input<bool>? SkipForgetOnDestroy { get; set; }

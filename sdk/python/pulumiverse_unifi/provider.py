@@ -26,14 +26,10 @@ class ProviderArgs:
                  username: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Provider resource.
-        :param pulumi.Input[_builtins.bool] allow_insecure: Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-               API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
-        :param pulumi.Input[_builtins.str] api_url: URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-               path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-               standard controller paths.
+        :param pulumi.Input[_builtins.bool] allow_insecure: Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+        :param pulumi.Input[_builtins.str] api_url: URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         :param pulumi.Input[_builtins.str] password: Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
-        :param pulumi.Input[_builtins.str] site: The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-               Default: `default`
+        :param pulumi.Input[_builtins.str] site: The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
         :param pulumi.Input[_builtins.str] username: Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
         """
         if allow_insecure is None:
@@ -61,8 +57,7 @@ class ProviderArgs:
     @pulumi.getter(name="allowInsecure")
     def allow_insecure(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-        API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+        Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
         """
         return pulumi.get(self, "allow_insecure")
 
@@ -74,9 +69,7 @@ class ProviderArgs:
     @pulumi.getter(name="apiUrl")
     def api_url(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-        path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-        standard controller paths.
+        URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         """
         return pulumi.get(self, "api_url")
 
@@ -100,8 +93,7 @@ class ProviderArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-        Default: `default`
+        The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
         """
         return pulumi.get(self, "site")
 
@@ -142,14 +134,10 @@ class Provider(pulumi.ProviderResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] allow_insecure: Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-               API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
-        :param pulumi.Input[_builtins.str] api_url: URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-               path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-               standard controller paths.
+        :param pulumi.Input[_builtins.bool] allow_insecure: Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+        :param pulumi.Input[_builtins.str] api_url: URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         :param pulumi.Input[_builtins.str] password: Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
-        :param pulumi.Input[_builtins.str] site: The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-               Default: `default`
+        :param pulumi.Input[_builtins.str] site: The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
         :param pulumi.Input[_builtins.str] username: Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
         """
         ...
@@ -218,9 +206,7 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter(name="apiUrl")
     def api_url(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-        path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-        standard controller paths.
+        URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         """
         return pulumi.get(self, "api_url")
 
@@ -236,8 +222,7 @@ class Provider(pulumi.ProviderResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-        Default: `default`
+        The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
         """
         return pulumi.get(self, "site")
 

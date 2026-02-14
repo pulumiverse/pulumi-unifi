@@ -26,9 +26,7 @@ export class Provider extends pulumi.ProviderResource {
     }
 
     /**
-     * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-     * path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-     * standard controller paths.
+     * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
      */
     public readonly apiUrl!: pulumi.Output<string | undefined>;
     /**
@@ -36,8 +34,7 @@ export class Provider extends pulumi.ProviderResource {
      */
     public readonly password!: pulumi.Output<string | undefined>;
     /**
-     * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-     * Default: `default`
+     * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
      */
     public readonly site!: pulumi.Output<string | undefined>;
     /**
@@ -81,14 +78,11 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-     * API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+     * Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
      */
     allowInsecure?: pulumi.Input<boolean>;
     /**
-     * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-     * path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-     * standard controller paths.
+     * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
      */
     apiUrl?: pulumi.Input<string>;
     /**
@@ -96,8 +90,7 @@ export interface ProviderArgs {
      */
     password?: pulumi.Input<string>;
     /**
-     * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-     * Default: `default`
+     * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
      */
     site?: pulumi.Input<string>;
     /**

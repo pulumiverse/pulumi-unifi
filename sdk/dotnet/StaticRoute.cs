@@ -92,7 +92,7 @@ namespace Pulumiverse.Unifi
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `Blackhole`.
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
@@ -181,7 +181,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `Blackhole`.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
@@ -231,7 +231,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `Blackhole`.
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }

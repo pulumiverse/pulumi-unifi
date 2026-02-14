@@ -8,8 +8,7 @@ declare var exports: any;
 const __config = new pulumi.Config("unifi");
 
 /**
- * Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
- * API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+ * Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
  */
 export declare const allowInsecure: boolean | undefined;
 Object.defineProperty(exports, "allowInsecure", {
@@ -20,9 +19,7 @@ Object.defineProperty(exports, "allowInsecure", {
 });
 
 /**
- * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
- * path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
- * standard controller paths.
+ * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
  */
 export declare const apiUrl: string | undefined;
 Object.defineProperty(exports, "apiUrl", {
@@ -44,8 +41,7 @@ Object.defineProperty(exports, "password", {
 });
 
 /**
- * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
- * Default: `default`
+ * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
  */
 export declare const site: string | undefined;
 Object.defineProperty(exports, "site", {

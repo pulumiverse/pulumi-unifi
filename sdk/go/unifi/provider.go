@@ -18,14 +18,11 @@ import (
 type Provider struct {
 	pulumi.ProviderResourceState
 
-	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-	// path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-	// standard controller paths.
+	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 	ApiUrl pulumi.StringPtrOutput `pulumi:"apiUrl"`
 	// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
 	Password pulumi.StringPtrOutput `pulumi:"password"`
-	// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-	// Default: `default`
+	// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
 	Site pulumi.StringPtrOutput `pulumi:"site"`
 	// Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
 	Username pulumi.StringPtrOutput `pulumi:"username"`
@@ -73,17 +70,13 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
-	// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-	// API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+	// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
 	AllowInsecure *bool `pulumi:"allowInsecure"`
-	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-	// path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-	// standard controller paths.
+	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 	ApiUrl *string `pulumi:"apiUrl"`
 	// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
 	Password *string `pulumi:"password"`
-	// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-	// Default: `default`
+	// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
 	Site *string `pulumi:"site"`
 	// Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
 	Username *string `pulumi:"username"`
@@ -91,17 +84,13 @@ type providerArgs struct {
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
-	// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-	// API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+	// Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
 	AllowInsecure pulumi.BoolPtrInput
-	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-	// path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-	// standard controller paths.
+	// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 	ApiUrl pulumi.StringPtrInput
 	// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
 	Password pulumi.StringPtrInput
-	// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-	// Default: `default`
+	// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
 	Site pulumi.StringPtrInput
 	// Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
 	Username pulumi.StringPtrInput
@@ -167,9 +156,7 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
-// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-// path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-// standard controller paths.
+// URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 func (o ProviderOutput) ApiUrl() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.ApiUrl }).(pulumi.StringPtrOutput)
 }
@@ -179,8 +166,7 @@ func (o ProviderOutput) Password() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Password }).(pulumi.StringPtrOutput)
 }
 
-// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-// Default: `default`
+// The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
 func (o ProviderOutput) Site() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Site }).(pulumi.StringPtrOutput)
 }

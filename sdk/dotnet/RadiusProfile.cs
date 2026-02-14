@@ -17,7 +17,7 @@ namespace Pulumiverse.Unifi
     public partial class RadiusProfile : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Specifies whether to use RADIUS accounting. Defaults to `false`.
+        /// Specifies whether to use RADIUS accounting. Defaults to `False`.
         /// </summary>
         [Output("accountingEnabled")]
         public Output<bool?> AccountingEnabled { get; private set; } = null!;
@@ -35,13 +35,13 @@ namespace Pulumiverse.Unifi
         public Output<ImmutableArray<Outputs.RadiusProfileAuthServer>> AuthServers { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use interim_update. Defaults to `false`.
+        /// Specifies whether to use interim_update. Defaults to `False`.
         /// </summary>
         [Output("interimUpdateEnabled")]
         public Output<bool?> InterimUpdateEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies interim_update interval. Defaults to `3600`.
+        /// Specifies InterimUpdate interval. Defaults to `3600`.
         /// </summary>
         [Output("interimUpdateInterval")]
         public Output<int?> InterimUpdateInterval { get; private set; } = null!;
@@ -59,25 +59,25 @@ namespace Pulumiverse.Unifi
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `False`.
         /// </summary>
         [Output("useUsgAcctServer")]
         public Output<bool?> UseUsgAcctServer { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `False`.
         /// </summary>
         [Output("useUsgAuthServer")]
         public Output<bool?> UseUsgAuthServer { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use vlan on wired connections. Defaults to `false`.
+        /// Specifies whether to use vlan on wired connections. Defaults to `False`.
         /// </summary>
         [Output("vlanEnabled")]
         public Output<bool?> VlanEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        /// Specifies whether to use vlan on wireless connections. Must be one of `Disabled`, `Optional`, or `Required`. Defaults to ``.
         /// </summary>
         [Output("vlanWlanMode")]
         public Output<string?> VlanWlanMode { get; private set; } = null!;
@@ -130,7 +130,7 @@ namespace Pulumiverse.Unifi
     public sealed class RadiusProfileArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether to use RADIUS accounting. Defaults to `false`.
+        /// Specifies whether to use RADIUS accounting. Defaults to `False`.
         /// </summary>
         [Input("accountingEnabled")]
         public Input<bool>? AccountingEnabled { get; set; }
@@ -160,13 +160,13 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies whether to use interim_update. Defaults to `false`.
+        /// Specifies whether to use interim_update. Defaults to `False`.
         /// </summary>
         [Input("interimUpdateEnabled")]
         public Input<bool>? InterimUpdateEnabled { get; set; }
 
         /// <summary>
-        /// Specifies interim_update interval. Defaults to `3600`.
+        /// Specifies InterimUpdate interval. Defaults to `3600`.
         /// </summary>
         [Input("interimUpdateInterval")]
         public Input<int>? InterimUpdateInterval { get; set; }
@@ -184,25 +184,25 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `False`.
         /// </summary>
         [Input("useUsgAcctServer")]
         public Input<bool>? UseUsgAcctServer { get; set; }
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `False`.
         /// </summary>
         [Input("useUsgAuthServer")]
         public Input<bool>? UseUsgAuthServer { get; set; }
 
         /// <summary>
-        /// Specifies whether to use vlan on wired connections. Defaults to `false`.
+        /// Specifies whether to use vlan on wired connections. Defaults to `False`.
         /// </summary>
         [Input("vlanEnabled")]
         public Input<bool>? VlanEnabled { get; set; }
 
         /// <summary>
-        /// Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        /// Specifies whether to use vlan on wireless connections. Must be one of `Disabled`, `Optional`, or `Required`. Defaults to ``.
         /// </summary>
         [Input("vlanWlanMode")]
         public Input<string>? VlanWlanMode { get; set; }
@@ -216,7 +216,7 @@ namespace Pulumiverse.Unifi
     public sealed class RadiusProfileState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether to use RADIUS accounting. Defaults to `false`.
+        /// Specifies whether to use RADIUS accounting. Defaults to `False`.
         /// </summary>
         [Input("accountingEnabled")]
         public Input<bool>? AccountingEnabled { get; set; }
@@ -246,13 +246,13 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies whether to use interim_update. Defaults to `false`.
+        /// Specifies whether to use interim_update. Defaults to `False`.
         /// </summary>
         [Input("interimUpdateEnabled")]
         public Input<bool>? InterimUpdateEnabled { get; set; }
 
         /// <summary>
-        /// Specifies interim_update interval. Defaults to `3600`.
+        /// Specifies InterimUpdate interval. Defaults to `3600`.
         /// </summary>
         [Input("interimUpdateInterval")]
         public Input<int>? InterimUpdateInterval { get; set; }
@@ -270,25 +270,25 @@ namespace Pulumiverse.Unifi
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `False`.
         /// </summary>
         [Input("useUsgAcctServer")]
         public Input<bool>? UseUsgAcctServer { get; set; }
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `False`.
         /// </summary>
         [Input("useUsgAuthServer")]
         public Input<bool>? UseUsgAuthServer { get; set; }
 
         /// <summary>
-        /// Specifies whether to use vlan on wired connections. Defaults to `false`.
+        /// Specifies whether to use vlan on wired connections. Defaults to `False`.
         /// </summary>
         [Input("vlanEnabled")]
         public Input<bool>? VlanEnabled { get; set; }
 
         /// <summary>
-        /// Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        /// Specifies whether to use vlan on wireless connections. Must be one of `Disabled`, `Optional`, or `Required`. Defaults to ``.
         /// </summary>
         [Input("vlanWlanMode")]
         public Input<string>? VlanWlanMode { get; set; }

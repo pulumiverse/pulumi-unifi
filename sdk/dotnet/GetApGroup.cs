@@ -21,7 +21,7 @@ namespace Pulumiverse.Unifi
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
@@ -42,7 +42,7 @@ namespace Pulumiverse.Unifi
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
@@ -63,7 +63,7 @@ namespace Pulumiverse.Unifi
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {

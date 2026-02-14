@@ -50,13 +50,13 @@ namespace Pulumiverse.Unifi.Port
     public partial class Profile : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        /// Enable link auto negotiation for the port profile. When set to `True` this overrides `Speed`. Defaults to `True`.
         /// </summary>
         [Output("autoneg")]
         public Output<bool?> Autoneg { get; private set; } = null!;
 
         /// <summary>
-        /// The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        /// The type of 802.1X control to use. Can be `Auto`, `ForceAuthorized`, `ForceUnauthorized`, `MacBased` or `MultiHost`. Defaults to `ForceAuthorized`.
         /// </summary>
         [Output("dot1xCtrl")]
         public Output<string?> Dot1xCtrl { get; private set; } = null!;
@@ -74,31 +74,31 @@ namespace Pulumiverse.Unifi.Port
         public Output<int?> EgressRateLimitKbps { get; private set; } = null!;
 
         /// <summary>
-        /// Enable egress rate limiting for the port profile. Defaults to `false`.
+        /// Enable egress rate limiting for the port profile. Defaults to `False`.
         /// </summary>
         [Output("egressRateLimitKbpsEnabled")]
         public Output<bool?> EgressRateLimitKbpsEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        /// The type forwarding to use for the port profile. Can be `All`, `Native`, `Customize` or `Disabled`. Defaults to `Native`.
         /// </summary>
         [Output("forward")]
         public Output<string?> Forward { get; private set; } = null!;
 
         /// <summary>
-        /// Enable full duplex for the port profile. Defaults to `false`.
+        /// Enable full duplex for the port profile. Defaults to `False`.
         /// </summary>
         [Output("fullDuplex")]
         public Output<bool?> FullDuplex { get; private set; } = null!;
 
         /// <summary>
-        /// Enable port isolation for the port profile. Defaults to `false`.
+        /// Enable port isolation for the port profile. Defaults to `False`.
         /// </summary>
         [Output("isolation")]
         public Output<bool?> Isolation { get; private set; } = null!;
 
         /// <summary>
-        /// Enable LLDP-MED for the port profile. Defaults to `true`.
+        /// Enable LLDP-MED for the port profile. Defaults to `True`.
         /// </summary>
         [Output("lldpmedEnabled")]
         public Output<bool?> LldpmedEnabled { get; private set; } = null!;
@@ -122,19 +122,19 @@ namespace Pulumiverse.Unifi.Port
         public Output<string?> NativeNetworkconfId { get; private set; } = null!;
 
         /// <summary>
-        /// The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        /// The operation mode for the port profile. Can only be `Switch` Defaults to `Switch`.
         /// </summary>
         [Output("opMode")]
         public Output<string?> OpMode { get; private set; } = null!;
 
         /// <summary>
-        /// The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
+        /// The POE mode for the port profile. Can be one of `Auto`, `Passv24`, `Passthrough` or `Off`.
         /// </summary>
         [Output("poeMode")]
         public Output<string?> PoeMode { get; private set; } = null!;
 
         /// <summary>
-        /// Enable port security for the port profile. Defaults to `false`.
+        /// Enable port security for the port profile. Defaults to `False`.
         /// </summary>
         [Output("portSecurityEnabled")]
         public Output<bool?> PortSecurityEnabled { get; private set; } = null!;
@@ -182,7 +182,7 @@ namespace Pulumiverse.Unifi.Port
         public Output<int?> Speed { get; private set; } = null!;
 
         /// <summary>
-        /// Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        /// Enable broadcast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Output("stormctrlBcastEnabled")]
         public Output<bool?> StormctrlBcastEnabled { get; private set; } = null!;
@@ -200,7 +200,7 @@ namespace Pulumiverse.Unifi.Port
         public Output<int?> StormctrlBcastRate { get; private set; } = null!;
 
         /// <summary>
-        /// Enable multicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable multicast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Output("stormctrlMcastEnabled")]
         public Output<bool?> StormctrlMcastEnabled { get; private set; } = null!;
@@ -218,13 +218,13 @@ namespace Pulumiverse.Unifi.Port
         public Output<int?> StormctrlMcastRate { get; private set; } = null!;
 
         /// <summary>
-        /// The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
+        /// The type of Storm Control to use for the port profile. Can be one of `Level` or `Rate`.
         /// </summary>
         [Output("stormctrlType")]
         public Output<string?> StormctrlType { get; private set; } = null!;
 
         /// <summary>
-        /// Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable unknown unicast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Output("stormctrlUcastEnabled")]
         public Output<bool?> StormctrlUcastEnabled { get; private set; } = null!;
@@ -242,7 +242,7 @@ namespace Pulumiverse.Unifi.Port
         public Output<int?> StormctrlUcastRate { get; private set; } = null!;
 
         /// <summary>
-        /// Enable spanning tree protocol on the port profile. Defaults to `true`.
+        /// Enable spanning tree protocol on the port profile. Defaults to `True`.
         /// </summary>
         [Output("stpPortMode")]
         public Output<bool?> StpPortMode { get; private set; } = null!;
@@ -307,13 +307,13 @@ namespace Pulumiverse.Unifi.Port
     public sealed class ProfileArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        /// Enable link auto negotiation for the port profile. When set to `True` this overrides `Speed`. Defaults to `True`.
         /// </summary>
         [Input("autoneg")]
         public Input<bool>? Autoneg { get; set; }
 
         /// <summary>
-        /// The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        /// The type of 802.1X control to use. Can be `Auto`, `ForceAuthorized`, `ForceUnauthorized`, `MacBased` or `MultiHost`. Defaults to `ForceAuthorized`.
         /// </summary>
         [Input("dot1xCtrl")]
         public Input<string>? Dot1xCtrl { get; set; }
@@ -331,31 +331,31 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? EgressRateLimitKbps { get; set; }
 
         /// <summary>
-        /// Enable egress rate limiting for the port profile. Defaults to `false`.
+        /// Enable egress rate limiting for the port profile. Defaults to `False`.
         /// </summary>
         [Input("egressRateLimitKbpsEnabled")]
         public Input<bool>? EgressRateLimitKbpsEnabled { get; set; }
 
         /// <summary>
-        /// The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        /// The type forwarding to use for the port profile. Can be `All`, `Native`, `Customize` or `Disabled`. Defaults to `Native`.
         /// </summary>
         [Input("forward")]
         public Input<string>? Forward { get; set; }
 
         /// <summary>
-        /// Enable full duplex for the port profile. Defaults to `false`.
+        /// Enable full duplex for the port profile. Defaults to `False`.
         /// </summary>
         [Input("fullDuplex")]
         public Input<bool>? FullDuplex { get; set; }
 
         /// <summary>
-        /// Enable port isolation for the port profile. Defaults to `false`.
+        /// Enable port isolation for the port profile. Defaults to `False`.
         /// </summary>
         [Input("isolation")]
         public Input<bool>? Isolation { get; set; }
 
         /// <summary>
-        /// Enable LLDP-MED for the port profile. Defaults to `true`.
+        /// Enable LLDP-MED for the port profile. Defaults to `True`.
         /// </summary>
         [Input("lldpmedEnabled")]
         public Input<bool>? LldpmedEnabled { get; set; }
@@ -379,19 +379,19 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? NativeNetworkconfId { get; set; }
 
         /// <summary>
-        /// The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        /// The operation mode for the port profile. Can only be `Switch` Defaults to `Switch`.
         /// </summary>
         [Input("opMode")]
         public Input<string>? OpMode { get; set; }
 
         /// <summary>
-        /// The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
+        /// The POE mode for the port profile. Can be one of `Auto`, `Passv24`, `Passthrough` or `Off`.
         /// </summary>
         [Input("poeMode")]
         public Input<string>? PoeMode { get; set; }
 
         /// <summary>
-        /// Enable port security for the port profile. Defaults to `false`.
+        /// Enable port security for the port profile. Defaults to `False`.
         /// </summary>
         [Input("portSecurityEnabled")]
         public Input<bool>? PortSecurityEnabled { get; set; }
@@ -445,7 +445,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? Speed { get; set; }
 
         /// <summary>
-        /// Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        /// Enable broadcast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Input("stormctrlBcastEnabled")]
         public Input<bool>? StormctrlBcastEnabled { get; set; }
@@ -463,7 +463,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlBcastRate { get; set; }
 
         /// <summary>
-        /// Enable multicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable multicast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Input("stormctrlMcastEnabled")]
         public Input<bool>? StormctrlMcastEnabled { get; set; }
@@ -481,13 +481,13 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlMcastRate { get; set; }
 
         /// <summary>
-        /// The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
+        /// The type of Storm Control to use for the port profile. Can be one of `Level` or `Rate`.
         /// </summary>
         [Input("stormctrlType")]
         public Input<string>? StormctrlType { get; set; }
 
         /// <summary>
-        /// Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable unknown unicast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Input("stormctrlUcastEnabled")]
         public Input<bool>? StormctrlUcastEnabled { get; set; }
@@ -505,7 +505,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlUcastRate { get; set; }
 
         /// <summary>
-        /// Enable spanning tree protocol on the port profile. Defaults to `true`.
+        /// Enable spanning tree protocol on the port profile. Defaults to `True`.
         /// </summary>
         [Input("stpPortMode")]
         public Input<bool>? StpPortMode { get; set; }
@@ -537,13 +537,13 @@ namespace Pulumiverse.Unifi.Port
     public sealed class ProfileState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        /// Enable link auto negotiation for the port profile. When set to `True` this overrides `Speed`. Defaults to `True`.
         /// </summary>
         [Input("autoneg")]
         public Input<bool>? Autoneg { get; set; }
 
         /// <summary>
-        /// The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        /// The type of 802.1X control to use. Can be `Auto`, `ForceAuthorized`, `ForceUnauthorized`, `MacBased` or `MultiHost`. Defaults to `ForceAuthorized`.
         /// </summary>
         [Input("dot1xCtrl")]
         public Input<string>? Dot1xCtrl { get; set; }
@@ -561,31 +561,31 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? EgressRateLimitKbps { get; set; }
 
         /// <summary>
-        /// Enable egress rate limiting for the port profile. Defaults to `false`.
+        /// Enable egress rate limiting for the port profile. Defaults to `False`.
         /// </summary>
         [Input("egressRateLimitKbpsEnabled")]
         public Input<bool>? EgressRateLimitKbpsEnabled { get; set; }
 
         /// <summary>
-        /// The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        /// The type forwarding to use for the port profile. Can be `All`, `Native`, `Customize` or `Disabled`. Defaults to `Native`.
         /// </summary>
         [Input("forward")]
         public Input<string>? Forward { get; set; }
 
         /// <summary>
-        /// Enable full duplex for the port profile. Defaults to `false`.
+        /// Enable full duplex for the port profile. Defaults to `False`.
         /// </summary>
         [Input("fullDuplex")]
         public Input<bool>? FullDuplex { get; set; }
 
         /// <summary>
-        /// Enable port isolation for the port profile. Defaults to `false`.
+        /// Enable port isolation for the port profile. Defaults to `False`.
         /// </summary>
         [Input("isolation")]
         public Input<bool>? Isolation { get; set; }
 
         /// <summary>
-        /// Enable LLDP-MED for the port profile. Defaults to `true`.
+        /// Enable LLDP-MED for the port profile. Defaults to `True`.
         /// </summary>
         [Input("lldpmedEnabled")]
         public Input<bool>? LldpmedEnabled { get; set; }
@@ -609,19 +609,19 @@ namespace Pulumiverse.Unifi.Port
         public Input<string>? NativeNetworkconfId { get; set; }
 
         /// <summary>
-        /// The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        /// The operation mode for the port profile. Can only be `Switch` Defaults to `Switch`.
         /// </summary>
         [Input("opMode")]
         public Input<string>? OpMode { get; set; }
 
         /// <summary>
-        /// The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
+        /// The POE mode for the port profile. Can be one of `Auto`, `Passv24`, `Passthrough` or `Off`.
         /// </summary>
         [Input("poeMode")]
         public Input<string>? PoeMode { get; set; }
 
         /// <summary>
-        /// Enable port security for the port profile. Defaults to `false`.
+        /// Enable port security for the port profile. Defaults to `False`.
         /// </summary>
         [Input("portSecurityEnabled")]
         public Input<bool>? PortSecurityEnabled { get; set; }
@@ -675,7 +675,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? Speed { get; set; }
 
         /// <summary>
-        /// Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        /// Enable broadcast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Input("stormctrlBcastEnabled")]
         public Input<bool>? StormctrlBcastEnabled { get; set; }
@@ -693,7 +693,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlBcastRate { get; set; }
 
         /// <summary>
-        /// Enable multicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable multicast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Input("stormctrlMcastEnabled")]
         public Input<bool>? StormctrlMcastEnabled { get; set; }
@@ -711,13 +711,13 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlMcastRate { get; set; }
 
         /// <summary>
-        /// The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
+        /// The type of Storm Control to use for the port profile. Can be one of `Level` or `Rate`.
         /// </summary>
         [Input("stormctrlType")]
         public Input<string>? StormctrlType { get; set; }
 
         /// <summary>
-        /// Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable unknown unicast Storm Control for the port profile. Defaults to `False`.
         /// </summary>
         [Input("stormctrlUcastEnabled")]
         public Input<bool>? StormctrlUcastEnabled { get; set; }
@@ -735,7 +735,7 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlUcastRate { get; set; }
 
         /// <summary>
-        /// Enable spanning tree protocol on the port profile. Defaults to `true`.
+        /// Enable spanning tree protocol on the port profile. Defaults to `True`.
         /// </summary>
         [Input("stpPortMode")]
         public Input<bool>? StpPortMode { get; set; }

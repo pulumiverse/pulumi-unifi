@@ -27,7 +27,7 @@ namespace Pulumiverse.Unifi.Outputs
         /// </summary>
         public readonly int Number;
         /// <summary>
-        /// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+        /// Operating mode of the port, valid values are `Switch`, `Mirror`, and `Aggregate`. Defaults to `Switch`.
         /// </summary>
         public readonly string? OpMode;
         /// <summary>

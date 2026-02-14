@@ -17,7 +17,7 @@ namespace Pulumiverse.Unifi.Setting
     public partial class Radius : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Enable RADIUS accounting Defaults to `false`.
+        /// Enable RADIUS accounting Defaults to `False`.
         /// </summary>
         [Output("accountingEnabled")]
         public Output<bool?> AccountingEnabled { get; private set; } = null!;
@@ -35,7 +35,7 @@ namespace Pulumiverse.Unifi.Setting
         public Output<int?> AuthPort { get; private set; } = null!;
 
         /// <summary>
-        /// RAIDUS server enabled. Defaults to `true`.
+        /// RAIDUS server enabled. Defaults to `True`.
         /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
@@ -59,7 +59,7 @@ namespace Pulumiverse.Unifi.Setting
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// Encrypt communication between the server and the client. Defaults to `true`.
+        /// Encrypt communication between the server and the client. Defaults to `True`.
         /// </summary>
         [Output("tunneledReply")]
         public Output<bool?> TunneledReply { get; private set; } = null!;
@@ -116,7 +116,7 @@ namespace Pulumiverse.Unifi.Setting
     public sealed class RadiusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Enable RADIUS accounting Defaults to `false`.
+        /// Enable RADIUS accounting Defaults to `False`.
         /// </summary>
         [Input("accountingEnabled")]
         public Input<bool>? AccountingEnabled { get; set; }
@@ -134,7 +134,7 @@ namespace Pulumiverse.Unifi.Setting
         public Input<int>? AuthPort { get; set; }
 
         /// <summary>
-        /// RAIDUS server enabled. Defaults to `true`.
+        /// RAIDUS server enabled. Defaults to `True`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -168,7 +168,7 @@ namespace Pulumiverse.Unifi.Setting
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Encrypt communication between the server and the client. Defaults to `true`.
+        /// Encrypt communication between the server and the client. Defaults to `True`.
         /// </summary>
         [Input("tunneledReply")]
         public Input<bool>? TunneledReply { get; set; }
@@ -182,7 +182,7 @@ namespace Pulumiverse.Unifi.Setting
     public sealed class RadiusState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Enable RADIUS accounting Defaults to `false`.
+        /// Enable RADIUS accounting Defaults to `False`.
         /// </summary>
         [Input("accountingEnabled")]
         public Input<bool>? AccountingEnabled { get; set; }
@@ -200,7 +200,7 @@ namespace Pulumiverse.Unifi.Setting
         public Input<int>? AuthPort { get; set; }
 
         /// <summary>
-        /// RAIDUS server enabled. Defaults to `true`.
+        /// RAIDUS server enabled. Defaults to `True`.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -234,7 +234,7 @@ namespace Pulumiverse.Unifi.Setting
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Encrypt communication between the server and the client. Defaults to `true`.
+        /// Encrypt communication between the server and the client. Defaults to `True`.
         /// </summary>
         [Input("tunneledReply")]
         public Input<bool>? TunneledReply { get; set; }

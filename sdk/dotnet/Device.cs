@@ -11,13 +11,16 @@ using Pulumi;
 namespace Pulumiverse.Unifi
 {
     /// <summary>
+    /// `unifi.Device` manages a device of the network.
+    /// 
+    /// Devices are adopted by the controller, so it is not possible for this resource to be created through Terraform, the create operation instead will simply start managing the device specified by MAC address. It's safer to start this process with an explicit import of the device.
+    /// 
     /// ## Example Usage
     /// 
     /// ```csharp
     /// using System.Collections.Generic;
     /// using System.Linq;
     /// using Pulumi;
-    /// using Unifi = Pulumi.Unifi;
     /// using Unifi = Pulumiverse.Unifi;
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
@@ -73,7 +76,7 @@ namespace Pulumiverse.Unifi
     public partial class Device : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `True`.
         /// </summary>
         [Output("allowAdoption")]
         public Output<bool?> AllowAdoption { get; private set; } = null!;
@@ -85,7 +88,7 @@ namespace Pulumiverse.Unifi
         public Output<bool> Disabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `True`.
         /// </summary>
         [Output("forgetOnDestroy")]
         public Output<bool?> ForgetOnDestroy { get; private set; } = null!;
@@ -162,13 +165,13 @@ namespace Pulumiverse.Unifi
     public sealed class DeviceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `True`.
         /// </summary>
         [Input("allowAdoption")]
         public Input<bool>? AllowAdoption { get; set; }
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `True`.
         /// </summary>
         [Input("forgetOnDestroy")]
         public Input<bool>? ForgetOnDestroy { get; set; }
@@ -212,7 +215,7 @@ namespace Pulumiverse.Unifi
     public sealed class DeviceState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `true`.
+        /// Specifies whether this resource should tell the controller to adopt the device on create. Defaults to `True`.
         /// </summary>
         [Input("allowAdoption")]
         public Input<bool>? AllowAdoption { get; set; }
@@ -224,7 +227,7 @@ namespace Pulumiverse.Unifi
         public Input<bool>? Disabled { get; set; }
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `true`.
+        /// Specifies whether this resource should tell the controller to forget the device on destroy. Defaults to `True`.
         /// </summary>
         [Input("forgetOnDestroy")]
         public Input<bool>? ForgetOnDestroy { get; set; }

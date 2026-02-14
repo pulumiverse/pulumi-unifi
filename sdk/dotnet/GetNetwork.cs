@@ -21,7 +21,7 @@ namespace Pulumiverse.Unifi
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
@@ -57,7 +57,7 @@ namespace Pulumiverse.Unifi
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
@@ -93,7 +93,7 @@ namespace Pulumiverse.Unifi
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
@@ -199,11 +199,11 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string DhcpStop;
         /// <summary>
-        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        /// Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `DhcpV6DnsAuto` is set to `False`.
         /// </summary>
         public readonly ImmutableArray<string> DhcpV6Dns;
         /// <summary>
-        /// Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise
+        /// Specifies DNS source to propagate. If set `False` the entries in `DhcpV6Dns` are used, the upstream entries otherwise
         /// </summary>
         public readonly bool DhcpV6DnsAuto;
         /// <summary>
@@ -247,11 +247,11 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly bool IgmpSnooping;
         /// <summary>
-        /// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
+        /// Specifies which type of IPv6 connection to use. Must be one of either `Static`, `Pd`, or `None`.
         /// </summary>
         public readonly string Ipv6InterfaceType;
         /// <summary>
-        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
+        /// Specifies which WAN interface to use for IPv6 PD. Must be one of either `Wan` or `Wan2`.
         /// </summary>
         public readonly string Ipv6PdInterface;
         /// <summary>
@@ -259,11 +259,11 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string Ipv6PdPrefixid;
         /// <summary>
-        /// Start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// Start address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
         /// </summary>
         public readonly string Ipv6PdStart;
         /// <summary>
-        /// End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        /// End address of the DHCPv6 range. Used if `Ipv6InterfaceType` is set to `Pd`.
         /// </summary>
         public readonly string Ipv6PdStop;
         /// <summary>
@@ -271,15 +271,15 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly bool Ipv6RaEnable;
         /// <summary>
-        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime`
+        /// Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `Ipv6RaValidLifetime`
         /// </summary>
         public readonly int Ipv6RaPreferredLifetime;
         /// <summary>
-        /// IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        /// IPv6 router advertisement priority. Must be one of either `High`, `Medium`, or `Low`
         /// </summary>
         public readonly string Ipv6RaPriority;
         /// <summary>
-        /// Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`.
+        /// Total lifetime in which the address can be used. Must be equal to or greater than `Ipv6RaPreferredLifetime`.
         /// </summary>
         public readonly int Ipv6RaValidLifetime;
         /// <summary>
@@ -299,7 +299,7 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string NetworkGroup;
         /// <summary>
-        /// The purpose of the network. One of `corporate`, `guest`, `wan`, or `vlan-only`.
+        /// The purpose of the network. One of `Corporate`, `Guest`, `Wan`, or `vlan-only`.
         /// </summary>
         public readonly string Purpose;
         /// <summary>
@@ -355,11 +355,11 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly int WanPrefixlen;
         /// <summary>
-        /// Specifies the IPV4 WAN connection type. One of either `disabled`, `static`, `dhcp`, or `pppoe`.
+        /// Specifies the IPV4 WAN connection type. One of either `Disabled`, `Static`, `Dhcp`, or `Pppoe`.
         /// </summary>
         public readonly string WanType;
         /// <summary>
-        /// Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        /// Specifies the IPV6 WAN connection type. Must be one of either `Disabled`, `Static`, or `Dhcpv6`.
         /// </summary>
         public readonly string WanTypeV6;
         /// <summary>
