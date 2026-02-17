@@ -1,3 +1,0 @@
-name: unifi
-description: A Pulumi resource provider for unifi.
-language: nodejs
