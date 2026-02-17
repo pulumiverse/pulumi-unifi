@@ -3,7 +3,7 @@ provider: unifi
 organization: pulumiverse
 major-version: 0
 providerDefaultBranch: main
-upstreamProviderOrg: paultyng
+upstreamProviderOrg: filipowm
 publishRegistry: false
 languages:
     - dotnet
@@ -16,7 +16,7 @@ publish:
 license:
     ignore:
         # Don't check for the license of the local shim package
-        - github.com/paultyng/terraform-provider-unifi/shim
+        - github.com/filipowm/terraform-provider-unifi/shim
 pulumiConvert: 1
 github-app:
     enabled: false

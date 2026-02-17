@@ -11,7 +11,16 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Port
 {
     /// <summary>
-    /// `unifi.port.Profile` manages a port profile for use on network switches.
+    /// The `unifi.port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
+    /// 
+    /// Port profiles define a collection of settings that can be applied to one or more switch ports, including:
+    ///   * Network and VLAN settings
+    ///   * Port speed and duplex settings
+    ///   * Security features like 802.1X authentication and port isolation
+    ///   * Rate limiting and QoS settings
+    ///   * Network protocols like LLDP and STP
+    /// 
+    /// Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
     /// 
     /// ## Example Usage
     /// 
@@ -50,139 +59,207 @@ namespace Pulumiverse.Unifi.Port
     public partial class Profile : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        /// Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         /// </summary>
         [Output("autoneg")]
         public Output<bool?> Autoneg { get; private set; } = null!;
 
         /// <summary>
-        /// The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        /// 802.1X port-based network access control (PNAC) mode. Valid values are:
+        ///   * `ForceAuthorized` - Port allows all traffic, no authentication required (default)
+        ///   * `ForceUnauthorized` - Port blocks all traffic regardless of authentication
+        ///   * `Auto` - Standard 802.1X authentication required before port access is granted
+        ///   * `MacBased` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+        ///   * `MultiHost` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+        /// 
+        /// Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
         /// </summary>
         [Output("dot1xCtrl")]
         public Output<string?> Dot1xCtrl { get; private set; } = null!;
 
         /// <summary>
-        /// The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
+        /// The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
         /// </summary>
         [Output("dot1xIdleTimeout")]
         public Output<int?> Dot1xIdleTimeout { get; private set; } = null!;
 
         /// <summary>
-        /// The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
+        /// The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when EgressRateLimitKbpsEnabled is true.
         /// </summary>
         [Output("egressRateLimitKbps")]
         public Output<int?> EgressRateLimitKbps { get; private set; } = null!;
 
         /// <summary>
-        /// Enable egress rate limiting for the port profile. Defaults to `false`.
+        /// Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
         /// </summary>
         [Output("egressRateLimitKbpsEnabled")]
         public Output<bool?> EgressRateLimitKbpsEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        /// List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        /// </summary>
+        [Output("excludedNetworkIds")]
+        public Output<ImmutableArray<string>> ExcludedNetworkIds { get; private set; } = null!;
+
+        /// <summary>
+        /// VLAN forwarding mode for the port. Valid values are:
+        ///   * `All` - Forward all VLANs (trunk port)
+        ///   * `Native` - Only forward untagged traffic (access port)
+        ///   * `Customize` - Forward selected VLANs (use with `ExcludedNetworkIds`)
+        ///   * `Disabled` - Disable VLAN forwarding
+        /// 
+        /// Examples:
+        ///   * Use 'all' for uplink ports or connections to VLAN-aware devices
+        ///   * Use 'native' for end-user devices or simple network connections
+        ///   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
         /// </summary>
         [Output("forward")]
         public Output<string?> Forward { get; private set; } = null!;
 
         /// <summary>
-        /// Enable full duplex for the port profile. Defaults to `false`.
+        /// Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
         /// </summary>
         [Output("fullDuplex")]
         public Output<bool?> FullDuplex { get; private set; } = null!;
 
         /// <summary>
-        /// Enable port isolation for the port profile. Defaults to `false`.
+        /// Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
         /// </summary>
         [Output("isolation")]
         public Output<bool?> Isolation { get; private set; } = null!;
 
         /// <summary>
-        /// Enable LLDP-MED for the port profile. Defaults to `true`.
+        /// Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
         /// </summary>
         [Output("lldpmedEnabled")]
         public Output<bool?> LldpmedEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Enable LLDP-MED topology change notifications for the port profile.
+        /// Enable LLDP-MED topology change notifications. When enabled:
+        /// * Network devices will be notified of topology changes
+        /// * Useful for VoIP phones and other LLDP-MED capable devices
+        /// * Helps maintain accurate network topology information
+        /// * Facilitates faster device configuration and provisioning
         /// </summary>
         [Output("lldpmedNotifyEnabled")]
         public Output<bool?> LldpmedNotifyEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the port profile.
+        /// A descriptive name for the port profile. Examples:
+        /// * 'AP-Trunk-Port' - For access point uplinks
+        /// * 'VoIP-Phone-Port' - For VoIP phone connections
+        /// * 'User-Access-Port' - For standard user connections
+        /// * 'IoT-Device-Port' - For IoT device connections
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of network to use as the main network on the port profile.
+        /// The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+        /// * Access ports where devices need untagged access
+        /// * Trunk ports to specify the native VLAN
+        /// * Management networks for network devices
         /// </summary>
         [Output("nativeNetworkconfId")]
         public Output<string?> NativeNetworkconfId { get; private set; } = null!;
 
         /// <summary>
-        /// The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        /// The operation mode for the port profile. Can only be `Switch`
         /// </summary>
         [Output("opMode")]
         public Output<string?> OpMode { get; private set; } = null!;
 
         /// <summary>
-        /// The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
+        /// The POE mode for the port profile. Can be one of `Auto`, `Passv24`, `Passthrough` or `Off`.
         /// </summary>
         [Output("poeMode")]
         public Output<string?> PoeMode { get; private set; } = null!;
 
         /// <summary>
-        /// Enable port security for the port profile. Defaults to `false`.
+        /// Enable MAC address-based port security. When enabled:
+        /// * Only devices with specified MAC addresses can connect
+        /// * Unauthorized devices will be blocked
+        /// * Provides protection against unauthorized network access
+        /// * Must be used with PortSecurityMacAddress list
         /// </summary>
         [Output("portSecurityEnabled")]
         public Output<bool?> PortSecurityEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// The MAC addresses associated with the port security for the port profile.
+        /// List of allowed MAC addresses when port security is enabled. Each address should be:
+        /// * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+        /// * Unique per device
+        /// * Verified to belong to authorized devices
+        /// Only effective when PortSecurityEnabled is true
         /// </summary>
         [Output("portSecurityMacAddresses")]
         public Output<ImmutableArray<string>> PortSecurityMacAddresses { get; private set; } = null!;
 
         /// <summary>
-        /// The priority queue 1 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Low-priority background traffic
+        /// * Bulk data transfers
+        /// * Non-time-sensitive applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Output("priorityQueue1Level")]
         public Output<int?> PriorityQueue1Level { get; private set; } = null!;
 
         /// <summary>
-        /// The priority queue 2 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Standard user traffic
+        /// * Web browsing and email
+        /// * General business applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Output("priorityQueue2Level")]
         public Output<int?> PriorityQueue2Level { get; private set; } = null!;
 
         /// <summary>
-        /// The priority queue 3 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+        /// * High-priority traffic
+        /// * Voice and video conferencing
+        /// * Time-sensitive applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Output("priorityQueue3Level")]
         public Output<int?> PriorityQueue3Level { get; private set; } = null!;
 
         /// <summary>
-        /// The priority queue 4 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Highest priority traffic
+        /// * Critical real-time applications
+        /// * Emergency communications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Output("priorityQueue4Level")]
         public Output<int?> PriorityQueue4Level { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the port profile with.
+        /// The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
+        /// Port speed in Mbps when auto-negotiation is disabled. Common values:
+        /// * 10 - 10 Mbps (legacy devices)
+        /// * 100 - 100 Mbps (Fast Ethernet)
+        /// * 1000 - 1 Gbps (Gigabit Ethernet)
+        /// * 2500 - 2.5 Gbps (Multi-Gigabit)
+        /// * 5000 - 5 Gbps (Multi-Gigabit)
+        /// * 10000 - 10 Gbps (10 Gigabit)
+        /// Only used when autoneg is false
         /// </summary>
         [Output("speed")]
         public Output<int?> Speed { get; private set; } = null!;
 
         /// <summary>
-        /// Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        /// Enable broadcast storm control. When enabled:
+        /// * Limits broadcast traffic to prevent network flooding
+        /// * Protects against broadcast storms
+        /// * Helps maintain network stability
+        /// Use with StormctrlBcastRate to set threshold
         /// </summary>
         [Output("stormctrlBcastEnabled")]
         public Output<bool?> StormctrlBcastEnabled { get; private set; } = null!;
@@ -194,13 +271,21 @@ namespace Pulumiverse.Unifi.Port
         public Output<int?> StormctrlBcastLevel { get; private set; } = null!;
 
         /// <summary>
-        /// The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control broadcast traffic levels
+        /// * Prevent network congestion
+        /// * Balance between necessary broadcasts and network protection
+        /// Only effective when `StormctrlBcastEnabled` is true
         /// </summary>
         [Output("stormctrlBcastRate")]
         public Output<int?> StormctrlBcastRate { get; private set; } = null!;
 
         /// <summary>
-        /// Enable multicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable multicast storm control. When enabled:
+        /// * Limits multicast traffic to prevent network flooding
+        /// * Important for networks with multicast applications
+        /// * Helps maintain quality of service
+        /// Use with `StormctrlMcastRate` to set threshold
         /// </summary>
         [Output("stormctrlMcastEnabled")]
         public Output<bool?> StormctrlMcastEnabled { get; private set; } = null!;
@@ -212,19 +297,27 @@ namespace Pulumiverse.Unifi.Port
         public Output<int?> StormctrlMcastLevel { get; private set; } = null!;
 
         /// <summary>
-        /// The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control multicast traffic levels
+        /// * Ensure bandwidth for critical multicast services
+        /// * Prevent multicast traffic from overwhelming the network
+        /// Only effective when StormctrlMcastEnabled is true
         /// </summary>
         [Output("stormctrlMcastRate")]
         public Output<int?> StormctrlMcastRate { get; private set; } = null!;
 
         /// <summary>
-        /// The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
+        /// The type of Storm Control to use for the port profile. Can be one of `Level` or `Rate`.
         /// </summary>
         [Output("stormctrlType")]
         public Output<string?> StormctrlType { get; private set; } = null!;
 
         /// <summary>
-        /// Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable unknown unicast storm control. When enabled:
+        /// * Limits unknown unicast traffic to prevent flooding
+        /// * Protects against MAC spoofing attacks
+        /// * Helps maintain network performance
+        /// Use with StormctrlUcastRate to set threshold
         /// </summary>
         [Output("stormctrlUcastEnabled")]
         public Output<bool?> StormctrlUcastEnabled { get; private set; } = null!;
@@ -236,25 +329,56 @@ namespace Pulumiverse.Unifi.Port
         public Output<int?> StormctrlUcastLevel { get; private set; } = null!;
 
         /// <summary>
-        /// The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control unknown unicast traffic levels
+        /// * Prevent network saturation from unknown destinations
+        /// * Balance security with network usability
+        /// Only effective when StormctrlUcastEnabled is true
         /// </summary>
         [Output("stormctrlUcastRate")]
         public Output<int?> StormctrlUcastRate { get; private set; } = null!;
 
         /// <summary>
-        /// Enable spanning tree protocol on the port profile. Defaults to `true`.
+        /// Spanning Tree Protocol (STP) configuration for the port. When enabled:
+        /// * Prevents network loops in switch-to-switch connections
+        /// * Provides automatic failover in redundant topologies
+        /// * Helps maintain network stability
+        /// 
+        /// Best practices:
+        /// * Enable on switch uplink ports
+        /// * Enable on ports connecting to other switches
+        /// * Can be disabled on end-device ports for faster initialization
         /// </summary>
         [Output("stpPortMode")]
         public Output<bool?> StpPortMode { get; private set; } = null!;
 
         /// <summary>
-        /// The IDs of networks to tag traffic with for the port profile.
+        /// VLAN tagging behavior for the port. Valid values are:
+        /// * `Auto` - Automatically handle VLAN tags (recommended)
+        ///     - Intelligently manages tagged and untagged traffic
+        ///     - Best for most deployments
+        /// * `BlockAll` - Block all VLAN tagged traffic
+        ///     - Use for security-sensitive ports
+        ///     - Prevents VLAN hopping attacks
+        /// * `Custom` - Custom VLAN configuration
+        ///     - Manual control over VLAN behavior
+        ///     - For specific VLAN requirements
         /// </summary>
-        [Output("taggedNetworkconfIds")]
-        public Output<ImmutableArray<string>> TaggedNetworkconfIds { get; private set; } = null!;
+        [Output("taggedVlanMgmt")]
+        public Output<string?> TaggedVlanMgmt { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of network to use as the voice network on the port profile.
+        /// The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+        /// * Automatic VoIP VLAN configuration
+        /// * Voice traffic prioritization
+        /// * QoS settings for voice packets
+        /// 
+        /// Common scenarios:
+        /// * IP phone deployments with separate voice VLAN
+        /// * Unified communications systems
+        /// * Converged voice/data networks
+        /// 
+        /// Works in conjunction with LLDP-MED for automatic phone provisioning.
         /// </summary>
         [Output("voiceNetworkconfId")]
         public Output<string?> VoiceNetworkconfId { get; private set; } = null!;
@@ -307,91 +431,134 @@ namespace Pulumiverse.Unifi.Port
     public sealed class ProfileArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        /// Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         /// </summary>
         [Input("autoneg")]
         public Input<bool>? Autoneg { get; set; }
 
         /// <summary>
-        /// The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        /// 802.1X port-based network access control (PNAC) mode. Valid values are:
+        ///   * `ForceAuthorized` - Port allows all traffic, no authentication required (default)
+        ///   * `ForceUnauthorized` - Port blocks all traffic regardless of authentication
+        ///   * `Auto` - Standard 802.1X authentication required before port access is granted
+        ///   * `MacBased` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+        ///   * `MultiHost` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+        /// 
+        /// Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
         /// </summary>
         [Input("dot1xCtrl")]
         public Input<string>? Dot1xCtrl { get; set; }
 
         /// <summary>
-        /// The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
+        /// The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
         /// </summary>
         [Input("dot1xIdleTimeout")]
         public Input<int>? Dot1xIdleTimeout { get; set; }
 
         /// <summary>
-        /// The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
+        /// The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when EgressRateLimitKbpsEnabled is true.
         /// </summary>
         [Input("egressRateLimitKbps")]
         public Input<int>? EgressRateLimitKbps { get; set; }
 
         /// <summary>
-        /// Enable egress rate limiting for the port profile. Defaults to `false`.
+        /// Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
         /// </summary>
         [Input("egressRateLimitKbpsEnabled")]
         public Input<bool>? EgressRateLimitKbpsEnabled { get; set; }
 
+        [Input("excludedNetworkIds")]
+        private InputList<string>? _excludedNetworkIds;
+
         /// <summary>
-        /// The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        /// List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        /// </summary>
+        public InputList<string> ExcludedNetworkIds
+        {
+            get => _excludedNetworkIds ?? (_excludedNetworkIds = new InputList<string>());
+            set => _excludedNetworkIds = value;
+        }
+
+        /// <summary>
+        /// VLAN forwarding mode for the port. Valid values are:
+        ///   * `All` - Forward all VLANs (trunk port)
+        ///   * `Native` - Only forward untagged traffic (access port)
+        ///   * `Customize` - Forward selected VLANs (use with `ExcludedNetworkIds`)
+        ///   * `Disabled` - Disable VLAN forwarding
+        /// 
+        /// Examples:
+        ///   * Use 'all' for uplink ports or connections to VLAN-aware devices
+        ///   * Use 'native' for end-user devices or simple network connections
+        ///   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
         /// </summary>
         [Input("forward")]
         public Input<string>? Forward { get; set; }
 
         /// <summary>
-        /// Enable full duplex for the port profile. Defaults to `false`.
+        /// Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
         /// </summary>
         [Input("fullDuplex")]
         public Input<bool>? FullDuplex { get; set; }
 
         /// <summary>
-        /// Enable port isolation for the port profile. Defaults to `false`.
+        /// Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
         /// </summary>
         [Input("isolation")]
         public Input<bool>? Isolation { get; set; }
 
         /// <summary>
-        /// Enable LLDP-MED for the port profile. Defaults to `true`.
+        /// Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
         /// </summary>
         [Input("lldpmedEnabled")]
         public Input<bool>? LldpmedEnabled { get; set; }
 
         /// <summary>
-        /// Enable LLDP-MED topology change notifications for the port profile.
+        /// Enable LLDP-MED topology change notifications. When enabled:
+        /// * Network devices will be notified of topology changes
+        /// * Useful for VoIP phones and other LLDP-MED capable devices
+        /// * Helps maintain accurate network topology information
+        /// * Facilitates faster device configuration and provisioning
         /// </summary>
         [Input("lldpmedNotifyEnabled")]
         public Input<bool>? LldpmedNotifyEnabled { get; set; }
 
         /// <summary>
-        /// The name of the port profile.
+        /// A descriptive name for the port profile. Examples:
+        /// * 'AP-Trunk-Port' - For access point uplinks
+        /// * 'VoIP-Phone-Port' - For VoIP phone connections
+        /// * 'User-Access-Port' - For standard user connections
+        /// * 'IoT-Device-Port' - For IoT device connections
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The ID of network to use as the main network on the port profile.
+        /// The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+        /// * Access ports where devices need untagged access
+        /// * Trunk ports to specify the native VLAN
+        /// * Management networks for network devices
         /// </summary>
         [Input("nativeNetworkconfId")]
         public Input<string>? NativeNetworkconfId { get; set; }
 
         /// <summary>
-        /// The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        /// The operation mode for the port profile. Can only be `Switch`
         /// </summary>
         [Input("opMode")]
         public Input<string>? OpMode { get; set; }
 
         /// <summary>
-        /// The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
+        /// The POE mode for the port profile. Can be one of `Auto`, `Passv24`, `Passthrough` or `Off`.
         /// </summary>
         [Input("poeMode")]
         public Input<string>? PoeMode { get; set; }
 
         /// <summary>
-        /// Enable port security for the port profile. Defaults to `false`.
+        /// Enable MAC address-based port security. When enabled:
+        /// * Only devices with specified MAC addresses can connect
+        /// * Unauthorized devices will be blocked
+        /// * Provides protection against unauthorized network access
+        /// * Must be used with PortSecurityMacAddress list
         /// </summary>
         [Input("portSecurityEnabled")]
         public Input<bool>? PortSecurityEnabled { get; set; }
@@ -400,7 +567,11 @@ namespace Pulumiverse.Unifi.Port
         private InputList<string>? _portSecurityMacAddresses;
 
         /// <summary>
-        /// The MAC addresses associated with the port security for the port profile.
+        /// List of allowed MAC addresses when port security is enabled. Each address should be:
+        /// * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+        /// * Unique per device
+        /// * Verified to belong to authorized devices
+        /// Only effective when PortSecurityEnabled is true
         /// </summary>
         public InputList<string> PortSecurityMacAddresses
         {
@@ -409,43 +580,70 @@ namespace Pulumiverse.Unifi.Port
         }
 
         /// <summary>
-        /// The priority queue 1 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Low-priority background traffic
+        /// * Bulk data transfers
+        /// * Non-time-sensitive applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue1Level")]
         public Input<int>? PriorityQueue1Level { get; set; }
 
         /// <summary>
-        /// The priority queue 2 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Standard user traffic
+        /// * Web browsing and email
+        /// * General business applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue2Level")]
         public Input<int>? PriorityQueue2Level { get; set; }
 
         /// <summary>
-        /// The priority queue 3 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+        /// * High-priority traffic
+        /// * Voice and video conferencing
+        /// * Time-sensitive applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue3Level")]
         public Input<int>? PriorityQueue3Level { get; set; }
 
         /// <summary>
-        /// The priority queue 4 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Highest priority traffic
+        /// * Critical real-time applications
+        /// * Emergency communications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue4Level")]
         public Input<int>? PriorityQueue4Level { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the port profile with.
+        /// The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
+        /// Port speed in Mbps when auto-negotiation is disabled. Common values:
+        /// * 10 - 10 Mbps (legacy devices)
+        /// * 100 - 100 Mbps (Fast Ethernet)
+        /// * 1000 - 1 Gbps (Gigabit Ethernet)
+        /// * 2500 - 2.5 Gbps (Multi-Gigabit)
+        /// * 5000 - 5 Gbps (Multi-Gigabit)
+        /// * 10000 - 10 Gbps (10 Gigabit)
+        /// Only used when autoneg is false
         /// </summary>
         [Input("speed")]
         public Input<int>? Speed { get; set; }
 
         /// <summary>
-        /// Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        /// Enable broadcast storm control. When enabled:
+        /// * Limits broadcast traffic to prevent network flooding
+        /// * Protects against broadcast storms
+        /// * Helps maintain network stability
+        /// Use with StormctrlBcastRate to set threshold
         /// </summary>
         [Input("stormctrlBcastEnabled")]
         public Input<bool>? StormctrlBcastEnabled { get; set; }
@@ -457,13 +655,21 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlBcastLevel { get; set; }
 
         /// <summary>
-        /// The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control broadcast traffic levels
+        /// * Prevent network congestion
+        /// * Balance between necessary broadcasts and network protection
+        /// Only effective when `StormctrlBcastEnabled` is true
         /// </summary>
         [Input("stormctrlBcastRate")]
         public Input<int>? StormctrlBcastRate { get; set; }
 
         /// <summary>
-        /// Enable multicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable multicast storm control. When enabled:
+        /// * Limits multicast traffic to prevent network flooding
+        /// * Important for networks with multicast applications
+        /// * Helps maintain quality of service
+        /// Use with `StormctrlMcastRate` to set threshold
         /// </summary>
         [Input("stormctrlMcastEnabled")]
         public Input<bool>? StormctrlMcastEnabled { get; set; }
@@ -475,19 +681,27 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlMcastLevel { get; set; }
 
         /// <summary>
-        /// The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control multicast traffic levels
+        /// * Ensure bandwidth for critical multicast services
+        /// * Prevent multicast traffic from overwhelming the network
+        /// Only effective when StormctrlMcastEnabled is true
         /// </summary>
         [Input("stormctrlMcastRate")]
         public Input<int>? StormctrlMcastRate { get; set; }
 
         /// <summary>
-        /// The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
+        /// The type of Storm Control to use for the port profile. Can be one of `Level` or `Rate`.
         /// </summary>
         [Input("stormctrlType")]
         public Input<string>? StormctrlType { get; set; }
 
         /// <summary>
-        /// Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable unknown unicast storm control. When enabled:
+        /// * Limits unknown unicast traffic to prevent flooding
+        /// * Protects against MAC spoofing attacks
+        /// * Helps maintain network performance
+        /// Use with StormctrlUcastRate to set threshold
         /// </summary>
         [Input("stormctrlUcastEnabled")]
         public Input<bool>? StormctrlUcastEnabled { get; set; }
@@ -499,31 +713,56 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlUcastLevel { get; set; }
 
         /// <summary>
-        /// The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control unknown unicast traffic levels
+        /// * Prevent network saturation from unknown destinations
+        /// * Balance security with network usability
+        /// Only effective when StormctrlUcastEnabled is true
         /// </summary>
         [Input("stormctrlUcastRate")]
         public Input<int>? StormctrlUcastRate { get; set; }
 
         /// <summary>
-        /// Enable spanning tree protocol on the port profile. Defaults to `true`.
+        /// Spanning Tree Protocol (STP) configuration for the port. When enabled:
+        /// * Prevents network loops in switch-to-switch connections
+        /// * Provides automatic failover in redundant topologies
+        /// * Helps maintain network stability
+        /// 
+        /// Best practices:
+        /// * Enable on switch uplink ports
+        /// * Enable on ports connecting to other switches
+        /// * Can be disabled on end-device ports for faster initialization
         /// </summary>
         [Input("stpPortMode")]
         public Input<bool>? StpPortMode { get; set; }
 
-        [Input("taggedNetworkconfIds")]
-        private InputList<string>? _taggedNetworkconfIds;
-
         /// <summary>
-        /// The IDs of networks to tag traffic with for the port profile.
+        /// VLAN tagging behavior for the port. Valid values are:
+        /// * `Auto` - Automatically handle VLAN tags (recommended)
+        ///     - Intelligently manages tagged and untagged traffic
+        ///     - Best for most deployments
+        /// * `BlockAll` - Block all VLAN tagged traffic
+        ///     - Use for security-sensitive ports
+        ///     - Prevents VLAN hopping attacks
+        /// * `Custom` - Custom VLAN configuration
+        ///     - Manual control over VLAN behavior
+        ///     - For specific VLAN requirements
         /// </summary>
-        public InputList<string> TaggedNetworkconfIds
-        {
-            get => _taggedNetworkconfIds ?? (_taggedNetworkconfIds = new InputList<string>());
-            set => _taggedNetworkconfIds = value;
-        }
+        [Input("taggedVlanMgmt")]
+        public Input<string>? TaggedVlanMgmt { get; set; }
 
         /// <summary>
-        /// The ID of network to use as the voice network on the port profile.
+        /// The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+        /// * Automatic VoIP VLAN configuration
+        /// * Voice traffic prioritization
+        /// * QoS settings for voice packets
+        /// 
+        /// Common scenarios:
+        /// * IP phone deployments with separate voice VLAN
+        /// * Unified communications systems
+        /// * Converged voice/data networks
+        /// 
+        /// Works in conjunction with LLDP-MED for automatic phone provisioning.
         /// </summary>
         [Input("voiceNetworkconfId")]
         public Input<string>? VoiceNetworkconfId { get; set; }
@@ -537,91 +776,134 @@ namespace Pulumiverse.Unifi.Port
     public sealed class ProfileState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Enable link auto negotiation for the port profile. When set to `true` this overrides `speed`. Defaults to `true`.
+        /// Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         /// </summary>
         [Input("autoneg")]
         public Input<bool>? Autoneg { get; set; }
 
         /// <summary>
-        /// The type of 802.1X control to use. Can be `auto`, `force_authorized`, `force_unauthorized`, `mac_based` or `multi_host`. Defaults to `force_authorized`.
+        /// 802.1X port-based network access control (PNAC) mode. Valid values are:
+        ///   * `ForceAuthorized` - Port allows all traffic, no authentication required (default)
+        ///   * `ForceUnauthorized` - Port blocks all traffic regardless of authentication
+        ///   * `Auto` - Standard 802.1X authentication required before port access is granted
+        ///   * `MacBased` - Authentication based on client MAC address, useful for devices that don't support 802.1X
+        ///   * `MultiHost` - Allows multiple devices after first successful authentication, common in VoIP phone setups
+        /// 
+        /// Use 'auto' for highest security, 'mac_based' for legacy devices, and 'multi_host' when daisy-chaining devices.
         /// </summary>
         [Input("dot1xCtrl")]
         public Input<string>? Dot1xCtrl { get; set; }
 
         /// <summary>
-        /// The timeout, in seconds, to use when using the MAC Based 802.1X control. Can be between 0 and 65535 Defaults to `300`.
+        /// The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
         /// </summary>
         [Input("dot1xIdleTimeout")]
         public Input<int>? Dot1xIdleTimeout { get; set; }
 
         /// <summary>
-        /// The egress rate limit, in kpbs, for the port profile. Can be between `64` and `9999999`.
+        /// The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when EgressRateLimitKbpsEnabled is true.
         /// </summary>
         [Input("egressRateLimitKbps")]
         public Input<int>? EgressRateLimitKbps { get; set; }
 
         /// <summary>
-        /// Enable egress rate limiting for the port profile. Defaults to `false`.
+        /// Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
         /// </summary>
         [Input("egressRateLimitKbpsEnabled")]
         public Input<bool>? EgressRateLimitKbpsEnabled { get; set; }
 
+        [Input("excludedNetworkIds")]
+        private InputList<string>? _excludedNetworkIds;
+
         /// <summary>
-        /// The type forwarding to use for the port profile. Can be `all`, `native`, `customize` or `disabled`. Defaults to `native`.
+        /// List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
+        /// </summary>
+        public InputList<string> ExcludedNetworkIds
+        {
+            get => _excludedNetworkIds ?? (_excludedNetworkIds = new InputList<string>());
+            set => _excludedNetworkIds = value;
+        }
+
+        /// <summary>
+        /// VLAN forwarding mode for the port. Valid values are:
+        ///   * `All` - Forward all VLANs (trunk port)
+        ///   * `Native` - Only forward untagged traffic (access port)
+        ///   * `Customize` - Forward selected VLANs (use with `ExcludedNetworkIds`)
+        ///   * `Disabled` - Disable VLAN forwarding
+        /// 
+        /// Examples:
+        ///   * Use 'all' for uplink ports or connections to VLAN-aware devices
+        ///   * Use 'native' for end-user devices or simple network connections
+        ///   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
         /// </summary>
         [Input("forward")]
         public Input<string>? Forward { get; set; }
 
         /// <summary>
-        /// Enable full duplex for the port profile. Defaults to `false`.
+        /// Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
         /// </summary>
         [Input("fullDuplex")]
         public Input<bool>? FullDuplex { get; set; }
 
         /// <summary>
-        /// Enable port isolation for the port profile. Defaults to `false`.
+        /// Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
         /// </summary>
         [Input("isolation")]
         public Input<bool>? Isolation { get; set; }
 
         /// <summary>
-        /// Enable LLDP-MED for the port profile. Defaults to `true`.
+        /// Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
         /// </summary>
         [Input("lldpmedEnabled")]
         public Input<bool>? LldpmedEnabled { get; set; }
 
         /// <summary>
-        /// Enable LLDP-MED topology change notifications for the port profile.
+        /// Enable LLDP-MED topology change notifications. When enabled:
+        /// * Network devices will be notified of topology changes
+        /// * Useful for VoIP phones and other LLDP-MED capable devices
+        /// * Helps maintain accurate network topology information
+        /// * Facilitates faster device configuration and provisioning
         /// </summary>
         [Input("lldpmedNotifyEnabled")]
         public Input<bool>? LldpmedNotifyEnabled { get; set; }
 
         /// <summary>
-        /// The name of the port profile.
+        /// A descriptive name for the port profile. Examples:
+        /// * 'AP-Trunk-Port' - For access point uplinks
+        /// * 'VoIP-Phone-Port' - For VoIP phone connections
+        /// * 'User-Access-Port' - For standard user connections
+        /// * 'IoT-Device-Port' - For IoT device connections
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The ID of network to use as the main network on the port profile.
+        /// The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
+        /// * Access ports where devices need untagged access
+        /// * Trunk ports to specify the native VLAN
+        /// * Management networks for network devices
         /// </summary>
         [Input("nativeNetworkconfId")]
         public Input<string>? NativeNetworkconfId { get; set; }
 
         /// <summary>
-        /// The operation mode for the port profile. Can only be `switch` Defaults to `switch`.
+        /// The operation mode for the port profile. Can only be `Switch`
         /// </summary>
         [Input("opMode")]
         public Input<string>? OpMode { get; set; }
 
         /// <summary>
-        /// The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
+        /// The POE mode for the port profile. Can be one of `Auto`, `Passv24`, `Passthrough` or `Off`.
         /// </summary>
         [Input("poeMode")]
         public Input<string>? PoeMode { get; set; }
 
         /// <summary>
-        /// Enable port security for the port profile. Defaults to `false`.
+        /// Enable MAC address-based port security. When enabled:
+        /// * Only devices with specified MAC addresses can connect
+        /// * Unauthorized devices will be blocked
+        /// * Provides protection against unauthorized network access
+        /// * Must be used with PortSecurityMacAddress list
         /// </summary>
         [Input("portSecurityEnabled")]
         public Input<bool>? PortSecurityEnabled { get; set; }
@@ -630,7 +912,11 @@ namespace Pulumiverse.Unifi.Port
         private InputList<string>? _portSecurityMacAddresses;
 
         /// <summary>
-        /// The MAC addresses associated with the port security for the port profile.
+        /// List of allowed MAC addresses when port security is enabled. Each address should be:
+        /// * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
+        /// * Unique per device
+        /// * Verified to belong to authorized devices
+        /// Only effective when PortSecurityEnabled is true
         /// </summary>
         public InputList<string> PortSecurityMacAddresses
         {
@@ -639,43 +925,70 @@ namespace Pulumiverse.Unifi.Port
         }
 
         /// <summary>
-        /// The priority queue 1 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Low-priority background traffic
+        /// * Bulk data transfers
+        /// * Non-time-sensitive applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue1Level")]
         public Input<int>? PriorityQueue1Level { get; set; }
 
         /// <summary>
-        /// The priority queue 2 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Standard user traffic
+        /// * Web browsing and email
+        /// * General business applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue2Level")]
         public Input<int>? PriorityQueue2Level { get; set; }
 
         /// <summary>
-        /// The priority queue 3 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
+        /// * High-priority traffic
+        /// * Voice and video conferencing
+        /// * Time-sensitive applications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue3Level")]
         public Input<int>? PriorityQueue3Level { get; set; }
 
         /// <summary>
-        /// The priority queue 4 level for the port profile. Can be between 0 and 100.
+        /// Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
+        /// * Highest priority traffic
+        /// * Critical real-time applications
+        /// * Emergency communications
+        /// Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue4Level")]
         public Input<int>? PriorityQueue4Level { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the port profile with.
+        /// The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The link speed to set for the port profile. Can be one of `10`, `100`, `1000`, `2500`, `5000`, `10000`, `20000`, `25000`, `40000`, `50000` or `100000`
+        /// Port speed in Mbps when auto-negotiation is disabled. Common values:
+        /// * 10 - 10 Mbps (legacy devices)
+        /// * 100 - 100 Mbps (Fast Ethernet)
+        /// * 1000 - 1 Gbps (Gigabit Ethernet)
+        /// * 2500 - 2.5 Gbps (Multi-Gigabit)
+        /// * 5000 - 5 Gbps (Multi-Gigabit)
+        /// * 10000 - 10 Gbps (10 Gigabit)
+        /// Only used when autoneg is false
         /// </summary>
         [Input("speed")]
         public Input<int>? Speed { get; set; }
 
         /// <summary>
-        /// Enable broadcast Storm Control for the port profile. Defaults to `false`.
+        /// Enable broadcast storm control. When enabled:
+        /// * Limits broadcast traffic to prevent network flooding
+        /// * Protects against broadcast storms
+        /// * Helps maintain network stability
+        /// Use with StormctrlBcastRate to set threshold
         /// </summary>
         [Input("stormctrlBcastEnabled")]
         public Input<bool>? StormctrlBcastEnabled { get; set; }
@@ -687,13 +1000,21 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlBcastLevel { get; set; }
 
         /// <summary>
-        /// The broadcast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control broadcast traffic levels
+        /// * Prevent network congestion
+        /// * Balance between necessary broadcasts and network protection
+        /// Only effective when `StormctrlBcastEnabled` is true
         /// </summary>
         [Input("stormctrlBcastRate")]
         public Input<int>? StormctrlBcastRate { get; set; }
 
         /// <summary>
-        /// Enable multicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable multicast storm control. When enabled:
+        /// * Limits multicast traffic to prevent network flooding
+        /// * Important for networks with multicast applications
+        /// * Helps maintain quality of service
+        /// Use with `StormctrlMcastRate` to set threshold
         /// </summary>
         [Input("stormctrlMcastEnabled")]
         public Input<bool>? StormctrlMcastEnabled { get; set; }
@@ -705,19 +1026,27 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlMcastLevel { get; set; }
 
         /// <summary>
-        /// The multicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control multicast traffic levels
+        /// * Ensure bandwidth for critical multicast services
+        /// * Prevent multicast traffic from overwhelming the network
+        /// Only effective when StormctrlMcastEnabled is true
         /// </summary>
         [Input("stormctrlMcastRate")]
         public Input<int>? StormctrlMcastRate { get; set; }
 
         /// <summary>
-        /// The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
+        /// The type of Storm Control to use for the port profile. Can be one of `Level` or `Rate`.
         /// </summary>
         [Input("stormctrlType")]
         public Input<string>? StormctrlType { get; set; }
 
         /// <summary>
-        /// Enable unknown unicast Storm Control for the port profile. Defaults to `false`.
+        /// Enable unknown unicast storm control. When enabled:
+        /// * Limits unknown unicast traffic to prevent flooding
+        /// * Protects against MAC spoofing attacks
+        /// * Helps maintain network performance
+        /// Use with StormctrlUcastRate to set threshold
         /// </summary>
         [Input("stormctrlUcastEnabled")]
         public Input<bool>? StormctrlUcastEnabled { get; set; }
@@ -729,31 +1058,56 @@ namespace Pulumiverse.Unifi.Port
         public Input<int>? StormctrlUcastLevel { get; set; }
 
         /// <summary>
-        /// The unknown unicast Storm Control rate for the port profile. Can be between 0 and 14880000.
+        /// Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
+        /// * Control unknown unicast traffic levels
+        /// * Prevent network saturation from unknown destinations
+        /// * Balance security with network usability
+        /// Only effective when StormctrlUcastEnabled is true
         /// </summary>
         [Input("stormctrlUcastRate")]
         public Input<int>? StormctrlUcastRate { get; set; }
 
         /// <summary>
-        /// Enable spanning tree protocol on the port profile. Defaults to `true`.
+        /// Spanning Tree Protocol (STP) configuration for the port. When enabled:
+        /// * Prevents network loops in switch-to-switch connections
+        /// * Provides automatic failover in redundant topologies
+        /// * Helps maintain network stability
+        /// 
+        /// Best practices:
+        /// * Enable on switch uplink ports
+        /// * Enable on ports connecting to other switches
+        /// * Can be disabled on end-device ports for faster initialization
         /// </summary>
         [Input("stpPortMode")]
         public Input<bool>? StpPortMode { get; set; }
 
-        [Input("taggedNetworkconfIds")]
-        private InputList<string>? _taggedNetworkconfIds;
-
         /// <summary>
-        /// The IDs of networks to tag traffic with for the port profile.
+        /// VLAN tagging behavior for the port. Valid values are:
+        /// * `Auto` - Automatically handle VLAN tags (recommended)
+        ///     - Intelligently manages tagged and untagged traffic
+        ///     - Best for most deployments
+        /// * `BlockAll` - Block all VLAN tagged traffic
+        ///     - Use for security-sensitive ports
+        ///     - Prevents VLAN hopping attacks
+        /// * `Custom` - Custom VLAN configuration
+        ///     - Manual control over VLAN behavior
+        ///     - For specific VLAN requirements
         /// </summary>
-        public InputList<string> TaggedNetworkconfIds
-        {
-            get => _taggedNetworkconfIds ?? (_taggedNetworkconfIds = new InputList<string>());
-            set => _taggedNetworkconfIds = value;
-        }
+        [Input("taggedVlanMgmt")]
+        public Input<string>? TaggedVlanMgmt { get; set; }
 
         /// <summary>
-        /// The ID of network to use as the voice network on the port profile.
+        /// The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
+        /// * Automatic VoIP VLAN configuration
+        /// * Voice traffic prioritization
+        /// * QoS settings for voice packets
+        /// 
+        /// Common scenarios:
+        /// * IP phone deployments with separate voice VLAN
+        /// * Unified communications systems
+        /// * Converged voice/data networks
+        /// 
+        /// Works in conjunction with LLDP-MED for automatic phone provisioning.
         /// </summary>
         [Input("voiceNetworkconfId")]
         public Input<string>? VoiceNetworkconfId { get; set; }

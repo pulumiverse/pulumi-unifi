@@ -11,7 +11,20 @@ using Pulumi;
 namespace Pulumiverse.Unifi
 {
     /// <summary>
-    /// `unifi.Site` manages Unifi sites
+    /// The `unifi.Site` resource manages UniFi sites, which are logical groupings of UniFi devices and their configurations.
+    /// 
+    /// Sites in UniFi are used to:
+    ///   * Organize network devices and settings for different physical locations
+    ///   * Isolate configurations between different networks or customers
+    ///   * Apply different policies and configurations to different groups of devices
+    /// 
+    /// Each site maintains its own:
+    ///   * Network configurations
+    ///   * Wireless networks (WLANs)
+    ///   * Security policies
+    ///   * Device configurations
+    /// 
+    /// A UniFi controller can manage multiple sites, making it ideal for multi-tenant or distributed network deployments.
     /// 
     /// ## Example Usage
     /// 
@@ -49,13 +62,13 @@ namespace Pulumiverse.Unifi
     public partial class Site : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The description of the site.
+        /// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
         /// </summary>
         [Output("description")]
         public Output<string> Description { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site.
+        /// The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
@@ -108,7 +121,7 @@ namespace Pulumiverse.Unifi
     public sealed class SiteArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The description of the site.
+        /// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
         /// </summary>
         [Input("description", required: true)]
         public Input<string> Description { get; set; } = null!;
@@ -122,13 +135,13 @@ namespace Pulumiverse.Unifi
     public sealed class SiteState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The description of the site.
+        /// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
         /// </summary>
         [Input("description")]
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// The name of the site.
+        /// The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }

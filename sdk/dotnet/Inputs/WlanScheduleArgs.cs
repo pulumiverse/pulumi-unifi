@@ -14,31 +14,31 @@ namespace Pulumiverse.Unifi.Inputs
     public sealed class WlanScheduleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+        /// Day of week. Valid values: `Sun`, `Mon`, `Tue`, `Wed`, `Thu`, `Fri`, `Sat`.
         /// </summary>
         [Input("dayOfWeek", required: true)]
         public Input<string> DayOfWeek { get; set; } = null!;
 
         /// <summary>
-        /// Length of the block in minutes.
+        /// Duration in minutes that the network should remain active.
         /// </summary>
         [Input("duration", required: true)]
         public Input<int> Duration { get; set; } = null!;
 
         /// <summary>
-        /// Name of the block.
+        /// Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Start hour for the block (0-23).
+        /// Start hour in 24-hour format (0-23).
         /// </summary>
         [Input("startHour", required: true)]
         public Input<int> StartHour { get; set; } = null!;
 
         /// <summary>
-        /// Start minute for the block (0-59). Defaults to `0`.
+        /// Start minute (0-59).
         /// </summary>
         [Input("startMinute")]
         public Input<int>? StartMinute { get; set; }

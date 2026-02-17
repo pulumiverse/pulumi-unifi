@@ -93,7 +93,7 @@ type LookupNetworkResult struct {
 	DhcpV6Enabled bool `pulumi:"dhcpV6Enabled"`
 	// Specifies the lease time for DHCPv6 addresses.
 	DhcpV6Lease int `pulumi:"dhcpV6Lease"`
-	// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+	// start address of the DHCPv6 range. Used in static DHCPv6 configuration.
 	DhcpV6Start string `pulumi:"dhcpV6Start"`
 	// End address of the DHCPv6 range. Used in static DHCPv6 configuration.
 	DhcpV6Stop string `pulumi:"dhcpV6Stop"`
@@ -115,7 +115,7 @@ type LookupNetworkResult struct {
 	Ipv6PdInterface string `pulumi:"ipv6PdInterface"`
 	// Specifies the IPv6 Prefix ID.
 	Ipv6PdPrefixid string `pulumi:"ipv6PdPrefixid"`
-	// Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+	// start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
 	Ipv6PdStart string `pulumi:"ipv6PdStart"`
 	// End address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
 	Ipv6PdStop string `pulumi:"ipv6PdStop"`
@@ -256,7 +256,7 @@ func (o LookupNetworkResultOutput) DhcpV6Lease() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupNetworkResult) int { return v.DhcpV6Lease }).(pulumi.IntOutput)
 }
 
-// Start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+// start address of the DHCPv6 range. Used in static DHCPv6 configuration.
 func (o LookupNetworkResultOutput) DhcpV6Start() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.DhcpV6Start }).(pulumi.StringOutput)
 }
@@ -311,7 +311,7 @@ func (o LookupNetworkResultOutput) Ipv6PdPrefixid() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.Ipv6PdPrefixid }).(pulumi.StringOutput)
 }
 
-// Start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
+// start address of the DHCPv6 range. Used if `ipv6InterfaceType` is set to `pd`.
 func (o LookupNetworkResultOutput) Ipv6PdStart() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.Ipv6PdStart }).(pulumi.StringOutput)
 }

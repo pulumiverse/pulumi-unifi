@@ -34,17 +34,25 @@ class RadiusProfileArgs:
                  vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a RadiusProfile resource.
-        :param pulumi.Input[_builtins.bool] accounting_enabled: Specifies whether to use RADIUS accounting. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]] acct_servers: RADIUS accounting servers.
-        :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]] auth_servers: RADIUS authentication servers.
-        :param pulumi.Input[_builtins.bool] interim_update_enabled: Specifies whether to use interim_update. Defaults to `false`.
-        :param pulumi.Input[_builtins.int] interim_update_interval: Specifies interim_update interval. Defaults to `3600`.
-        :param pulumi.Input[_builtins.str] name: The name of the profile.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] use_usg_acct_server: Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] use_usg_auth_server: Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] vlan_enabled: Specifies whether to use vlan on wired connections. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] vlan_wlan_mode: Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
+        :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+                 * IP address of the RADIUS server
+                 * Port number (default: 1813)
+                 * Shared secret for secure communication
+        :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]] auth_servers: List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+                 * IP address of the RADIUS server
+                 * Shared secret for secure communication
+        :param pulumi.Input[_builtins.bool] interim_update_enabled: Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
+        :param pulumi.Input[_builtins.int] interim_update_interval: The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
+        :param pulumi.Input[_builtins.str] name: A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] use_usg_acct_server: Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
+        :param pulumi.Input[_builtins.bool] use_usg_auth_server: Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
+        :param pulumi.Input[_builtins.bool] vlan_enabled: Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
+        :param pulumi.Input[_builtins.str] vlan_wlan_mode: VLAN assignment mode for wireless networks. Valid values are:
+                 * `disabled` - Do not use RADIUS-assigned VLANs
+                 * `optional` - Use RADIUS-assigned VLAN if provided
+                 * `required` - Require RADIUS-assigned VLAN for authentication to succeed
         """
         if accounting_enabled is not None:
             pulumi.set(__self__, "accounting_enabled", accounting_enabled)
@@ -73,7 +81,7 @@ class RadiusProfileArgs:
     @pulumi.getter(name="accountingEnabled")
     def accounting_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use RADIUS accounting. Defaults to `false`.
+        Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         """
         return pulumi.get(self, "accounting_enabled")
 
@@ -85,7 +93,10 @@ class RadiusProfileArgs:
     @pulumi.getter(name="acctServers")
     def acct_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]:
         """
-        RADIUS accounting servers.
+        List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+          * IP address of the RADIUS server
+          * Port number (default: 1813)
+          * Shared secret for secure communication
         """
         return pulumi.get(self, "acct_servers")
 
@@ -97,7 +108,9 @@ class RadiusProfileArgs:
     @pulumi.getter(name="authServers")
     def auth_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]:
         """
-        RADIUS authentication servers.
+        List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+          * IP address of the RADIUS server
+          * Shared secret for secure communication
         """
         return pulumi.get(self, "auth_servers")
 
@@ -109,7 +122,7 @@ class RadiusProfileArgs:
     @pulumi.getter(name="interimUpdateEnabled")
     def interim_update_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use interim_update. Defaults to `false`.
+        Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
         """
         return pulumi.get(self, "interim_update_enabled")
 
@@ -121,7 +134,7 @@ class RadiusProfileArgs:
     @pulumi.getter(name="interimUpdateInterval")
     def interim_update_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies interim_update interval. Defaults to `3600`.
+        The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
         """
         return pulumi.get(self, "interim_update_interval")
 
@@ -133,7 +146,7 @@ class RadiusProfileArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the profile.
+        A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
         """
         return pulumi.get(self, "name")
 
@@ -145,7 +158,7 @@ class RadiusProfileArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -157,7 +170,7 @@ class RadiusProfileArgs:
     @pulumi.getter(name="useUsgAcctServer")
     def use_usg_acct_server(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_acct_server")
 
@@ -169,7 +182,7 @@ class RadiusProfileArgs:
     @pulumi.getter(name="useUsgAuthServer")
     def use_usg_auth_server(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_auth_server")
 
@@ -181,7 +194,7 @@ class RadiusProfileArgs:
     @pulumi.getter(name="vlanEnabled")
     def vlan_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use vlan on wired connections. Defaults to `false`.
+        Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
         """
         return pulumi.get(self, "vlan_enabled")
 
@@ -193,7 +206,10 @@ class RadiusProfileArgs:
     @pulumi.getter(name="vlanWlanMode")
     def vlan_wlan_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        VLAN assignment mode for wireless networks. Valid values are:
+          * `disabled` - Do not use RADIUS-assigned VLANs
+          * `optional` - Use RADIUS-assigned VLAN if provided
+          * `required` - Require RADIUS-assigned VLAN for authentication to succeed
         """
         return pulumi.get(self, "vlan_wlan_mode")
 
@@ -218,17 +234,25 @@ class _RadiusProfileState:
                  vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering RadiusProfile resources.
-        :param pulumi.Input[_builtins.bool] accounting_enabled: Specifies whether to use RADIUS accounting. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]] acct_servers: RADIUS accounting servers.
-        :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]] auth_servers: RADIUS authentication servers.
-        :param pulumi.Input[_builtins.bool] interim_update_enabled: Specifies whether to use interim_update. Defaults to `false`.
-        :param pulumi.Input[_builtins.int] interim_update_interval: Specifies interim_update interval. Defaults to `3600`.
-        :param pulumi.Input[_builtins.str] name: The name of the profile.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] use_usg_acct_server: Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] use_usg_auth_server: Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] vlan_enabled: Specifies whether to use vlan on wired connections. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] vlan_wlan_mode: Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
+        :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+                 * IP address of the RADIUS server
+                 * Port number (default: 1813)
+                 * Shared secret for secure communication
+        :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]] auth_servers: List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+                 * IP address of the RADIUS server
+                 * Shared secret for secure communication
+        :param pulumi.Input[_builtins.bool] interim_update_enabled: Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
+        :param pulumi.Input[_builtins.int] interim_update_interval: The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
+        :param pulumi.Input[_builtins.str] name: A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] use_usg_acct_server: Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
+        :param pulumi.Input[_builtins.bool] use_usg_auth_server: Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
+        :param pulumi.Input[_builtins.bool] vlan_enabled: Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
+        :param pulumi.Input[_builtins.str] vlan_wlan_mode: VLAN assignment mode for wireless networks. Valid values are:
+                 * `disabled` - Do not use RADIUS-assigned VLANs
+                 * `optional` - Use RADIUS-assigned VLAN if provided
+                 * `required` - Require RADIUS-assigned VLAN for authentication to succeed
         """
         if accounting_enabled is not None:
             pulumi.set(__self__, "accounting_enabled", accounting_enabled)
@@ -257,7 +281,7 @@ class _RadiusProfileState:
     @pulumi.getter(name="accountingEnabled")
     def accounting_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use RADIUS accounting. Defaults to `false`.
+        Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         """
         return pulumi.get(self, "accounting_enabled")
 
@@ -269,7 +293,10 @@ class _RadiusProfileState:
     @pulumi.getter(name="acctServers")
     def acct_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]:
         """
-        RADIUS accounting servers.
+        List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+          * IP address of the RADIUS server
+          * Port number (default: 1813)
+          * Shared secret for secure communication
         """
         return pulumi.get(self, "acct_servers")
 
@@ -281,7 +308,9 @@ class _RadiusProfileState:
     @pulumi.getter(name="authServers")
     def auth_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]:
         """
-        RADIUS authentication servers.
+        List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+          * IP address of the RADIUS server
+          * Shared secret for secure communication
         """
         return pulumi.get(self, "auth_servers")
 
@@ -293,7 +322,7 @@ class _RadiusProfileState:
     @pulumi.getter(name="interimUpdateEnabled")
     def interim_update_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use interim_update. Defaults to `false`.
+        Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
         """
         return pulumi.get(self, "interim_update_enabled")
 
@@ -305,7 +334,7 @@ class _RadiusProfileState:
     @pulumi.getter(name="interimUpdateInterval")
     def interim_update_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        Specifies interim_update interval. Defaults to `3600`.
+        The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
         """
         return pulumi.get(self, "interim_update_interval")
 
@@ -317,7 +346,7 @@ class _RadiusProfileState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the profile.
+        A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
         """
         return pulumi.get(self, "name")
 
@@ -329,7 +358,7 @@ class _RadiusProfileState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -341,7 +370,7 @@ class _RadiusProfileState:
     @pulumi.getter(name="useUsgAcctServer")
     def use_usg_acct_server(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_acct_server")
 
@@ -353,7 +382,7 @@ class _RadiusProfileState:
     @pulumi.getter(name="useUsgAuthServer")
     def use_usg_auth_server(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_auth_server")
 
@@ -365,7 +394,7 @@ class _RadiusProfileState:
     @pulumi.getter(name="vlanEnabled")
     def vlan_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
-        Specifies whether to use vlan on wired connections. Defaults to `false`.
+        Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
         """
         return pulumi.get(self, "vlan_enabled")
 
@@ -377,7 +406,10 @@ class _RadiusProfileState:
     @pulumi.getter(name="vlanWlanMode")
     def vlan_wlan_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        VLAN assignment mode for wireless networks. Valid values are:
+          * `disabled` - Do not use RADIUS-assigned VLANs
+          * `optional` - Use RADIUS-assigned VLAN if provided
+          * `required` - Require RADIUS-assigned VLAN for authentication to succeed
         """
         return pulumi.get(self, "vlan_wlan_mode")
 
@@ -405,21 +437,40 @@ class RadiusProfile(pulumi.CustomResource):
                  vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `RadiusProfile` manages RADIUS profiles.
+        The `RadiusProfile` resource manages RADIUS authentication profiles for UniFi networks.
+
+        RADIUS (Remote Authentication Dial-In User Service) profiles enable enterprise-grade authentication and authorization for:
+          * 802.1X network access control
+          * WPA2/WPA3-Enterprise wireless networks
+          * Dynamic VLAN assignment
+          * User activity accounting
+
+        Each profile can be configured with:
+          * Multiple authentication and accounting servers
+          * VLAN assignment settings
+          * Accounting update intervals
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] accounting_enabled: Specifies whether to use RADIUS accounting. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]] acct_servers: RADIUS accounting servers.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]] auth_servers: RADIUS authentication servers.
-        :param pulumi.Input[_builtins.bool] interim_update_enabled: Specifies whether to use interim_update. Defaults to `false`.
-        :param pulumi.Input[_builtins.int] interim_update_interval: Specifies interim_update interval. Defaults to `3600`.
-        :param pulumi.Input[_builtins.str] name: The name of the profile.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] use_usg_acct_server: Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] use_usg_auth_server: Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] vlan_enabled: Specifies whether to use vlan on wired connections. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] vlan_wlan_mode: Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+                 * IP address of the RADIUS server
+                 * Port number (default: 1813)
+                 * Shared secret for secure communication
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]] auth_servers: List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+                 * IP address of the RADIUS server
+                 * Shared secret for secure communication
+        :param pulumi.Input[_builtins.bool] interim_update_enabled: Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
+        :param pulumi.Input[_builtins.int] interim_update_interval: The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
+        :param pulumi.Input[_builtins.str] name: A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] use_usg_acct_server: Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
+        :param pulumi.Input[_builtins.bool] use_usg_auth_server: Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
+        :param pulumi.Input[_builtins.bool] vlan_enabled: Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
+        :param pulumi.Input[_builtins.str] vlan_wlan_mode: VLAN assignment mode for wireless networks. Valid values are:
+                 * `disabled` - Do not use RADIUS-assigned VLANs
+                 * `optional` - Use RADIUS-assigned VLAN if provided
+                 * `required` - Require RADIUS-assigned VLAN for authentication to succeed
         """
         ...
     @overload
@@ -428,7 +479,18 @@ class RadiusProfile(pulumi.CustomResource):
                  args: Optional[RadiusProfileArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `RadiusProfile` manages RADIUS profiles.
+        The `RadiusProfile` resource manages RADIUS authentication profiles for UniFi networks.
+
+        RADIUS (Remote Authentication Dial-In User Service) profiles enable enterprise-grade authentication and authorization for:
+          * 802.1X network access control
+          * WPA2/WPA3-Enterprise wireless networks
+          * Dynamic VLAN assignment
+          * User activity accounting
+
+        Each profile can be configured with:
+          * Multiple authentication and accounting servers
+          * VLAN assignment settings
+          * Accounting update intervals
 
         :param str resource_name: The name of the resource.
         :param RadiusProfileArgs args: The arguments to use to populate this resource's properties.
@@ -504,17 +566,25 @@ class RadiusProfile(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.bool] accounting_enabled: Specifies whether to use RADIUS accounting. Defaults to `false`.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]] acct_servers: RADIUS accounting servers.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]] auth_servers: RADIUS authentication servers.
-        :param pulumi.Input[_builtins.bool] interim_update_enabled: Specifies whether to use interim_update. Defaults to `false`.
-        :param pulumi.Input[_builtins.int] interim_update_interval: Specifies interim_update interval. Defaults to `3600`.
-        :param pulumi.Input[_builtins.str] name: The name of the profile.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the settings with.
-        :param pulumi.Input[_builtins.bool] use_usg_acct_server: Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] use_usg_auth_server: Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
-        :param pulumi.Input[_builtins.bool] vlan_enabled: Specifies whether to use vlan on wired connections. Defaults to `false`.
-        :param pulumi.Input[_builtins.str] vlan_wlan_mode: Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+                 * IP address of the RADIUS server
+                 * Port number (default: 1813)
+                 * Shared secret for secure communication
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]] auth_servers: List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+                 * IP address of the RADIUS server
+                 * Shared secret for secure communication
+        :param pulumi.Input[_builtins.bool] interim_update_enabled: Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
+        :param pulumi.Input[_builtins.int] interim_update_interval: The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
+        :param pulumi.Input[_builtins.str] name: A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.bool] use_usg_acct_server: Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
+        :param pulumi.Input[_builtins.bool] use_usg_auth_server: Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
+        :param pulumi.Input[_builtins.bool] vlan_enabled: Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
+        :param pulumi.Input[_builtins.str] vlan_wlan_mode: VLAN assignment mode for wireless networks. Valid values are:
+                 * `disabled` - Do not use RADIUS-assigned VLANs
+                 * `optional` - Use RADIUS-assigned VLAN if provided
+                 * `required` - Require RADIUS-assigned VLAN for authentication to succeed
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -537,7 +607,7 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="accountingEnabled")
     def accounting_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether to use RADIUS accounting. Defaults to `false`.
+        Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         """
         return pulumi.get(self, "accounting_enabled")
 
@@ -545,7 +615,10 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="acctServers")
     def acct_servers(self) -> pulumi.Output[Optional[Sequence['outputs.RadiusProfileAcctServer']]]:
         """
-        RADIUS accounting servers.
+        List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+          * IP address of the RADIUS server
+          * Port number (default: 1813)
+          * Shared secret for secure communication
         """
         return pulumi.get(self, "acct_servers")
 
@@ -553,7 +626,9 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="authServers")
     def auth_servers(self) -> pulumi.Output[Optional[Sequence['outputs.RadiusProfileAuthServer']]]:
         """
-        RADIUS authentication servers.
+        List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+          * IP address of the RADIUS server
+          * Shared secret for secure communication
         """
         return pulumi.get(self, "auth_servers")
 
@@ -561,7 +636,7 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="interimUpdateEnabled")
     def interim_update_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether to use interim_update. Defaults to `false`.
+        Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
         """
         return pulumi.get(self, "interim_update_enabled")
 
@@ -569,7 +644,7 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="interimUpdateInterval")
     def interim_update_interval(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        Specifies interim_update interval. Defaults to `3600`.
+        The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
         """
         return pulumi.get(self, "interim_update_interval")
 
@@ -577,7 +652,7 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the profile.
+        A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
         """
         return pulumi.get(self, "name")
 
@@ -585,7 +660,7 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the settings with.
+        The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -593,7 +668,7 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="useUsgAcctServer")
     def use_usg_acct_server(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_acct_server")
 
@@ -601,7 +676,7 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="useUsgAuthServer")
     def use_usg_auth_server(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_auth_server")
 
@@ -609,7 +684,7 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="vlanEnabled")
     def vlan_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Specifies whether to use vlan on wired connections. Defaults to `false`.
+        Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
         """
         return pulumi.get(self, "vlan_enabled")
 
@@ -617,7 +692,10 @@ class RadiusProfile(pulumi.CustomResource):
     @pulumi.getter(name="vlanWlanMode")
     def vlan_wlan_mode(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        VLAN assignment mode for wireless networks. Valid values are:
+          * `disabled` - Do not use RADIUS-assigned VLANs
+          * `optional` - Use RADIUS-assigned VLAN if provided
+          * `required` - Require RADIUS-assigned VLAN for authentication to succeed
         """
         return pulumi.get(self, "vlan_wlan_mode")
 

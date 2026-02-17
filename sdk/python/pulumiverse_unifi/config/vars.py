@@ -23,17 +23,21 @@ class _ExportableConfig(types.ModuleType):
     @_builtins.property
     def allow_insecure(self) -> Optional[bool]:
         """
-        Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-        API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+        Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
         """
         return __config__.get_bool('allowInsecure') or _utilities.get_env_bool('UNIFI_INSECURE')
 
     @_builtins.property
+    def api_key(self) -> Optional[str]:
+        """
+        API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+        """
+        return __config__.get('apiKey')
+
+    @_builtins.property
     def api_url(self) -> Optional[str]:
         """
-        URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-        path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-        standard controller paths.
+        URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         """
         return __config__.get('apiUrl') or _utilities.get_env('UNIFI_API')
 
@@ -47,8 +51,7 @@ class _ExportableConfig(types.ModuleType):
     @_builtins.property
     def site(self) -> Optional[str]:
         """
-        The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-        Default: `default`
+        The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
         """
         return __config__.get('site') or _utilities.get_env('UNIFI_SITE')
 

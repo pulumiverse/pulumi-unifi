@@ -21,7 +21,7 @@ namespace Pulumiverse.Unifi.IAM
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
@@ -45,7 +45,7 @@ namespace Pulumiverse.Unifi.IAM
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
@@ -69,7 +69,7 @@ namespace Pulumiverse.Unifi.IAM
         /// using System.Collections.Generic;
         /// using System.Linq;
         /// using Pulumi;
-        /// using Unifi = Pulumi.Unifi;
+        /// using Unifi = Pulumiverse.Unifi;
         /// 
         /// return await Deployment.RunAsync(() =&gt; 
         /// {
@@ -139,7 +139,7 @@ namespace Pulumiverse.Unifi.IAM
         /// </summary>
         public readonly int DevIdOverride;
         /// <summary>
-        /// fixed IPv4 address set for this user.
+        /// Fixed IPv4 address set for this user.
         /// </summary>
         public readonly string FixedIp;
         /// <summary>

@@ -11,7 +11,18 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Firewall
 {
     /// <summary>
-    /// `unifi.firewall.Group` manages groups of addresses or ports for use in firewall rules (`unifi.firewall.Rule`).
+    /// The `unifi.firewall.Group` resource manages reusable groups of addresses or ports that can be referenced in firewall rules (`unifi.firewall.Rule`).
+    /// 
+    /// Firewall groups help organize and simplify firewall rule management by allowing you to:
+    ///   * Create collections of IP addresses or networks
+    ///   * Define sets of ports for specific services
+    ///   * Group IPv6 addresses for IPv6-specific rules
+    /// 
+    /// Common use cases include:
+    ///   * Creating groups of trusted IP addresses
+    ///   * Defining port groups for specific applications
+    ///   * Managing access control lists
+    ///   * Simplifying rule maintenance by using groups instead of individual IPs/ports
     /// 
     /// ## Example Usage
     /// 
@@ -39,25 +50,31 @@ namespace Pulumiverse.Unifi.Firewall
     public partial class Group : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The members of the firewall group.
+        /// List of members in the group. The format depends on the group type:
+        ///   * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+        ///   * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+        ///   * For ipv6-address-group: IPv6 addresses or CIDR notation
         /// </summary>
         [Output("members")]
         public Output<ImmutableArray<string>> Members { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the firewall group.
+        /// A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the firewall group with.
+        /// The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        /// The type of firewall group. Valid values are:
+        ///   * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+        ///   * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+        ///   * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
@@ -113,7 +130,10 @@ namespace Pulumiverse.Unifi.Firewall
         private InputList<string>? _members;
 
         /// <summary>
-        /// The members of the firewall group.
+        /// List of members in the group. The format depends on the group type:
+        ///   * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+        ///   * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+        ///   * For ipv6-address-group: IPv6 addresses or CIDR notation
         /// </summary>
         public InputList<string> Members
         {
@@ -122,19 +142,22 @@ namespace Pulumiverse.Unifi.Firewall
         }
 
         /// <summary>
-        /// The name of the firewall group.
+        /// A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the firewall group with.
+        /// The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        /// The type of firewall group. Valid values are:
+        ///   * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+        ///   * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+        ///   * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
@@ -151,7 +174,10 @@ namespace Pulumiverse.Unifi.Firewall
         private InputList<string>? _members;
 
         /// <summary>
-        /// The members of the firewall group.
+        /// List of members in the group. The format depends on the group type:
+        ///   * For address-group: IPv4 addresses or CIDR notation (e.g., ['192.168.1.10', '10.0.0.0/8'])
+        ///   * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
+        ///   * For ipv6-address-group: IPv6 addresses or CIDR notation
         /// </summary>
         public InputList<string> Members
         {
@@ -160,19 +186,22 @@ namespace Pulumiverse.Unifi.Firewall
         }
 
         /// <summary>
-        /// The name of the firewall group.
+        /// A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the firewall group with.
+        /// The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The type of the firewall group. Must be one of: `address-group`, `port-group`, or `ipv6-address-group`.
+        /// The type of firewall group. Valid values are:
+        ///   * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
+        ///   * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
+        ///   * `ipv6-address-group` - Group of IPv6 addresses and/or networks
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }

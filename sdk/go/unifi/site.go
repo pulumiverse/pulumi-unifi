@@ -12,7 +12,20 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `Site` manages Unifi sites
+// The `Site` resource manages UniFi sites, which are logical groupings of UniFi devices and their configurations.
+//
+// Sites in UniFi are used to:
+//   - Organize network devices and settings for different physical locations
+//   - Isolate configurations between different networks or customers
+//   - Apply different policies and configurations to different groups of devices
+//
+// Each site maintains its own:
+//   - Network configurations
+//   - Wireless networks (WLANs)
+//   - Security policies
+//   - Device configurations
+//
+// A UniFi controller can manage multiple sites, making it ideal for multi-tenant or distributed network deployments.
 //
 // ## Example Usage
 //
@@ -56,9 +69,9 @@ import (
 type Site struct {
 	pulumi.CustomResourceState
 
-	// The description of the site.
+	// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
 	Description pulumi.StringOutput `pulumi:"description"`
-	// The name of the site.
+	// The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
 	Name pulumi.StringOutput `pulumi:"name"`
 }
 
@@ -95,16 +108,16 @@ func GetSite(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Site resources.
 type siteState struct {
-	// The description of the site.
+	// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
 	Description *string `pulumi:"description"`
-	// The name of the site.
+	// The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
 	Name *string `pulumi:"name"`
 }
 
 type SiteState struct {
-	// The description of the site.
+	// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
 	Description pulumi.StringPtrInput
-	// The name of the site.
+	// The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
 	Name pulumi.StringPtrInput
 }
 
@@ -113,13 +126,13 @@ func (SiteState) ElementType() reflect.Type {
 }
 
 type siteArgs struct {
-	// The description of the site.
+	// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
 	Description string `pulumi:"description"`
 }
 
 // The set of arguments for constructing a Site resource.
 type SiteArgs struct {
-	// The description of the site.
+	// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
 	Description pulumi.StringInput
 }
 
@@ -210,12 +223,12 @@ func (o SiteOutput) ToSiteOutputWithContext(ctx context.Context) SiteOutput {
 	return o
 }
 
-// The description of the site.
+// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
 func (o SiteOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v *Site) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// The name of the site.
+// The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
 func (o SiteOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Site) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }

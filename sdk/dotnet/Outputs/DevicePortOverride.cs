@@ -15,23 +15,56 @@ namespace Pulumiverse.Unifi.Outputs
     public sealed class DevicePortOverride
     {
         /// <summary>
-        /// Number of ports in the aggregate.
+        /// The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
+        /// * Creating switch-to-switch uplinks for increased bandwidth
+        /// * Setting up high-availability connections
+        /// * Connecting to servers requiring more bandwidth
+        /// Note: All ports in the LAG must be sequential and have matching configurations.
         /// </summary>
         public readonly int? AggregateNumPorts;
         /// <summary>
-        /// Human-readable name of the port.
+        /// A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
+        ///   * 'Uplink to Core Switch'
+        ///   * 'Conference Room AP'
+        ///   * 'Server LACP Group 1'
+        ///   * 'VoIP Phone Port'
         /// </summary>
         public readonly string? Name;
         /// <summary>
-        /// Switch port number.
+        /// The physical port number on the switch to configure.
         /// </summary>
         public readonly int Number;
         /// <summary>
-        /// Operating mode of the port, valid values are `switch`, `mirror`, and `aggregate`. Defaults to `switch`.
+        /// The operating mode of the port. Valid values are:
+        ///   * `Switch` - Normal switching mode (default)
+        ///     - Standard port operation for connecting devices
+        ///     - Supports VLANs and all standard switching features
+        ///   * `Mirror` - Port mirroring for traffic analysis
+        ///     - Copies traffic from other ports for monitoring
+        ///     - Useful for network troubleshooting and security
+        ///   * `Aggregate` - Link aggregation/bonding mode
+        ///     - Combines multiple ports for increased bandwidth
+        ///     - Used for switch uplinks or high-bandwidth servers
         /// </summary>
         public readonly string? OpMode;
         /// <summary>
-        /// ID of the Port Profile used on this port.
+        /// The Power over Ethernet (PoE) mode for the port. Valid values are:
+        /// * `Auto` - Automatically detect and power PoE devices (recommended)
+        ///   - Provides power based on device negotiation
+        ///   - Safest option for most PoE devices
+        /// * `Pasv24` - Passive 24V PoE
+        ///   - For older UniFi devices requiring passive 24V
+        ///   - Use with caution to avoid damage
+        /// * `Passthrough` - PoE passthrough mode
+        ///   - For daisy-chaining PoE devices
+        ///   - Available on select UniFi switches
+        /// * `Off` - Disable PoE on the port
+        ///   - For non-PoE devices
+        ///   - To prevent unwanted power delivery
+        /// </summary>
+        public readonly string? PoeMode;
+        /// <summary>
+        /// The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
         /// </summary>
         public readonly string? PortProfileId;
 
@@ -45,12 +78,15 @@ namespace Pulumiverse.Unifi.Outputs
 
             string? opMode,
 
+            string? poeMode,
+
             string? portProfileId)
         {
             AggregateNumPorts = aggregateNumPorts;
             Name = name;
             Number = number;
             OpMode = opMode;
+            PoeMode = poeMode;
             PortProfileId = portProfileId;
         }
     }

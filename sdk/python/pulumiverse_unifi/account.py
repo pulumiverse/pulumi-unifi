@@ -27,12 +27,22 @@ class AccountArgs:
                  tunnel_type: Optional[pulumi.Input[_builtins.int]] = None):
         """
         The set of arguments for constructing a Account resource.
-        :param pulumi.Input[_builtins.str] password: The password of the account.
-        :param pulumi.Input[_builtins.str] name: The name of the account.
-        :param pulumi.Input[_builtins.str] network_id: ID of the network for this account
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the account with.
-        :param pulumi.Input[_builtins.int] tunnel_medium_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
-        :param pulumi.Input[_builtins.int] tunnel_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        :param pulumi.Input[_builtins.str] password: The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
+        :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
+        :param pulumi.Input[_builtins.str] network_id: The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.int] tunnel_medium_type: The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+                 * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+                 * `1` - IPv4
+                 * `2` - IPv6
+               
+               Only change this if you need specific tunneling behavior.
+        :param pulumi.Input[_builtins.int] tunnel_type: The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+                 * `13` - VLAN (default)
+                 * `1` - Point-to-Point Protocol (PPTP)
+                 * `9` - Point-to-Point Protocol (L2TP)
+               
+               Only change this if you need specific tunneling behavior.
         """
         pulumi.set(__self__, "password", password)
         if name is not None:
@@ -50,7 +60,7 @@ class AccountArgs:
     @pulumi.getter
     def password(self) -> pulumi.Input[_builtins.str]:
         """
-        The password of the account.
+        The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         """
         return pulumi.get(self, "password")
 
@@ -62,7 +72,7 @@ class AccountArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the account.
+        The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
         """
         return pulumi.get(self, "name")
 
@@ -74,7 +84,7 @@ class AccountArgs:
     @pulumi.getter(name="networkId")
     def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        ID of the network for this account
+        The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
         """
         return pulumi.get(self, "network_id")
 
@@ -86,7 +96,7 @@ class AccountArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the account with.
+        The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -98,7 +108,12 @@ class AccountArgs:
     @pulumi.getter(name="tunnelMediumType")
     def tunnel_medium_type(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+        The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+          * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+          * `1` - IPv4
+          * `2` - IPv6
+
+        Only change this if you need specific tunneling behavior.
         """
         return pulumi.get(self, "tunnel_medium_type")
 
@@ -110,7 +125,12 @@ class AccountArgs:
     @pulumi.getter(name="tunnelType")
     def tunnel_type(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+          * `13` - VLAN (default)
+          * `1` - Point-to-Point Protocol (PPTP)
+          * `9` - Point-to-Point Protocol (L2TP)
+
+        Only change this if you need specific tunneling behavior.
         """
         return pulumi.get(self, "tunnel_type")
 
@@ -130,12 +150,22 @@ class _AccountState:
                  tunnel_type: Optional[pulumi.Input[_builtins.int]] = None):
         """
         Input properties used for looking up and filtering Account resources.
-        :param pulumi.Input[_builtins.str] name: The name of the account.
-        :param pulumi.Input[_builtins.str] network_id: ID of the network for this account
-        :param pulumi.Input[_builtins.str] password: The password of the account.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the account with.
-        :param pulumi.Input[_builtins.int] tunnel_medium_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
-        :param pulumi.Input[_builtins.int] tunnel_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
+        :param pulumi.Input[_builtins.str] network_id: The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        :param pulumi.Input[_builtins.str] password: The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.int] tunnel_medium_type: The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+                 * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+                 * `1` - IPv4
+                 * `2` - IPv6
+               
+               Only change this if you need specific tunneling behavior.
+        :param pulumi.Input[_builtins.int] tunnel_type: The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+                 * `13` - VLAN (default)
+                 * `1` - Point-to-Point Protocol (PPTP)
+                 * `9` - Point-to-Point Protocol (L2TP)
+               
+               Only change this if you need specific tunneling behavior.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -154,7 +184,7 @@ class _AccountState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the account.
+        The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
         """
         return pulumi.get(self, "name")
 
@@ -166,7 +196,7 @@ class _AccountState:
     @pulumi.getter(name="networkId")
     def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        ID of the network for this account
+        The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
         """
         return pulumi.get(self, "network_id")
 
@@ -178,7 +208,7 @@ class _AccountState:
     @pulumi.getter
     def password(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The password of the account.
+        The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         """
         return pulumi.get(self, "password")
 
@@ -190,7 +220,7 @@ class _AccountState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the account with.
+        The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -202,7 +232,12 @@ class _AccountState:
     @pulumi.getter(name="tunnelMediumType")
     def tunnel_medium_type(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+        The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+          * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+          * `1` - IPv4
+          * `2` - IPv6
+
+        Only change this if you need specific tunneling behavior.
         """
         return pulumi.get(self, "tunnel_medium_type")
 
@@ -214,7 +249,12 @@ class _AccountState:
     @pulumi.getter(name="tunnelType")
     def tunnel_type(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+          * `13` - VLAN (default)
+          * `1` - Point-to-Point Protocol (PPTP)
+          * `9` - Point-to-Point Protocol (L2TP)
+
+        Only change this if you need specific tunneling behavior.
         """
         return pulumi.get(self, "tunnel_type")
 
@@ -237,23 +277,45 @@ class Account(pulumi.CustomResource):
                  tunnel_type: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         """
-        `Account` manages a RADIUS user account
+        The `Account` resource manages RADIUS user accounts in the UniFi controller's built-in RADIUS server.
 
-        To authenticate devices based on MAC address, use the MAC address as the username and password under client creation.
-        Convert lowercase letters to uppercase, and also remove colons or periods from the MAC address.
+        This resource is used for:
+          * WPA2/WPA3-Enterprise wireless authentication
+          * 802.1X wired authentication
+          * MAC-based device authentication
+          * VLAN assignment through RADIUS attributes
 
-        ATTENTION: If the user profile does not include a VLAN, the client will fall back to the untagged VLAN.
+        Important Notes:
+        1. For MAC-based authentication:
+           * Use the device's MAC address as both username and password
+           * Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
+        2. VLAN Assignment:
+           * If no VLAN is specified in the profile, clients will use the network's untagged VLAN
+           * VLAN assignment uses standard RADIUS tunnel attributes
 
-        NOTE: MAC-based authentication accounts can only be used for wireless and wired clients. L2TP remote access does not apply.
+        Limitations:
+          * MAC-based authentication works only for wireless and wired clients
+          * L2TP remote access VPN is not supported with MAC authentication
+          * Accounts must be unique within a site
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] name: The name of the account.
-        :param pulumi.Input[_builtins.str] network_id: ID of the network for this account
-        :param pulumi.Input[_builtins.str] password: The password of the account.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the account with.
-        :param pulumi.Input[_builtins.int] tunnel_medium_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
-        :param pulumi.Input[_builtins.int] tunnel_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
+        :param pulumi.Input[_builtins.str] network_id: The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        :param pulumi.Input[_builtins.str] password: The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.int] tunnel_medium_type: The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+                 * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+                 * `1` - IPv4
+                 * `2` - IPv6
+               
+               Only change this if you need specific tunneling behavior.
+        :param pulumi.Input[_builtins.int] tunnel_type: The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+                 * `13` - VLAN (default)
+                 * `1` - Point-to-Point Protocol (PPTP)
+                 * `9` - Point-to-Point Protocol (L2TP)
+               
+               Only change this if you need specific tunneling behavior.
         """
         ...
     @overload
@@ -262,14 +324,26 @@ class Account(pulumi.CustomResource):
                  args: AccountArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `Account` manages a RADIUS user account
+        The `Account` resource manages RADIUS user accounts in the UniFi controller's built-in RADIUS server.
 
-        To authenticate devices based on MAC address, use the MAC address as the username and password under client creation.
-        Convert lowercase letters to uppercase, and also remove colons or periods from the MAC address.
+        This resource is used for:
+          * WPA2/WPA3-Enterprise wireless authentication
+          * 802.1X wired authentication
+          * MAC-based device authentication
+          * VLAN assignment through RADIUS attributes
 
-        ATTENTION: If the user profile does not include a VLAN, the client will fall back to the untagged VLAN.
+        Important Notes:
+        1. For MAC-based authentication:
+           * Use the device's MAC address as both username and password
+           * Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
+        2. VLAN Assignment:
+           * If no VLAN is specified in the profile, clients will use the network's untagged VLAN
+           * VLAN assignment uses standard RADIUS tunnel attributes
 
-        NOTE: MAC-based authentication accounts can only be used for wireless and wired clients. L2TP remote access does not apply.
+        Limitations:
+          * MAC-based authentication works only for wireless and wired clients
+          * L2TP remote access VPN is not supported with MAC authentication
+          * Accounts must be unique within a site
 
         :param str resource_name: The name of the resource.
         :param AccountArgs args: The arguments to use to populate this resource's properties.
@@ -334,12 +408,22 @@ class Account(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] name: The name of the account.
-        :param pulumi.Input[_builtins.str] network_id: ID of the network for this account
-        :param pulumi.Input[_builtins.str] password: The password of the account.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the account with.
-        :param pulumi.Input[_builtins.int] tunnel_medium_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
-        :param pulumi.Input[_builtins.int] tunnel_type: See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
+        :param pulumi.Input[_builtins.str] network_id: The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        :param pulumi.Input[_builtins.str] password: The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
+        :param pulumi.Input[_builtins.int] tunnel_medium_type: The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+                 * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+                 * `1` - IPv4
+                 * `2` - IPv6
+               
+               Only change this if you need specific tunneling behavior.
+        :param pulumi.Input[_builtins.int] tunnel_type: The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+                 * `13` - VLAN (default)
+                 * `1` - Point-to-Point Protocol (PPTP)
+                 * `9` - Point-to-Point Protocol (L2TP)
+               
+               Only change this if you need specific tunneling behavior.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -357,7 +441,7 @@ class Account(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the account.
+        The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
         """
         return pulumi.get(self, "name")
 
@@ -365,7 +449,7 @@ class Account(pulumi.CustomResource):
     @pulumi.getter(name="networkId")
     def network_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        ID of the network for this account
+        The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
         """
         return pulumi.get(self, "network_id")
 
@@ -373,7 +457,7 @@ class Account(pulumi.CustomResource):
     @pulumi.getter
     def password(self) -> pulumi.Output[_builtins.str]:
         """
-        The password of the account.
+        The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         """
         return pulumi.get(self, "password")
 
@@ -381,7 +465,7 @@ class Account(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the account with.
+        The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -389,7 +473,12 @@ class Account(pulumi.CustomResource):
     @pulumi.getter(name="tunnelMediumType")
     def tunnel_medium_type(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.2 Defaults to `6`.
+        The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
+          * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
+          * `1` - IPv4
+          * `2` - IPv6
+
+        Only change this if you need specific tunneling behavior.
         """
         return pulumi.get(self, "tunnel_medium_type")
 
@@ -397,7 +486,12 @@ class Account(pulumi.CustomResource):
     @pulumi.getter(name="tunnelType")
     def tunnel_type(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        See [RFC 2868](https://www.rfc-editor.org/rfc/rfc2868) section 3.1 Defaults to `13`.
+        The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
+          * `13` - VLAN (default)
+          * `1` - Point-to-Point Protocol (PPTP)
+          * `9` - Point-to-Point Protocol (L2TP)
+
+        Only change this if you need specific tunneling behavior.
         """
         return pulumi.get(self, "tunnel_type")
 

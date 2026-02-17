@@ -13,14 +13,3698 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
-type MgmtSshKey struct {
-	// Comment.
-	Comment *string `pulumi:"comment"`
-	// Public SSH key.
-	Key *string `pulumi:"key"`
-	// Name of SSH key.
+type GuestAccessAuthorize struct {
+	// Authorize.net login ID for authentication.
+	LoginId string `pulumi:"loginId"`
+	// Authorize.net transaction key for authentication.
+	TransactionKey string `pulumi:"transactionKey"`
+	// Use sandbox mode for Authorize.net payments.
+	UseSandbox *bool `pulumi:"useSandbox"`
+}
+
+// GuestAccessAuthorizeInput is an input type that accepts GuestAccessAuthorizeArgs and GuestAccessAuthorizeOutput values.
+// You can construct a concrete instance of `GuestAccessAuthorizeInput` via:
+//
+//	GuestAccessAuthorizeArgs{...}
+type GuestAccessAuthorizeInput interface {
+	pulumi.Input
+
+	ToGuestAccessAuthorizeOutput() GuestAccessAuthorizeOutput
+	ToGuestAccessAuthorizeOutputWithContext(context.Context) GuestAccessAuthorizeOutput
+}
+
+type GuestAccessAuthorizeArgs struct {
+	// Authorize.net login ID for authentication.
+	LoginId pulumi.StringInput `pulumi:"loginId"`
+	// Authorize.net transaction key for authentication.
+	TransactionKey pulumi.StringInput `pulumi:"transactionKey"`
+	// Use sandbox mode for Authorize.net payments.
+	UseSandbox pulumi.BoolPtrInput `pulumi:"useSandbox"`
+}
+
+func (GuestAccessAuthorizeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessAuthorize)(nil)).Elem()
+}
+
+func (i GuestAccessAuthorizeArgs) ToGuestAccessAuthorizeOutput() GuestAccessAuthorizeOutput {
+	return i.ToGuestAccessAuthorizeOutputWithContext(context.Background())
+}
+
+func (i GuestAccessAuthorizeArgs) ToGuestAccessAuthorizeOutputWithContext(ctx context.Context) GuestAccessAuthorizeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessAuthorizeOutput)
+}
+
+func (i GuestAccessAuthorizeArgs) ToGuestAccessAuthorizePtrOutput() GuestAccessAuthorizePtrOutput {
+	return i.ToGuestAccessAuthorizePtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessAuthorizeArgs) ToGuestAccessAuthorizePtrOutputWithContext(ctx context.Context) GuestAccessAuthorizePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessAuthorizeOutput).ToGuestAccessAuthorizePtrOutputWithContext(ctx)
+}
+
+// GuestAccessAuthorizePtrInput is an input type that accepts GuestAccessAuthorizeArgs, GuestAccessAuthorizePtr and GuestAccessAuthorizePtrOutput values.
+// You can construct a concrete instance of `GuestAccessAuthorizePtrInput` via:
+//
+//	        GuestAccessAuthorizeArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessAuthorizePtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessAuthorizePtrOutput() GuestAccessAuthorizePtrOutput
+	ToGuestAccessAuthorizePtrOutputWithContext(context.Context) GuestAccessAuthorizePtrOutput
+}
+
+type guestAccessAuthorizePtrType GuestAccessAuthorizeArgs
+
+func GuestAccessAuthorizePtr(v *GuestAccessAuthorizeArgs) GuestAccessAuthorizePtrInput {
+	return (*guestAccessAuthorizePtrType)(v)
+}
+
+func (*guestAccessAuthorizePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessAuthorize)(nil)).Elem()
+}
+
+func (i *guestAccessAuthorizePtrType) ToGuestAccessAuthorizePtrOutput() GuestAccessAuthorizePtrOutput {
+	return i.ToGuestAccessAuthorizePtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessAuthorizePtrType) ToGuestAccessAuthorizePtrOutputWithContext(ctx context.Context) GuestAccessAuthorizePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessAuthorizePtrOutput)
+}
+
+type GuestAccessAuthorizeOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessAuthorizeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessAuthorize)(nil)).Elem()
+}
+
+func (o GuestAccessAuthorizeOutput) ToGuestAccessAuthorizeOutput() GuestAccessAuthorizeOutput {
+	return o
+}
+
+func (o GuestAccessAuthorizeOutput) ToGuestAccessAuthorizeOutputWithContext(ctx context.Context) GuestAccessAuthorizeOutput {
+	return o
+}
+
+func (o GuestAccessAuthorizeOutput) ToGuestAccessAuthorizePtrOutput() GuestAccessAuthorizePtrOutput {
+	return o.ToGuestAccessAuthorizePtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessAuthorizeOutput) ToGuestAccessAuthorizePtrOutputWithContext(ctx context.Context) GuestAccessAuthorizePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessAuthorize) *GuestAccessAuthorize {
+		return &v
+	}).(GuestAccessAuthorizePtrOutput)
+}
+
+// Authorize.net login ID for authentication.
+func (o GuestAccessAuthorizeOutput) LoginId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessAuthorize) string { return v.LoginId }).(pulumi.StringOutput)
+}
+
+// Authorize.net transaction key for authentication.
+func (o GuestAccessAuthorizeOutput) TransactionKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessAuthorize) string { return v.TransactionKey }).(pulumi.StringOutput)
+}
+
+// Use sandbox mode for Authorize.net payments.
+func (o GuestAccessAuthorizeOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessAuthorize) *bool { return v.UseSandbox }).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessAuthorizePtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessAuthorizePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessAuthorize)(nil)).Elem()
+}
+
+func (o GuestAccessAuthorizePtrOutput) ToGuestAccessAuthorizePtrOutput() GuestAccessAuthorizePtrOutput {
+	return o
+}
+
+func (o GuestAccessAuthorizePtrOutput) ToGuestAccessAuthorizePtrOutputWithContext(ctx context.Context) GuestAccessAuthorizePtrOutput {
+	return o
+}
+
+func (o GuestAccessAuthorizePtrOutput) Elem() GuestAccessAuthorizeOutput {
+	return o.ApplyT(func(v *GuestAccessAuthorize) GuestAccessAuthorize {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessAuthorize
+		return ret
+	}).(GuestAccessAuthorizeOutput)
+}
+
+// Authorize.net login ID for authentication.
+func (o GuestAccessAuthorizePtrOutput) LoginId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessAuthorize) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.LoginId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Authorize.net transaction key for authentication.
+func (o GuestAccessAuthorizePtrOutput) TransactionKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessAuthorize) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.TransactionKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// Use sandbox mode for Authorize.net payments.
+func (o GuestAccessAuthorizePtrOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessAuthorize) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseSandbox
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessFacebook struct {
+	// Facebook application ID for authentication.
+	AppId string `pulumi:"appId"`
+	// Facebook application secret for authentication.
+	AppSecret string `pulumi:"appSecret"`
+	// Request email scope for Facebook authentication.
+	ScopeEmail *bool `pulumi:"scopeEmail"`
+}
+
+// GuestAccessFacebookInput is an input type that accepts GuestAccessFacebookArgs and GuestAccessFacebookOutput values.
+// You can construct a concrete instance of `GuestAccessFacebookInput` via:
+//
+//	GuestAccessFacebookArgs{...}
+type GuestAccessFacebookInput interface {
+	pulumi.Input
+
+	ToGuestAccessFacebookOutput() GuestAccessFacebookOutput
+	ToGuestAccessFacebookOutputWithContext(context.Context) GuestAccessFacebookOutput
+}
+
+type GuestAccessFacebookArgs struct {
+	// Facebook application ID for authentication.
+	AppId pulumi.StringInput `pulumi:"appId"`
+	// Facebook application secret for authentication.
+	AppSecret pulumi.StringInput `pulumi:"appSecret"`
+	// Request email scope for Facebook authentication.
+	ScopeEmail pulumi.BoolPtrInput `pulumi:"scopeEmail"`
+}
+
+func (GuestAccessFacebookArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessFacebook)(nil)).Elem()
+}
+
+func (i GuestAccessFacebookArgs) ToGuestAccessFacebookOutput() GuestAccessFacebookOutput {
+	return i.ToGuestAccessFacebookOutputWithContext(context.Background())
+}
+
+func (i GuestAccessFacebookArgs) ToGuestAccessFacebookOutputWithContext(ctx context.Context) GuestAccessFacebookOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessFacebookOutput)
+}
+
+func (i GuestAccessFacebookArgs) ToGuestAccessFacebookPtrOutput() GuestAccessFacebookPtrOutput {
+	return i.ToGuestAccessFacebookPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessFacebookArgs) ToGuestAccessFacebookPtrOutputWithContext(ctx context.Context) GuestAccessFacebookPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessFacebookOutput).ToGuestAccessFacebookPtrOutputWithContext(ctx)
+}
+
+// GuestAccessFacebookPtrInput is an input type that accepts GuestAccessFacebookArgs, GuestAccessFacebookPtr and GuestAccessFacebookPtrOutput values.
+// You can construct a concrete instance of `GuestAccessFacebookPtrInput` via:
+//
+//	        GuestAccessFacebookArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessFacebookPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessFacebookPtrOutput() GuestAccessFacebookPtrOutput
+	ToGuestAccessFacebookPtrOutputWithContext(context.Context) GuestAccessFacebookPtrOutput
+}
+
+type guestAccessFacebookPtrType GuestAccessFacebookArgs
+
+func GuestAccessFacebookPtr(v *GuestAccessFacebookArgs) GuestAccessFacebookPtrInput {
+	return (*guestAccessFacebookPtrType)(v)
+}
+
+func (*guestAccessFacebookPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessFacebook)(nil)).Elem()
+}
+
+func (i *guestAccessFacebookPtrType) ToGuestAccessFacebookPtrOutput() GuestAccessFacebookPtrOutput {
+	return i.ToGuestAccessFacebookPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessFacebookPtrType) ToGuestAccessFacebookPtrOutputWithContext(ctx context.Context) GuestAccessFacebookPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessFacebookPtrOutput)
+}
+
+type GuestAccessFacebookOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessFacebookOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessFacebook)(nil)).Elem()
+}
+
+func (o GuestAccessFacebookOutput) ToGuestAccessFacebookOutput() GuestAccessFacebookOutput {
+	return o
+}
+
+func (o GuestAccessFacebookOutput) ToGuestAccessFacebookOutputWithContext(ctx context.Context) GuestAccessFacebookOutput {
+	return o
+}
+
+func (o GuestAccessFacebookOutput) ToGuestAccessFacebookPtrOutput() GuestAccessFacebookPtrOutput {
+	return o.ToGuestAccessFacebookPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessFacebookOutput) ToGuestAccessFacebookPtrOutputWithContext(ctx context.Context) GuestAccessFacebookPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessFacebook) *GuestAccessFacebook {
+		return &v
+	}).(GuestAccessFacebookPtrOutput)
+}
+
+// Facebook application ID for authentication.
+func (o GuestAccessFacebookOutput) AppId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessFacebook) string { return v.AppId }).(pulumi.StringOutput)
+}
+
+// Facebook application secret for authentication.
+func (o GuestAccessFacebookOutput) AppSecret() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessFacebook) string { return v.AppSecret }).(pulumi.StringOutput)
+}
+
+// Request email scope for Facebook authentication.
+func (o GuestAccessFacebookOutput) ScopeEmail() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessFacebook) *bool { return v.ScopeEmail }).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessFacebookPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessFacebookPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessFacebook)(nil)).Elem()
+}
+
+func (o GuestAccessFacebookPtrOutput) ToGuestAccessFacebookPtrOutput() GuestAccessFacebookPtrOutput {
+	return o
+}
+
+func (o GuestAccessFacebookPtrOutput) ToGuestAccessFacebookPtrOutputWithContext(ctx context.Context) GuestAccessFacebookPtrOutput {
+	return o
+}
+
+func (o GuestAccessFacebookPtrOutput) Elem() GuestAccessFacebookOutput {
+	return o.ApplyT(func(v *GuestAccessFacebook) GuestAccessFacebook {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessFacebook
+		return ret
+	}).(GuestAccessFacebookOutput)
+}
+
+// Facebook application ID for authentication.
+func (o GuestAccessFacebookPtrOutput) AppId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessFacebook) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.AppId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Facebook application secret for authentication.
+func (o GuestAccessFacebookPtrOutput) AppSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessFacebook) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.AppSecret
+	}).(pulumi.StringPtrOutput)
+}
+
+// Request email scope for Facebook authentication.
+func (o GuestAccessFacebookPtrOutput) ScopeEmail() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessFacebook) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ScopeEmail
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessFacebookWifi struct {
+	// Mode HTTPS for Facebook WiFi.
+	BlockHttps *bool `pulumi:"blockHttps"`
+	// Facebook WiFi gateway ID.
+	GatewayId string `pulumi:"gatewayId"`
+	// Facebook WiFi gateway name.
+	GatewayName string `pulumi:"gatewayName"`
+	// Facebook WiFi gateway secret.
+	GatewaySecret string `pulumi:"gatewaySecret"`
+}
+
+// GuestAccessFacebookWifiInput is an input type that accepts GuestAccessFacebookWifiArgs and GuestAccessFacebookWifiOutput values.
+// You can construct a concrete instance of `GuestAccessFacebookWifiInput` via:
+//
+//	GuestAccessFacebookWifiArgs{...}
+type GuestAccessFacebookWifiInput interface {
+	pulumi.Input
+
+	ToGuestAccessFacebookWifiOutput() GuestAccessFacebookWifiOutput
+	ToGuestAccessFacebookWifiOutputWithContext(context.Context) GuestAccessFacebookWifiOutput
+}
+
+type GuestAccessFacebookWifiArgs struct {
+	// Mode HTTPS for Facebook WiFi.
+	BlockHttps pulumi.BoolPtrInput `pulumi:"blockHttps"`
+	// Facebook WiFi gateway ID.
+	GatewayId pulumi.StringInput `pulumi:"gatewayId"`
+	// Facebook WiFi gateway name.
+	GatewayName pulumi.StringInput `pulumi:"gatewayName"`
+	// Facebook WiFi gateway secret.
+	GatewaySecret pulumi.StringInput `pulumi:"gatewaySecret"`
+}
+
+func (GuestAccessFacebookWifiArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessFacebookWifi)(nil)).Elem()
+}
+
+func (i GuestAccessFacebookWifiArgs) ToGuestAccessFacebookWifiOutput() GuestAccessFacebookWifiOutput {
+	return i.ToGuestAccessFacebookWifiOutputWithContext(context.Background())
+}
+
+func (i GuestAccessFacebookWifiArgs) ToGuestAccessFacebookWifiOutputWithContext(ctx context.Context) GuestAccessFacebookWifiOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessFacebookWifiOutput)
+}
+
+func (i GuestAccessFacebookWifiArgs) ToGuestAccessFacebookWifiPtrOutput() GuestAccessFacebookWifiPtrOutput {
+	return i.ToGuestAccessFacebookWifiPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessFacebookWifiArgs) ToGuestAccessFacebookWifiPtrOutputWithContext(ctx context.Context) GuestAccessFacebookWifiPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessFacebookWifiOutput).ToGuestAccessFacebookWifiPtrOutputWithContext(ctx)
+}
+
+// GuestAccessFacebookWifiPtrInput is an input type that accepts GuestAccessFacebookWifiArgs, GuestAccessFacebookWifiPtr and GuestAccessFacebookWifiPtrOutput values.
+// You can construct a concrete instance of `GuestAccessFacebookWifiPtrInput` via:
+//
+//	        GuestAccessFacebookWifiArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessFacebookWifiPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessFacebookWifiPtrOutput() GuestAccessFacebookWifiPtrOutput
+	ToGuestAccessFacebookWifiPtrOutputWithContext(context.Context) GuestAccessFacebookWifiPtrOutput
+}
+
+type guestAccessFacebookWifiPtrType GuestAccessFacebookWifiArgs
+
+func GuestAccessFacebookWifiPtr(v *GuestAccessFacebookWifiArgs) GuestAccessFacebookWifiPtrInput {
+	return (*guestAccessFacebookWifiPtrType)(v)
+}
+
+func (*guestAccessFacebookWifiPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessFacebookWifi)(nil)).Elem()
+}
+
+func (i *guestAccessFacebookWifiPtrType) ToGuestAccessFacebookWifiPtrOutput() GuestAccessFacebookWifiPtrOutput {
+	return i.ToGuestAccessFacebookWifiPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessFacebookWifiPtrType) ToGuestAccessFacebookWifiPtrOutputWithContext(ctx context.Context) GuestAccessFacebookWifiPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessFacebookWifiPtrOutput)
+}
+
+type GuestAccessFacebookWifiOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessFacebookWifiOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessFacebookWifi)(nil)).Elem()
+}
+
+func (o GuestAccessFacebookWifiOutput) ToGuestAccessFacebookWifiOutput() GuestAccessFacebookWifiOutput {
+	return o
+}
+
+func (o GuestAccessFacebookWifiOutput) ToGuestAccessFacebookWifiOutputWithContext(ctx context.Context) GuestAccessFacebookWifiOutput {
+	return o
+}
+
+func (o GuestAccessFacebookWifiOutput) ToGuestAccessFacebookWifiPtrOutput() GuestAccessFacebookWifiPtrOutput {
+	return o.ToGuestAccessFacebookWifiPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessFacebookWifiOutput) ToGuestAccessFacebookWifiPtrOutputWithContext(ctx context.Context) GuestAccessFacebookWifiPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessFacebookWifi) *GuestAccessFacebookWifi {
+		return &v
+	}).(GuestAccessFacebookWifiPtrOutput)
+}
+
+// Mode HTTPS for Facebook WiFi.
+func (o GuestAccessFacebookWifiOutput) BlockHttps() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessFacebookWifi) *bool { return v.BlockHttps }).(pulumi.BoolPtrOutput)
+}
+
+// Facebook WiFi gateway ID.
+func (o GuestAccessFacebookWifiOutput) GatewayId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessFacebookWifi) string { return v.GatewayId }).(pulumi.StringOutput)
+}
+
+// Facebook WiFi gateway name.
+func (o GuestAccessFacebookWifiOutput) GatewayName() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessFacebookWifi) string { return v.GatewayName }).(pulumi.StringOutput)
+}
+
+// Facebook WiFi gateway secret.
+func (o GuestAccessFacebookWifiOutput) GatewaySecret() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessFacebookWifi) string { return v.GatewaySecret }).(pulumi.StringOutput)
+}
+
+type GuestAccessFacebookWifiPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessFacebookWifiPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessFacebookWifi)(nil)).Elem()
+}
+
+func (o GuestAccessFacebookWifiPtrOutput) ToGuestAccessFacebookWifiPtrOutput() GuestAccessFacebookWifiPtrOutput {
+	return o
+}
+
+func (o GuestAccessFacebookWifiPtrOutput) ToGuestAccessFacebookWifiPtrOutputWithContext(ctx context.Context) GuestAccessFacebookWifiPtrOutput {
+	return o
+}
+
+func (o GuestAccessFacebookWifiPtrOutput) Elem() GuestAccessFacebookWifiOutput {
+	return o.ApplyT(func(v *GuestAccessFacebookWifi) GuestAccessFacebookWifi {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessFacebookWifi
+		return ret
+	}).(GuestAccessFacebookWifiOutput)
+}
+
+// Mode HTTPS for Facebook WiFi.
+func (o GuestAccessFacebookWifiPtrOutput) BlockHttps() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessFacebookWifi) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BlockHttps
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Facebook WiFi gateway ID.
+func (o GuestAccessFacebookWifiPtrOutput) GatewayId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessFacebookWifi) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.GatewayId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Facebook WiFi gateway name.
+func (o GuestAccessFacebookWifiPtrOutput) GatewayName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessFacebookWifi) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.GatewayName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Facebook WiFi gateway secret.
+func (o GuestAccessFacebookWifiPtrOutput) GatewaySecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessFacebookWifi) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.GatewaySecret
+	}).(pulumi.StringPtrOutput)
+}
+
+type GuestAccessGoogle struct {
+	// Google client ID for authentication.
+	ClientId string `pulumi:"clientId"`
+	// Google client secret for authentication.
+	ClientSecret string `pulumi:"clientSecret"`
+	// Restrict Google authentication to specific domain.
+	Domain *string `pulumi:"domain"`
+	// Request email scope for Google authentication.
+	ScopeEmail *bool `pulumi:"scopeEmail"`
+}
+
+// GuestAccessGoogleInput is an input type that accepts GuestAccessGoogleArgs and GuestAccessGoogleOutput values.
+// You can construct a concrete instance of `GuestAccessGoogleInput` via:
+//
+//	GuestAccessGoogleArgs{...}
+type GuestAccessGoogleInput interface {
+	pulumi.Input
+
+	ToGuestAccessGoogleOutput() GuestAccessGoogleOutput
+	ToGuestAccessGoogleOutputWithContext(context.Context) GuestAccessGoogleOutput
+}
+
+type GuestAccessGoogleArgs struct {
+	// Google client ID for authentication.
+	ClientId pulumi.StringInput `pulumi:"clientId"`
+	// Google client secret for authentication.
+	ClientSecret pulumi.StringInput `pulumi:"clientSecret"`
+	// Restrict Google authentication to specific domain.
+	Domain pulumi.StringPtrInput `pulumi:"domain"`
+	// Request email scope for Google authentication.
+	ScopeEmail pulumi.BoolPtrInput `pulumi:"scopeEmail"`
+}
+
+func (GuestAccessGoogleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessGoogle)(nil)).Elem()
+}
+
+func (i GuestAccessGoogleArgs) ToGuestAccessGoogleOutput() GuestAccessGoogleOutput {
+	return i.ToGuestAccessGoogleOutputWithContext(context.Background())
+}
+
+func (i GuestAccessGoogleArgs) ToGuestAccessGoogleOutputWithContext(ctx context.Context) GuestAccessGoogleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessGoogleOutput)
+}
+
+func (i GuestAccessGoogleArgs) ToGuestAccessGooglePtrOutput() GuestAccessGooglePtrOutput {
+	return i.ToGuestAccessGooglePtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessGoogleArgs) ToGuestAccessGooglePtrOutputWithContext(ctx context.Context) GuestAccessGooglePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessGoogleOutput).ToGuestAccessGooglePtrOutputWithContext(ctx)
+}
+
+// GuestAccessGooglePtrInput is an input type that accepts GuestAccessGoogleArgs, GuestAccessGooglePtr and GuestAccessGooglePtrOutput values.
+// You can construct a concrete instance of `GuestAccessGooglePtrInput` via:
+//
+//	        GuestAccessGoogleArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessGooglePtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessGooglePtrOutput() GuestAccessGooglePtrOutput
+	ToGuestAccessGooglePtrOutputWithContext(context.Context) GuestAccessGooglePtrOutput
+}
+
+type guestAccessGooglePtrType GuestAccessGoogleArgs
+
+func GuestAccessGooglePtr(v *GuestAccessGoogleArgs) GuestAccessGooglePtrInput {
+	return (*guestAccessGooglePtrType)(v)
+}
+
+func (*guestAccessGooglePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessGoogle)(nil)).Elem()
+}
+
+func (i *guestAccessGooglePtrType) ToGuestAccessGooglePtrOutput() GuestAccessGooglePtrOutput {
+	return i.ToGuestAccessGooglePtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessGooglePtrType) ToGuestAccessGooglePtrOutputWithContext(ctx context.Context) GuestAccessGooglePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessGooglePtrOutput)
+}
+
+type GuestAccessGoogleOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessGoogleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessGoogle)(nil)).Elem()
+}
+
+func (o GuestAccessGoogleOutput) ToGuestAccessGoogleOutput() GuestAccessGoogleOutput {
+	return o
+}
+
+func (o GuestAccessGoogleOutput) ToGuestAccessGoogleOutputWithContext(ctx context.Context) GuestAccessGoogleOutput {
+	return o
+}
+
+func (o GuestAccessGoogleOutput) ToGuestAccessGooglePtrOutput() GuestAccessGooglePtrOutput {
+	return o.ToGuestAccessGooglePtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessGoogleOutput) ToGuestAccessGooglePtrOutputWithContext(ctx context.Context) GuestAccessGooglePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessGoogle) *GuestAccessGoogle {
+		return &v
+	}).(GuestAccessGooglePtrOutput)
+}
+
+// Google client ID for authentication.
+func (o GuestAccessGoogleOutput) ClientId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessGoogle) string { return v.ClientId }).(pulumi.StringOutput)
+}
+
+// Google client secret for authentication.
+func (o GuestAccessGoogleOutput) ClientSecret() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessGoogle) string { return v.ClientSecret }).(pulumi.StringOutput)
+}
+
+// Restrict Google authentication to specific domain.
+func (o GuestAccessGoogleOutput) Domain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessGoogle) *string { return v.Domain }).(pulumi.StringPtrOutput)
+}
+
+// Request email scope for Google authentication.
+func (o GuestAccessGoogleOutput) ScopeEmail() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessGoogle) *bool { return v.ScopeEmail }).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessGooglePtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessGooglePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessGoogle)(nil)).Elem()
+}
+
+func (o GuestAccessGooglePtrOutput) ToGuestAccessGooglePtrOutput() GuestAccessGooglePtrOutput {
+	return o
+}
+
+func (o GuestAccessGooglePtrOutput) ToGuestAccessGooglePtrOutputWithContext(ctx context.Context) GuestAccessGooglePtrOutput {
+	return o
+}
+
+func (o GuestAccessGooglePtrOutput) Elem() GuestAccessGoogleOutput {
+	return o.ApplyT(func(v *GuestAccessGoogle) GuestAccessGoogle {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessGoogle
+		return ret
+	}).(GuestAccessGoogleOutput)
+}
+
+// Google client ID for authentication.
+func (o GuestAccessGooglePtrOutput) ClientId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessGoogle) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ClientId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Google client secret for authentication.
+func (o GuestAccessGooglePtrOutput) ClientSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessGoogle) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ClientSecret
+	}).(pulumi.StringPtrOutput)
+}
+
+// Restrict Google authentication to specific domain.
+func (o GuestAccessGooglePtrOutput) Domain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessGoogle) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Domain
+	}).(pulumi.StringPtrOutput)
+}
+
+// Request email scope for Google authentication.
+func (o GuestAccessGooglePtrOutput) ScopeEmail() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessGoogle) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ScopeEmail
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessIppay struct {
+	// Terminal ID for IP Payments.
+	TerminalId string `pulumi:"terminalId"`
+	// Whether to use sandbox mode for IPPay payments.
+	UseSandbox *bool `pulumi:"useSandbox"`
+}
+
+// GuestAccessIppayInput is an input type that accepts GuestAccessIppayArgs and GuestAccessIppayOutput values.
+// You can construct a concrete instance of `GuestAccessIppayInput` via:
+//
+//	GuestAccessIppayArgs{...}
+type GuestAccessIppayInput interface {
+	pulumi.Input
+
+	ToGuestAccessIppayOutput() GuestAccessIppayOutput
+	ToGuestAccessIppayOutputWithContext(context.Context) GuestAccessIppayOutput
+}
+
+type GuestAccessIppayArgs struct {
+	// Terminal ID for IP Payments.
+	TerminalId pulumi.StringInput `pulumi:"terminalId"`
+	// Whether to use sandbox mode for IPPay payments.
+	UseSandbox pulumi.BoolPtrInput `pulumi:"useSandbox"`
+}
+
+func (GuestAccessIppayArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessIppay)(nil)).Elem()
+}
+
+func (i GuestAccessIppayArgs) ToGuestAccessIppayOutput() GuestAccessIppayOutput {
+	return i.ToGuestAccessIppayOutputWithContext(context.Background())
+}
+
+func (i GuestAccessIppayArgs) ToGuestAccessIppayOutputWithContext(ctx context.Context) GuestAccessIppayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessIppayOutput)
+}
+
+func (i GuestAccessIppayArgs) ToGuestAccessIppayPtrOutput() GuestAccessIppayPtrOutput {
+	return i.ToGuestAccessIppayPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessIppayArgs) ToGuestAccessIppayPtrOutputWithContext(ctx context.Context) GuestAccessIppayPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessIppayOutput).ToGuestAccessIppayPtrOutputWithContext(ctx)
+}
+
+// GuestAccessIppayPtrInput is an input type that accepts GuestAccessIppayArgs, GuestAccessIppayPtr and GuestAccessIppayPtrOutput values.
+// You can construct a concrete instance of `GuestAccessIppayPtrInput` via:
+//
+//	        GuestAccessIppayArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessIppayPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessIppayPtrOutput() GuestAccessIppayPtrOutput
+	ToGuestAccessIppayPtrOutputWithContext(context.Context) GuestAccessIppayPtrOutput
+}
+
+type guestAccessIppayPtrType GuestAccessIppayArgs
+
+func GuestAccessIppayPtr(v *GuestAccessIppayArgs) GuestAccessIppayPtrInput {
+	return (*guestAccessIppayPtrType)(v)
+}
+
+func (*guestAccessIppayPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessIppay)(nil)).Elem()
+}
+
+func (i *guestAccessIppayPtrType) ToGuestAccessIppayPtrOutput() GuestAccessIppayPtrOutput {
+	return i.ToGuestAccessIppayPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessIppayPtrType) ToGuestAccessIppayPtrOutputWithContext(ctx context.Context) GuestAccessIppayPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessIppayPtrOutput)
+}
+
+type GuestAccessIppayOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessIppayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessIppay)(nil)).Elem()
+}
+
+func (o GuestAccessIppayOutput) ToGuestAccessIppayOutput() GuestAccessIppayOutput {
+	return o
+}
+
+func (o GuestAccessIppayOutput) ToGuestAccessIppayOutputWithContext(ctx context.Context) GuestAccessIppayOutput {
+	return o
+}
+
+func (o GuestAccessIppayOutput) ToGuestAccessIppayPtrOutput() GuestAccessIppayPtrOutput {
+	return o.ToGuestAccessIppayPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessIppayOutput) ToGuestAccessIppayPtrOutputWithContext(ctx context.Context) GuestAccessIppayPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessIppay) *GuestAccessIppay {
+		return &v
+	}).(GuestAccessIppayPtrOutput)
+}
+
+// Terminal ID for IP Payments.
+func (o GuestAccessIppayOutput) TerminalId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessIppay) string { return v.TerminalId }).(pulumi.StringOutput)
+}
+
+// Whether to use sandbox mode for IPPay payments.
+func (o GuestAccessIppayOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessIppay) *bool { return v.UseSandbox }).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessIppayPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessIppayPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessIppay)(nil)).Elem()
+}
+
+func (o GuestAccessIppayPtrOutput) ToGuestAccessIppayPtrOutput() GuestAccessIppayPtrOutput {
+	return o
+}
+
+func (o GuestAccessIppayPtrOutput) ToGuestAccessIppayPtrOutputWithContext(ctx context.Context) GuestAccessIppayPtrOutput {
+	return o
+}
+
+func (o GuestAccessIppayPtrOutput) Elem() GuestAccessIppayOutput {
+	return o.ApplyT(func(v *GuestAccessIppay) GuestAccessIppay {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessIppay
+		return ret
+	}).(GuestAccessIppayOutput)
+}
+
+// Terminal ID for IP Payments.
+func (o GuestAccessIppayPtrOutput) TerminalId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessIppay) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.TerminalId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to use sandbox mode for IPPay payments.
+func (o GuestAccessIppayPtrOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessIppay) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseSandbox
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessMerchantWarrior struct {
+	// MerchantWarrior API key.
+	ApiKey string `pulumi:"apiKey"`
+	// MerchantWarrior API passphrase.
+	ApiPassphrase string `pulumi:"apiPassphrase"`
+	// MerchantWarrior merchant UUID.
+	MerchantUuid string `pulumi:"merchantUuid"`
+	// Whether to use sandbox mode for MerchantWarrior payments.
+	UseSandbox *bool `pulumi:"useSandbox"`
+}
+
+// GuestAccessMerchantWarriorInput is an input type that accepts GuestAccessMerchantWarriorArgs and GuestAccessMerchantWarriorOutput values.
+// You can construct a concrete instance of `GuestAccessMerchantWarriorInput` via:
+//
+//	GuestAccessMerchantWarriorArgs{...}
+type GuestAccessMerchantWarriorInput interface {
+	pulumi.Input
+
+	ToGuestAccessMerchantWarriorOutput() GuestAccessMerchantWarriorOutput
+	ToGuestAccessMerchantWarriorOutputWithContext(context.Context) GuestAccessMerchantWarriorOutput
+}
+
+type GuestAccessMerchantWarriorArgs struct {
+	// MerchantWarrior API key.
+	ApiKey pulumi.StringInput `pulumi:"apiKey"`
+	// MerchantWarrior API passphrase.
+	ApiPassphrase pulumi.StringInput `pulumi:"apiPassphrase"`
+	// MerchantWarrior merchant UUID.
+	MerchantUuid pulumi.StringInput `pulumi:"merchantUuid"`
+	// Whether to use sandbox mode for MerchantWarrior payments.
+	UseSandbox pulumi.BoolPtrInput `pulumi:"useSandbox"`
+}
+
+func (GuestAccessMerchantWarriorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessMerchantWarrior)(nil)).Elem()
+}
+
+func (i GuestAccessMerchantWarriorArgs) ToGuestAccessMerchantWarriorOutput() GuestAccessMerchantWarriorOutput {
+	return i.ToGuestAccessMerchantWarriorOutputWithContext(context.Background())
+}
+
+func (i GuestAccessMerchantWarriorArgs) ToGuestAccessMerchantWarriorOutputWithContext(ctx context.Context) GuestAccessMerchantWarriorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessMerchantWarriorOutput)
+}
+
+func (i GuestAccessMerchantWarriorArgs) ToGuestAccessMerchantWarriorPtrOutput() GuestAccessMerchantWarriorPtrOutput {
+	return i.ToGuestAccessMerchantWarriorPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessMerchantWarriorArgs) ToGuestAccessMerchantWarriorPtrOutputWithContext(ctx context.Context) GuestAccessMerchantWarriorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessMerchantWarriorOutput).ToGuestAccessMerchantWarriorPtrOutputWithContext(ctx)
+}
+
+// GuestAccessMerchantWarriorPtrInput is an input type that accepts GuestAccessMerchantWarriorArgs, GuestAccessMerchantWarriorPtr and GuestAccessMerchantWarriorPtrOutput values.
+// You can construct a concrete instance of `GuestAccessMerchantWarriorPtrInput` via:
+//
+//	        GuestAccessMerchantWarriorArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessMerchantWarriorPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessMerchantWarriorPtrOutput() GuestAccessMerchantWarriorPtrOutput
+	ToGuestAccessMerchantWarriorPtrOutputWithContext(context.Context) GuestAccessMerchantWarriorPtrOutput
+}
+
+type guestAccessMerchantWarriorPtrType GuestAccessMerchantWarriorArgs
+
+func GuestAccessMerchantWarriorPtr(v *GuestAccessMerchantWarriorArgs) GuestAccessMerchantWarriorPtrInput {
+	return (*guestAccessMerchantWarriorPtrType)(v)
+}
+
+func (*guestAccessMerchantWarriorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessMerchantWarrior)(nil)).Elem()
+}
+
+func (i *guestAccessMerchantWarriorPtrType) ToGuestAccessMerchantWarriorPtrOutput() GuestAccessMerchantWarriorPtrOutput {
+	return i.ToGuestAccessMerchantWarriorPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessMerchantWarriorPtrType) ToGuestAccessMerchantWarriorPtrOutputWithContext(ctx context.Context) GuestAccessMerchantWarriorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessMerchantWarriorPtrOutput)
+}
+
+type GuestAccessMerchantWarriorOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessMerchantWarriorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessMerchantWarrior)(nil)).Elem()
+}
+
+func (o GuestAccessMerchantWarriorOutput) ToGuestAccessMerchantWarriorOutput() GuestAccessMerchantWarriorOutput {
+	return o
+}
+
+func (o GuestAccessMerchantWarriorOutput) ToGuestAccessMerchantWarriorOutputWithContext(ctx context.Context) GuestAccessMerchantWarriorOutput {
+	return o
+}
+
+func (o GuestAccessMerchantWarriorOutput) ToGuestAccessMerchantWarriorPtrOutput() GuestAccessMerchantWarriorPtrOutput {
+	return o.ToGuestAccessMerchantWarriorPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessMerchantWarriorOutput) ToGuestAccessMerchantWarriorPtrOutputWithContext(ctx context.Context) GuestAccessMerchantWarriorPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessMerchantWarrior) *GuestAccessMerchantWarrior {
+		return &v
+	}).(GuestAccessMerchantWarriorPtrOutput)
+}
+
+// MerchantWarrior API key.
+func (o GuestAccessMerchantWarriorOutput) ApiKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessMerchantWarrior) string { return v.ApiKey }).(pulumi.StringOutput)
+}
+
+// MerchantWarrior API passphrase.
+func (o GuestAccessMerchantWarriorOutput) ApiPassphrase() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessMerchantWarrior) string { return v.ApiPassphrase }).(pulumi.StringOutput)
+}
+
+// MerchantWarrior merchant UUID.
+func (o GuestAccessMerchantWarriorOutput) MerchantUuid() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessMerchantWarrior) string { return v.MerchantUuid }).(pulumi.StringOutput)
+}
+
+// Whether to use sandbox mode for MerchantWarrior payments.
+func (o GuestAccessMerchantWarriorOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessMerchantWarrior) *bool { return v.UseSandbox }).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessMerchantWarriorPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessMerchantWarriorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessMerchantWarrior)(nil)).Elem()
+}
+
+func (o GuestAccessMerchantWarriorPtrOutput) ToGuestAccessMerchantWarriorPtrOutput() GuestAccessMerchantWarriorPtrOutput {
+	return o
+}
+
+func (o GuestAccessMerchantWarriorPtrOutput) ToGuestAccessMerchantWarriorPtrOutputWithContext(ctx context.Context) GuestAccessMerchantWarriorPtrOutput {
+	return o
+}
+
+func (o GuestAccessMerchantWarriorPtrOutput) Elem() GuestAccessMerchantWarriorOutput {
+	return o.ApplyT(func(v *GuestAccessMerchantWarrior) GuestAccessMerchantWarrior {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessMerchantWarrior
+		return ret
+	}).(GuestAccessMerchantWarriorOutput)
+}
+
+// MerchantWarrior API key.
+func (o GuestAccessMerchantWarriorPtrOutput) ApiKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessMerchantWarrior) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ApiKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// MerchantWarrior API passphrase.
+func (o GuestAccessMerchantWarriorPtrOutput) ApiPassphrase() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessMerchantWarrior) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ApiPassphrase
+	}).(pulumi.StringPtrOutput)
+}
+
+// MerchantWarrior merchant UUID.
+func (o GuestAccessMerchantWarriorPtrOutput) MerchantUuid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessMerchantWarrior) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.MerchantUuid
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to use sandbox mode for MerchantWarrior payments.
+func (o GuestAccessMerchantWarriorPtrOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessMerchantWarrior) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseSandbox
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessPaypal struct {
+	// PayPal password.
+	Password string `pulumi:"password"`
+	// PayPal signature.
+	Signature string `pulumi:"signature"`
+	// Whether to use sandbox mode for PayPal payments.
+	UseSandbox *bool `pulumi:"useSandbox"`
+	// PayPal username. Must be a valid email address.
+	Username string `pulumi:"username"`
+}
+
+// GuestAccessPaypalInput is an input type that accepts GuestAccessPaypalArgs and GuestAccessPaypalOutput values.
+// You can construct a concrete instance of `GuestAccessPaypalInput` via:
+//
+//	GuestAccessPaypalArgs{...}
+type GuestAccessPaypalInput interface {
+	pulumi.Input
+
+	ToGuestAccessPaypalOutput() GuestAccessPaypalOutput
+	ToGuestAccessPaypalOutputWithContext(context.Context) GuestAccessPaypalOutput
+}
+
+type GuestAccessPaypalArgs struct {
+	// PayPal password.
+	Password pulumi.StringInput `pulumi:"password"`
+	// PayPal signature.
+	Signature pulumi.StringInput `pulumi:"signature"`
+	// Whether to use sandbox mode for PayPal payments.
+	UseSandbox pulumi.BoolPtrInput `pulumi:"useSandbox"`
+	// PayPal username. Must be a valid email address.
+	Username pulumi.StringInput `pulumi:"username"`
+}
+
+func (GuestAccessPaypalArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessPaypal)(nil)).Elem()
+}
+
+func (i GuestAccessPaypalArgs) ToGuestAccessPaypalOutput() GuestAccessPaypalOutput {
+	return i.ToGuestAccessPaypalOutputWithContext(context.Background())
+}
+
+func (i GuestAccessPaypalArgs) ToGuestAccessPaypalOutputWithContext(ctx context.Context) GuestAccessPaypalOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessPaypalOutput)
+}
+
+func (i GuestAccessPaypalArgs) ToGuestAccessPaypalPtrOutput() GuestAccessPaypalPtrOutput {
+	return i.ToGuestAccessPaypalPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessPaypalArgs) ToGuestAccessPaypalPtrOutputWithContext(ctx context.Context) GuestAccessPaypalPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessPaypalOutput).ToGuestAccessPaypalPtrOutputWithContext(ctx)
+}
+
+// GuestAccessPaypalPtrInput is an input type that accepts GuestAccessPaypalArgs, GuestAccessPaypalPtr and GuestAccessPaypalPtrOutput values.
+// You can construct a concrete instance of `GuestAccessPaypalPtrInput` via:
+//
+//	        GuestAccessPaypalArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessPaypalPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessPaypalPtrOutput() GuestAccessPaypalPtrOutput
+	ToGuestAccessPaypalPtrOutputWithContext(context.Context) GuestAccessPaypalPtrOutput
+}
+
+type guestAccessPaypalPtrType GuestAccessPaypalArgs
+
+func GuestAccessPaypalPtr(v *GuestAccessPaypalArgs) GuestAccessPaypalPtrInput {
+	return (*guestAccessPaypalPtrType)(v)
+}
+
+func (*guestAccessPaypalPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessPaypal)(nil)).Elem()
+}
+
+func (i *guestAccessPaypalPtrType) ToGuestAccessPaypalPtrOutput() GuestAccessPaypalPtrOutput {
+	return i.ToGuestAccessPaypalPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessPaypalPtrType) ToGuestAccessPaypalPtrOutputWithContext(ctx context.Context) GuestAccessPaypalPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessPaypalPtrOutput)
+}
+
+type GuestAccessPaypalOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessPaypalOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessPaypal)(nil)).Elem()
+}
+
+func (o GuestAccessPaypalOutput) ToGuestAccessPaypalOutput() GuestAccessPaypalOutput {
+	return o
+}
+
+func (o GuestAccessPaypalOutput) ToGuestAccessPaypalOutputWithContext(ctx context.Context) GuestAccessPaypalOutput {
+	return o
+}
+
+func (o GuestAccessPaypalOutput) ToGuestAccessPaypalPtrOutput() GuestAccessPaypalPtrOutput {
+	return o.ToGuestAccessPaypalPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessPaypalOutput) ToGuestAccessPaypalPtrOutputWithContext(ctx context.Context) GuestAccessPaypalPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessPaypal) *GuestAccessPaypal {
+		return &v
+	}).(GuestAccessPaypalPtrOutput)
+}
+
+// PayPal password.
+func (o GuestAccessPaypalOutput) Password() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessPaypal) string { return v.Password }).(pulumi.StringOutput)
+}
+
+// PayPal signature.
+func (o GuestAccessPaypalOutput) Signature() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessPaypal) string { return v.Signature }).(pulumi.StringOutput)
+}
+
+// Whether to use sandbox mode for PayPal payments.
+func (o GuestAccessPaypalOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessPaypal) *bool { return v.UseSandbox }).(pulumi.BoolPtrOutput)
+}
+
+// PayPal username. Must be a valid email address.
+func (o GuestAccessPaypalOutput) Username() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessPaypal) string { return v.Username }).(pulumi.StringOutput)
+}
+
+type GuestAccessPaypalPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessPaypalPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessPaypal)(nil)).Elem()
+}
+
+func (o GuestAccessPaypalPtrOutput) ToGuestAccessPaypalPtrOutput() GuestAccessPaypalPtrOutput {
+	return o
+}
+
+func (o GuestAccessPaypalPtrOutput) ToGuestAccessPaypalPtrOutputWithContext(ctx context.Context) GuestAccessPaypalPtrOutput {
+	return o
+}
+
+func (o GuestAccessPaypalPtrOutput) Elem() GuestAccessPaypalOutput {
+	return o.ApplyT(func(v *GuestAccessPaypal) GuestAccessPaypal {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessPaypal
+		return ret
+	}).(GuestAccessPaypalOutput)
+}
+
+// PayPal password.
+func (o GuestAccessPaypalPtrOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPaypal) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Password
+	}).(pulumi.StringPtrOutput)
+}
+
+// PayPal signature.
+func (o GuestAccessPaypalPtrOutput) Signature() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPaypal) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Signature
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether to use sandbox mode for PayPal payments.
+func (o GuestAccessPaypalPtrOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPaypal) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseSandbox
+	}).(pulumi.BoolPtrOutput)
+}
+
+// PayPal username. Must be a valid email address.
+func (o GuestAccessPaypalPtrOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPaypal) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Username
+	}).(pulumi.StringPtrOutput)
+}
+
+type GuestAccessPortalCustomization struct {
+	// Custom authentication text for the portal.
+	AuthenticationText *string `pulumi:"authenticationText"`
+	// Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	BgColor *string `pulumi:"bgColor"`
+	// ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
+	BgImageFileId *string `pulumi:"bgImageFileId"`
+	// Tile the background image.
+	BgImageTile *bool `pulumi:"bgImageTile"`
+	// Type of portal background. Valid values are:
+	BgType *string `pulumi:"bgType"`
+	// Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	BoxColor *string `pulumi:"boxColor"`
+	// Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	BoxLinkColor *string `pulumi:"boxLinkColor"`
+	// Opacity of the login box (0-100).
+	BoxOpacity *int `pulumi:"boxOpacity"`
+	// Border radius of the login box in pixels.
+	BoxRadius *int `pulumi:"boxRadius"`
+	// Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	BoxTextColor *string `pulumi:"boxTextColor"`
+	// Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	ButtonColor *string `pulumi:"buttonColor"`
+	// Custom text for the login button.
+	ButtonText *string `pulumi:"buttonText"`
+	// Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	ButtonTextColor *string `pulumi:"buttonTextColor"`
+	// Whether the portal is customized.
+	Customized *bool `pulumi:"customized"`
+	// List of enabled languages for the portal.
+	Languages []string `pulumi:"languages"`
+	// Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	LinkColor *string `pulumi:"linkColor"`
+	// ID of the logo image portal file. File must exist in controller, use `port.AlFile` to manage it.
+	LogoFileId *string `pulumi:"logoFileId"`
+	// Position of the logo in the portal. Valid values are: left, center, right.
+	LogoPosition *string `pulumi:"logoPosition"`
+	// Size of the logo in pixels.
+	LogoSize *int `pulumi:"logoSize"`
+	// Text displayed after successful authentication.
+	SuccessText *string `pulumi:"successText"`
+	// Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	TextColor *string `pulumi:"textColor"`
+	// Title of the portal page.
+	Title *string `pulumi:"title"`
+	// Terms of service text.
+	Tos *string `pulumi:"tos"`
+	// Enable terms of service acceptance requirement.
+	TosEnabled *bool `pulumi:"tosEnabled"`
+	// Name of the Unsplash author for gallery background.
+	UnsplashAuthorName *string `pulumi:"unsplashAuthorName"`
+	// Username of the Unsplash author for gallery background.
+	UnsplashAuthorUsername *string `pulumi:"unsplashAuthorUsername"`
+	// Welcome text displayed on the portal.
+	WelcomeText *string `pulumi:"welcomeText"`
+	// Enable welcome text display.
+	WelcomeTextEnabled *bool `pulumi:"welcomeTextEnabled"`
+	// Position of the welcome text. Valid values are: `underLogo`, `aboveBoxes`.
+	WelcomeTextPosition *string `pulumi:"welcomeTextPosition"`
+}
+
+// GuestAccessPortalCustomizationInput is an input type that accepts GuestAccessPortalCustomizationArgs and GuestAccessPortalCustomizationOutput values.
+// You can construct a concrete instance of `GuestAccessPortalCustomizationInput` via:
+//
+//	GuestAccessPortalCustomizationArgs{...}
+type GuestAccessPortalCustomizationInput interface {
+	pulumi.Input
+
+	ToGuestAccessPortalCustomizationOutput() GuestAccessPortalCustomizationOutput
+	ToGuestAccessPortalCustomizationOutputWithContext(context.Context) GuestAccessPortalCustomizationOutput
+}
+
+type GuestAccessPortalCustomizationArgs struct {
+	// Custom authentication text for the portal.
+	AuthenticationText pulumi.StringPtrInput `pulumi:"authenticationText"`
+	// Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	BgColor pulumi.StringPtrInput `pulumi:"bgColor"`
+	// ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
+	BgImageFileId pulumi.StringPtrInput `pulumi:"bgImageFileId"`
+	// Tile the background image.
+	BgImageTile pulumi.BoolPtrInput `pulumi:"bgImageTile"`
+	// Type of portal background. Valid values are:
+	BgType pulumi.StringPtrInput `pulumi:"bgType"`
+	// Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	BoxColor pulumi.StringPtrInput `pulumi:"boxColor"`
+	// Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	BoxLinkColor pulumi.StringPtrInput `pulumi:"boxLinkColor"`
+	// Opacity of the login box (0-100).
+	BoxOpacity pulumi.IntPtrInput `pulumi:"boxOpacity"`
+	// Border radius of the login box in pixels.
+	BoxRadius pulumi.IntPtrInput `pulumi:"boxRadius"`
+	// Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	BoxTextColor pulumi.StringPtrInput `pulumi:"boxTextColor"`
+	// Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	ButtonColor pulumi.StringPtrInput `pulumi:"buttonColor"`
+	// Custom text for the login button.
+	ButtonText pulumi.StringPtrInput `pulumi:"buttonText"`
+	// Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	ButtonTextColor pulumi.StringPtrInput `pulumi:"buttonTextColor"`
+	// Whether the portal is customized.
+	Customized pulumi.BoolPtrInput `pulumi:"customized"`
+	// List of enabled languages for the portal.
+	Languages pulumi.StringArrayInput `pulumi:"languages"`
+	// Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	LinkColor pulumi.StringPtrInput `pulumi:"linkColor"`
+	// ID of the logo image portal file. File must exist in controller, use `port.AlFile` to manage it.
+	LogoFileId pulumi.StringPtrInput `pulumi:"logoFileId"`
+	// Position of the logo in the portal. Valid values are: left, center, right.
+	LogoPosition pulumi.StringPtrInput `pulumi:"logoPosition"`
+	// Size of the logo in pixels.
+	LogoSize pulumi.IntPtrInput `pulumi:"logoSize"`
+	// Text displayed after successful authentication.
+	SuccessText pulumi.StringPtrInput `pulumi:"successText"`
+	// Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+	TextColor pulumi.StringPtrInput `pulumi:"textColor"`
+	// Title of the portal page.
+	Title pulumi.StringPtrInput `pulumi:"title"`
+	// Terms of service text.
+	Tos pulumi.StringPtrInput `pulumi:"tos"`
+	// Enable terms of service acceptance requirement.
+	TosEnabled pulumi.BoolPtrInput `pulumi:"tosEnabled"`
+	// Name of the Unsplash author for gallery background.
+	UnsplashAuthorName pulumi.StringPtrInput `pulumi:"unsplashAuthorName"`
+	// Username of the Unsplash author for gallery background.
+	UnsplashAuthorUsername pulumi.StringPtrInput `pulumi:"unsplashAuthorUsername"`
+	// Welcome text displayed on the portal.
+	WelcomeText pulumi.StringPtrInput `pulumi:"welcomeText"`
+	// Enable welcome text display.
+	WelcomeTextEnabled pulumi.BoolPtrInput `pulumi:"welcomeTextEnabled"`
+	// Position of the welcome text. Valid values are: `underLogo`, `aboveBoxes`.
+	WelcomeTextPosition pulumi.StringPtrInput `pulumi:"welcomeTextPosition"`
+}
+
+func (GuestAccessPortalCustomizationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessPortalCustomization)(nil)).Elem()
+}
+
+func (i GuestAccessPortalCustomizationArgs) ToGuestAccessPortalCustomizationOutput() GuestAccessPortalCustomizationOutput {
+	return i.ToGuestAccessPortalCustomizationOutputWithContext(context.Background())
+}
+
+func (i GuestAccessPortalCustomizationArgs) ToGuestAccessPortalCustomizationOutputWithContext(ctx context.Context) GuestAccessPortalCustomizationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessPortalCustomizationOutput)
+}
+
+func (i GuestAccessPortalCustomizationArgs) ToGuestAccessPortalCustomizationPtrOutput() GuestAccessPortalCustomizationPtrOutput {
+	return i.ToGuestAccessPortalCustomizationPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessPortalCustomizationArgs) ToGuestAccessPortalCustomizationPtrOutputWithContext(ctx context.Context) GuestAccessPortalCustomizationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessPortalCustomizationOutput).ToGuestAccessPortalCustomizationPtrOutputWithContext(ctx)
+}
+
+// GuestAccessPortalCustomizationPtrInput is an input type that accepts GuestAccessPortalCustomizationArgs, GuestAccessPortalCustomizationPtr and GuestAccessPortalCustomizationPtrOutput values.
+// You can construct a concrete instance of `GuestAccessPortalCustomizationPtrInput` via:
+//
+//	        GuestAccessPortalCustomizationArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessPortalCustomizationPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessPortalCustomizationPtrOutput() GuestAccessPortalCustomizationPtrOutput
+	ToGuestAccessPortalCustomizationPtrOutputWithContext(context.Context) GuestAccessPortalCustomizationPtrOutput
+}
+
+type guestAccessPortalCustomizationPtrType GuestAccessPortalCustomizationArgs
+
+func GuestAccessPortalCustomizationPtr(v *GuestAccessPortalCustomizationArgs) GuestAccessPortalCustomizationPtrInput {
+	return (*guestAccessPortalCustomizationPtrType)(v)
+}
+
+func (*guestAccessPortalCustomizationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessPortalCustomization)(nil)).Elem()
+}
+
+func (i *guestAccessPortalCustomizationPtrType) ToGuestAccessPortalCustomizationPtrOutput() GuestAccessPortalCustomizationPtrOutput {
+	return i.ToGuestAccessPortalCustomizationPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessPortalCustomizationPtrType) ToGuestAccessPortalCustomizationPtrOutputWithContext(ctx context.Context) GuestAccessPortalCustomizationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessPortalCustomizationPtrOutput)
+}
+
+type GuestAccessPortalCustomizationOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessPortalCustomizationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessPortalCustomization)(nil)).Elem()
+}
+
+func (o GuestAccessPortalCustomizationOutput) ToGuestAccessPortalCustomizationOutput() GuestAccessPortalCustomizationOutput {
+	return o
+}
+
+func (o GuestAccessPortalCustomizationOutput) ToGuestAccessPortalCustomizationOutputWithContext(ctx context.Context) GuestAccessPortalCustomizationOutput {
+	return o
+}
+
+func (o GuestAccessPortalCustomizationOutput) ToGuestAccessPortalCustomizationPtrOutput() GuestAccessPortalCustomizationPtrOutput {
+	return o.ToGuestAccessPortalCustomizationPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessPortalCustomizationOutput) ToGuestAccessPortalCustomizationPtrOutputWithContext(ctx context.Context) GuestAccessPortalCustomizationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessPortalCustomization) *GuestAccessPortalCustomization {
+		return &v
+	}).(GuestAccessPortalCustomizationPtrOutput)
+}
+
+// Custom authentication text for the portal.
+func (o GuestAccessPortalCustomizationOutput) AuthenticationText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.AuthenticationText }).(pulumi.StringPtrOutput)
+}
+
+// Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationOutput) BgColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.BgColor }).(pulumi.StringPtrOutput)
+}
+
+// ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
+func (o GuestAccessPortalCustomizationOutput) BgImageFileId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.BgImageFileId }).(pulumi.StringPtrOutput)
+}
+
+// Tile the background image.
+func (o GuestAccessPortalCustomizationOutput) BgImageTile() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *bool { return v.BgImageTile }).(pulumi.BoolPtrOutput)
+}
+
+// Type of portal background. Valid values are:
+func (o GuestAccessPortalCustomizationOutput) BgType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.BgType }).(pulumi.StringPtrOutput)
+}
+
+// Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationOutput) BoxColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.BoxColor }).(pulumi.StringPtrOutput)
+}
+
+// Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationOutput) BoxLinkColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.BoxLinkColor }).(pulumi.StringPtrOutput)
+}
+
+// Opacity of the login box (0-100).
+func (o GuestAccessPortalCustomizationOutput) BoxOpacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *int { return v.BoxOpacity }).(pulumi.IntPtrOutput)
+}
+
+// Border radius of the login box in pixels.
+func (o GuestAccessPortalCustomizationOutput) BoxRadius() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *int { return v.BoxRadius }).(pulumi.IntPtrOutput)
+}
+
+// Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationOutput) BoxTextColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.BoxTextColor }).(pulumi.StringPtrOutput)
+}
+
+// Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationOutput) ButtonColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.ButtonColor }).(pulumi.StringPtrOutput)
+}
+
+// Custom text for the login button.
+func (o GuestAccessPortalCustomizationOutput) ButtonText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.ButtonText }).(pulumi.StringPtrOutput)
+}
+
+// Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationOutput) ButtonTextColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.ButtonTextColor }).(pulumi.StringPtrOutput)
+}
+
+// Whether the portal is customized.
+func (o GuestAccessPortalCustomizationOutput) Customized() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *bool { return v.Customized }).(pulumi.BoolPtrOutput)
+}
+
+// List of enabled languages for the portal.
+func (o GuestAccessPortalCustomizationOutput) Languages() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) []string { return v.Languages }).(pulumi.StringArrayOutput)
+}
+
+// Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationOutput) LinkColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.LinkColor }).(pulumi.StringPtrOutput)
+}
+
+// ID of the logo image portal file. File must exist in controller, use `port.AlFile` to manage it.
+func (o GuestAccessPortalCustomizationOutput) LogoFileId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.LogoFileId }).(pulumi.StringPtrOutput)
+}
+
+// Position of the logo in the portal. Valid values are: left, center, right.
+func (o GuestAccessPortalCustomizationOutput) LogoPosition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.LogoPosition }).(pulumi.StringPtrOutput)
+}
+
+// Size of the logo in pixels.
+func (o GuestAccessPortalCustomizationOutput) LogoSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *int { return v.LogoSize }).(pulumi.IntPtrOutput)
+}
+
+// Text displayed after successful authentication.
+func (o GuestAccessPortalCustomizationOutput) SuccessText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.SuccessText }).(pulumi.StringPtrOutput)
+}
+
+// Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationOutput) TextColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.TextColor }).(pulumi.StringPtrOutput)
+}
+
+// Title of the portal page.
+func (o GuestAccessPortalCustomizationOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.Title }).(pulumi.StringPtrOutput)
+}
+
+// Terms of service text.
+func (o GuestAccessPortalCustomizationOutput) Tos() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.Tos }).(pulumi.StringPtrOutput)
+}
+
+// Enable terms of service acceptance requirement.
+func (o GuestAccessPortalCustomizationOutput) TosEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *bool { return v.TosEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Name of the Unsplash author for gallery background.
+func (o GuestAccessPortalCustomizationOutput) UnsplashAuthorName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.UnsplashAuthorName }).(pulumi.StringPtrOutput)
+}
+
+// Username of the Unsplash author for gallery background.
+func (o GuestAccessPortalCustomizationOutput) UnsplashAuthorUsername() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.UnsplashAuthorUsername }).(pulumi.StringPtrOutput)
+}
+
+// Welcome text displayed on the portal.
+func (o GuestAccessPortalCustomizationOutput) WelcomeText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.WelcomeText }).(pulumi.StringPtrOutput)
+}
+
+// Enable welcome text display.
+func (o GuestAccessPortalCustomizationOutput) WelcomeTextEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *bool { return v.WelcomeTextEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Position of the welcome text. Valid values are: `underLogo`, `aboveBoxes`.
+func (o GuestAccessPortalCustomizationOutput) WelcomeTextPosition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.WelcomeTextPosition }).(pulumi.StringPtrOutput)
+}
+
+type GuestAccessPortalCustomizationPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessPortalCustomizationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessPortalCustomization)(nil)).Elem()
+}
+
+func (o GuestAccessPortalCustomizationPtrOutput) ToGuestAccessPortalCustomizationPtrOutput() GuestAccessPortalCustomizationPtrOutput {
+	return o
+}
+
+func (o GuestAccessPortalCustomizationPtrOutput) ToGuestAccessPortalCustomizationPtrOutputWithContext(ctx context.Context) GuestAccessPortalCustomizationPtrOutput {
+	return o
+}
+
+func (o GuestAccessPortalCustomizationPtrOutput) Elem() GuestAccessPortalCustomizationOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) GuestAccessPortalCustomization {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessPortalCustomization
+		return ret
+	}).(GuestAccessPortalCustomizationOutput)
+}
+
+// Custom authentication text for the portal.
+func (o GuestAccessPortalCustomizationPtrOutput) AuthenticationText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AuthenticationText
+	}).(pulumi.StringPtrOutput)
+}
+
+// Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationPtrOutput) BgColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BgColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
+func (o GuestAccessPortalCustomizationPtrOutput) BgImageFileId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BgImageFileId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Tile the background image.
+func (o GuestAccessPortalCustomizationPtrOutput) BgImageTile() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.BgImageTile
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Type of portal background. Valid values are:
+func (o GuestAccessPortalCustomizationPtrOutput) BgType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BgType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationPtrOutput) BoxColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BoxColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationPtrOutput) BoxLinkColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BoxLinkColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// Opacity of the login box (0-100).
+func (o GuestAccessPortalCustomizationPtrOutput) BoxOpacity() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BoxOpacity
+	}).(pulumi.IntPtrOutput)
+}
+
+// Border radius of the login box in pixels.
+func (o GuestAccessPortalCustomizationPtrOutput) BoxRadius() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *int {
+		if v == nil {
+			return nil
+		}
+		return v.BoxRadius
+	}).(pulumi.IntPtrOutput)
+}
+
+// Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationPtrOutput) BoxTextColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BoxTextColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationPtrOutput) ButtonColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ButtonColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// Custom text for the login button.
+func (o GuestAccessPortalCustomizationPtrOutput) ButtonText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ButtonText
+	}).(pulumi.StringPtrOutput)
+}
+
+// Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationPtrOutput) ButtonTextColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ButtonTextColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// Whether the portal is customized.
+func (o GuestAccessPortalCustomizationPtrOutput) Customized() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Customized
+	}).(pulumi.BoolPtrOutput)
+}
+
+// List of enabled languages for the portal.
+func (o GuestAccessPortalCustomizationPtrOutput) Languages() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Languages
+	}).(pulumi.StringArrayOutput)
+}
+
+// Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationPtrOutput) LinkColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LinkColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// ID of the logo image portal file. File must exist in controller, use `port.AlFile` to manage it.
+func (o GuestAccessPortalCustomizationPtrOutput) LogoFileId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LogoFileId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Position of the logo in the portal. Valid values are: left, center, right.
+func (o GuestAccessPortalCustomizationPtrOutput) LogoPosition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LogoPosition
+	}).(pulumi.StringPtrOutput)
+}
+
+// Size of the logo in pixels.
+func (o GuestAccessPortalCustomizationPtrOutput) LogoSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *int {
+		if v == nil {
+			return nil
+		}
+		return v.LogoSize
+	}).(pulumi.IntPtrOutput)
+}
+
+// Text displayed after successful authentication.
+func (o GuestAccessPortalCustomizationPtrOutput) SuccessText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SuccessText
+	}).(pulumi.StringPtrOutput)
+}
+
+// Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
+func (o GuestAccessPortalCustomizationPtrOutput) TextColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TextColor
+	}).(pulumi.StringPtrOutput)
+}
+
+// Title of the portal page.
+func (o GuestAccessPortalCustomizationPtrOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Title
+	}).(pulumi.StringPtrOutput)
+}
+
+// Terms of service text.
+func (o GuestAccessPortalCustomizationPtrOutput) Tos() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Tos
+	}).(pulumi.StringPtrOutput)
+}
+
+// Enable terms of service acceptance requirement.
+func (o GuestAccessPortalCustomizationPtrOutput) TosEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.TosEnabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Name of the Unsplash author for gallery background.
+func (o GuestAccessPortalCustomizationPtrOutput) UnsplashAuthorName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UnsplashAuthorName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Username of the Unsplash author for gallery background.
+func (o GuestAccessPortalCustomizationPtrOutput) UnsplashAuthorUsername() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UnsplashAuthorUsername
+	}).(pulumi.StringPtrOutput)
+}
+
+// Welcome text displayed on the portal.
+func (o GuestAccessPortalCustomizationPtrOutput) WelcomeText() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WelcomeText
+	}).(pulumi.StringPtrOutput)
+}
+
+// Enable welcome text display.
+func (o GuestAccessPortalCustomizationPtrOutput) WelcomeTextEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.WelcomeTextEnabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Position of the welcome text. Valid values are: `underLogo`, `aboveBoxes`.
+func (o GuestAccessPortalCustomizationPtrOutput) WelcomeTextPosition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WelcomeTextPosition
+	}).(pulumi.StringPtrOutput)
+}
+
+type GuestAccessQuickpay struct {
+	// QuickPay agreement ID.
+	AgreementId string `pulumi:"agreementId"`
+	// QuickPay API key.
+	ApiKey string `pulumi:"apiKey"`
+	// QuickPay merchant ID.
+	MerchantId string `pulumi:"merchantId"`
+	// Enable sandbox mode for QuickPay payments.
+	UseSandbox *bool `pulumi:"useSandbox"`
+}
+
+// GuestAccessQuickpayInput is an input type that accepts GuestAccessQuickpayArgs and GuestAccessQuickpayOutput values.
+// You can construct a concrete instance of `GuestAccessQuickpayInput` via:
+//
+//	GuestAccessQuickpayArgs{...}
+type GuestAccessQuickpayInput interface {
+	pulumi.Input
+
+	ToGuestAccessQuickpayOutput() GuestAccessQuickpayOutput
+	ToGuestAccessQuickpayOutputWithContext(context.Context) GuestAccessQuickpayOutput
+}
+
+type GuestAccessQuickpayArgs struct {
+	// QuickPay agreement ID.
+	AgreementId pulumi.StringInput `pulumi:"agreementId"`
+	// QuickPay API key.
+	ApiKey pulumi.StringInput `pulumi:"apiKey"`
+	// QuickPay merchant ID.
+	MerchantId pulumi.StringInput `pulumi:"merchantId"`
+	// Enable sandbox mode for QuickPay payments.
+	UseSandbox pulumi.BoolPtrInput `pulumi:"useSandbox"`
+}
+
+func (GuestAccessQuickpayArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessQuickpay)(nil)).Elem()
+}
+
+func (i GuestAccessQuickpayArgs) ToGuestAccessQuickpayOutput() GuestAccessQuickpayOutput {
+	return i.ToGuestAccessQuickpayOutputWithContext(context.Background())
+}
+
+func (i GuestAccessQuickpayArgs) ToGuestAccessQuickpayOutputWithContext(ctx context.Context) GuestAccessQuickpayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessQuickpayOutput)
+}
+
+func (i GuestAccessQuickpayArgs) ToGuestAccessQuickpayPtrOutput() GuestAccessQuickpayPtrOutput {
+	return i.ToGuestAccessQuickpayPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessQuickpayArgs) ToGuestAccessQuickpayPtrOutputWithContext(ctx context.Context) GuestAccessQuickpayPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessQuickpayOutput).ToGuestAccessQuickpayPtrOutputWithContext(ctx)
+}
+
+// GuestAccessQuickpayPtrInput is an input type that accepts GuestAccessQuickpayArgs, GuestAccessQuickpayPtr and GuestAccessQuickpayPtrOutput values.
+// You can construct a concrete instance of `GuestAccessQuickpayPtrInput` via:
+//
+//	        GuestAccessQuickpayArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessQuickpayPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessQuickpayPtrOutput() GuestAccessQuickpayPtrOutput
+	ToGuestAccessQuickpayPtrOutputWithContext(context.Context) GuestAccessQuickpayPtrOutput
+}
+
+type guestAccessQuickpayPtrType GuestAccessQuickpayArgs
+
+func GuestAccessQuickpayPtr(v *GuestAccessQuickpayArgs) GuestAccessQuickpayPtrInput {
+	return (*guestAccessQuickpayPtrType)(v)
+}
+
+func (*guestAccessQuickpayPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessQuickpay)(nil)).Elem()
+}
+
+func (i *guestAccessQuickpayPtrType) ToGuestAccessQuickpayPtrOutput() GuestAccessQuickpayPtrOutput {
+	return i.ToGuestAccessQuickpayPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessQuickpayPtrType) ToGuestAccessQuickpayPtrOutputWithContext(ctx context.Context) GuestAccessQuickpayPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessQuickpayPtrOutput)
+}
+
+type GuestAccessQuickpayOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessQuickpayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessQuickpay)(nil)).Elem()
+}
+
+func (o GuestAccessQuickpayOutput) ToGuestAccessQuickpayOutput() GuestAccessQuickpayOutput {
+	return o
+}
+
+func (o GuestAccessQuickpayOutput) ToGuestAccessQuickpayOutputWithContext(ctx context.Context) GuestAccessQuickpayOutput {
+	return o
+}
+
+func (o GuestAccessQuickpayOutput) ToGuestAccessQuickpayPtrOutput() GuestAccessQuickpayPtrOutput {
+	return o.ToGuestAccessQuickpayPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessQuickpayOutput) ToGuestAccessQuickpayPtrOutputWithContext(ctx context.Context) GuestAccessQuickpayPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessQuickpay) *GuestAccessQuickpay {
+		return &v
+	}).(GuestAccessQuickpayPtrOutput)
+}
+
+// QuickPay agreement ID.
+func (o GuestAccessQuickpayOutput) AgreementId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessQuickpay) string { return v.AgreementId }).(pulumi.StringOutput)
+}
+
+// QuickPay API key.
+func (o GuestAccessQuickpayOutput) ApiKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessQuickpay) string { return v.ApiKey }).(pulumi.StringOutput)
+}
+
+// QuickPay merchant ID.
+func (o GuestAccessQuickpayOutput) MerchantId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessQuickpay) string { return v.MerchantId }).(pulumi.StringOutput)
+}
+
+// Enable sandbox mode for QuickPay payments.
+func (o GuestAccessQuickpayOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessQuickpay) *bool { return v.UseSandbox }).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessQuickpayPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessQuickpayPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessQuickpay)(nil)).Elem()
+}
+
+func (o GuestAccessQuickpayPtrOutput) ToGuestAccessQuickpayPtrOutput() GuestAccessQuickpayPtrOutput {
+	return o
+}
+
+func (o GuestAccessQuickpayPtrOutput) ToGuestAccessQuickpayPtrOutputWithContext(ctx context.Context) GuestAccessQuickpayPtrOutput {
+	return o
+}
+
+func (o GuestAccessQuickpayPtrOutput) Elem() GuestAccessQuickpayOutput {
+	return o.ApplyT(func(v *GuestAccessQuickpay) GuestAccessQuickpay {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessQuickpay
+		return ret
+	}).(GuestAccessQuickpayOutput)
+}
+
+// QuickPay agreement ID.
+func (o GuestAccessQuickpayPtrOutput) AgreementId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessQuickpay) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.AgreementId
+	}).(pulumi.StringPtrOutput)
+}
+
+// QuickPay API key.
+func (o GuestAccessQuickpayPtrOutput) ApiKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessQuickpay) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ApiKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// QuickPay merchant ID.
+func (o GuestAccessQuickpayPtrOutput) MerchantId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessQuickpay) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.MerchantId
+	}).(pulumi.StringPtrOutput)
+}
+
+// Enable sandbox mode for QuickPay payments.
+func (o GuestAccessQuickpayPtrOutput) UseSandbox() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessQuickpay) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseSandbox
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessRadius struct {
+	// RADIUS authentication type. Valid values are: `chap`, `mschapv2`.
+	AuthType string `pulumi:"authType"`
+	// Enable RADIUS disconnect messages.
+	DisconnectEnabled *bool `pulumi:"disconnectEnabled"`
+	// Port for RADIUS disconnect messages.
+	DisconnectPort *int `pulumi:"disconnectPort"`
+	// ID of the RADIUS profile to use.
+	ProfileId string `pulumi:"profileId"`
+}
+
+// GuestAccessRadiusInput is an input type that accepts GuestAccessRadiusArgs and GuestAccessRadiusOutput values.
+// You can construct a concrete instance of `GuestAccessRadiusInput` via:
+//
+//	GuestAccessRadiusArgs{...}
+type GuestAccessRadiusInput interface {
+	pulumi.Input
+
+	ToGuestAccessRadiusOutput() GuestAccessRadiusOutput
+	ToGuestAccessRadiusOutputWithContext(context.Context) GuestAccessRadiusOutput
+}
+
+type GuestAccessRadiusArgs struct {
+	// RADIUS authentication type. Valid values are: `chap`, `mschapv2`.
+	AuthType pulumi.StringInput `pulumi:"authType"`
+	// Enable RADIUS disconnect messages.
+	DisconnectEnabled pulumi.BoolPtrInput `pulumi:"disconnectEnabled"`
+	// Port for RADIUS disconnect messages.
+	DisconnectPort pulumi.IntPtrInput `pulumi:"disconnectPort"`
+	// ID of the RADIUS profile to use.
+	ProfileId pulumi.StringInput `pulumi:"profileId"`
+}
+
+func (GuestAccessRadiusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessRadius)(nil)).Elem()
+}
+
+func (i GuestAccessRadiusArgs) ToGuestAccessRadiusOutput() GuestAccessRadiusOutput {
+	return i.ToGuestAccessRadiusOutputWithContext(context.Background())
+}
+
+func (i GuestAccessRadiusArgs) ToGuestAccessRadiusOutputWithContext(ctx context.Context) GuestAccessRadiusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessRadiusOutput)
+}
+
+func (i GuestAccessRadiusArgs) ToGuestAccessRadiusPtrOutput() GuestAccessRadiusPtrOutput {
+	return i.ToGuestAccessRadiusPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessRadiusArgs) ToGuestAccessRadiusPtrOutputWithContext(ctx context.Context) GuestAccessRadiusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessRadiusOutput).ToGuestAccessRadiusPtrOutputWithContext(ctx)
+}
+
+// GuestAccessRadiusPtrInput is an input type that accepts GuestAccessRadiusArgs, GuestAccessRadiusPtr and GuestAccessRadiusPtrOutput values.
+// You can construct a concrete instance of `GuestAccessRadiusPtrInput` via:
+//
+//	        GuestAccessRadiusArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessRadiusPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessRadiusPtrOutput() GuestAccessRadiusPtrOutput
+	ToGuestAccessRadiusPtrOutputWithContext(context.Context) GuestAccessRadiusPtrOutput
+}
+
+type guestAccessRadiusPtrType GuestAccessRadiusArgs
+
+func GuestAccessRadiusPtr(v *GuestAccessRadiusArgs) GuestAccessRadiusPtrInput {
+	return (*guestAccessRadiusPtrType)(v)
+}
+
+func (*guestAccessRadiusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessRadius)(nil)).Elem()
+}
+
+func (i *guestAccessRadiusPtrType) ToGuestAccessRadiusPtrOutput() GuestAccessRadiusPtrOutput {
+	return i.ToGuestAccessRadiusPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessRadiusPtrType) ToGuestAccessRadiusPtrOutputWithContext(ctx context.Context) GuestAccessRadiusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessRadiusPtrOutput)
+}
+
+type GuestAccessRadiusOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessRadiusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessRadius)(nil)).Elem()
+}
+
+func (o GuestAccessRadiusOutput) ToGuestAccessRadiusOutput() GuestAccessRadiusOutput {
+	return o
+}
+
+func (o GuestAccessRadiusOutput) ToGuestAccessRadiusOutputWithContext(ctx context.Context) GuestAccessRadiusOutput {
+	return o
+}
+
+func (o GuestAccessRadiusOutput) ToGuestAccessRadiusPtrOutput() GuestAccessRadiusPtrOutput {
+	return o.ToGuestAccessRadiusPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessRadiusOutput) ToGuestAccessRadiusPtrOutputWithContext(ctx context.Context) GuestAccessRadiusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessRadius) *GuestAccessRadius {
+		return &v
+	}).(GuestAccessRadiusPtrOutput)
+}
+
+// RADIUS authentication type. Valid values are: `chap`, `mschapv2`.
+func (o GuestAccessRadiusOutput) AuthType() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessRadius) string { return v.AuthType }).(pulumi.StringOutput)
+}
+
+// Enable RADIUS disconnect messages.
+func (o GuestAccessRadiusOutput) DisconnectEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessRadius) *bool { return v.DisconnectEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Port for RADIUS disconnect messages.
+func (o GuestAccessRadiusOutput) DisconnectPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GuestAccessRadius) *int { return v.DisconnectPort }).(pulumi.IntPtrOutput)
+}
+
+// ID of the RADIUS profile to use.
+func (o GuestAccessRadiusOutput) ProfileId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessRadius) string { return v.ProfileId }).(pulumi.StringOutput)
+}
+
+type GuestAccessRadiusPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessRadiusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessRadius)(nil)).Elem()
+}
+
+func (o GuestAccessRadiusPtrOutput) ToGuestAccessRadiusPtrOutput() GuestAccessRadiusPtrOutput {
+	return o
+}
+
+func (o GuestAccessRadiusPtrOutput) ToGuestAccessRadiusPtrOutputWithContext(ctx context.Context) GuestAccessRadiusPtrOutput {
+	return o
+}
+
+func (o GuestAccessRadiusPtrOutput) Elem() GuestAccessRadiusOutput {
+	return o.ApplyT(func(v *GuestAccessRadius) GuestAccessRadius {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessRadius
+		return ret
+	}).(GuestAccessRadiusOutput)
+}
+
+// RADIUS authentication type. Valid values are: `chap`, `mschapv2`.
+func (o GuestAccessRadiusPtrOutput) AuthType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessRadius) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.AuthType
+	}).(pulumi.StringPtrOutput)
+}
+
+// Enable RADIUS disconnect messages.
+func (o GuestAccessRadiusPtrOutput) DisconnectEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessRadius) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.DisconnectEnabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Port for RADIUS disconnect messages.
+func (o GuestAccessRadiusPtrOutput) DisconnectPort() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GuestAccessRadius) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DisconnectPort
+	}).(pulumi.IntPtrOutput)
+}
+
+// ID of the RADIUS profile to use.
+func (o GuestAccessRadiusPtrOutput) ProfileId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessRadius) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ProfileId
+	}).(pulumi.StringPtrOutput)
+}
+
+type GuestAccessRedirect struct {
+	// Redirect HTTP requests to HTTPS.
+	ToHttps *bool `pulumi:"toHttps"`
+	// URL to redirect to after authentication. Must be a valid URL.
+	Url string `pulumi:"url"`
+	// Use HTTPS for the redirect URL.
+	UseHttps *bool `pulumi:"useHttps"`
+}
+
+// GuestAccessRedirectInput is an input type that accepts GuestAccessRedirectArgs and GuestAccessRedirectOutput values.
+// You can construct a concrete instance of `GuestAccessRedirectInput` via:
+//
+//	GuestAccessRedirectArgs{...}
+type GuestAccessRedirectInput interface {
+	pulumi.Input
+
+	ToGuestAccessRedirectOutput() GuestAccessRedirectOutput
+	ToGuestAccessRedirectOutputWithContext(context.Context) GuestAccessRedirectOutput
+}
+
+type GuestAccessRedirectArgs struct {
+	// Redirect HTTP requests to HTTPS.
+	ToHttps pulumi.BoolPtrInput `pulumi:"toHttps"`
+	// URL to redirect to after authentication. Must be a valid URL.
+	Url pulumi.StringInput `pulumi:"url"`
+	// Use HTTPS for the redirect URL.
+	UseHttps pulumi.BoolPtrInput `pulumi:"useHttps"`
+}
+
+func (GuestAccessRedirectArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessRedirect)(nil)).Elem()
+}
+
+func (i GuestAccessRedirectArgs) ToGuestAccessRedirectOutput() GuestAccessRedirectOutput {
+	return i.ToGuestAccessRedirectOutputWithContext(context.Background())
+}
+
+func (i GuestAccessRedirectArgs) ToGuestAccessRedirectOutputWithContext(ctx context.Context) GuestAccessRedirectOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessRedirectOutput)
+}
+
+func (i GuestAccessRedirectArgs) ToGuestAccessRedirectPtrOutput() GuestAccessRedirectPtrOutput {
+	return i.ToGuestAccessRedirectPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessRedirectArgs) ToGuestAccessRedirectPtrOutputWithContext(ctx context.Context) GuestAccessRedirectPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessRedirectOutput).ToGuestAccessRedirectPtrOutputWithContext(ctx)
+}
+
+// GuestAccessRedirectPtrInput is an input type that accepts GuestAccessRedirectArgs, GuestAccessRedirectPtr and GuestAccessRedirectPtrOutput values.
+// You can construct a concrete instance of `GuestAccessRedirectPtrInput` via:
+//
+//	        GuestAccessRedirectArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessRedirectPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessRedirectPtrOutput() GuestAccessRedirectPtrOutput
+	ToGuestAccessRedirectPtrOutputWithContext(context.Context) GuestAccessRedirectPtrOutput
+}
+
+type guestAccessRedirectPtrType GuestAccessRedirectArgs
+
+func GuestAccessRedirectPtr(v *GuestAccessRedirectArgs) GuestAccessRedirectPtrInput {
+	return (*guestAccessRedirectPtrType)(v)
+}
+
+func (*guestAccessRedirectPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessRedirect)(nil)).Elem()
+}
+
+func (i *guestAccessRedirectPtrType) ToGuestAccessRedirectPtrOutput() GuestAccessRedirectPtrOutput {
+	return i.ToGuestAccessRedirectPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessRedirectPtrType) ToGuestAccessRedirectPtrOutputWithContext(ctx context.Context) GuestAccessRedirectPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessRedirectPtrOutput)
+}
+
+type GuestAccessRedirectOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessRedirectOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessRedirect)(nil)).Elem()
+}
+
+func (o GuestAccessRedirectOutput) ToGuestAccessRedirectOutput() GuestAccessRedirectOutput {
+	return o
+}
+
+func (o GuestAccessRedirectOutput) ToGuestAccessRedirectOutputWithContext(ctx context.Context) GuestAccessRedirectOutput {
+	return o
+}
+
+func (o GuestAccessRedirectOutput) ToGuestAccessRedirectPtrOutput() GuestAccessRedirectPtrOutput {
+	return o.ToGuestAccessRedirectPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessRedirectOutput) ToGuestAccessRedirectPtrOutputWithContext(ctx context.Context) GuestAccessRedirectPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessRedirect) *GuestAccessRedirect {
+		return &v
+	}).(GuestAccessRedirectPtrOutput)
+}
+
+// Redirect HTTP requests to HTTPS.
+func (o GuestAccessRedirectOutput) ToHttps() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessRedirect) *bool { return v.ToHttps }).(pulumi.BoolPtrOutput)
+}
+
+// URL to redirect to after authentication. Must be a valid URL.
+func (o GuestAccessRedirectOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessRedirect) string { return v.Url }).(pulumi.StringOutput)
+}
+
+// Use HTTPS for the redirect URL.
+func (o GuestAccessRedirectOutput) UseHttps() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v GuestAccessRedirect) *bool { return v.UseHttps }).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessRedirectPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessRedirectPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessRedirect)(nil)).Elem()
+}
+
+func (o GuestAccessRedirectPtrOutput) ToGuestAccessRedirectPtrOutput() GuestAccessRedirectPtrOutput {
+	return o
+}
+
+func (o GuestAccessRedirectPtrOutput) ToGuestAccessRedirectPtrOutputWithContext(ctx context.Context) GuestAccessRedirectPtrOutput {
+	return o
+}
+
+func (o GuestAccessRedirectPtrOutput) Elem() GuestAccessRedirectOutput {
+	return o.ApplyT(func(v *GuestAccessRedirect) GuestAccessRedirect {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessRedirect
+		return ret
+	}).(GuestAccessRedirectOutput)
+}
+
+// Redirect HTTP requests to HTTPS.
+func (o GuestAccessRedirectPtrOutput) ToHttps() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessRedirect) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ToHttps
+	}).(pulumi.BoolPtrOutput)
+}
+
+// URL to redirect to after authentication. Must be a valid URL.
+func (o GuestAccessRedirectPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessRedirect) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+// Use HTTPS for the redirect URL.
+func (o GuestAccessRedirectPtrOutput) UseHttps() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GuestAccessRedirect) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.UseHttps
+	}).(pulumi.BoolPtrOutput)
+}
+
+type GuestAccessStripe struct {
+	// Stripe API key.
+	ApiKey string `pulumi:"apiKey"`
+}
+
+// GuestAccessStripeInput is an input type that accepts GuestAccessStripeArgs and GuestAccessStripeOutput values.
+// You can construct a concrete instance of `GuestAccessStripeInput` via:
+//
+//	GuestAccessStripeArgs{...}
+type GuestAccessStripeInput interface {
+	pulumi.Input
+
+	ToGuestAccessStripeOutput() GuestAccessStripeOutput
+	ToGuestAccessStripeOutputWithContext(context.Context) GuestAccessStripeOutput
+}
+
+type GuestAccessStripeArgs struct {
+	// Stripe API key.
+	ApiKey pulumi.StringInput `pulumi:"apiKey"`
+}
+
+func (GuestAccessStripeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessStripe)(nil)).Elem()
+}
+
+func (i GuestAccessStripeArgs) ToGuestAccessStripeOutput() GuestAccessStripeOutput {
+	return i.ToGuestAccessStripeOutputWithContext(context.Background())
+}
+
+func (i GuestAccessStripeArgs) ToGuestAccessStripeOutputWithContext(ctx context.Context) GuestAccessStripeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessStripeOutput)
+}
+
+func (i GuestAccessStripeArgs) ToGuestAccessStripePtrOutput() GuestAccessStripePtrOutput {
+	return i.ToGuestAccessStripePtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessStripeArgs) ToGuestAccessStripePtrOutputWithContext(ctx context.Context) GuestAccessStripePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessStripeOutput).ToGuestAccessStripePtrOutputWithContext(ctx)
+}
+
+// GuestAccessStripePtrInput is an input type that accepts GuestAccessStripeArgs, GuestAccessStripePtr and GuestAccessStripePtrOutput values.
+// You can construct a concrete instance of `GuestAccessStripePtrInput` via:
+//
+//	        GuestAccessStripeArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessStripePtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessStripePtrOutput() GuestAccessStripePtrOutput
+	ToGuestAccessStripePtrOutputWithContext(context.Context) GuestAccessStripePtrOutput
+}
+
+type guestAccessStripePtrType GuestAccessStripeArgs
+
+func GuestAccessStripePtr(v *GuestAccessStripeArgs) GuestAccessStripePtrInput {
+	return (*guestAccessStripePtrType)(v)
+}
+
+func (*guestAccessStripePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessStripe)(nil)).Elem()
+}
+
+func (i *guestAccessStripePtrType) ToGuestAccessStripePtrOutput() GuestAccessStripePtrOutput {
+	return i.ToGuestAccessStripePtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessStripePtrType) ToGuestAccessStripePtrOutputWithContext(ctx context.Context) GuestAccessStripePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessStripePtrOutput)
+}
+
+type GuestAccessStripeOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessStripeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessStripe)(nil)).Elem()
+}
+
+func (o GuestAccessStripeOutput) ToGuestAccessStripeOutput() GuestAccessStripeOutput {
+	return o
+}
+
+func (o GuestAccessStripeOutput) ToGuestAccessStripeOutputWithContext(ctx context.Context) GuestAccessStripeOutput {
+	return o
+}
+
+func (o GuestAccessStripeOutput) ToGuestAccessStripePtrOutput() GuestAccessStripePtrOutput {
+	return o.ToGuestAccessStripePtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessStripeOutput) ToGuestAccessStripePtrOutputWithContext(ctx context.Context) GuestAccessStripePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessStripe) *GuestAccessStripe {
+		return &v
+	}).(GuestAccessStripePtrOutput)
+}
+
+// Stripe API key.
+func (o GuestAccessStripeOutput) ApiKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessStripe) string { return v.ApiKey }).(pulumi.StringOutput)
+}
+
+type GuestAccessStripePtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessStripePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessStripe)(nil)).Elem()
+}
+
+func (o GuestAccessStripePtrOutput) ToGuestAccessStripePtrOutput() GuestAccessStripePtrOutput {
+	return o
+}
+
+func (o GuestAccessStripePtrOutput) ToGuestAccessStripePtrOutputWithContext(ctx context.Context) GuestAccessStripePtrOutput {
+	return o
+}
+
+func (o GuestAccessStripePtrOutput) Elem() GuestAccessStripeOutput {
+	return o.ApplyT(func(v *GuestAccessStripe) GuestAccessStripe {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessStripe
+		return ret
+	}).(GuestAccessStripeOutput)
+}
+
+// Stripe API key.
+func (o GuestAccessStripePtrOutput) ApiKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessStripe) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ApiKey
+	}).(pulumi.StringPtrOutput)
+}
+
+type GuestAccessWechat struct {
+	// WeChat App ID for social authentication.
+	AppId string `pulumi:"appId"`
+	// WeChat App secret.
+	AppSecret string `pulumi:"appSecret"`
+	// WeChat secret key.
+	SecretKey string `pulumi:"secretKey"`
+	// WeChat Shop ID for payments.
+	ShopId *string `pulumi:"shopId"`
+}
+
+// GuestAccessWechatInput is an input type that accepts GuestAccessWechatArgs and GuestAccessWechatOutput values.
+// You can construct a concrete instance of `GuestAccessWechatInput` via:
+//
+//	GuestAccessWechatArgs{...}
+type GuestAccessWechatInput interface {
+	pulumi.Input
+
+	ToGuestAccessWechatOutput() GuestAccessWechatOutput
+	ToGuestAccessWechatOutputWithContext(context.Context) GuestAccessWechatOutput
+}
+
+type GuestAccessWechatArgs struct {
+	// WeChat App ID for social authentication.
+	AppId pulumi.StringInput `pulumi:"appId"`
+	// WeChat App secret.
+	AppSecret pulumi.StringInput `pulumi:"appSecret"`
+	// WeChat secret key.
+	SecretKey pulumi.StringInput `pulumi:"secretKey"`
+	// WeChat Shop ID for payments.
+	ShopId pulumi.StringPtrInput `pulumi:"shopId"`
+}
+
+func (GuestAccessWechatArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessWechat)(nil)).Elem()
+}
+
+func (i GuestAccessWechatArgs) ToGuestAccessWechatOutput() GuestAccessWechatOutput {
+	return i.ToGuestAccessWechatOutputWithContext(context.Background())
+}
+
+func (i GuestAccessWechatArgs) ToGuestAccessWechatOutputWithContext(ctx context.Context) GuestAccessWechatOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessWechatOutput)
+}
+
+func (i GuestAccessWechatArgs) ToGuestAccessWechatPtrOutput() GuestAccessWechatPtrOutput {
+	return i.ToGuestAccessWechatPtrOutputWithContext(context.Background())
+}
+
+func (i GuestAccessWechatArgs) ToGuestAccessWechatPtrOutputWithContext(ctx context.Context) GuestAccessWechatPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessWechatOutput).ToGuestAccessWechatPtrOutputWithContext(ctx)
+}
+
+// GuestAccessWechatPtrInput is an input type that accepts GuestAccessWechatArgs, GuestAccessWechatPtr and GuestAccessWechatPtrOutput values.
+// You can construct a concrete instance of `GuestAccessWechatPtrInput` via:
+//
+//	        GuestAccessWechatArgs{...}
+//
+//	or:
+//
+//	        nil
+type GuestAccessWechatPtrInput interface {
+	pulumi.Input
+
+	ToGuestAccessWechatPtrOutput() GuestAccessWechatPtrOutput
+	ToGuestAccessWechatPtrOutputWithContext(context.Context) GuestAccessWechatPtrOutput
+}
+
+type guestAccessWechatPtrType GuestAccessWechatArgs
+
+func GuestAccessWechatPtr(v *GuestAccessWechatArgs) GuestAccessWechatPtrInput {
+	return (*guestAccessWechatPtrType)(v)
+}
+
+func (*guestAccessWechatPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessWechat)(nil)).Elem()
+}
+
+func (i *guestAccessWechatPtrType) ToGuestAccessWechatPtrOutput() GuestAccessWechatPtrOutput {
+	return i.ToGuestAccessWechatPtrOutputWithContext(context.Background())
+}
+
+func (i *guestAccessWechatPtrType) ToGuestAccessWechatPtrOutputWithContext(ctx context.Context) GuestAccessWechatPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GuestAccessWechatPtrOutput)
+}
+
+type GuestAccessWechatOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessWechatOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GuestAccessWechat)(nil)).Elem()
+}
+
+func (o GuestAccessWechatOutput) ToGuestAccessWechatOutput() GuestAccessWechatOutput {
+	return o
+}
+
+func (o GuestAccessWechatOutput) ToGuestAccessWechatOutputWithContext(ctx context.Context) GuestAccessWechatOutput {
+	return o
+}
+
+func (o GuestAccessWechatOutput) ToGuestAccessWechatPtrOutput() GuestAccessWechatPtrOutput {
+	return o.ToGuestAccessWechatPtrOutputWithContext(context.Background())
+}
+
+func (o GuestAccessWechatOutput) ToGuestAccessWechatPtrOutputWithContext(ctx context.Context) GuestAccessWechatPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GuestAccessWechat) *GuestAccessWechat {
+		return &v
+	}).(GuestAccessWechatPtrOutput)
+}
+
+// WeChat App ID for social authentication.
+func (o GuestAccessWechatOutput) AppId() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessWechat) string { return v.AppId }).(pulumi.StringOutput)
+}
+
+// WeChat App secret.
+func (o GuestAccessWechatOutput) AppSecret() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessWechat) string { return v.AppSecret }).(pulumi.StringOutput)
+}
+
+// WeChat secret key.
+func (o GuestAccessWechatOutput) SecretKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GuestAccessWechat) string { return v.SecretKey }).(pulumi.StringOutput)
+}
+
+// WeChat Shop ID for payments.
+func (o GuestAccessWechatOutput) ShopId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GuestAccessWechat) *string { return v.ShopId }).(pulumi.StringPtrOutput)
+}
+
+type GuestAccessWechatPtrOutput struct{ *pulumi.OutputState }
+
+func (GuestAccessWechatPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GuestAccessWechat)(nil)).Elem()
+}
+
+func (o GuestAccessWechatPtrOutput) ToGuestAccessWechatPtrOutput() GuestAccessWechatPtrOutput {
+	return o
+}
+
+func (o GuestAccessWechatPtrOutput) ToGuestAccessWechatPtrOutputWithContext(ctx context.Context) GuestAccessWechatPtrOutput {
+	return o
+}
+
+func (o GuestAccessWechatPtrOutput) Elem() GuestAccessWechatOutput {
+	return o.ApplyT(func(v *GuestAccessWechat) GuestAccessWechat {
+		if v != nil {
+			return *v
+		}
+		var ret GuestAccessWechat
+		return ret
+	}).(GuestAccessWechatOutput)
+}
+
+// WeChat App ID for social authentication.
+func (o GuestAccessWechatPtrOutput) AppId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessWechat) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.AppId
+	}).(pulumi.StringPtrOutput)
+}
+
+// WeChat App secret.
+func (o GuestAccessWechatPtrOutput) AppSecret() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessWechat) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.AppSecret
+	}).(pulumi.StringPtrOutput)
+}
+
+// WeChat secret key.
+func (o GuestAccessWechatPtrOutput) SecretKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessWechat) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.SecretKey
+	}).(pulumi.StringPtrOutput)
+}
+
+// WeChat Shop ID for payments.
+func (o GuestAccessWechatPtrOutput) ShopId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GuestAccessWechat) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ShopId
+	}).(pulumi.StringPtrOutput)
+}
+
+type IpsDnsFilter struct {
+	// List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+	AllowedSites []string `pulumi:"allowedSites"`
+	// List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+	BlockedSites []string `pulumi:"blockedSites"`
+	// List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
+	BlockedTlds []string `pulumi:"blockedTlds"`
+	// Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
+	Description *string `pulumi:"description"`
+	// Filter type that determines the predefined filtering level. Valid values are:
+	//   * `none` - No predefined filtering
+	//   * `work` - Work-appropriate filtering that blocks adult content
+	//   * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
+	Filter string `pulumi:"filter"`
+	// Name of the DNS filter. This is used to identify the filter in the UniFi interface.
 	Name string `pulumi:"name"`
-	// Type of SSH key, e.g. ssh-rsa.
+	// Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
+	NetworkId string `pulumi:"networkId"`
+}
+
+// IpsDnsFilterInput is an input type that accepts IpsDnsFilterArgs and IpsDnsFilterOutput values.
+// You can construct a concrete instance of `IpsDnsFilterInput` via:
+//
+//	IpsDnsFilterArgs{...}
+type IpsDnsFilterInput interface {
+	pulumi.Input
+
+	ToIpsDnsFilterOutput() IpsDnsFilterOutput
+	ToIpsDnsFilterOutputWithContext(context.Context) IpsDnsFilterOutput
+}
+
+type IpsDnsFilterArgs struct {
+	// List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+	AllowedSites pulumi.StringArrayInput `pulumi:"allowedSites"`
+	// List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+	BlockedSites pulumi.StringArrayInput `pulumi:"blockedSites"`
+	// List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
+	BlockedTlds pulumi.StringArrayInput `pulumi:"blockedTlds"`
+	// Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	// Filter type that determines the predefined filtering level. Valid values are:
+	//   * `none` - No predefined filtering
+	//   * `work` - Work-appropriate filtering that blocks adult content
+	//   * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
+	Filter pulumi.StringInput `pulumi:"filter"`
+	// Name of the DNS filter. This is used to identify the filter in the UniFi interface.
+	Name pulumi.StringInput `pulumi:"name"`
+	// Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
+	NetworkId pulumi.StringInput `pulumi:"networkId"`
+}
+
+func (IpsDnsFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsDnsFilter)(nil)).Elem()
+}
+
+func (i IpsDnsFilterArgs) ToIpsDnsFilterOutput() IpsDnsFilterOutput {
+	return i.ToIpsDnsFilterOutputWithContext(context.Background())
+}
+
+func (i IpsDnsFilterArgs) ToIpsDnsFilterOutputWithContext(ctx context.Context) IpsDnsFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsDnsFilterOutput)
+}
+
+// IpsDnsFilterArrayInput is an input type that accepts IpsDnsFilterArray and IpsDnsFilterArrayOutput values.
+// You can construct a concrete instance of `IpsDnsFilterArrayInput` via:
+//
+//	IpsDnsFilterArray{ IpsDnsFilterArgs{...} }
+type IpsDnsFilterArrayInput interface {
+	pulumi.Input
+
+	ToIpsDnsFilterArrayOutput() IpsDnsFilterArrayOutput
+	ToIpsDnsFilterArrayOutputWithContext(context.Context) IpsDnsFilterArrayOutput
+}
+
+type IpsDnsFilterArray []IpsDnsFilterInput
+
+func (IpsDnsFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsDnsFilter)(nil)).Elem()
+}
+
+func (i IpsDnsFilterArray) ToIpsDnsFilterArrayOutput() IpsDnsFilterArrayOutput {
+	return i.ToIpsDnsFilterArrayOutputWithContext(context.Background())
+}
+
+func (i IpsDnsFilterArray) ToIpsDnsFilterArrayOutputWithContext(ctx context.Context) IpsDnsFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsDnsFilterArrayOutput)
+}
+
+type IpsDnsFilterOutput struct{ *pulumi.OutputState }
+
+func (IpsDnsFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsDnsFilter)(nil)).Elem()
+}
+
+func (o IpsDnsFilterOutput) ToIpsDnsFilterOutput() IpsDnsFilterOutput {
+	return o
+}
+
+func (o IpsDnsFilterOutput) ToIpsDnsFilterOutputWithContext(ctx context.Context) IpsDnsFilterOutput {
+	return o
+}
+
+// List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+func (o IpsDnsFilterOutput) AllowedSites() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v IpsDnsFilter) []string { return v.AllowedSites }).(pulumi.StringArrayOutput)
+}
+
+// List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
+func (o IpsDnsFilterOutput) BlockedSites() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v IpsDnsFilter) []string { return v.BlockedSites }).(pulumi.StringArrayOutput)
+}
+
+// List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
+func (o IpsDnsFilterOutput) BlockedTlds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v IpsDnsFilter) []string { return v.BlockedTlds }).(pulumi.StringArrayOutput)
+}
+
+// Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
+func (o IpsDnsFilterOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IpsDnsFilter) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// Filter type that determines the predefined filtering level. Valid values are:
+//   - `none` - No predefined filtering
+//   - `work` - Work-appropriate filtering that blocks adult content
+//   - `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
+func (o IpsDnsFilterOutput) Filter() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsDnsFilter) string { return v.Filter }).(pulumi.StringOutput)
+}
+
+// Name of the DNS filter. This is used to identify the filter in the UniFi interface.
+func (o IpsDnsFilterOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsDnsFilter) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
+func (o IpsDnsFilterOutput) NetworkId() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsDnsFilter) string { return v.NetworkId }).(pulumi.StringOutput)
+}
+
+type IpsDnsFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (IpsDnsFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsDnsFilter)(nil)).Elem()
+}
+
+func (o IpsDnsFilterArrayOutput) ToIpsDnsFilterArrayOutput() IpsDnsFilterArrayOutput {
+	return o
+}
+
+func (o IpsDnsFilterArrayOutput) ToIpsDnsFilterArrayOutputWithContext(ctx context.Context) IpsDnsFilterArrayOutput {
+	return o
+}
+
+func (o IpsDnsFilterArrayOutput) Index(i pulumi.IntInput) IpsDnsFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpsDnsFilter {
+		return vs[0].([]IpsDnsFilter)[vs[1].(int)]
+	}).(IpsDnsFilterOutput)
+}
+
+type IpsHoneypot struct {
+	// IP address for the honeypot. This should be an unused IPv4 address within your network range that will be used as a decoy system.
+	IpAddress string `pulumi:"ipAddress"`
+	// Network ID for the honeypot. This should be a valid network ID from your UniFi configuration where the honeypot will be deployed.
+	NetworkId string `pulumi:"networkId"`
+}
+
+// IpsHoneypotInput is an input type that accepts IpsHoneypotArgs and IpsHoneypotOutput values.
+// You can construct a concrete instance of `IpsHoneypotInput` via:
+//
+//	IpsHoneypotArgs{...}
+type IpsHoneypotInput interface {
+	pulumi.Input
+
+	ToIpsHoneypotOutput() IpsHoneypotOutput
+	ToIpsHoneypotOutputWithContext(context.Context) IpsHoneypotOutput
+}
+
+type IpsHoneypotArgs struct {
+	// IP address for the honeypot. This should be an unused IPv4 address within your network range that will be used as a decoy system.
+	IpAddress pulumi.StringInput `pulumi:"ipAddress"`
+	// Network ID for the honeypot. This should be a valid network ID from your UniFi configuration where the honeypot will be deployed.
+	NetworkId pulumi.StringInput `pulumi:"networkId"`
+}
+
+func (IpsHoneypotArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsHoneypot)(nil)).Elem()
+}
+
+func (i IpsHoneypotArgs) ToIpsHoneypotOutput() IpsHoneypotOutput {
+	return i.ToIpsHoneypotOutputWithContext(context.Background())
+}
+
+func (i IpsHoneypotArgs) ToIpsHoneypotOutputWithContext(ctx context.Context) IpsHoneypotOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsHoneypotOutput)
+}
+
+// IpsHoneypotArrayInput is an input type that accepts IpsHoneypotArray and IpsHoneypotArrayOutput values.
+// You can construct a concrete instance of `IpsHoneypotArrayInput` via:
+//
+//	IpsHoneypotArray{ IpsHoneypotArgs{...} }
+type IpsHoneypotArrayInput interface {
+	pulumi.Input
+
+	ToIpsHoneypotArrayOutput() IpsHoneypotArrayOutput
+	ToIpsHoneypotArrayOutputWithContext(context.Context) IpsHoneypotArrayOutput
+}
+
+type IpsHoneypotArray []IpsHoneypotInput
+
+func (IpsHoneypotArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsHoneypot)(nil)).Elem()
+}
+
+func (i IpsHoneypotArray) ToIpsHoneypotArrayOutput() IpsHoneypotArrayOutput {
+	return i.ToIpsHoneypotArrayOutputWithContext(context.Background())
+}
+
+func (i IpsHoneypotArray) ToIpsHoneypotArrayOutputWithContext(ctx context.Context) IpsHoneypotArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsHoneypotArrayOutput)
+}
+
+type IpsHoneypotOutput struct{ *pulumi.OutputState }
+
+func (IpsHoneypotOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsHoneypot)(nil)).Elem()
+}
+
+func (o IpsHoneypotOutput) ToIpsHoneypotOutput() IpsHoneypotOutput {
+	return o
+}
+
+func (o IpsHoneypotOutput) ToIpsHoneypotOutputWithContext(ctx context.Context) IpsHoneypotOutput {
+	return o
+}
+
+// IP address for the honeypot. This should be an unused IPv4 address within your network range that will be used as a decoy system.
+func (o IpsHoneypotOutput) IpAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsHoneypot) string { return v.IpAddress }).(pulumi.StringOutput)
+}
+
+// Network ID for the honeypot. This should be a valid network ID from your UniFi configuration where the honeypot will be deployed.
+func (o IpsHoneypotOutput) NetworkId() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsHoneypot) string { return v.NetworkId }).(pulumi.StringOutput)
+}
+
+type IpsHoneypotArrayOutput struct{ *pulumi.OutputState }
+
+func (IpsHoneypotArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsHoneypot)(nil)).Elem()
+}
+
+func (o IpsHoneypotArrayOutput) ToIpsHoneypotArrayOutput() IpsHoneypotArrayOutput {
+	return o
+}
+
+func (o IpsHoneypotArrayOutput) ToIpsHoneypotArrayOutputWithContext(ctx context.Context) IpsHoneypotArrayOutput {
+	return o
+}
+
+func (o IpsHoneypotArrayOutput) Index(i pulumi.IntInput) IpsHoneypotOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpsHoneypot {
+		return vs[0].([]IpsHoneypot)[vs[1].(int)]
+	}).(IpsHoneypotOutput)
+}
+
+type IpsSuppression struct {
+	// Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
+	Alerts []IpsSuppressionAlert `pulumi:"alerts"`
+	// Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
+	Whitelists []IpsSuppressionWhitelist `pulumi:"whitelists"`
+}
+
+// IpsSuppressionInput is an input type that accepts IpsSuppressionArgs and IpsSuppressionOutput values.
+// You can construct a concrete instance of `IpsSuppressionInput` via:
+//
+//	IpsSuppressionArgs{...}
+type IpsSuppressionInput interface {
+	pulumi.Input
+
+	ToIpsSuppressionOutput() IpsSuppressionOutput
+	ToIpsSuppressionOutputWithContext(context.Context) IpsSuppressionOutput
+}
+
+type IpsSuppressionArgs struct {
+	// Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
+	Alerts IpsSuppressionAlertArrayInput `pulumi:"alerts"`
+	// Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
+	Whitelists IpsSuppressionWhitelistArrayInput `pulumi:"whitelists"`
+}
+
+func (IpsSuppressionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsSuppression)(nil)).Elem()
+}
+
+func (i IpsSuppressionArgs) ToIpsSuppressionOutput() IpsSuppressionOutput {
+	return i.ToIpsSuppressionOutputWithContext(context.Background())
+}
+
+func (i IpsSuppressionArgs) ToIpsSuppressionOutputWithContext(ctx context.Context) IpsSuppressionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionOutput)
+}
+
+func (i IpsSuppressionArgs) ToIpsSuppressionPtrOutput() IpsSuppressionPtrOutput {
+	return i.ToIpsSuppressionPtrOutputWithContext(context.Background())
+}
+
+func (i IpsSuppressionArgs) ToIpsSuppressionPtrOutputWithContext(ctx context.Context) IpsSuppressionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionOutput).ToIpsSuppressionPtrOutputWithContext(ctx)
+}
+
+// IpsSuppressionPtrInput is an input type that accepts IpsSuppressionArgs, IpsSuppressionPtr and IpsSuppressionPtrOutput values.
+// You can construct a concrete instance of `IpsSuppressionPtrInput` via:
+//
+//	        IpsSuppressionArgs{...}
+//
+//	or:
+//
+//	        nil
+type IpsSuppressionPtrInput interface {
+	pulumi.Input
+
+	ToIpsSuppressionPtrOutput() IpsSuppressionPtrOutput
+	ToIpsSuppressionPtrOutputWithContext(context.Context) IpsSuppressionPtrOutput
+}
+
+type ipsSuppressionPtrType IpsSuppressionArgs
+
+func IpsSuppressionPtr(v *IpsSuppressionArgs) IpsSuppressionPtrInput {
+	return (*ipsSuppressionPtrType)(v)
+}
+
+func (*ipsSuppressionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IpsSuppression)(nil)).Elem()
+}
+
+func (i *ipsSuppressionPtrType) ToIpsSuppressionPtrOutput() IpsSuppressionPtrOutput {
+	return i.ToIpsSuppressionPtrOutputWithContext(context.Background())
+}
+
+func (i *ipsSuppressionPtrType) ToIpsSuppressionPtrOutputWithContext(ctx context.Context) IpsSuppressionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionPtrOutput)
+}
+
+type IpsSuppressionOutput struct{ *pulumi.OutputState }
+
+func (IpsSuppressionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsSuppression)(nil)).Elem()
+}
+
+func (o IpsSuppressionOutput) ToIpsSuppressionOutput() IpsSuppressionOutput {
+	return o
+}
+
+func (o IpsSuppressionOutput) ToIpsSuppressionOutputWithContext(ctx context.Context) IpsSuppressionOutput {
+	return o
+}
+
+func (o IpsSuppressionOutput) ToIpsSuppressionPtrOutput() IpsSuppressionPtrOutput {
+	return o.ToIpsSuppressionPtrOutputWithContext(context.Background())
+}
+
+func (o IpsSuppressionOutput) ToIpsSuppressionPtrOutputWithContext(ctx context.Context) IpsSuppressionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IpsSuppression) *IpsSuppression {
+		return &v
+	}).(IpsSuppressionPtrOutput)
+}
+
+// Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
+func (o IpsSuppressionOutput) Alerts() IpsSuppressionAlertArrayOutput {
+	return o.ApplyT(func(v IpsSuppression) []IpsSuppressionAlert { return v.Alerts }).(IpsSuppressionAlertArrayOutput)
+}
+
+// Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
+func (o IpsSuppressionOutput) Whitelists() IpsSuppressionWhitelistArrayOutput {
+	return o.ApplyT(func(v IpsSuppression) []IpsSuppressionWhitelist { return v.Whitelists }).(IpsSuppressionWhitelistArrayOutput)
+}
+
+type IpsSuppressionPtrOutput struct{ *pulumi.OutputState }
+
+func (IpsSuppressionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IpsSuppression)(nil)).Elem()
+}
+
+func (o IpsSuppressionPtrOutput) ToIpsSuppressionPtrOutput() IpsSuppressionPtrOutput {
+	return o
+}
+
+func (o IpsSuppressionPtrOutput) ToIpsSuppressionPtrOutputWithContext(ctx context.Context) IpsSuppressionPtrOutput {
+	return o
+}
+
+func (o IpsSuppressionPtrOutput) Elem() IpsSuppressionOutput {
+	return o.ApplyT(func(v *IpsSuppression) IpsSuppression {
+		if v != nil {
+			return *v
+		}
+		var ret IpsSuppression
+		return ret
+	}).(IpsSuppressionOutput)
+}
+
+// Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
+func (o IpsSuppressionPtrOutput) Alerts() IpsSuppressionAlertArrayOutput {
+	return o.ApplyT(func(v *IpsSuppression) []IpsSuppressionAlert {
+		if v == nil {
+			return nil
+		}
+		return v.Alerts
+	}).(IpsSuppressionAlertArrayOutput)
+}
+
+// Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
+func (o IpsSuppressionPtrOutput) Whitelists() IpsSuppressionWhitelistArrayOutput {
+	return o.ApplyT(func(v *IpsSuppression) []IpsSuppressionWhitelist {
+		if v == nil {
+			return nil
+		}
+		return v.Whitelists
+	}).(IpsSuppressionWhitelistArrayOutput)
+}
+
+type IpsSuppressionAlert struct {
+	// Category of the alert to suppress. This should match one of the categories from the enabledCategories list.
+	Category string `pulumi:"category"`
+	// Signature name of the alert to suppress. This is a human-readable identifier for the alert in the IPS ruleset.
+	Signature string `pulumi:"signature"`
+	// Tracking configuration for the alert. This defines how the system should track occurrences of this alert based on source/destination addresses.
+	Trackings []IpsSuppressionAlertTracking `pulumi:"trackings"`
+	// Type of suppression. Valid values are:
+	//   * `all` - Suppress all occurrences of this alert
+	//   * `track` - Only track this alert according to the tracking configuration
+	Type string `pulumi:"type"`
+}
+
+// IpsSuppressionAlertInput is an input type that accepts IpsSuppressionAlertArgs and IpsSuppressionAlertOutput values.
+// You can construct a concrete instance of `IpsSuppressionAlertInput` via:
+//
+//	IpsSuppressionAlertArgs{...}
+type IpsSuppressionAlertInput interface {
+	pulumi.Input
+
+	ToIpsSuppressionAlertOutput() IpsSuppressionAlertOutput
+	ToIpsSuppressionAlertOutputWithContext(context.Context) IpsSuppressionAlertOutput
+}
+
+type IpsSuppressionAlertArgs struct {
+	// Category of the alert to suppress. This should match one of the categories from the enabledCategories list.
+	Category pulumi.StringInput `pulumi:"category"`
+	// Signature name of the alert to suppress. This is a human-readable identifier for the alert in the IPS ruleset.
+	Signature pulumi.StringInput `pulumi:"signature"`
+	// Tracking configuration for the alert. This defines how the system should track occurrences of this alert based on source/destination addresses.
+	Trackings IpsSuppressionAlertTrackingArrayInput `pulumi:"trackings"`
+	// Type of suppression. Valid values are:
+	//   * `all` - Suppress all occurrences of this alert
+	//   * `track` - Only track this alert according to the tracking configuration
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (IpsSuppressionAlertArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsSuppressionAlert)(nil)).Elem()
+}
+
+func (i IpsSuppressionAlertArgs) ToIpsSuppressionAlertOutput() IpsSuppressionAlertOutput {
+	return i.ToIpsSuppressionAlertOutputWithContext(context.Background())
+}
+
+func (i IpsSuppressionAlertArgs) ToIpsSuppressionAlertOutputWithContext(ctx context.Context) IpsSuppressionAlertOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionAlertOutput)
+}
+
+// IpsSuppressionAlertArrayInput is an input type that accepts IpsSuppressionAlertArray and IpsSuppressionAlertArrayOutput values.
+// You can construct a concrete instance of `IpsSuppressionAlertArrayInput` via:
+//
+//	IpsSuppressionAlertArray{ IpsSuppressionAlertArgs{...} }
+type IpsSuppressionAlertArrayInput interface {
+	pulumi.Input
+
+	ToIpsSuppressionAlertArrayOutput() IpsSuppressionAlertArrayOutput
+	ToIpsSuppressionAlertArrayOutputWithContext(context.Context) IpsSuppressionAlertArrayOutput
+}
+
+type IpsSuppressionAlertArray []IpsSuppressionAlertInput
+
+func (IpsSuppressionAlertArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsSuppressionAlert)(nil)).Elem()
+}
+
+func (i IpsSuppressionAlertArray) ToIpsSuppressionAlertArrayOutput() IpsSuppressionAlertArrayOutput {
+	return i.ToIpsSuppressionAlertArrayOutputWithContext(context.Background())
+}
+
+func (i IpsSuppressionAlertArray) ToIpsSuppressionAlertArrayOutputWithContext(ctx context.Context) IpsSuppressionAlertArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionAlertArrayOutput)
+}
+
+type IpsSuppressionAlertOutput struct{ *pulumi.OutputState }
+
+func (IpsSuppressionAlertOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsSuppressionAlert)(nil)).Elem()
+}
+
+func (o IpsSuppressionAlertOutput) ToIpsSuppressionAlertOutput() IpsSuppressionAlertOutput {
+	return o
+}
+
+func (o IpsSuppressionAlertOutput) ToIpsSuppressionAlertOutputWithContext(ctx context.Context) IpsSuppressionAlertOutput {
+	return o
+}
+
+// Category of the alert to suppress. This should match one of the categories from the enabledCategories list.
+func (o IpsSuppressionAlertOutput) Category() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionAlert) string { return v.Category }).(pulumi.StringOutput)
+}
+
+// Signature name of the alert to suppress. This is a human-readable identifier for the alert in the IPS ruleset.
+func (o IpsSuppressionAlertOutput) Signature() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionAlert) string { return v.Signature }).(pulumi.StringOutput)
+}
+
+// Tracking configuration for the alert. This defines how the system should track occurrences of this alert based on source/destination addresses.
+func (o IpsSuppressionAlertOutput) Trackings() IpsSuppressionAlertTrackingArrayOutput {
+	return o.ApplyT(func(v IpsSuppressionAlert) []IpsSuppressionAlertTracking { return v.Trackings }).(IpsSuppressionAlertTrackingArrayOutput)
+}
+
+// Type of suppression. Valid values are:
+//   - `all` - Suppress all occurrences of this alert
+//   - `track` - Only track this alert according to the tracking configuration
+func (o IpsSuppressionAlertOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionAlert) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type IpsSuppressionAlertArrayOutput struct{ *pulumi.OutputState }
+
+func (IpsSuppressionAlertArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsSuppressionAlert)(nil)).Elem()
+}
+
+func (o IpsSuppressionAlertArrayOutput) ToIpsSuppressionAlertArrayOutput() IpsSuppressionAlertArrayOutput {
+	return o
+}
+
+func (o IpsSuppressionAlertArrayOutput) ToIpsSuppressionAlertArrayOutputWithContext(ctx context.Context) IpsSuppressionAlertArrayOutput {
+	return o
+}
+
+func (o IpsSuppressionAlertArrayOutput) Index(i pulumi.IntInput) IpsSuppressionAlertOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpsSuppressionAlert {
+		return vs[0].([]IpsSuppressionAlert)[vs[1].(int)]
+	}).(IpsSuppressionAlertOutput)
+}
+
+type IpsSuppressionAlertTracking struct {
+	// Direction for tracking. Valid values are:
+	//   * `src` - Track by source address
+	//   * `dest` - Track by destination address
+	//   * `both` - Track by both source and destination addresses
+	Direction string `pulumi:"direction"`
+	// Mode for tracking. Valid values are:
+	//   * `ip` - Track by individual IP address
+	//   * `subnet` - Track by subnet
+	//   * `network` - Track by network ID
+	Mode string `pulumi:"mode"`
+	// Value for tracking. The meaning depends on the mode:
+	//   * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+	//   * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+	//   * For `network` mode: A network ID from your UniFi configuration
+	Value string `pulumi:"value"`
+}
+
+// IpsSuppressionAlertTrackingInput is an input type that accepts IpsSuppressionAlertTrackingArgs and IpsSuppressionAlertTrackingOutput values.
+// You can construct a concrete instance of `IpsSuppressionAlertTrackingInput` via:
+//
+//	IpsSuppressionAlertTrackingArgs{...}
+type IpsSuppressionAlertTrackingInput interface {
+	pulumi.Input
+
+	ToIpsSuppressionAlertTrackingOutput() IpsSuppressionAlertTrackingOutput
+	ToIpsSuppressionAlertTrackingOutputWithContext(context.Context) IpsSuppressionAlertTrackingOutput
+}
+
+type IpsSuppressionAlertTrackingArgs struct {
+	// Direction for tracking. Valid values are:
+	//   * `src` - Track by source address
+	//   * `dest` - Track by destination address
+	//   * `both` - Track by both source and destination addresses
+	Direction pulumi.StringInput `pulumi:"direction"`
+	// Mode for tracking. Valid values are:
+	//   * `ip` - Track by individual IP address
+	//   * `subnet` - Track by subnet
+	//   * `network` - Track by network ID
+	Mode pulumi.StringInput `pulumi:"mode"`
+	// Value for tracking. The meaning depends on the mode:
+	//   * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+	//   * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+	//   * For `network` mode: A network ID from your UniFi configuration
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (IpsSuppressionAlertTrackingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsSuppressionAlertTracking)(nil)).Elem()
+}
+
+func (i IpsSuppressionAlertTrackingArgs) ToIpsSuppressionAlertTrackingOutput() IpsSuppressionAlertTrackingOutput {
+	return i.ToIpsSuppressionAlertTrackingOutputWithContext(context.Background())
+}
+
+func (i IpsSuppressionAlertTrackingArgs) ToIpsSuppressionAlertTrackingOutputWithContext(ctx context.Context) IpsSuppressionAlertTrackingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionAlertTrackingOutput)
+}
+
+// IpsSuppressionAlertTrackingArrayInput is an input type that accepts IpsSuppressionAlertTrackingArray and IpsSuppressionAlertTrackingArrayOutput values.
+// You can construct a concrete instance of `IpsSuppressionAlertTrackingArrayInput` via:
+//
+//	IpsSuppressionAlertTrackingArray{ IpsSuppressionAlertTrackingArgs{...} }
+type IpsSuppressionAlertTrackingArrayInput interface {
+	pulumi.Input
+
+	ToIpsSuppressionAlertTrackingArrayOutput() IpsSuppressionAlertTrackingArrayOutput
+	ToIpsSuppressionAlertTrackingArrayOutputWithContext(context.Context) IpsSuppressionAlertTrackingArrayOutput
+}
+
+type IpsSuppressionAlertTrackingArray []IpsSuppressionAlertTrackingInput
+
+func (IpsSuppressionAlertTrackingArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsSuppressionAlertTracking)(nil)).Elem()
+}
+
+func (i IpsSuppressionAlertTrackingArray) ToIpsSuppressionAlertTrackingArrayOutput() IpsSuppressionAlertTrackingArrayOutput {
+	return i.ToIpsSuppressionAlertTrackingArrayOutputWithContext(context.Background())
+}
+
+func (i IpsSuppressionAlertTrackingArray) ToIpsSuppressionAlertTrackingArrayOutputWithContext(ctx context.Context) IpsSuppressionAlertTrackingArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionAlertTrackingArrayOutput)
+}
+
+type IpsSuppressionAlertTrackingOutput struct{ *pulumi.OutputState }
+
+func (IpsSuppressionAlertTrackingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsSuppressionAlertTracking)(nil)).Elem()
+}
+
+func (o IpsSuppressionAlertTrackingOutput) ToIpsSuppressionAlertTrackingOutput() IpsSuppressionAlertTrackingOutput {
+	return o
+}
+
+func (o IpsSuppressionAlertTrackingOutput) ToIpsSuppressionAlertTrackingOutputWithContext(ctx context.Context) IpsSuppressionAlertTrackingOutput {
+	return o
+}
+
+// Direction for tracking. Valid values are:
+//   - `src` - Track by source address
+//   - `dest` - Track by destination address
+//   - `both` - Track by both source and destination addresses
+func (o IpsSuppressionAlertTrackingOutput) Direction() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionAlertTracking) string { return v.Direction }).(pulumi.StringOutput)
+}
+
+// Mode for tracking. Valid values are:
+//   - `ip` - Track by individual IP address
+//   - `subnet` - Track by subnet
+//   - `network` - Track by network ID
+func (o IpsSuppressionAlertTrackingOutput) Mode() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionAlertTracking) string { return v.Mode }).(pulumi.StringOutput)
+}
+
+// Value for tracking. The meaning depends on the mode:
+//   - For `ip` mode: An IP address (e.g., `192.168.1.100`)
+//   - For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+//   - For `network` mode: A network ID from your UniFi configuration
+func (o IpsSuppressionAlertTrackingOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionAlertTracking) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type IpsSuppressionAlertTrackingArrayOutput struct{ *pulumi.OutputState }
+
+func (IpsSuppressionAlertTrackingArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsSuppressionAlertTracking)(nil)).Elem()
+}
+
+func (o IpsSuppressionAlertTrackingArrayOutput) ToIpsSuppressionAlertTrackingArrayOutput() IpsSuppressionAlertTrackingArrayOutput {
+	return o
+}
+
+func (o IpsSuppressionAlertTrackingArrayOutput) ToIpsSuppressionAlertTrackingArrayOutputWithContext(ctx context.Context) IpsSuppressionAlertTrackingArrayOutput {
+	return o
+}
+
+func (o IpsSuppressionAlertTrackingArrayOutput) Index(i pulumi.IntInput) IpsSuppressionAlertTrackingOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpsSuppressionAlertTracking {
+		return vs[0].([]IpsSuppressionAlertTracking)[vs[1].(int)]
+	}).(IpsSuppressionAlertTrackingOutput)
+}
+
+type IpsSuppressionWhitelist struct {
+	// Direction for whitelist. Valid values are:
+	//   * `src` - Whitelist by source address
+	//   * `dst` - Whitelist by destination address
+	//   * `both` - Whitelist by both source and destination addresses
+	Direction string `pulumi:"direction"`
+	// Mode for whitelist. Valid values are:
+	//   * `ip` - Whitelist by individual IP address
+	//   * `subnet` - Whitelist by subnet
+	//   * `network` - Whitelist by network ID
+	Mode string `pulumi:"mode"`
+	// Value for whitelist. The meaning depends on the mode:
+	//   * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+	//   * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+	//   * For `network` mode: A network ID from your UniFi configuration
+	Value string `pulumi:"value"`
+}
+
+// IpsSuppressionWhitelistInput is an input type that accepts IpsSuppressionWhitelistArgs and IpsSuppressionWhitelistOutput values.
+// You can construct a concrete instance of `IpsSuppressionWhitelistInput` via:
+//
+//	IpsSuppressionWhitelistArgs{...}
+type IpsSuppressionWhitelistInput interface {
+	pulumi.Input
+
+	ToIpsSuppressionWhitelistOutput() IpsSuppressionWhitelistOutput
+	ToIpsSuppressionWhitelistOutputWithContext(context.Context) IpsSuppressionWhitelistOutput
+}
+
+type IpsSuppressionWhitelistArgs struct {
+	// Direction for whitelist. Valid values are:
+	//   * `src` - Whitelist by source address
+	//   * `dst` - Whitelist by destination address
+	//   * `both` - Whitelist by both source and destination addresses
+	Direction pulumi.StringInput `pulumi:"direction"`
+	// Mode for whitelist. Valid values are:
+	//   * `ip` - Whitelist by individual IP address
+	//   * `subnet` - Whitelist by subnet
+	//   * `network` - Whitelist by network ID
+	Mode pulumi.StringInput `pulumi:"mode"`
+	// Value for whitelist. The meaning depends on the mode:
+	//   * For `ip` mode: An IP address (e.g., `192.168.1.100`)
+	//   * For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+	//   * For `network` mode: A network ID from your UniFi configuration
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (IpsSuppressionWhitelistArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsSuppressionWhitelist)(nil)).Elem()
+}
+
+func (i IpsSuppressionWhitelistArgs) ToIpsSuppressionWhitelistOutput() IpsSuppressionWhitelistOutput {
+	return i.ToIpsSuppressionWhitelistOutputWithContext(context.Background())
+}
+
+func (i IpsSuppressionWhitelistArgs) ToIpsSuppressionWhitelistOutputWithContext(ctx context.Context) IpsSuppressionWhitelistOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionWhitelistOutput)
+}
+
+// IpsSuppressionWhitelistArrayInput is an input type that accepts IpsSuppressionWhitelistArray and IpsSuppressionWhitelistArrayOutput values.
+// You can construct a concrete instance of `IpsSuppressionWhitelistArrayInput` via:
+//
+//	IpsSuppressionWhitelistArray{ IpsSuppressionWhitelistArgs{...} }
+type IpsSuppressionWhitelistArrayInput interface {
+	pulumi.Input
+
+	ToIpsSuppressionWhitelistArrayOutput() IpsSuppressionWhitelistArrayOutput
+	ToIpsSuppressionWhitelistArrayOutputWithContext(context.Context) IpsSuppressionWhitelistArrayOutput
+}
+
+type IpsSuppressionWhitelistArray []IpsSuppressionWhitelistInput
+
+func (IpsSuppressionWhitelistArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsSuppressionWhitelist)(nil)).Elem()
+}
+
+func (i IpsSuppressionWhitelistArray) ToIpsSuppressionWhitelistArrayOutput() IpsSuppressionWhitelistArrayOutput {
+	return i.ToIpsSuppressionWhitelistArrayOutputWithContext(context.Background())
+}
+
+func (i IpsSuppressionWhitelistArray) ToIpsSuppressionWhitelistArrayOutputWithContext(ctx context.Context) IpsSuppressionWhitelistArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpsSuppressionWhitelistArrayOutput)
+}
+
+type IpsSuppressionWhitelistOutput struct{ *pulumi.OutputState }
+
+func (IpsSuppressionWhitelistOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpsSuppressionWhitelist)(nil)).Elem()
+}
+
+func (o IpsSuppressionWhitelistOutput) ToIpsSuppressionWhitelistOutput() IpsSuppressionWhitelistOutput {
+	return o
+}
+
+func (o IpsSuppressionWhitelistOutput) ToIpsSuppressionWhitelistOutputWithContext(ctx context.Context) IpsSuppressionWhitelistOutput {
+	return o
+}
+
+// Direction for whitelist. Valid values are:
+//   - `src` - Whitelist by source address
+//   - `dst` - Whitelist by destination address
+//   - `both` - Whitelist by both source and destination addresses
+func (o IpsSuppressionWhitelistOutput) Direction() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionWhitelist) string { return v.Direction }).(pulumi.StringOutput)
+}
+
+// Mode for whitelist. Valid values are:
+//   - `ip` - Whitelist by individual IP address
+//   - `subnet` - Whitelist by subnet
+//   - `network` - Whitelist by network ID
+func (o IpsSuppressionWhitelistOutput) Mode() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionWhitelist) string { return v.Mode }).(pulumi.StringOutput)
+}
+
+// Value for whitelist. The meaning depends on the mode:
+//   - For `ip` mode: An IP address (e.g., `192.168.1.100`)
+//   - For `subnet` mode: A CIDR notation subnet (e.g., `192.168.1.0/24`)
+//   - For `network` mode: A network ID from your UniFi configuration
+func (o IpsSuppressionWhitelistOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v IpsSuppressionWhitelist) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type IpsSuppressionWhitelistArrayOutput struct{ *pulumi.OutputState }
+
+func (IpsSuppressionWhitelistArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpsSuppressionWhitelist)(nil)).Elem()
+}
+
+func (o IpsSuppressionWhitelistArrayOutput) ToIpsSuppressionWhitelistArrayOutput() IpsSuppressionWhitelistArrayOutput {
+	return o
+}
+
+func (o IpsSuppressionWhitelistArrayOutput) ToIpsSuppressionWhitelistArrayOutputWithContext(ctx context.Context) IpsSuppressionWhitelistArrayOutput {
+	return o
+}
+
+func (o IpsSuppressionWhitelistArrayOutput) Index(i pulumi.IntInput) IpsSuppressionWhitelistOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpsSuppressionWhitelist {
+		return vs[0].([]IpsSuppressionWhitelist)[vs[1].(int)]
+	}).(IpsSuppressionWhitelistOutput)
+}
+
+type MgmtSshKey struct {
+	// An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
+	Comment *string `pulumi:"comment"`
+	// The public key string. This is the content that would normally go in an authorizedKeys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
+	Key *string `pulumi:"key"`
+	// A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
+	Name string `pulumi:"name"`
+	// The type of SSH key. Common values include:
+	//   * `ssh-rsa` - RSA key (most common)
+	//   * `ssh-ed25519` - Ed25519 key (more secure)
+	//   * `ecdsa-sha2-nistp256` - ECDSA key
 	Type string `pulumi:"type"`
 }
 
@@ -36,13 +3720,16 @@ type MgmtSshKeyInput interface {
 }
 
 type MgmtSshKeyArgs struct {
-	// Comment.
+	// An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
 	Comment pulumi.StringPtrInput `pulumi:"comment"`
-	// Public SSH key.
+	// The public key string. This is the content that would normally go in an authorizedKeys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
 	Key pulumi.StringPtrInput `pulumi:"key"`
-	// Name of SSH key.
+	// A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
 	Name pulumi.StringInput `pulumi:"name"`
-	// Type of SSH key, e.g. ssh-rsa.
+	// The type of SSH key. Common values include:
+	//   * `ssh-rsa` - RSA key (most common)
+	//   * `ssh-ed25519` - Ed25519 key (more secure)
+	//   * `ecdsa-sha2-nistp256` - ECDSA key
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -97,22 +3784,25 @@ func (o MgmtSshKeyOutput) ToMgmtSshKeyOutputWithContext(ctx context.Context) Mgm
 	return o
 }
 
-// Comment.
+// An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
 func (o MgmtSshKeyOutput) Comment() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MgmtSshKey) *string { return v.Comment }).(pulumi.StringPtrOutput)
 }
 
-// Public SSH key.
+// The public key string. This is the content that would normally go in an authorizedKeys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
 func (o MgmtSshKeyOutput) Key() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MgmtSshKey) *string { return v.Key }).(pulumi.StringPtrOutput)
 }
 
-// Name of SSH key.
+// A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
 func (o MgmtSshKeyOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v MgmtSshKey) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Type of SSH key, e.g. ssh-rsa.
+// The type of SSH key. Common values include:
+//   - `ssh-rsa` - RSA key (most common)
+//   - `ssh-ed25519` - Ed25519 key (more secure)
+//   - `ecdsa-sha2-nistp256` - ECDSA key
 func (o MgmtSshKeyOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v MgmtSshKey) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -137,9 +3827,1217 @@ func (o MgmtSshKeyArrayOutput) Index(i pulumi.IntInput) MgmtSshKeyOutput {
 	}).(MgmtSshKeyOutput)
 }
 
+type USGDhcpRelay struct {
+	// Specifies how to handle DHCP relay agent information in packets. Valid values are:
+	//   * `append` - Add relay agent information to packets that may already contain it
+	//   * `discard` - Drop packets that already contain relay agent information
+	//   * `forward` - Forward packets regardless of relay agent information
+	//   * `replace` - Replace existing relay agent information with the gateway's information
+	AgentsPackets *string `pulumi:"agentsPackets"`
+	// Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
+	HopCount *int `pulumi:"hopCount"`
+	// Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
+	MaxSize *int `pulumi:"maxSize"`
+	// UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
+	Port *int `pulumi:"port"`
+}
+
+// USGDhcpRelayInput is an input type that accepts USGDhcpRelayArgs and USGDhcpRelayOutput values.
+// You can construct a concrete instance of `USGDhcpRelayInput` via:
+//
+//	USGDhcpRelayArgs{...}
+type USGDhcpRelayInput interface {
+	pulumi.Input
+
+	ToUSGDhcpRelayOutput() USGDhcpRelayOutput
+	ToUSGDhcpRelayOutputWithContext(context.Context) USGDhcpRelayOutput
+}
+
+type USGDhcpRelayArgs struct {
+	// Specifies how to handle DHCP relay agent information in packets. Valid values are:
+	//   * `append` - Add relay agent information to packets that may already contain it
+	//   * `discard` - Drop packets that already contain relay agent information
+	//   * `forward` - Forward packets regardless of relay agent information
+	//   * `replace` - Replace existing relay agent information with the gateway's information
+	AgentsPackets pulumi.StringPtrInput `pulumi:"agentsPackets"`
+	// Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
+	HopCount pulumi.IntPtrInput `pulumi:"hopCount"`
+	// Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
+	MaxSize pulumi.IntPtrInput `pulumi:"maxSize"`
+	// UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
+	Port pulumi.IntPtrInput `pulumi:"port"`
+}
+
+func (USGDhcpRelayArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGDhcpRelay)(nil)).Elem()
+}
+
+func (i USGDhcpRelayArgs) ToUSGDhcpRelayOutput() USGDhcpRelayOutput {
+	return i.ToUSGDhcpRelayOutputWithContext(context.Background())
+}
+
+func (i USGDhcpRelayArgs) ToUSGDhcpRelayOutputWithContext(ctx context.Context) USGDhcpRelayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGDhcpRelayOutput)
+}
+
+func (i USGDhcpRelayArgs) ToUSGDhcpRelayPtrOutput() USGDhcpRelayPtrOutput {
+	return i.ToUSGDhcpRelayPtrOutputWithContext(context.Background())
+}
+
+func (i USGDhcpRelayArgs) ToUSGDhcpRelayPtrOutputWithContext(ctx context.Context) USGDhcpRelayPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGDhcpRelayOutput).ToUSGDhcpRelayPtrOutputWithContext(ctx)
+}
+
+// USGDhcpRelayPtrInput is an input type that accepts USGDhcpRelayArgs, USGDhcpRelayPtr and USGDhcpRelayPtrOutput values.
+// You can construct a concrete instance of `USGDhcpRelayPtrInput` via:
+//
+//	        USGDhcpRelayArgs{...}
+//
+//	or:
+//
+//	        nil
+type USGDhcpRelayPtrInput interface {
+	pulumi.Input
+
+	ToUSGDhcpRelayPtrOutput() USGDhcpRelayPtrOutput
+	ToUSGDhcpRelayPtrOutputWithContext(context.Context) USGDhcpRelayPtrOutput
+}
+
+type usgdhcpRelayPtrType USGDhcpRelayArgs
+
+func USGDhcpRelayPtr(v *USGDhcpRelayArgs) USGDhcpRelayPtrInput {
+	return (*usgdhcpRelayPtrType)(v)
+}
+
+func (*usgdhcpRelayPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGDhcpRelay)(nil)).Elem()
+}
+
+func (i *usgdhcpRelayPtrType) ToUSGDhcpRelayPtrOutput() USGDhcpRelayPtrOutput {
+	return i.ToUSGDhcpRelayPtrOutputWithContext(context.Background())
+}
+
+func (i *usgdhcpRelayPtrType) ToUSGDhcpRelayPtrOutputWithContext(ctx context.Context) USGDhcpRelayPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGDhcpRelayPtrOutput)
+}
+
+type USGDhcpRelayOutput struct{ *pulumi.OutputState }
+
+func (USGDhcpRelayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGDhcpRelay)(nil)).Elem()
+}
+
+func (o USGDhcpRelayOutput) ToUSGDhcpRelayOutput() USGDhcpRelayOutput {
+	return o
+}
+
+func (o USGDhcpRelayOutput) ToUSGDhcpRelayOutputWithContext(ctx context.Context) USGDhcpRelayOutput {
+	return o
+}
+
+func (o USGDhcpRelayOutput) ToUSGDhcpRelayPtrOutput() USGDhcpRelayPtrOutput {
+	return o.ToUSGDhcpRelayPtrOutputWithContext(context.Background())
+}
+
+func (o USGDhcpRelayOutput) ToUSGDhcpRelayPtrOutputWithContext(ctx context.Context) USGDhcpRelayPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v USGDhcpRelay) *USGDhcpRelay {
+		return &v
+	}).(USGDhcpRelayPtrOutput)
+}
+
+// Specifies how to handle DHCP relay agent information in packets. Valid values are:
+//   - `append` - Add relay agent information to packets that may already contain it
+//   - `discard` - Drop packets that already contain relay agent information
+//   - `forward` - Forward packets regardless of relay agent information
+//   - `replace` - Replace existing relay agent information with the gateway's information
+func (o USGDhcpRelayOutput) AgentsPackets() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v USGDhcpRelay) *string { return v.AgentsPackets }).(pulumi.StringPtrOutput)
+}
+
+// Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
+func (o USGDhcpRelayOutput) HopCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGDhcpRelay) *int { return v.HopCount }).(pulumi.IntPtrOutput)
+}
+
+// Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
+func (o USGDhcpRelayOutput) MaxSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGDhcpRelay) *int { return v.MaxSize }).(pulumi.IntPtrOutput)
+}
+
+// UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
+func (o USGDhcpRelayOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGDhcpRelay) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+type USGDhcpRelayPtrOutput struct{ *pulumi.OutputState }
+
+func (USGDhcpRelayPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGDhcpRelay)(nil)).Elem()
+}
+
+func (o USGDhcpRelayPtrOutput) ToUSGDhcpRelayPtrOutput() USGDhcpRelayPtrOutput {
+	return o
+}
+
+func (o USGDhcpRelayPtrOutput) ToUSGDhcpRelayPtrOutputWithContext(ctx context.Context) USGDhcpRelayPtrOutput {
+	return o
+}
+
+func (o USGDhcpRelayPtrOutput) Elem() USGDhcpRelayOutput {
+	return o.ApplyT(func(v *USGDhcpRelay) USGDhcpRelay {
+		if v != nil {
+			return *v
+		}
+		var ret USGDhcpRelay
+		return ret
+	}).(USGDhcpRelayOutput)
+}
+
+// Specifies how to handle DHCP relay agent information in packets. Valid values are:
+//   - `append` - Add relay agent information to packets that may already contain it
+//   - `discard` - Drop packets that already contain relay agent information
+//   - `forward` - Forward packets regardless of relay agent information
+//   - `replace` - Replace existing relay agent information with the gateway's information
+func (o USGDhcpRelayPtrOutput) AgentsPackets() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *USGDhcpRelay) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AgentsPackets
+	}).(pulumi.StringPtrOutput)
+}
+
+// Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
+func (o USGDhcpRelayPtrOutput) HopCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGDhcpRelay) *int {
+		if v == nil {
+			return nil
+		}
+		return v.HopCount
+	}).(pulumi.IntPtrOutput)
+}
+
+// Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
+func (o USGDhcpRelayPtrOutput) MaxSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGDhcpRelay) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxSize
+	}).(pulumi.IntPtrOutput)
+}
+
+// UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
+func (o USGDhcpRelayPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGDhcpRelay) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+type USGDnsVerification struct {
+	// The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `settingPreference` is set to `manual`.
+	Domain *string `pulumi:"domain"`
+	// The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `settingPreference` is set to `manual`. Must be a valid IPv4 address.
+	PrimaryDnsServer *string `pulumi:"primaryDnsServer"`
+	// The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `settingPreference` is set to `manual`. Must be a valid IPv4 address if specified.
+	SecondaryDnsServer *string `pulumi:"secondaryDnsServer"`
+	// Determines how DNS verification servers are configured. Valid values are:
+	//   * `auto` - The gateway will automatically select DNS servers for verification
+	//   * `manual` - Use the manually specified `primaryDnsServer` and optionally `secondaryDnsServer`
+	//
+	// When set to `manual`, you must also specify `primaryDnsServer` and `domain` values.
+	SettingPreference *string `pulumi:"settingPreference"`
+}
+
+// USGDnsVerificationInput is an input type that accepts USGDnsVerificationArgs and USGDnsVerificationOutput values.
+// You can construct a concrete instance of `USGDnsVerificationInput` via:
+//
+//	USGDnsVerificationArgs{...}
+type USGDnsVerificationInput interface {
+	pulumi.Input
+
+	ToUSGDnsVerificationOutput() USGDnsVerificationOutput
+	ToUSGDnsVerificationOutputWithContext(context.Context) USGDnsVerificationOutput
+}
+
+type USGDnsVerificationArgs struct {
+	// The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `settingPreference` is set to `manual`.
+	Domain pulumi.StringPtrInput `pulumi:"domain"`
+	// The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `settingPreference` is set to `manual`. Must be a valid IPv4 address.
+	PrimaryDnsServer pulumi.StringPtrInput `pulumi:"primaryDnsServer"`
+	// The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `settingPreference` is set to `manual`. Must be a valid IPv4 address if specified.
+	SecondaryDnsServer pulumi.StringPtrInput `pulumi:"secondaryDnsServer"`
+	// Determines how DNS verification servers are configured. Valid values are:
+	//   * `auto` - The gateway will automatically select DNS servers for verification
+	//   * `manual` - Use the manually specified `primaryDnsServer` and optionally `secondaryDnsServer`
+	//
+	// When set to `manual`, you must also specify `primaryDnsServer` and `domain` values.
+	SettingPreference pulumi.StringPtrInput `pulumi:"settingPreference"`
+}
+
+func (USGDnsVerificationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGDnsVerification)(nil)).Elem()
+}
+
+func (i USGDnsVerificationArgs) ToUSGDnsVerificationOutput() USGDnsVerificationOutput {
+	return i.ToUSGDnsVerificationOutputWithContext(context.Background())
+}
+
+func (i USGDnsVerificationArgs) ToUSGDnsVerificationOutputWithContext(ctx context.Context) USGDnsVerificationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGDnsVerificationOutput)
+}
+
+func (i USGDnsVerificationArgs) ToUSGDnsVerificationPtrOutput() USGDnsVerificationPtrOutput {
+	return i.ToUSGDnsVerificationPtrOutputWithContext(context.Background())
+}
+
+func (i USGDnsVerificationArgs) ToUSGDnsVerificationPtrOutputWithContext(ctx context.Context) USGDnsVerificationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGDnsVerificationOutput).ToUSGDnsVerificationPtrOutputWithContext(ctx)
+}
+
+// USGDnsVerificationPtrInput is an input type that accepts USGDnsVerificationArgs, USGDnsVerificationPtr and USGDnsVerificationPtrOutput values.
+// You can construct a concrete instance of `USGDnsVerificationPtrInput` via:
+//
+//	        USGDnsVerificationArgs{...}
+//
+//	or:
+//
+//	        nil
+type USGDnsVerificationPtrInput interface {
+	pulumi.Input
+
+	ToUSGDnsVerificationPtrOutput() USGDnsVerificationPtrOutput
+	ToUSGDnsVerificationPtrOutputWithContext(context.Context) USGDnsVerificationPtrOutput
+}
+
+type usgdnsVerificationPtrType USGDnsVerificationArgs
+
+func USGDnsVerificationPtr(v *USGDnsVerificationArgs) USGDnsVerificationPtrInput {
+	return (*usgdnsVerificationPtrType)(v)
+}
+
+func (*usgdnsVerificationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGDnsVerification)(nil)).Elem()
+}
+
+func (i *usgdnsVerificationPtrType) ToUSGDnsVerificationPtrOutput() USGDnsVerificationPtrOutput {
+	return i.ToUSGDnsVerificationPtrOutputWithContext(context.Background())
+}
+
+func (i *usgdnsVerificationPtrType) ToUSGDnsVerificationPtrOutputWithContext(ctx context.Context) USGDnsVerificationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGDnsVerificationPtrOutput)
+}
+
+type USGDnsVerificationOutput struct{ *pulumi.OutputState }
+
+func (USGDnsVerificationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGDnsVerification)(nil)).Elem()
+}
+
+func (o USGDnsVerificationOutput) ToUSGDnsVerificationOutput() USGDnsVerificationOutput {
+	return o
+}
+
+func (o USGDnsVerificationOutput) ToUSGDnsVerificationOutputWithContext(ctx context.Context) USGDnsVerificationOutput {
+	return o
+}
+
+func (o USGDnsVerificationOutput) ToUSGDnsVerificationPtrOutput() USGDnsVerificationPtrOutput {
+	return o.ToUSGDnsVerificationPtrOutputWithContext(context.Background())
+}
+
+func (o USGDnsVerificationOutput) ToUSGDnsVerificationPtrOutputWithContext(ctx context.Context) USGDnsVerificationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v USGDnsVerification) *USGDnsVerification {
+		return &v
+	}).(USGDnsVerificationPtrOutput)
+}
+
+// The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `settingPreference` is set to `manual`.
+func (o USGDnsVerificationOutput) Domain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v USGDnsVerification) *string { return v.Domain }).(pulumi.StringPtrOutput)
+}
+
+// The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `settingPreference` is set to `manual`. Must be a valid IPv4 address.
+func (o USGDnsVerificationOutput) PrimaryDnsServer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v USGDnsVerification) *string { return v.PrimaryDnsServer }).(pulumi.StringPtrOutput)
+}
+
+// The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `settingPreference` is set to `manual`. Must be a valid IPv4 address if specified.
+func (o USGDnsVerificationOutput) SecondaryDnsServer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v USGDnsVerification) *string { return v.SecondaryDnsServer }).(pulumi.StringPtrOutput)
+}
+
+// Determines how DNS verification servers are configured. Valid values are:
+//   - `auto` - The gateway will automatically select DNS servers for verification
+//   - `manual` - Use the manually specified `primaryDnsServer` and optionally `secondaryDnsServer`
+//
+// When set to `manual`, you must also specify `primaryDnsServer` and `domain` values.
+func (o USGDnsVerificationOutput) SettingPreference() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v USGDnsVerification) *string { return v.SettingPreference }).(pulumi.StringPtrOutput)
+}
+
+type USGDnsVerificationPtrOutput struct{ *pulumi.OutputState }
+
+func (USGDnsVerificationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGDnsVerification)(nil)).Elem()
+}
+
+func (o USGDnsVerificationPtrOutput) ToUSGDnsVerificationPtrOutput() USGDnsVerificationPtrOutput {
+	return o
+}
+
+func (o USGDnsVerificationPtrOutput) ToUSGDnsVerificationPtrOutputWithContext(ctx context.Context) USGDnsVerificationPtrOutput {
+	return o
+}
+
+func (o USGDnsVerificationPtrOutput) Elem() USGDnsVerificationOutput {
+	return o.ApplyT(func(v *USGDnsVerification) USGDnsVerification {
+		if v != nil {
+			return *v
+		}
+		var ret USGDnsVerification
+		return ret
+	}).(USGDnsVerificationOutput)
+}
+
+// The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `settingPreference` is set to `manual`.
+func (o USGDnsVerificationPtrOutput) Domain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *USGDnsVerification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Domain
+	}).(pulumi.StringPtrOutput)
+}
+
+// The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `settingPreference` is set to `manual`. Must be a valid IPv4 address.
+func (o USGDnsVerificationPtrOutput) PrimaryDnsServer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *USGDnsVerification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PrimaryDnsServer
+	}).(pulumi.StringPtrOutput)
+}
+
+// The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `settingPreference` is set to `manual`. Must be a valid IPv4 address if specified.
+func (o USGDnsVerificationPtrOutput) SecondaryDnsServer() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *USGDnsVerification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SecondaryDnsServer
+	}).(pulumi.StringPtrOutput)
+}
+
+// Determines how DNS verification servers are configured. Valid values are:
+//   - `auto` - The gateway will automatically select DNS servers for verification
+//   - `manual` - Use the manually specified `primaryDnsServer` and optionally `secondaryDnsServer`
+//
+// When set to `manual`, you must also specify `primaryDnsServer` and `domain` values.
+func (o USGDnsVerificationPtrOutput) SettingPreference() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *USGDnsVerification) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SettingPreference
+	}).(pulumi.StringPtrOutput)
+}
+
+type USGGeoIpFiltering struct {
+	// List of two-letter ISO 3166-1 alpha-2 country codes to block or allow, depending on the `block` setting. Must contain at least one country code when geo IP filtering is enabled. Country codes are case-insensitive but are typically written in uppercase.
+	//
+	// Examples:
+	//   * `['US', 'CA', 'MX']` - United States, Canada, and Mexico
+	//   * `['CN', 'RU', 'IR']` - China, Russia, and Iran
+	//   * `['GB', 'DE', 'FR']` - United Kingdom, Germany, and France
+	Countries []string `pulumi:"countries"`
+	// Specifies whether the selected countries should be blocked or allowed. Valid values are:
+	//   * `block` (default) - Traffic from the specified countries will be blocked, while traffic from all other countries will be allowed
+	//   * `allow` - Only traffic from the specified countries will be allowed, while traffic from all other countries will be blocked
+	//
+	// This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
+	Mode *string `pulumi:"mode"`
+	// Specifies which traffic direction the geo IP filtering applies to. Valid values are:
+	//   * `both` (default) - Filters traffic in both directions (incoming and outgoing)
+	//   * `ingress` - Filters only incoming traffic (from WAN to LAN)
+	//   * `egress` - Filters only outgoing traffic (from LAN to WAN)
+	//
+	// This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
+	TrafficDirection *string `pulumi:"trafficDirection"`
+}
+
+// USGGeoIpFilteringInput is an input type that accepts USGGeoIpFilteringArgs and USGGeoIpFilteringOutput values.
+// You can construct a concrete instance of `USGGeoIpFilteringInput` via:
+//
+//	USGGeoIpFilteringArgs{...}
+type USGGeoIpFilteringInput interface {
+	pulumi.Input
+
+	ToUSGGeoIpFilteringOutput() USGGeoIpFilteringOutput
+	ToUSGGeoIpFilteringOutputWithContext(context.Context) USGGeoIpFilteringOutput
+}
+
+type USGGeoIpFilteringArgs struct {
+	// List of two-letter ISO 3166-1 alpha-2 country codes to block or allow, depending on the `block` setting. Must contain at least one country code when geo IP filtering is enabled. Country codes are case-insensitive but are typically written in uppercase.
+	//
+	// Examples:
+	//   * `['US', 'CA', 'MX']` - United States, Canada, and Mexico
+	//   * `['CN', 'RU', 'IR']` - China, Russia, and Iran
+	//   * `['GB', 'DE', 'FR']` - United Kingdom, Germany, and France
+	Countries pulumi.StringArrayInput `pulumi:"countries"`
+	// Specifies whether the selected countries should be blocked or allowed. Valid values are:
+	//   * `block` (default) - Traffic from the specified countries will be blocked, while traffic from all other countries will be allowed
+	//   * `allow` - Only traffic from the specified countries will be allowed, while traffic from all other countries will be blocked
+	//
+	// This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
+	Mode pulumi.StringPtrInput `pulumi:"mode"`
+	// Specifies which traffic direction the geo IP filtering applies to. Valid values are:
+	//   * `both` (default) - Filters traffic in both directions (incoming and outgoing)
+	//   * `ingress` - Filters only incoming traffic (from WAN to LAN)
+	//   * `egress` - Filters only outgoing traffic (from LAN to WAN)
+	//
+	// This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
+	TrafficDirection pulumi.StringPtrInput `pulumi:"trafficDirection"`
+}
+
+func (USGGeoIpFilteringArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGGeoIpFiltering)(nil)).Elem()
+}
+
+func (i USGGeoIpFilteringArgs) ToUSGGeoIpFilteringOutput() USGGeoIpFilteringOutput {
+	return i.ToUSGGeoIpFilteringOutputWithContext(context.Background())
+}
+
+func (i USGGeoIpFilteringArgs) ToUSGGeoIpFilteringOutputWithContext(ctx context.Context) USGGeoIpFilteringOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGGeoIpFilteringOutput)
+}
+
+func (i USGGeoIpFilteringArgs) ToUSGGeoIpFilteringPtrOutput() USGGeoIpFilteringPtrOutput {
+	return i.ToUSGGeoIpFilteringPtrOutputWithContext(context.Background())
+}
+
+func (i USGGeoIpFilteringArgs) ToUSGGeoIpFilteringPtrOutputWithContext(ctx context.Context) USGGeoIpFilteringPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGGeoIpFilteringOutput).ToUSGGeoIpFilteringPtrOutputWithContext(ctx)
+}
+
+// USGGeoIpFilteringPtrInput is an input type that accepts USGGeoIpFilteringArgs, USGGeoIpFilteringPtr and USGGeoIpFilteringPtrOutput values.
+// You can construct a concrete instance of `USGGeoIpFilteringPtrInput` via:
+//
+//	        USGGeoIpFilteringArgs{...}
+//
+//	or:
+//
+//	        nil
+type USGGeoIpFilteringPtrInput interface {
+	pulumi.Input
+
+	ToUSGGeoIpFilteringPtrOutput() USGGeoIpFilteringPtrOutput
+	ToUSGGeoIpFilteringPtrOutputWithContext(context.Context) USGGeoIpFilteringPtrOutput
+}
+
+type usggeoIpFilteringPtrType USGGeoIpFilteringArgs
+
+func USGGeoIpFilteringPtr(v *USGGeoIpFilteringArgs) USGGeoIpFilteringPtrInput {
+	return (*usggeoIpFilteringPtrType)(v)
+}
+
+func (*usggeoIpFilteringPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGGeoIpFiltering)(nil)).Elem()
+}
+
+func (i *usggeoIpFilteringPtrType) ToUSGGeoIpFilteringPtrOutput() USGGeoIpFilteringPtrOutput {
+	return i.ToUSGGeoIpFilteringPtrOutputWithContext(context.Background())
+}
+
+func (i *usggeoIpFilteringPtrType) ToUSGGeoIpFilteringPtrOutputWithContext(ctx context.Context) USGGeoIpFilteringPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGGeoIpFilteringPtrOutput)
+}
+
+type USGGeoIpFilteringOutput struct{ *pulumi.OutputState }
+
+func (USGGeoIpFilteringOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGGeoIpFiltering)(nil)).Elem()
+}
+
+func (o USGGeoIpFilteringOutput) ToUSGGeoIpFilteringOutput() USGGeoIpFilteringOutput {
+	return o
+}
+
+func (o USGGeoIpFilteringOutput) ToUSGGeoIpFilteringOutputWithContext(ctx context.Context) USGGeoIpFilteringOutput {
+	return o
+}
+
+func (o USGGeoIpFilteringOutput) ToUSGGeoIpFilteringPtrOutput() USGGeoIpFilteringPtrOutput {
+	return o.ToUSGGeoIpFilteringPtrOutputWithContext(context.Background())
+}
+
+func (o USGGeoIpFilteringOutput) ToUSGGeoIpFilteringPtrOutputWithContext(ctx context.Context) USGGeoIpFilteringPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v USGGeoIpFiltering) *USGGeoIpFiltering {
+		return &v
+	}).(USGGeoIpFilteringPtrOutput)
+}
+
+// List of two-letter ISO 3166-1 alpha-2 country codes to block or allow, depending on the `block` setting. Must contain at least one country code when geo IP filtering is enabled. Country codes are case-insensitive but are typically written in uppercase.
+//
+// Examples:
+//   - `['US', 'CA', 'MX']` - United States, Canada, and Mexico
+//   - `['CN', 'RU', 'IR']` - China, Russia, and Iran
+//   - `['GB', 'DE', 'FR']` - United Kingdom, Germany, and France
+func (o USGGeoIpFilteringOutput) Countries() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v USGGeoIpFiltering) []string { return v.Countries }).(pulumi.StringArrayOutput)
+}
+
+// Specifies whether the selected countries should be blocked or allowed. Valid values are:
+//   - `block` (default) - Traffic from the specified countries will be blocked, while traffic from all other countries will be allowed
+//   - `allow` - Only traffic from the specified countries will be allowed, while traffic from all other countries will be blocked
+//
+// This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
+func (o USGGeoIpFilteringOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v USGGeoIpFiltering) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+// Specifies which traffic direction the geo IP filtering applies to. Valid values are:
+//   - `both` (default) - Filters traffic in both directions (incoming and outgoing)
+//   - `ingress` - Filters only incoming traffic (from WAN to LAN)
+//   - `egress` - Filters only outgoing traffic (from LAN to WAN)
+//
+// This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
+func (o USGGeoIpFilteringOutput) TrafficDirection() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v USGGeoIpFiltering) *string { return v.TrafficDirection }).(pulumi.StringPtrOutput)
+}
+
+type USGGeoIpFilteringPtrOutput struct{ *pulumi.OutputState }
+
+func (USGGeoIpFilteringPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGGeoIpFiltering)(nil)).Elem()
+}
+
+func (o USGGeoIpFilteringPtrOutput) ToUSGGeoIpFilteringPtrOutput() USGGeoIpFilteringPtrOutput {
+	return o
+}
+
+func (o USGGeoIpFilteringPtrOutput) ToUSGGeoIpFilteringPtrOutputWithContext(ctx context.Context) USGGeoIpFilteringPtrOutput {
+	return o
+}
+
+func (o USGGeoIpFilteringPtrOutput) Elem() USGGeoIpFilteringOutput {
+	return o.ApplyT(func(v *USGGeoIpFiltering) USGGeoIpFiltering {
+		if v != nil {
+			return *v
+		}
+		var ret USGGeoIpFiltering
+		return ret
+	}).(USGGeoIpFilteringOutput)
+}
+
+// List of two-letter ISO 3166-1 alpha-2 country codes to block or allow, depending on the `block` setting. Must contain at least one country code when geo IP filtering is enabled. Country codes are case-insensitive but are typically written in uppercase.
+//
+// Examples:
+//   - `['US', 'CA', 'MX']` - United States, Canada, and Mexico
+//   - `['CN', 'RU', 'IR']` - China, Russia, and Iran
+//   - `['GB', 'DE', 'FR']` - United Kingdom, Germany, and France
+func (o USGGeoIpFilteringPtrOutput) Countries() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *USGGeoIpFiltering) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Countries
+	}).(pulumi.StringArrayOutput)
+}
+
+// Specifies whether the selected countries should be blocked or allowed. Valid values are:
+//   - `block` (default) - Traffic from the specified countries will be blocked, while traffic from all other countries will be allowed
+//   - `allow` - Only traffic from the specified countries will be allowed, while traffic from all other countries will be blocked
+//
+// This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
+func (o USGGeoIpFilteringPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *USGGeoIpFiltering) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
+// Specifies which traffic direction the geo IP filtering applies to. Valid values are:
+//   - `both` (default) - Filters traffic in both directions (incoming and outgoing)
+//   - `ingress` - Filters only incoming traffic (from WAN to LAN)
+//   - `egress` - Filters only outgoing traffic (from LAN to WAN)
+//
+// This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
+func (o USGGeoIpFilteringPtrOutput) TrafficDirection() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *USGGeoIpFiltering) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TrafficDirection
+	}).(pulumi.StringPtrOutput)
+}
+
+type USGTcpTimeouts struct {
+	// Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
+	CloseTimeout *int `pulumi:"closeTimeout"`
+	// Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
+	CloseWaitTimeout *int `pulumi:"closeWaitTimeout"`
+	// Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
+	EstablishedTimeout *int `pulumi:"establishedTimeout"`
+	// Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
+	FinWaitTimeout *int `pulumi:"finWaitTimeout"`
+	// Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
+	LastAckTimeout *int `pulumi:"lastAckTimeout"`
+	// Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
+	SynRecvTimeout *int `pulumi:"synRecvTimeout"`
+	// Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
+	SynSentTimeout *int `pulumi:"synSentTimeout"`
+	// Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
+	TimeWaitTimeout *int `pulumi:"timeWaitTimeout"`
+}
+
+// USGTcpTimeoutsInput is an input type that accepts USGTcpTimeoutsArgs and USGTcpTimeoutsOutput values.
+// You can construct a concrete instance of `USGTcpTimeoutsInput` via:
+//
+//	USGTcpTimeoutsArgs{...}
+type USGTcpTimeoutsInput interface {
+	pulumi.Input
+
+	ToUSGTcpTimeoutsOutput() USGTcpTimeoutsOutput
+	ToUSGTcpTimeoutsOutputWithContext(context.Context) USGTcpTimeoutsOutput
+}
+
+type USGTcpTimeoutsArgs struct {
+	// Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
+	CloseTimeout pulumi.IntPtrInput `pulumi:"closeTimeout"`
+	// Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
+	CloseWaitTimeout pulumi.IntPtrInput `pulumi:"closeWaitTimeout"`
+	// Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
+	EstablishedTimeout pulumi.IntPtrInput `pulumi:"establishedTimeout"`
+	// Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
+	FinWaitTimeout pulumi.IntPtrInput `pulumi:"finWaitTimeout"`
+	// Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
+	LastAckTimeout pulumi.IntPtrInput `pulumi:"lastAckTimeout"`
+	// Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
+	SynRecvTimeout pulumi.IntPtrInput `pulumi:"synRecvTimeout"`
+	// Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
+	SynSentTimeout pulumi.IntPtrInput `pulumi:"synSentTimeout"`
+	// Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
+	TimeWaitTimeout pulumi.IntPtrInput `pulumi:"timeWaitTimeout"`
+}
+
+func (USGTcpTimeoutsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGTcpTimeouts)(nil)).Elem()
+}
+
+func (i USGTcpTimeoutsArgs) ToUSGTcpTimeoutsOutput() USGTcpTimeoutsOutput {
+	return i.ToUSGTcpTimeoutsOutputWithContext(context.Background())
+}
+
+func (i USGTcpTimeoutsArgs) ToUSGTcpTimeoutsOutputWithContext(ctx context.Context) USGTcpTimeoutsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGTcpTimeoutsOutput)
+}
+
+func (i USGTcpTimeoutsArgs) ToUSGTcpTimeoutsPtrOutput() USGTcpTimeoutsPtrOutput {
+	return i.ToUSGTcpTimeoutsPtrOutputWithContext(context.Background())
+}
+
+func (i USGTcpTimeoutsArgs) ToUSGTcpTimeoutsPtrOutputWithContext(ctx context.Context) USGTcpTimeoutsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGTcpTimeoutsOutput).ToUSGTcpTimeoutsPtrOutputWithContext(ctx)
+}
+
+// USGTcpTimeoutsPtrInput is an input type that accepts USGTcpTimeoutsArgs, USGTcpTimeoutsPtr and USGTcpTimeoutsPtrOutput values.
+// You can construct a concrete instance of `USGTcpTimeoutsPtrInput` via:
+//
+//	        USGTcpTimeoutsArgs{...}
+//
+//	or:
+//
+//	        nil
+type USGTcpTimeoutsPtrInput interface {
+	pulumi.Input
+
+	ToUSGTcpTimeoutsPtrOutput() USGTcpTimeoutsPtrOutput
+	ToUSGTcpTimeoutsPtrOutputWithContext(context.Context) USGTcpTimeoutsPtrOutput
+}
+
+type usgtcpTimeoutsPtrType USGTcpTimeoutsArgs
+
+func USGTcpTimeoutsPtr(v *USGTcpTimeoutsArgs) USGTcpTimeoutsPtrInput {
+	return (*usgtcpTimeoutsPtrType)(v)
+}
+
+func (*usgtcpTimeoutsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGTcpTimeouts)(nil)).Elem()
+}
+
+func (i *usgtcpTimeoutsPtrType) ToUSGTcpTimeoutsPtrOutput() USGTcpTimeoutsPtrOutput {
+	return i.ToUSGTcpTimeoutsPtrOutputWithContext(context.Background())
+}
+
+func (i *usgtcpTimeoutsPtrType) ToUSGTcpTimeoutsPtrOutputWithContext(ctx context.Context) USGTcpTimeoutsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGTcpTimeoutsPtrOutput)
+}
+
+type USGTcpTimeoutsOutput struct{ *pulumi.OutputState }
+
+func (USGTcpTimeoutsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGTcpTimeouts)(nil)).Elem()
+}
+
+func (o USGTcpTimeoutsOutput) ToUSGTcpTimeoutsOutput() USGTcpTimeoutsOutput {
+	return o
+}
+
+func (o USGTcpTimeoutsOutput) ToUSGTcpTimeoutsOutputWithContext(ctx context.Context) USGTcpTimeoutsOutput {
+	return o
+}
+
+func (o USGTcpTimeoutsOutput) ToUSGTcpTimeoutsPtrOutput() USGTcpTimeoutsPtrOutput {
+	return o.ToUSGTcpTimeoutsPtrOutputWithContext(context.Background())
+}
+
+func (o USGTcpTimeoutsOutput) ToUSGTcpTimeoutsPtrOutputWithContext(ctx context.Context) USGTcpTimeoutsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v USGTcpTimeouts) *USGTcpTimeouts {
+		return &v
+	}).(USGTcpTimeoutsPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
+func (o USGTcpTimeoutsOutput) CloseTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGTcpTimeouts) *int { return v.CloseTimeout }).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
+func (o USGTcpTimeoutsOutput) CloseWaitTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGTcpTimeouts) *int { return v.CloseWaitTimeout }).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
+func (o USGTcpTimeoutsOutput) EstablishedTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGTcpTimeouts) *int { return v.EstablishedTimeout }).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
+func (o USGTcpTimeoutsOutput) FinWaitTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGTcpTimeouts) *int { return v.FinWaitTimeout }).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
+func (o USGTcpTimeoutsOutput) LastAckTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGTcpTimeouts) *int { return v.LastAckTimeout }).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
+func (o USGTcpTimeoutsOutput) SynRecvTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGTcpTimeouts) *int { return v.SynRecvTimeout }).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
+func (o USGTcpTimeoutsOutput) SynSentTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGTcpTimeouts) *int { return v.SynSentTimeout }).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
+func (o USGTcpTimeoutsOutput) TimeWaitTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v USGTcpTimeouts) *int { return v.TimeWaitTimeout }).(pulumi.IntPtrOutput)
+}
+
+type USGTcpTimeoutsPtrOutput struct{ *pulumi.OutputState }
+
+func (USGTcpTimeoutsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGTcpTimeouts)(nil)).Elem()
+}
+
+func (o USGTcpTimeoutsPtrOutput) ToUSGTcpTimeoutsPtrOutput() USGTcpTimeoutsPtrOutput {
+	return o
+}
+
+func (o USGTcpTimeoutsPtrOutput) ToUSGTcpTimeoutsPtrOutputWithContext(ctx context.Context) USGTcpTimeoutsPtrOutput {
+	return o
+}
+
+func (o USGTcpTimeoutsPtrOutput) Elem() USGTcpTimeoutsOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) USGTcpTimeouts {
+		if v != nil {
+			return *v
+		}
+		var ret USGTcpTimeouts
+		return ret
+	}).(USGTcpTimeoutsOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
+func (o USGTcpTimeoutsPtrOutput) CloseTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) *int {
+		if v == nil {
+			return nil
+		}
+		return v.CloseTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
+func (o USGTcpTimeoutsPtrOutput) CloseWaitTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) *int {
+		if v == nil {
+			return nil
+		}
+		return v.CloseWaitTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
+func (o USGTcpTimeoutsPtrOutput) EstablishedTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) *int {
+		if v == nil {
+			return nil
+		}
+		return v.EstablishedTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
+func (o USGTcpTimeoutsPtrOutput) FinWaitTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) *int {
+		if v == nil {
+			return nil
+		}
+		return v.FinWaitTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
+func (o USGTcpTimeoutsPtrOutput) LastAckTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) *int {
+		if v == nil {
+			return nil
+		}
+		return v.LastAckTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
+func (o USGTcpTimeoutsPtrOutput) SynRecvTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) *int {
+		if v == nil {
+			return nil
+		}
+		return v.SynRecvTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
+func (o USGTcpTimeoutsPtrOutput) SynSentTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) *int {
+		if v == nil {
+			return nil
+		}
+		return v.SynSentTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
+// Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
+func (o USGTcpTimeoutsPtrOutput) TimeWaitTimeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *USGTcpTimeouts) *int {
+		if v == nil {
+			return nil
+		}
+		return v.TimeWaitTimeout
+	}).(pulumi.IntPtrOutput)
+}
+
+type USGUpnp struct {
+	// Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
+	NatPmpEnabled *bool `pulumi:"natPmpEnabled"`
+	// Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
+	SecureMode *bool `pulumi:"secureMode"`
+	// Specify which WAN interface to use for UPNP service. Valid values are:
+	//   * `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
+	//   * `WAN2` - Use the secondary WAN interface for UPNP port forwarding (if available)
+	//
+	// This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
+	WanInterface *string `pulumi:"wanInterface"`
+}
+
+// USGUpnpInput is an input type that accepts USGUpnpArgs and USGUpnpOutput values.
+// You can construct a concrete instance of `USGUpnpInput` via:
+//
+//	USGUpnpArgs{...}
+type USGUpnpInput interface {
+	pulumi.Input
+
+	ToUSGUpnpOutput() USGUpnpOutput
+	ToUSGUpnpOutputWithContext(context.Context) USGUpnpOutput
+}
+
+type USGUpnpArgs struct {
+	// Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
+	NatPmpEnabled pulumi.BoolPtrInput `pulumi:"natPmpEnabled"`
+	// Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
+	SecureMode pulumi.BoolPtrInput `pulumi:"secureMode"`
+	// Specify which WAN interface to use for UPNP service. Valid values are:
+	//   * `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
+	//   * `WAN2` - Use the secondary WAN interface for UPNP port forwarding (if available)
+	//
+	// This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
+	WanInterface pulumi.StringPtrInput `pulumi:"wanInterface"`
+}
+
+func (USGUpnpArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGUpnp)(nil)).Elem()
+}
+
+func (i USGUpnpArgs) ToUSGUpnpOutput() USGUpnpOutput {
+	return i.ToUSGUpnpOutputWithContext(context.Background())
+}
+
+func (i USGUpnpArgs) ToUSGUpnpOutputWithContext(ctx context.Context) USGUpnpOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGUpnpOutput)
+}
+
+func (i USGUpnpArgs) ToUSGUpnpPtrOutput() USGUpnpPtrOutput {
+	return i.ToUSGUpnpPtrOutputWithContext(context.Background())
+}
+
+func (i USGUpnpArgs) ToUSGUpnpPtrOutputWithContext(ctx context.Context) USGUpnpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGUpnpOutput).ToUSGUpnpPtrOutputWithContext(ctx)
+}
+
+// USGUpnpPtrInput is an input type that accepts USGUpnpArgs, USGUpnpPtr and USGUpnpPtrOutput values.
+// You can construct a concrete instance of `USGUpnpPtrInput` via:
+//
+//	        USGUpnpArgs{...}
+//
+//	or:
+//
+//	        nil
+type USGUpnpPtrInput interface {
+	pulumi.Input
+
+	ToUSGUpnpPtrOutput() USGUpnpPtrOutput
+	ToUSGUpnpPtrOutputWithContext(context.Context) USGUpnpPtrOutput
+}
+
+type usgupnpPtrType USGUpnpArgs
+
+func USGUpnpPtr(v *USGUpnpArgs) USGUpnpPtrInput {
+	return (*usgupnpPtrType)(v)
+}
+
+func (*usgupnpPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGUpnp)(nil)).Elem()
+}
+
+func (i *usgupnpPtrType) ToUSGUpnpPtrOutput() USGUpnpPtrOutput {
+	return i.ToUSGUpnpPtrOutputWithContext(context.Background())
+}
+
+func (i *usgupnpPtrType) ToUSGUpnpPtrOutputWithContext(ctx context.Context) USGUpnpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(USGUpnpPtrOutput)
+}
+
+type USGUpnpOutput struct{ *pulumi.OutputState }
+
+func (USGUpnpOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*USGUpnp)(nil)).Elem()
+}
+
+func (o USGUpnpOutput) ToUSGUpnpOutput() USGUpnpOutput {
+	return o
+}
+
+func (o USGUpnpOutput) ToUSGUpnpOutputWithContext(ctx context.Context) USGUpnpOutput {
+	return o
+}
+
+func (o USGUpnpOutput) ToUSGUpnpPtrOutput() USGUpnpPtrOutput {
+	return o.ToUSGUpnpPtrOutputWithContext(context.Background())
+}
+
+func (o USGUpnpOutput) ToUSGUpnpPtrOutputWithContext(ctx context.Context) USGUpnpPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v USGUpnp) *USGUpnp {
+		return &v
+	}).(USGUpnpPtrOutput)
+}
+
+// Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
+func (o USGUpnpOutput) NatPmpEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v USGUpnp) *bool { return v.NatPmpEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
+func (o USGUpnpOutput) SecureMode() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v USGUpnp) *bool { return v.SecureMode }).(pulumi.BoolPtrOutput)
+}
+
+// Specify which WAN interface to use for UPNP service. Valid values are:
+//   - `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
+//   - `WAN2` - Use the secondary WAN interface for UPNP port forwarding (if available)
+//
+// This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
+func (o USGUpnpOutput) WanInterface() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v USGUpnp) *string { return v.WanInterface }).(pulumi.StringPtrOutput)
+}
+
+type USGUpnpPtrOutput struct{ *pulumi.OutputState }
+
+func (USGUpnpPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**USGUpnp)(nil)).Elem()
+}
+
+func (o USGUpnpPtrOutput) ToUSGUpnpPtrOutput() USGUpnpPtrOutput {
+	return o
+}
+
+func (o USGUpnpPtrOutput) ToUSGUpnpPtrOutputWithContext(ctx context.Context) USGUpnpPtrOutput {
+	return o
+}
+
+func (o USGUpnpPtrOutput) Elem() USGUpnpOutput {
+	return o.ApplyT(func(v *USGUpnp) USGUpnp {
+		if v != nil {
+			return *v
+		}
+		var ret USGUpnp
+		return ret
+	}).(USGUpnpOutput)
+}
+
+// Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
+func (o USGUpnpPtrOutput) NatPmpEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *USGUpnp) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.NatPmpEnabled
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
+func (o USGUpnpPtrOutput) SecureMode() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *USGUpnp) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SecureMode
+	}).(pulumi.BoolPtrOutput)
+}
+
+// Specify which WAN interface to use for UPNP service. Valid values are:
+//   - `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
+//   - `WAN2` - Use the secondary WAN interface for UPNP port forwarding (if available)
+//
+// This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
+func (o USGUpnpPtrOutput) WanInterface() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *USGUpnp) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WanInterface
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessAuthorizeInput)(nil)).Elem(), GuestAccessAuthorizeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessAuthorizePtrInput)(nil)).Elem(), GuestAccessAuthorizeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessFacebookInput)(nil)).Elem(), GuestAccessFacebookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessFacebookPtrInput)(nil)).Elem(), GuestAccessFacebookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessFacebookWifiInput)(nil)).Elem(), GuestAccessFacebookWifiArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessFacebookWifiPtrInput)(nil)).Elem(), GuestAccessFacebookWifiArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessGoogleInput)(nil)).Elem(), GuestAccessGoogleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessGooglePtrInput)(nil)).Elem(), GuestAccessGoogleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessIppayInput)(nil)).Elem(), GuestAccessIppayArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessIppayPtrInput)(nil)).Elem(), GuestAccessIppayArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessMerchantWarriorInput)(nil)).Elem(), GuestAccessMerchantWarriorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessMerchantWarriorPtrInput)(nil)).Elem(), GuestAccessMerchantWarriorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessPaypalInput)(nil)).Elem(), GuestAccessPaypalArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessPaypalPtrInput)(nil)).Elem(), GuestAccessPaypalArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessPortalCustomizationInput)(nil)).Elem(), GuestAccessPortalCustomizationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessPortalCustomizationPtrInput)(nil)).Elem(), GuestAccessPortalCustomizationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessQuickpayInput)(nil)).Elem(), GuestAccessQuickpayArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessQuickpayPtrInput)(nil)).Elem(), GuestAccessQuickpayArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessRadiusInput)(nil)).Elem(), GuestAccessRadiusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessRadiusPtrInput)(nil)).Elem(), GuestAccessRadiusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessRedirectInput)(nil)).Elem(), GuestAccessRedirectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessRedirectPtrInput)(nil)).Elem(), GuestAccessRedirectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessStripeInput)(nil)).Elem(), GuestAccessStripeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessStripePtrInput)(nil)).Elem(), GuestAccessStripeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessWechatInput)(nil)).Elem(), GuestAccessWechatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessWechatPtrInput)(nil)).Elem(), GuestAccessWechatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsDnsFilterInput)(nil)).Elem(), IpsDnsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsDnsFilterArrayInput)(nil)).Elem(), IpsDnsFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsHoneypotInput)(nil)).Elem(), IpsHoneypotArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsHoneypotArrayInput)(nil)).Elem(), IpsHoneypotArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionInput)(nil)).Elem(), IpsSuppressionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionPtrInput)(nil)).Elem(), IpsSuppressionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionAlertInput)(nil)).Elem(), IpsSuppressionAlertArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionAlertArrayInput)(nil)).Elem(), IpsSuppressionAlertArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionAlertTrackingInput)(nil)).Elem(), IpsSuppressionAlertTrackingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionAlertTrackingArrayInput)(nil)).Elem(), IpsSuppressionAlertTrackingArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionWhitelistInput)(nil)).Elem(), IpsSuppressionWhitelistArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionWhitelistArrayInput)(nil)).Elem(), IpsSuppressionWhitelistArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MgmtSshKeyInput)(nil)).Elem(), MgmtSshKeyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MgmtSshKeyArrayInput)(nil)).Elem(), MgmtSshKeyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGDhcpRelayInput)(nil)).Elem(), USGDhcpRelayArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGDhcpRelayPtrInput)(nil)).Elem(), USGDhcpRelayArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGDnsVerificationInput)(nil)).Elem(), USGDnsVerificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGDnsVerificationPtrInput)(nil)).Elem(), USGDnsVerificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGGeoIpFilteringInput)(nil)).Elem(), USGGeoIpFilteringArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGGeoIpFilteringPtrInput)(nil)).Elem(), USGGeoIpFilteringArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGTcpTimeoutsInput)(nil)).Elem(), USGTcpTimeoutsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGTcpTimeoutsPtrInput)(nil)).Elem(), USGTcpTimeoutsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGUpnpInput)(nil)).Elem(), USGUpnpArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*USGUpnpPtrInput)(nil)).Elem(), USGUpnpArgs{})
+	pulumi.RegisterOutputType(GuestAccessAuthorizeOutput{})
+	pulumi.RegisterOutputType(GuestAccessAuthorizePtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessFacebookOutput{})
+	pulumi.RegisterOutputType(GuestAccessFacebookPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessFacebookWifiOutput{})
+	pulumi.RegisterOutputType(GuestAccessFacebookWifiPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessGoogleOutput{})
+	pulumi.RegisterOutputType(GuestAccessGooglePtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessIppayOutput{})
+	pulumi.RegisterOutputType(GuestAccessIppayPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessMerchantWarriorOutput{})
+	pulumi.RegisterOutputType(GuestAccessMerchantWarriorPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessPaypalOutput{})
+	pulumi.RegisterOutputType(GuestAccessPaypalPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessPortalCustomizationOutput{})
+	pulumi.RegisterOutputType(GuestAccessPortalCustomizationPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessQuickpayOutput{})
+	pulumi.RegisterOutputType(GuestAccessQuickpayPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessRadiusOutput{})
+	pulumi.RegisterOutputType(GuestAccessRadiusPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessRedirectOutput{})
+	pulumi.RegisterOutputType(GuestAccessRedirectPtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessStripeOutput{})
+	pulumi.RegisterOutputType(GuestAccessStripePtrOutput{})
+	pulumi.RegisterOutputType(GuestAccessWechatOutput{})
+	pulumi.RegisterOutputType(GuestAccessWechatPtrOutput{})
+	pulumi.RegisterOutputType(IpsDnsFilterOutput{})
+	pulumi.RegisterOutputType(IpsDnsFilterArrayOutput{})
+	pulumi.RegisterOutputType(IpsHoneypotOutput{})
+	pulumi.RegisterOutputType(IpsHoneypotArrayOutput{})
+	pulumi.RegisterOutputType(IpsSuppressionOutput{})
+	pulumi.RegisterOutputType(IpsSuppressionPtrOutput{})
+	pulumi.RegisterOutputType(IpsSuppressionAlertOutput{})
+	pulumi.RegisterOutputType(IpsSuppressionAlertArrayOutput{})
+	pulumi.RegisterOutputType(IpsSuppressionAlertTrackingOutput{})
+	pulumi.RegisterOutputType(IpsSuppressionAlertTrackingArrayOutput{})
+	pulumi.RegisterOutputType(IpsSuppressionWhitelistOutput{})
+	pulumi.RegisterOutputType(IpsSuppressionWhitelistArrayOutput{})
 	pulumi.RegisterOutputType(MgmtSshKeyOutput{})
 	pulumi.RegisterOutputType(MgmtSshKeyArrayOutput{})
+	pulumi.RegisterOutputType(USGDhcpRelayOutput{})
+	pulumi.RegisterOutputType(USGDhcpRelayPtrOutput{})
+	pulumi.RegisterOutputType(USGDnsVerificationOutput{})
+	pulumi.RegisterOutputType(USGDnsVerificationPtrOutput{})
+	pulumi.RegisterOutputType(USGGeoIpFilteringOutput{})
+	pulumi.RegisterOutputType(USGGeoIpFilteringPtrOutput{})
+	pulumi.RegisterOutputType(USGTcpTimeoutsOutput{})
+	pulumi.RegisterOutputType(USGTcpTimeoutsPtrOutput{})
+	pulumi.RegisterOutputType(USGUpnpOutput{})
+	pulumi.RegisterOutputType(USGUpnpPtrOutput{})
 }

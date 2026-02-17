@@ -15,23 +15,23 @@ namespace Pulumiverse.Unifi.Outputs
     public sealed class WlanSchedule
     {
         /// <summary>
-        /// Day of week for the block. Valid values are `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
+        /// Day of week. Valid values: `Sun`, `Mon`, `Tue`, `Wed`, `Thu`, `Fri`, `Sat`.
         /// </summary>
         public readonly string DayOfWeek;
         /// <summary>
-        /// Length of the block in minutes.
+        /// Duration in minutes that the network should remain active.
         /// </summary>
         public readonly int Duration;
         /// <summary>
-        /// Name of the block.
+        /// Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
         /// </summary>
         public readonly string? Name;
         /// <summary>
-        /// Start hour for the block (0-23).
+        /// Start hour in 24-hour format (0-23).
         /// </summary>
         public readonly int StartHour;
         /// <summary>
-        /// Start minute for the block (0-59). Defaults to `0`.
+        /// Start minute (0-59).
         /// </summary>
         public readonly int? StartMinute;
 

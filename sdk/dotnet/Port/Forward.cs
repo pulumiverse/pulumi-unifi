@@ -11,67 +11,80 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Port
 {
     /// <summary>
-    /// `unifi.port.Forward` manages a port forwarding rule on the gateway.
+    /// The `unifi.port.Forward` resource manages port forwarding rules on UniFi controllers.
+    /// 
+    /// Port forwarding allows external traffic to reach services hosted on your internal network by mapping external ports to internal IP addresses and ports. This is commonly used for:
+    ///   * Hosting web servers, game servers, or other services
+    ///   * Remote access to internal services
+    ///   * Application-specific requirements
+    /// 
+    /// Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
     /// </summary>
     [UnifiResourceType("unifi:port/forward:Forward")]
     public partial class Forward : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The destination port for the forwarding.
+        /// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         /// </summary>
         [Output("dstPort")]
         public Output<string?> DstPort { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not.
         /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
 
         /// <summary>
-        /// The IPv4 address to forward traffic to.
+        /// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
         /// </summary>
         [Output("fwdIp")]
         public Output<string?> FwdIp { get; private set; } = null!;
 
         /// <summary>
-        /// The port to forward traffic to.
+        /// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
         /// </summary>
         [Output("fwdPort")]
         public Output<string?> FwdPort { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        /// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
         /// </summary>
         [Output("log")]
         public Output<bool?> Log { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the port forwarding rule.
+        /// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        /// The WAN interface to apply the port forwarding rule to. Valid values are:
+        ///   * `Wan` - Primary WAN interface
+        ///   * `Wan2` - Secondary WAN interface
+        ///   * `Both` - Both WAN interfaces
         /// </summary>
         [Output("portForwardInterface")]
         public Output<string?> PortForwardInterface { get; private set; } = null!;
 
         /// <summary>
-        /// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        /// The network protocol(s) this rule applies to. Valid values are:
+        ///   * `TcpUdp` - Both TCP and UDP (default)
+        ///   * `Tcp` - TCP only
+        ///   * `Udp` - UDP only
         /// </summary>
         [Output("protocol")]
         public Output<string?> Protocol { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the port forwarding rule with.
+        /// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        /// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         /// </summary>
         [Output("srcIp")]
         public Output<string?> SrcIp { get; private set; } = null!;
@@ -124,61 +137,67 @@ namespace Pulumiverse.Unifi.Port
     public sealed class ForwardArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The destination port for the forwarding.
+        /// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         /// </summary>
         [Input("dstPort")]
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         /// <summary>
-        /// The IPv4 address to forward traffic to.
+        /// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
         /// </summary>
         [Input("fwdIp")]
         public Input<string>? FwdIp { get; set; }
 
         /// <summary>
-        /// The port to forward traffic to.
+        /// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
         /// </summary>
         [Input("fwdPort")]
         public Input<string>? FwdPort { get; set; }
 
         /// <summary>
-        /// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        /// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
         /// </summary>
         [Input("log")]
         public Input<bool>? Log { get; set; }
 
         /// <summary>
-        /// The name of the port forwarding rule.
+        /// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        /// The WAN interface to apply the port forwarding rule to. Valid values are:
+        ///   * `Wan` - Primary WAN interface
+        ///   * `Wan2` - Secondary WAN interface
+        ///   * `Both` - Both WAN interfaces
         /// </summary>
         [Input("portForwardInterface")]
         public Input<string>? PortForwardInterface { get; set; }
 
         /// <summary>
-        /// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        /// The network protocol(s) this rule applies to. Valid values are:
+        ///   * `TcpUdp` - Both TCP and UDP (default)
+        ///   * `Tcp` - TCP only
+        ///   * `Udp` - UDP only
         /// </summary>
         [Input("protocol")]
         public Input<string>? Protocol { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the port forwarding rule with.
+        /// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        /// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         /// </summary>
         [Input("srcIp")]
         public Input<string>? SrcIp { get; set; }
@@ -192,61 +211,67 @@ namespace Pulumiverse.Unifi.Port
     public sealed class ForwardState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The destination port for the forwarding.
+        /// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         /// </summary>
         [Input("dstPort")]
         public Input<string>? DstPort { get; set; }
 
         /// <summary>
-        /// Specifies whether the port forwarding rule is enabled or not. Defaults to `true`. This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.
+        /// Specifies whether the port forwarding rule is enabled or not.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
 
         /// <summary>
-        /// The IPv4 address to forward traffic to.
+        /// The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
         /// </summary>
         [Input("fwdIp")]
         public Input<string>? FwdIp { get; set; }
 
         /// <summary>
-        /// The port to forward traffic to.
+        /// The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
         /// </summary>
         [Input("fwdPort")]
         public Input<string>? FwdPort { get; set; }
 
         /// <summary>
-        /// Specifies whether to log forwarded traffic or not. Defaults to `false`.
+        /// Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
         /// </summary>
         [Input("log")]
         public Input<bool>? Log { get; set; }
 
         /// <summary>
-        /// The name of the port forwarding rule.
+        /// A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The port forwarding interface. Can be `wan`, `wan2`, or `both`.
+        /// The WAN interface to apply the port forwarding rule to. Valid values are:
+        ///   * `Wan` - Primary WAN interface
+        ///   * `Wan2` - Secondary WAN interface
+        ///   * `Both` - Both WAN interfaces
         /// </summary>
         [Input("portForwardInterface")]
         public Input<string>? PortForwardInterface { get; set; }
 
         /// <summary>
-        /// The protocol for the port forwarding rule. Can be `tcp`, `udp`, or `tcp_udp`. Defaults to `tcp_udp`.
+        /// The network protocol(s) this rule applies to. Valid values are:
+        ///   * `TcpUdp` - Both TCP and UDP (default)
+        ///   * `Tcp` - TCP only
+        ///   * `Udp` - UDP only
         /// </summary>
         [Input("protocol")]
         public Input<string>? Protocol { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the port forwarding rule with.
+        /// The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The source IPv4 address (or CIDR) of the port forwarding rule. For all traffic, specify `any`. Defaults to `any`.
+        /// The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         /// </summary>
         [Input("srcIp")]
         public Input<string>? SrcIp { get; set; }

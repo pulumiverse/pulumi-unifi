@@ -11,9 +11,24 @@ using Pulumi;
 namespace Pulumiverse.Unifi.IAM
 {
     /// <summary>
-    /// `unifi.iam.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
+    /// The `unifi.iam.User` resource manages network clients in the UniFi controller, which are identified by their unique MAC addresses.
     /// 
-    /// Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
+    /// This resource allows you to manage:
+    ///   * Fixed IP assignments
+    ///   * User groups and network access
+    ///   * Network blocking and restrictions
+    ///   * Local DNS records
+    /// 
+    /// Important Notes:
+    ///   * Users are automatically created in the controller when devices connect to the network
+    ///   * By default, this resource can take over management of existing users (controlled by `AllowExisting`)
+    ///   * Users can be 'forgotten' on destroy (controlled by `SkipForgetOnDestroy`)
+    /// 
+    /// This resource is particularly useful for:
+    ///   * Managing static IP assignments
+    ///   * Implementing access control
+    ///   * Setting up local DNS records
+    ///   * Organizing devices into user groups
     /// 
     /// ## Example Usage
     /// 
@@ -41,13 +56,18 @@ namespace Pulumiverse.Unifi.IAM
     public partial class User : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        /// Allow this resource to take over management of an existing user in the UniFi controller. When true:
+        ///   * The resource can manage users that were automatically created when devices connected
+        ///   * Existing settings will be overwritten with the values specified in this resource
+        ///   * If false, attempting to manage an existing user will result in an error
+        /// 
+        /// Use with caution as it can modify settings for devices already connected to your network.
         /// </summary>
         [Output("allowExisting")]
         public Output<bool?> AllowExisting { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether this user should be blocked from the network.
+        /// When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         /// </summary>
         [Output("blocked")]
         public Output<bool?> Blocked { get; private set; } = null!;
@@ -59,7 +79,7 @@ namespace Pulumiverse.Unifi.IAM
         public Output<int?> DevIdOverride { get; private set; } = null!;
 
         /// <summary>
-        /// A fixed IPv4 address for this user.
+        /// A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         /// </summary>
         [Output("fixedIp")]
         public Output<string?> FixedIp { get; private set; } = null!;
@@ -77,49 +97,49 @@ namespace Pulumiverse.Unifi.IAM
         public Output<string> Ip { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies the local DNS record for this user.
+        /// A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
         /// </summary>
         [Output("localDnsRecord")]
         public Output<string?> LocalDnsRecord { get; private set; } = null!;
 
         /// <summary>
-        /// The MAC address of the user.
+        /// The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
         /// </summary>
         [Output("mac")]
         public Output<string> Mac { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the user.
+        /// A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The network ID for this user.
+        /// The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
         /// </summary>
         [Output("networkId")]
         public Output<string?> NetworkId { get; private set; } = null!;
 
         /// <summary>
-        /// A note with additional information for the user.
+        /// Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
         /// </summary>
         [Output("note")]
         public Output<string?> Note { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the user with.
+        /// The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        /// When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
         /// </summary>
         [Output("skipForgetOnDestroy")]
         public Output<bool?> SkipForgetOnDestroy { get; private set; } = null!;
 
         /// <summary>
-        /// The user group ID for the user.
+        /// The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         /// </summary>
         [Output("userGroupId")]
         public Output<string?> UserGroupId { get; private set; } = null!;
@@ -172,13 +192,18 @@ namespace Pulumiverse.Unifi.IAM
     public sealed class UserArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        /// Allow this resource to take over management of an existing user in the UniFi controller. When true:
+        ///   * The resource can manage users that were automatically created when devices connected
+        ///   * Existing settings will be overwritten with the values specified in this resource
+        ///   * If false, attempting to manage an existing user will result in an error
+        /// 
+        /// Use with caution as it can modify settings for devices already connected to your network.
         /// </summary>
         [Input("allowExisting")]
         public Input<bool>? AllowExisting { get; set; }
 
         /// <summary>
-        /// Specifies whether this user should be blocked from the network.
+        /// When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         /// </summary>
         [Input("blocked")]
         public Input<bool>? Blocked { get; set; }
@@ -190,55 +215,55 @@ namespace Pulumiverse.Unifi.IAM
         public Input<int>? DevIdOverride { get; set; }
 
         /// <summary>
-        /// A fixed IPv4 address for this user.
+        /// A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         /// </summary>
         [Input("fixedIp")]
         public Input<string>? FixedIp { get; set; }
 
         /// <summary>
-        /// Specifies the local DNS record for this user.
+        /// A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
         /// </summary>
         [Input("localDnsRecord")]
         public Input<string>? LocalDnsRecord { get; set; }
 
         /// <summary>
-        /// The MAC address of the user.
+        /// The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
         /// </summary>
         [Input("mac", required: true)]
         public Input<string> Mac { get; set; } = null!;
 
         /// <summary>
-        /// The name of the user.
+        /// A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The network ID for this user.
+        /// The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
         /// </summary>
         [Input("networkId")]
         public Input<string>? NetworkId { get; set; }
 
         /// <summary>
-        /// A note with additional information for the user.
+        /// Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
         /// </summary>
         [Input("note")]
         public Input<string>? Note { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the user with.
+        /// The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        /// When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
         /// </summary>
         [Input("skipForgetOnDestroy")]
         public Input<bool>? SkipForgetOnDestroy { get; set; }
 
         /// <summary>
-        /// The user group ID for the user.
+        /// The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         /// </summary>
         [Input("userGroupId")]
         public Input<string>? UserGroupId { get; set; }
@@ -252,13 +277,18 @@ namespace Pulumiverse.Unifi.IAM
     public sealed class UserState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+        /// Allow this resource to take over management of an existing user in the UniFi controller. When true:
+        ///   * The resource can manage users that were automatically created when devices connected
+        ///   * Existing settings will be overwritten with the values specified in this resource
+        ///   * If false, attempting to manage an existing user will result in an error
+        /// 
+        /// Use with caution as it can modify settings for devices already connected to your network.
         /// </summary>
         [Input("allowExisting")]
         public Input<bool>? AllowExisting { get; set; }
 
         /// <summary>
-        /// Specifies whether this user should be blocked from the network.
+        /// When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         /// </summary>
         [Input("blocked")]
         public Input<bool>? Blocked { get; set; }
@@ -270,7 +300,7 @@ namespace Pulumiverse.Unifi.IAM
         public Input<int>? DevIdOverride { get; set; }
 
         /// <summary>
-        /// A fixed IPv4 address for this user.
+        /// A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         /// </summary>
         [Input("fixedIp")]
         public Input<string>? FixedIp { get; set; }
@@ -288,49 +318,49 @@ namespace Pulumiverse.Unifi.IAM
         public Input<string>? Ip { get; set; }
 
         /// <summary>
-        /// Specifies the local DNS record for this user.
+        /// A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
         /// </summary>
         [Input("localDnsRecord")]
         public Input<string>? LocalDnsRecord { get; set; }
 
         /// <summary>
-        /// The MAC address of the user.
+        /// The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
         /// </summary>
         [Input("mac")]
         public Input<string>? Mac { get; set; }
 
         /// <summary>
-        /// The name of the user.
+        /// A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The network ID for this user.
+        /// The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
         /// </summary>
         [Input("networkId")]
         public Input<string>? NetworkId { get; set; }
 
         /// <summary>
-        /// A note with additional information for the user.
+        /// Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
         /// </summary>
         [Input("note")]
         public Input<string>? Note { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the user with.
+        /// The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+        /// When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
         /// </summary>
         [Input("skipForgetOnDestroy")]
         public Input<bool>? SkipForgetOnDestroy { get; set; }
 
         /// <summary>
-        /// The user group ID for the user.
+        /// The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         /// </summary>
         [Input("userGroupId")]
         public Input<string>? UserGroupId { get; set; }

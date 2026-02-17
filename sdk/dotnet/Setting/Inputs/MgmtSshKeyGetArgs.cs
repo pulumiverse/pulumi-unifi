@@ -14,25 +14,28 @@ namespace Pulumiverse.Unifi.Setting.Inputs
     public sealed class MgmtSshKeyGetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Comment.
+        /// An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
         /// </summary>
         [Input("comment")]
         public Input<string>? Comment { get; set; }
 
         /// <summary>
-        /// Public SSH key.
+        /// The public key string. This is the content that would normally go in an AuthorizedKeys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
         /// </summary>
         [Input("key")]
         public Input<string>? Key { get; set; }
 
         /// <summary>
-        /// Name of SSH key.
+        /// A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
         /// <summary>
-        /// Type of SSH key, e.g. ssh-rsa.
+        /// The type of SSH key. Common values include:
+        ///   * `ssh-rsa` - RSA key (most common)
+        ///   * `ssh-ed25519` - Ed25519 key (more secure)
+        ///   * `ecdsa-sha2-nistp256` - ECDSA key
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

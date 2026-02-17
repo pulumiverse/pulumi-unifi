@@ -11,7 +11,15 @@ using Pulumi;
 namespace Pulumiverse.Unifi
 {
     /// <summary>
-    /// `unifi.StaticRoute` manages a static route.
+    /// The `unifi.StaticRoute` resource manages static routes on UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+    /// 
+    /// Static routes allow you to manually configure routing paths for specific networks. This is useful for:
+    ///   * Connecting to networks not directly connected to your UniFi gateway
+    ///   * Creating backup routes for redundancy
+    ///   * Implementing policy-based routing
+    ///   * Blocking traffic to specific networks using blackhole routes
+    /// 
+    /// Routes can be configured to use either a next-hop IP address, a specific interface, or as a blackhole route.
     /// 
     /// ## Example Usage
     /// 
@@ -56,43 +64,49 @@ namespace Pulumiverse.Unifi
     public partial class StaticRoute : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// The distance of the static route.
+        /// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
         /// </summary>
         [Output("distance")]
         public Output<int> Distance { get; private set; } = null!;
 
         /// <summary>
-        /// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+        /// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+        ///   * `WAN1` - Primary WAN interface
+        ///   * `WAN2` - Secondary WAN interface
+        ///   * A network ID for internal networks
         /// </summary>
         [Output("interface")]
         public Output<string?> Interface { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the static route.
+        /// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The network subnet address.
+        /// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
         /// </summary>
         [Output("network")]
         public Output<string> Network { get; private set; } = null!;
 
         /// <summary>
-        /// The next hop of the static route (only valid for `nexthop-route` type).
+        /// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
         /// </summary>
         [Output("nextHop")]
         public Output<string?> NextHop { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the static route with.
+        /// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        /// The type of static route. Valid values are:
+        ///   * `interface-route` - Route traffic through a specific interface
+        ///   * `nexthop-route` - Route traffic to a specific next-hop IP address
+        ///   * `Blackhole` - Drop all traffic to this network
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
@@ -145,43 +159,49 @@ namespace Pulumiverse.Unifi
     public sealed class StaticRouteArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The distance of the static route.
+        /// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
         /// </summary>
         [Input("distance", required: true)]
         public Input<int> Distance { get; set; } = null!;
 
         /// <summary>
-        /// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+        /// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+        ///   * `WAN1` - Primary WAN interface
+        ///   * `WAN2` - Secondary WAN interface
+        ///   * A network ID for internal networks
         /// </summary>
         [Input("interface")]
         public Input<string>? Interface { get; set; }
 
         /// <summary>
-        /// The name of the static route.
+        /// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The network subnet address.
+        /// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
         /// </summary>
         [Input("network", required: true)]
         public Input<string> Network { get; set; } = null!;
 
         /// <summary>
-        /// The next hop of the static route (only valid for `nexthop-route` type).
+        /// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
         /// </summary>
         [Input("nextHop")]
         public Input<string>? NextHop { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the static route with.
+        /// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        /// The type of static route. Valid values are:
+        ///   * `interface-route` - Route traffic through a specific interface
+        ///   * `nexthop-route` - Route traffic to a specific next-hop IP address
+        ///   * `Blackhole` - Drop all traffic to this network
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
@@ -195,43 +215,49 @@ namespace Pulumiverse.Unifi
     public sealed class StaticRouteState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The distance of the static route.
+        /// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
         /// </summary>
         [Input("distance")]
         public Input<int>? Distance { get; set; }
 
         /// <summary>
-        /// The interface of the static route (only valid for `interface-route` type). This can be `WAN1`, `WAN2`, or a network ID.
+        /// The outbound interface to use for this route. Only used when type is set to 'interface-route'. Can be:
+        ///   * `WAN1` - Primary WAN interface
+        ///   * `WAN2` - Secondary WAN interface
+        ///   * A network ID for internal networks
         /// </summary>
         [Input("interface")]
         public Input<string>? Interface { get; set; }
 
         /// <summary>
-        /// The name of the static route.
+        /// A friendly name for the static route to help identify its purpose (e.g., 'Backup DC Link' or 'Cloud VPN Route').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The network subnet address.
+        /// The destination network in CIDR notation that this route will direct traffic to (e.g., '10.0.0.0/16' or '192.168.100.0/24').
         /// </summary>
         [Input("network")]
         public Input<string>? Network { get; set; }
 
         /// <summary>
-        /// The next hop of the static route (only valid for `nexthop-route` type).
+        /// The IP address of the next hop router for this route. Only used when type is set to 'nexthop-route'. This should be an IP address that is directly reachable from your UniFi gateway.
         /// </summary>
         [Input("nextHop")]
         public Input<string>? NextHop { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the static route with.
+        /// The name of the UniFi site where the static route should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// The type of static route. Can be `interface-route`, `nexthop-route`, or `blackhole`.
+        /// The type of static route. Valid values are:
+        ///   * `interface-route` - Route traffic through a specific interface
+        ///   * `nexthop-route` - Route traffic to a specific next-hop IP address
+        ///   * `Blackhole` - Drop all traffic to this network
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }

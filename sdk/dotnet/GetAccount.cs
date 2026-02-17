@@ -13,19 +13,19 @@ namespace Pulumiverse.Unifi
     public static class GetAccount
     {
         /// <summary>
-        /// `unifi.Account` data source can be used to retrieve RADIUS user accounts
+        /// unifi_account data source can be used to retrieve RADIUS user accounts
         /// </summary>
         public static Task<GetAccountResult> InvokeAsync(GetAccountArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetAccountResult>("unifi:index/getAccount:getAccount", args ?? new GetAccountArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.Account` data source can be used to retrieve RADIUS user accounts
+        /// unifi_account data source can be used to retrieve RADIUS user accounts
         /// </summary>
         public static Output<GetAccountResult> Invoke(GetAccountInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetAccountResult>("unifi:index/getAccount:getAccount", args ?? new GetAccountInvokeArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.Account` data source can be used to retrieve RADIUS user accounts
+        /// unifi_account data source can be used to retrieve RADIUS user accounts
         /// </summary>
         public static Output<GetAccountResult> Invoke(GetAccountInvokeArgs args, InvokeOutputOptions options)
             => global::Pulumi.Deployment.Instance.Invoke<GetAccountResult>("unifi:index/getAccount:getAccount", args ?? new GetAccountInvokeArgs(), options.WithDefaults());

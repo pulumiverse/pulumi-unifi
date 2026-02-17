@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * `unifi.Account` data source can be used to retrieve RADIUS user accounts
+ * unifi_account data source can be used to retrieve RADIUS user accounts
  */
 export function getAccount(args: GetAccountArgs, opts?: pulumi.InvokeOptions): Promise<GetAccountResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -63,7 +63,7 @@ export interface GetAccountResult {
     readonly tunnelType: number;
 }
 /**
- * `unifi.Account` data source can be used to retrieve RADIUS user accounts
+ * unifi_account data source can be used to retrieve RADIUS user accounts
  */
 export function getAccountOutput(args: GetAccountOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetAccountResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});

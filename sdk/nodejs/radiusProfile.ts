@@ -7,7 +7,18 @@ import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
- * `unifi.RadiusProfile` manages RADIUS profiles.
+ * The `unifi.RadiusProfile` resource manages RADIUS authentication profiles for UniFi networks.
+ *
+ * RADIUS (Remote Authentication Dial-In User Service) profiles enable enterprise-grade authentication and authorization for:
+ *   * 802.1X network access control
+ *   * WPA2/WPA3-Enterprise wireless networks
+ *   * Dynamic VLAN assignment
+ *   * User activity accounting
+ *
+ * Each profile can be configured with:
+ *   * Multiple authentication and accounting servers
+ *   * VLAN assignment settings
+ *   * Accounting update intervals
  */
 export class RadiusProfile extends pulumi.CustomResource {
     /**
@@ -38,49 +49,57 @@ export class RadiusProfile extends pulumi.CustomResource {
     }
 
     /**
-     * Specifies whether to use RADIUS accounting. Defaults to `false`.
+     * Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
      */
-    public readonly accountingEnabled!: pulumi.Output<boolean | undefined>;
+    declare public readonly accountingEnabled: pulumi.Output<boolean | undefined>;
     /**
-     * RADIUS accounting servers.
+     * List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+     *   * IP address of the RADIUS server
+     *   * Port number (default: 1813)
+     *   * Shared secret for secure communication
      */
-    public readonly acctServers!: pulumi.Output<outputs.RadiusProfileAcctServer[] | undefined>;
+    declare public readonly acctServers: pulumi.Output<outputs.RadiusProfileAcctServer[] | undefined>;
     /**
-     * RADIUS authentication servers.
+     * List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+     *   * IP address of the RADIUS server
+     *   * Shared secret for secure communication
      */
-    public readonly authServers!: pulumi.Output<outputs.RadiusProfileAuthServer[] | undefined>;
+    declare public readonly authServers: pulumi.Output<outputs.RadiusProfileAuthServer[] | undefined>;
     /**
-     * Specifies whether to use interim_update. Defaults to `false`.
+     * Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
      */
-    public readonly interimUpdateEnabled!: pulumi.Output<boolean | undefined>;
+    declare public readonly interimUpdateEnabled: pulumi.Output<boolean | undefined>;
     /**
-     * Specifies interimUpdate interval. Defaults to `3600`.
+     * The interval (in seconds) between interim updates when `interimUpdateEnabled` is true. Default is 3600 seconds (1 hour).
      */
-    public readonly interimUpdateInterval!: pulumi.Output<number | undefined>;
+    declare public readonly interimUpdateInterval: pulumi.Output<number | undefined>;
     /**
-     * The name of the profile.
+     * A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
-     * The name of the site to associate the settings with.
+     * The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
      */
-    public readonly site!: pulumi.Output<string>;
+    declare public readonly site: pulumi.Output<string>;
     /**
-     * Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+     * Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
      */
-    public readonly useUsgAcctServer!: pulumi.Output<boolean | undefined>;
+    declare public readonly useUsgAcctServer: pulumi.Output<boolean | undefined>;
     /**
-     * Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+     * Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
      */
-    public readonly useUsgAuthServer!: pulumi.Output<boolean | undefined>;
+    declare public readonly useUsgAuthServer: pulumi.Output<boolean | undefined>;
     /**
-     * Specifies whether to use vlan on wired connections. Defaults to `false`.
+     * Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
      */
-    public readonly vlanEnabled!: pulumi.Output<boolean | undefined>;
+    declare public readonly vlanEnabled: pulumi.Output<boolean | undefined>;
     /**
-     * Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+     * VLAN assignment mode for wireless networks. Valid values are:
+     *   * `disabled` - Do not use RADIUS-assigned VLANs
+     *   * `optional` - Use RADIUS-assigned VLAN if provided
+     *   * `required` - Require RADIUS-assigned VLAN for authentication to succeed
      */
-    public readonly vlanWlanMode!: pulumi.Output<string | undefined>;
+    declare public readonly vlanWlanMode: pulumi.Output<string | undefined>;
 
     /**
      * Create a RadiusProfile resource with the given unique name, arguments, and options.
@@ -95,30 +114,30 @@ export class RadiusProfile extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as RadiusProfileState | undefined;
-            resourceInputs["accountingEnabled"] = state ? state.accountingEnabled : undefined;
-            resourceInputs["acctServers"] = state ? state.acctServers : undefined;
-            resourceInputs["authServers"] = state ? state.authServers : undefined;
-            resourceInputs["interimUpdateEnabled"] = state ? state.interimUpdateEnabled : undefined;
-            resourceInputs["interimUpdateInterval"] = state ? state.interimUpdateInterval : undefined;
-            resourceInputs["name"] = state ? state.name : undefined;
-            resourceInputs["site"] = state ? state.site : undefined;
-            resourceInputs["useUsgAcctServer"] = state ? state.useUsgAcctServer : undefined;
-            resourceInputs["useUsgAuthServer"] = state ? state.useUsgAuthServer : undefined;
-            resourceInputs["vlanEnabled"] = state ? state.vlanEnabled : undefined;
-            resourceInputs["vlanWlanMode"] = state ? state.vlanWlanMode : undefined;
+            resourceInputs["accountingEnabled"] = state?.accountingEnabled;
+            resourceInputs["acctServers"] = state?.acctServers;
+            resourceInputs["authServers"] = state?.authServers;
+            resourceInputs["interimUpdateEnabled"] = state?.interimUpdateEnabled;
+            resourceInputs["interimUpdateInterval"] = state?.interimUpdateInterval;
+            resourceInputs["name"] = state?.name;
+            resourceInputs["site"] = state?.site;
+            resourceInputs["useUsgAcctServer"] = state?.useUsgAcctServer;
+            resourceInputs["useUsgAuthServer"] = state?.useUsgAuthServer;
+            resourceInputs["vlanEnabled"] = state?.vlanEnabled;
+            resourceInputs["vlanWlanMode"] = state?.vlanWlanMode;
         } else {
             const args = argsOrState as RadiusProfileArgs | undefined;
-            resourceInputs["accountingEnabled"] = args ? args.accountingEnabled : undefined;
-            resourceInputs["acctServers"] = args ? args.acctServers : undefined;
-            resourceInputs["authServers"] = args ? args.authServers : undefined;
-            resourceInputs["interimUpdateEnabled"] = args ? args.interimUpdateEnabled : undefined;
-            resourceInputs["interimUpdateInterval"] = args ? args.interimUpdateInterval : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["site"] = args ? args.site : undefined;
-            resourceInputs["useUsgAcctServer"] = args ? args.useUsgAcctServer : undefined;
-            resourceInputs["useUsgAuthServer"] = args ? args.useUsgAuthServer : undefined;
-            resourceInputs["vlanEnabled"] = args ? args.vlanEnabled : undefined;
-            resourceInputs["vlanWlanMode"] = args ? args.vlanWlanMode : undefined;
+            resourceInputs["accountingEnabled"] = args?.accountingEnabled;
+            resourceInputs["acctServers"] = args?.acctServers;
+            resourceInputs["authServers"] = args?.authServers;
+            resourceInputs["interimUpdateEnabled"] = args?.interimUpdateEnabled;
+            resourceInputs["interimUpdateInterval"] = args?.interimUpdateInterval;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["site"] = args?.site;
+            resourceInputs["useUsgAcctServer"] = args?.useUsgAcctServer;
+            resourceInputs["useUsgAuthServer"] = args?.useUsgAuthServer;
+            resourceInputs["vlanEnabled"] = args?.vlanEnabled;
+            resourceInputs["vlanWlanMode"] = args?.vlanWlanMode;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(RadiusProfile.__pulumiType, name, resourceInputs, opts);
@@ -130,47 +149,55 @@ export class RadiusProfile extends pulumi.CustomResource {
  */
 export interface RadiusProfileState {
     /**
-     * Specifies whether to use RADIUS accounting. Defaults to `false`.
+     * Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
      */
     accountingEnabled?: pulumi.Input<boolean>;
     /**
-     * RADIUS accounting servers.
+     * List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+     *   * IP address of the RADIUS server
+     *   * Port number (default: 1813)
+     *   * Shared secret for secure communication
      */
     acctServers?: pulumi.Input<pulumi.Input<inputs.RadiusProfileAcctServer>[]>;
     /**
-     * RADIUS authentication servers.
+     * List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+     *   * IP address of the RADIUS server
+     *   * Shared secret for secure communication
      */
     authServers?: pulumi.Input<pulumi.Input<inputs.RadiusProfileAuthServer>[]>;
     /**
-     * Specifies whether to use interim_update. Defaults to `false`.
+     * Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
      */
     interimUpdateEnabled?: pulumi.Input<boolean>;
     /**
-     * Specifies interimUpdate interval. Defaults to `3600`.
+     * The interval (in seconds) between interim updates when `interimUpdateEnabled` is true. Default is 3600 seconds (1 hour).
      */
     interimUpdateInterval?: pulumi.Input<number>;
     /**
-     * The name of the profile.
+     * A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
      */
     name?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the settings with.
+     * The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+     * Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
      */
     useUsgAcctServer?: pulumi.Input<boolean>;
     /**
-     * Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+     * Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
      */
     useUsgAuthServer?: pulumi.Input<boolean>;
     /**
-     * Specifies whether to use vlan on wired connections. Defaults to `false`.
+     * Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
      */
     vlanEnabled?: pulumi.Input<boolean>;
     /**
-     * Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+     * VLAN assignment mode for wireless networks. Valid values are:
+     *   * `disabled` - Do not use RADIUS-assigned VLANs
+     *   * `optional` - Use RADIUS-assigned VLAN if provided
+     *   * `required` - Require RADIUS-assigned VLAN for authentication to succeed
      */
     vlanWlanMode?: pulumi.Input<string>;
 }
@@ -180,47 +207,55 @@ export interface RadiusProfileState {
  */
 export interface RadiusProfileArgs {
     /**
-     * Specifies whether to use RADIUS accounting. Defaults to `false`.
+     * Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
      */
     accountingEnabled?: pulumi.Input<boolean>;
     /**
-     * RADIUS accounting servers.
+     * List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+     *   * IP address of the RADIUS server
+     *   * Port number (default: 1813)
+     *   * Shared secret for secure communication
      */
     acctServers?: pulumi.Input<pulumi.Input<inputs.RadiusProfileAcctServer>[]>;
     /**
-     * RADIUS authentication servers.
+     * List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+     *   * IP address of the RADIUS server
+     *   * Shared secret for secure communication
      */
     authServers?: pulumi.Input<pulumi.Input<inputs.RadiusProfileAuthServer>[]>;
     /**
-     * Specifies whether to use interim_update. Defaults to `false`.
+     * Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
      */
     interimUpdateEnabled?: pulumi.Input<boolean>;
     /**
-     * Specifies interimUpdate interval. Defaults to `3600`.
+     * The interval (in seconds) between interim updates when `interimUpdateEnabled` is true. Default is 3600 seconds (1 hour).
      */
     interimUpdateInterval?: pulumi.Input<number>;
     /**
-     * The name of the profile.
+     * A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
      */
     name?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the settings with.
+     * The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+     * Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
      */
     useUsgAcctServer?: pulumi.Input<boolean>;
     /**
-     * Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+     * Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
      */
     useUsgAuthServer?: pulumi.Input<boolean>;
     /**
-     * Specifies whether to use vlan on wired connections. Defaults to `false`.
+     * Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
      */
     vlanEnabled?: pulumi.Input<boolean>;
     /**
-     * Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+     * VLAN assignment mode for wireless networks. Valid values are:
+     *   * `disabled` - Do not use RADIUS-assigned VLANs
+     *   * `optional` - Use RADIUS-assigned VLAN if provided
+     *   * `required` - Require RADIUS-assigned VLAN for authentication to succeed
      */
     vlanWlanMode?: pulumi.Input<string>;
 }

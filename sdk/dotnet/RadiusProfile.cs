@@ -11,73 +11,92 @@ using Pulumi;
 namespace Pulumiverse.Unifi
 {
     /// <summary>
-    /// `unifi.RadiusProfile` manages RADIUS profiles.
+    /// The `unifi.RadiusProfile` resource manages RADIUS authentication profiles for UniFi networks.
+    /// 
+    /// RADIUS (Remote Authentication Dial-In User Service) profiles enable enterprise-grade authentication and authorization for:
+    ///   * 802.1X network access control
+    ///   * WPA2/WPA3-Enterprise wireless networks
+    ///   * Dynamic VLAN assignment
+    ///   * User activity accounting
+    /// 
+    /// Each profile can be configured with:
+    ///   * Multiple authentication and accounting servers
+    ///   * VLAN assignment settings
+    ///   * Accounting update intervals
     /// </summary>
     [UnifiResourceType("unifi:index/radiusProfile:RadiusProfile")]
     public partial class RadiusProfile : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Specifies whether to use RADIUS accounting. Defaults to `false`.
+        /// Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         /// </summary>
         [Output("accountingEnabled")]
         public Output<bool?> AccountingEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// RADIUS accounting servers.
+        /// List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+        ///   * IP address of the RADIUS server
+        ///   * Port number (default: 1813)
+        ///   * Shared secret for secure communication
         /// </summary>
         [Output("acctServers")]
         public Output<ImmutableArray<Outputs.RadiusProfileAcctServer>> AcctServers { get; private set; } = null!;
 
         /// <summary>
-        /// RADIUS authentication servers.
+        /// List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+        ///   * IP address of the RADIUS server
+        ///   * Shared secret for secure communication
         /// </summary>
         [Output("authServers")]
         public Output<ImmutableArray<Outputs.RadiusProfileAuthServer>> AuthServers { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use interim_update. Defaults to `false`.
+        /// Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
         /// </summary>
         [Output("interimUpdateEnabled")]
         public Output<bool?> InterimUpdateEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies interim_update interval. Defaults to `3600`.
+        /// The interval (in seconds) between interim updates when `InterimUpdateEnabled` is true. Default is 3600 seconds (1 hour).
         /// </summary>
         [Output("interimUpdateInterval")]
         public Output<int?> InterimUpdateInterval { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the profile.
+        /// A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the settings with.
+        /// The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        /// Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
         /// </summary>
         [Output("useUsgAcctServer")]
         public Output<bool?> UseUsgAcctServer { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        /// Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
         /// </summary>
         [Output("useUsgAuthServer")]
         public Output<bool?> UseUsgAuthServer { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use vlan on wired connections. Defaults to `false`.
+        /// Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
         /// </summary>
         [Output("vlanEnabled")]
         public Output<bool?> VlanEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        /// VLAN assignment mode for wireless networks. Valid values are:
+        ///   * `Disabled` - Do not use RADIUS-assigned VLANs
+        ///   * `Optional` - Use RADIUS-assigned VLAN if provided
+        ///   * `Required` - Require RADIUS-assigned VLAN for authentication to succeed
         /// </summary>
         [Output("vlanWlanMode")]
         public Output<string?> VlanWlanMode { get; private set; } = null!;
@@ -130,7 +149,7 @@ namespace Pulumiverse.Unifi
     public sealed class RadiusProfileArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether to use RADIUS accounting. Defaults to `false`.
+        /// Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         /// </summary>
         [Input("accountingEnabled")]
         public Input<bool>? AccountingEnabled { get; set; }
@@ -139,7 +158,10 @@ namespace Pulumiverse.Unifi
         private InputList<Inputs.RadiusProfileAcctServerArgs>? _acctServers;
 
         /// <summary>
-        /// RADIUS accounting servers.
+        /// List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+        ///   * IP address of the RADIUS server
+        ///   * Port number (default: 1813)
+        ///   * Shared secret for secure communication
         /// </summary>
         public InputList<Inputs.RadiusProfileAcctServerArgs> AcctServers
         {
@@ -151,7 +173,9 @@ namespace Pulumiverse.Unifi
         private InputList<Inputs.RadiusProfileAuthServerArgs>? _authServers;
 
         /// <summary>
-        /// RADIUS authentication servers.
+        /// List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+        ///   * IP address of the RADIUS server
+        ///   * Shared secret for secure communication
         /// </summary>
         public InputList<Inputs.RadiusProfileAuthServerArgs> AuthServers
         {
@@ -160,49 +184,52 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies whether to use interim_update. Defaults to `false`.
+        /// Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
         /// </summary>
         [Input("interimUpdateEnabled")]
         public Input<bool>? InterimUpdateEnabled { get; set; }
 
         /// <summary>
-        /// Specifies interim_update interval. Defaults to `3600`.
+        /// The interval (in seconds) between interim updates when `InterimUpdateEnabled` is true. Default is 3600 seconds (1 hour).
         /// </summary>
         [Input("interimUpdateInterval")]
         public Input<int>? InterimUpdateInterval { get; set; }
 
         /// <summary>
-        /// The name of the profile.
+        /// A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the settings with.
+        /// The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        /// Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
         /// </summary>
         [Input("useUsgAcctServer")]
         public Input<bool>? UseUsgAcctServer { get; set; }
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        /// Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
         /// </summary>
         [Input("useUsgAuthServer")]
         public Input<bool>? UseUsgAuthServer { get; set; }
 
         /// <summary>
-        /// Specifies whether to use vlan on wired connections. Defaults to `false`.
+        /// Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
         /// </summary>
         [Input("vlanEnabled")]
         public Input<bool>? VlanEnabled { get; set; }
 
         /// <summary>
-        /// Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        /// VLAN assignment mode for wireless networks. Valid values are:
+        ///   * `Disabled` - Do not use RADIUS-assigned VLANs
+        ///   * `Optional` - Use RADIUS-assigned VLAN if provided
+        ///   * `Required` - Require RADIUS-assigned VLAN for authentication to succeed
         /// </summary>
         [Input("vlanWlanMode")]
         public Input<string>? VlanWlanMode { get; set; }
@@ -216,7 +243,7 @@ namespace Pulumiverse.Unifi
     public sealed class RadiusProfileState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies whether to use RADIUS accounting. Defaults to `false`.
+        /// Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         /// </summary>
         [Input("accountingEnabled")]
         public Input<bool>? AccountingEnabled { get; set; }
@@ -225,7 +252,10 @@ namespace Pulumiverse.Unifi
         private InputList<Inputs.RadiusProfileAcctServerGetArgs>? _acctServers;
 
         /// <summary>
-        /// RADIUS accounting servers.
+        /// List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+        ///   * IP address of the RADIUS server
+        ///   * Port number (default: 1813)
+        ///   * Shared secret for secure communication
         /// </summary>
         public InputList<Inputs.RadiusProfileAcctServerGetArgs> AcctServers
         {
@@ -237,7 +267,9 @@ namespace Pulumiverse.Unifi
         private InputList<Inputs.RadiusProfileAuthServerGetArgs>? _authServers;
 
         /// <summary>
-        /// RADIUS authentication servers.
+        /// List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+        ///   * IP address of the RADIUS server
+        ///   * Shared secret for secure communication
         /// </summary>
         public InputList<Inputs.RadiusProfileAuthServerGetArgs> AuthServers
         {
@@ -246,49 +278,52 @@ namespace Pulumiverse.Unifi
         }
 
         /// <summary>
-        /// Specifies whether to use interim_update. Defaults to `false`.
+        /// Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
         /// </summary>
         [Input("interimUpdateEnabled")]
         public Input<bool>? InterimUpdateEnabled { get; set; }
 
         /// <summary>
-        /// Specifies interim_update interval. Defaults to `3600`.
+        /// The interval (in seconds) between interim updates when `InterimUpdateEnabled` is true. Default is 3600 seconds (1 hour).
         /// </summary>
         [Input("interimUpdateInterval")]
         public Input<int>? InterimUpdateInterval { get; set; }
 
         /// <summary>
-        /// The name of the profile.
+        /// A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the settings with.
+        /// The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS accounting server. Defaults to `false`.
+        /// Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
         /// </summary>
         [Input("useUsgAcctServer")]
         public Input<bool>? UseUsgAcctServer { get; set; }
 
         /// <summary>
-        /// Specifies whether to use usg as a RADIUS authentication server. Defaults to `false`.
+        /// Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
         /// </summary>
         [Input("useUsgAuthServer")]
         public Input<bool>? UseUsgAuthServer { get; set; }
 
         /// <summary>
-        /// Specifies whether to use vlan on wired connections. Defaults to `false`.
+        /// Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
         /// </summary>
         [Input("vlanEnabled")]
         public Input<bool>? VlanEnabled { get; set; }
 
         /// <summary>
-        /// Specifies whether to use vlan on wireless connections. Must be one of `disabled`, `optional`, or `required`. Defaults to ``.
+        /// VLAN assignment mode for wireless networks. Valid values are:
+        ///   * `Disabled` - Do not use RADIUS-assigned VLANs
+        ///   * `Optional` - Use RADIUS-assigned VLAN if provided
+        ///   * `Required` - Require RADIUS-assigned VLAN for authentication to succeed
         /// </summary>
         [Input("vlanWlanMode")]
         public Input<string>? VlanWlanMode { get; set; }

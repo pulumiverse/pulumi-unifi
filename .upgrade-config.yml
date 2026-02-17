@@ -1,6 +1,6 @@
 ---
 upstream-provider-name: terraform-provider-unifi
-upstream-provider-org: paultyng
+upstream-provider-org: filipowm
 remove-plugins: true
 pulumi-infer-version: true
 pr-reviewers: ringods

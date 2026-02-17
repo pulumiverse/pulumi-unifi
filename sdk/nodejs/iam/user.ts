@@ -5,9 +5,24 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 /**
- * `unifi.iam.User` manages a user (or "client" in the UI) of the network, these are identified by unique MAC addresses.
+ * The `unifi.iam.User` resource manages network clients in the UniFi controller, which are identified by their unique MAC addresses.
  *
- * Users are created in the controller when observed on the network, so the resource defaults to allowing itself to just take over management of a MAC address, but this can be turned off.
+ * This resource allows you to manage:
+ *   * Fixed IP assignments
+ *   * User groups and network access
+ *   * Network blocking and restrictions
+ *   * Local DNS records
+ *
+ * Important Notes:
+ *   * Users are automatically created in the controller when devices connect to the network
+ *   * By default, this resource can take over management of existing users (controlled by `allowExisting`)
+ *   * Users can be 'forgotten' on destroy (controlled by `skipForgetOnDestroy`)
+ *
+ * This resource is particularly useful for:
+ *   * Managing static IP assignments
+ *   * Implementing access control
+ *   * Setting up local DNS records
+ *   * Organizing devices into user groups
  *
  * ## Example Usage
  *
@@ -53,61 +68,66 @@ export class User extends pulumi.CustomResource {
     }
 
     /**
-     * Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+     * Allow this resource to take over management of an existing user in the UniFi controller. When true:
+     *   * The resource can manage users that were automatically created when devices connected
+     *   * Existing settings will be overwritten with the values specified in this resource
+     *   * If false, attempting to manage an existing user will result in an error
+     *
+     * Use with caution as it can modify settings for devices already connected to your network.
      */
-    public readonly allowExisting!: pulumi.Output<boolean | undefined>;
+    declare public readonly allowExisting: pulumi.Output<boolean | undefined>;
     /**
-     * Specifies whether this user should be blocked from the network.
+     * When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
      */
-    public readonly blocked!: pulumi.Output<boolean | undefined>;
+    declare public readonly blocked: pulumi.Output<boolean | undefined>;
     /**
      * Override the device fingerprint.
      */
-    public readonly devIdOverride!: pulumi.Output<number | undefined>;
+    declare public readonly devIdOverride: pulumi.Output<number | undefined>;
     /**
-     * A fixed IPv4 address for this user.
+     * A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
      */
-    public readonly fixedIp!: pulumi.Output<string | undefined>;
+    declare public readonly fixedIp: pulumi.Output<string | undefined>;
     /**
      * The hostname of the user.
      */
-    public /*out*/ readonly hostname!: pulumi.Output<string>;
+    declare public /*out*/ readonly hostname: pulumi.Output<string>;
     /**
      * The IP address of the user.
      */
-    public /*out*/ readonly ip!: pulumi.Output<string>;
+    declare public /*out*/ readonly ip: pulumi.Output<string>;
     /**
-     * Specifies the local DNS record for this user.
+     * A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
      */
-    public readonly localDnsRecord!: pulumi.Output<string | undefined>;
+    declare public readonly localDnsRecord: pulumi.Output<string | undefined>;
     /**
-     * The MAC address of the user.
+     * The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
      */
-    public readonly mac!: pulumi.Output<string>;
+    declare public readonly mac: pulumi.Output<string>;
     /**
-     * The name of the user.
+     * A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
      */
-    public readonly name!: pulumi.Output<string>;
+    declare public readonly name: pulumi.Output<string>;
     /**
-     * The network ID for this user.
+     * The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
      */
-    public readonly networkId!: pulumi.Output<string | undefined>;
+    declare public readonly networkId: pulumi.Output<string | undefined>;
     /**
-     * A note with additional information for the user.
+     * Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
      */
-    public readonly note!: pulumi.Output<string | undefined>;
+    declare public readonly note: pulumi.Output<string | undefined>;
     /**
-     * The name of the site to associate the user with.
+     * The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
      */
-    public readonly site!: pulumi.Output<string>;
+    declare public readonly site: pulumi.Output<string>;
     /**
-     * Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+     * When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
      */
-    public readonly skipForgetOnDestroy!: pulumi.Output<boolean | undefined>;
+    declare public readonly skipForgetOnDestroy: pulumi.Output<boolean | undefined>;
     /**
-     * The user group ID for the user.
+     * The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
      */
-    public readonly userGroupId!: pulumi.Output<string | undefined>;
+    declare public readonly userGroupId: pulumi.Output<string | undefined>;
 
     /**
      * Create a User resource with the given unique name, arguments, and options.
@@ -122,37 +142,37 @@ export class User extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as UserState | undefined;
-            resourceInputs["allowExisting"] = state ? state.allowExisting : undefined;
-            resourceInputs["blocked"] = state ? state.blocked : undefined;
-            resourceInputs["devIdOverride"] = state ? state.devIdOverride : undefined;
-            resourceInputs["fixedIp"] = state ? state.fixedIp : undefined;
-            resourceInputs["hostname"] = state ? state.hostname : undefined;
-            resourceInputs["ip"] = state ? state.ip : undefined;
-            resourceInputs["localDnsRecord"] = state ? state.localDnsRecord : undefined;
-            resourceInputs["mac"] = state ? state.mac : undefined;
-            resourceInputs["name"] = state ? state.name : undefined;
-            resourceInputs["networkId"] = state ? state.networkId : undefined;
-            resourceInputs["note"] = state ? state.note : undefined;
-            resourceInputs["site"] = state ? state.site : undefined;
-            resourceInputs["skipForgetOnDestroy"] = state ? state.skipForgetOnDestroy : undefined;
-            resourceInputs["userGroupId"] = state ? state.userGroupId : undefined;
+            resourceInputs["allowExisting"] = state?.allowExisting;
+            resourceInputs["blocked"] = state?.blocked;
+            resourceInputs["devIdOverride"] = state?.devIdOverride;
+            resourceInputs["fixedIp"] = state?.fixedIp;
+            resourceInputs["hostname"] = state?.hostname;
+            resourceInputs["ip"] = state?.ip;
+            resourceInputs["localDnsRecord"] = state?.localDnsRecord;
+            resourceInputs["mac"] = state?.mac;
+            resourceInputs["name"] = state?.name;
+            resourceInputs["networkId"] = state?.networkId;
+            resourceInputs["note"] = state?.note;
+            resourceInputs["site"] = state?.site;
+            resourceInputs["skipForgetOnDestroy"] = state?.skipForgetOnDestroy;
+            resourceInputs["userGroupId"] = state?.userGroupId;
         } else {
             const args = argsOrState as UserArgs | undefined;
-            if ((!args || args.mac === undefined) && !opts.urn) {
+            if (args?.mac === undefined && !opts.urn) {
                 throw new Error("Missing required property 'mac'");
             }
-            resourceInputs["allowExisting"] = args ? args.allowExisting : undefined;
-            resourceInputs["blocked"] = args ? args.blocked : undefined;
-            resourceInputs["devIdOverride"] = args ? args.devIdOverride : undefined;
-            resourceInputs["fixedIp"] = args ? args.fixedIp : undefined;
-            resourceInputs["localDnsRecord"] = args ? args.localDnsRecord : undefined;
-            resourceInputs["mac"] = args ? args.mac : undefined;
-            resourceInputs["name"] = args ? args.name : undefined;
-            resourceInputs["networkId"] = args ? args.networkId : undefined;
-            resourceInputs["note"] = args ? args.note : undefined;
-            resourceInputs["site"] = args ? args.site : undefined;
-            resourceInputs["skipForgetOnDestroy"] = args ? args.skipForgetOnDestroy : undefined;
-            resourceInputs["userGroupId"] = args ? args.userGroupId : undefined;
+            resourceInputs["allowExisting"] = args?.allowExisting;
+            resourceInputs["blocked"] = args?.blocked;
+            resourceInputs["devIdOverride"] = args?.devIdOverride;
+            resourceInputs["fixedIp"] = args?.fixedIp;
+            resourceInputs["localDnsRecord"] = args?.localDnsRecord;
+            resourceInputs["mac"] = args?.mac;
+            resourceInputs["name"] = args?.name;
+            resourceInputs["networkId"] = args?.networkId;
+            resourceInputs["note"] = args?.note;
+            resourceInputs["site"] = args?.site;
+            resourceInputs["skipForgetOnDestroy"] = args?.skipForgetOnDestroy;
+            resourceInputs["userGroupId"] = args?.userGroupId;
             resourceInputs["hostname"] = undefined /*out*/;
             resourceInputs["ip"] = undefined /*out*/;
         }
@@ -166,11 +186,16 @@ export class User extends pulumi.CustomResource {
  */
 export interface UserState {
     /**
-     * Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+     * Allow this resource to take over management of an existing user in the UniFi controller. When true:
+     *   * The resource can manage users that were automatically created when devices connected
+     *   * Existing settings will be overwritten with the values specified in this resource
+     *   * If false, attempting to manage an existing user will result in an error
+     *
+     * Use with caution as it can modify settings for devices already connected to your network.
      */
     allowExisting?: pulumi.Input<boolean>;
     /**
-     * Specifies whether this user should be blocked from the network.
+     * When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
      */
     blocked?: pulumi.Input<boolean>;
     /**
@@ -178,7 +203,7 @@ export interface UserState {
      */
     devIdOverride?: pulumi.Input<number>;
     /**
-     * A fixed IPv4 address for this user.
+     * A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
      */
     fixedIp?: pulumi.Input<string>;
     /**
@@ -190,35 +215,35 @@ export interface UserState {
      */
     ip?: pulumi.Input<string>;
     /**
-     * Specifies the local DNS record for this user.
+     * A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
      */
     localDnsRecord?: pulumi.Input<string>;
     /**
-     * The MAC address of the user.
+     * The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
      */
     mac?: pulumi.Input<string>;
     /**
-     * The name of the user.
+     * A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
      */
     name?: pulumi.Input<string>;
     /**
-     * The network ID for this user.
+     * The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
      */
     networkId?: pulumi.Input<string>;
     /**
-     * A note with additional information for the user.
+     * Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
      */
     note?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the user with.
+     * The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+     * When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
      */
     skipForgetOnDestroy?: pulumi.Input<boolean>;
     /**
-     * The user group ID for the user.
+     * The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
      */
     userGroupId?: pulumi.Input<string>;
 }
@@ -228,11 +253,16 @@ export interface UserState {
  */
 export interface UserArgs {
     /**
-     * Specifies whether this resource should just take over control of an existing user. Defaults to `true`.
+     * Allow this resource to take over management of an existing user in the UniFi controller. When true:
+     *   * The resource can manage users that were automatically created when devices connected
+     *   * Existing settings will be overwritten with the values specified in this resource
+     *   * If false, attempting to manage an existing user will result in an error
+     *
+     * Use with caution as it can modify settings for devices already connected to your network.
      */
     allowExisting?: pulumi.Input<boolean>;
     /**
-     * Specifies whether this user should be blocked from the network.
+     * When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
      */
     blocked?: pulumi.Input<boolean>;
     /**
@@ -240,39 +270,39 @@ export interface UserArgs {
      */
     devIdOverride?: pulumi.Input<number>;
     /**
-     * A fixed IPv4 address for this user.
+     * A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
      */
     fixedIp?: pulumi.Input<string>;
     /**
-     * Specifies the local DNS record for this user.
+     * A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
      */
     localDnsRecord?: pulumi.Input<string>;
     /**
-     * The MAC address of the user.
+     * The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
      */
     mac: pulumi.Input<string>;
     /**
-     * The name of the user.
+     * A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
      */
     name?: pulumi.Input<string>;
     /**
-     * The network ID for this user.
+     * The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
      */
     networkId?: pulumi.Input<string>;
     /**
-     * A note with additional information for the user.
+     * Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
      */
     note?: pulumi.Input<string>;
     /**
-     * The name of the site to associate the user with.
+     * The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string>;
     /**
-     * Specifies whether this resource should tell the controller to "forget" the user on destroy. Defaults to `false`.
+     * When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
      */
     skipForgetOnDestroy?: pulumi.Input<boolean>;
     /**
-     * The user group ID for the user.
+     * The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
      */
     userGroupId?: pulumi.Input<string>;
 }

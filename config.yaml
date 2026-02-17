@@ -1,4 +1,4 @@
 template: bridged
 provider: unifi
-upstream-provider-org: paultyng
+upstream-provider-org: filipowm
 lint: false

@@ -28,13 +28,19 @@ class DynamicDNSArgs:
                  site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a DynamicDNS resource.
-        :param pulumi.Input[_builtins.str] host_name: The host name to update in the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] service: The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
-        :param pulumi.Input[_builtins.str] interface: The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
-        :param pulumi.Input[_builtins.str] login: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] password: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] server: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the dynamic DNS with.
+        :param pulumi.Input[_builtins.str] host_name: The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
+        :param pulumi.Input[_builtins.str] service: The Dynamic DNS service provider. Common values include:
+                 * `dyndns` - DynDNS service
+                 * `noip` - No-IP service
+                 * `duckdns` - Duck DNS service
+               Check your UniFi controller for the complete list of supported providers.
+        :param pulumi.Input[_builtins.str] interface: The WAN interface to use for the dynamic DNS updates. Valid values are:
+                 * `wan` - Primary WAN interface (default)
+                 * `wan2` - Secondary WAN interface
+        :param pulumi.Input[_builtins.str] login: The username or login for your DDNS provider account.
+        :param pulumi.Input[_builtins.str] password: The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
+        :param pulumi.Input[_builtins.str] server: The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         pulumi.set(__self__, "host_name", host_name)
         pulumi.set(__self__, "service", service)
@@ -53,7 +59,7 @@ class DynamicDNSArgs:
     @pulumi.getter(name="hostName")
     def host_name(self) -> pulumi.Input[_builtins.str]:
         """
-        The host name to update in the dynamic DNS service.
+        The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
         """
         return pulumi.get(self, "host_name")
 
@@ -65,7 +71,11 @@ class DynamicDNSArgs:
     @pulumi.getter
     def service(self) -> pulumi.Input[_builtins.str]:
         """
-        The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+        The Dynamic DNS service provider. Common values include:
+          * `dyndns` - DynDNS service
+          * `noip` - No-IP service
+          * `duckdns` - Duck DNS service
+        Check your UniFi controller for the complete list of supported providers.
         """
         return pulumi.get(self, "service")
 
@@ -77,7 +87,9 @@ class DynamicDNSArgs:
     @pulumi.getter
     def interface(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+        The WAN interface to use for the dynamic DNS updates. Valid values are:
+          * `wan` - Primary WAN interface (default)
+          * `wan2` - Secondary WAN interface
         """
         return pulumi.get(self, "interface")
 
@@ -89,7 +101,7 @@ class DynamicDNSArgs:
     @pulumi.getter
     def login(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The username or login for your DDNS provider account.
         """
         return pulumi.get(self, "login")
 
@@ -101,7 +113,7 @@ class DynamicDNSArgs:
     @pulumi.getter
     def password(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
         """
         return pulumi.get(self, "password")
 
@@ -113,7 +125,7 @@ class DynamicDNSArgs:
     @pulumi.getter
     def server(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
         """
         return pulumi.get(self, "server")
 
@@ -125,7 +137,7 @@ class DynamicDNSArgs:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the dynamic DNS with.
+        The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -146,13 +158,19 @@ class _DynamicDNSState:
                  site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering DynamicDNS resources.
-        :param pulumi.Input[_builtins.str] host_name: The host name to update in the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] interface: The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
-        :param pulumi.Input[_builtins.str] login: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] password: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] server: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] service: The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the dynamic DNS with.
+        :param pulumi.Input[_builtins.str] host_name: The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
+        :param pulumi.Input[_builtins.str] interface: The WAN interface to use for the dynamic DNS updates. Valid values are:
+                 * `wan` - Primary WAN interface (default)
+                 * `wan2` - Secondary WAN interface
+        :param pulumi.Input[_builtins.str] login: The username or login for your DDNS provider account.
+        :param pulumi.Input[_builtins.str] password: The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
+        :param pulumi.Input[_builtins.str] server: The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
+        :param pulumi.Input[_builtins.str] service: The Dynamic DNS service provider. Common values include:
+                 * `dyndns` - DynDNS service
+                 * `noip` - No-IP service
+                 * `duckdns` - Duck DNS service
+               Check your UniFi controller for the complete list of supported providers.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         if host_name is not None:
             pulumi.set(__self__, "host_name", host_name)
@@ -173,7 +191,7 @@ class _DynamicDNSState:
     @pulumi.getter(name="hostName")
     def host_name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The host name to update in the dynamic DNS service.
+        The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
         """
         return pulumi.get(self, "host_name")
 
@@ -185,7 +203,9 @@ class _DynamicDNSState:
     @pulumi.getter
     def interface(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+        The WAN interface to use for the dynamic DNS updates. Valid values are:
+          * `wan` - Primary WAN interface (default)
+          * `wan2` - Secondary WAN interface
         """
         return pulumi.get(self, "interface")
 
@@ -197,7 +217,7 @@ class _DynamicDNSState:
     @pulumi.getter
     def login(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The username or login for your DDNS provider account.
         """
         return pulumi.get(self, "login")
 
@@ -209,7 +229,7 @@ class _DynamicDNSState:
     @pulumi.getter
     def password(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
         """
         return pulumi.get(self, "password")
 
@@ -221,7 +241,7 @@ class _DynamicDNSState:
     @pulumi.getter
     def server(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
         """
         return pulumi.get(self, "server")
 
@@ -233,7 +253,11 @@ class _DynamicDNSState:
     @pulumi.getter
     def service(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+        The Dynamic DNS service provider. Common values include:
+          * `dyndns` - DynDNS service
+          * `noip` - No-IP service
+          * `duckdns` - Duck DNS service
+        Check your UniFi controller for the complete list of supported providers.
         """
         return pulumi.get(self, "service")
 
@@ -245,7 +269,7 @@ class _DynamicDNSState:
     @pulumi.getter
     def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
-        The name of the site to associate the dynamic DNS with.
+        The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -269,7 +293,20 @@ class DynamicDNS(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        `DynamicDNS` manages dynamic DNS settings for different providers.
+        The `DynamicDNS` resource manages Dynamic DNS (DDNS).
+
+        Dynamic DNS allows you to access your network using a domain name even when your public IP address changes. This is useful for:
+          * Remote access to your network
+          * Hosting services from your home/office network
+          * VPN connections to your network
+
+        The resource supports various DDNS providers including:
+          * DynDNS
+          * No-IP
+          * Duck DNS
+          * And many others
+
+        Each DDNS configuration can be associated with either the primary (WAN) or secondary (WAN2) interface.
 
         ## Example Usage
 
@@ -287,13 +324,19 @@ class DynamicDNS(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] host_name: The host name to update in the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] interface: The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
-        :param pulumi.Input[_builtins.str] login: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] password: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] server: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] service: The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the dynamic DNS with.
+        :param pulumi.Input[_builtins.str] host_name: The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
+        :param pulumi.Input[_builtins.str] interface: The WAN interface to use for the dynamic DNS updates. Valid values are:
+                 * `wan` - Primary WAN interface (default)
+                 * `wan2` - Secondary WAN interface
+        :param pulumi.Input[_builtins.str] login: The username or login for your DDNS provider account.
+        :param pulumi.Input[_builtins.str] password: The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
+        :param pulumi.Input[_builtins.str] server: The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
+        :param pulumi.Input[_builtins.str] service: The Dynamic DNS service provider. Common values include:
+                 * `dyndns` - DynDNS service
+                 * `noip` - No-IP service
+                 * `duckdns` - Duck DNS service
+               Check your UniFi controller for the complete list of supported providers.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         ...
     @overload
@@ -302,7 +345,20 @@ class DynamicDNS(pulumi.CustomResource):
                  args: DynamicDNSArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        `DynamicDNS` manages dynamic DNS settings for different providers.
+        The `DynamicDNS` resource manages Dynamic DNS (DDNS).
+
+        Dynamic DNS allows you to access your network using a domain name even when your public IP address changes. This is useful for:
+          * Remote access to your network
+          * Hosting services from your home/office network
+          * VPN connections to your network
+
+        The resource supports various DDNS providers including:
+          * DynDNS
+          * No-IP
+          * Duck DNS
+          * And many others
+
+        Each DDNS configuration can be associated with either the primary (WAN) or secondary (WAN2) interface.
 
         ## Example Usage
 
@@ -386,13 +442,19 @@ class DynamicDNS(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[_builtins.str] host_name: The host name to update in the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] interface: The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
-        :param pulumi.Input[_builtins.str] login: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] password: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] server: The server for the dynamic DNS service.
-        :param pulumi.Input[_builtins.str] service: The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
-        :param pulumi.Input[_builtins.str] site: The name of the site to associate the dynamic DNS with.
+        :param pulumi.Input[_builtins.str] host_name: The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
+        :param pulumi.Input[_builtins.str] interface: The WAN interface to use for the dynamic DNS updates. Valid values are:
+                 * `wan` - Primary WAN interface (default)
+                 * `wan2` - Secondary WAN interface
+        :param pulumi.Input[_builtins.str] login: The username or login for your DDNS provider account.
+        :param pulumi.Input[_builtins.str] password: The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
+        :param pulumi.Input[_builtins.str] server: The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
+        :param pulumi.Input[_builtins.str] service: The Dynamic DNS service provider. Common values include:
+                 * `dyndns` - DynDNS service
+                 * `noip` - No-IP service
+                 * `duckdns` - Duck DNS service
+               Check your UniFi controller for the complete list of supported providers.
+        :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -411,7 +473,7 @@ class DynamicDNS(pulumi.CustomResource):
     @pulumi.getter(name="hostName")
     def host_name(self) -> pulumi.Output[_builtins.str]:
         """
-        The host name to update in the dynamic DNS service.
+        The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
         """
         return pulumi.get(self, "host_name")
 
@@ -419,7 +481,9 @@ class DynamicDNS(pulumi.CustomResource):
     @pulumi.getter
     def interface(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The interface for the dynamic DNS. Can be `wan` or `wan2`. Defaults to `wan`.
+        The WAN interface to use for the dynamic DNS updates. Valid values are:
+          * `wan` - Primary WAN interface (default)
+          * `wan2` - Secondary WAN interface
         """
         return pulumi.get(self, "interface")
 
@@ -427,7 +491,7 @@ class DynamicDNS(pulumi.CustomResource):
     @pulumi.getter
     def login(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The username or login for your DDNS provider account.
         """
         return pulumi.get(self, "login")
 
@@ -435,7 +499,7 @@ class DynamicDNS(pulumi.CustomResource):
     @pulumi.getter
     def password(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The password or token for your DDNS provider account. This value will be stored securely and not displayed in logs.
         """
         return pulumi.get(self, "password")
 
@@ -443,7 +507,7 @@ class DynamicDNS(pulumi.CustomResource):
     @pulumi.getter
     def server(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The server for the dynamic DNS service.
+        The update server hostname for your DDNS provider. Usually not required as the UniFi controller knows the correct servers for common providers.
         """
         return pulumi.get(self, "server")
 
@@ -451,7 +515,11 @@ class DynamicDNS(pulumi.CustomResource):
     @pulumi.getter
     def service(self) -> pulumi.Output[_builtins.str]:
         """
-        The Dynamic DNS service provider, various values are supported (for example `dyndns`, etc.).
+        The Dynamic DNS service provider. Common values include:
+          * `dyndns` - DynDNS service
+          * `noip` - No-IP service
+          * `duckdns` - Duck DNS service
+        Check your UniFi controller for the complete list of supported providers.
         """
         return pulumi.get(self, "service")
 
@@ -459,7 +527,7 @@ class DynamicDNS(pulumi.CustomResource):
     @pulumi.getter
     def site(self) -> pulumi.Output[_builtins.str]:
         """
-        The name of the site to associate the dynamic DNS with.
+        The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 

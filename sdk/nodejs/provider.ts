@@ -26,24 +26,25 @@ export class Provider extends pulumi.ProviderResource {
     }
 
     /**
-     * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-     * path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-     * standard controller paths.
+     * API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
      */
-    public readonly apiUrl!: pulumi.Output<string | undefined>;
+    declare public readonly apiKey: pulumi.Output<string | undefined>;
+    /**
+     * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
+     */
+    declare public readonly apiUrl: pulumi.Output<string | undefined>;
     /**
      * Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
      */
-    public readonly password!: pulumi.Output<string | undefined>;
+    declare public readonly password: pulumi.Output<string | undefined>;
     /**
-     * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-     * Default: `default`
+     * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
      */
-    public readonly site!: pulumi.Output<string | undefined>;
+    declare public readonly site: pulumi.Output<string | undefined>;
     /**
      * Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
      */
-    public readonly username!: pulumi.Output<string | undefined>;
+    declare public readonly username: pulumi.Output<string | undefined>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.
@@ -56,13 +57,16 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            resourceInputs["allowInsecure"] = pulumi.output((args ? args.allowInsecure : undefined) ?? utilities.getEnvBoolean("UNIFI_INSECURE")).apply(JSON.stringify);
-            resourceInputs["apiUrl"] = (args ? args.apiUrl : undefined) ?? utilities.getEnv("UNIFI_API");
-            resourceInputs["password"] = (args ? args.password : undefined) ?? utilities.getEnv("UNIFI_PASSWORD");
-            resourceInputs["site"] = (args ? args.site : undefined) ?? utilities.getEnv("UNIFI_SITE");
-            resourceInputs["username"] = (args ? args.username : undefined) ?? utilities.getEnv("UNIFI_USERNAME");
+            resourceInputs["allowInsecure"] = pulumi.output((args?.allowInsecure) ?? utilities.getEnvBoolean("UNIFI_INSECURE")).apply(JSON.stringify);
+            resourceInputs["apiKey"] = args?.apiKey ? pulumi.secret(args.apiKey) : undefined;
+            resourceInputs["apiUrl"] = (args?.apiUrl) ?? utilities.getEnv("UNIFI_API");
+            resourceInputs["password"] = (args?.password ? pulumi.secret(args.password) : undefined) ?? utilities.getEnv("UNIFI_PASSWORD");
+            resourceInputs["site"] = (args?.site) ?? utilities.getEnv("UNIFI_SITE");
+            resourceInputs["username"] = (args?.username) ?? utilities.getEnv("UNIFI_USERNAME");
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["apiKey", "password"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
     }
 
@@ -81,14 +85,15 @@ export class Provider extends pulumi.ProviderResource {
  */
 export interface ProviderArgs {
     /**
-     * Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local
-     * API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
+     * Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
      */
     allowInsecure?: pulumi.Input<boolean>;
     /**
-     * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the
-     * path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more
-     * standard controller paths.
+     * API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+     */
+    apiKey?: pulumi.Input<string>;
+    /**
+     * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
      */
     apiUrl?: pulumi.Input<string>;
     /**
@@ -96,8 +101,7 @@ export interface ProviderArgs {
      */
     password?: pulumi.Input<string>;
     /**
-     * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable.
-     * Default: `default`
+     * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
      */
     site?: pulumi.Input<string>;
     /**

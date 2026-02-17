@@ -11,7 +11,17 @@ using Pulumi;
 namespace Pulumiverse.Unifi.Setting
 {
     /// <summary>
-    /// `unifi.setting.Mgmt` manages settings for a unifi site.
+    /// The `unifi.setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
+    /// 
+    /// This resource allows you to configure important management features including:
+    ///   * Automatic firmware upgrades for UniFi devices
+    ///   * SSH access for advanced configuration and troubleshooting
+    ///   * SSH key management for secure remote access
+    /// 
+    /// These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
+    ///   * Maintaining device security through automatic updates
+    ///   * Enabling secure remote administration
+    ///   * Implementing SSH key-based authentication
     /// 
     /// ## Example Usage
     /// 
@@ -32,6 +42,30 @@ namespace Pulumiverse.Unifi.Setting
     ///     {
     ///         Site = example.Name,
     ///         AutoUpgrade = true,
+    ///         AutoUpgradeHour = 3,
+    ///         AdvancedFeatureEnabled = true,
+    ///         AlertEnabled = true,
+    ///         BootSound = false,
+    ///         DebugToolsEnabled = true,
+    ///         DirectConnectEnabled = false,
+    ///         LedEnabled = true,
+    ///         OutdoorModeEnabled = false,
+    ///         UnifiIdpEnabled = false,
+    ///         WifimanEnabled = true,
+    ///         SshEnabled = true,
+    ///         SshAuthPasswordEnabled = true,
+    ///         SshBindWildcard = false,
+    ///         SshUsername = "admin",
+    ///         SshKeys = new[]
+    ///         {
+    ///             new Unifi.Setting.Inputs.MgmtSshKeyArgs
+    ///             {
+    ///                 Name = "Admin Key",
+    ///                 Type = "ssh-rsa",
+    ///                 Key = "AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx...",
+    ///                 Comment = "admin@example.com",
+    ///             },
+    ///         },
     ///     });
     /// 
     /// });
@@ -41,28 +75,112 @@ namespace Pulumiverse.Unifi.Setting
     public partial class Mgmt : global::Pulumi.CustomResource
     {
         /// <summary>
-        /// Automatically upgrade device firmware.
+        /// Enable advanced features for UniFi devices at this site.
         /// </summary>
-        [Output("autoUpgrade")]
-        public Output<bool?> AutoUpgrade { get; private set; } = null!;
+        [Output("advancedFeatureEnabled")]
+        public Output<bool> AdvancedFeatureEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// The name of the site to associate the settings with.
+        /// Enable alerts for UniFi devices at this site.
+        /// </summary>
+        [Output("alertEnabled")]
+        public Output<bool> AlertEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
+        /// </summary>
+        [Output("autoUpgrade")]
+        public Output<bool> AutoUpgrade { get; private set; } = null!;
+
+        /// <summary>
+        /// The hour of the day (0-23) when automatic firmware upgrades will occur.
+        /// </summary>
+        [Output("autoUpgradeHour")]
+        public Output<int> AutoUpgradeHour { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable the boot sound for UniFi devices at this site.
+        /// </summary>
+        [Output("bootSound")]
+        public Output<bool> BootSound { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        /// </summary>
+        [Output("debugToolsEnabled")]
+        public Output<bool> DebugToolsEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable direct connect for UniFi devices at this site.
+        /// </summary>
+        [Output("directConnectEnabled")]
+        public Output<bool> DirectConnectEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable the LED light for UniFi devices at this site.
+        /// </summary>
+        [Output("ledEnabled")]
+        public Output<bool> LedEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable outdoor mode for UniFi devices at this site.
+        /// </summary>
+        [Output("outdoorModeEnabled")]
+        public Output<bool> OutdoorModeEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
 
         /// <summary>
-        /// Enable SSH authentication.
+        /// Enable SSH password authentication for UniFi devices at this site.
         /// </summary>
-        [Output("sshEnabled")]
-        public Output<bool?> SshEnabled { get; private set; } = null!;
+        [Output("sshAuthPasswordEnabled")]
+        public Output<bool> SshAuthPasswordEnabled { get; private set; } = null!;
 
         /// <summary>
-        /// SSH key.
+        /// Enable SSH bind wildcard for UniFi devices at this site.
+        /// </summary>
+        [Output("sshBindWildcard")]
+        public Output<bool> SshBindWildcard { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
+        /// </summary>
+        [Output("sshEnabled")]
+        public Output<bool> SshEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
         /// </summary>
         [Output("sshKeys")]
         public Output<ImmutableArray<Outputs.MgmtSshKey>> SshKeys { get; private set; } = null!;
+
+        /// <summary>
+        /// The SSH password for UniFi devices at this site.
+        /// </summary>
+        [Output("sshPassword")]
+        public Output<string> SshPassword { get; private set; } = null!;
+
+        /// <summary>
+        /// The SSH username for UniFi devices at this site.
+        /// </summary>
+        [Output("sshUsername")]
+        public Output<string> SshUsername { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable UniFi IDP for UniFi devices at this site.
+        /// </summary>
+        [Output("unifiIdpEnabled")]
+        public Output<bool> UnifiIdpEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Enable WiFiman for UniFi devices at this site.
+        /// </summary>
+        [Output("wifimanEnabled")]
+        public Output<bool> WifimanEnabled { get; private set; } = null!;
 
 
         /// <summary>
@@ -88,6 +206,10 @@ namespace Pulumiverse.Unifi.Setting
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "sshPassword",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -112,19 +234,79 @@ namespace Pulumiverse.Unifi.Setting
     public sealed class MgmtArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Automatically upgrade device firmware.
+        /// Enable advanced features for UniFi devices at this site.
+        /// </summary>
+        [Input("advancedFeatureEnabled")]
+        public Input<bool>? AdvancedFeatureEnabled { get; set; }
+
+        /// <summary>
+        /// Enable alerts for UniFi devices at this site.
+        /// </summary>
+        [Input("alertEnabled")]
+        public Input<bool>? AlertEnabled { get; set; }
+
+        /// <summary>
+        /// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
         /// </summary>
         [Input("autoUpgrade")]
         public Input<bool>? AutoUpgrade { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the settings with.
+        /// The hour of the day (0-23) when automatic firmware upgrades will occur.
+        /// </summary>
+        [Input("autoUpgradeHour")]
+        public Input<int>? AutoUpgradeHour { get; set; }
+
+        /// <summary>
+        /// Enable the boot sound for UniFi devices at this site.
+        /// </summary>
+        [Input("bootSound")]
+        public Input<bool>? BootSound { get; set; }
+
+        /// <summary>
+        /// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        /// </summary>
+        [Input("debugToolsEnabled")]
+        public Input<bool>? DebugToolsEnabled { get; set; }
+
+        /// <summary>
+        /// Enable direct connect for UniFi devices at this site.
+        /// </summary>
+        [Input("directConnectEnabled")]
+        public Input<bool>? DirectConnectEnabled { get; set; }
+
+        /// <summary>
+        /// Enable the LED light for UniFi devices at this site.
+        /// </summary>
+        [Input("ledEnabled")]
+        public Input<bool>? LedEnabled { get; set; }
+
+        /// <summary>
+        /// Enable outdoor mode for UniFi devices at this site.
+        /// </summary>
+        [Input("outdoorModeEnabled")]
+        public Input<bool>? OutdoorModeEnabled { get; set; }
+
+        /// <summary>
+        /// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Enable SSH authentication.
+        /// Enable SSH password authentication for UniFi devices at this site.
+        /// </summary>
+        [Input("sshAuthPasswordEnabled")]
+        public Input<bool>? SshAuthPasswordEnabled { get; set; }
+
+        /// <summary>
+        /// Enable SSH bind wildcard for UniFi devices at this site.
+        /// </summary>
+        [Input("sshBindWildcard")]
+        public Input<bool>? SshBindWildcard { get; set; }
+
+        /// <summary>
+        /// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
         /// </summary>
         [Input("sshEnabled")]
         public Input<bool>? SshEnabled { get; set; }
@@ -133,13 +315,47 @@ namespace Pulumiverse.Unifi.Setting
         private InputList<Inputs.MgmtSshKeyArgs>? _sshKeys;
 
         /// <summary>
-        /// SSH key.
+        /// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
         /// </summary>
         public InputList<Inputs.MgmtSshKeyArgs> SshKeys
         {
             get => _sshKeys ?? (_sshKeys = new InputList<Inputs.MgmtSshKeyArgs>());
             set => _sshKeys = value;
         }
+
+        [Input("sshPassword")]
+        private Input<string>? _sshPassword;
+
+        /// <summary>
+        /// The SSH password for UniFi devices at this site.
+        /// </summary>
+        public Input<string>? SshPassword
+        {
+            get => _sshPassword;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _sshPassword = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// The SSH username for UniFi devices at this site.
+        /// </summary>
+        [Input("sshUsername")]
+        public Input<string>? SshUsername { get; set; }
+
+        /// <summary>
+        /// Enable UniFi IDP for UniFi devices at this site.
+        /// </summary>
+        [Input("unifiIdpEnabled")]
+        public Input<bool>? UnifiIdpEnabled { get; set; }
+
+        /// <summary>
+        /// Enable WiFiman for UniFi devices at this site.
+        /// </summary>
+        [Input("wifimanEnabled")]
+        public Input<bool>? WifimanEnabled { get; set; }
 
         public MgmtArgs()
         {
@@ -150,19 +366,79 @@ namespace Pulumiverse.Unifi.Setting
     public sealed class MgmtState : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Automatically upgrade device firmware.
+        /// Enable advanced features for UniFi devices at this site.
+        /// </summary>
+        [Input("advancedFeatureEnabled")]
+        public Input<bool>? AdvancedFeatureEnabled { get; set; }
+
+        /// <summary>
+        /// Enable alerts for UniFi devices at this site.
+        /// </summary>
+        [Input("alertEnabled")]
+        public Input<bool>? AlertEnabled { get; set; }
+
+        /// <summary>
+        /// Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
         /// </summary>
         [Input("autoUpgrade")]
         public Input<bool>? AutoUpgrade { get; set; }
 
         /// <summary>
-        /// The name of the site to associate the settings with.
+        /// The hour of the day (0-23) when automatic firmware upgrades will occur.
+        /// </summary>
+        [Input("autoUpgradeHour")]
+        public Input<int>? AutoUpgradeHour { get; set; }
+
+        /// <summary>
+        /// Enable the boot sound for UniFi devices at this site.
+        /// </summary>
+        [Input("bootSound")]
+        public Input<bool>? BootSound { get; set; }
+
+        /// <summary>
+        /// Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
+        /// </summary>
+        [Input("debugToolsEnabled")]
+        public Input<bool>? DebugToolsEnabled { get; set; }
+
+        /// <summary>
+        /// Enable direct connect for UniFi devices at this site.
+        /// </summary>
+        [Input("directConnectEnabled")]
+        public Input<bool>? DirectConnectEnabled { get; set; }
+
+        /// <summary>
+        /// Enable the LED light for UniFi devices at this site.
+        /// </summary>
+        [Input("ledEnabled")]
+        public Input<bool>? LedEnabled { get; set; }
+
+        /// <summary>
+        /// Enable outdoor mode for UniFi devices at this site.
+        /// </summary>
+        [Input("outdoorModeEnabled")]
+        public Input<bool>? OutdoorModeEnabled { get; set; }
+
+        /// <summary>
+        /// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
 
         /// <summary>
-        /// Enable SSH authentication.
+        /// Enable SSH password authentication for UniFi devices at this site.
+        /// </summary>
+        [Input("sshAuthPasswordEnabled")]
+        public Input<bool>? SshAuthPasswordEnabled { get; set; }
+
+        /// <summary>
+        /// Enable SSH bind wildcard for UniFi devices at this site.
+        /// </summary>
+        [Input("sshBindWildcard")]
+        public Input<bool>? SshBindWildcard { get; set; }
+
+        /// <summary>
+        /// Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
         /// </summary>
         [Input("sshEnabled")]
         public Input<bool>? SshEnabled { get; set; }
@@ -171,13 +447,47 @@ namespace Pulumiverse.Unifi.Setting
         private InputList<Inputs.MgmtSshKeyGetArgs>? _sshKeys;
 
         /// <summary>
-        /// SSH key.
+        /// List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
         /// </summary>
         public InputList<Inputs.MgmtSshKeyGetArgs> SshKeys
         {
             get => _sshKeys ?? (_sshKeys = new InputList<Inputs.MgmtSshKeyGetArgs>());
             set => _sshKeys = value;
         }
+
+        [Input("sshPassword")]
+        private Input<string>? _sshPassword;
+
+        /// <summary>
+        /// The SSH password for UniFi devices at this site.
+        /// </summary>
+        public Input<string>? SshPassword
+        {
+            get => _sshPassword;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _sshPassword = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// The SSH username for UniFi devices at this site.
+        /// </summary>
+        [Input("sshUsername")]
+        public Input<string>? SshUsername { get; set; }
+
+        /// <summary>
+        /// Enable UniFi IDP for UniFi devices at this site.
+        /// </summary>
+        [Input("unifiIdpEnabled")]
+        public Input<bool>? UnifiIdpEnabled { get; set; }
+
+        /// <summary>
+        /// Enable WiFiman for UniFi devices at this site.
+        /// </summary>
+        [Input("wifimanEnabled")]
+        public Input<bool>? WifimanEnabled { get; set; }
 
         public MgmtState()
         {

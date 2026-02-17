@@ -5,37 +5,149 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 // Export members:
+export { AutoSpeedtestArgs, AutoSpeedtestState } from "./autoSpeedtest";
+export type AutoSpeedtest = import("./autoSpeedtest").AutoSpeedtest;
+export const AutoSpeedtest: typeof import("./autoSpeedtest").AutoSpeedtest = null as any;
+utilities.lazyLoad(exports, ["AutoSpeedtest"], () => require("./autoSpeedtest"));
+
+export { CountryArgs, CountryState } from "./country";
+export type Country = import("./country").Country;
+export const Country: typeof import("./country").Country = null as any;
+utilities.lazyLoad(exports, ["Country"], () => require("./country"));
+
+export { DpiArgs, DpiState } from "./dpi";
+export type Dpi = import("./dpi").Dpi;
+export const Dpi: typeof import("./dpi").Dpi = null as any;
+utilities.lazyLoad(exports, ["Dpi"], () => require("./dpi"));
+
+export { GuestAccessArgs, GuestAccessState } from "./guestAccess";
+export type GuestAccess = import("./guestAccess").GuestAccess;
+export const GuestAccess: typeof import("./guestAccess").GuestAccess = null as any;
+utilities.lazyLoad(exports, ["GuestAccess"], () => require("./guestAccess"));
+
+export { IpsArgs, IpsState } from "./ips";
+export type Ips = import("./ips").Ips;
+export const Ips: typeof import("./ips").Ips = null as any;
+utilities.lazyLoad(exports, ["Ips"], () => require("./ips"));
+
+export { LcdMonitorArgs, LcdMonitorState } from "./lcdMonitor";
+export type LcdMonitor = import("./lcdMonitor").LcdMonitor;
+export const LcdMonitor: typeof import("./lcdMonitor").LcdMonitor = null as any;
+utilities.lazyLoad(exports, ["LcdMonitor"], () => require("./lcdMonitor"));
+
+export { LocaleArgs, LocaleState } from "./locale";
+export type Locale = import("./locale").Locale;
+export const Locale: typeof import("./locale").Locale = null as any;
+utilities.lazyLoad(exports, ["Locale"], () => require("./locale"));
+
+export { MagicSiteToSiteVpnArgs, MagicSiteToSiteVpnState } from "./magicSiteToSiteVpn";
+export type MagicSiteToSiteVpn = import("./magicSiteToSiteVpn").MagicSiteToSiteVpn;
+export const MagicSiteToSiteVpn: typeof import("./magicSiteToSiteVpn").MagicSiteToSiteVpn = null as any;
+utilities.lazyLoad(exports, ["MagicSiteToSiteVpn"], () => require("./magicSiteToSiteVpn"));
+
 export { MgmtArgs, MgmtState } from "./mgmt";
 export type Mgmt = import("./mgmt").Mgmt;
 export const Mgmt: typeof import("./mgmt").Mgmt = null as any;
 utilities.lazyLoad(exports, ["Mgmt"], () => require("./mgmt"));
+
+export { NetworkOptimizationArgs, NetworkOptimizationState } from "./networkOptimization";
+export type NetworkOptimization = import("./networkOptimization").NetworkOptimization;
+export const NetworkOptimization: typeof import("./networkOptimization").NetworkOptimization = null as any;
+utilities.lazyLoad(exports, ["NetworkOptimization"], () => require("./networkOptimization"));
+
+export { NtpArgs, NtpState } from "./ntp";
+export type Ntp = import("./ntp").Ntp;
+export const Ntp: typeof import("./ntp").Ntp = null as any;
+utilities.lazyLoad(exports, ["Ntp"], () => require("./ntp"));
 
 export { RadiusArgs, RadiusState } from "./radius";
 export type Radius = import("./radius").Radius;
 export const Radius: typeof import("./radius").Radius = null as any;
 utilities.lazyLoad(exports, ["Radius"], () => require("./radius"));
 
+export { RsyslogdArgs, RsyslogdState } from "./rsyslogd";
+export type Rsyslogd = import("./rsyslogd").Rsyslogd;
+export const Rsyslogd: typeof import("./rsyslogd").Rsyslogd = null as any;
+utilities.lazyLoad(exports, ["Rsyslogd"], () => require("./rsyslogd"));
+
+export { SslInspectionArgs, SslInspectionState } from "./sslInspection";
+export type SslInspection = import("./sslInspection").SslInspection;
+export const SslInspection: typeof import("./sslInspection").SslInspection = null as any;
+utilities.lazyLoad(exports, ["SslInspection"], () => require("./sslInspection"));
+
+export { TeleportArgs, TeleportState } from "./teleport";
+export type Teleport = import("./teleport").Teleport;
+export const Teleport: typeof import("./teleport").Teleport = null as any;
+utilities.lazyLoad(exports, ["Teleport"], () => require("./teleport"));
+
 export { USGArgs, USGState } from "./usg";
 export type USG = import("./usg").USG;
 export const USG: typeof import("./usg").USG = null as any;
 utilities.lazyLoad(exports, ["USG"], () => require("./usg"));
+
+export { UswArgs, UswState } from "./usw";
+export type Usw = import("./usw").Usw;
+export const Usw: typeof import("./usw").Usw = null as any;
+utilities.lazyLoad(exports, ["Usw"], () => require("./usw"));
 
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "unifi:setting/autoSpeedtest:AutoSpeedtest":
+                return new AutoSpeedtest(name, <any>undefined, { urn })
+            case "unifi:setting/country:Country":
+                return new Country(name, <any>undefined, { urn })
+            case "unifi:setting/dpi:Dpi":
+                return new Dpi(name, <any>undefined, { urn })
+            case "unifi:setting/guestAccess:GuestAccess":
+                return new GuestAccess(name, <any>undefined, { urn })
+            case "unifi:setting/ips:Ips":
+                return new Ips(name, <any>undefined, { urn })
+            case "unifi:setting/lcdMonitor:LcdMonitor":
+                return new LcdMonitor(name, <any>undefined, { urn })
+            case "unifi:setting/locale:Locale":
+                return new Locale(name, <any>undefined, { urn })
+            case "unifi:setting/magicSiteToSiteVpn:MagicSiteToSiteVpn":
+                return new MagicSiteToSiteVpn(name, <any>undefined, { urn })
             case "unifi:setting/mgmt:Mgmt":
                 return new Mgmt(name, <any>undefined, { urn })
+            case "unifi:setting/networkOptimization:NetworkOptimization":
+                return new NetworkOptimization(name, <any>undefined, { urn })
+            case "unifi:setting/ntp:Ntp":
+                return new Ntp(name, <any>undefined, { urn })
             case "unifi:setting/radius:Radius":
                 return new Radius(name, <any>undefined, { urn })
+            case "unifi:setting/rsyslogd:Rsyslogd":
+                return new Rsyslogd(name, <any>undefined, { urn })
+            case "unifi:setting/sslInspection:SslInspection":
+                return new SslInspection(name, <any>undefined, { urn })
+            case "unifi:setting/teleport:Teleport":
+                return new Teleport(name, <any>undefined, { urn })
             case "unifi:setting/uSG:USG":
                 return new USG(name, <any>undefined, { urn })
+            case "unifi:setting/usw:Usw":
+                return new Usw(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
+pulumi.runtime.registerResourceModule("unifi", "setting/autoSpeedtest", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/country", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/dpi", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/guestAccess", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/ips", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/lcdMonitor", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/locale", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/magicSiteToSiteVpn", _module)
 pulumi.runtime.registerResourceModule("unifi", "setting/mgmt", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/networkOptimization", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/ntp", _module)
 pulumi.runtime.registerResourceModule("unifi", "setting/radius", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/rsyslogd", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/sslInspection", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/teleport", _module)
 pulumi.runtime.registerResourceModule("unifi", "setting/uSG", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/usw", _module)
