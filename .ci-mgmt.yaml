@@ -20,5 +20,3 @@ license:
 pulumiConvert: 1
 github-app:
     enabled: false
-esc:
-    enabled: false
