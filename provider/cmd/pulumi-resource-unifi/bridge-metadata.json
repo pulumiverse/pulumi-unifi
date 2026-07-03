@@ -4,10 +4,31 @@
             "unifi_account": {
                 "current": "unifi:index/account:Account"
             },
+            "unifi_ap_group": {
+                "current": "unifi:index/apGroup:ApGroup",
+                "fields": {
+                    "device_macs": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "unifi_device": {
                 "current": "unifi:index/device:Device",
                 "fields": {
+                    "ether_lighting": {
+                        "maxItemsOne": true
+                    },
                     "port_override": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "excluded_network_ids": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "radio": {
                         "maxItemsOne": false
                     }
                 }
@@ -62,6 +83,9 @@
                             "ips": {
                                 "maxItemsOne": false
                             },
+                            "network_ids": {
+                                "maxItemsOne": false
+                            },
                             "regions": {
                                 "maxItemsOne": false
                             },
@@ -95,13 +119,30 @@
                     }
                 }
             },
+            "unifi_firewall_zone_policy_order": {
+                "current": "unifi:firewall/zonePolicyOrder:ZonePolicyOrder",
+                "fields": {
+                    "after_predefined_ids": {
+                        "maxItemsOne": false
+                    },
+                    "before_predefined_ids": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
             "unifi_network": {
                 "current": "unifi:index/network:Network",
                 "fields": {
                     "dhcp_dns": {
                         "maxItemsOne": false
                     },
+                    "dhcp_guarding_trusted_servers": {
+                        "maxItemsOne": false
+                    },
                     "dhcp_v6_dns": {
+                        "maxItemsOne": false
+                    },
+                    "uid_vpn_custom_routing": {
                         "maxItemsOne": false
                     },
                     "wan_dns": {
@@ -140,11 +181,46 @@
             "unifi_setting_auto_speedtest": {
                 "current": "unifi:setting/autoSpeedtest:AutoSpeedtest"
             },
+            "unifi_setting_connectivity": {
+                "current": "unifi:setting/connectivity:Connectivity"
+            },
             "unifi_setting_country": {
                 "current": "unifi:setting/country:Country"
             },
             "unifi_setting_dpi": {
                 "current": "unifi:setting/dpi:Dpi"
+            },
+            "unifi_setting_ether_lighting": {
+                "current": "unifi:setting/etherLighting:EtherLighting",
+                "fields": {
+                    "network_overrides": {
+                        "maxItemsOne": false
+                    },
+                    "speed_overrides": {
+                        "maxItemsOne": false
+                    }
+                }
+            },
+            "unifi_setting_global_switch": {
+                "current": "unifi:setting/globalSwitch:GlobalSwitch",
+                "fields": {
+                    "acl_device_isolation": {
+                        "maxItemsOne": false
+                    },
+                    "acl_l3_isolation": {
+                        "maxItemsOne": false,
+                        "elem": {
+                            "fields": {
+                                "destination_networks": {
+                                    "maxItemsOne": false
+                                }
+                            }
+                        }
+                    },
+                    "switch_exclusions": {
+                        "maxItemsOne": false
+                    }
+                }
             },
             "unifi_setting_guest_access": {
                 "current": "unifi:setting/guestAccess:GuestAccess",
@@ -292,6 +368,9 @@
                     },
                     "schedule": {
                         "maxItemsOne": false
+                    },
+                    "wlan_bands": {
+                        "maxItemsOne": false
                     }
                 }
             }
@@ -351,6 +430,35 @@
         }
     },
     "auto-settings": {},
+    "default-resource-schema-fixups": {
+        "resources": {
+            "unifi_ap_group": {},
+            "unifi_dns_record": {},
+            "unifi_firewall_zone": {},
+            "unifi_firewall_zone_policy": {},
+            "unifi_firewall_zone_policy_order": {},
+            "unifi_portal_file": {},
+            "unifi_setting_auto_speedtest": {},
+            "unifi_setting_connectivity": {},
+            "unifi_setting_country": {},
+            "unifi_setting_dpi": {},
+            "unifi_setting_ether_lighting": {},
+            "unifi_setting_global_switch": {},
+            "unifi_setting_guest_access": {},
+            "unifi_setting_ips": {},
+            "unifi_setting_lcd_monitor": {},
+            "unifi_setting_locale": {},
+            "unifi_setting_magic_site_to_site_vpn": {},
+            "unifi_setting_mgmt": {},
+            "unifi_setting_network_optimization": {},
+            "unifi_setting_ntp": {},
+            "unifi_setting_rsyslogd": {},
+            "unifi_setting_ssl_inspection": {},
+            "unifi_setting_teleport": {},
+            "unifi_setting_usg": {},
+            "unifi_setting_usw": {}
+        }
+    },
     "mux": {
         "resources": {
             "unifi:dns/record:Record": 1,
@@ -358,9 +466,11 @@
             "unifi:firewall/rule:Rule": 0,
             "unifi:firewall/zone:Zone": 1,
             "unifi:firewall/zonePolicy:ZonePolicy": 1,
+            "unifi:firewall/zonePolicyOrder:ZonePolicyOrder": 1,
             "unifi:iam/group:Group": 0,
             "unifi:iam/user:User": 0,
             "unifi:index/account:Account": 0,
+            "unifi:index/apGroup:ApGroup": 1,
             "unifi:index/device:Device": 0,
             "unifi:index/dynamicDNS:DynamicDNS": 0,
             "unifi:index/network:Network": 0,
@@ -372,8 +482,11 @@
             "unifi:port/forward:Forward": 0,
             "unifi:port/profile:Profile": 0,
             "unifi:setting/autoSpeedtest:AutoSpeedtest": 1,
+            "unifi:setting/connectivity:Connectivity": 1,
             "unifi:setting/country:Country": 1,
             "unifi:setting/dpi:Dpi": 1,
+            "unifi:setting/etherLighting:EtherLighting": 1,
+            "unifi:setting/globalSwitch:GlobalSwitch": 1,
             "unifi:setting/guestAccess:GuestAccess": 1,
             "unifi:setting/ips:Ips": 1,
             "unifi:setting/lcdMonitor:LcdMonitor": 1,
@@ -396,7 +509,7 @@
             "unifi:iam/getGroup:getGroup": 0,
             "unifi:iam/getUser:getUser": 0,
             "unifi:index/getAccount:getAccount": 0,
-            "unifi:index/getApGroup:getApGroup": 0,
+            "unifi:index/getApGroup:getApGroup": 1,
             "unifi:index/getNetwork:getNetwork": 0,
             "unifi:index/getRadiusProfile:getRadiusProfile": 0,
             "unifi:port/getProfile:getProfile": 0
