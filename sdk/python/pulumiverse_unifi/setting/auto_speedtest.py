@@ -20,10 +20,11 @@ __all__ = ['AutoSpeedtestArgs', 'AutoSpeedtest']
 class AutoSpeedtestArgs:
     def __init__(__self__, *,
                  enabled: pulumi.Input[_builtins.bool],
-                 cron: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None):
+                 cron: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a AutoSpeedtest resource.
+
         :param pulumi.Input[_builtins.bool] enabled: Whether the automatic speedtest is enabled.
         :param pulumi.Input[_builtins.str] cron: Cron expression defining the schedule for automatic speedtests.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
@@ -48,37 +49,38 @@ class AutoSpeedtestArgs:
 
     @_builtins.property
     @pulumi.getter
-    def cron(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cron(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Cron expression defining the schedule for automatic speedtests.
         """
         return pulumi.get(self, "cron")
 
     @cron.setter
-    def cron(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cron(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cron", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
 @pulumi.input_type
 class _AutoSpeedtestState:
     def __init__(__self__, *,
-                 cron: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None):
+                 cron: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering AutoSpeedtest resources.
+
         :param pulumi.Input[_builtins.str] cron: Cron expression defining the schedule for automatic speedtests.
         :param pulumi.Input[_builtins.bool] enabled: Whether the automatic speedtest is enabled.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
@@ -92,38 +94,38 @@ class _AutoSpeedtestState:
 
     @_builtins.property
     @pulumi.getter
-    def cron(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def cron(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Cron expression defining the schedule for automatic speedtests.
         """
         return pulumi.get(self, "cron")
 
     @cron.setter
-    def cron(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def cron(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "cron", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the automatic speedtest is enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
@@ -133,9 +135,9 @@ class AutoSpeedtest(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cron: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 cron: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         The `setting.AutoSpeedtest` resource manages the automatic speedtest settings in the UniFi controller.Automatic speedtests can be scheduled to run at regular intervals to monitor the network performance.
@@ -152,6 +154,7 @@ class AutoSpeedtest(pulumi.CustomResource):
             enabled=True,
             cron="0 0 * * *")
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -181,6 +184,7 @@ class AutoSpeedtest(pulumi.CustomResource):
             cron="0 0 * * *")
         ```
 
+
         :param str resource_name: The name of the resource.
         :param AutoSpeedtestArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -196,9 +200,9 @@ class AutoSpeedtest(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 cron: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 cron: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -223,9 +227,9 @@ class AutoSpeedtest(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            cron: Optional[pulumi.Input[_builtins.str]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None) -> 'AutoSpeedtest':
+            cron: pulumi.Input[Optional[_builtins.str]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'AutoSpeedtest':
         """
         Get an existing AutoSpeedtest resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

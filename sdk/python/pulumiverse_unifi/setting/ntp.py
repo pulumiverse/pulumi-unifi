@@ -19,14 +19,15 @@ __all__ = ['NtpArgs', 'Ntp']
 @pulumi.input_type
 class NtpArgs:
     def __init__(__self__, *,
-                 mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server1: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server2: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server3: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server4: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None):
+                 mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server1: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server2: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server3: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server4: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Ntp resource.
+
         :param pulumi.Input[_builtins.str] mode: NTP server configuration mode. Valid values are:
         :param pulumi.Input[_builtins.str] ntp_server1: Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server2: Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
@@ -49,88 +50,89 @@ class NtpArgs:
 
     @_builtins.property
     @pulumi.getter
-    def mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         NTP server configuration mode. Valid values are:
         """
         return pulumi.get(self, "mode")
 
     @mode.setter
-    def mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mode", value)
 
     @_builtins.property
     @pulumi.getter(name="ntpServer1")
-    def ntp_server1(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ntp_server1(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         """
         return pulumi.get(self, "ntp_server1")
 
     @ntp_server1.setter
-    def ntp_server1(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ntp_server1(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ntp_server1", value)
 
     @_builtins.property
     @pulumi.getter(name="ntpServer2")
-    def ntp_server2(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ntp_server2(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         """
         return pulumi.get(self, "ntp_server2")
 
     @ntp_server2.setter
-    def ntp_server2(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ntp_server2(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ntp_server2", value)
 
     @_builtins.property
     @pulumi.getter(name="ntpServer3")
-    def ntp_server3(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ntp_server3(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
         """
         return pulumi.get(self, "ntp_server3")
 
     @ntp_server3.setter
-    def ntp_server3(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ntp_server3(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ntp_server3", value)
 
     @_builtins.property
     @pulumi.getter(name="ntpServer4")
-    def ntp_server4(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ntp_server4(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Quaternary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
         """
         return pulumi.get(self, "ntp_server4")
 
     @ntp_server4.setter
-    def ntp_server4(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ntp_server4(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ntp_server4", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
 @pulumi.input_type
 class _NtpState:
     def __init__(__self__, *,
-                 mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server1: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server2: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server3: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server4: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None):
+                 mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server1: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server2: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server3: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server4: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Ntp resources.
+
         :param pulumi.Input[_builtins.str] mode: NTP server configuration mode. Valid values are:
         :param pulumi.Input[_builtins.str] ntp_server1: Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server2: Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
@@ -153,74 +155,74 @@ class _NtpState:
 
     @_builtins.property
     @pulumi.getter
-    def mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         NTP server configuration mode. Valid values are:
         """
         return pulumi.get(self, "mode")
 
     @mode.setter
-    def mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mode", value)
 
     @_builtins.property
     @pulumi.getter(name="ntpServer1")
-    def ntp_server1(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ntp_server1(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         """
         return pulumi.get(self, "ntp_server1")
 
     @ntp_server1.setter
-    def ntp_server1(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ntp_server1(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ntp_server1", value)
 
     @_builtins.property
     @pulumi.getter(name="ntpServer2")
-    def ntp_server2(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ntp_server2(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         """
         return pulumi.get(self, "ntp_server2")
 
     @ntp_server2.setter
-    def ntp_server2(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ntp_server2(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ntp_server2", value)
 
     @_builtins.property
     @pulumi.getter(name="ntpServer3")
-    def ntp_server3(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ntp_server3(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
         """
         return pulumi.get(self, "ntp_server3")
 
     @ntp_server3.setter
-    def ntp_server3(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ntp_server3(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ntp_server3", value)
 
     @_builtins.property
     @pulumi.getter(name="ntpServer4")
-    def ntp_server4(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ntp_server4(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Quaternary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
         """
         return pulumi.get(self, "ntp_server4")
 
     @ntp_server4.setter
-    def ntp_server4(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ntp_server4(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ntp_server4", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
@@ -230,12 +232,12 @@ class Ntp(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server1: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server2: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server3: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server4: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server1: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server2: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server3: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server4: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         The `setting.Ntp` resource allows you to configure Network Time Protocol (NTP) server settings for your UniFi network.
@@ -255,6 +257,7 @@ class Ntp(pulumi.CustomResource):
             ntp_server3="time.google.com",
             ntp_server4="0.pool.ntp.org")
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -290,6 +293,7 @@ class Ntp(pulumi.CustomResource):
             ntp_server4="0.pool.ntp.org")
         ```
 
+
         :param str resource_name: The name of the resource.
         :param NtpArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -305,12 +309,12 @@ class Ntp(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server1: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server2: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server3: Optional[pulumi.Input[_builtins.str]] = None,
-                 ntp_server4: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server1: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server2: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server3: pulumi.Input[Optional[_builtins.str]] = None,
+                 ntp_server4: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -336,12 +340,12 @@ class Ntp(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            mode: Optional[pulumi.Input[_builtins.str]] = None,
-            ntp_server1: Optional[pulumi.Input[_builtins.str]] = None,
-            ntp_server2: Optional[pulumi.Input[_builtins.str]] = None,
-            ntp_server3: Optional[pulumi.Input[_builtins.str]] = None,
-            ntp_server4: Optional[pulumi.Input[_builtins.str]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None) -> 'Ntp':
+            mode: pulumi.Input[Optional[_builtins.str]] = None,
+            ntp_server1: pulumi.Input[Optional[_builtins.str]] = None,
+            ntp_server2: pulumi.Input[Optional[_builtins.str]] = None,
+            ntp_server3: pulumi.Input[Optional[_builtins.str]] = None,
+            ntp_server4: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'Ntp':
         """
         Get an existing Ntp resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

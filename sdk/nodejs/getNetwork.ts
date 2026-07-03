@@ -67,6 +67,10 @@ export interface GetNetworkResult {
      */
     readonly dhcpEnabled: boolean;
     /**
+     * Specifies whether DHCP Guarding (rogue/untrusted DHCP server protection) is enabled or not.
+     */
+    readonly dhcpGuarding: boolean;
+    /**
      * lease time for DHCP addresses.
      */
     readonly dhcpLease: number;
@@ -115,9 +119,21 @@ export interface GetNetworkResult {
      */
     readonly dhcpdBootServer: string;
     /**
+     * The IPv4 default gateway advertised to DHCP clients when the override is enabled.
+     */
+    readonly dhcpdGateway: string;
+    /**
+     * Whether the DHCP default gateway is manually overridden (true) or auto (false).
+     */
+    readonly dhcpdGatewayEnabled: boolean;
+    /**
      * The domain name of this network.
      */
     readonly domainName: string;
+    /**
+     * The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. Only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled; empty otherwise. The zone ID is site-scoped.
+     */
+    readonly firewallZoneId: string;
     /**
      * The ID of the network.
      */
@@ -127,7 +143,7 @@ export interface GetNetworkResult {
      */
     readonly igmpSnooping: boolean;
     /**
-     * Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
+     * Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, `singleNetwork`, or `none`.
      */
     readonly ipv6InterfaceType: string;
     /**
@@ -290,13 +306,13 @@ export interface GetNetworkOutputArgs {
     /**
      * The ID of the network.
      */
-    id?: pulumi.Input<string>;
+    id?: pulumi.Input<string | undefined>;
     /**
      * The name of the network.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The name of the site to associate the network with.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

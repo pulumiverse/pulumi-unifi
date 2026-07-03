@@ -21,44 +21,45 @@ __all__ = ['USGArgs', 'USG']
 @pulumi.input_type
 class USGArgs:
     def __init__(__self__, *,
-                 arp_cache_base_reachable: Optional[pulumi.Input[_builtins.int]] = None,
-                 arp_cache_timeout: Optional[pulumi.Input[_builtins.str]] = None,
-                 broadcast_ping: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_relay: Optional[pulumi.Input['USGDhcpRelayArgs']] = None,
-                 dhcp_relay_servers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcpd_hostfile_update: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcpd_use_dnsmasq: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dns_verification: Optional[pulumi.Input['USGDnsVerificationArgs']] = None,
-                 dnsmasq_all_servers: Optional[pulumi.Input[_builtins.bool]] = None,
-                 echo_server: Optional[pulumi.Input[_builtins.str]] = None,
-                 ftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 geo_ip_filtering: Optional[pulumi.Input['USGGeoIpFilteringArgs']] = None,
-                 gre_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 h323_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 icmp_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 lldp_enable_all: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mss_clamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 mss_clamp_mss: Optional[pulumi.Input[_builtins.int]] = None,
-                 multicast_dns_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_accounting: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_l2_blocking: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_sch: Optional[pulumi.Input[_builtins.bool]] = None,
-                 other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 pptp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 receive_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-                 sip_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 syn_cookies: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tcp_timeouts: Optional[pulumi.Input['USGTcpTimeoutsArgs']] = None,
-                 tftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 timeout_setting_preference: Optional[pulumi.Input[_builtins.str]] = None,
-                 udp_other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 udp_stream_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 unbind_wan_monitors: Optional[pulumi.Input[_builtins.bool]] = None,
-                 upnp: Optional[pulumi.Input['USGUpnpArgs']] = None):
+                 arp_cache_base_reachable: pulumi.Input[Optional[_builtins.int]] = None,
+                 arp_cache_timeout: pulumi.Input[Optional[_builtins.str]] = None,
+                 broadcast_ping: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_relay: pulumi.Input[Optional['USGDhcpRelayArgs']] = None,
+                 dhcp_relay_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcpd_hostfile_update: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcpd_use_dnsmasq: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dns_verification: pulumi.Input[Optional['USGDnsVerificationArgs']] = None,
+                 dnsmasq_all_servers: pulumi.Input[Optional[_builtins.bool]] = None,
+                 echo_server: pulumi.Input[Optional[_builtins.str]] = None,
+                 ftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 geo_ip_filtering: pulumi.Input[Optional['USGGeoIpFilteringArgs']] = None,
+                 gre_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 h323_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 icmp_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 lldp_enable_all: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mss_clamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 mss_clamp_mss: pulumi.Input[Optional[_builtins.int]] = None,
+                 multicast_dns_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_accounting: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_l2_blocking: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_sch: pulumi.Input[Optional[_builtins.bool]] = None,
+                 other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 pptp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 receive_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+                 sip_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 syn_cookies: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tcp_timeouts: pulumi.Input[Optional['USGTcpTimeoutsArgs']] = None,
+                 tftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 timeout_setting_preference: pulumi.Input[Optional[_builtins.str]] = None,
+                 udp_other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 udp_stream_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 unbind_wan_monitors: pulumi.Input[Optional[_builtins.bool]] = None,
+                 upnp: pulumi.Input[Optional['USGUpnpArgs']] = None):
         """
         The set of arguments for constructing a USG resource.
+
         :param pulumi.Input[_builtins.int] arp_cache_base_reachable: The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
         :param pulumi.Input[_builtins.str] arp_cache_timeout: The timeout strategy for ARP cache entries. Valid values are:
                  * `normal` - Use system default timeouts
@@ -188,19 +189,19 @@ class USGArgs:
 
     @_builtins.property
     @pulumi.getter(name="arpCacheBaseReachable")
-    def arp_cache_base_reachable(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def arp_cache_base_reachable(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
         """
         return pulumi.get(self, "arp_cache_base_reachable")
 
     @arp_cache_base_reachable.setter
-    def arp_cache_base_reachable(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def arp_cache_base_reachable(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "arp_cache_base_reachable", value)
 
     @_builtins.property
     @pulumi.getter(name="arpCacheTimeout")
-    def arp_cache_timeout(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def arp_cache_timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The timeout strategy for ARP cache entries. Valid values are:
           * `normal` - Use system default timeouts
@@ -212,181 +213,181 @@ class USGArgs:
         return pulumi.get(self, "arp_cache_timeout")
 
     @arp_cache_timeout.setter
-    def arp_cache_timeout(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def arp_cache_timeout(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "arp_cache_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="broadcastPing")
-    def broadcast_ping(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def broadcast_ping(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable responding to broadcast ping requests (ICMP echo requests sent to the broadcast address). When enabled, the gateway will respond to pings sent to the broadcast address of the network (e.g., 192.168.1.255). This can be useful for network diagnostics but may also be used in certain denial-of-service attacks.
         """
         return pulumi.get(self, "broadcast_ping")
 
     @broadcast_ping.setter
-    def broadcast_ping(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def broadcast_ping(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "broadcast_ping", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpRelay")
-    def dhcp_relay(self) -> Optional[pulumi.Input['USGDhcpRelayArgs']]:
+    def dhcp_relay(self) -> pulumi.Input[Optional['USGDhcpRelayArgs']]:
         """
         Advanced DHCP relay configuration settings. Controls how the gateway forwards DHCP requests to external servers and manages DHCP relay agent behavior. Use this block to fine-tune DHCP relay functionality beyond simply specifying relay servers.
         """
         return pulumi.get(self, "dhcp_relay")
 
     @dhcp_relay.setter
-    def dhcp_relay(self, value: Optional[pulumi.Input['USGDhcpRelayArgs']]):
+    def dhcp_relay(self, value: pulumi.Input[Optional['USGDhcpRelayArgs']]):
         pulumi.set(self, "dhcp_relay", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpRelayServers")
     @_utilities.deprecated("""This attribute is deprecated and will be removed in a future release. `dhcp_relay.servers` attribute will be introduced as a replacement.""")
-    def dhcp_relay_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def dhcp_relay_servers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of up to 5 DHCP relay servers (specified by IP address) that will receive forwarded DHCP requests. This is useful when you want to use external DHCP servers instead of the built-in DHCP server on the USG/UDM. When configured, the gateway will forward DHCP discovery packets from clients to these external servers, allowing centralized IP address management across multiple networks. Example: `['192.168.1.5', '192.168.2.5']`
         """
         return pulumi.get(self, "dhcp_relay_servers")
 
     @dhcp_relay_servers.setter
-    def dhcp_relay_servers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def dhcp_relay_servers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "dhcp_relay_servers", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdHostfileUpdate")
-    def dhcpd_hostfile_update(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcpd_hostfile_update(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable updating the gateway's host files with DHCP client information. When enabled, the gateway will automatically add entries to its host file for each DHCP client, allowing hostname resolution for devices that receive IP addresses via DHCP. This improves name resolution on the local network.
         """
         return pulumi.get(self, "dhcpd_hostfile_update")
 
     @dhcpd_hostfile_update.setter
-    def dhcpd_hostfile_update(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcpd_hostfile_update(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcpd_hostfile_update", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdUseDnsmasq")
-    def dhcpd_use_dnsmasq(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcpd_use_dnsmasq(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Use dnsmasq for DHCP services instead of the default DHCP server. Dnsmasq provides integrated DNS and DHCP functionality with additional features like DNS caching, DHCP static leases, and local domain name resolution. This can improve DNS resolution performance and provide more flexible DHCP options.
         """
         return pulumi.get(self, "dhcpd_use_dnsmasq")
 
     @dhcpd_use_dnsmasq.setter
-    def dhcpd_use_dnsmasq(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcpd_use_dnsmasq(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcpd_use_dnsmasq", value)
 
     @_builtins.property
     @pulumi.getter(name="dnsVerification")
-    def dns_verification(self) -> Optional[pulumi.Input['USGDnsVerificationArgs']]:
+    def dns_verification(self) -> pulumi.Input[Optional['USGDnsVerificationArgs']]:
         """
         DNS verification settings for validating DNS responses. This feature helps detect and prevent DNS spoofing attacks by verifying DNS responses against trusted DNS servers. When configured, the gateway can compare DNS responses with those from known trusted servers to identify potential tampering or poisoning attempts. Requires controller version 8.5 or later.
         """
         return pulumi.get(self, "dns_verification")
 
     @dns_verification.setter
-    def dns_verification(self, value: Optional[pulumi.Input['USGDnsVerificationArgs']]):
+    def dns_verification(self, value: pulumi.Input[Optional['USGDnsVerificationArgs']]):
         pulumi.set(self, "dns_verification", value)
 
     @_builtins.property
     @pulumi.getter(name="dnsmasqAllServers")
-    def dnsmasq_all_servers(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dnsmasq_all_servers(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When enabled, dnsmasq will query all configured DNS servers simultaneously and use the fastest response. This can improve DNS resolution speed but may increase DNS traffic. By default, dnsmasq queries servers sequentially, only trying the next server if the current one fails to respond.
         """
         return pulumi.get(self, "dnsmasq_all_servers")
 
     @dnsmasq_all_servers.setter
-    def dnsmasq_all_servers(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dnsmasq_all_servers(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dnsmasq_all_servers", value)
 
     @_builtins.property
     @pulumi.getter(name="echoServer")
-    def echo_server(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def echo_server(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The hostname or IP address of a server to use for network echo tests. Echo tests send packets to this server and measure response times to evaluate network connectivity and performance. This can be used for network diagnostics and monitoring.
         """
         return pulumi.get(self, "echo_server")
 
     @echo_server.setter
-    def echo_server(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def echo_server(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "echo_server", value)
 
     @_builtins.property
     @pulumi.getter(name="ftpModule")
-    def ftp_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ftp_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the FTP (File Transfer Protocol) helper module. This module allows the gateway to properly handle FTP connections through NAT by tracking the control channel and dynamically opening required data ports. Without this helper, passive FTP connections may fail when clients are behind NAT.
         """
         return pulumi.get(self, "ftp_module")
 
     @ftp_module.setter
-    def ftp_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ftp_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ftp_module", value)
 
     @_builtins.property
     @pulumi.getter(name="geoIpFiltering")
-    def geo_ip_filtering(self) -> Optional[pulumi.Input['USGGeoIpFilteringArgs']]:
+    def geo_ip_filtering(self) -> pulumi.Input[Optional['USGGeoIpFilteringArgs']]:
         """
         Geographic IP filtering configuration that allows blocking or allowing traffic based on country of origin. This feature uses IP geolocation databases to identify the country associated with IP addresses and apply filtering rules. Useful for implementing country-specific access policies or blocking traffic from high-risk regions. Requires controller version 7.0 or later.
         """
         return pulumi.get(self, "geo_ip_filtering")
 
     @geo_ip_filtering.setter
-    def geo_ip_filtering(self, value: Optional[pulumi.Input['USGGeoIpFilteringArgs']]):
+    def geo_ip_filtering(self, value: pulumi.Input[Optional['USGGeoIpFilteringArgs']]):
         pulumi.set(self, "geo_ip_filtering", value)
 
     @_builtins.property
     @pulumi.getter(name="greModule")
-    def gre_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def gre_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the GRE (Generic Routing Encapsulation) protocol helper module. This module allows proper handling of GRE tunneling protocol through the gateway's firewall. GRE is commonly used for VPN tunnels and other encapsulation needs. Required if you plan to use PPTP VPNs (see `pptp_module`).
         """
         return pulumi.get(self, "gre_module")
 
     @gre_module.setter
-    def gre_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def gre_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "gre_module", value)
 
     @_builtins.property
     @pulumi.getter(name="h323Module")
-    def h323_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def h323_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the H.323 protocol helper module. H.323 is a standard for multimedia communications (audio, video, and data) over packet-based networks. This helper allows H.323-based applications like video conferencing systems to work properly through NAT by tracking connection details and opening required ports.
         """
         return pulumi.get(self, "h323_module")
 
     @h323_module.setter
-    def h323_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def h323_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "h323_module", value)
 
     @_builtins.property
     @pulumi.getter(name="icmpTimeout")
-    def icmp_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def icmp_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         ICMP timeout in seconds for connection tracking. This controls how long the gateway maintains state information for ICMP (ping) packets in its connection tracking table. Higher values maintain ICMP connection state longer, while lower values reclaim resources more quickly but may affect some diagnostic tools.
         """
         return pulumi.get(self, "icmp_timeout")
 
     @icmp_timeout.setter
-    def icmp_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def icmp_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "icmp_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="lldpEnableAll")
-    def lldp_enable_all(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def lldp_enable_all(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable Link Layer Discovery Protocol (LLDP) on all interfaces. LLDP is a vendor-neutral protocol that allows network devices to advertise their identity, capabilities, and neighbors on a local network. When enabled, the gateway will both send and receive LLDP packets, facilitating network discovery and management tools.
         """
         return pulumi.get(self, "lldp_enable_all")
 
     @lldp_enable_all.setter
-    def lldp_enable_all(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def lldp_enable_all(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "lldp_enable_all", value)
 
     @_builtins.property
     @pulumi.getter(name="mssClamp")
-    def mss_clamp(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mss_clamp(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         TCP Maximum Segment Size (MSS) clamping mode. MSS clamping adjusts the maximum segment size of TCP packets to prevent fragmentation issues when packets traverse networks with different MTU sizes. Valid values include:
           * `auto` - Automatically determine appropriate MSS values based on interface MTUs
@@ -398,180 +399,180 @@ class USGArgs:
         return pulumi.get(self, "mss_clamp")
 
     @mss_clamp.setter
-    def mss_clamp(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mss_clamp(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mss_clamp", value)
 
     @_builtins.property
     @pulumi.getter(name="mssClampMss")
-    def mss_clamp_mss(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def mss_clamp_mss(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Custom TCP Maximum Segment Size (MSS) value in bytes. This value is used when `mss_clamp` is set to `custom`. The MSS value should typically be set to the path MTU minus 40 bytes (for IPv4) or minus 60 bytes (for IPv6) to account for TCP/IP header overhead. Valid values range from 100 to 9999, with common values being 1460 (for standard 1500 MTU) or 1400 (for VPN tunnels).
         """
         return pulumi.get(self, "mss_clamp_mss")
 
     @mss_clamp_mss.setter
-    def mss_clamp_mss(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def mss_clamp_mss(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "mss_clamp_mss", value)
 
     @_builtins.property
     @pulumi.getter(name="multicastDnsEnabled")
-    def multicast_dns_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def multicast_dns_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable multicast DNS (mDNS/Bonjour/Avahi) forwarding across VLANs. This allows devices to discover services (like printers, Chromecasts, Apple devices, etc.) even when they are on different networks or VLANs. When enabled, the gateway will forward mDNS packets between networks, facilitating cross-VLAN service discovery. Note: This setting is not supported on UniFi OS v7+ as it has been replaced by mDNS settings in the network configuration.
         """
         return pulumi.get(self, "multicast_dns_enabled")
 
     @multicast_dns_enabled.setter
-    def multicast_dns_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def multicast_dns_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "multicast_dns_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="offloadAccounting")
-    def offload_accounting(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def offload_accounting(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable hardware accounting offload. When enabled, the gateway will use hardware acceleration for traffic accounting functions, reducing CPU load and potentially improving throughput for high-traffic environments. This setting may not be supported on all hardware models.
         """
         return pulumi.get(self, "offload_accounting")
 
     @offload_accounting.setter
-    def offload_accounting(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def offload_accounting(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "offload_accounting", value)
 
     @_builtins.property
     @pulumi.getter(name="offloadL2Blocking")
-    def offload_l2_blocking(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def offload_l2_blocking(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable hardware offload for Layer 2 (L2) blocking functions. When enabled, the gateway will use hardware acceleration for blocking traffic at the data link layer (MAC address level), which can improve performance when implementing MAC-based filtering or isolation. This setting may not be supported on all hardware models.
         """
         return pulumi.get(self, "offload_l2_blocking")
 
     @offload_l2_blocking.setter
-    def offload_l2_blocking(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def offload_l2_blocking(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "offload_l2_blocking", value)
 
     @_builtins.property
     @pulumi.getter(name="offloadSch")
-    def offload_sch(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def offload_sch(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable hardware scheduling offload. When enabled, the gateway will use hardware acceleration for packet scheduling functions, which can improve QoS (Quality of Service) performance and throughput for prioritized traffic. This setting may not be supported on all hardware models and may affect other hardware offload capabilities.
         """
         return pulumi.get(self, "offload_sch")
 
     @offload_sch.setter
-    def offload_sch(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def offload_sch(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "offload_sch", value)
 
     @_builtins.property
     @pulumi.getter(name="otherTimeout")
-    def other_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def other_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Timeout (in seconds) for connection tracking of protocols other than TCP, UDP, and ICMP. This controls how long the gateway maintains state information for connections using other protocols. Higher values maintain connection state longer, while lower values reclaim resources more quickly but may affect some applications using non-standard protocols.
         """
         return pulumi.get(self, "other_timeout")
 
     @other_timeout.setter
-    def other_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def other_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "other_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="pptpModule")
-    def pptp_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def pptp_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the PPTP (Point-to-Point Tunneling Protocol) helper module. This module allows PPTP VPN connections to work properly through the gateway's firewall and NAT. PPTP uses GRE for tunneling, so the `gre_module` must also be enabled for PPTP to function correctly. Note that PPTP has known security vulnerabilities and more secure VPN protocols are generally recommended.
         """
         return pulumi.get(self, "pptp_module")
 
     @pptp_module.setter
-    def pptp_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def pptp_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "pptp_module", value)
 
     @_builtins.property
     @pulumi.getter(name="receiveRedirects")
-    def receive_redirects(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def receive_redirects(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable accepting ICMP redirect messages. ICMP redirects are messages sent by routers to inform hosts of better routes to specific destinations. When enabled, the gateway will update its routing table based on these messages. While useful for route optimization, this can potentially be exploited for man-in-the-middle attacks, so it's often disabled in security-sensitive environments.
         """
         return pulumi.get(self, "receive_redirects")
 
     @receive_redirects.setter
-    def receive_redirects(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def receive_redirects(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "receive_redirects", value)
 
     @_builtins.property
     @pulumi.getter(name="sendRedirects")
-    def send_redirects(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def send_redirects(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable sending ICMP redirect messages. When enabled, the gateway will send ICMP redirect messages to hosts on the local network to inform them of better routes to specific destinations. This can help optimize network traffic but is typically only needed when the gateway has multiple interfaces on the same subnet or in complex routing scenarios.
         """
         return pulumi.get(self, "send_redirects")
 
     @send_redirects.setter
-    def send_redirects(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def send_redirects(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "send_redirects", value)
 
     @_builtins.property
     @pulumi.getter(name="sipModule")
-    def sip_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def sip_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the SIP (Session Initiation Protocol) helper module. SIP is used for initiating, maintaining, and terminating real-time sessions for voice, video, and messaging applications (VoIP, video conferencing). This helper allows SIP-based applications to work correctly through NAT by tracking SIP connections and dynamically opening the necessary ports for media streams.
         """
         return pulumi.get(self, "sip_module")
 
     @sip_module.setter
-    def sip_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def sip_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "sip_module", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="synCookies")
-    def syn_cookies(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def syn_cookies(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable SYN cookies to protect against SYN flood attacks. SYN cookies are a technique that helps mitigate TCP SYN flood attacks by avoiding the need to track incomplete connections in a backlog queue. When enabled, the gateway can continue to establish legitimate connections even when under a SYN flood attack. This is a recommended security setting for internet-facing gateways.
         """
         return pulumi.get(self, "syn_cookies")
 
     @syn_cookies.setter
-    def syn_cookies(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def syn_cookies(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "syn_cookies", value)
 
     @_builtins.property
     @pulumi.getter(name="tcpTimeouts")
-    def tcp_timeouts(self) -> Optional[pulumi.Input['USGTcpTimeoutsArgs']]:
+    def tcp_timeouts(self) -> pulumi.Input[Optional['USGTcpTimeoutsArgs']]:
         """
         TCP connection timeout settings for various TCP connection states. These settings control how long the gateway maintains state information for TCP connections in different states before removing them from the connection tracking table. Proper timeout values balance resource usage with connection reliability. These settings are particularly relevant when `timeout_setting_preference` is set to `manual`.
         """
         return pulumi.get(self, "tcp_timeouts")
 
     @tcp_timeouts.setter
-    def tcp_timeouts(self, value: Optional[pulumi.Input['USGTcpTimeoutsArgs']]):
+    def tcp_timeouts(self, value: pulumi.Input[Optional['USGTcpTimeoutsArgs']]):
         pulumi.set(self, "tcp_timeouts", value)
 
     @_builtins.property
     @pulumi.getter(name="tftpModule")
-    def tftp_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def tftp_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the TFTP (Trivial File Transfer Protocol) helper module. This module allows TFTP connections to work properly through the gateway's firewall and NAT. TFTP is commonly used for firmware updates, configuration file transfers, and network booting of devices. The helper tracks TFTP connections and ensures return traffic is properly handled.
         """
         return pulumi.get(self, "tftp_module")
 
     @tftp_module.setter
-    def tftp_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def tftp_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "tftp_module", value)
 
     @_builtins.property
     @pulumi.getter(name="timeoutSettingPreference")
-    def timeout_setting_preference(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def timeout_setting_preference(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Determines how connection timeout values are configured. Valid values are:
           * `auto` - The gateway will automatically determine appropriate timeout values based on system defaults
@@ -582,101 +583,102 @@ class USGArgs:
         return pulumi.get(self, "timeout_setting_preference")
 
     @timeout_setting_preference.setter
-    def timeout_setting_preference(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def timeout_setting_preference(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "timeout_setting_preference", value)
 
     @_builtins.property
     @pulumi.getter(name="udpOtherTimeout")
-    def udp_other_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def udp_other_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Timeout (in seconds) for general UDP connections. Since UDP is connectionless, this timeout determines how long the gateway maintains state information for UDP packets that don't match the criteria for stream connections. This applies to most short-lived UDP communications like DNS queries. Lower values free resources more quickly but may affect some applications that expect longer session persistence.
         """
         return pulumi.get(self, "udp_other_timeout")
 
     @udp_other_timeout.setter
-    def udp_other_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def udp_other_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "udp_other_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="udpStreamTimeout")
-    def udp_stream_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def udp_stream_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Timeout (in seconds) for UDP stream connections. This applies to UDP traffic patterns that resemble ongoing streams, such as VoIP calls, video streaming, or online gaming. The gateway identifies these based on traffic patterns and maintains state information longer than for regular UDP traffic. Higher values improve reliability for streaming applications but consume more connection tracking resources.
         """
         return pulumi.get(self, "udp_stream_timeout")
 
     @udp_stream_timeout.setter
-    def udp_stream_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def udp_stream_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "udp_stream_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="unbindWanMonitors")
-    def unbind_wan_monitors(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def unbind_wan_monitors(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Unbind WAN monitors to prevent unnecessary traffic. When enabled, the gateway will stop certain monitoring processes that periodically check WAN connectivity. This can reduce unnecessary traffic on metered connections or in environments where the monitoring traffic might trigger security alerts. However, disabling these monitors may affect the gateway's ability to detect and respond to WAN connectivity issues. Requires controller version 9.0 or later.
         """
         return pulumi.get(self, "unbind_wan_monitors")
 
     @unbind_wan_monitors.setter
-    def unbind_wan_monitors(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def unbind_wan_monitors(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "unbind_wan_monitors", value)
 
     @_builtins.property
     @pulumi.getter
-    def upnp(self) -> Optional[pulumi.Input['USGUpnpArgs']]:
+    def upnp(self) -> pulumi.Input[Optional['USGUpnpArgs']]:
         """
         UPNP (Universal Plug and Play) configuration settings. UPNP allows compatible applications and devices to automatically configure port forwarding rules on the gateway without manual intervention. This is commonly used by gaming consoles, media servers, VoIP applications, and other network services that require incoming connections.
         """
         return pulumi.get(self, "upnp")
 
     @upnp.setter
-    def upnp(self, value: Optional[pulumi.Input['USGUpnpArgs']]):
+    def upnp(self, value: pulumi.Input[Optional['USGUpnpArgs']]):
         pulumi.set(self, "upnp", value)
 
 
 @pulumi.input_type
 class _USGState:
     def __init__(__self__, *,
-                 arp_cache_base_reachable: Optional[pulumi.Input[_builtins.int]] = None,
-                 arp_cache_timeout: Optional[pulumi.Input[_builtins.str]] = None,
-                 broadcast_ping: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_relay: Optional[pulumi.Input['USGDhcpRelayArgs']] = None,
-                 dhcp_relay_servers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcpd_hostfile_update: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcpd_use_dnsmasq: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dns_verification: Optional[pulumi.Input['USGDnsVerificationArgs']] = None,
-                 dnsmasq_all_servers: Optional[pulumi.Input[_builtins.bool]] = None,
-                 echo_server: Optional[pulumi.Input[_builtins.str]] = None,
-                 ftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 geo_ip_filtering: Optional[pulumi.Input['USGGeoIpFilteringArgs']] = None,
-                 geo_ip_filtering_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 gre_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 h323_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 icmp_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 lldp_enable_all: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mss_clamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 mss_clamp_mss: Optional[pulumi.Input[_builtins.int]] = None,
-                 multicast_dns_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_accounting: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_l2_blocking: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_sch: Optional[pulumi.Input[_builtins.bool]] = None,
-                 other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 pptp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 receive_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-                 sip_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 syn_cookies: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tcp_timeouts: Optional[pulumi.Input['USGTcpTimeoutsArgs']] = None,
-                 tftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 timeout_setting_preference: Optional[pulumi.Input[_builtins.str]] = None,
-                 udp_other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 udp_stream_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 unbind_wan_monitors: Optional[pulumi.Input[_builtins.bool]] = None,
-                 upnp: Optional[pulumi.Input['USGUpnpArgs']] = None,
-                 upnp_enabled: Optional[pulumi.Input[_builtins.bool]] = None):
+                 arp_cache_base_reachable: pulumi.Input[Optional[_builtins.int]] = None,
+                 arp_cache_timeout: pulumi.Input[Optional[_builtins.str]] = None,
+                 broadcast_ping: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_relay: pulumi.Input[Optional['USGDhcpRelayArgs']] = None,
+                 dhcp_relay_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcpd_hostfile_update: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcpd_use_dnsmasq: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dns_verification: pulumi.Input[Optional['USGDnsVerificationArgs']] = None,
+                 dnsmasq_all_servers: pulumi.Input[Optional[_builtins.bool]] = None,
+                 echo_server: pulumi.Input[Optional[_builtins.str]] = None,
+                 ftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 geo_ip_filtering: pulumi.Input[Optional['USGGeoIpFilteringArgs']] = None,
+                 geo_ip_filtering_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 gre_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 h323_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 icmp_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 lldp_enable_all: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mss_clamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 mss_clamp_mss: pulumi.Input[Optional[_builtins.int]] = None,
+                 multicast_dns_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_accounting: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_l2_blocking: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_sch: pulumi.Input[Optional[_builtins.bool]] = None,
+                 other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 pptp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 receive_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+                 sip_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 syn_cookies: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tcp_timeouts: pulumi.Input[Optional['USGTcpTimeoutsArgs']] = None,
+                 tftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 timeout_setting_preference: pulumi.Input[Optional[_builtins.str]] = None,
+                 udp_other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 udp_stream_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 unbind_wan_monitors: pulumi.Input[Optional[_builtins.bool]] = None,
+                 upnp: pulumi.Input[Optional['USGUpnpArgs']] = None,
+                 upnp_enabled: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering USG resources.
+
         :param pulumi.Input[_builtins.int] arp_cache_base_reachable: The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
         :param pulumi.Input[_builtins.str] arp_cache_timeout: The timeout strategy for ARP cache entries. Valid values are:
                  * `normal` - Use system default timeouts
@@ -812,19 +814,19 @@ class _USGState:
 
     @_builtins.property
     @pulumi.getter(name="arpCacheBaseReachable")
-    def arp_cache_base_reachable(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def arp_cache_base_reachable(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
         """
         return pulumi.get(self, "arp_cache_base_reachable")
 
     @arp_cache_base_reachable.setter
-    def arp_cache_base_reachable(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def arp_cache_base_reachable(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "arp_cache_base_reachable", value)
 
     @_builtins.property
     @pulumi.getter(name="arpCacheTimeout")
-    def arp_cache_timeout(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def arp_cache_timeout(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The timeout strategy for ARP cache entries. Valid values are:
           * `normal` - Use system default timeouts
@@ -836,193 +838,193 @@ class _USGState:
         return pulumi.get(self, "arp_cache_timeout")
 
     @arp_cache_timeout.setter
-    def arp_cache_timeout(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def arp_cache_timeout(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "arp_cache_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="broadcastPing")
-    def broadcast_ping(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def broadcast_ping(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable responding to broadcast ping requests (ICMP echo requests sent to the broadcast address). When enabled, the gateway will respond to pings sent to the broadcast address of the network (e.g., 192.168.1.255). This can be useful for network diagnostics but may also be used in certain denial-of-service attacks.
         """
         return pulumi.get(self, "broadcast_ping")
 
     @broadcast_ping.setter
-    def broadcast_ping(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def broadcast_ping(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "broadcast_ping", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpRelay")
-    def dhcp_relay(self) -> Optional[pulumi.Input['USGDhcpRelayArgs']]:
+    def dhcp_relay(self) -> pulumi.Input[Optional['USGDhcpRelayArgs']]:
         """
         Advanced DHCP relay configuration settings. Controls how the gateway forwards DHCP requests to external servers and manages DHCP relay agent behavior. Use this block to fine-tune DHCP relay functionality beyond simply specifying relay servers.
         """
         return pulumi.get(self, "dhcp_relay")
 
     @dhcp_relay.setter
-    def dhcp_relay(self, value: Optional[pulumi.Input['USGDhcpRelayArgs']]):
+    def dhcp_relay(self, value: pulumi.Input[Optional['USGDhcpRelayArgs']]):
         pulumi.set(self, "dhcp_relay", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpRelayServers")
     @_utilities.deprecated("""This attribute is deprecated and will be removed in a future release. `dhcp_relay.servers` attribute will be introduced as a replacement.""")
-    def dhcp_relay_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def dhcp_relay_servers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of up to 5 DHCP relay servers (specified by IP address) that will receive forwarded DHCP requests. This is useful when you want to use external DHCP servers instead of the built-in DHCP server on the USG/UDM. When configured, the gateway will forward DHCP discovery packets from clients to these external servers, allowing centralized IP address management across multiple networks. Example: `['192.168.1.5', '192.168.2.5']`
         """
         return pulumi.get(self, "dhcp_relay_servers")
 
     @dhcp_relay_servers.setter
-    def dhcp_relay_servers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def dhcp_relay_servers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "dhcp_relay_servers", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdHostfileUpdate")
-    def dhcpd_hostfile_update(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcpd_hostfile_update(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable updating the gateway's host files with DHCP client information. When enabled, the gateway will automatically add entries to its host file for each DHCP client, allowing hostname resolution for devices that receive IP addresses via DHCP. This improves name resolution on the local network.
         """
         return pulumi.get(self, "dhcpd_hostfile_update")
 
     @dhcpd_hostfile_update.setter
-    def dhcpd_hostfile_update(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcpd_hostfile_update(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcpd_hostfile_update", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdUseDnsmasq")
-    def dhcpd_use_dnsmasq(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcpd_use_dnsmasq(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Use dnsmasq for DHCP services instead of the default DHCP server. Dnsmasq provides integrated DNS and DHCP functionality with additional features like DNS caching, DHCP static leases, and local domain name resolution. This can improve DNS resolution performance and provide more flexible DHCP options.
         """
         return pulumi.get(self, "dhcpd_use_dnsmasq")
 
     @dhcpd_use_dnsmasq.setter
-    def dhcpd_use_dnsmasq(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcpd_use_dnsmasq(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcpd_use_dnsmasq", value)
 
     @_builtins.property
     @pulumi.getter(name="dnsVerification")
-    def dns_verification(self) -> Optional[pulumi.Input['USGDnsVerificationArgs']]:
+    def dns_verification(self) -> pulumi.Input[Optional['USGDnsVerificationArgs']]:
         """
         DNS verification settings for validating DNS responses. This feature helps detect and prevent DNS spoofing attacks by verifying DNS responses against trusted DNS servers. When configured, the gateway can compare DNS responses with those from known trusted servers to identify potential tampering or poisoning attempts. Requires controller version 8.5 or later.
         """
         return pulumi.get(self, "dns_verification")
 
     @dns_verification.setter
-    def dns_verification(self, value: Optional[pulumi.Input['USGDnsVerificationArgs']]):
+    def dns_verification(self, value: pulumi.Input[Optional['USGDnsVerificationArgs']]):
         pulumi.set(self, "dns_verification", value)
 
     @_builtins.property
     @pulumi.getter(name="dnsmasqAllServers")
-    def dnsmasq_all_servers(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dnsmasq_all_servers(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When enabled, dnsmasq will query all configured DNS servers simultaneously and use the fastest response. This can improve DNS resolution speed but may increase DNS traffic. By default, dnsmasq queries servers sequentially, only trying the next server if the current one fails to respond.
         """
         return pulumi.get(self, "dnsmasq_all_servers")
 
     @dnsmasq_all_servers.setter
-    def dnsmasq_all_servers(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dnsmasq_all_servers(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dnsmasq_all_servers", value)
 
     @_builtins.property
     @pulumi.getter(name="echoServer")
-    def echo_server(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def echo_server(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The hostname or IP address of a server to use for network echo tests. Echo tests send packets to this server and measure response times to evaluate network connectivity and performance. This can be used for network diagnostics and monitoring.
         """
         return pulumi.get(self, "echo_server")
 
     @echo_server.setter
-    def echo_server(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def echo_server(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "echo_server", value)
 
     @_builtins.property
     @pulumi.getter(name="ftpModule")
-    def ftp_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ftp_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the FTP (File Transfer Protocol) helper module. This module allows the gateway to properly handle FTP connections through NAT by tracking the control channel and dynamically opening required data ports. Without this helper, passive FTP connections may fail when clients are behind NAT.
         """
         return pulumi.get(self, "ftp_module")
 
     @ftp_module.setter
-    def ftp_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ftp_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ftp_module", value)
 
     @_builtins.property
     @pulumi.getter(name="geoIpFiltering")
-    def geo_ip_filtering(self) -> Optional[pulumi.Input['USGGeoIpFilteringArgs']]:
+    def geo_ip_filtering(self) -> pulumi.Input[Optional['USGGeoIpFilteringArgs']]:
         """
         Geographic IP filtering configuration that allows blocking or allowing traffic based on country of origin. This feature uses IP geolocation databases to identify the country associated with IP addresses and apply filtering rules. Useful for implementing country-specific access policies or blocking traffic from high-risk regions. Requires controller version 7.0 or later.
         """
         return pulumi.get(self, "geo_ip_filtering")
 
     @geo_ip_filtering.setter
-    def geo_ip_filtering(self, value: Optional[pulumi.Input['USGGeoIpFilteringArgs']]):
+    def geo_ip_filtering(self, value: pulumi.Input[Optional['USGGeoIpFilteringArgs']]):
         pulumi.set(self, "geo_ip_filtering", value)
 
     @_builtins.property
     @pulumi.getter(name="geoIpFilteringEnabled")
-    def geo_ip_filtering_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def geo_ip_filtering_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether Geo IP Filtering is enabled. When enabled, the gateway will apply the specified country-based
         """
         return pulumi.get(self, "geo_ip_filtering_enabled")
 
     @geo_ip_filtering_enabled.setter
-    def geo_ip_filtering_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def geo_ip_filtering_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "geo_ip_filtering_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="greModule")
-    def gre_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def gre_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the GRE (Generic Routing Encapsulation) protocol helper module. This module allows proper handling of GRE tunneling protocol through the gateway's firewall. GRE is commonly used for VPN tunnels and other encapsulation needs. Required if you plan to use PPTP VPNs (see `pptp_module`).
         """
         return pulumi.get(self, "gre_module")
 
     @gre_module.setter
-    def gre_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def gre_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "gre_module", value)
 
     @_builtins.property
     @pulumi.getter(name="h323Module")
-    def h323_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def h323_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the H.323 protocol helper module. H.323 is a standard for multimedia communications (audio, video, and data) over packet-based networks. This helper allows H.323-based applications like video conferencing systems to work properly through NAT by tracking connection details and opening required ports.
         """
         return pulumi.get(self, "h323_module")
 
     @h323_module.setter
-    def h323_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def h323_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "h323_module", value)
 
     @_builtins.property
     @pulumi.getter(name="icmpTimeout")
-    def icmp_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def icmp_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         ICMP timeout in seconds for connection tracking. This controls how long the gateway maintains state information for ICMP (ping) packets in its connection tracking table. Higher values maintain ICMP connection state longer, while lower values reclaim resources more quickly but may affect some diagnostic tools.
         """
         return pulumi.get(self, "icmp_timeout")
 
     @icmp_timeout.setter
-    def icmp_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def icmp_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "icmp_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="lldpEnableAll")
-    def lldp_enable_all(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def lldp_enable_all(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable Link Layer Discovery Protocol (LLDP) on all interfaces. LLDP is a vendor-neutral protocol that allows network devices to advertise their identity, capabilities, and neighbors on a local network. When enabled, the gateway will both send and receive LLDP packets, facilitating network discovery and management tools.
         """
         return pulumi.get(self, "lldp_enable_all")
 
     @lldp_enable_all.setter
-    def lldp_enable_all(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def lldp_enable_all(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "lldp_enable_all", value)
 
     @_builtins.property
     @pulumi.getter(name="mssClamp")
-    def mss_clamp(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mss_clamp(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         TCP Maximum Segment Size (MSS) clamping mode. MSS clamping adjusts the maximum segment size of TCP packets to prevent fragmentation issues when packets traverse networks with different MTU sizes. Valid values include:
           * `auto` - Automatically determine appropriate MSS values based on interface MTUs
@@ -1034,180 +1036,180 @@ class _USGState:
         return pulumi.get(self, "mss_clamp")
 
     @mss_clamp.setter
-    def mss_clamp(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mss_clamp(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mss_clamp", value)
 
     @_builtins.property
     @pulumi.getter(name="mssClampMss")
-    def mss_clamp_mss(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def mss_clamp_mss(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Custom TCP Maximum Segment Size (MSS) value in bytes. This value is used when `mss_clamp` is set to `custom`. The MSS value should typically be set to the path MTU minus 40 bytes (for IPv4) or minus 60 bytes (for IPv6) to account for TCP/IP header overhead. Valid values range from 100 to 9999, with common values being 1460 (for standard 1500 MTU) or 1400 (for VPN tunnels).
         """
         return pulumi.get(self, "mss_clamp_mss")
 
     @mss_clamp_mss.setter
-    def mss_clamp_mss(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def mss_clamp_mss(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "mss_clamp_mss", value)
 
     @_builtins.property
     @pulumi.getter(name="multicastDnsEnabled")
-    def multicast_dns_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def multicast_dns_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable multicast DNS (mDNS/Bonjour/Avahi) forwarding across VLANs. This allows devices to discover services (like printers, Chromecasts, Apple devices, etc.) even when they are on different networks or VLANs. When enabled, the gateway will forward mDNS packets between networks, facilitating cross-VLAN service discovery. Note: This setting is not supported on UniFi OS v7+ as it has been replaced by mDNS settings in the network configuration.
         """
         return pulumi.get(self, "multicast_dns_enabled")
 
     @multicast_dns_enabled.setter
-    def multicast_dns_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def multicast_dns_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "multicast_dns_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="offloadAccounting")
-    def offload_accounting(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def offload_accounting(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable hardware accounting offload. When enabled, the gateway will use hardware acceleration for traffic accounting functions, reducing CPU load and potentially improving throughput for high-traffic environments. This setting may not be supported on all hardware models.
         """
         return pulumi.get(self, "offload_accounting")
 
     @offload_accounting.setter
-    def offload_accounting(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def offload_accounting(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "offload_accounting", value)
 
     @_builtins.property
     @pulumi.getter(name="offloadL2Blocking")
-    def offload_l2_blocking(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def offload_l2_blocking(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable hardware offload for Layer 2 (L2) blocking functions. When enabled, the gateway will use hardware acceleration for blocking traffic at the data link layer (MAC address level), which can improve performance when implementing MAC-based filtering or isolation. This setting may not be supported on all hardware models.
         """
         return pulumi.get(self, "offload_l2_blocking")
 
     @offload_l2_blocking.setter
-    def offload_l2_blocking(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def offload_l2_blocking(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "offload_l2_blocking", value)
 
     @_builtins.property
     @pulumi.getter(name="offloadSch")
-    def offload_sch(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def offload_sch(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable hardware scheduling offload. When enabled, the gateway will use hardware acceleration for packet scheduling functions, which can improve QoS (Quality of Service) performance and throughput for prioritized traffic. This setting may not be supported on all hardware models and may affect other hardware offload capabilities.
         """
         return pulumi.get(self, "offload_sch")
 
     @offload_sch.setter
-    def offload_sch(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def offload_sch(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "offload_sch", value)
 
     @_builtins.property
     @pulumi.getter(name="otherTimeout")
-    def other_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def other_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Timeout (in seconds) for connection tracking of protocols other than TCP, UDP, and ICMP. This controls how long the gateway maintains state information for connections using other protocols. Higher values maintain connection state longer, while lower values reclaim resources more quickly but may affect some applications using non-standard protocols.
         """
         return pulumi.get(self, "other_timeout")
 
     @other_timeout.setter
-    def other_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def other_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "other_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="pptpModule")
-    def pptp_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def pptp_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the PPTP (Point-to-Point Tunneling Protocol) helper module. This module allows PPTP VPN connections to work properly through the gateway's firewall and NAT. PPTP uses GRE for tunneling, so the `gre_module` must also be enabled for PPTP to function correctly. Note that PPTP has known security vulnerabilities and more secure VPN protocols are generally recommended.
         """
         return pulumi.get(self, "pptp_module")
 
     @pptp_module.setter
-    def pptp_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def pptp_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "pptp_module", value)
 
     @_builtins.property
     @pulumi.getter(name="receiveRedirects")
-    def receive_redirects(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def receive_redirects(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable accepting ICMP redirect messages. ICMP redirects are messages sent by routers to inform hosts of better routes to specific destinations. When enabled, the gateway will update its routing table based on these messages. While useful for route optimization, this can potentially be exploited for man-in-the-middle attacks, so it's often disabled in security-sensitive environments.
         """
         return pulumi.get(self, "receive_redirects")
 
     @receive_redirects.setter
-    def receive_redirects(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def receive_redirects(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "receive_redirects", value)
 
     @_builtins.property
     @pulumi.getter(name="sendRedirects")
-    def send_redirects(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def send_redirects(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable sending ICMP redirect messages. When enabled, the gateway will send ICMP redirect messages to hosts on the local network to inform them of better routes to specific destinations. This can help optimize network traffic but is typically only needed when the gateway has multiple interfaces on the same subnet or in complex routing scenarios.
         """
         return pulumi.get(self, "send_redirects")
 
     @send_redirects.setter
-    def send_redirects(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def send_redirects(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "send_redirects", value)
 
     @_builtins.property
     @pulumi.getter(name="sipModule")
-    def sip_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def sip_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the SIP (Session Initiation Protocol) helper module. SIP is used for initiating, maintaining, and terminating real-time sessions for voice, video, and messaging applications (VoIP, video conferencing). This helper allows SIP-based applications to work correctly through NAT by tracking SIP connections and dynamically opening the necessary ports for media streams.
         """
         return pulumi.get(self, "sip_module")
 
     @sip_module.setter
-    def sip_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def sip_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "sip_module", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="synCookies")
-    def syn_cookies(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def syn_cookies(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable SYN cookies to protect against SYN flood attacks. SYN cookies are a technique that helps mitigate TCP SYN flood attacks by avoiding the need to track incomplete connections in a backlog queue. When enabled, the gateway can continue to establish legitimate connections even when under a SYN flood attack. This is a recommended security setting for internet-facing gateways.
         """
         return pulumi.get(self, "syn_cookies")
 
     @syn_cookies.setter
-    def syn_cookies(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def syn_cookies(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "syn_cookies", value)
 
     @_builtins.property
     @pulumi.getter(name="tcpTimeouts")
-    def tcp_timeouts(self) -> Optional[pulumi.Input['USGTcpTimeoutsArgs']]:
+    def tcp_timeouts(self) -> pulumi.Input[Optional['USGTcpTimeoutsArgs']]:
         """
         TCP connection timeout settings for various TCP connection states. These settings control how long the gateway maintains state information for TCP connections in different states before removing them from the connection tracking table. Proper timeout values balance resource usage with connection reliability. These settings are particularly relevant when `timeout_setting_preference` is set to `manual`.
         """
         return pulumi.get(self, "tcp_timeouts")
 
     @tcp_timeouts.setter
-    def tcp_timeouts(self, value: Optional[pulumi.Input['USGTcpTimeoutsArgs']]):
+    def tcp_timeouts(self, value: pulumi.Input[Optional['USGTcpTimeoutsArgs']]):
         pulumi.set(self, "tcp_timeouts", value)
 
     @_builtins.property
     @pulumi.getter(name="tftpModule")
-    def tftp_module(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def tftp_module(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable the TFTP (Trivial File Transfer Protocol) helper module. This module allows TFTP connections to work properly through the gateway's firewall and NAT. TFTP is commonly used for firmware updates, configuration file transfers, and network booting of devices. The helper tracks TFTP connections and ensures return traffic is properly handled.
         """
         return pulumi.get(self, "tftp_module")
 
     @tftp_module.setter
-    def tftp_module(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def tftp_module(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "tftp_module", value)
 
     @_builtins.property
     @pulumi.getter(name="timeoutSettingPreference")
-    def timeout_setting_preference(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def timeout_setting_preference(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Determines how connection timeout values are configured. Valid values are:
           * `auto` - The gateway will automatically determine appropriate timeout values based on system defaults
@@ -1218,67 +1220,67 @@ class _USGState:
         return pulumi.get(self, "timeout_setting_preference")
 
     @timeout_setting_preference.setter
-    def timeout_setting_preference(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def timeout_setting_preference(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "timeout_setting_preference", value)
 
     @_builtins.property
     @pulumi.getter(name="udpOtherTimeout")
-    def udp_other_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def udp_other_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Timeout (in seconds) for general UDP connections. Since UDP is connectionless, this timeout determines how long the gateway maintains state information for UDP packets that don't match the criteria for stream connections. This applies to most short-lived UDP communications like DNS queries. Lower values free resources more quickly but may affect some applications that expect longer session persistence.
         """
         return pulumi.get(self, "udp_other_timeout")
 
     @udp_other_timeout.setter
-    def udp_other_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def udp_other_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "udp_other_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="udpStreamTimeout")
-    def udp_stream_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def udp_stream_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Timeout (in seconds) for UDP stream connections. This applies to UDP traffic patterns that resemble ongoing streams, such as VoIP calls, video streaming, or online gaming. The gateway identifies these based on traffic patterns and maintains state information longer than for regular UDP traffic. Higher values improve reliability for streaming applications but consume more connection tracking resources.
         """
         return pulumi.get(self, "udp_stream_timeout")
 
     @udp_stream_timeout.setter
-    def udp_stream_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def udp_stream_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "udp_stream_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="unbindWanMonitors")
-    def unbind_wan_monitors(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def unbind_wan_monitors(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Unbind WAN monitors to prevent unnecessary traffic. When enabled, the gateway will stop certain monitoring processes that periodically check WAN connectivity. This can reduce unnecessary traffic on metered connections or in environments where the monitoring traffic might trigger security alerts. However, disabling these monitors may affect the gateway's ability to detect and respond to WAN connectivity issues. Requires controller version 9.0 or later.
         """
         return pulumi.get(self, "unbind_wan_monitors")
 
     @unbind_wan_monitors.setter
-    def unbind_wan_monitors(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def unbind_wan_monitors(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "unbind_wan_monitors", value)
 
     @_builtins.property
     @pulumi.getter
-    def upnp(self) -> Optional[pulumi.Input['USGUpnpArgs']]:
+    def upnp(self) -> pulumi.Input[Optional['USGUpnpArgs']]:
         """
         UPNP (Universal Plug and Play) configuration settings. UPNP allows compatible applications and devices to automatically configure port forwarding rules on the gateway without manual intervention. This is commonly used by gaming consoles, media servers, VoIP applications, and other network services that require incoming connections.
         """
         return pulumi.get(self, "upnp")
 
     @upnp.setter
-    def upnp(self, value: Optional[pulumi.Input['USGUpnpArgs']]):
+    def upnp(self, value: pulumi.Input[Optional['USGUpnpArgs']]):
         pulumi.set(self, "upnp", value)
 
     @_builtins.property
     @pulumi.getter(name="upnpEnabled")
-    def upnp_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def upnp_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether UPNP is enabled. When enabled, the gateway will automatically forward ports for UPNP-compatible devices
         """
         return pulumi.get(self, "upnp_enabled")
 
     @upnp_enabled.setter
-    def upnp_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def upnp_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "upnp_enabled", value)
 
 
@@ -1288,42 +1290,42 @@ class USG(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 arp_cache_base_reachable: Optional[pulumi.Input[_builtins.int]] = None,
-                 arp_cache_timeout: Optional[pulumi.Input[_builtins.str]] = None,
-                 broadcast_ping: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_relay: Optional[pulumi.Input[Union['USGDhcpRelayArgs', 'USGDhcpRelayArgsDict']]] = None,
-                 dhcp_relay_servers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcpd_hostfile_update: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcpd_use_dnsmasq: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dns_verification: Optional[pulumi.Input[Union['USGDnsVerificationArgs', 'USGDnsVerificationArgsDict']]] = None,
-                 dnsmasq_all_servers: Optional[pulumi.Input[_builtins.bool]] = None,
-                 echo_server: Optional[pulumi.Input[_builtins.str]] = None,
-                 ftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 geo_ip_filtering: Optional[pulumi.Input[Union['USGGeoIpFilteringArgs', 'USGGeoIpFilteringArgsDict']]] = None,
-                 gre_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 h323_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 icmp_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 lldp_enable_all: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mss_clamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 mss_clamp_mss: Optional[pulumi.Input[_builtins.int]] = None,
-                 multicast_dns_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_accounting: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_l2_blocking: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_sch: Optional[pulumi.Input[_builtins.bool]] = None,
-                 other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 pptp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 receive_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-                 sip_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 syn_cookies: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tcp_timeouts: Optional[pulumi.Input[Union['USGTcpTimeoutsArgs', 'USGTcpTimeoutsArgsDict']]] = None,
-                 tftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 timeout_setting_preference: Optional[pulumi.Input[_builtins.str]] = None,
-                 udp_other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 udp_stream_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 unbind_wan_monitors: Optional[pulumi.Input[_builtins.bool]] = None,
-                 upnp: Optional[pulumi.Input[Union['USGUpnpArgs', 'USGUpnpArgsDict']]] = None,
+                 arp_cache_base_reachable: pulumi.Input[Optional[_builtins.int]] = None,
+                 arp_cache_timeout: pulumi.Input[Optional[_builtins.str]] = None,
+                 broadcast_ping: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_relay: pulumi.Input[Optional[Union['USGDhcpRelayArgs', 'USGDhcpRelayArgsDict']]] = None,
+                 dhcp_relay_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcpd_hostfile_update: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcpd_use_dnsmasq: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dns_verification: pulumi.Input[Optional[Union['USGDnsVerificationArgs', 'USGDnsVerificationArgsDict']]] = None,
+                 dnsmasq_all_servers: pulumi.Input[Optional[_builtins.bool]] = None,
+                 echo_server: pulumi.Input[Optional[_builtins.str]] = None,
+                 ftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 geo_ip_filtering: pulumi.Input[Optional[Union['USGGeoIpFilteringArgs', 'USGGeoIpFilteringArgsDict']]] = None,
+                 gre_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 h323_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 icmp_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 lldp_enable_all: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mss_clamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 mss_clamp_mss: pulumi.Input[Optional[_builtins.int]] = None,
+                 multicast_dns_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_accounting: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_l2_blocking: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_sch: pulumi.Input[Optional[_builtins.bool]] = None,
+                 other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 pptp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 receive_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+                 sip_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 syn_cookies: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tcp_timeouts: pulumi.Input[Optional[Union['USGTcpTimeoutsArgs', 'USGTcpTimeoutsArgsDict']]] = None,
+                 tftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 timeout_setting_preference: pulumi.Input[Optional[_builtins.str]] = None,
+                 udp_other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 udp_stream_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 unbind_wan_monitors: pulumi.Input[Optional[_builtins.bool]] = None,
+                 upnp: pulumi.Input[Optional[Union['USGUpnpArgs', 'USGUpnpArgsDict']]] = None,
                  __props__=None):
         """
         The `setting.USG` resource manages advanced settings for UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
@@ -1410,6 +1412,7 @@ class USG(pulumi.CustomResource):
             udp_other_timeout=30,
             udp_stream_timeout=120)
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1556,6 +1559,7 @@ class USG(pulumi.CustomResource):
             udp_stream_timeout=120)
         ```
 
+
         :param str resource_name: The name of the resource.
         :param USGArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1571,42 +1575,42 @@ class USG(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 arp_cache_base_reachable: Optional[pulumi.Input[_builtins.int]] = None,
-                 arp_cache_timeout: Optional[pulumi.Input[_builtins.str]] = None,
-                 broadcast_ping: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_relay: Optional[pulumi.Input[Union['USGDhcpRelayArgs', 'USGDhcpRelayArgsDict']]] = None,
-                 dhcp_relay_servers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcpd_hostfile_update: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcpd_use_dnsmasq: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dns_verification: Optional[pulumi.Input[Union['USGDnsVerificationArgs', 'USGDnsVerificationArgsDict']]] = None,
-                 dnsmasq_all_servers: Optional[pulumi.Input[_builtins.bool]] = None,
-                 echo_server: Optional[pulumi.Input[_builtins.str]] = None,
-                 ftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 geo_ip_filtering: Optional[pulumi.Input[Union['USGGeoIpFilteringArgs', 'USGGeoIpFilteringArgsDict']]] = None,
-                 gre_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 h323_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 icmp_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 lldp_enable_all: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mss_clamp: Optional[pulumi.Input[_builtins.str]] = None,
-                 mss_clamp_mss: Optional[pulumi.Input[_builtins.int]] = None,
-                 multicast_dns_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_accounting: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_l2_blocking: Optional[pulumi.Input[_builtins.bool]] = None,
-                 offload_sch: Optional[pulumi.Input[_builtins.bool]] = None,
-                 other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 pptp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 receive_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-                 send_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-                 sip_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 syn_cookies: Optional[pulumi.Input[_builtins.bool]] = None,
-                 tcp_timeouts: Optional[pulumi.Input[Union['USGTcpTimeoutsArgs', 'USGTcpTimeoutsArgsDict']]] = None,
-                 tftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-                 timeout_setting_preference: Optional[pulumi.Input[_builtins.str]] = None,
-                 udp_other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 udp_stream_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 unbind_wan_monitors: Optional[pulumi.Input[_builtins.bool]] = None,
-                 upnp: Optional[pulumi.Input[Union['USGUpnpArgs', 'USGUpnpArgsDict']]] = None,
+                 arp_cache_base_reachable: pulumi.Input[Optional[_builtins.int]] = None,
+                 arp_cache_timeout: pulumi.Input[Optional[_builtins.str]] = None,
+                 broadcast_ping: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_relay: pulumi.Input[Optional[Union['USGDhcpRelayArgs', 'USGDhcpRelayArgsDict']]] = None,
+                 dhcp_relay_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcpd_hostfile_update: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcpd_use_dnsmasq: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dns_verification: pulumi.Input[Optional[Union['USGDnsVerificationArgs', 'USGDnsVerificationArgsDict']]] = None,
+                 dnsmasq_all_servers: pulumi.Input[Optional[_builtins.bool]] = None,
+                 echo_server: pulumi.Input[Optional[_builtins.str]] = None,
+                 ftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 geo_ip_filtering: pulumi.Input[Optional[Union['USGGeoIpFilteringArgs', 'USGGeoIpFilteringArgsDict']]] = None,
+                 gre_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 h323_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 icmp_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 lldp_enable_all: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mss_clamp: pulumi.Input[Optional[_builtins.str]] = None,
+                 mss_clamp_mss: pulumi.Input[Optional[_builtins.int]] = None,
+                 multicast_dns_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_accounting: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_l2_blocking: pulumi.Input[Optional[_builtins.bool]] = None,
+                 offload_sch: pulumi.Input[Optional[_builtins.bool]] = None,
+                 other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 pptp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 receive_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+                 send_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+                 sip_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 syn_cookies: pulumi.Input[Optional[_builtins.bool]] = None,
+                 tcp_timeouts: pulumi.Input[Optional[Union['USGTcpTimeoutsArgs', 'USGTcpTimeoutsArgsDict']]] = None,
+                 tftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+                 timeout_setting_preference: pulumi.Input[Optional[_builtins.str]] = None,
+                 udp_other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 udp_stream_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 unbind_wan_monitors: pulumi.Input[Optional[_builtins.bool]] = None,
+                 upnp: pulumi.Input[Optional[Union['USGUpnpArgs', 'USGUpnpArgsDict']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1664,44 +1668,44 @@ class USG(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            arp_cache_base_reachable: Optional[pulumi.Input[_builtins.int]] = None,
-            arp_cache_timeout: Optional[pulumi.Input[_builtins.str]] = None,
-            broadcast_ping: Optional[pulumi.Input[_builtins.bool]] = None,
-            dhcp_relay: Optional[pulumi.Input[Union['USGDhcpRelayArgs', 'USGDhcpRelayArgsDict']]] = None,
-            dhcp_relay_servers: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            dhcpd_hostfile_update: Optional[pulumi.Input[_builtins.bool]] = None,
-            dhcpd_use_dnsmasq: Optional[pulumi.Input[_builtins.bool]] = None,
-            dns_verification: Optional[pulumi.Input[Union['USGDnsVerificationArgs', 'USGDnsVerificationArgsDict']]] = None,
-            dnsmasq_all_servers: Optional[pulumi.Input[_builtins.bool]] = None,
-            echo_server: Optional[pulumi.Input[_builtins.str]] = None,
-            ftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-            geo_ip_filtering: Optional[pulumi.Input[Union['USGGeoIpFilteringArgs', 'USGGeoIpFilteringArgsDict']]] = None,
-            geo_ip_filtering_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            gre_module: Optional[pulumi.Input[_builtins.bool]] = None,
-            h323_module: Optional[pulumi.Input[_builtins.bool]] = None,
-            icmp_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-            lldp_enable_all: Optional[pulumi.Input[_builtins.bool]] = None,
-            mss_clamp: Optional[pulumi.Input[_builtins.str]] = None,
-            mss_clamp_mss: Optional[pulumi.Input[_builtins.int]] = None,
-            multicast_dns_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            offload_accounting: Optional[pulumi.Input[_builtins.bool]] = None,
-            offload_l2_blocking: Optional[pulumi.Input[_builtins.bool]] = None,
-            offload_sch: Optional[pulumi.Input[_builtins.bool]] = None,
-            other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-            pptp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-            receive_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-            send_redirects: Optional[pulumi.Input[_builtins.bool]] = None,
-            sip_module: Optional[pulumi.Input[_builtins.bool]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            syn_cookies: Optional[pulumi.Input[_builtins.bool]] = None,
-            tcp_timeouts: Optional[pulumi.Input[Union['USGTcpTimeoutsArgs', 'USGTcpTimeoutsArgsDict']]] = None,
-            tftp_module: Optional[pulumi.Input[_builtins.bool]] = None,
-            timeout_setting_preference: Optional[pulumi.Input[_builtins.str]] = None,
-            udp_other_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-            udp_stream_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-            unbind_wan_monitors: Optional[pulumi.Input[_builtins.bool]] = None,
-            upnp: Optional[pulumi.Input[Union['USGUpnpArgs', 'USGUpnpArgsDict']]] = None,
-            upnp_enabled: Optional[pulumi.Input[_builtins.bool]] = None) -> 'USG':
+            arp_cache_base_reachable: pulumi.Input[Optional[_builtins.int]] = None,
+            arp_cache_timeout: pulumi.Input[Optional[_builtins.str]] = None,
+            broadcast_ping: pulumi.Input[Optional[_builtins.bool]] = None,
+            dhcp_relay: pulumi.Input[Optional[Union['USGDhcpRelayArgs', 'USGDhcpRelayArgsDict']]] = None,
+            dhcp_relay_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            dhcpd_hostfile_update: pulumi.Input[Optional[_builtins.bool]] = None,
+            dhcpd_use_dnsmasq: pulumi.Input[Optional[_builtins.bool]] = None,
+            dns_verification: pulumi.Input[Optional[Union['USGDnsVerificationArgs', 'USGDnsVerificationArgsDict']]] = None,
+            dnsmasq_all_servers: pulumi.Input[Optional[_builtins.bool]] = None,
+            echo_server: pulumi.Input[Optional[_builtins.str]] = None,
+            ftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+            geo_ip_filtering: pulumi.Input[Optional[Union['USGGeoIpFilteringArgs', 'USGGeoIpFilteringArgsDict']]] = None,
+            geo_ip_filtering_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            gre_module: pulumi.Input[Optional[_builtins.bool]] = None,
+            h323_module: pulumi.Input[Optional[_builtins.bool]] = None,
+            icmp_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+            lldp_enable_all: pulumi.Input[Optional[_builtins.bool]] = None,
+            mss_clamp: pulumi.Input[Optional[_builtins.str]] = None,
+            mss_clamp_mss: pulumi.Input[Optional[_builtins.int]] = None,
+            multicast_dns_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            offload_accounting: pulumi.Input[Optional[_builtins.bool]] = None,
+            offload_l2_blocking: pulumi.Input[Optional[_builtins.bool]] = None,
+            offload_sch: pulumi.Input[Optional[_builtins.bool]] = None,
+            other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+            pptp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+            receive_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+            send_redirects: pulumi.Input[Optional[_builtins.bool]] = None,
+            sip_module: pulumi.Input[Optional[_builtins.bool]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            syn_cookies: pulumi.Input[Optional[_builtins.bool]] = None,
+            tcp_timeouts: pulumi.Input[Optional[Union['USGTcpTimeoutsArgs', 'USGTcpTimeoutsArgsDict']]] = None,
+            tftp_module: pulumi.Input[Optional[_builtins.bool]] = None,
+            timeout_setting_preference: pulumi.Input[Optional[_builtins.str]] = None,
+            udp_other_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+            udp_stream_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+            unbind_wan_monitors: pulumi.Input[Optional[_builtins.bool]] = None,
+            upnp: pulumi.Input[Optional[Union['USGUpnpArgs', 'USGUpnpArgsDict']]] = None,
+            upnp_enabled: pulumi.Input[Optional[_builtins.bool]] = None) -> 'USG':
         """
         Get an existing USG resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

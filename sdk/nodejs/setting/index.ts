@@ -10,6 +10,11 @@ export type AutoSpeedtest = import("./autoSpeedtest").AutoSpeedtest;
 export const AutoSpeedtest: typeof import("./autoSpeedtest").AutoSpeedtest = null as any;
 utilities.lazyLoad(exports, ["AutoSpeedtest"], () => require("./autoSpeedtest"));
 
+export { ConnectivityArgs, ConnectivityState } from "./connectivity";
+export type Connectivity = import("./connectivity").Connectivity;
+export const Connectivity: typeof import("./connectivity").Connectivity = null as any;
+utilities.lazyLoad(exports, ["Connectivity"], () => require("./connectivity"));
+
 export { CountryArgs, CountryState } from "./country";
 export type Country = import("./country").Country;
 export const Country: typeof import("./country").Country = null as any;
@@ -19,6 +24,16 @@ export { DpiArgs, DpiState } from "./dpi";
 export type Dpi = import("./dpi").Dpi;
 export const Dpi: typeof import("./dpi").Dpi = null as any;
 utilities.lazyLoad(exports, ["Dpi"], () => require("./dpi"));
+
+export { EtherLightingArgs, EtherLightingState } from "./etherLighting";
+export type EtherLighting = import("./etherLighting").EtherLighting;
+export const EtherLighting: typeof import("./etherLighting").EtherLighting = null as any;
+utilities.lazyLoad(exports, ["EtherLighting"], () => require("./etherLighting"));
+
+export { GlobalSwitchArgs, GlobalSwitchState } from "./globalSwitch";
+export type GlobalSwitch = import("./globalSwitch").GlobalSwitch;
+export const GlobalSwitch: typeof import("./globalSwitch").GlobalSwitch = null as any;
+utilities.lazyLoad(exports, ["GlobalSwitch"], () => require("./globalSwitch"));
 
 export { GuestAccessArgs, GuestAccessState } from "./guestAccess";
 export type GuestAccess = import("./guestAccess").GuestAccess;
@@ -97,10 +112,16 @@ const _module = {
         switch (type) {
             case "unifi:setting/autoSpeedtest:AutoSpeedtest":
                 return new AutoSpeedtest(name, <any>undefined, { urn })
+            case "unifi:setting/connectivity:Connectivity":
+                return new Connectivity(name, <any>undefined, { urn })
             case "unifi:setting/country:Country":
                 return new Country(name, <any>undefined, { urn })
             case "unifi:setting/dpi:Dpi":
                 return new Dpi(name, <any>undefined, { urn })
+            case "unifi:setting/etherLighting:EtherLighting":
+                return new EtherLighting(name, <any>undefined, { urn })
+            case "unifi:setting/globalSwitch:GlobalSwitch":
+                return new GlobalSwitch(name, <any>undefined, { urn })
             case "unifi:setting/guestAccess:GuestAccess":
                 return new GuestAccess(name, <any>undefined, { urn })
             case "unifi:setting/ips:Ips":
@@ -135,8 +156,11 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("unifi", "setting/autoSpeedtest", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/connectivity", _module)
 pulumi.runtime.registerResourceModule("unifi", "setting/country", _module)
 pulumi.runtime.registerResourceModule("unifi", "setting/dpi", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/etherLighting", _module)
+pulumi.runtime.registerResourceModule("unifi", "setting/globalSwitch", _module)
 pulumi.runtime.registerResourceModule("unifi", "setting/guestAccess", _module)
 pulumi.runtime.registerResourceModule("unifi", "setting/ips", _module)
 pulumi.runtime.registerResourceModule("unifi", "setting/lcdMonitor", _module)

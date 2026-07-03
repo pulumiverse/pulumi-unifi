@@ -11,5 +11,6 @@ from .group import *
 from .rule import *
 from .zone import *
 from .zone_policy import *
+from .zone_policy_order import *
 from ._inputs import *
 from . import outputs

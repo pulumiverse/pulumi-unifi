@@ -19,17 +19,20 @@ __all__ = ['ProviderArgs', 'Provider']
 @pulumi.input_type
 class ProviderArgs:
     def __init__(__self__, *,
-                 allow_insecure: Optional[pulumi.Input[_builtins.bool]] = None,
-                 api_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 password: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 username: Optional[pulumi.Input[_builtins.str]] = None):
+                 allow_insecure: pulumi.Input[Optional[_builtins.bool]] = None,
+                 api_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 http_max_retries: pulumi.Input[Optional[_builtins.int]] = None,
+                 password: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 username: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Provider resource.
+
         :param pulumi.Input[_builtins.bool] allow_insecure: Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
         :param pulumi.Input[_builtins.str] api_key: API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
         :param pulumi.Input[_builtins.str] api_url: URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
+        :param pulumi.Input[_builtins.int] http_max_retries: Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
         :param pulumi.Input[_builtins.str] password: Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
         :param pulumi.Input[_builtins.str] site: The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
         :param pulumi.Input[_builtins.str] username: Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
@@ -44,6 +47,8 @@ class ProviderArgs:
             api_url = _utilities.get_env('UNIFI_API')
         if api_url is not None:
             pulumi.set(__self__, "api_url", api_url)
+        if http_max_retries is not None:
+            pulumi.set(__self__, "http_max_retries", http_max_retries)
         if password is None:
             password = _utilities.get_env('UNIFI_PASSWORD')
         if password is not None:
@@ -59,74 +64,86 @@ class ProviderArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowInsecure")
-    def allow_insecure(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def allow_insecure(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
         """
         return pulumi.get(self, "allow_insecure")
 
     @allow_insecure.setter
-    def allow_insecure(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def allow_insecure(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_insecure", value)
 
     @_builtins.property
     @pulumi.getter(name="apiKey")
-    def api_key(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_key(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
         """
         return pulumi.get(self, "api_key")
 
     @api_key.setter
-    def api_key(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_key(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_key", value)
 
     @_builtins.property
     @pulumi.getter(name="apiUrl")
-    def api_url(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def api_url(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
         """
         return pulumi.get(self, "api_url")
 
     @api_url.setter
-    def api_url(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def api_url(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "api_url", value)
 
     @_builtins.property
+    @pulumi.getter(name="httpMaxRetries")
+    def http_max_retries(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
+        """
+        return pulumi.get(self, "http_max_retries")
+
+    @http_max_retries.setter
+    def http_max_retries(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "http_max_retries", value)
+
+    @_builtins.property
     @pulumi.getter
-    def password(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def password(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
         """
         return pulumi.get(self, "password")
 
     @password.setter
-    def password(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def password(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "password", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def username(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def username(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
         """
         return pulumi.get(self, "username")
 
     @username.setter
-    def username(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def username(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "username", value)
 
 
@@ -136,12 +153,13 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_insecure: Optional[pulumi.Input[_builtins.bool]] = None,
-                 api_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 password: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 username: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_insecure: pulumi.Input[Optional[_builtins.bool]] = None,
+                 api_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 http_max_retries: pulumi.Input[Optional[_builtins.int]] = None,
+                 password: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 username: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         The provider type for the unifi package. By default, resources use package-wide configuration
@@ -149,11 +167,13 @@ class Provider(pulumi.ProviderResource):
         construction to achieve fine-grained programmatic control over provider settings. See the
         [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_insecure: Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
         :param pulumi.Input[_builtins.str] api_key: API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
         :param pulumi.Input[_builtins.str] api_url: URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
+        :param pulumi.Input[_builtins.int] http_max_retries: Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
         :param pulumi.Input[_builtins.str] password: Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
         :param pulumi.Input[_builtins.str] site: The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
         :param pulumi.Input[_builtins.str] username: Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
@@ -170,6 +190,7 @@ class Provider(pulumi.ProviderResource):
         construction to achieve fine-grained programmatic control over provider settings. See the
         [documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.
 
+
         :param str resource_name: The name of the resource.
         :param ProviderArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -185,12 +206,13 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_insecure: Optional[pulumi.Input[_builtins.bool]] = None,
-                 api_key: Optional[pulumi.Input[_builtins.str]] = None,
-                 api_url: Optional[pulumi.Input[_builtins.str]] = None,
-                 password: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 username: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_insecure: pulumi.Input[Optional[_builtins.bool]] = None,
+                 api_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 api_url: pulumi.Input[Optional[_builtins.str]] = None,
+                 http_max_retries: pulumi.Input[Optional[_builtins.int]] = None,
+                 password: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 username: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -207,6 +229,7 @@ class Provider(pulumi.ProviderResource):
             if api_url is None:
                 api_url = _utilities.get_env('UNIFI_API')
             __props__.__dict__["api_url"] = api_url
+            __props__.__dict__["http_max_retries"] = pulumi.Output.from_input(http_max_retries).apply(pulumi.runtime.to_json) if http_max_retries is not None else None
             if password is None:
                 password = _utilities.get_env('UNIFI_PASSWORD')
             __props__.__dict__["password"] = None if password is None else pulumi.Output.secret(password)

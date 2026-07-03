@@ -129,22 +129,22 @@ export interface GroupState {
      *   * For port-group: Port numbers or ranges (e.g., ['80', '443', '8000-8080'])
      *   * For ipv6-address-group: IPv6 addresses or CIDR notation
      */
-    members?: pulumi.Input<pulumi.Input<string>[]>;
+    members?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * The type of firewall group. Valid values are:
      *   * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')
      *   * `port-group` - Group of ports or port ranges (e.g., '80', '443', '8000-8080')
      *   * `ipv6-address-group` - Group of IPv6 addresses and/or networks
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -161,11 +161,11 @@ export interface GroupArgs {
     /**
      * A friendly name for the firewall group to help identify its purpose (e.g., 'Trusted IPs' or 'Web Server Ports'). Must be unique within the site.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The name of the UniFi site where the firewall group should be created. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * The type of firewall group. Valid values are:
      *   * `address-group` - Group of IPv4 addresses and/or networks (e.g., '192.168.1.10', '10.0.0.0/8')

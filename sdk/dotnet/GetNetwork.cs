@@ -187,6 +187,10 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly bool DhcpEnabled;
         /// <summary>
+        /// Specifies whether DHCP Guarding (rogue/untrusted DHCP server protection) is enabled or not.
+        /// </summary>
+        public readonly bool DhcpGuarding;
+        /// <summary>
         /// lease time for DHCP addresses.
         /// </summary>
         public readonly int DhcpLease;
@@ -235,9 +239,21 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string DhcpdBootServer;
         /// <summary>
+        /// The IPv4 default gateway advertised to DHCP clients when the override is enabled.
+        /// </summary>
+        public readonly string DhcpdGateway;
+        /// <summary>
+        /// Whether the DHCP default gateway is manually overridden (true) or auto (false).
+        /// </summary>
+        public readonly bool DhcpdGatewayEnabled;
+        /// <summary>
         /// The domain name of this network.
         /// </summary>
         public readonly string DomainName;
+        /// <summary>
+        /// The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. Only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled; empty otherwise. The zone ID is site-scoped.
+        /// </summary>
+        public readonly string FirewallZoneId;
         /// <summary>
         /// The ID of the network.
         /// </summary>
@@ -247,7 +263,7 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly bool IgmpSnooping;
         /// <summary>
-        /// Specifies which type of IPv6 connection to use. Must be one of either `Static`, `Pd`, or `None`.
+        /// Specifies which type of IPv6 connection to use. Must be one of either `Static`, `Pd`, `SingleNetwork`, or `None`.
         /// </summary>
         public readonly string Ipv6InterfaceType;
         /// <summary>
@@ -377,6 +393,8 @@ namespace Pulumiverse.Unifi
 
             bool dhcpEnabled,
 
+            bool dhcpGuarding,
+
             int dhcpLease,
 
             string dhcpStart,
@@ -401,7 +419,13 @@ namespace Pulumiverse.Unifi
 
             string dhcpdBootServer,
 
+            string dhcpdGateway,
+
+            bool dhcpdGatewayEnabled,
+
             string domainName,
+
+            string firewallZoneId,
 
             string id,
 
@@ -471,6 +495,7 @@ namespace Pulumiverse.Unifi
         {
             DhcpDns = dhcpDns;
             DhcpEnabled = dhcpEnabled;
+            DhcpGuarding = dhcpGuarding;
             DhcpLease = dhcpLease;
             DhcpStart = dhcpStart;
             DhcpStop = dhcpStop;
@@ -483,7 +508,10 @@ namespace Pulumiverse.Unifi
             DhcpdBootEnabled = dhcpdBootEnabled;
             DhcpdBootFilename = dhcpdBootFilename;
             DhcpdBootServer = dhcpdBootServer;
+            DhcpdGateway = dhcpdGateway;
+            DhcpdGatewayEnabled = dhcpdGatewayEnabled;
             DomainName = domainName;
+            FirewallZoneId = firewallZoneId;
             Id = id;
             IgmpSnooping = igmpSnooping;
             Ipv6InterfaceType = ipv6InterfaceType;

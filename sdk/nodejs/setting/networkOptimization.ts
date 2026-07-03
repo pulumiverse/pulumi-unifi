@@ -88,11 +88,11 @@ export interface NetworkOptimizationState {
     /**
      * Whether the Network Optimization is enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -106,5 +106,5 @@ export interface NetworkOptimizationArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

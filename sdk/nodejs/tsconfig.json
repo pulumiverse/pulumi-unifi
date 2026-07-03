@@ -1,19 +1,26 @@
 {
     "compilerOptions": {
+        // Output
         "outDir": "bin",
-        "target": "ES2020",
-        "module": "commonjs",
-        "moduleResolution": "node",
         "declaration": true,
+        "declarationMap": true,
         "sourceMap": true,
         "stripInternal": true,
-        "experimentalDecorators": true,
+        // Environment
+        "target": "ES2022",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "moduleDetection": "force",
+        "types": ["node"],
+        // Type Checking
+        "strict": true,
         "noFallthroughCasesInSwitch": true,
-        "forceConsistentCasingInFileNames": true,
-        "strict": true
+        "noImplicitReturns": true,
+        "skipLibCheck": true
     },
     "files": [
         "account.ts",
+        "apGroup.ts",
         "config/index.ts",
         "config/vars.ts",
         "device.ts",
@@ -28,6 +35,7 @@
         "firewall/rule.ts",
         "firewall/zone.ts",
         "firewall/zonePolicy.ts",
+        "firewall/zonePolicyOrder.ts",
         "getAccount.ts",
         "getApGroup.ts",
         "getNetwork.ts",
@@ -47,8 +55,11 @@
         "provider.ts",
         "radiusProfile.ts",
         "setting/autoSpeedtest.ts",
+        "setting/connectivity.ts",
         "setting/country.ts",
         "setting/dpi.ts",
+        "setting/etherLighting.ts",
+        "setting/globalSwitch.ts",
         "setting/guestAccess.ts",
         "setting/index.ts",
         "setting/ips.ts",

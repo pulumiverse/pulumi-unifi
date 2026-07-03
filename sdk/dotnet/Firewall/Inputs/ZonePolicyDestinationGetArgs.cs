@@ -62,10 +62,28 @@ namespace Pulumiverse.Unifi.Firewall.Inputs
         public Input<bool>? MatchOppositeIps { get; set; }
 
         /// <summary>
+        /// Whether to match opposite networks.
+        /// </summary>
+        [Input("matchOppositeNetworks")]
+        public Input<bool>? MatchOppositeNetworks { get; set; }
+
+        /// <summary>
         /// Whether to match opposite ports.
         /// </summary>
         [Input("matchOppositePorts")]
         public Input<bool>? MatchOppositePorts { get; set; }
+
+        [Input("networkIds")]
+        private InputList<string>? _networkIds;
+
+        /// <summary>
+        /// List of network IDs.
+        /// </summary>
+        public InputList<string> NetworkIds
+        {
+            get => _networkIds ?? (_networkIds = new InputList<string>());
+            set => _networkIds = value;
+        }
 
         /// <summary>
         /// Source port.

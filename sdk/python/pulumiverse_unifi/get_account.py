@@ -26,7 +26,7 @@ class GetAccountResult:
     """
     A collection of values returned by getAccount.
     """
-    def __init__(__self__, id=None, name=None, network_id=None, password=None, site=None, tunnel_medium_type=None, tunnel_type=None):
+    def __init__(__self__, id=None, name=None, network_id=None, password=None, site=None, tunnel_medium_type=None, tunnel_type=None, vlan=None):
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -48,6 +48,9 @@ class GetAccountResult:
         if tunnel_type and not isinstance(tunnel_type, int):
             raise TypeError("Expected argument 'tunnel_type' to be a int")
         pulumi.set(__self__, "tunnel_type", tunnel_type)
+        if vlan and not isinstance(vlan, int):
+            raise TypeError("Expected argument 'vlan' to be a int")
+        pulumi.set(__self__, "vlan", vlan)
 
     @_builtins.property
     @pulumi.getter
@@ -69,7 +72,7 @@ class GetAccountResult:
     @pulumi.getter(name="networkId")
     def network_id(self) -> _builtins.str:
         """
-        ID of the network for this account
+        The ID of the UniFi network configuration (the controller's `networkconf_id`) associated with this account. This is distinct from the `vlan` attribute, which is the 802.1Q VLAN ID delivered via RADIUS.
         """
         return pulumi.get(self, "network_id")
 
@@ -105,6 +108,14 @@ class GetAccountResult:
         """
         return pulumi.get(self, "tunnel_type")
 
+    @_builtins.property
+    @pulumi.getter
+    def vlan(self) -> _builtins.int:
+        """
+        The 802.1Q VLAN ID assigned to clients authenticating with this account via RADIUS dynamic VLAN assignment. `0` means no VLAN is assigned.
+        """
+        return pulumi.get(self, "vlan")
+
 
 class AwaitableGetAccountResult(GetAccountResult):
     # pylint: disable=using-constant-test
@@ -118,7 +129,8 @@ class AwaitableGetAccountResult(GetAccountResult):
             password=self.password,
             site=self.site,
             tunnel_medium_type=self.tunnel_medium_type,
-            tunnel_type=self.tunnel_type)
+            tunnel_type=self.tunnel_type,
+            vlan=self.vlan)
 
 
 def get_account(name: Optional[_builtins.str] = None,
@@ -144,9 +156,10 @@ def get_account(name: Optional[_builtins.str] = None,
         password=pulumi.get(__ret__, 'password'),
         site=pulumi.get(__ret__, 'site'),
         tunnel_medium_type=pulumi.get(__ret__, 'tunnel_medium_type'),
-        tunnel_type=pulumi.get(__ret__, 'tunnel_type'))
-def get_account_output(name: Optional[pulumi.Input[_builtins.str]] = None,
-                       site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+        tunnel_type=pulumi.get(__ret__, 'tunnel_type'),
+        vlan=pulumi.get(__ret__, 'vlan'))
+def get_account_output(name: pulumi.Input[Optional[_builtins.str]] = None,
+                       site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetAccountResult]:
     """
     unifi_account data source can be used to retrieve RADIUS user accounts
@@ -167,4 +180,5 @@ def get_account_output(name: Optional[pulumi.Input[_builtins.str]] = None,
         password=pulumi.get(__response__, 'password'),
         site=pulumi.get(__response__, 'site'),
         tunnel_medium_type=pulumi.get(__response__, 'tunnel_medium_type'),
-        tunnel_type=pulumi.get(__response__, 'tunnel_type')))
+        tunnel_type=pulumi.get(__response__, 'tunnel_type'),
+        vlan=pulumi.get(__response__, 'vlan')))

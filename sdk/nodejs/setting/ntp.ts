@@ -117,27 +117,27 @@ export interface NtpState {
     /**
      * NTP server configuration mode. Valid values are:
      */
-    mode?: pulumi.Input<string>;
+    mode?: pulumi.Input<string | undefined>;
     /**
      * Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer1?: pulumi.Input<string>;
+    ntpServer1?: pulumi.Input<string | undefined>;
     /**
      * Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer2?: pulumi.Input<string>;
+    ntpServer2?: pulumi.Input<string | undefined>;
     /**
      * Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer3?: pulumi.Input<string>;
+    ntpServer3?: pulumi.Input<string | undefined>;
     /**
      * Quaternary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer4?: pulumi.Input<string>;
+    ntpServer4?: pulumi.Input<string | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -147,25 +147,25 @@ export interface NtpArgs {
     /**
      * NTP server configuration mode. Valid values are:
      */
-    mode?: pulumi.Input<string>;
+    mode?: pulumi.Input<string | undefined>;
     /**
      * Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer1?: pulumi.Input<string>;
+    ntpServer1?: pulumi.Input<string | undefined>;
     /**
      * Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer2?: pulumi.Input<string>;
+    ntpServer2?: pulumi.Input<string | undefined>;
     /**
      * Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer3?: pulumi.Input<string>;
+    ntpServer3?: pulumi.Input<string | undefined>;
     /**
      * Quaternary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer4?: pulumi.Input<string>;
+    ntpServer4?: pulumi.Input<string | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

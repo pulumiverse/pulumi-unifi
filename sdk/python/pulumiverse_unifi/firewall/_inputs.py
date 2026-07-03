@@ -28,43 +28,51 @@ class ZonePolicyDestinationArgsDict(TypedDict):
     """
     ID of the firewall zone.
     """
-    app_category_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    app_category_ids: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of application category IDs.
     """
-    app_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    app_ids: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of application IDs.
     """
-    ip_group_id: NotRequired[pulumi.Input[_builtins.str]]
+    ip_group_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     ID of the source IP group.
     """
-    ips: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    ips: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of source IPs.
     """
-    match_opposite_ips: NotRequired[pulumi.Input[_builtins.bool]]
+    match_opposite_ips: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to match opposite IPs.
     """
-    match_opposite_ports: NotRequired[pulumi.Input[_builtins.bool]]
+    match_opposite_networks: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
+    """
+    Whether to match opposite networks.
+    """
+    match_opposite_ports: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to match opposite ports.
     """
-    port: NotRequired[pulumi.Input[_builtins.int]]
+    network_ids: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
+    """
+    List of network IDs.
+    """
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     Source port.
     """
-    port_group_id: NotRequired[pulumi.Input[_builtins.str]]
+    port_group_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     ID of the source port group.
     """
-    regions: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    regions: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of regions.
     """
-    web_domains: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    web_domains: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of web domains.
     """
@@ -73,16 +81,18 @@ class ZonePolicyDestinationArgsDict(TypedDict):
 class ZonePolicyDestinationArgs:
     def __init__(__self__, *,
                  zone_id: pulumi.Input[_builtins.str],
-                 app_category_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 app_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 ip_group_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 ips: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 match_opposite_ips: Optional[pulumi.Input[_builtins.bool]] = None,
-                 match_opposite_ports: Optional[pulumi.Input[_builtins.bool]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None,
-                 port_group_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 regions: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 web_domains: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None):
+                 app_category_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 app_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 ip_group_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 ips: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 match_opposite_ips: pulumi.Input[Optional[_builtins.bool]] = None,
+                 match_opposite_networks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 match_opposite_ports: pulumi.Input[Optional[_builtins.bool]] = None,
+                 network_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None,
+                 port_group_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 regions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 web_domains: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None):
         """
         :param pulumi.Input[_builtins.str] zone_id: ID of the firewall zone.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] app_category_ids: List of application category IDs.
@@ -90,7 +100,9 @@ class ZonePolicyDestinationArgs:
         :param pulumi.Input[_builtins.str] ip_group_id: ID of the source IP group.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] ips: List of source IPs.
         :param pulumi.Input[_builtins.bool] match_opposite_ips: Whether to match opposite IPs.
+        :param pulumi.Input[_builtins.bool] match_opposite_networks: Whether to match opposite networks.
         :param pulumi.Input[_builtins.bool] match_opposite_ports: Whether to match opposite ports.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] network_ids: List of network IDs.
         :param pulumi.Input[_builtins.int] port: Source port.
         :param pulumi.Input[_builtins.str] port_group_id: ID of the source port group.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] regions: List of regions.
@@ -107,8 +119,12 @@ class ZonePolicyDestinationArgs:
             pulumi.set(__self__, "ips", ips)
         if match_opposite_ips is not None:
             pulumi.set(__self__, "match_opposite_ips", match_opposite_ips)
+        if match_opposite_networks is not None:
+            pulumi.set(__self__, "match_opposite_networks", match_opposite_networks)
         if match_opposite_ports is not None:
             pulumi.set(__self__, "match_opposite_ports", match_opposite_ports)
+        if network_ids is not None:
+            pulumi.set(__self__, "network_ids", network_ids)
         if port is not None:
             pulumi.set(__self__, "port", port)
         if port_group_id is not None:
@@ -132,155 +148,179 @@ class ZonePolicyDestinationArgs:
 
     @_builtins.property
     @pulumi.getter(name="appCategoryIds")
-    def app_category_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def app_category_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of application category IDs.
         """
         return pulumi.get(self, "app_category_ids")
 
     @app_category_ids.setter
-    def app_category_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def app_category_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "app_category_ids", value)
 
     @_builtins.property
     @pulumi.getter(name="appIds")
-    def app_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def app_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of application IDs.
         """
         return pulumi.get(self, "app_ids")
 
     @app_ids.setter
-    def app_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def app_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "app_ids", value)
 
     @_builtins.property
     @pulumi.getter(name="ipGroupId")
-    def ip_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ip_group_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the source IP group.
         """
         return pulumi.get(self, "ip_group_id")
 
     @ip_group_id.setter
-    def ip_group_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ip_group_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ip_group_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def ips(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def ips(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of source IPs.
         """
         return pulumi.get(self, "ips")
 
     @ips.setter
-    def ips(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def ips(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "ips", value)
 
     @_builtins.property
     @pulumi.getter(name="matchOppositeIps")
-    def match_opposite_ips(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def match_opposite_ips(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to match opposite IPs.
         """
         return pulumi.get(self, "match_opposite_ips")
 
     @match_opposite_ips.setter
-    def match_opposite_ips(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def match_opposite_ips(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "match_opposite_ips", value)
 
     @_builtins.property
+    @pulumi.getter(name="matchOppositeNetworks")
+    def match_opposite_networks(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether to match opposite networks.
+        """
+        return pulumi.get(self, "match_opposite_networks")
+
+    @match_opposite_networks.setter
+    def match_opposite_networks(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "match_opposite_networks", value)
+
+    @_builtins.property
     @pulumi.getter(name="matchOppositePorts")
-    def match_opposite_ports(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def match_opposite_ports(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to match opposite ports.
         """
         return pulumi.get(self, "match_opposite_ports")
 
     @match_opposite_ports.setter
-    def match_opposite_ports(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def match_opposite_ports(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "match_opposite_ports", value)
 
     @_builtins.property
+    @pulumi.getter(name="networkIds")
+    def network_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of network IDs.
+        """
+        return pulumi.get(self, "network_ids")
+
+    @network_ids.setter
+    def network_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "network_ids", value)
+
+    @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Source port.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "port", value)
 
     @_builtins.property
     @pulumi.getter(name="portGroupId")
-    def port_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def port_group_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the source port group.
         """
         return pulumi.get(self, "port_group_id")
 
     @port_group_id.setter
-    def port_group_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def port_group_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "port_group_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def regions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def regions(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of regions.
         """
         return pulumi.get(self, "regions")
 
     @regions.setter
-    def regions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def regions(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "regions", value)
 
     @_builtins.property
     @pulumi.getter(name="webDomains")
-    def web_domains(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def web_domains(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of web domains.
         """
         return pulumi.get(self, "web_domains")
 
     @web_domains.setter
-    def web_domains(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def web_domains(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "web_domains", value)
 
 
 class ZonePolicyScheduleArgsDict(TypedDict):
-    date: NotRequired[pulumi.Input[_builtins.str]]
+    date: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Date for the schedule.
     """
-    date_end: NotRequired[pulumi.Input[_builtins.str]]
+    date_end: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     End date for the schedule.
     """
-    date_start: NotRequired[pulumi.Input[_builtins.str]]
+    date_start: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Start date for the schedule.
     """
-    mode: NotRequired[pulumi.Input[_builtins.str]]
+    mode: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Schedule mode. Valid values are `ALWAYS`, `EVERY_DAY`, `EVERY_WEEK`, `ONE_TIME_ONLY`, or `CUSTOM`.
     """
-    repeat_on_days: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    repeat_on_days: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     Days of the week when schedule repeats. Valid values include `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, and `sun`.
     """
-    time_all_day: NotRequired[pulumi.Input[_builtins.bool]]
+    time_all_day: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether the schedule applies all day.
     """
-    time_from: NotRequired[pulumi.Input[_builtins.str]]
+    time_from: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Schedule starting time in 24-hour format (HH:MM).
     """
-    time_to: NotRequired[pulumi.Input[_builtins.str]]
+    time_to: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Schedule ending time in 24-hour format (HH:MM).
     """
@@ -288,14 +328,14 @@ class ZonePolicyScheduleArgsDict(TypedDict):
 @pulumi.input_type
 class ZonePolicyScheduleArgs:
     def __init__(__self__, *,
-                 date: Optional[pulumi.Input[_builtins.str]] = None,
-                 date_end: Optional[pulumi.Input[_builtins.str]] = None,
-                 date_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 repeat_on_days: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 time_all_day: Optional[pulumi.Input[_builtins.bool]] = None,
-                 time_from: Optional[pulumi.Input[_builtins.str]] = None,
-                 time_to: Optional[pulumi.Input[_builtins.str]] = None):
+                 date: pulumi.Input[Optional[_builtins.str]] = None,
+                 date_end: pulumi.Input[Optional[_builtins.str]] = None,
+                 date_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 repeat_on_days: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 time_all_day: pulumi.Input[Optional[_builtins.bool]] = None,
+                 time_from: pulumi.Input[Optional[_builtins.str]] = None,
+                 time_to: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] date: Date for the schedule.
         :param pulumi.Input[_builtins.str] date_end: End date for the schedule.
@@ -325,98 +365,98 @@ class ZonePolicyScheduleArgs:
 
     @_builtins.property
     @pulumi.getter
-    def date(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def date(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Date for the schedule.
         """
         return pulumi.get(self, "date")
 
     @date.setter
-    def date(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def date(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "date", value)
 
     @_builtins.property
     @pulumi.getter(name="dateEnd")
-    def date_end(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def date_end(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         End date for the schedule.
         """
         return pulumi.get(self, "date_end")
 
     @date_end.setter
-    def date_end(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def date_end(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "date_end", value)
 
     @_builtins.property
     @pulumi.getter(name="dateStart")
-    def date_start(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def date_start(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Start date for the schedule.
         """
         return pulumi.get(self, "date_start")
 
     @date_start.setter
-    def date_start(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def date_start(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "date_start", value)
 
     @_builtins.property
     @pulumi.getter
-    def mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Schedule mode. Valid values are `ALWAYS`, `EVERY_DAY`, `EVERY_WEEK`, `ONE_TIME_ONLY`, or `CUSTOM`.
         """
         return pulumi.get(self, "mode")
 
     @mode.setter
-    def mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mode", value)
 
     @_builtins.property
     @pulumi.getter(name="repeatOnDays")
-    def repeat_on_days(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def repeat_on_days(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         Days of the week when schedule repeats. Valid values include `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, and `sun`.
         """
         return pulumi.get(self, "repeat_on_days")
 
     @repeat_on_days.setter
-    def repeat_on_days(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def repeat_on_days(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "repeat_on_days", value)
 
     @_builtins.property
     @pulumi.getter(name="timeAllDay")
-    def time_all_day(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def time_all_day(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the schedule applies all day.
         """
         return pulumi.get(self, "time_all_day")
 
     @time_all_day.setter
-    def time_all_day(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def time_all_day(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "time_all_day", value)
 
     @_builtins.property
     @pulumi.getter(name="timeFrom")
-    def time_from(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def time_from(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Schedule starting time in 24-hour format (HH:MM).
         """
         return pulumi.get(self, "time_from")
 
     @time_from.setter
-    def time_from(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def time_from(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "time_from", value)
 
     @_builtins.property
     @pulumi.getter(name="timeTo")
-    def time_to(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def time_to(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Schedule ending time in 24-hour format (HH:MM).
         """
         return pulumi.get(self, "time_to")
 
     @time_to.setter
-    def time_to(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def time_to(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "time_to", value)
 
 
@@ -425,47 +465,47 @@ class ZonePolicySourceArgsDict(TypedDict):
     """
     ID of the firewall zone.
     """
-    client_macs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    client_macs: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of client MAC addresses.
     """
-    ip_group_id: NotRequired[pulumi.Input[_builtins.str]]
+    ip_group_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     ID of the source IP group.
     """
-    ips: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    ips: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of source IPs.
     """
-    mac: NotRequired[pulumi.Input[_builtins.str]]
+    mac: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     Source MAC address.
     """
-    macs: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    macs: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of MAC addresses.
     """
-    match_opposite_ips: NotRequired[pulumi.Input[_builtins.bool]]
+    match_opposite_ips: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to match opposite IPs.
     """
-    match_opposite_networks: NotRequired[pulumi.Input[_builtins.bool]]
+    match_opposite_networks: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to match opposite networks.
     """
-    match_opposite_ports: NotRequired[pulumi.Input[_builtins.bool]]
+    match_opposite_ports: NotRequired[pulumi.Input[Optional[_builtins.bool]]]
     """
     Whether to match opposite ports.
     """
-    network_ids: NotRequired[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]
+    network_ids: NotRequired[pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]]
     """
     List of network IDs.
     """
-    port: NotRequired[pulumi.Input[_builtins.int]]
+    port: NotRequired[pulumi.Input[Optional[_builtins.int]]]
     """
     Source port.
     """
-    port_group_id: NotRequired[pulumi.Input[_builtins.str]]
+    port_group_id: NotRequired[pulumi.Input[Optional[_builtins.str]]]
     """
     ID of the source port group.
     """
@@ -474,17 +514,17 @@ class ZonePolicySourceArgsDict(TypedDict):
 class ZonePolicySourceArgs:
     def __init__(__self__, *,
                  zone_id: pulumi.Input[_builtins.str],
-                 client_macs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 ip_group_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 ips: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 mac: Optional[pulumi.Input[_builtins.str]] = None,
-                 macs: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 match_opposite_ips: Optional[pulumi.Input[_builtins.bool]] = None,
-                 match_opposite_networks: Optional[pulumi.Input[_builtins.bool]] = None,
-                 match_opposite_ports: Optional[pulumi.Input[_builtins.bool]] = None,
-                 network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None,
-                 port_group_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 client_macs: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 ip_group_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 ips: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 mac: pulumi.Input[Optional[_builtins.str]] = None,
+                 macs: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 match_opposite_ips: pulumi.Input[Optional[_builtins.bool]] = None,
+                 match_opposite_networks: pulumi.Input[Optional[_builtins.bool]] = None,
+                 match_opposite_ports: pulumi.Input[Optional[_builtins.bool]] = None,
+                 network_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None,
+                 port_group_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         :param pulumi.Input[_builtins.str] zone_id: ID of the firewall zone.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] client_macs: List of client MAC addresses.
@@ -537,134 +577,134 @@ class ZonePolicySourceArgs:
 
     @_builtins.property
     @pulumi.getter(name="clientMacs")
-    def client_macs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def client_macs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of client MAC addresses.
         """
         return pulumi.get(self, "client_macs")
 
     @client_macs.setter
-    def client_macs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def client_macs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "client_macs", value)
 
     @_builtins.property
     @pulumi.getter(name="ipGroupId")
-    def ip_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ip_group_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the source IP group.
         """
         return pulumi.get(self, "ip_group_id")
 
     @ip_group_id.setter
-    def ip_group_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ip_group_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ip_group_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def ips(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def ips(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of source IPs.
         """
         return pulumi.get(self, "ips")
 
     @ips.setter
-    def ips(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def ips(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "ips", value)
 
     @_builtins.property
     @pulumi.getter
-    def mac(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mac(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Source MAC address.
         """
         return pulumi.get(self, "mac")
 
     @mac.setter
-    def mac(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mac(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mac", value)
 
     @_builtins.property
     @pulumi.getter
-    def macs(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def macs(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of MAC addresses.
         """
         return pulumi.get(self, "macs")
 
     @macs.setter
-    def macs(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def macs(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "macs", value)
 
     @_builtins.property
     @pulumi.getter(name="matchOppositeIps")
-    def match_opposite_ips(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def match_opposite_ips(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to match opposite IPs.
         """
         return pulumi.get(self, "match_opposite_ips")
 
     @match_opposite_ips.setter
-    def match_opposite_ips(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def match_opposite_ips(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "match_opposite_ips", value)
 
     @_builtins.property
     @pulumi.getter(name="matchOppositeNetworks")
-    def match_opposite_networks(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def match_opposite_networks(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to match opposite networks.
         """
         return pulumi.get(self, "match_opposite_networks")
 
     @match_opposite_networks.setter
-    def match_opposite_networks(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def match_opposite_networks(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "match_opposite_networks", value)
 
     @_builtins.property
     @pulumi.getter(name="matchOppositePorts")
-    def match_opposite_ports(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def match_opposite_ports(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to match opposite ports.
         """
         return pulumi.get(self, "match_opposite_ports")
 
     @match_opposite_ports.setter
-    def match_opposite_ports(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def match_opposite_ports(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "match_opposite_ports", value)
 
     @_builtins.property
     @pulumi.getter(name="networkIds")
-    def network_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def network_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of network IDs.
         """
         return pulumi.get(self, "network_ids")
 
     @network_ids.setter
-    def network_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def network_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "network_ids", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Source port.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "port", value)
 
     @_builtins.property
     @pulumi.getter(name="portGroupId")
-    def port_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def port_group_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the source port group.
         """
         return pulumi.get(self, "port_group_id")
 
     @port_group_id.setter
-    def port_group_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def port_group_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "port_group_id", value)
 
 

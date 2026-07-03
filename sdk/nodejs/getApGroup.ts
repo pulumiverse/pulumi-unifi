@@ -5,7 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
- * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
+ * The `unifi.ApGroup` data source can be used to retrieve the ID for an AP group by name.
  *
  * ## Example Usage
  *
@@ -34,7 +34,7 @@ export interface GetApGroupArgs {
      */
     name?: string;
     /**
-     * The name of the site the AP group is associated with.
+     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
     site?: string;
 }
@@ -44,7 +44,7 @@ export interface GetApGroupArgs {
  */
 export interface GetApGroupResult {
     /**
-     * The ID of this AP group.
+     * The unique identifier of this resource.
      */
     readonly id: string;
     /**
@@ -52,12 +52,12 @@ export interface GetApGroupResult {
      */
     readonly name?: string;
     /**
-     * The name of the site the AP group is associated with.
+     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
     readonly site: string;
 }
 /**
- * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
+ * The `unifi.ApGroup` data source can be used to retrieve the ID for an AP group by name.
  *
  * ## Example Usage
  *
@@ -84,9 +84,9 @@ export interface GetApGroupOutputArgs {
     /**
      * The name of the AP group to look up, leave blank to look up the default AP group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
-     * The name of the site the AP group is associated with.
+     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

@@ -65,6 +65,8 @@ namespace Pulumiverse.Unifi
     /// 
     /// ## Import
     /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
     /// import from provider configured site
     /// 
     /// ```sh
@@ -233,13 +235,21 @@ namespace Pulumiverse.Unifi
         public Output<string> UserGroupId { get; private set; } = null!;
 
         /// <summary>
-        /// Radio band selection. Valid values:
-        ///   * `Both` - Both 2.4GHz and 5GHz (default)
+        /// Radio band selection (legacy single-band field). Valid values:
+        ///   * `Both` - Both 2.4GHz and 5GHz
         ///   * `2g` - 2.4GHz only
         ///   * `5g` - 5GHz only
+        /// 
+        /// Cannot express a 6GHz selection — use `WlanBands` for that. When neither this nor `WlanBands` is set, the controller's default (all supported bands) applies.
         /// </summary>
         [Output("wlanBand")]
-        public Output<string?> WlanBand { get; private set; } = null!;
+        public Output<string> WlanBand { get; private set; } = null!;
+
+        /// <summary>
+        /// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `WlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `WlanBand` field is derived from it and `SettingPreference` is forced to `Manual`, matching UniFi UI behavior.
+        /// </summary>
+        [Output("wlanBands")]
+        public Output<ImmutableArray<string>> WlanBands { get; private set; } = null!;
 
         /// <summary>
         /// Enable WPA3 security protocol. Requires security to be set to `Wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
@@ -485,13 +495,27 @@ namespace Pulumiverse.Unifi
         public Input<string> UserGroupId { get; set; } = null!;
 
         /// <summary>
-        /// Radio band selection. Valid values:
-        ///   * `Both` - Both 2.4GHz and 5GHz (default)
+        /// Radio band selection (legacy single-band field). Valid values:
+        ///   * `Both` - Both 2.4GHz and 5GHz
         ///   * `2g` - 2.4GHz only
         ///   * `5g` - 5GHz only
+        /// 
+        /// Cannot express a 6GHz selection — use `WlanBands` for that. When neither this nor `WlanBands` is set, the controller's default (all supported bands) applies.
         /// </summary>
         [Input("wlanBand")]
         public Input<string>? WlanBand { get; set; }
+
+        [Input("wlanBands")]
+        private InputList<string>? _wlanBands;
+
+        /// <summary>
+        /// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `WlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `WlanBand` field is derived from it and `SettingPreference` is forced to `Manual`, matching UniFi UI behavior.
+        /// </summary>
+        public InputList<string> WlanBands
+        {
+            get => _wlanBands ?? (_wlanBands = new InputList<string>());
+            set => _wlanBands = value;
+        }
 
         /// <summary>
         /// Enable WPA3 security protocol. Requires security to be set to `Wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
@@ -694,13 +718,27 @@ namespace Pulumiverse.Unifi
         public Input<string>? UserGroupId { get; set; }
 
         /// <summary>
-        /// Radio band selection. Valid values:
-        ///   * `Both` - Both 2.4GHz and 5GHz (default)
+        /// Radio band selection (legacy single-band field). Valid values:
+        ///   * `Both` - Both 2.4GHz and 5GHz
         ///   * `2g` - 2.4GHz only
         ///   * `5g` - 5GHz only
+        /// 
+        /// Cannot express a 6GHz selection — use `WlanBands` for that. When neither this nor `WlanBands` is set, the controller's default (all supported bands) applies.
         /// </summary>
         [Input("wlanBand")]
         public Input<string>? WlanBand { get; set; }
+
+        [Input("wlanBands")]
+        private InputList<string>? _wlanBands;
+
+        /// <summary>
+        /// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `WlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `WlanBand` field is derived from it and `SettingPreference` is forced to `Manual`, matching UniFi UI behavior.
+        /// </summary>
+        public InputList<string> WlanBands
+        {
+            get => _wlanBands ?? (_wlanBands = new InputList<string>());
+            set => _wlanBands = value;
+        }
 
         /// <summary>
         /// Enable WPA3 security protocol. Requires security to be set to `Wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.

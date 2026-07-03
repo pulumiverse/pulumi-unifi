@@ -24,8 +24,12 @@ type ZonePolicyDestination struct {
 	Ips []string `pulumi:"ips"`
 	// Whether to match opposite IPs.
 	MatchOppositeIps *bool `pulumi:"matchOppositeIps"`
+	// Whether to match opposite networks.
+	MatchOppositeNetworks *bool `pulumi:"matchOppositeNetworks"`
 	// Whether to match opposite ports.
 	MatchOppositePorts *bool `pulumi:"matchOppositePorts"`
+	// List of network IDs.
+	NetworkIds []string `pulumi:"networkIds"`
 	// Source port.
 	Port *int `pulumi:"port"`
 	// ID of the source port group.
@@ -60,8 +64,12 @@ type ZonePolicyDestinationArgs struct {
 	Ips pulumi.StringArrayInput `pulumi:"ips"`
 	// Whether to match opposite IPs.
 	MatchOppositeIps pulumi.BoolPtrInput `pulumi:"matchOppositeIps"`
+	// Whether to match opposite networks.
+	MatchOppositeNetworks pulumi.BoolPtrInput `pulumi:"matchOppositeNetworks"`
 	// Whether to match opposite ports.
 	MatchOppositePorts pulumi.BoolPtrInput `pulumi:"matchOppositePorts"`
+	// List of network IDs.
+	NetworkIds pulumi.StringArrayInput `pulumi:"networkIds"`
 	// Source port.
 	Port pulumi.IntPtrInput `pulumi:"port"`
 	// ID of the source port group.
@@ -176,9 +184,19 @@ func (o ZonePolicyDestinationOutput) MatchOppositeIps() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ZonePolicyDestination) *bool { return v.MatchOppositeIps }).(pulumi.BoolPtrOutput)
 }
 
+// Whether to match opposite networks.
+func (o ZonePolicyDestinationOutput) MatchOppositeNetworks() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ZonePolicyDestination) *bool { return v.MatchOppositeNetworks }).(pulumi.BoolPtrOutput)
+}
+
 // Whether to match opposite ports.
 func (o ZonePolicyDestinationOutput) MatchOppositePorts() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ZonePolicyDestination) *bool { return v.MatchOppositePorts }).(pulumi.BoolPtrOutput)
+}
+
+// List of network IDs.
+func (o ZonePolicyDestinationOutput) NetworkIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ZonePolicyDestination) []string { return v.NetworkIds }).(pulumi.StringArrayOutput)
 }
 
 // Source port.
@@ -280,6 +298,16 @@ func (o ZonePolicyDestinationPtrOutput) MatchOppositeIps() pulumi.BoolPtrOutput 
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Whether to match opposite networks.
+func (o ZonePolicyDestinationPtrOutput) MatchOppositeNetworks() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ZonePolicyDestination) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.MatchOppositeNetworks
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Whether to match opposite ports.
 func (o ZonePolicyDestinationPtrOutput) MatchOppositePorts() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ZonePolicyDestination) *bool {
@@ -288,6 +316,16 @@ func (o ZonePolicyDestinationPtrOutput) MatchOppositePorts() pulumi.BoolPtrOutpu
 		}
 		return v.MatchOppositePorts
 	}).(pulumi.BoolPtrOutput)
+}
+
+// List of network IDs.
+func (o ZonePolicyDestinationPtrOutput) NetworkIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ZonePolicyDestination) []string {
+		if v == nil {
+			return nil
+		}
+		return v.NetworkIds
+	}).(pulumi.StringArrayOutput)
 }
 
 // Source port.

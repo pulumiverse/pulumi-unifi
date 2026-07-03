@@ -18,7 +18,7 @@ import (
 //   - WPA2/WPA3-Enterprise wireless authentication
 //   - 802.1X wired authentication
 //   - MAC-based device authentication
-//   - VLAN assignment through RADIUS attributes
+//   - Dynamic VLAN assignment through RADIUS attributes (see the `vlan` attribute)
 //
 // Important Notes:
 // 1. For MAC-based authentication:
@@ -26,8 +26,9 @@ import (
 //   - Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
 //
 // 2. VLAN Assignment:
-//   - If no VLAN is specified in the profile, clients will use the network's untagged VLAN
-//   - VLAN assignment uses standard RADIUS tunnel attributes
+//   - Set the `vlan` attribute to the 802.1Q VLAN ID the controller should assign to authenticated clients
+//   - VLAN assignment is delivered using the standard RADIUS tunnel attributes (`tunnelType`/`tunnelMediumType`)
+//   - If no VLAN is specified, clients will use the network's untagged VLAN
 //
 // Limitations:
 //   - MAC-based authentication works only for wireless and wired clients
@@ -38,7 +39,7 @@ type Account struct {
 
 	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+	// The ID of a UniFi network configuration (the controller's `networkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
 	NetworkId pulumi.StringPtrOutput `pulumi:"networkId"`
 	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password pulumi.StringOutput `pulumi:"password"`
@@ -58,6 +59,8 @@ type Account struct {
 	//
 	// Only change this if you need specific tunneling behavior.
 	TunnelType pulumi.IntPtrOutput `pulumi:"tunnelType"`
+	// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnelType`/`tunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+	Vlan pulumi.IntPtrOutput `pulumi:"vlan"`
 }
 
 // NewAccount registers a new resource with the given unique name, arguments, and options.
@@ -102,7 +105,7 @@ func GetAccount(ctx *pulumi.Context,
 type accountState struct {
 	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name *string `pulumi:"name"`
-	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+	// The ID of a UniFi network configuration (the controller's `networkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
 	NetworkId *string `pulumi:"networkId"`
 	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password *string `pulumi:"password"`
@@ -122,12 +125,14 @@ type accountState struct {
 	//
 	// Only change this if you need specific tunneling behavior.
 	TunnelType *int `pulumi:"tunnelType"`
+	// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnelType`/`tunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+	Vlan *int `pulumi:"vlan"`
 }
 
 type AccountState struct {
 	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name pulumi.StringPtrInput
-	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+	// The ID of a UniFi network configuration (the controller's `networkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
 	NetworkId pulumi.StringPtrInput
 	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password pulumi.StringPtrInput
@@ -147,6 +152,8 @@ type AccountState struct {
 	//
 	// Only change this if you need specific tunneling behavior.
 	TunnelType pulumi.IntPtrInput
+	// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnelType`/`tunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+	Vlan pulumi.IntPtrInput
 }
 
 func (AccountState) ElementType() reflect.Type {
@@ -156,7 +163,7 @@ func (AccountState) ElementType() reflect.Type {
 type accountArgs struct {
 	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name *string `pulumi:"name"`
-	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+	// The ID of a UniFi network configuration (the controller's `networkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
 	NetworkId *string `pulumi:"networkId"`
 	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password string `pulumi:"password"`
@@ -176,13 +183,15 @@ type accountArgs struct {
 	//
 	// Only change this if you need specific tunneling behavior.
 	TunnelType *int `pulumi:"tunnelType"`
+	// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnelType`/`tunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+	Vlan *int `pulumi:"vlan"`
 }
 
 // The set of arguments for constructing a Account resource.
 type AccountArgs struct {
 	// The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
 	Name pulumi.StringPtrInput
-	// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+	// The ID of a UniFi network configuration (the controller's `networkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
 	NetworkId pulumi.StringPtrInput
 	// The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
 	Password pulumi.StringInput
@@ -202,6 +211,8 @@ type AccountArgs struct {
 	//
 	// Only change this if you need specific tunneling behavior.
 	TunnelType pulumi.IntPtrInput
+	// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnelType`/`tunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+	Vlan pulumi.IntPtrInput
 }
 
 func (AccountArgs) ElementType() reflect.Type {
@@ -296,7 +307,7 @@ func (o AccountOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Account) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+// The ID of a UniFi network configuration (the controller's `networkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
 func (o AccountOutput) NetworkId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Account) pulumi.StringPtrOutput { return v.NetworkId }).(pulumi.StringPtrOutput)
 }
@@ -329,6 +340,11 @@ func (o AccountOutput) TunnelMediumType() pulumi.IntPtrOutput {
 // Only change this if you need specific tunneling behavior.
 func (o AccountOutput) TunnelType() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Account) pulumi.IntPtrOutput { return v.TunnelType }).(pulumi.IntPtrOutput)
+}
+
+// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnelType`/`tunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+func (o AccountOutput) Vlan() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Account) pulumi.IntPtrOutput { return v.Vlan }).(pulumi.IntPtrOutput)
 }
 
 type AccountArrayOutput struct{ *pulumi.OutputState }

@@ -42,6 +42,11 @@ func GetApiUrl(ctx *pulumi.Context) string {
 	return value
 }
 
+// Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
+func GetHttpMaxRetries(ctx *pulumi.Context) int {
+	return config.GetInt(ctx, "unifi:httpMaxRetries")
+}
+
 // Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
 func GetPassword(ctx *pulumi.Context) string {
 	v, err := config.Try(ctx, "unifi:password")

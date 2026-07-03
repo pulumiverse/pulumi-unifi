@@ -15,7 +15,7 @@ namespace Pulumiverse.Unifi.Firewall
     /// 
     /// Firewall zones allow you to group networks together for firewall rule application. This resource allows you to create, update, and delete firewall zones.
     /// 
-    /// !&gt; This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+    /// &gt; This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
     /// 
     /// ## Example Usage
     /// 
@@ -48,6 +48,8 @@ namespace Pulumiverse.Unifi.Firewall
     /// ```
     /// 
     /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
     /// 
     /// import from provider configured site
     /// 

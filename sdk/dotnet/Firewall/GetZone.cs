@@ -14,18 +14,132 @@ namespace Pulumiverse.Unifi.Firewall
     {
         /// <summary>
         /// The `unifi.firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Unifi = Pulumiverse.Unifi;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var vpn = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Vpn",
+        ///     });
+        /// 
+        ///     var gateway = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Gateway",
+        ///     });
+        /// 
+        ///     var @internal = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Internal",
+        ///     });
+        /// 
+        ///     var external = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "External",
+        ///     });
+        /// 
+        ///     var hotspot = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Hotspot",
+        ///     });
+        /// 
+        /// });
+        /// ```
         /// </summary>
         public static Task<GetZoneResult> InvokeAsync(GetZoneArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetZoneResult>("unifi:firewall/getZone:getZone", args ?? new GetZoneArgs(), options.WithDefaults());
 
         /// <summary>
         /// The `unifi.firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Unifi = Pulumiverse.Unifi;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var vpn = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Vpn",
+        ///     });
+        /// 
+        ///     var gateway = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Gateway",
+        ///     });
+        /// 
+        ///     var @internal = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Internal",
+        ///     });
+        /// 
+        ///     var external = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "External",
+        ///     });
+        /// 
+        ///     var hotspot = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Hotspot",
+        ///     });
+        /// 
+        /// });
+        /// ```
         /// </summary>
         public static Output<GetZoneResult> Invoke(GetZoneInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetZoneResult>("unifi:firewall/getZone:getZone", args ?? new GetZoneInvokeArgs(), options.WithDefaults());
 
         /// <summary>
         /// The `unifi.firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
+        /// 
+        /// ## Example Usage
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Unifi = Pulumiverse.Unifi;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var vpn = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Vpn",
+        ///     });
+        /// 
+        ///     var gateway = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Gateway",
+        ///     });
+        /// 
+        ///     var @internal = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Internal",
+        ///     });
+        /// 
+        ///     var external = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "External",
+        ///     });
+        /// 
+        ///     var hotspot = Unifi.Firewall.GetZone.Invoke(new()
+        ///     {
+        ///         Name = "Hotspot",
+        ///     });
+        /// 
+        /// });
+        /// ```
         /// </summary>
         public static Output<GetZoneResult> Invoke(GetZoneInvokeArgs args, InvokeOutputOptions options)
             => global::Pulumi.Deployment.Instance.Invoke<GetZoneResult>("unifi:firewall/getZone:getZone", args ?? new GetZoneInvokeArgs(), options.WithDefaults());

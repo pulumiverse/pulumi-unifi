@@ -21,19 +21,20 @@ __all__ = ['RadiusProfileArgs', 'RadiusProfile']
 @pulumi.input_type
 class RadiusProfileArgs:
     def __init__(__self__, *,
-                 accounting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]] = None,
-                 auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]] = None,
-                 interim_update_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 interim_update_interval: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 use_usg_acct_server: Optional[pulumi.Input[_builtins.bool]] = None,
-                 use_usg_auth_server: Optional[pulumi.Input[_builtins.bool]] = None,
-                 vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None):
+                 accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]] = None,
+                 auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]] = None,
+                 interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 use_usg_acct_server: pulumi.Input[Optional[_builtins.bool]] = None,
+                 use_usg_auth_server: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_wlan_mode: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a RadiusProfile resource.
+
         :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
                  * IP address of the RADIUS server
@@ -79,19 +80,19 @@ class RadiusProfileArgs:
 
     @_builtins.property
     @pulumi.getter(name="accountingEnabled")
-    def accounting_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def accounting_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         """
         return pulumi.get(self, "accounting_enabled")
 
     @accounting_enabled.setter
-    def accounting_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def accounting_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "accounting_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="acctServers")
-    def acct_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]:
+    def acct_servers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]:
         """
         List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
           * IP address of the RADIUS server
@@ -101,12 +102,12 @@ class RadiusProfileArgs:
         return pulumi.get(self, "acct_servers")
 
     @acct_servers.setter
-    def acct_servers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]):
+    def acct_servers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]):
         pulumi.set(self, "acct_servers", value)
 
     @_builtins.property
     @pulumi.getter(name="authServers")
-    def auth_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]:
+    def auth_servers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]:
         """
         List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
           * IP address of the RADIUS server
@@ -115,96 +116,96 @@ class RadiusProfileArgs:
         return pulumi.get(self, "auth_servers")
 
     @auth_servers.setter
-    def auth_servers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]):
+    def auth_servers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]):
         pulumi.set(self, "auth_servers", value)
 
     @_builtins.property
     @pulumi.getter(name="interimUpdateEnabled")
-    def interim_update_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def interim_update_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
         """
         return pulumi.get(self, "interim_update_enabled")
 
     @interim_update_enabled.setter
-    def interim_update_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def interim_update_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "interim_update_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="interimUpdateInterval")
-    def interim_update_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def interim_update_interval(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
         """
         return pulumi.get(self, "interim_update_interval")
 
     @interim_update_interval.setter
-    def interim_update_interval(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def interim_update_interval(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "interim_update_interval", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="useUsgAcctServer")
-    def use_usg_acct_server(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_usg_acct_server(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_acct_server")
 
     @use_usg_acct_server.setter
-    def use_usg_acct_server(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_usg_acct_server(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_usg_acct_server", value)
 
     @_builtins.property
     @pulumi.getter(name="useUsgAuthServer")
-    def use_usg_auth_server(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_usg_auth_server(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_auth_server")
 
     @use_usg_auth_server.setter
-    def use_usg_auth_server(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_usg_auth_server(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_usg_auth_server", value)
 
     @_builtins.property
     @pulumi.getter(name="vlanEnabled")
-    def vlan_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def vlan_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
         """
         return pulumi.get(self, "vlan_enabled")
 
     @vlan_enabled.setter
-    def vlan_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def vlan_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "vlan_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="vlanWlanMode")
-    def vlan_wlan_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def vlan_wlan_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         VLAN assignment mode for wireless networks. Valid values are:
           * `disabled` - Do not use RADIUS-assigned VLANs
@@ -214,26 +215,27 @@ class RadiusProfileArgs:
         return pulumi.get(self, "vlan_wlan_mode")
 
     @vlan_wlan_mode.setter
-    def vlan_wlan_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def vlan_wlan_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "vlan_wlan_mode", value)
 
 
 @pulumi.input_type
 class _RadiusProfileState:
     def __init__(__self__, *,
-                 accounting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]] = None,
-                 auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]] = None,
-                 interim_update_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 interim_update_interval: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 use_usg_acct_server: Optional[pulumi.Input[_builtins.bool]] = None,
-                 use_usg_auth_server: Optional[pulumi.Input[_builtins.bool]] = None,
-                 vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None):
+                 accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]] = None,
+                 auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]] = None,
+                 interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 use_usg_acct_server: pulumi.Input[Optional[_builtins.bool]] = None,
+                 use_usg_auth_server: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_wlan_mode: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering RadiusProfile resources.
+
         :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         :param pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
                  * IP address of the RADIUS server
@@ -279,19 +281,19 @@ class _RadiusProfileState:
 
     @_builtins.property
     @pulumi.getter(name="accountingEnabled")
-    def accounting_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def accounting_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
         """
         return pulumi.get(self, "accounting_enabled")
 
     @accounting_enabled.setter
-    def accounting_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def accounting_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "accounting_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="acctServers")
-    def acct_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]:
+    def acct_servers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]:
         """
         List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
           * IP address of the RADIUS server
@@ -301,12 +303,12 @@ class _RadiusProfileState:
         return pulumi.get(self, "acct_servers")
 
     @acct_servers.setter
-    def acct_servers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]):
+    def acct_servers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAcctServerArgs']]]]):
         pulumi.set(self, "acct_servers", value)
 
     @_builtins.property
     @pulumi.getter(name="authServers")
-    def auth_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]:
+    def auth_servers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]:
         """
         List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
           * IP address of the RADIUS server
@@ -315,96 +317,96 @@ class _RadiusProfileState:
         return pulumi.get(self, "auth_servers")
 
     @auth_servers.setter
-    def auth_servers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]):
+    def auth_servers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['RadiusProfileAuthServerArgs']]]]):
         pulumi.set(self, "auth_servers", value)
 
     @_builtins.property
     @pulumi.getter(name="interimUpdateEnabled")
-    def interim_update_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def interim_update_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
         """
         return pulumi.get(self, "interim_update_enabled")
 
     @interim_update_enabled.setter
-    def interim_update_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def interim_update_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "interim_update_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="interimUpdateInterval")
-    def interim_update_interval(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def interim_update_interval(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The interval (in seconds) between interim updates when `interim_update_enabled` is true. Default is 3600 seconds (1 hour).
         """
         return pulumi.get(self, "interim_update_interval")
 
     @interim_update_interval.setter
-    def interim_update_interval(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def interim_update_interval(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "interim_update_interval", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A friendly name for the RADIUS profile to help identify its purpose (e.g., 'Corporate Users' or 'Guest Access').
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where the RADIUS profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="useUsgAcctServer")
-    def use_usg_acct_server(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_usg_acct_server(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Use the controller as a RADIUS accounting server. This allows local accounting without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_acct_server")
 
     @use_usg_acct_server.setter
-    def use_usg_acct_server(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_usg_acct_server(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_usg_acct_server", value)
 
     @_builtins.property
     @pulumi.getter(name="useUsgAuthServer")
-    def use_usg_auth_server(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def use_usg_auth_server(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Use the controller as a RADIUS authentication server. This allows local authentication without an external RADIUS server.
         """
         return pulumi.get(self, "use_usg_auth_server")
 
     @use_usg_auth_server.setter
-    def use_usg_auth_server(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def use_usg_auth_server(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "use_usg_auth_server", value)
 
     @_builtins.property
     @pulumi.getter(name="vlanEnabled")
-    def vlan_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def vlan_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable VLAN assignment for wired clients based on RADIUS attributes. This allows network segmentation based on user authentication.
         """
         return pulumi.get(self, "vlan_enabled")
 
     @vlan_enabled.setter
-    def vlan_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def vlan_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "vlan_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="vlanWlanMode")
-    def vlan_wlan_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def vlan_wlan_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         VLAN assignment mode for wireless networks. Valid values are:
           * `disabled` - Do not use RADIUS-assigned VLANs
@@ -414,7 +416,7 @@ class _RadiusProfileState:
         return pulumi.get(self, "vlan_wlan_mode")
 
     @vlan_wlan_mode.setter
-    def vlan_wlan_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def vlan_wlan_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "vlan_wlan_mode", value)
 
 
@@ -424,17 +426,17 @@ class RadiusProfile(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 accounting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
-                 auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
-                 interim_update_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 interim_update_interval: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 use_usg_acct_server: Optional[pulumi.Input[_builtins.bool]] = None,
-                 use_usg_auth_server: Optional[pulumi.Input[_builtins.bool]] = None,
-                 vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
+                 auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
+                 interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 use_usg_acct_server: pulumi.Input[Optional[_builtins.bool]] = None,
+                 use_usg_auth_server: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_wlan_mode: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         The `RadiusProfile` resource manages RADIUS authentication profiles for UniFi networks.
@@ -449,6 +451,7 @@ class RadiusProfile(pulumi.CustomResource):
           * Multiple authentication and accounting servers
           * VLAN assignment settings
           * Accounting update intervals
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -492,6 +495,7 @@ class RadiusProfile(pulumi.CustomResource):
           * VLAN assignment settings
           * Accounting update intervals
 
+
         :param str resource_name: The name of the resource.
         :param RadiusProfileArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -507,17 +511,17 @@ class RadiusProfile(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 accounting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
-                 auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
-                 interim_update_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 interim_update_interval: Optional[pulumi.Input[_builtins.int]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 use_usg_acct_server: Optional[pulumi.Input[_builtins.bool]] = None,
-                 use_usg_auth_server: Optional[pulumi.Input[_builtins.bool]] = None,
-                 vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
+                 auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
+                 interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 use_usg_acct_server: pulumi.Input[Optional[_builtins.bool]] = None,
+                 use_usg_auth_server: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_wlan_mode: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -548,17 +552,17 @@ class RadiusProfile(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            accounting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            acct_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
-            auth_servers: Optional[pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
-            interim_update_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            interim_update_interval: Optional[pulumi.Input[_builtins.int]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            use_usg_acct_server: Optional[pulumi.Input[_builtins.bool]] = None,
-            use_usg_auth_server: Optional[pulumi.Input[_builtins.bool]] = None,
-            vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None) -> 'RadiusProfile':
+            accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
+            auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
+            interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            use_usg_acct_server: pulumi.Input[Optional[_builtins.bool]] = None,
+            use_usg_auth_server: pulumi.Input[Optional[_builtins.bool]] = None,
+            vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            vlan_wlan_mode: pulumi.Input[Optional[_builtins.str]] = None) -> 'RadiusProfile':
         """
         Get an existing RadiusProfile resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

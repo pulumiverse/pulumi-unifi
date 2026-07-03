@@ -100,15 +100,15 @@ export interface DpiState {
     /**
      * Whether Deep Packet Inspection is enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Whether DPI fingerprinting is enabled. Fingerprinting allows the controller to identify applications and services based on traffic patterns.
      */
-    fingerprintingEnabled?: pulumi.Input<boolean>;
+    fingerprintingEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -126,5 +126,5 @@ export interface DpiArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

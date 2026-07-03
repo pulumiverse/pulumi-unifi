@@ -20,63 +20,83 @@ __all__ = ['NetworkArgs', 'Network']
 class NetworkArgs:
     def __init__(__self__, *,
                  purpose: pulumi.Input[_builtins.str],
-                 dhcp_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_lease: Optional[pulumi.Input[_builtins.int]] = None,
-                 dhcp_relay_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_v6_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcp_v6_dns_auto: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_v6_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_v6_lease: Optional[pulumi.Input[_builtins.int]] = None,
-                 dhcp_v6_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_v6_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcpd_boot_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
-                 domain_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
-                 internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_ra_enable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ipv6_ra_preferred_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-                 ipv6_ra_priority: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_ra_valid_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-                 ipv6_static_subnet: Optional[pulumi.Input[_builtins.str]] = None,
-                 multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 subnet: Optional[pulumi.Input[_builtins.str]] = None,
-                 vlan_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_dhcp_v6_pd_size: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 wan_egress_qos: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_gateway: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_gateway_v6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_netmask: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_networkgroup: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_prefixlen: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_type_v6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_username: Optional[pulumi.Input[_builtins.str]] = None,
-                 x_wan_password: Optional[pulumi.Input[_builtins.str]] = None):
+                 dhcp_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_guarding: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_guarding_trusted_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_lease: pulumi.Input[Optional[_builtins.int]] = None,
+                 dhcp_relay_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_v6_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_v6_dns_auto: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_v6_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_v6_lease: pulumi.Input[Optional[_builtins.int]] = None,
+                 dhcp_v6_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_v6_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_boot_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcpd_boot_filename: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_boot_server: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_gateway_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 domain_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 firewall_zone_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 igmp_snooping: pulumi.Input[Optional[_builtins.bool]] = None,
+                 internet_access_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ipv6_interface_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_prefixid: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_ra_enable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ipv6_ra_preferred_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+                 ipv6_ra_priority: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_ra_valid_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+                 ipv6_static_subnet: pulumi.Input[Optional[_builtins.str]] = None,
+                 multicast_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_isolation_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 subnet: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid_vpn_custom_routings: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 upnp_lan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 vpn_client_default_route: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vpn_client_pull_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vpn_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_dhcp_v6_pd_size: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 wan_egress_qos: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_gateway_v6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_netmask: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_networkgroup: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_prefixlen: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_type_v6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_username: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_peer_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_peer_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 wireguard_client_peer_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_preshared_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_preshared_key_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wireguard_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_wan_password: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_wireguard_private_key: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Network resource.
+
         :param pulumi.Input[_builtins.str] purpose: The purpose/type of the network. Must be one of:
                * `corporate` - Standard network for corporate use with full access
                * `guest` - Isolated network for guest access with limited permissions
                * `wan` - External network connection (WAN uplink)
                * `vlan-only` - VLAN network without DHCP services
+               * `vpn-client` - Site-to-site VPN client connection (see the `vpn_type` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
                * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
                * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
@@ -86,6 +106,14 @@ class NetworkArgs:
                * The network will automatically assign IP addresses to clients
                * DHCP options (DNS, lease time) will be provided to clients
                * Static IP assignments can still be made outside the DHCP range
+        :param pulumi.Input[_builtins.bool] dhcp_guarding: Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+               * Drops DHCP offers/acknowledgements from servers other than the trusted one
+               * Protects clients from rogue or misconfigured DHCP servers
+               
+               This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_guarding_trusted_servers: List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `dhcp_guarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+               
+               Like `dhcp_guarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
         :param pulumi.Input[_builtins.int] dhcp_lease: The DHCP lease time in seconds. Common values:
                * 86400 (1 day) - Default, suitable for most networks
                * 3600 (1 hour) - For testing or temporary networks
@@ -122,8 +150,12 @@ class NetworkArgs:
                Typically longer than IPv4 DHCP leases.
         :param pulumi.Input[_builtins.str] dhcp_v6_start: The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
                Must be a valid IPv6 address within your allocated IPv6 subnet.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] dhcp_v6_stop: The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
                Must be after dhcp_v6_start in the IPv6 address space.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
                * Allows network devices to boot from a TFTP server
                * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
@@ -136,6 +168,14 @@ class NetworkArgs:
                * Is required when dhcpd_boot_enabled is true
                * Should be a reliable, always-on server
                * Must be accessible to all clients that need to boot
+        :param pulumi.Input[_builtins.str] dhcpd_gateway: The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `dhcpd_gateway_enabled` is `true`. Typically an address inside this network's `subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+               
+               This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `dhcpd_gateway_enabled = true` to manage the override from Terraform.
+        :param pulumi.Input[_builtins.bool] dhcpd_gateway_enabled: Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `false` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `true` to advertise the address in `dhcpd_gateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+               
+               This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `true`, `dhcpd_gateway` is required.
+               
+               Only meaningful when this network runs the UniFi DHCP server (`dhcp_enabled = true` and `dhcp_relay_enabled = false`) with an address range (`dhcp_start`/`dhcp_stop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
         :param pulumi.Input[_builtins.str] domain_name: The domain name for this network. Examples:
                * 'corp.example.com' - For corporate networks
                * 'guest.example.com' - For guest networks
@@ -146,6 +186,15 @@ class NetworkArgs:
                * DHCP services will be stopped
                * Existing clients will be disconnected
                Useful for temporary network maintenance or security measures.
+        :param pulumi.Input[_builtins.str] firewall_zone_id: The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+               
+               This attribute is `Optional` + `Computed`:
+               * Leave it **unset** to preserve whatever zone the controller (or a `firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+               * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+               
+               On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+               
+               To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
         :param pulumi.Input[_builtins.bool] igmp_snooping: Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
                * Optimizes multicast traffic flow
                * Reduces network congestion
@@ -159,12 +208,15 @@ class NetworkArgs:
                * `none` - IPv6 disabled (default)
                * `static` - Static IPv6 addressing
                * `pd` - Prefix Delegation from upstream
+               * `single_network` - Share a delegated IPv6 prefix with a single LAN
                
-               Choose based on your IPv6 deployment strategy and ISP capabilities.
+               Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `single_network` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `single_network` network may not be fully configurable.
         :param pulumi.Input[_builtins.str] ipv6_pd_interface: The WAN interface to use for IPv6 Prefix Delegation. Options:
                * `wan` - Primary WAN interface
                * `wan2` - Secondary WAN interface
                Only applicable when `ipv6_interface_type` is 'pd'.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: The IPv6 Prefix ID for Prefix Delegation. Used to:
                * Differentiate multiple delegated prefixes
                * Create unique subnets from the delegated prefix
@@ -172,9 +224,13 @@ class NetworkArgs:
         :param pulumi.Input[_builtins.str] ipv6_pd_start: The starting IPv6 address for Prefix Delegation range.
                Only used when `ipv6_interface_type` is 'pd'.
                Must be within the delegated prefix range.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] ipv6_pd_stop: The ending IPv6 address for Prefix Delegation range.
                Only used when `ipv6_interface_type` is 'pd'.
                Must be after `ipv6_pd_start` within the delegated prefix.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Enables IPv6 Router Advertisements (RA). When enabled:
                * Announces IPv6 prefix information to clients
                * Enables SLAAC address configuration
@@ -188,6 +244,8 @@ class NetworkArgs:
                * `medium` - Standard priority
                * `low` - For backup or secondary networks
                Affects router selection when multiple IPv6 routers exist.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6_ra_enable` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
                * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
                * Default: 86400 (24 hours)
@@ -195,22 +253,29 @@ class NetworkArgs:
         :param pulumi.Input[_builtins.str] ipv6_static_subnet: The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
                Only applicable when `ipv6_interface_type` is 'static'.
                Must be a valid IPv6 subnet allocated to your organization.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] multicast_dns: Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
                * Allows device discovery (e.g., printers, Chromecasts)
                * Supports zero-configuration networking
                * Available on Controller version 7 and later
         :param pulumi.Input[_builtins.str] name: The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         :param pulumi.Input[_builtins.str] network_group: The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
-        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Enables network isolation. When enabled:
-               * Prevents communication between clients on this network
-               * Each client can only communicate with the gateway
-               * Commonly used for guest networks or IoT devices
+        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Isolates this network from other local networks/VLANs on the site. When enabled:
+               * Hosts on this network cannot route to or from other local networks on the site
+               * Gateway and internet access are retained (internet access is subject to `internet_access_enabled`)
+               * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         :param pulumi.Input[_builtins.str] site: The name of the site to associate the network with.
         :param pulumi.Input[_builtins.str] subnet: The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] uid_vpn_custom_routings: The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpn_client_default_route` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.bool] upnp_lan_enabled: Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
         :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID for this network. Valid range is 0-4096. Common uses:
                * 1-4094: Standard VLAN range for network segmentation
                * 0: Untagged/native VLAN
                * >4094: Reserved for special purposes
+        :param pulumi.Input[_builtins.bool] vpn_client_default_route: When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uid_vpn_custom_routing` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.bool] vpn_client_pull_dns: When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.str] vpn_type: The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcp_dns` (interface DNS); the controller rejects the create without them.
         :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: The IPv6 prefix size to request from ISP. Must be between 48 and 64.
                Only applicable when `wan_type_v6` is 'dhcpv6'.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: List of IPv4 DNS servers for WAN interface. Examples:
@@ -259,16 +324,28 @@ class NetworkArgs:
                * Required for PPPoE connections
                * May be needed for some ISP configurations
                * Cannot contain spaces or special characters
+        :param pulumi.Input[_builtins.str] wireguard_client_mode: How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_peer_ip: The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.int] wireguard_client_peer_port: The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_peer_public_key: The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_preshared_key: An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.bool] wireguard_client_preshared_key_enabled: Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_interface: The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpn_type` is 'wireguard-client'.
         :param pulumi.Input[_builtins.str] x_wan_password: Password for WAN authentication.
                * Required for PPPoE connections
                * May be needed for some ISP configurations
                * Must be kept secret
+        :param pulumi.Input[_builtins.str] x_wireguard_private_key: The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguard_public_key`. Keep this value secret. Only applicable when `vpn_type` is 'wireguard-client'.
         """
         pulumi.set(__self__, "purpose", purpose)
         if dhcp_dns is not None:
             pulumi.set(__self__, "dhcp_dns", dhcp_dns)
         if dhcp_enabled is not None:
             pulumi.set(__self__, "dhcp_enabled", dhcp_enabled)
+        if dhcp_guarding is not None:
+            pulumi.set(__self__, "dhcp_guarding", dhcp_guarding)
+        if dhcp_guarding_trusted_servers is not None:
+            pulumi.set(__self__, "dhcp_guarding_trusted_servers", dhcp_guarding_trusted_servers)
         if dhcp_lease is not None:
             pulumi.set(__self__, "dhcp_lease", dhcp_lease)
         if dhcp_relay_enabled is not None:
@@ -295,10 +372,16 @@ class NetworkArgs:
             pulumi.set(__self__, "dhcpd_boot_filename", dhcpd_boot_filename)
         if dhcpd_boot_server is not None:
             pulumi.set(__self__, "dhcpd_boot_server", dhcpd_boot_server)
+        if dhcpd_gateway is not None:
+            pulumi.set(__self__, "dhcpd_gateway", dhcpd_gateway)
+        if dhcpd_gateway_enabled is not None:
+            pulumi.set(__self__, "dhcpd_gateway_enabled", dhcpd_gateway_enabled)
         if domain_name is not None:
             pulumi.set(__self__, "domain_name", domain_name)
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
+        if firewall_zone_id is not None:
+            pulumi.set(__self__, "firewall_zone_id", firewall_zone_id)
         if igmp_snooping is not None:
             pulumi.set(__self__, "igmp_snooping", igmp_snooping)
         if internet_access_enabled is not None:
@@ -335,8 +418,18 @@ class NetworkArgs:
             pulumi.set(__self__, "site", site)
         if subnet is not None:
             pulumi.set(__self__, "subnet", subnet)
+        if uid_vpn_custom_routings is not None:
+            pulumi.set(__self__, "uid_vpn_custom_routings", uid_vpn_custom_routings)
+        if upnp_lan_enabled is not None:
+            pulumi.set(__self__, "upnp_lan_enabled", upnp_lan_enabled)
         if vlan_id is not None:
             pulumi.set(__self__, "vlan_id", vlan_id)
+        if vpn_client_default_route is not None:
+            pulumi.set(__self__, "vpn_client_default_route", vpn_client_default_route)
+        if vpn_client_pull_dns is not None:
+            pulumi.set(__self__, "vpn_client_pull_dns", vpn_client_pull_dns)
+        if vpn_type is not None:
+            pulumi.set(__self__, "vpn_type", vpn_type)
         if wan_dhcp_v6_pd_size is not None:
             pulumi.set(__self__, "wan_dhcp_v6_pd_size", wan_dhcp_v6_pd_size)
         if wan_dns is not None:
@@ -363,8 +456,24 @@ class NetworkArgs:
             pulumi.set(__self__, "wan_type_v6", wan_type_v6)
         if wan_username is not None:
             pulumi.set(__self__, "wan_username", wan_username)
+        if wireguard_client_mode is not None:
+            pulumi.set(__self__, "wireguard_client_mode", wireguard_client_mode)
+        if wireguard_client_peer_ip is not None:
+            pulumi.set(__self__, "wireguard_client_peer_ip", wireguard_client_peer_ip)
+        if wireguard_client_peer_port is not None:
+            pulumi.set(__self__, "wireguard_client_peer_port", wireguard_client_peer_port)
+        if wireguard_client_peer_public_key is not None:
+            pulumi.set(__self__, "wireguard_client_peer_public_key", wireguard_client_peer_public_key)
+        if wireguard_client_preshared_key is not None:
+            pulumi.set(__self__, "wireguard_client_preshared_key", wireguard_client_preshared_key)
+        if wireguard_client_preshared_key_enabled is not None:
+            pulumi.set(__self__, "wireguard_client_preshared_key_enabled", wireguard_client_preshared_key_enabled)
+        if wireguard_interface is not None:
+            pulumi.set(__self__, "wireguard_interface", wireguard_interface)
         if x_wan_password is not None:
             pulumi.set(__self__, "x_wan_password", x_wan_password)
+        if x_wireguard_private_key is not None:
+            pulumi.set(__self__, "x_wireguard_private_key", x_wireguard_private_key)
 
     @_builtins.property
     @pulumi.getter
@@ -375,6 +484,7 @@ class NetworkArgs:
         * `guest` - Isolated network for guest access with limited permissions
         * `wan` - External network connection (WAN uplink)
         * `vlan-only` - VLAN network without DHCP services
+        * `vpn-client` - Site-to-site VPN client connection (see the `vpn_type` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         """
         return pulumi.get(self, "purpose")
 
@@ -384,7 +494,7 @@ class NetworkArgs:
 
     @_builtins.property
     @pulumi.getter(name="dhcpDns")
-    def dhcp_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def dhcp_dns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
         * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
@@ -395,12 +505,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_dns")
 
     @dhcp_dns.setter
-    def dhcp_dns(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def dhcp_dns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "dhcp_dns", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpEnabled")
-    def dhcp_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Controls whether DHCP server is enabled for this network. When enabled:
         * The network will automatically assign IP addresses to clients
@@ -410,12 +520,42 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_enabled")
 
     @dhcp_enabled.setter
-    def dhcp_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_enabled", value)
 
     @_builtins.property
+    @pulumi.getter(name="dhcpGuarding")
+    def dhcp_guarding(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+        * Drops DHCP offers/acknowledgements from servers other than the trusted one
+        * Protects clients from rogue or misconfigured DHCP servers
+
+        This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        """
+        return pulumi.get(self, "dhcp_guarding")
+
+    @dhcp_guarding.setter
+    def dhcp_guarding(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "dhcp_guarding", value)
+
+    @_builtins.property
+    @pulumi.getter(name="dhcpGuardingTrustedServers")
+    def dhcp_guarding_trusted_servers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `dhcp_guarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+
+        Like `dhcp_guarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
+        """
+        return pulumi.get(self, "dhcp_guarding_trusted_servers")
+
+    @dhcp_guarding_trusted_servers.setter
+    def dhcp_guarding_trusted_servers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "dhcp_guarding_trusted_servers", value)
+
+    @_builtins.property
     @pulumi.getter(name="dhcpLease")
-    def dhcp_lease(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def dhcp_lease(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The DHCP lease time in seconds. Common values:
         * 86400 (1 day) - Default, suitable for most networks
@@ -426,12 +566,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_lease")
 
     @dhcp_lease.setter
-    def dhcp_lease(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def dhcp_lease(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "dhcp_lease", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpRelayEnabled")
-    def dhcp_relay_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_relay_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables DHCP relay for this network. When enabled:
         * DHCP requests are forwarded to an external DHCP server
@@ -441,12 +581,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_relay_enabled")
 
     @dhcp_relay_enabled.setter
-    def dhcp_relay_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_relay_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_relay_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpStart")
-    def dhcp_start(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcp_start(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The starting IPv4 address of the DHCP range. Examples:
         * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
@@ -456,12 +596,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_start")
 
     @dhcp_start.setter
-    def dhcp_start(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcp_start(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcp_start", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpStop")
-    def dhcp_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcp_stop(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ending IPv4 address of the DHCP range. Examples:
         * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
@@ -471,12 +611,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_stop")
 
     @dhcp_stop.setter
-    def dhcp_stop(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcp_stop(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcp_stop", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Dns")
-    def dhcp_v6_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def dhcp_v6_dns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
         * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
@@ -486,12 +626,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_v6_dns")
 
     @dhcp_v6_dns.setter
-    def dhcp_v6_dns(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def dhcp_v6_dns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "dhcp_v6_dns", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6DnsAuto")
-    def dhcp_v6_dns_auto(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_v6_dns_auto(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Controls DNS server source for DHCPv6 clients:
         * true - Use upstream DNS servers (recommended)
@@ -501,12 +641,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_v6_dns_auto")
 
     @dhcp_v6_dns_auto.setter
-    def dhcp_v6_dns_auto(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_v6_dns_auto(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_v6_dns_auto", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Enabled")
-    def dhcp_v6_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_v6_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
         * Provides IPv6 addresses to clients
@@ -516,12 +656,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_v6_enabled")
 
     @dhcp_v6_enabled.setter
-    def dhcp_v6_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_v6_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_v6_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Lease")
-    def dhcp_v6_lease(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def dhcp_v6_lease(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The DHCPv6 lease time in seconds. Common values:
         * 86400 (1 day) - Default setting
@@ -532,38 +672,42 @@ class NetworkArgs:
         return pulumi.get(self, "dhcp_v6_lease")
 
     @dhcp_v6_lease.setter
-    def dhcp_v6_lease(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def dhcp_v6_lease(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "dhcp_v6_lease", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Start")
-    def dhcp_v6_start(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcp_v6_start(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         Must be a valid IPv6 address within your allocated IPv6 subnet.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "dhcp_v6_start")
 
     @dhcp_v6_start.setter
-    def dhcp_v6_start(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcp_v6_start(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcp_v6_start", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Stop")
-    def dhcp_v6_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcp_v6_stop(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         Must be after dhcp_v6_start in the IPv6 address space.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "dhcp_v6_stop")
 
     @dhcp_v6_stop.setter
-    def dhcp_v6_stop(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcp_v6_stop(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcp_v6_stop", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootEnabled")
-    def dhcpd_boot_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcpd_boot_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
         * Allows network devices to boot from a TFTP server
@@ -573,12 +717,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcpd_boot_enabled")
 
     @dhcpd_boot_enabled.setter
-    def dhcpd_boot_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcpd_boot_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcpd_boot_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootFilename")
-    def dhcpd_boot_filename(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcpd_boot_filename(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The boot filename to be loaded from the TFTP server. Examples:
         * 'pxelinux.0' - Standard PXE boot loader
@@ -588,12 +732,12 @@ class NetworkArgs:
         return pulumi.get(self, "dhcpd_boot_filename")
 
     @dhcpd_boot_filename.setter
-    def dhcpd_boot_filename(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcpd_boot_filename(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcpd_boot_filename", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootServer")
-    def dhcpd_boot_server(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcpd_boot_server(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 address of the TFTP server for network boot. This setting:
         * Is required when dhcpd_boot_enabled is true
@@ -603,12 +747,42 @@ class NetworkArgs:
         return pulumi.get(self, "dhcpd_boot_server")
 
     @dhcpd_boot_server.setter
-    def dhcpd_boot_server(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcpd_boot_server(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcpd_boot_server", value)
 
     @_builtins.property
+    @pulumi.getter(name="dhcpdGateway")
+    def dhcpd_gateway(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `dhcpd_gateway_enabled` is `true`. Typically an address inside this network's `subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+
+        This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `dhcpd_gateway_enabled = true` to manage the override from Terraform.
+        """
+        return pulumi.get(self, "dhcpd_gateway")
+
+    @dhcpd_gateway.setter
+    def dhcpd_gateway(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "dhcpd_gateway", value)
+
+    @_builtins.property
+    @pulumi.getter(name="dhcpdGatewayEnabled")
+    def dhcpd_gateway_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `false` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `true` to advertise the address in `dhcpd_gateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+
+        This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `true`, `dhcpd_gateway` is required.
+
+        Only meaningful when this network runs the UniFi DHCP server (`dhcp_enabled = true` and `dhcp_relay_enabled = false`) with an address range (`dhcp_start`/`dhcp_stop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
+        """
+        return pulumi.get(self, "dhcpd_gateway_enabled")
+
+    @dhcpd_gateway_enabled.setter
+    def dhcpd_gateway_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "dhcpd_gateway_enabled", value)
+
+    @_builtins.property
     @pulumi.getter(name="domainName")
-    def domain_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def domain_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The domain name for this network. Examples:
         * 'corp.example.com' - For corporate networks
@@ -619,12 +793,12 @@ class NetworkArgs:
         return pulumi.get(self, "domain_name")
 
     @domain_name.setter
-    def domain_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def domain_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "domain_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Controls whether this network is active. When disabled:
         * Network will not be available to clients
@@ -635,12 +809,32 @@ class NetworkArgs:
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
+    @pulumi.getter(name="firewallZoneId")
+    def firewall_zone_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+
+        This attribute is `Optional` + `Computed`:
+        * Leave it **unset** to preserve whatever zone the controller (or a `firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+        * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+
+        On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+
+        To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
+        """
+        return pulumi.get(self, "firewall_zone_id")
+
+    @firewall_zone_id.setter
+    def firewall_zone_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "firewall_zone_id", value)
+
+    @_builtins.property
     @pulumi.getter(name="igmpSnooping")
-    def igmp_snooping(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def igmp_snooping(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
         * Optimizes multicast traffic flow
@@ -651,12 +845,12 @@ class NetworkArgs:
         return pulumi.get(self, "igmp_snooping")
 
     @igmp_snooping.setter
-    def igmp_snooping(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def igmp_snooping(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "igmp_snooping", value)
 
     @_builtins.property
     @pulumi.getter(name="internetAccessEnabled")
-    def internet_access_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def internet_access_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Controls internet access for this network. When disabled:
         * Clients cannot access external networks
@@ -666,44 +860,47 @@ class NetworkArgs:
         return pulumi.get(self, "internet_access_enabled")
 
     @internet_access_enabled.setter
-    def internet_access_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def internet_access_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "internet_access_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6InterfaceType")
-    def ipv6_interface_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_interface_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Specifies the IPv6 connection type. Must be one of:
         * `none` - IPv6 disabled (default)
         * `static` - Static IPv6 addressing
         * `pd` - Prefix Delegation from upstream
+        * `single_network` - Share a delegated IPv6 prefix with a single LAN
 
-        Choose based on your IPv6 deployment strategy and ISP capabilities.
+        Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `single_network` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `single_network` network may not be fully configurable.
         """
         return pulumi.get(self, "ipv6_interface_type")
 
     @ipv6_interface_type.setter
-    def ipv6_interface_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_interface_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_interface_type", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdInterface")
-    def ipv6_pd_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_pd_interface(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The WAN interface to use for IPv6 Prefix Delegation. Options:
         * `wan` - Primary WAN interface
         * `wan2` - Secondary WAN interface
         Only applicable when `ipv6_interface_type` is 'pd'.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_interface")
 
     @ipv6_pd_interface.setter
-    def ipv6_pd_interface(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_pd_interface(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_pd_interface", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdPrefixid")
-    def ipv6_pd_prefixid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_pd_prefixid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv6 Prefix ID for Prefix Delegation. Used to:
         * Differentiate multiple delegated prefixes
@@ -713,40 +910,44 @@ class NetworkArgs:
         return pulumi.get(self, "ipv6_pd_prefixid")
 
     @ipv6_pd_prefixid.setter
-    def ipv6_pd_prefixid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_pd_prefixid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_pd_prefixid", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdStart")
-    def ipv6_pd_start(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_pd_start(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The starting IPv6 address for Prefix Delegation range.
         Only used when `ipv6_interface_type` is 'pd'.
         Must be within the delegated prefix range.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_start")
 
     @ipv6_pd_start.setter
-    def ipv6_pd_start(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_pd_start(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_pd_start", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdStop")
-    def ipv6_pd_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_pd_stop(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ending IPv6 address for Prefix Delegation range.
         Only used when `ipv6_interface_type` is 'pd'.
         Must be after `ipv6_pd_start` within the delegated prefix.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_stop")
 
     @ipv6_pd_stop.setter
-    def ipv6_pd_stop(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_pd_stop(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_pd_stop", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaEnable")
-    def ipv6_ra_enable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ipv6_ra_enable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables IPv6 Router Advertisements (RA). When enabled:
         * Announces IPv6 prefix information to clients
@@ -756,12 +957,12 @@ class NetworkArgs:
         return pulumi.get(self, "ipv6_ra_enable")
 
     @ipv6_ra_enable.setter
-    def ipv6_ra_enable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ipv6_ra_enable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ipv6_ra_enable", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaPreferredLifetime")
-    def ipv6_ra_preferred_lifetime(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def ipv6_ra_preferred_lifetime(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
         * Must be less than or equal to `ipv6_ra_valid_lifetime`
@@ -771,28 +972,30 @@ class NetworkArgs:
         return pulumi.get(self, "ipv6_ra_preferred_lifetime")
 
     @ipv6_ra_preferred_lifetime.setter
-    def ipv6_ra_preferred_lifetime(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def ipv6_ra_preferred_lifetime(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "ipv6_ra_preferred_lifetime", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaPriority")
-    def ipv6_ra_priority(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_ra_priority(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Sets the priority for IPv6 Router Advertisements. Options:
         * `high` - Preferred for primary networks
         * `medium` - Standard priority
         * `low` - For backup or secondary networks
         Affects router selection when multiple IPv6 routers exist.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6_ra_enable` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_ra_priority")
 
     @ipv6_ra_priority.setter
-    def ipv6_ra_priority(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_ra_priority(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_ra_priority", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaValidLifetime")
-    def ipv6_ra_valid_lifetime(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def ipv6_ra_valid_lifetime(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
         * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
@@ -802,26 +1005,28 @@ class NetworkArgs:
         return pulumi.get(self, "ipv6_ra_valid_lifetime")
 
     @ipv6_ra_valid_lifetime.setter
-    def ipv6_ra_valid_lifetime(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def ipv6_ra_valid_lifetime(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "ipv6_ra_valid_lifetime", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6StaticSubnet")
-    def ipv6_static_subnet(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_static_subnet(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
         Only applicable when `ipv6_interface_type` is 'static'.
         Must be a valid IPv6 subnet allocated to your organization.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_static_subnet")
 
     @ipv6_static_subnet.setter
-    def ipv6_static_subnet(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_static_subnet(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_static_subnet", value)
 
     @_builtins.property
     @pulumi.getter(name="multicastDns")
-    def multicast_dns(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def multicast_dns(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
         * Allows device discovery (e.g., printers, Chromecasts)
@@ -831,75 +1036,99 @@ class NetworkArgs:
         return pulumi.get(self, "multicast_dns")
 
     @multicast_dns.setter
-    def multicast_dns(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def multicast_dns(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "multicast_dns", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="networkGroup")
-    def network_group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def network_group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
         """
         return pulumi.get(self, "network_group")
 
     @network_group.setter
-    def network_group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def network_group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "network_group", value)
 
     @_builtins.property
     @pulumi.getter(name="networkIsolationEnabled")
-    def network_isolation_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def network_isolation_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Enables network isolation. When enabled:
-        * Prevents communication between clients on this network
-        * Each client can only communicate with the gateway
-        * Commonly used for guest networks or IoT devices
+        Isolates this network from other local networks/VLANs on the site. When enabled:
+        * Hosts on this network cannot route to or from other local networks on the site
+        * Gateway and internet access are retained (internet access is subject to `internet_access_enabled`)
+        * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         """
         return pulumi.get(self, "network_isolation_enabled")
 
     @network_isolation_enabled.setter
-    def network_isolation_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def network_isolation_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "network_isolation_enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the site to associate the network with.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def subnet(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def subnet(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
         """
         return pulumi.get(self, "subnet")
 
     @subnet.setter
-    def subnet(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def subnet(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "subnet", value)
 
     @_builtins.property
+    @pulumi.getter(name="uidVpnCustomRoutings")
+    def uid_vpn_custom_routings(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpn_client_default_route` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "uid_vpn_custom_routings")
+
+    @uid_vpn_custom_routings.setter
+    def uid_vpn_custom_routings(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "uid_vpn_custom_routings", value)
+
+    @_builtins.property
+    @pulumi.getter(name="upnpLanEnabled")
+    def upnp_lan_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+        """
+        return pulumi.get(self, "upnp_lan_enabled")
+
+    @upnp_lan_enabled.setter
+    def upnp_lan_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "upnp_lan_enabled", value)
+
+    @_builtins.property
     @pulumi.getter(name="vlanId")
-    def vlan_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def vlan_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The VLAN ID for this network. Valid range is 0-4096. Common uses:
         * 1-4094: Standard VLAN range for network segmentation
@@ -909,12 +1138,48 @@ class NetworkArgs:
         return pulumi.get(self, "vlan_id")
 
     @vlan_id.setter
-    def vlan_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def vlan_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "vlan_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="vpnClientDefaultRoute")
+    def vpn_client_default_route(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uid_vpn_custom_routing` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "vpn_client_default_route")
+
+    @vpn_client_default_route.setter
+    def vpn_client_default_route(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "vpn_client_default_route", value)
+
+    @_builtins.property
+    @pulumi.getter(name="vpnClientPullDns")
+    def vpn_client_pull_dns(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "vpn_client_pull_dns")
+
+    @vpn_client_pull_dns.setter
+    def vpn_client_pull_dns(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "vpn_client_pull_dns", value)
+
+    @_builtins.property
+    @pulumi.getter(name="vpnType")
+    def vpn_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcp_dns` (interface DNS); the controller rejects the create without them.
+        """
+        return pulumi.get(self, "vpn_type")
+
+    @vpn_type.setter
+    def vpn_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "vpn_type", value)
+
+    @_builtins.property
     @pulumi.getter(name="wanDhcpV6PdSize")
-    def wan_dhcp_v6_pd_size(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def wan_dhcp_v6_pd_size(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The IPv6 prefix size to request from ISP. Must be between 48 and 64.
         Only applicable when `wan_type_v6` is 'dhcpv6'.
@@ -922,12 +1187,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_dhcp_v6_pd_size")
 
     @wan_dhcp_v6_pd_size.setter
-    def wan_dhcp_v6_pd_size(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def wan_dhcp_v6_pd_size(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "wan_dhcp_v6_pd_size", value)
 
     @_builtins.property
     @pulumi.getter(name="wanDns")
-    def wan_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def wan_dns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of IPv4 DNS servers for WAN interface. Examples:
         * ISP provided DNS servers
@@ -937,12 +1202,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_dns")
 
     @wan_dns.setter
-    def wan_dns(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def wan_dns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "wan_dns", value)
 
     @_builtins.property
     @pulumi.getter(name="wanEgressQos")
-    def wan_egress_qos(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def wan_egress_qos(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Quality of Service (QoS) priority for WAN egress traffic (0-7).
         * 0 (default) - Best effort
@@ -953,12 +1218,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_egress_qos")
 
     @wan_egress_qos.setter
-    def wan_egress_qos(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def wan_egress_qos(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "wan_egress_qos", value)
 
     @_builtins.property
     @pulumi.getter(name="wanGateway")
-    def wan_gateway(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_gateway(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 gateway address for WAN interface.
         Required when `wan_type` is 'static'.
@@ -967,12 +1232,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_gateway")
 
     @wan_gateway.setter
-    def wan_gateway(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_gateway(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_gateway", value)
 
     @_builtins.property
     @pulumi.getter(name="wanGatewayV6")
-    def wan_gateway_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_gateway_v6(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv6 gateway address for WAN interface.
         Required when `wan_type_v6` is 'static'.
@@ -981,12 +1246,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_gateway_v6")
 
     @wan_gateway_v6.setter
-    def wan_gateway_v6(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_gateway_v6(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_gateway_v6", value)
 
     @_builtins.property
     @pulumi.getter(name="wanIp")
-    def wan_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The static IPv4 address for WAN interface.
         Required when `wan_type` is 'static'.
@@ -995,12 +1260,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_ip")
 
     @wan_ip.setter
-    def wan_ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_ip", value)
 
     @_builtins.property
     @pulumi.getter(name="wanIpv6")
-    def wan_ipv6(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_ipv6(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The static IPv6 address for WAN interface.
         Required when `wan_type_v6` is 'static'.
@@ -1009,12 +1274,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_ipv6")
 
     @wan_ipv6.setter
-    def wan_ipv6(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_ipv6(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_ipv6", value)
 
     @_builtins.property
     @pulumi.getter(name="wanNetmask")
-    def wan_netmask(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_netmask(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
         Required when `wan_type` is 'static'.
@@ -1023,12 +1288,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_netmask")
 
     @wan_netmask.setter
-    def wan_netmask(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_netmask(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_netmask", value)
 
     @_builtins.property
     @pulumi.getter(name="wanNetworkgroup")
-    def wan_networkgroup(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_networkgroup(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The WAN interface group assignment. Options:
         * `WAN` - Primary WAN interface
@@ -1039,12 +1304,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_networkgroup")
 
     @wan_networkgroup.setter
-    def wan_networkgroup(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_networkgroup(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_networkgroup", value)
 
     @_builtins.property
     @pulumi.getter(name="wanPrefixlen")
-    def wan_prefixlen(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def wan_prefixlen(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The IPv6 prefix length for WAN interface. Must be between 1 and 128.
         Only applicable when `wan_type_v6` is 'static'.
@@ -1052,12 +1317,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_prefixlen")
 
     @wan_prefixlen.setter
-    def wan_prefixlen(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def wan_prefixlen(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "wan_prefixlen", value)
 
     @_builtins.property
     @pulumi.getter(name="wanType")
-    def wan_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 WAN connection type. Options:
         * `disabled` - WAN interface disabled
@@ -1069,12 +1334,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_type")
 
     @wan_type.setter
-    def wan_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_type", value)
 
     @_builtins.property
     @pulumi.getter(name="wanTypeV6")
-    def wan_type_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_type_v6(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv6 WAN connection type. Options:
         * `disabled` - IPv6 disabled
@@ -1085,12 +1350,12 @@ class NetworkArgs:
         return pulumi.get(self, "wan_type_v6")
 
     @wan_type_v6.setter
-    def wan_type_v6(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_type_v6(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_type_v6", value)
 
     @_builtins.property
     @pulumi.getter(name="wanUsername")
-    def wan_username(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_username(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Username for WAN authentication.
         * Required for PPPoE connections
@@ -1100,12 +1365,96 @@ class NetworkArgs:
         return pulumi.get(self, "wan_username")
 
     @wan_username.setter
-    def wan_username(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_username(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_username", value)
 
     @_builtins.property
+    @pulumi.getter(name="wireguardClientMode")
+    def wireguard_client_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_mode")
+
+    @wireguard_client_mode.setter
+    def wireguard_client_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_client_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerIp")
+    def wireguard_client_peer_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_ip")
+
+    @wireguard_client_peer_ip.setter
+    def wireguard_client_peer_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_client_peer_ip", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerPort")
+    def wireguard_client_peer_port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_port")
+
+    @wireguard_client_peer_port.setter
+    def wireguard_client_peer_port(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "wireguard_client_peer_port", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerPublicKey")
+    def wireguard_client_peer_public_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_public_key")
+
+    @wireguard_client_peer_public_key.setter
+    def wireguard_client_peer_public_key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_client_peer_public_key", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPresharedKey")
+    def wireguard_client_preshared_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_preshared_key")
+
+    @wireguard_client_preshared_key.setter
+    def wireguard_client_preshared_key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_client_preshared_key", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPresharedKeyEnabled")
+    def wireguard_client_preshared_key_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_preshared_key_enabled")
+
+    @wireguard_client_preshared_key_enabled.setter
+    def wireguard_client_preshared_key_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "wireguard_client_preshared_key_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardInterface")
+    def wireguard_interface(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_interface")
+
+    @wireguard_interface.setter
+    def wireguard_interface(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_interface", value)
+
+    @_builtins.property
     @pulumi.getter(name="xWanPassword")
-    def x_wan_password(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def x_wan_password(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Password for WAN authentication.
         * Required for PPPoE connections
@@ -1115,66 +1464,98 @@ class NetworkArgs:
         return pulumi.get(self, "x_wan_password")
 
     @x_wan_password.setter
-    def x_wan_password(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def x_wan_password(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "x_wan_password", value)
+
+    @_builtins.property
+    @pulumi.getter(name="xWireguardPrivateKey")
+    def x_wireguard_private_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguard_public_key`. Keep this value secret. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "x_wireguard_private_key")
+
+    @x_wireguard_private_key.setter
+    def x_wireguard_private_key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "x_wireguard_private_key", value)
 
 
 @pulumi.input_type
 class _NetworkState:
     def __init__(__self__, *,
-                 dhcp_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_lease: Optional[pulumi.Input[_builtins.int]] = None,
-                 dhcp_relay_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_v6_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcp_v6_dns_auto: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_v6_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_v6_lease: Optional[pulumi.Input[_builtins.int]] = None,
-                 dhcp_v6_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_v6_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcpd_boot_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
-                 domain_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
-                 internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_ra_enable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ipv6_ra_preferred_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-                 ipv6_ra_priority: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_ra_valid_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-                 ipv6_static_subnet: Optional[pulumi.Input[_builtins.str]] = None,
-                 multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 purpose: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 subnet: Optional[pulumi.Input[_builtins.str]] = None,
-                 vlan_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_dhcp_v6_pd_size: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 wan_egress_qos: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_gateway: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_gateway_v6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_netmask: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_networkgroup: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_prefixlen: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_type_v6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_username: Optional[pulumi.Input[_builtins.str]] = None,
-                 x_wan_password: Optional[pulumi.Input[_builtins.str]] = None):
+                 dhcp_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_guarding: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_guarding_trusted_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_lease: pulumi.Input[Optional[_builtins.int]] = None,
+                 dhcp_relay_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_v6_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_v6_dns_auto: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_v6_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_v6_lease: pulumi.Input[Optional[_builtins.int]] = None,
+                 dhcp_v6_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_v6_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_boot_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcpd_boot_filename: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_boot_server: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_gateway_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 domain_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 firewall_zone_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 igmp_snooping: pulumi.Input[Optional[_builtins.bool]] = None,
+                 internet_access_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ipv6_interface_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_prefixid: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_ra_enable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ipv6_ra_preferred_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+                 ipv6_ra_priority: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_ra_valid_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+                 ipv6_static_subnet: pulumi.Input[Optional[_builtins.str]] = None,
+                 multicast_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_isolation_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 purpose: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 subnet: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid_vpn_custom_routings: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 upnp_lan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 vpn_client_default_route: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vpn_client_pull_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vpn_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_dhcp_v6_pd_size: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 wan_egress_qos: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_gateway_v6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_netmask: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_networkgroup: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_prefixlen: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_type_v6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_username: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_peer_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_peer_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 wireguard_client_peer_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_preshared_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_preshared_key_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wireguard_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_wan_password: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_wireguard_private_key: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Network resources.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
                * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
                * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
@@ -1184,6 +1565,14 @@ class _NetworkState:
                * The network will automatically assign IP addresses to clients
                * DHCP options (DNS, lease time) will be provided to clients
                * Static IP assignments can still be made outside the DHCP range
+        :param pulumi.Input[_builtins.bool] dhcp_guarding: Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+               * Drops DHCP offers/acknowledgements from servers other than the trusted one
+               * Protects clients from rogue or misconfigured DHCP servers
+               
+               This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_guarding_trusted_servers: List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `dhcp_guarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+               
+               Like `dhcp_guarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
         :param pulumi.Input[_builtins.int] dhcp_lease: The DHCP lease time in seconds. Common values:
                * 86400 (1 day) - Default, suitable for most networks
                * 3600 (1 hour) - For testing or temporary networks
@@ -1220,8 +1609,12 @@ class _NetworkState:
                Typically longer than IPv4 DHCP leases.
         :param pulumi.Input[_builtins.str] dhcp_v6_start: The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
                Must be a valid IPv6 address within your allocated IPv6 subnet.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] dhcp_v6_stop: The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
                Must be after dhcp_v6_start in the IPv6 address space.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
                * Allows network devices to boot from a TFTP server
                * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
@@ -1234,6 +1627,14 @@ class _NetworkState:
                * Is required when dhcpd_boot_enabled is true
                * Should be a reliable, always-on server
                * Must be accessible to all clients that need to boot
+        :param pulumi.Input[_builtins.str] dhcpd_gateway: The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `dhcpd_gateway_enabled` is `true`. Typically an address inside this network's `subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+               
+               This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `dhcpd_gateway_enabled = true` to manage the override from Terraform.
+        :param pulumi.Input[_builtins.bool] dhcpd_gateway_enabled: Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `false` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `true` to advertise the address in `dhcpd_gateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+               
+               This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `true`, `dhcpd_gateway` is required.
+               
+               Only meaningful when this network runs the UniFi DHCP server (`dhcp_enabled = true` and `dhcp_relay_enabled = false`) with an address range (`dhcp_start`/`dhcp_stop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
         :param pulumi.Input[_builtins.str] domain_name: The domain name for this network. Examples:
                * 'corp.example.com' - For corporate networks
                * 'guest.example.com' - For guest networks
@@ -1244,6 +1645,15 @@ class _NetworkState:
                * DHCP services will be stopped
                * Existing clients will be disconnected
                Useful for temporary network maintenance or security measures.
+        :param pulumi.Input[_builtins.str] firewall_zone_id: The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+               
+               This attribute is `Optional` + `Computed`:
+               * Leave it **unset** to preserve whatever zone the controller (or a `firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+               * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+               
+               On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+               
+               To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
         :param pulumi.Input[_builtins.bool] igmp_snooping: Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
                * Optimizes multicast traffic flow
                * Reduces network congestion
@@ -1257,12 +1667,15 @@ class _NetworkState:
                * `none` - IPv6 disabled (default)
                * `static` - Static IPv6 addressing
                * `pd` - Prefix Delegation from upstream
+               * `single_network` - Share a delegated IPv6 prefix with a single LAN
                
-               Choose based on your IPv6 deployment strategy and ISP capabilities.
+               Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `single_network` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `single_network` network may not be fully configurable.
         :param pulumi.Input[_builtins.str] ipv6_pd_interface: The WAN interface to use for IPv6 Prefix Delegation. Options:
                * `wan` - Primary WAN interface
                * `wan2` - Secondary WAN interface
                Only applicable when `ipv6_interface_type` is 'pd'.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: The IPv6 Prefix ID for Prefix Delegation. Used to:
                * Differentiate multiple delegated prefixes
                * Create unique subnets from the delegated prefix
@@ -1270,9 +1683,13 @@ class _NetworkState:
         :param pulumi.Input[_builtins.str] ipv6_pd_start: The starting IPv6 address for Prefix Delegation range.
                Only used when `ipv6_interface_type` is 'pd'.
                Must be within the delegated prefix range.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] ipv6_pd_stop: The ending IPv6 address for Prefix Delegation range.
                Only used when `ipv6_interface_type` is 'pd'.
                Must be after `ipv6_pd_start` within the delegated prefix.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Enables IPv6 Router Advertisements (RA). When enabled:
                * Announces IPv6 prefix information to clients
                * Enables SLAAC address configuration
@@ -1286,6 +1703,8 @@ class _NetworkState:
                * `medium` - Standard priority
                * `low` - For backup or secondary networks
                Affects router selection when multiple IPv6 routers exist.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6_ra_enable` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
                * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
                * Default: 86400 (24 hours)
@@ -1293,27 +1712,35 @@ class _NetworkState:
         :param pulumi.Input[_builtins.str] ipv6_static_subnet: The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
                Only applicable when `ipv6_interface_type` is 'static'.
                Must be a valid IPv6 subnet allocated to your organization.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] multicast_dns: Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
                * Allows device discovery (e.g., printers, Chromecasts)
                * Supports zero-configuration networking
                * Available on Controller version 7 and later
         :param pulumi.Input[_builtins.str] name: The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         :param pulumi.Input[_builtins.str] network_group: The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
-        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Enables network isolation. When enabled:
-               * Prevents communication between clients on this network
-               * Each client can only communicate with the gateway
-               * Commonly used for guest networks or IoT devices
+        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Isolates this network from other local networks/VLANs on the site. When enabled:
+               * Hosts on this network cannot route to or from other local networks on the site
+               * Gateway and internet access are retained (internet access is subject to `internet_access_enabled`)
+               * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         :param pulumi.Input[_builtins.str] purpose: The purpose/type of the network. Must be one of:
                * `corporate` - Standard network for corporate use with full access
                * `guest` - Isolated network for guest access with limited permissions
                * `wan` - External network connection (WAN uplink)
                * `vlan-only` - VLAN network without DHCP services
+               * `vpn-client` - Site-to-site VPN client connection (see the `vpn_type` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         :param pulumi.Input[_builtins.str] site: The name of the site to associate the network with.
         :param pulumi.Input[_builtins.str] subnet: The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] uid_vpn_custom_routings: The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpn_client_default_route` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.bool] upnp_lan_enabled: Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
         :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID for this network. Valid range is 0-4096. Common uses:
                * 1-4094: Standard VLAN range for network segmentation
                * 0: Untagged/native VLAN
                * >4094: Reserved for special purposes
+        :param pulumi.Input[_builtins.bool] vpn_client_default_route: When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uid_vpn_custom_routing` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.bool] vpn_client_pull_dns: When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.str] vpn_type: The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcp_dns` (interface DNS); the controller rejects the create without them.
         :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: The IPv6 prefix size to request from ISP. Must be between 48 and 64.
                Only applicable when `wan_type_v6` is 'dhcpv6'.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: List of IPv4 DNS servers for WAN interface. Examples:
@@ -1362,15 +1789,28 @@ class _NetworkState:
                * Required for PPPoE connections
                * May be needed for some ISP configurations
                * Cannot contain spaces or special characters
+        :param pulumi.Input[_builtins.str] wireguard_client_mode: How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_peer_ip: The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.int] wireguard_client_peer_port: The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_peer_public_key: The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_preshared_key: An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.bool] wireguard_client_preshared_key_enabled: Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_interface: The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_public_key: The gateway's own WireGuard public key for this VPN client. The controller does not return it, so the provider derives it from the private key (Curve25519). Add this key as a peer on the remote WireGuard server. Only set when `vpn_type` is 'wireguard-client'.
         :param pulumi.Input[_builtins.str] x_wan_password: Password for WAN authentication.
                * Required for PPPoE connections
                * May be needed for some ISP configurations
                * Must be kept secret
+        :param pulumi.Input[_builtins.str] x_wireguard_private_key: The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguard_public_key`. Keep this value secret. Only applicable when `vpn_type` is 'wireguard-client'.
         """
         if dhcp_dns is not None:
             pulumi.set(__self__, "dhcp_dns", dhcp_dns)
         if dhcp_enabled is not None:
             pulumi.set(__self__, "dhcp_enabled", dhcp_enabled)
+        if dhcp_guarding is not None:
+            pulumi.set(__self__, "dhcp_guarding", dhcp_guarding)
+        if dhcp_guarding_trusted_servers is not None:
+            pulumi.set(__self__, "dhcp_guarding_trusted_servers", dhcp_guarding_trusted_servers)
         if dhcp_lease is not None:
             pulumi.set(__self__, "dhcp_lease", dhcp_lease)
         if dhcp_relay_enabled is not None:
@@ -1397,10 +1837,16 @@ class _NetworkState:
             pulumi.set(__self__, "dhcpd_boot_filename", dhcpd_boot_filename)
         if dhcpd_boot_server is not None:
             pulumi.set(__self__, "dhcpd_boot_server", dhcpd_boot_server)
+        if dhcpd_gateway is not None:
+            pulumi.set(__self__, "dhcpd_gateway", dhcpd_gateway)
+        if dhcpd_gateway_enabled is not None:
+            pulumi.set(__self__, "dhcpd_gateway_enabled", dhcpd_gateway_enabled)
         if domain_name is not None:
             pulumi.set(__self__, "domain_name", domain_name)
         if enabled is not None:
             pulumi.set(__self__, "enabled", enabled)
+        if firewall_zone_id is not None:
+            pulumi.set(__self__, "firewall_zone_id", firewall_zone_id)
         if igmp_snooping is not None:
             pulumi.set(__self__, "igmp_snooping", igmp_snooping)
         if internet_access_enabled is not None:
@@ -1439,8 +1885,18 @@ class _NetworkState:
             pulumi.set(__self__, "site", site)
         if subnet is not None:
             pulumi.set(__self__, "subnet", subnet)
+        if uid_vpn_custom_routings is not None:
+            pulumi.set(__self__, "uid_vpn_custom_routings", uid_vpn_custom_routings)
+        if upnp_lan_enabled is not None:
+            pulumi.set(__self__, "upnp_lan_enabled", upnp_lan_enabled)
         if vlan_id is not None:
             pulumi.set(__self__, "vlan_id", vlan_id)
+        if vpn_client_default_route is not None:
+            pulumi.set(__self__, "vpn_client_default_route", vpn_client_default_route)
+        if vpn_client_pull_dns is not None:
+            pulumi.set(__self__, "vpn_client_pull_dns", vpn_client_pull_dns)
+        if vpn_type is not None:
+            pulumi.set(__self__, "vpn_type", vpn_type)
         if wan_dhcp_v6_pd_size is not None:
             pulumi.set(__self__, "wan_dhcp_v6_pd_size", wan_dhcp_v6_pd_size)
         if wan_dns is not None:
@@ -1467,12 +1923,30 @@ class _NetworkState:
             pulumi.set(__self__, "wan_type_v6", wan_type_v6)
         if wan_username is not None:
             pulumi.set(__self__, "wan_username", wan_username)
+        if wireguard_client_mode is not None:
+            pulumi.set(__self__, "wireguard_client_mode", wireguard_client_mode)
+        if wireguard_client_peer_ip is not None:
+            pulumi.set(__self__, "wireguard_client_peer_ip", wireguard_client_peer_ip)
+        if wireguard_client_peer_port is not None:
+            pulumi.set(__self__, "wireguard_client_peer_port", wireguard_client_peer_port)
+        if wireguard_client_peer_public_key is not None:
+            pulumi.set(__self__, "wireguard_client_peer_public_key", wireguard_client_peer_public_key)
+        if wireguard_client_preshared_key is not None:
+            pulumi.set(__self__, "wireguard_client_preshared_key", wireguard_client_preshared_key)
+        if wireguard_client_preshared_key_enabled is not None:
+            pulumi.set(__self__, "wireguard_client_preshared_key_enabled", wireguard_client_preshared_key_enabled)
+        if wireguard_interface is not None:
+            pulumi.set(__self__, "wireguard_interface", wireguard_interface)
+        if wireguard_public_key is not None:
+            pulumi.set(__self__, "wireguard_public_key", wireguard_public_key)
         if x_wan_password is not None:
             pulumi.set(__self__, "x_wan_password", x_wan_password)
+        if x_wireguard_private_key is not None:
+            pulumi.set(__self__, "x_wireguard_private_key", x_wireguard_private_key)
 
     @_builtins.property
     @pulumi.getter(name="dhcpDns")
-    def dhcp_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def dhcp_dns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
         * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
@@ -1483,12 +1957,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_dns")
 
     @dhcp_dns.setter
-    def dhcp_dns(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def dhcp_dns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "dhcp_dns", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpEnabled")
-    def dhcp_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Controls whether DHCP server is enabled for this network. When enabled:
         * The network will automatically assign IP addresses to clients
@@ -1498,12 +1972,42 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_enabled")
 
     @dhcp_enabled.setter
-    def dhcp_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_enabled", value)
 
     @_builtins.property
+    @pulumi.getter(name="dhcpGuarding")
+    def dhcp_guarding(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+        * Drops DHCP offers/acknowledgements from servers other than the trusted one
+        * Protects clients from rogue or misconfigured DHCP servers
+
+        This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        """
+        return pulumi.get(self, "dhcp_guarding")
+
+    @dhcp_guarding.setter
+    def dhcp_guarding(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "dhcp_guarding", value)
+
+    @_builtins.property
+    @pulumi.getter(name="dhcpGuardingTrustedServers")
+    def dhcp_guarding_trusted_servers(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `dhcp_guarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+
+        Like `dhcp_guarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
+        """
+        return pulumi.get(self, "dhcp_guarding_trusted_servers")
+
+    @dhcp_guarding_trusted_servers.setter
+    def dhcp_guarding_trusted_servers(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "dhcp_guarding_trusted_servers", value)
+
+    @_builtins.property
     @pulumi.getter(name="dhcpLease")
-    def dhcp_lease(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def dhcp_lease(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The DHCP lease time in seconds. Common values:
         * 86400 (1 day) - Default, suitable for most networks
@@ -1514,12 +2018,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_lease")
 
     @dhcp_lease.setter
-    def dhcp_lease(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def dhcp_lease(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "dhcp_lease", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpRelayEnabled")
-    def dhcp_relay_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_relay_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables DHCP relay for this network. When enabled:
         * DHCP requests are forwarded to an external DHCP server
@@ -1529,12 +2033,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_relay_enabled")
 
     @dhcp_relay_enabled.setter
-    def dhcp_relay_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_relay_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_relay_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpStart")
-    def dhcp_start(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcp_start(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The starting IPv4 address of the DHCP range. Examples:
         * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
@@ -1544,12 +2048,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_start")
 
     @dhcp_start.setter
-    def dhcp_start(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcp_start(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcp_start", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpStop")
-    def dhcp_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcp_stop(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ending IPv4 address of the DHCP range. Examples:
         * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
@@ -1559,12 +2063,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_stop")
 
     @dhcp_stop.setter
-    def dhcp_stop(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcp_stop(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcp_stop", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Dns")
-    def dhcp_v6_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def dhcp_v6_dns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
         * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
@@ -1574,12 +2078,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_v6_dns")
 
     @dhcp_v6_dns.setter
-    def dhcp_v6_dns(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def dhcp_v6_dns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "dhcp_v6_dns", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6DnsAuto")
-    def dhcp_v6_dns_auto(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_v6_dns_auto(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Controls DNS server source for DHCPv6 clients:
         * true - Use upstream DNS servers (recommended)
@@ -1589,12 +2093,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_v6_dns_auto")
 
     @dhcp_v6_dns_auto.setter
-    def dhcp_v6_dns_auto(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_v6_dns_auto(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_v6_dns_auto", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Enabled")
-    def dhcp_v6_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_v6_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
         * Provides IPv6 addresses to clients
@@ -1604,12 +2108,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_v6_enabled")
 
     @dhcp_v6_enabled.setter
-    def dhcp_v6_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_v6_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_v6_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Lease")
-    def dhcp_v6_lease(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def dhcp_v6_lease(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The DHCPv6 lease time in seconds. Common values:
         * 86400 (1 day) - Default setting
@@ -1620,38 +2124,42 @@ class _NetworkState:
         return pulumi.get(self, "dhcp_v6_lease")
 
     @dhcp_v6_lease.setter
-    def dhcp_v6_lease(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def dhcp_v6_lease(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "dhcp_v6_lease", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Start")
-    def dhcp_v6_start(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcp_v6_start(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         Must be a valid IPv6 address within your allocated IPv6 subnet.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "dhcp_v6_start")
 
     @dhcp_v6_start.setter
-    def dhcp_v6_start(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcp_v6_start(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcp_v6_start", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Stop")
-    def dhcp_v6_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcp_v6_stop(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         Must be after dhcp_v6_start in the IPv6 address space.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "dhcp_v6_stop")
 
     @dhcp_v6_stop.setter
-    def dhcp_v6_stop(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcp_v6_stop(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcp_v6_stop", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootEnabled")
-    def dhcpd_boot_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcpd_boot_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
         * Allows network devices to boot from a TFTP server
@@ -1661,12 +2169,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcpd_boot_enabled")
 
     @dhcpd_boot_enabled.setter
-    def dhcpd_boot_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcpd_boot_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcpd_boot_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootFilename")
-    def dhcpd_boot_filename(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcpd_boot_filename(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The boot filename to be loaded from the TFTP server. Examples:
         * 'pxelinux.0' - Standard PXE boot loader
@@ -1676,12 +2184,12 @@ class _NetworkState:
         return pulumi.get(self, "dhcpd_boot_filename")
 
     @dhcpd_boot_filename.setter
-    def dhcpd_boot_filename(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcpd_boot_filename(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcpd_boot_filename", value)
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootServer")
-    def dhcpd_boot_server(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dhcpd_boot_server(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 address of the TFTP server for network boot. This setting:
         * Is required when dhcpd_boot_enabled is true
@@ -1691,12 +2199,42 @@ class _NetworkState:
         return pulumi.get(self, "dhcpd_boot_server")
 
     @dhcpd_boot_server.setter
-    def dhcpd_boot_server(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dhcpd_boot_server(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dhcpd_boot_server", value)
 
     @_builtins.property
+    @pulumi.getter(name="dhcpdGateway")
+    def dhcpd_gateway(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `dhcpd_gateway_enabled` is `true`. Typically an address inside this network's `subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+
+        This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `dhcpd_gateway_enabled = true` to manage the override from Terraform.
+        """
+        return pulumi.get(self, "dhcpd_gateway")
+
+    @dhcpd_gateway.setter
+    def dhcpd_gateway(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "dhcpd_gateway", value)
+
+    @_builtins.property
+    @pulumi.getter(name="dhcpdGatewayEnabled")
+    def dhcpd_gateway_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `false` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `true` to advertise the address in `dhcpd_gateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+
+        This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `true`, `dhcpd_gateway` is required.
+
+        Only meaningful when this network runs the UniFi DHCP server (`dhcp_enabled = true` and `dhcp_relay_enabled = false`) with an address range (`dhcp_start`/`dhcp_stop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
+        """
+        return pulumi.get(self, "dhcpd_gateway_enabled")
+
+    @dhcpd_gateway_enabled.setter
+    def dhcpd_gateway_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "dhcpd_gateway_enabled", value)
+
+    @_builtins.property
     @pulumi.getter(name="domainName")
-    def domain_name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def domain_name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The domain name for this network. Examples:
         * 'corp.example.com' - For corporate networks
@@ -1707,12 +2245,12 @@ class _NetworkState:
         return pulumi.get(self, "domain_name")
 
     @domain_name.setter
-    def domain_name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def domain_name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "domain_name", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Controls whether this network is active. When disabled:
         * Network will not be available to clients
@@ -1723,12 +2261,32 @@ class _NetworkState:
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
+    @pulumi.getter(name="firewallZoneId")
+    def firewall_zone_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+
+        This attribute is `Optional` + `Computed`:
+        * Leave it **unset** to preserve whatever zone the controller (or a `firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+        * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+
+        On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+
+        To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
+        """
+        return pulumi.get(self, "firewall_zone_id")
+
+    @firewall_zone_id.setter
+    def firewall_zone_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "firewall_zone_id", value)
+
+    @_builtins.property
     @pulumi.getter(name="igmpSnooping")
-    def igmp_snooping(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def igmp_snooping(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
         * Optimizes multicast traffic flow
@@ -1739,12 +2297,12 @@ class _NetworkState:
         return pulumi.get(self, "igmp_snooping")
 
     @igmp_snooping.setter
-    def igmp_snooping(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def igmp_snooping(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "igmp_snooping", value)
 
     @_builtins.property
     @pulumi.getter(name="internetAccessEnabled")
-    def internet_access_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def internet_access_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Controls internet access for this network. When disabled:
         * Clients cannot access external networks
@@ -1754,44 +2312,47 @@ class _NetworkState:
         return pulumi.get(self, "internet_access_enabled")
 
     @internet_access_enabled.setter
-    def internet_access_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def internet_access_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "internet_access_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6InterfaceType")
-    def ipv6_interface_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_interface_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Specifies the IPv6 connection type. Must be one of:
         * `none` - IPv6 disabled (default)
         * `static` - Static IPv6 addressing
         * `pd` - Prefix Delegation from upstream
+        * `single_network` - Share a delegated IPv6 prefix with a single LAN
 
-        Choose based on your IPv6 deployment strategy and ISP capabilities.
+        Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `single_network` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `single_network` network may not be fully configurable.
         """
         return pulumi.get(self, "ipv6_interface_type")
 
     @ipv6_interface_type.setter
-    def ipv6_interface_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_interface_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_interface_type", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdInterface")
-    def ipv6_pd_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_pd_interface(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The WAN interface to use for IPv6 Prefix Delegation. Options:
         * `wan` - Primary WAN interface
         * `wan2` - Secondary WAN interface
         Only applicable when `ipv6_interface_type` is 'pd'.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_interface")
 
     @ipv6_pd_interface.setter
-    def ipv6_pd_interface(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_pd_interface(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_pd_interface", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdPrefixid")
-    def ipv6_pd_prefixid(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_pd_prefixid(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv6 Prefix ID for Prefix Delegation. Used to:
         * Differentiate multiple delegated prefixes
@@ -1801,40 +2362,44 @@ class _NetworkState:
         return pulumi.get(self, "ipv6_pd_prefixid")
 
     @ipv6_pd_prefixid.setter
-    def ipv6_pd_prefixid(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_pd_prefixid(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_pd_prefixid", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdStart")
-    def ipv6_pd_start(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_pd_start(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The starting IPv6 address for Prefix Delegation range.
         Only used when `ipv6_interface_type` is 'pd'.
         Must be within the delegated prefix range.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_start")
 
     @ipv6_pd_start.setter
-    def ipv6_pd_start(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_pd_start(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_pd_start", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdStop")
-    def ipv6_pd_stop(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_pd_stop(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ending IPv6 address for Prefix Delegation range.
         Only used when `ipv6_interface_type` is 'pd'.
         Must be after `ipv6_pd_start` within the delegated prefix.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_stop")
 
     @ipv6_pd_stop.setter
-    def ipv6_pd_stop(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_pd_stop(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_pd_stop", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaEnable")
-    def ipv6_ra_enable(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def ipv6_ra_enable(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables IPv6 Router Advertisements (RA). When enabled:
         * Announces IPv6 prefix information to clients
@@ -1844,12 +2409,12 @@ class _NetworkState:
         return pulumi.get(self, "ipv6_ra_enable")
 
     @ipv6_ra_enable.setter
-    def ipv6_ra_enable(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def ipv6_ra_enable(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "ipv6_ra_enable", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaPreferredLifetime")
-    def ipv6_ra_preferred_lifetime(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def ipv6_ra_preferred_lifetime(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
         * Must be less than or equal to `ipv6_ra_valid_lifetime`
@@ -1859,28 +2424,30 @@ class _NetworkState:
         return pulumi.get(self, "ipv6_ra_preferred_lifetime")
 
     @ipv6_ra_preferred_lifetime.setter
-    def ipv6_ra_preferred_lifetime(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def ipv6_ra_preferred_lifetime(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "ipv6_ra_preferred_lifetime", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaPriority")
-    def ipv6_ra_priority(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_ra_priority(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Sets the priority for IPv6 Router Advertisements. Options:
         * `high` - Preferred for primary networks
         * `medium` - Standard priority
         * `low` - For backup or secondary networks
         Affects router selection when multiple IPv6 routers exist.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6_ra_enable` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_ra_priority")
 
     @ipv6_ra_priority.setter
-    def ipv6_ra_priority(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_ra_priority(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_ra_priority", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaValidLifetime")
-    def ipv6_ra_valid_lifetime(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def ipv6_ra_valid_lifetime(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
         * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
@@ -1890,26 +2457,28 @@ class _NetworkState:
         return pulumi.get(self, "ipv6_ra_valid_lifetime")
 
     @ipv6_ra_valid_lifetime.setter
-    def ipv6_ra_valid_lifetime(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def ipv6_ra_valid_lifetime(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "ipv6_ra_valid_lifetime", value)
 
     @_builtins.property
     @pulumi.getter(name="ipv6StaticSubnet")
-    def ipv6_static_subnet(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ipv6_static_subnet(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
         Only applicable when `ipv6_interface_type` is 'static'.
         Must be a valid IPv6 subnet allocated to your organization.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_static_subnet")
 
     @ipv6_static_subnet.setter
-    def ipv6_static_subnet(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ipv6_static_subnet(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ipv6_static_subnet", value)
 
     @_builtins.property
     @pulumi.getter(name="multicastDns")
-    def multicast_dns(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def multicast_dns(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
         * Allows device discovery (e.g., printers, Chromecasts)
@@ -1919,91 +2488,116 @@ class _NetworkState:
         return pulumi.get(self, "multicast_dns")
 
     @multicast_dns.setter
-    def multicast_dns(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def multicast_dns(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "multicast_dns", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="networkGroup")
-    def network_group(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def network_group(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
         """
         return pulumi.get(self, "network_group")
 
     @network_group.setter
-    def network_group(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def network_group(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "network_group", value)
 
     @_builtins.property
     @pulumi.getter(name="networkIsolationEnabled")
-    def network_isolation_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def network_isolation_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
-        Enables network isolation. When enabled:
-        * Prevents communication between clients on this network
-        * Each client can only communicate with the gateway
-        * Commonly used for guest networks or IoT devices
+        Isolates this network from other local networks/VLANs on the site. When enabled:
+        * Hosts on this network cannot route to or from other local networks on the site
+        * Gateway and internet access are retained (internet access is subject to `internet_access_enabled`)
+        * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         """
         return pulumi.get(self, "network_isolation_enabled")
 
     @network_isolation_enabled.setter
-    def network_isolation_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def network_isolation_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "network_isolation_enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def purpose(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def purpose(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The purpose/type of the network. Must be one of:
         * `corporate` - Standard network for corporate use with full access
         * `guest` - Isolated network for guest access with limited permissions
         * `wan` - External network connection (WAN uplink)
         * `vlan-only` - VLAN network without DHCP services
+        * `vpn-client` - Site-to-site VPN client connection (see the `vpn_type` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         """
         return pulumi.get(self, "purpose")
 
     @purpose.setter
-    def purpose(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def purpose(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "purpose", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the site to associate the network with.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def subnet(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def subnet(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
         """
         return pulumi.get(self, "subnet")
 
     @subnet.setter
-    def subnet(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def subnet(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "subnet", value)
 
     @_builtins.property
+    @pulumi.getter(name="uidVpnCustomRoutings")
+    def uid_vpn_custom_routings(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpn_client_default_route` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "uid_vpn_custom_routings")
+
+    @uid_vpn_custom_routings.setter
+    def uid_vpn_custom_routings(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "uid_vpn_custom_routings", value)
+
+    @_builtins.property
+    @pulumi.getter(name="upnpLanEnabled")
+    def upnp_lan_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+        """
+        return pulumi.get(self, "upnp_lan_enabled")
+
+    @upnp_lan_enabled.setter
+    def upnp_lan_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "upnp_lan_enabled", value)
+
+    @_builtins.property
     @pulumi.getter(name="vlanId")
-    def vlan_id(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def vlan_id(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The VLAN ID for this network. Valid range is 0-4096. Common uses:
         * 1-4094: Standard VLAN range for network segmentation
@@ -2013,12 +2607,48 @@ class _NetworkState:
         return pulumi.get(self, "vlan_id")
 
     @vlan_id.setter
-    def vlan_id(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def vlan_id(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "vlan_id", value)
 
     @_builtins.property
+    @pulumi.getter(name="vpnClientDefaultRoute")
+    def vpn_client_default_route(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uid_vpn_custom_routing` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "vpn_client_default_route")
+
+    @vpn_client_default_route.setter
+    def vpn_client_default_route(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "vpn_client_default_route", value)
+
+    @_builtins.property
+    @pulumi.getter(name="vpnClientPullDns")
+    def vpn_client_pull_dns(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "vpn_client_pull_dns")
+
+    @vpn_client_pull_dns.setter
+    def vpn_client_pull_dns(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "vpn_client_pull_dns", value)
+
+    @_builtins.property
+    @pulumi.getter(name="vpnType")
+    def vpn_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcp_dns` (interface DNS); the controller rejects the create without them.
+        """
+        return pulumi.get(self, "vpn_type")
+
+    @vpn_type.setter
+    def vpn_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "vpn_type", value)
+
+    @_builtins.property
     @pulumi.getter(name="wanDhcpV6PdSize")
-    def wan_dhcp_v6_pd_size(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def wan_dhcp_v6_pd_size(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The IPv6 prefix size to request from ISP. Must be between 48 and 64.
         Only applicable when `wan_type_v6` is 'dhcpv6'.
@@ -2026,12 +2656,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_dhcp_v6_pd_size")
 
     @wan_dhcp_v6_pd_size.setter
-    def wan_dhcp_v6_pd_size(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def wan_dhcp_v6_pd_size(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "wan_dhcp_v6_pd_size", value)
 
     @_builtins.property
     @pulumi.getter(name="wanDns")
-    def wan_dns(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def wan_dns(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of IPv4 DNS servers for WAN interface. Examples:
         * ISP provided DNS servers
@@ -2041,12 +2671,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_dns")
 
     @wan_dns.setter
-    def wan_dns(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def wan_dns(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "wan_dns", value)
 
     @_builtins.property
     @pulumi.getter(name="wanEgressQos")
-    def wan_egress_qos(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def wan_egress_qos(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Quality of Service (QoS) priority for WAN egress traffic (0-7).
         * 0 (default) - Best effort
@@ -2057,12 +2687,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_egress_qos")
 
     @wan_egress_qos.setter
-    def wan_egress_qos(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def wan_egress_qos(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "wan_egress_qos", value)
 
     @_builtins.property
     @pulumi.getter(name="wanGateway")
-    def wan_gateway(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_gateway(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 gateway address for WAN interface.
         Required when `wan_type` is 'static'.
@@ -2071,12 +2701,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_gateway")
 
     @wan_gateway.setter
-    def wan_gateway(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_gateway(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_gateway", value)
 
     @_builtins.property
     @pulumi.getter(name="wanGatewayV6")
-    def wan_gateway_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_gateway_v6(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv6 gateway address for WAN interface.
         Required when `wan_type_v6` is 'static'.
@@ -2085,12 +2715,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_gateway_v6")
 
     @wan_gateway_v6.setter
-    def wan_gateway_v6(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_gateway_v6(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_gateway_v6", value)
 
     @_builtins.property
     @pulumi.getter(name="wanIp")
-    def wan_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The static IPv4 address for WAN interface.
         Required when `wan_type` is 'static'.
@@ -2099,12 +2729,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_ip")
 
     @wan_ip.setter
-    def wan_ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_ip", value)
 
     @_builtins.property
     @pulumi.getter(name="wanIpv6")
-    def wan_ipv6(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_ipv6(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The static IPv6 address for WAN interface.
         Required when `wan_type_v6` is 'static'.
@@ -2113,12 +2743,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_ipv6")
 
     @wan_ipv6.setter
-    def wan_ipv6(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_ipv6(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_ipv6", value)
 
     @_builtins.property
     @pulumi.getter(name="wanNetmask")
-    def wan_netmask(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_netmask(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
         Required when `wan_type` is 'static'.
@@ -2127,12 +2757,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_netmask")
 
     @wan_netmask.setter
-    def wan_netmask(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_netmask(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_netmask", value)
 
     @_builtins.property
     @pulumi.getter(name="wanNetworkgroup")
-    def wan_networkgroup(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_networkgroup(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The WAN interface group assignment. Options:
         * `WAN` - Primary WAN interface
@@ -2143,12 +2773,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_networkgroup")
 
     @wan_networkgroup.setter
-    def wan_networkgroup(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_networkgroup(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_networkgroup", value)
 
     @_builtins.property
     @pulumi.getter(name="wanPrefixlen")
-    def wan_prefixlen(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def wan_prefixlen(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The IPv6 prefix length for WAN interface. Must be between 1 and 128.
         Only applicable when `wan_type_v6` is 'static'.
@@ -2156,12 +2786,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_prefixlen")
 
     @wan_prefixlen.setter
-    def wan_prefixlen(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def wan_prefixlen(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "wan_prefixlen", value)
 
     @_builtins.property
     @pulumi.getter(name="wanType")
-    def wan_type(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_type(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv4 WAN connection type. Options:
         * `disabled` - WAN interface disabled
@@ -2173,12 +2803,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_type")
 
     @wan_type.setter
-    def wan_type(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_type(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_type", value)
 
     @_builtins.property
     @pulumi.getter(name="wanTypeV6")
-    def wan_type_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_type_v6(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IPv6 WAN connection type. Options:
         * `disabled` - IPv6 disabled
@@ -2189,12 +2819,12 @@ class _NetworkState:
         return pulumi.get(self, "wan_type_v6")
 
     @wan_type_v6.setter
-    def wan_type_v6(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_type_v6(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_type_v6", value)
 
     @_builtins.property
     @pulumi.getter(name="wanUsername")
-    def wan_username(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wan_username(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Username for WAN authentication.
         * Required for PPPoE connections
@@ -2204,12 +2834,108 @@ class _NetworkState:
         return pulumi.get(self, "wan_username")
 
     @wan_username.setter
-    def wan_username(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wan_username(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wan_username", value)
 
     @_builtins.property
+    @pulumi.getter(name="wireguardClientMode")
+    def wireguard_client_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_mode")
+
+    @wireguard_client_mode.setter
+    def wireguard_client_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_client_mode", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerIp")
+    def wireguard_client_peer_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_ip")
+
+    @wireguard_client_peer_ip.setter
+    def wireguard_client_peer_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_client_peer_ip", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerPort")
+    def wireguard_client_peer_port(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_port")
+
+    @wireguard_client_peer_port.setter
+    def wireguard_client_peer_port(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "wireguard_client_peer_port", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerPublicKey")
+    def wireguard_client_peer_public_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_public_key")
+
+    @wireguard_client_peer_public_key.setter
+    def wireguard_client_peer_public_key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_client_peer_public_key", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPresharedKey")
+    def wireguard_client_preshared_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_preshared_key")
+
+    @wireguard_client_preshared_key.setter
+    def wireguard_client_preshared_key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_client_preshared_key", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPresharedKeyEnabled")
+    def wireguard_client_preshared_key_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+        """
+        Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_preshared_key_enabled")
+
+    @wireguard_client_preshared_key_enabled.setter
+    def wireguard_client_preshared_key_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+        pulumi.set(self, "wireguard_client_preshared_key_enabled", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardInterface")
+    def wireguard_interface(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_interface")
+
+    @wireguard_interface.setter
+    def wireguard_interface(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_interface", value)
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardPublicKey")
+    def wireguard_public_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The gateway's own WireGuard public key for this VPN client. The controller does not return it, so the provider derives it from the private key (Curve25519). Add this key as a peer on the remote WireGuard server. Only set when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_public_key")
+
+    @wireguard_public_key.setter
+    def wireguard_public_key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "wireguard_public_key", value)
+
+    @_builtins.property
     @pulumi.getter(name="xWanPassword")
-    def x_wan_password(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def x_wan_password(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Password for WAN authentication.
         * Required for PPPoE connections
@@ -2219,8 +2945,20 @@ class _NetworkState:
         return pulumi.get(self, "x_wan_password")
 
     @x_wan_password.setter
-    def x_wan_password(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def x_wan_password(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "x_wan_password", value)
+
+    @_builtins.property
+    @pulumi.getter(name="xWireguardPrivateKey")
+    def x_wireguard_private_key(self) -> pulumi.Input[Optional[_builtins.str]]:
+        """
+        The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguard_public_key`. Keep this value secret. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "x_wireguard_private_key")
+
+    @x_wireguard_private_key.setter
+    def x_wireguard_private_key(self, value: pulumi.Input[Optional[_builtins.str]]):
+        pulumi.set(self, "x_wireguard_private_key", value)
 
 
 @pulumi.type_token("unifi:index/network:Network")
@@ -2229,57 +2967,75 @@ class Network(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 dhcp_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_lease: Optional[pulumi.Input[_builtins.int]] = None,
-                 dhcp_relay_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_v6_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcp_v6_dns_auto: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_v6_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_v6_lease: Optional[pulumi.Input[_builtins.int]] = None,
-                 dhcp_v6_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_v6_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcpd_boot_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
-                 domain_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
-                 internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_ra_enable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ipv6_ra_preferred_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-                 ipv6_ra_priority: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_ra_valid_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-                 ipv6_static_subnet: Optional[pulumi.Input[_builtins.str]] = None,
-                 multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 purpose: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 subnet: Optional[pulumi.Input[_builtins.str]] = None,
-                 vlan_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_dhcp_v6_pd_size: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 wan_egress_qos: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_gateway: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_gateway_v6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_netmask: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_networkgroup: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_prefixlen: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_type_v6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_username: Optional[pulumi.Input[_builtins.str]] = None,
-                 x_wan_password: Optional[pulumi.Input[_builtins.str]] = None,
+                 dhcp_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_guarding: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_guarding_trusted_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_lease: pulumi.Input[Optional[_builtins.int]] = None,
+                 dhcp_relay_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_v6_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_v6_dns_auto: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_v6_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_v6_lease: pulumi.Input[Optional[_builtins.int]] = None,
+                 dhcp_v6_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_v6_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_boot_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcpd_boot_filename: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_boot_server: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_gateway_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 domain_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 firewall_zone_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 igmp_snooping: pulumi.Input[Optional[_builtins.bool]] = None,
+                 internet_access_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ipv6_interface_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_prefixid: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_ra_enable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ipv6_ra_preferred_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+                 ipv6_ra_priority: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_ra_valid_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+                 ipv6_static_subnet: pulumi.Input[Optional[_builtins.str]] = None,
+                 multicast_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_isolation_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 purpose: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 subnet: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid_vpn_custom_routings: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 upnp_lan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 vpn_client_default_route: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vpn_client_pull_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vpn_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_dhcp_v6_pd_size: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 wan_egress_qos: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_gateway_v6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_netmask: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_networkgroup: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_prefixlen: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_type_v6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_username: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_peer_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_peer_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 wireguard_client_peer_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_preshared_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_preshared_key_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wireguard_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_wan_password: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_wireguard_private_key: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         The `Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
@@ -2310,7 +3066,7 @@ class Network(pulumi.CustomResource):
             name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
-            vlan_id=vlan_id,
+            vlan_id=int(vlan_id),
             dhcp_start="10.0.0.6",
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
@@ -2323,9 +3079,37 @@ class Network(pulumi.CustomResource):
             wan_egress_qos=1,
             wan_username="username",
             x_wan_password="password")
+        # Zone-Based Firewall (UniFi OS 9.x): pin a network to a firewall zone from the
+        # network side. Use EITHER this `firewall_zone_id` lever OR the zone-side
+        # `unifi_firewall_zone.networks` argument for a given network — not both, or the two
+        # resources will fight over the association.
+        iot = unifi.firewall.Zone("iot", name="iot")
+        iot_network = unifi.Network("iot",
+            name="iot-vlan",
+            purpose="corporate",
+            subnet="10.0.20.1/24",
+            vlan_id=20,
+            firewall_zone_id=iot.id)
+        # Override the DHCP-advertised default gateway. By default UniFi advertises the
+        # network's own interface IP as the gateway (DHCP option 3); setting
+        # `dhcpd_gateway_enabled = true` switches that to "manual" and hands clients the
+        # address in `dhcpd_gateway` instead. Here clients are pointed at a Tailscale
+        # subnet-router node (10.0.30.10) so their traffic can reach a remote tailnet.
+        tailscale_lan = unifi.Network("tailscale_lan",
+            name="tailscale-lan",
+            purpose="corporate",
+            subnet="10.0.30.1/24",
+            vlan_id=30,
+            dhcp_start="10.0.30.100",
+            dhcp_stop="10.0.30.254",
+            dhcp_enabled=True,
+            dhcpd_gateway_enabled=True,
+            dhcpd_gateway="10.0.30.10")
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         import from provider configured site
 
@@ -2345,6 +3129,7 @@ class Network(pulumi.CustomResource):
         $ pulumi import unifi:index/network:Network mynetwork name=LAN
         ```
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
@@ -2356,6 +3141,14 @@ class Network(pulumi.CustomResource):
                * The network will automatically assign IP addresses to clients
                * DHCP options (DNS, lease time) will be provided to clients
                * Static IP assignments can still be made outside the DHCP range
+        :param pulumi.Input[_builtins.bool] dhcp_guarding: Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+               * Drops DHCP offers/acknowledgements from servers other than the trusted one
+               * Protects clients from rogue or misconfigured DHCP servers
+               
+               This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_guarding_trusted_servers: List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `dhcp_guarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+               
+               Like `dhcp_guarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
         :param pulumi.Input[_builtins.int] dhcp_lease: The DHCP lease time in seconds. Common values:
                * 86400 (1 day) - Default, suitable for most networks
                * 3600 (1 hour) - For testing or temporary networks
@@ -2392,8 +3185,12 @@ class Network(pulumi.CustomResource):
                Typically longer than IPv4 DHCP leases.
         :param pulumi.Input[_builtins.str] dhcp_v6_start: The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
                Must be a valid IPv6 address within your allocated IPv6 subnet.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] dhcp_v6_stop: The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
                Must be after dhcp_v6_start in the IPv6 address space.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
                * Allows network devices to boot from a TFTP server
                * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
@@ -2406,6 +3203,14 @@ class Network(pulumi.CustomResource):
                * Is required when dhcpd_boot_enabled is true
                * Should be a reliable, always-on server
                * Must be accessible to all clients that need to boot
+        :param pulumi.Input[_builtins.str] dhcpd_gateway: The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `dhcpd_gateway_enabled` is `true`. Typically an address inside this network's `subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+               
+               This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `dhcpd_gateway_enabled = true` to manage the override from Terraform.
+        :param pulumi.Input[_builtins.bool] dhcpd_gateway_enabled: Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `false` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `true` to advertise the address in `dhcpd_gateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+               
+               This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `true`, `dhcpd_gateway` is required.
+               
+               Only meaningful when this network runs the UniFi DHCP server (`dhcp_enabled = true` and `dhcp_relay_enabled = false`) with an address range (`dhcp_start`/`dhcp_stop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
         :param pulumi.Input[_builtins.str] domain_name: The domain name for this network. Examples:
                * 'corp.example.com' - For corporate networks
                * 'guest.example.com' - For guest networks
@@ -2416,6 +3221,15 @@ class Network(pulumi.CustomResource):
                * DHCP services will be stopped
                * Existing clients will be disconnected
                Useful for temporary network maintenance or security measures.
+        :param pulumi.Input[_builtins.str] firewall_zone_id: The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+               
+               This attribute is `Optional` + `Computed`:
+               * Leave it **unset** to preserve whatever zone the controller (or a `firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+               * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+               
+               On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+               
+               To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
         :param pulumi.Input[_builtins.bool] igmp_snooping: Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
                * Optimizes multicast traffic flow
                * Reduces network congestion
@@ -2429,12 +3243,15 @@ class Network(pulumi.CustomResource):
                * `none` - IPv6 disabled (default)
                * `static` - Static IPv6 addressing
                * `pd` - Prefix Delegation from upstream
+               * `single_network` - Share a delegated IPv6 prefix with a single LAN
                
-               Choose based on your IPv6 deployment strategy and ISP capabilities.
+               Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `single_network` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `single_network` network may not be fully configurable.
         :param pulumi.Input[_builtins.str] ipv6_pd_interface: The WAN interface to use for IPv6 Prefix Delegation. Options:
                * `wan` - Primary WAN interface
                * `wan2` - Secondary WAN interface
                Only applicable when `ipv6_interface_type` is 'pd'.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: The IPv6 Prefix ID for Prefix Delegation. Used to:
                * Differentiate multiple delegated prefixes
                * Create unique subnets from the delegated prefix
@@ -2442,9 +3259,13 @@ class Network(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] ipv6_pd_start: The starting IPv6 address for Prefix Delegation range.
                Only used when `ipv6_interface_type` is 'pd'.
                Must be within the delegated prefix range.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] ipv6_pd_stop: The ending IPv6 address for Prefix Delegation range.
                Only used when `ipv6_interface_type` is 'pd'.
                Must be after `ipv6_pd_start` within the delegated prefix.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Enables IPv6 Router Advertisements (RA). When enabled:
                * Announces IPv6 prefix information to clients
                * Enables SLAAC address configuration
@@ -2458,6 +3279,8 @@ class Network(pulumi.CustomResource):
                * `medium` - Standard priority
                * `low` - For backup or secondary networks
                Affects router selection when multiple IPv6 routers exist.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6_ra_enable` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
                * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
                * Default: 86400 (24 hours)
@@ -2465,27 +3288,35 @@ class Network(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] ipv6_static_subnet: The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
                Only applicable when `ipv6_interface_type` is 'static'.
                Must be a valid IPv6 subnet allocated to your organization.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] multicast_dns: Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
                * Allows device discovery (e.g., printers, Chromecasts)
                * Supports zero-configuration networking
                * Available on Controller version 7 and later
         :param pulumi.Input[_builtins.str] name: The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         :param pulumi.Input[_builtins.str] network_group: The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
-        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Enables network isolation. When enabled:
-               * Prevents communication between clients on this network
-               * Each client can only communicate with the gateway
-               * Commonly used for guest networks or IoT devices
+        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Isolates this network from other local networks/VLANs on the site. When enabled:
+               * Hosts on this network cannot route to or from other local networks on the site
+               * Gateway and internet access are retained (internet access is subject to `internet_access_enabled`)
+               * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         :param pulumi.Input[_builtins.str] purpose: The purpose/type of the network. Must be one of:
                * `corporate` - Standard network for corporate use with full access
                * `guest` - Isolated network for guest access with limited permissions
                * `wan` - External network connection (WAN uplink)
                * `vlan-only` - VLAN network without DHCP services
+               * `vpn-client` - Site-to-site VPN client connection (see the `vpn_type` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         :param pulumi.Input[_builtins.str] site: The name of the site to associate the network with.
         :param pulumi.Input[_builtins.str] subnet: The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] uid_vpn_custom_routings: The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpn_client_default_route` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.bool] upnp_lan_enabled: Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
         :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID for this network. Valid range is 0-4096. Common uses:
                * 1-4094: Standard VLAN range for network segmentation
                * 0: Untagged/native VLAN
                * >4094: Reserved for special purposes
+        :param pulumi.Input[_builtins.bool] vpn_client_default_route: When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uid_vpn_custom_routing` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.bool] vpn_client_pull_dns: When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.str] vpn_type: The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcp_dns` (interface DNS); the controller rejects the create without them.
         :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: The IPv6 prefix size to request from ISP. Must be between 48 and 64.
                Only applicable when `wan_type_v6` is 'dhcpv6'.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: List of IPv4 DNS servers for WAN interface. Examples:
@@ -2534,10 +3365,18 @@ class Network(pulumi.CustomResource):
                * Required for PPPoE connections
                * May be needed for some ISP configurations
                * Cannot contain spaces or special characters
+        :param pulumi.Input[_builtins.str] wireguard_client_mode: How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_peer_ip: The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.int] wireguard_client_peer_port: The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_peer_public_key: The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_preshared_key: An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.bool] wireguard_client_preshared_key_enabled: Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_interface: The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpn_type` is 'wireguard-client'.
         :param pulumi.Input[_builtins.str] x_wan_password: Password for WAN authentication.
                * Required for PPPoE connections
                * May be needed for some ISP configurations
                * Must be kept secret
+        :param pulumi.Input[_builtins.str] x_wireguard_private_key: The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguard_public_key`. Keep this value secret. Only applicable when `vpn_type` is 'wireguard-client'.
         """
         ...
     @overload
@@ -2574,7 +3413,7 @@ class Network(pulumi.CustomResource):
             name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
-            vlan_id=vlan_id,
+            vlan_id=int(vlan_id),
             dhcp_start="10.0.0.6",
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
@@ -2587,9 +3426,37 @@ class Network(pulumi.CustomResource):
             wan_egress_qos=1,
             wan_username="username",
             x_wan_password="password")
+        # Zone-Based Firewall (UniFi OS 9.x): pin a network to a firewall zone from the
+        # network side. Use EITHER this `firewall_zone_id` lever OR the zone-side
+        # `unifi_firewall_zone.networks` argument for a given network — not both, or the two
+        # resources will fight over the association.
+        iot = unifi.firewall.Zone("iot", name="iot")
+        iot_network = unifi.Network("iot",
+            name="iot-vlan",
+            purpose="corporate",
+            subnet="10.0.20.1/24",
+            vlan_id=20,
+            firewall_zone_id=iot.id)
+        # Override the DHCP-advertised default gateway. By default UniFi advertises the
+        # network's own interface IP as the gateway (DHCP option 3); setting
+        # `dhcpd_gateway_enabled = true` switches that to "manual" and hands clients the
+        # address in `dhcpd_gateway` instead. Here clients are pointed at a Tailscale
+        # subnet-router node (10.0.30.10) so their traffic can reach a remote tailnet.
+        tailscale_lan = unifi.Network("tailscale_lan",
+            name="tailscale-lan",
+            purpose="corporate",
+            subnet="10.0.30.1/24",
+            vlan_id=30,
+            dhcp_start="10.0.30.100",
+            dhcp_stop="10.0.30.254",
+            dhcp_enabled=True,
+            dhcpd_gateway_enabled=True,
+            dhcpd_gateway="10.0.30.10")
         ```
 
         ## Import
+
+        The `pulumi import` command can be used, for example:
 
         import from provider configured site
 
@@ -2609,6 +3476,7 @@ class Network(pulumi.CustomResource):
         $ pulumi import unifi:index/network:Network mynetwork name=LAN
         ```
 
+
         :param str resource_name: The name of the resource.
         :param NetworkArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -2624,57 +3492,75 @@ class Network(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 dhcp_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_lease: Optional[pulumi.Input[_builtins.int]] = None,
-                 dhcp_relay_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_v6_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dhcp_v6_dns_auto: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_v6_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcp_v6_lease: Optional[pulumi.Input[_builtins.int]] = None,
-                 dhcp_v6_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcp_v6_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcpd_boot_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
-                 dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
-                 domain_name: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
-                 internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_start: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_pd_stop: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_ra_enable: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ipv6_ra_preferred_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-                 ipv6_ra_priority: Optional[pulumi.Input[_builtins.str]] = None,
-                 ipv6_ra_valid_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-                 ipv6_static_subnet: Optional[pulumi.Input[_builtins.str]] = None,
-                 multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_group: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 purpose: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 subnet: Optional[pulumi.Input[_builtins.str]] = None,
-                 vlan_id: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_dhcp_v6_pd_size: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 wan_egress_qos: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_gateway: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_gateway_v6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_netmask: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_networkgroup: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_prefixlen: Optional[pulumi.Input[_builtins.int]] = None,
-                 wan_type: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_type_v6: Optional[pulumi.Input[_builtins.str]] = None,
-                 wan_username: Optional[pulumi.Input[_builtins.str]] = None,
-                 x_wan_password: Optional[pulumi.Input[_builtins.str]] = None,
+                 dhcp_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_guarding: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_guarding_trusted_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_lease: pulumi.Input[Optional[_builtins.int]] = None,
+                 dhcp_relay_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_v6_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dhcp_v6_dns_auto: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_v6_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcp_v6_lease: pulumi.Input[Optional[_builtins.int]] = None,
+                 dhcp_v6_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcp_v6_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_boot_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dhcpd_boot_filename: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_boot_server: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+                 dhcpd_gateway_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 domain_name: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 firewall_zone_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 igmp_snooping: pulumi.Input[Optional[_builtins.bool]] = None,
+                 internet_access_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ipv6_interface_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_prefixid: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_start: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_pd_stop: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_ra_enable: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ipv6_ra_preferred_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+                 ipv6_ra_priority: pulumi.Input[Optional[_builtins.str]] = None,
+                 ipv6_ra_valid_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+                 ipv6_static_subnet: pulumi.Input[Optional[_builtins.str]] = None,
+                 multicast_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_group: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_isolation_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 purpose: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 subnet: pulumi.Input[Optional[_builtins.str]] = None,
+                 uid_vpn_custom_routings: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 upnp_lan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vlan_id: pulumi.Input[Optional[_builtins.int]] = None,
+                 vpn_client_default_route: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vpn_client_pull_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+                 vpn_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_dhcp_v6_pd_size: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 wan_egress_qos: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_gateway_v6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_netmask: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_networkgroup: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_prefixlen: pulumi.Input[Optional[_builtins.int]] = None,
+                 wan_type: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_type_v6: pulumi.Input[Optional[_builtins.str]] = None,
+                 wan_username: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_peer_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_peer_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 wireguard_client_peer_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_preshared_key: pulumi.Input[Optional[_builtins.str]] = None,
+                 wireguard_client_preshared_key_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wireguard_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_wan_password: pulumi.Input[Optional[_builtins.str]] = None,
+                 x_wireguard_private_key: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -2686,6 +3572,8 @@ class Network(pulumi.CustomResource):
 
             __props__.__dict__["dhcp_dns"] = dhcp_dns
             __props__.__dict__["dhcp_enabled"] = dhcp_enabled
+            __props__.__dict__["dhcp_guarding"] = dhcp_guarding
+            __props__.__dict__["dhcp_guarding_trusted_servers"] = dhcp_guarding_trusted_servers
             __props__.__dict__["dhcp_lease"] = dhcp_lease
             __props__.__dict__["dhcp_relay_enabled"] = dhcp_relay_enabled
             __props__.__dict__["dhcp_start"] = dhcp_start
@@ -2699,8 +3587,11 @@ class Network(pulumi.CustomResource):
             __props__.__dict__["dhcpd_boot_enabled"] = dhcpd_boot_enabled
             __props__.__dict__["dhcpd_boot_filename"] = dhcpd_boot_filename
             __props__.__dict__["dhcpd_boot_server"] = dhcpd_boot_server
+            __props__.__dict__["dhcpd_gateway"] = dhcpd_gateway
+            __props__.__dict__["dhcpd_gateway_enabled"] = dhcpd_gateway_enabled
             __props__.__dict__["domain_name"] = domain_name
             __props__.__dict__["enabled"] = enabled
+            __props__.__dict__["firewall_zone_id"] = firewall_zone_id
             __props__.__dict__["igmp_snooping"] = igmp_snooping
             __props__.__dict__["internet_access_enabled"] = internet_access_enabled
             __props__.__dict__["ipv6_interface_type"] = ipv6_interface_type
@@ -2722,7 +3613,12 @@ class Network(pulumi.CustomResource):
             __props__.__dict__["purpose"] = purpose
             __props__.__dict__["site"] = site
             __props__.__dict__["subnet"] = subnet
+            __props__.__dict__["uid_vpn_custom_routings"] = uid_vpn_custom_routings
+            __props__.__dict__["upnp_lan_enabled"] = upnp_lan_enabled
             __props__.__dict__["vlan_id"] = vlan_id
+            __props__.__dict__["vpn_client_default_route"] = vpn_client_default_route
+            __props__.__dict__["vpn_client_pull_dns"] = vpn_client_pull_dns
+            __props__.__dict__["vpn_type"] = vpn_type
             __props__.__dict__["wan_dhcp_v6_pd_size"] = wan_dhcp_v6_pd_size
             __props__.__dict__["wan_dns"] = wan_dns
             __props__.__dict__["wan_egress_qos"] = wan_egress_qos
@@ -2736,7 +3632,18 @@ class Network(pulumi.CustomResource):
             __props__.__dict__["wan_type"] = wan_type
             __props__.__dict__["wan_type_v6"] = wan_type_v6
             __props__.__dict__["wan_username"] = wan_username
+            __props__.__dict__["wireguard_client_mode"] = wireguard_client_mode
+            __props__.__dict__["wireguard_client_peer_ip"] = wireguard_client_peer_ip
+            __props__.__dict__["wireguard_client_peer_port"] = wireguard_client_peer_port
+            __props__.__dict__["wireguard_client_peer_public_key"] = wireguard_client_peer_public_key
+            __props__.__dict__["wireguard_client_preshared_key"] = None if wireguard_client_preshared_key is None else pulumi.Output.secret(wireguard_client_preshared_key)
+            __props__.__dict__["wireguard_client_preshared_key_enabled"] = wireguard_client_preshared_key_enabled
+            __props__.__dict__["wireguard_interface"] = wireguard_interface
             __props__.__dict__["x_wan_password"] = x_wan_password
+            __props__.__dict__["x_wireguard_private_key"] = None if x_wireguard_private_key is None else pulumi.Output.secret(x_wireguard_private_key)
+            __props__.__dict__["wireguard_public_key"] = None
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["wireguardClientPresharedKey", "xWireguardPrivateKey"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Network, __self__).__init__(
             'unifi:index/network:Network',
             resource_name,
@@ -2747,57 +3654,76 @@ class Network(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            dhcp_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            dhcp_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            dhcp_lease: Optional[pulumi.Input[_builtins.int]] = None,
-            dhcp_relay_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            dhcp_start: Optional[pulumi.Input[_builtins.str]] = None,
-            dhcp_stop: Optional[pulumi.Input[_builtins.str]] = None,
-            dhcp_v6_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            dhcp_v6_dns_auto: Optional[pulumi.Input[_builtins.bool]] = None,
-            dhcp_v6_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            dhcp_v6_lease: Optional[pulumi.Input[_builtins.int]] = None,
-            dhcp_v6_start: Optional[pulumi.Input[_builtins.str]] = None,
-            dhcp_v6_stop: Optional[pulumi.Input[_builtins.str]] = None,
-            dhcpd_boot_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            dhcpd_boot_filename: Optional[pulumi.Input[_builtins.str]] = None,
-            dhcpd_boot_server: Optional[pulumi.Input[_builtins.str]] = None,
-            domain_name: Optional[pulumi.Input[_builtins.str]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            igmp_snooping: Optional[pulumi.Input[_builtins.bool]] = None,
-            internet_access_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            ipv6_interface_type: Optional[pulumi.Input[_builtins.str]] = None,
-            ipv6_pd_interface: Optional[pulumi.Input[_builtins.str]] = None,
-            ipv6_pd_prefixid: Optional[pulumi.Input[_builtins.str]] = None,
-            ipv6_pd_start: Optional[pulumi.Input[_builtins.str]] = None,
-            ipv6_pd_stop: Optional[pulumi.Input[_builtins.str]] = None,
-            ipv6_ra_enable: Optional[pulumi.Input[_builtins.bool]] = None,
-            ipv6_ra_preferred_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-            ipv6_ra_priority: Optional[pulumi.Input[_builtins.str]] = None,
-            ipv6_ra_valid_lifetime: Optional[pulumi.Input[_builtins.int]] = None,
-            ipv6_static_subnet: Optional[pulumi.Input[_builtins.str]] = None,
-            multicast_dns: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            network_group: Optional[pulumi.Input[_builtins.str]] = None,
-            network_isolation_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            purpose: Optional[pulumi.Input[_builtins.str]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            subnet: Optional[pulumi.Input[_builtins.str]] = None,
-            vlan_id: Optional[pulumi.Input[_builtins.int]] = None,
-            wan_dhcp_v6_pd_size: Optional[pulumi.Input[_builtins.int]] = None,
-            wan_dns: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            wan_egress_qos: Optional[pulumi.Input[_builtins.int]] = None,
-            wan_gateway: Optional[pulumi.Input[_builtins.str]] = None,
-            wan_gateway_v6: Optional[pulumi.Input[_builtins.str]] = None,
-            wan_ip: Optional[pulumi.Input[_builtins.str]] = None,
-            wan_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
-            wan_netmask: Optional[pulumi.Input[_builtins.str]] = None,
-            wan_networkgroup: Optional[pulumi.Input[_builtins.str]] = None,
-            wan_prefixlen: Optional[pulumi.Input[_builtins.int]] = None,
-            wan_type: Optional[pulumi.Input[_builtins.str]] = None,
-            wan_type_v6: Optional[pulumi.Input[_builtins.str]] = None,
-            wan_username: Optional[pulumi.Input[_builtins.str]] = None,
-            x_wan_password: Optional[pulumi.Input[_builtins.str]] = None) -> 'Network':
+            dhcp_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            dhcp_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            dhcp_guarding: pulumi.Input[Optional[_builtins.bool]] = None,
+            dhcp_guarding_trusted_servers: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            dhcp_lease: pulumi.Input[Optional[_builtins.int]] = None,
+            dhcp_relay_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            dhcp_start: pulumi.Input[Optional[_builtins.str]] = None,
+            dhcp_stop: pulumi.Input[Optional[_builtins.str]] = None,
+            dhcp_v6_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            dhcp_v6_dns_auto: pulumi.Input[Optional[_builtins.bool]] = None,
+            dhcp_v6_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            dhcp_v6_lease: pulumi.Input[Optional[_builtins.int]] = None,
+            dhcp_v6_start: pulumi.Input[Optional[_builtins.str]] = None,
+            dhcp_v6_stop: pulumi.Input[Optional[_builtins.str]] = None,
+            dhcpd_boot_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            dhcpd_boot_filename: pulumi.Input[Optional[_builtins.str]] = None,
+            dhcpd_boot_server: pulumi.Input[Optional[_builtins.str]] = None,
+            dhcpd_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+            dhcpd_gateway_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            domain_name: pulumi.Input[Optional[_builtins.str]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            firewall_zone_id: pulumi.Input[Optional[_builtins.str]] = None,
+            igmp_snooping: pulumi.Input[Optional[_builtins.bool]] = None,
+            internet_access_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            ipv6_interface_type: pulumi.Input[Optional[_builtins.str]] = None,
+            ipv6_pd_interface: pulumi.Input[Optional[_builtins.str]] = None,
+            ipv6_pd_prefixid: pulumi.Input[Optional[_builtins.str]] = None,
+            ipv6_pd_start: pulumi.Input[Optional[_builtins.str]] = None,
+            ipv6_pd_stop: pulumi.Input[Optional[_builtins.str]] = None,
+            ipv6_ra_enable: pulumi.Input[Optional[_builtins.bool]] = None,
+            ipv6_ra_preferred_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+            ipv6_ra_priority: pulumi.Input[Optional[_builtins.str]] = None,
+            ipv6_ra_valid_lifetime: pulumi.Input[Optional[_builtins.int]] = None,
+            ipv6_static_subnet: pulumi.Input[Optional[_builtins.str]] = None,
+            multicast_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            network_group: pulumi.Input[Optional[_builtins.str]] = None,
+            network_isolation_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            purpose: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            subnet: pulumi.Input[Optional[_builtins.str]] = None,
+            uid_vpn_custom_routings: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            upnp_lan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            vlan_id: pulumi.Input[Optional[_builtins.int]] = None,
+            vpn_client_default_route: pulumi.Input[Optional[_builtins.bool]] = None,
+            vpn_client_pull_dns: pulumi.Input[Optional[_builtins.bool]] = None,
+            vpn_type: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_dhcp_v6_pd_size: pulumi.Input[Optional[_builtins.int]] = None,
+            wan_dns: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            wan_egress_qos: pulumi.Input[Optional[_builtins.int]] = None,
+            wan_gateway: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_gateway_v6: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_ip: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_netmask: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_networkgroup: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_prefixlen: pulumi.Input[Optional[_builtins.int]] = None,
+            wan_type: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_type_v6: pulumi.Input[Optional[_builtins.str]] = None,
+            wan_username: pulumi.Input[Optional[_builtins.str]] = None,
+            wireguard_client_mode: pulumi.Input[Optional[_builtins.str]] = None,
+            wireguard_client_peer_ip: pulumi.Input[Optional[_builtins.str]] = None,
+            wireguard_client_peer_port: pulumi.Input[Optional[_builtins.int]] = None,
+            wireguard_client_peer_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+            wireguard_client_preshared_key: pulumi.Input[Optional[_builtins.str]] = None,
+            wireguard_client_preshared_key_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            wireguard_interface: pulumi.Input[Optional[_builtins.str]] = None,
+            wireguard_public_key: pulumi.Input[Optional[_builtins.str]] = None,
+            x_wan_password: pulumi.Input[Optional[_builtins.str]] = None,
+            x_wireguard_private_key: pulumi.Input[Optional[_builtins.str]] = None) -> 'Network':
         """
         Get an existing Network resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -2814,6 +3740,14 @@ class Network(pulumi.CustomResource):
                * The network will automatically assign IP addresses to clients
                * DHCP options (DNS, lease time) will be provided to clients
                * Static IP assignments can still be made outside the DHCP range
+        :param pulumi.Input[_builtins.bool] dhcp_guarding: Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+               * Drops DHCP offers/acknowledgements from servers other than the trusted one
+               * Protects clients from rogue or misconfigured DHCP servers
+               
+               This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_guarding_trusted_servers: List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `dhcp_guarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+               
+               Like `dhcp_guarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
         :param pulumi.Input[_builtins.int] dhcp_lease: The DHCP lease time in seconds. Common values:
                * 86400 (1 day) - Default, suitable for most networks
                * 3600 (1 hour) - For testing or temporary networks
@@ -2850,8 +3784,12 @@ class Network(pulumi.CustomResource):
                Typically longer than IPv4 DHCP leases.
         :param pulumi.Input[_builtins.str] dhcp_v6_start: The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
                Must be a valid IPv6 address within your allocated IPv6 subnet.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] dhcp_v6_stop: The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
                Must be after dhcp_v6_start in the IPv6 address space.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] dhcpd_boot_enabled: Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
                * Allows network devices to boot from a TFTP server
                * Requires dhcpd_boot_server and dhcpd_boot_filename to be set
@@ -2864,6 +3802,14 @@ class Network(pulumi.CustomResource):
                * Is required when dhcpd_boot_enabled is true
                * Should be a reliable, always-on server
                * Must be accessible to all clients that need to boot
+        :param pulumi.Input[_builtins.str] dhcpd_gateway: The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `dhcpd_gateway_enabled` is `true`. Typically an address inside this network's `subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+               
+               This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `dhcpd_gateway_enabled = true` to manage the override from Terraform.
+        :param pulumi.Input[_builtins.bool] dhcpd_gateway_enabled: Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `false` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `true` to advertise the address in `dhcpd_gateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+               
+               This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `true`, `dhcpd_gateway` is required.
+               
+               Only meaningful when this network runs the UniFi DHCP server (`dhcp_enabled = true` and `dhcp_relay_enabled = false`) with an address range (`dhcp_start`/`dhcp_stop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
         :param pulumi.Input[_builtins.str] domain_name: The domain name for this network. Examples:
                * 'corp.example.com' - For corporate networks
                * 'guest.example.com' - For guest networks
@@ -2874,6 +3820,15 @@ class Network(pulumi.CustomResource):
                * DHCP services will be stopped
                * Existing clients will be disconnected
                Useful for temporary network maintenance or security measures.
+        :param pulumi.Input[_builtins.str] firewall_zone_id: The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+               
+               This attribute is `Optional` + `Computed`:
+               * Leave it **unset** to preserve whatever zone the controller (or a `firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+               * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+               
+               On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+               
+               To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
         :param pulumi.Input[_builtins.bool] igmp_snooping: Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
                * Optimizes multicast traffic flow
                * Reduces network congestion
@@ -2887,12 +3842,15 @@ class Network(pulumi.CustomResource):
                * `none` - IPv6 disabled (default)
                * `static` - Static IPv6 addressing
                * `pd` - Prefix Delegation from upstream
+               * `single_network` - Share a delegated IPv6 prefix with a single LAN
                
-               Choose based on your IPv6 deployment strategy and ISP capabilities.
+               Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `single_network` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `single_network` network may not be fully configurable.
         :param pulumi.Input[_builtins.str] ipv6_pd_interface: The WAN interface to use for IPv6 Prefix Delegation. Options:
                * `wan` - Primary WAN interface
                * `wan2` - Secondary WAN interface
                Only applicable when `ipv6_interface_type` is 'pd'.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] ipv6_pd_prefixid: The IPv6 Prefix ID for Prefix Delegation. Used to:
                * Differentiate multiple delegated prefixes
                * Create unique subnets from the delegated prefix
@@ -2900,9 +3858,13 @@ class Network(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] ipv6_pd_start: The starting IPv6 address for Prefix Delegation range.
                Only used when `ipv6_interface_type` is 'pd'.
                Must be within the delegated prefix range.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.str] ipv6_pd_stop: The ending IPv6 address for Prefix Delegation range.
                Only used when `ipv6_interface_type` is 'pd'.
                Must be after `ipv6_pd_start` within the delegated prefix.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] ipv6_ra_enable: Enables IPv6 Router Advertisements (RA). When enabled:
                * Announces IPv6 prefix information to clients
                * Enables SLAAC address configuration
@@ -2916,6 +3878,8 @@ class Network(pulumi.CustomResource):
                * `medium` - Standard priority
                * `low` - For backup or secondary networks
                Affects router selection when multiple IPv6 routers exist.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6_ra_enable` instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.int] ipv6_ra_valid_lifetime: The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
                * Must be greater than or equal to `ipv6_ra_preferred_lifetime`
                * Default: 86400 (24 hours)
@@ -2923,27 +3887,35 @@ class Network(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] ipv6_static_subnet: The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
                Only applicable when `ipv6_interface_type` is 'static'.
                Must be a valid IPv6 subnet allocated to your organization.
+               
+               This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         :param pulumi.Input[_builtins.bool] multicast_dns: Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
                * Allows device discovery (e.g., printers, Chromecasts)
                * Supports zero-configuration networking
                * Available on Controller version 7 and later
         :param pulumi.Input[_builtins.str] name: The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
         :param pulumi.Input[_builtins.str] network_group: The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
-        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Enables network isolation. When enabled:
-               * Prevents communication between clients on this network
-               * Each client can only communicate with the gateway
-               * Commonly used for guest networks or IoT devices
+        :param pulumi.Input[_builtins.bool] network_isolation_enabled: Isolates this network from other local networks/VLANs on the site. When enabled:
+               * Hosts on this network cannot route to or from other local networks on the site
+               * Gateway and internet access are retained (internet access is subject to `internet_access_enabled`)
+               * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         :param pulumi.Input[_builtins.str] purpose: The purpose/type of the network. Must be one of:
                * `corporate` - Standard network for corporate use with full access
                * `guest` - Isolated network for guest access with limited permissions
                * `wan` - External network connection (WAN uplink)
                * `vlan-only` - VLAN network without DHCP services
+               * `vpn-client` - Site-to-site VPN client connection (see the `vpn_type` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         :param pulumi.Input[_builtins.str] site: The name of the site to associate the network with.
         :param pulumi.Input[_builtins.str] subnet: The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] uid_vpn_custom_routings: The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpn_client_default_route` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.bool] upnp_lan_enabled: Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
         :param pulumi.Input[_builtins.int] vlan_id: The VLAN ID for this network. Valid range is 0-4096. Common uses:
                * 1-4094: Standard VLAN range for network segmentation
                * 0: Untagged/native VLAN
                * >4094: Reserved for special purposes
+        :param pulumi.Input[_builtins.bool] vpn_client_default_route: When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uid_vpn_custom_routing` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.bool] vpn_client_pull_dns: When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        :param pulumi.Input[_builtins.str] vpn_type: The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcp_dns` (interface DNS); the controller rejects the create without them.
         :param pulumi.Input[_builtins.int] wan_dhcp_v6_pd_size: The IPv6 prefix size to request from ISP. Must be between 48 and 64.
                Only applicable when `wan_type_v6` is 'dhcpv6'.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wan_dns: List of IPv4 DNS servers for WAN interface. Examples:
@@ -2992,10 +3964,19 @@ class Network(pulumi.CustomResource):
                * Required for PPPoE connections
                * May be needed for some ISP configurations
                * Cannot contain spaces or special characters
+        :param pulumi.Input[_builtins.str] wireguard_client_mode: How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_peer_ip: The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.int] wireguard_client_peer_port: The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_peer_public_key: The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_client_preshared_key: An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.bool] wireguard_client_preshared_key_enabled: Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_interface: The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpn_type` is 'wireguard-client'.
+        :param pulumi.Input[_builtins.str] wireguard_public_key: The gateway's own WireGuard public key for this VPN client. The controller does not return it, so the provider derives it from the private key (Curve25519). Add this key as a peer on the remote WireGuard server. Only set when `vpn_type` is 'wireguard-client'.
         :param pulumi.Input[_builtins.str] x_wan_password: Password for WAN authentication.
                * Required for PPPoE connections
                * May be needed for some ISP configurations
                * Must be kept secret
+        :param pulumi.Input[_builtins.str] x_wireguard_private_key: The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguard_public_key`. Keep this value secret. Only applicable when `vpn_type` is 'wireguard-client'.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -3003,6 +3984,8 @@ class Network(pulumi.CustomResource):
 
         __props__.__dict__["dhcp_dns"] = dhcp_dns
         __props__.__dict__["dhcp_enabled"] = dhcp_enabled
+        __props__.__dict__["dhcp_guarding"] = dhcp_guarding
+        __props__.__dict__["dhcp_guarding_trusted_servers"] = dhcp_guarding_trusted_servers
         __props__.__dict__["dhcp_lease"] = dhcp_lease
         __props__.__dict__["dhcp_relay_enabled"] = dhcp_relay_enabled
         __props__.__dict__["dhcp_start"] = dhcp_start
@@ -3016,8 +3999,11 @@ class Network(pulumi.CustomResource):
         __props__.__dict__["dhcpd_boot_enabled"] = dhcpd_boot_enabled
         __props__.__dict__["dhcpd_boot_filename"] = dhcpd_boot_filename
         __props__.__dict__["dhcpd_boot_server"] = dhcpd_boot_server
+        __props__.__dict__["dhcpd_gateway"] = dhcpd_gateway
+        __props__.__dict__["dhcpd_gateway_enabled"] = dhcpd_gateway_enabled
         __props__.__dict__["domain_name"] = domain_name
         __props__.__dict__["enabled"] = enabled
+        __props__.__dict__["firewall_zone_id"] = firewall_zone_id
         __props__.__dict__["igmp_snooping"] = igmp_snooping
         __props__.__dict__["internet_access_enabled"] = internet_access_enabled
         __props__.__dict__["ipv6_interface_type"] = ipv6_interface_type
@@ -3037,7 +4023,12 @@ class Network(pulumi.CustomResource):
         __props__.__dict__["purpose"] = purpose
         __props__.__dict__["site"] = site
         __props__.__dict__["subnet"] = subnet
+        __props__.__dict__["uid_vpn_custom_routings"] = uid_vpn_custom_routings
+        __props__.__dict__["upnp_lan_enabled"] = upnp_lan_enabled
         __props__.__dict__["vlan_id"] = vlan_id
+        __props__.__dict__["vpn_client_default_route"] = vpn_client_default_route
+        __props__.__dict__["vpn_client_pull_dns"] = vpn_client_pull_dns
+        __props__.__dict__["vpn_type"] = vpn_type
         __props__.__dict__["wan_dhcp_v6_pd_size"] = wan_dhcp_v6_pd_size
         __props__.__dict__["wan_dns"] = wan_dns
         __props__.__dict__["wan_egress_qos"] = wan_egress_qos
@@ -3051,7 +4042,16 @@ class Network(pulumi.CustomResource):
         __props__.__dict__["wan_type"] = wan_type
         __props__.__dict__["wan_type_v6"] = wan_type_v6
         __props__.__dict__["wan_username"] = wan_username
+        __props__.__dict__["wireguard_client_mode"] = wireguard_client_mode
+        __props__.__dict__["wireguard_client_peer_ip"] = wireguard_client_peer_ip
+        __props__.__dict__["wireguard_client_peer_port"] = wireguard_client_peer_port
+        __props__.__dict__["wireguard_client_peer_public_key"] = wireguard_client_peer_public_key
+        __props__.__dict__["wireguard_client_preshared_key"] = wireguard_client_preshared_key
+        __props__.__dict__["wireguard_client_preshared_key_enabled"] = wireguard_client_preshared_key_enabled
+        __props__.__dict__["wireguard_interface"] = wireguard_interface
+        __props__.__dict__["wireguard_public_key"] = wireguard_public_key
         __props__.__dict__["x_wan_password"] = x_wan_password
+        __props__.__dict__["x_wireguard_private_key"] = x_wireguard_private_key
         return Network(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -3076,6 +4076,28 @@ class Network(pulumi.CustomResource):
         * Static IP assignments can still be made outside the DHCP range
         """
         return pulumi.get(self, "dhcp_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="dhcpGuarding")
+    def dhcp_guarding(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+        * Drops DHCP offers/acknowledgements from servers other than the trusted one
+        * Protects clients from rogue or misconfigured DHCP servers
+
+        This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        """
+        return pulumi.get(self, "dhcp_guarding")
+
+    @_builtins.property
+    @pulumi.getter(name="dhcpGuardingTrustedServers")
+    def dhcp_guarding_trusted_servers(self) -> pulumi.Output[Sequence[_builtins.str]]:
+        """
+        List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `dhcp_guarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+
+        Like `dhcp_guarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
+        """
+        return pulumi.get(self, "dhcp_guarding_trusted_servers")
 
     @_builtins.property
     @pulumi.getter(name="dhcpLease")
@@ -3169,19 +4191,23 @@ class Network(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Start")
-    def dhcp_v6_start(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def dhcp_v6_start(self) -> pulumi.Output[_builtins.str]:
         """
         The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         Must be a valid IPv6 address within your allocated IPv6 subnet.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "dhcp_v6_start")
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Stop")
-    def dhcp_v6_stop(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def dhcp_v6_stop(self) -> pulumi.Output[_builtins.str]:
         """
         The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         Must be after dhcp_v6_start in the IPv6 address space.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `dhcp_v6_enabled`/`ipv6_interface_type` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "dhcp_v6_stop")
 
@@ -3219,6 +4245,28 @@ class Network(pulumi.CustomResource):
         return pulumi.get(self, "dhcpd_boot_server")
 
     @_builtins.property
+    @pulumi.getter(name="dhcpdGateway")
+    def dhcpd_gateway(self) -> pulumi.Output[_builtins.str]:
+        """
+        The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `dhcpd_gateway_enabled` is `true`. Typically an address inside this network's `subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+
+        This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `dhcpd_gateway_enabled = true` to manage the override from Terraform.
+        """
+        return pulumi.get(self, "dhcpd_gateway")
+
+    @_builtins.property
+    @pulumi.getter(name="dhcpdGatewayEnabled")
+    def dhcpd_gateway_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `false` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `true` to advertise the address in `dhcpd_gateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+
+        This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `true`, `dhcpd_gateway` is required.
+
+        Only meaningful when this network runs the UniFi DHCP server (`dhcp_enabled = true` and `dhcp_relay_enabled = false`) with an address range (`dhcp_start`/`dhcp_stop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
+        """
+        return pulumi.get(self, "dhcpd_gateway_enabled")
+
+    @_builtins.property
     @pulumi.getter(name="domainName")
     def domain_name(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
@@ -3241,6 +4289,22 @@ class Network(pulumi.CustomResource):
         Useful for temporary network maintenance or security measures.
         """
         return pulumi.get(self, "enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="firewallZoneId")
+    def firewall_zone_id(self) -> pulumi.Output[_builtins.str]:
+        """
+        The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+
+        This attribute is `Optional` + `Computed`:
+        * Leave it **unset** to preserve whatever zone the controller (or a `firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+        * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+
+        On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+
+        To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
+        """
+        return pulumi.get(self, "firewall_zone_id")
 
     @_builtins.property
     @pulumi.getter(name="igmpSnooping")
@@ -3273,19 +4337,22 @@ class Network(pulumi.CustomResource):
         * `none` - IPv6 disabled (default)
         * `static` - Static IPv6 addressing
         * `pd` - Prefix Delegation from upstream
+        * `single_network` - Share a delegated IPv6 prefix with a single LAN
 
-        Choose based on your IPv6 deployment strategy and ISP capabilities.
+        Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `single_network` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `single_network` network may not be fully configurable.
         """
         return pulumi.get(self, "ipv6_interface_type")
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdInterface")
-    def ipv6_pd_interface(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def ipv6_pd_interface(self) -> pulumi.Output[_builtins.str]:
         """
         The WAN interface to use for IPv6 Prefix Delegation. Options:
         * `wan` - Primary WAN interface
         * `wan2` - Secondary WAN interface
         Only applicable when `ipv6_interface_type` is 'pd'.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_interface")
 
@@ -3302,21 +4369,25 @@ class Network(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdStart")
-    def ipv6_pd_start(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def ipv6_pd_start(self) -> pulumi.Output[_builtins.str]:
         """
         The starting IPv6 address for Prefix Delegation range.
         Only used when `ipv6_interface_type` is 'pd'.
         Must be within the delegated prefix range.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_start")
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdStop")
-    def ipv6_pd_stop(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def ipv6_pd_stop(self) -> pulumi.Output[_builtins.str]:
         """
         The ending IPv6 address for Prefix Delegation range.
         Only used when `ipv6_interface_type` is 'pd'.
         Must be after `ipv6_pd_start` within the delegated prefix.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_pd_stop")
 
@@ -3344,13 +4415,15 @@ class Network(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaPriority")
-    def ipv6_ra_priority(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def ipv6_ra_priority(self) -> pulumi.Output[_builtins.str]:
         """
         Sets the priority for IPv6 Router Advertisements. Options:
         * `high` - Preferred for primary networks
         * `medium` - Standard priority
         * `low` - For backup or secondary networks
         Affects router selection when multiple IPv6 routers exist.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6_ra_enable` instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_ra_priority")
 
@@ -3367,11 +4440,13 @@ class Network(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="ipv6StaticSubnet")
-    def ipv6_static_subnet(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def ipv6_static_subnet(self) -> pulumi.Output[_builtins.str]:
         """
         The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
         Only applicable when `ipv6_interface_type` is 'static'.
         Must be a valid IPv6 subnet allocated to your organization.
+
+        This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6_interface_type` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         """
         return pulumi.get(self, "ipv6_static_subnet")
 
@@ -3406,10 +4481,10 @@ class Network(pulumi.CustomResource):
     @pulumi.getter(name="networkIsolationEnabled")
     def network_isolation_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
         """
-        Enables network isolation. When enabled:
-        * Prevents communication between clients on this network
-        * Each client can only communicate with the gateway
-        * Commonly used for guest networks or IoT devices
+        Isolates this network from other local networks/VLANs on the site. When enabled:
+        * Hosts on this network cannot route to or from other local networks on the site
+        * Gateway and internet access are retained (internet access is subject to `internet_access_enabled`)
+        * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         """
         return pulumi.get(self, "network_isolation_enabled")
 
@@ -3422,6 +4497,7 @@ class Network(pulumi.CustomResource):
         * `guest` - Isolated network for guest access with limited permissions
         * `wan` - External network connection (WAN uplink)
         * `vlan-only` - VLAN network without DHCP services
+        * `vpn-client` - Site-to-site VPN client connection (see the `vpn_type` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         """
         return pulumi.get(self, "purpose")
 
@@ -3442,6 +4518,22 @@ class Network(pulumi.CustomResource):
         return pulumi.get(self, "subnet")
 
     @_builtins.property
+    @pulumi.getter(name="uidVpnCustomRoutings")
+    def uid_vpn_custom_routings(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:
+        """
+        The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpn_client_default_route` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "uid_vpn_custom_routings")
+
+    @_builtins.property
+    @pulumi.getter(name="upnpLanEnabled")
+    def upnp_lan_enabled(self) -> pulumi.Output[_builtins.bool]:
+        """
+        Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+        """
+        return pulumi.get(self, "upnp_lan_enabled")
+
+    @_builtins.property
     @pulumi.getter(name="vlanId")
     def vlan_id(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
@@ -3451,6 +4543,30 @@ class Network(pulumi.CustomResource):
         * >4094: Reserved for special purposes
         """
         return pulumi.get(self, "vlan_id")
+
+    @_builtins.property
+    @pulumi.getter(name="vpnClientDefaultRoute")
+    def vpn_client_default_route(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uid_vpn_custom_routing` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "vpn_client_default_route")
+
+    @_builtins.property
+    @pulumi.getter(name="vpnClientPullDns")
+    def vpn_client_pull_dns(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+        """
+        return pulumi.get(self, "vpn_client_pull_dns")
+
+    @_builtins.property
+    @pulumi.getter(name="vpnType")
+    def vpn_type(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcp_dns` (interface DNS); the controller rejects the create without them.
+        """
+        return pulumi.get(self, "vpn_type")
 
     @_builtins.property
     @pulumi.getter(name="wanDhcpV6PdSize")
@@ -3592,6 +4708,70 @@ class Network(pulumi.CustomResource):
         return pulumi.get(self, "wan_username")
 
     @_builtins.property
+    @pulumi.getter(name="wireguardClientMode")
+    def wireguard_client_mode(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_mode")
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerIp")
+    def wireguard_client_peer_ip(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_ip")
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerPort")
+    def wireguard_client_peer_port(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_port")
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPeerPublicKey")
+    def wireguard_client_peer_public_key(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_peer_public_key")
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPresharedKey")
+    def wireguard_client_preshared_key(self) -> pulumi.Output[_builtins.str]:
+        """
+        An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_preshared_key")
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardClientPresharedKeyEnabled")
+    def wireguard_client_preshared_key_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:
+        """
+        Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_client_preshared_key_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardInterface")
+    def wireguard_interface(self) -> pulumi.Output[Optional[_builtins.str]]:
+        """
+        The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_interface")
+
+    @_builtins.property
+    @pulumi.getter(name="wireguardPublicKey")
+    def wireguard_public_key(self) -> pulumi.Output[_builtins.str]:
+        """
+        The gateway's own WireGuard public key for this VPN client. The controller does not return it, so the provider derives it from the private key (Curve25519). Add this key as a peer on the remote WireGuard server. Only set when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "wireguard_public_key")
+
+    @_builtins.property
     @pulumi.getter(name="xWanPassword")
     def x_wan_password(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
@@ -3601,4 +4781,12 @@ class Network(pulumi.CustomResource):
         * Must be kept secret
         """
         return pulumi.get(self, "x_wan_password")
+
+    @_builtins.property
+    @pulumi.getter(name="xWireguardPrivateKey")
+    def x_wireguard_private_key(self) -> pulumi.Output[_builtins.str]:
+        """
+        The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguard_public_key`. Keep this value secret. Only applicable when `vpn_type` is 'wireguard-client'.
+        """
+        return pulumi.get(self, "x_wireguard_private_key")
 

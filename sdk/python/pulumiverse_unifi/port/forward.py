@@ -19,18 +19,19 @@ __all__ = ['ForwardArgs', 'Forward']
 @pulumi.input_type
 class ForwardArgs:
     def __init__(__self__, *,
-                 dst_port: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 fwd_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 fwd_port: Optional[pulumi.Input[_builtins.str]] = None,
-                 log: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 port_forward_interface: Optional[pulumi.Input[_builtins.str]] = None,
-                 protocol: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 src_ip: Optional[pulumi.Input[_builtins.str]] = None):
+                 dst_port: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fwd_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 fwd_port: pulumi.Input[Optional[_builtins.str]] = None,
+                 log: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 port_forward_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 src_ip: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Forward resource.
+
         :param pulumi.Input[_builtins.str] dst_port: The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not.
         :param pulumi.Input[_builtins.str] fwd_ip: The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
@@ -74,80 +75,80 @@ class ForwardArgs:
 
     @_builtins.property
     @pulumi.getter(name="dstPort")
-    def dst_port(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dst_port(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "dst_port")
 
     @dst_port.setter
-    def dst_port(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dst_port(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dst_port", value)
 
     @_builtins.property
     @pulumi.getter
     @_utilities.deprecated("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Specifies whether the port forwarding rule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="fwdIp")
-    def fwd_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def fwd_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
         """
         return pulumi.get(self, "fwd_ip")
 
     @fwd_ip.setter
-    def fwd_ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def fwd_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "fwd_ip", value)
 
     @_builtins.property
     @pulumi.getter(name="fwdPort")
-    def fwd_port(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def fwd_port(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "fwd_port")
 
     @fwd_port.setter
-    def fwd_port(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def fwd_port(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "fwd_port", value)
 
     @_builtins.property
     @pulumi.getter
-    def log(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def log(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
         """
         return pulumi.get(self, "log")
 
     @log.setter
-    def log(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def log(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "log", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="portForwardInterface")
-    def port_forward_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def port_forward_interface(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The WAN interface to apply the port forwarding rule to. Valid values are:
           * `wan` - Primary WAN interface
@@ -157,12 +158,12 @@ class ForwardArgs:
         return pulumi.get(self, "port_forward_interface")
 
     @port_forward_interface.setter
-    def port_forward_interface(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def port_forward_interface(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "port_forward_interface", value)
 
     @_builtins.property
     @pulumi.getter
-    def protocol(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def protocol(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The network protocol(s) this rule applies to. Valid values are:
           * `tcp_udp` - Both TCP and UDP (default)
@@ -172,49 +173,50 @@ class ForwardArgs:
         return pulumi.get(self, "protocol")
 
     @protocol.setter
-    def protocol(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def protocol(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "protocol", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="srcIp")
-    def src_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def src_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         return pulumi.get(self, "src_ip")
 
     @src_ip.setter
-    def src_ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def src_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "src_ip", value)
 
 
 @pulumi.input_type
 class _ForwardState:
     def __init__(__self__, *,
-                 dst_port: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 fwd_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 fwd_port: Optional[pulumi.Input[_builtins.str]] = None,
-                 log: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 port_forward_interface: Optional[pulumi.Input[_builtins.str]] = None,
-                 protocol: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 src_ip: Optional[pulumi.Input[_builtins.str]] = None):
+                 dst_port: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fwd_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 fwd_port: pulumi.Input[Optional[_builtins.str]] = None,
+                 log: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 port_forward_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 src_ip: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Forward resources.
+
         :param pulumi.Input[_builtins.str] dst_port: The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         :param pulumi.Input[_builtins.bool] enabled: Specifies whether the port forwarding rule is enabled or not.
         :param pulumi.Input[_builtins.str] fwd_ip: The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
@@ -258,80 +260,80 @@ class _ForwardState:
 
     @_builtins.property
     @pulumi.getter(name="dstPort")
-    def dst_port(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def dst_port(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "dst_port")
 
     @dst_port.setter
-    def dst_port(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def dst_port(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "dst_port", value)
 
     @_builtins.property
     @pulumi.getter
     @_utilities.deprecated("""This will attribute will be removed in a future release. Instead of disabling a port forwarding rule you can remove it from your configuration.""")
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Specifies whether the port forwarding rule is enabled or not.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="fwdIp")
-    def fwd_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def fwd_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The internal IPv4 address of the device or service that will receive the forwarded traffic (e.g., '192.168.1.100').
         """
         return pulumi.get(self, "fwd_ip")
 
     @fwd_ip.setter
-    def fwd_ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def fwd_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "fwd_ip", value)
 
     @_builtins.property
     @pulumi.getter(name="fwdPort")
-    def fwd_port(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def fwd_port(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The internal port(s) that will receive the forwarded traffic. Can be a single port (e.g., '8080') or a port range (e.g., '8080:8090').
         """
         return pulumi.get(self, "fwd_port")
 
     @fwd_port.setter
-    def fwd_port(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def fwd_port(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "fwd_port", value)
 
     @_builtins.property
     @pulumi.getter
-    def log(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def log(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable logging of traffic matching this port forwarding rule. Useful for monitoring and troubleshooting.
         """
         return pulumi.get(self, "log")
 
     @log.setter
-    def log(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def log(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "log", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A friendly name for the port forwarding rule to help identify its purpose (e.g., 'Web Server' or 'Game Server').
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="portForwardInterface")
-    def port_forward_interface(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def port_forward_interface(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The WAN interface to apply the port forwarding rule to. Valid values are:
           * `wan` - Primary WAN interface
@@ -341,12 +343,12 @@ class _ForwardState:
         return pulumi.get(self, "port_forward_interface")
 
     @port_forward_interface.setter
-    def port_forward_interface(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def port_forward_interface(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "port_forward_interface", value)
 
     @_builtins.property
     @pulumi.getter
-    def protocol(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def protocol(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The network protocol(s) this rule applies to. Valid values are:
           * `tcp_udp` - Both TCP and UDP (default)
@@ -356,31 +358,31 @@ class _ForwardState:
         return pulumi.get(self, "protocol")
 
     @protocol.setter
-    def protocol(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def protocol(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "protocol", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where the port forwarding rule should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="srcIp")
-    def src_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def src_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The source IP address or network in CIDR notation that is allowed to use this port forward. Use 'any' to allow all source IPs. Examples: '203.0.113.1' for a single IP, '203.0.113.0/24' for a network, or 'any' for all IPs.
         """
         return pulumi.get(self, "src_ip")
 
     @src_ip.setter
-    def src_ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def src_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "src_ip", value)
 
 
@@ -390,16 +392,16 @@ class Forward(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 dst_port: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 fwd_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 fwd_port: Optional[pulumi.Input[_builtins.str]] = None,
-                 log: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 port_forward_interface: Optional[pulumi.Input[_builtins.str]] = None,
-                 protocol: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 src_ip: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_port: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fwd_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 fwd_port: pulumi.Input[Optional[_builtins.str]] = None,
+                 log: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 port_forward_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 src_ip: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         The `port.Forward` resource manages port forwarding rules on UniFi controllers.
@@ -410,6 +412,7 @@ class Forward(pulumi.CustomResource):
           * Application-specific requirements
 
         Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -446,6 +449,7 @@ class Forward(pulumi.CustomResource):
 
         Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
 
+
         :param str resource_name: The name of the resource.
         :param ForwardArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -461,16 +465,16 @@ class Forward(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 dst_port: Optional[pulumi.Input[_builtins.str]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 fwd_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 fwd_port: Optional[pulumi.Input[_builtins.str]] = None,
-                 log: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 port_forward_interface: Optional[pulumi.Input[_builtins.str]] = None,
-                 protocol: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 src_ip: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_port: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fwd_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 fwd_port: pulumi.Input[Optional[_builtins.str]] = None,
+                 log: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 port_forward_interface: pulumi.Input[Optional[_builtins.str]] = None,
+                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 src_ip: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -500,16 +504,16 @@ class Forward(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            dst_port: Optional[pulumi.Input[_builtins.str]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            fwd_ip: Optional[pulumi.Input[_builtins.str]] = None,
-            fwd_port: Optional[pulumi.Input[_builtins.str]] = None,
-            log: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            port_forward_interface: Optional[pulumi.Input[_builtins.str]] = None,
-            protocol: Optional[pulumi.Input[_builtins.str]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            src_ip: Optional[pulumi.Input[_builtins.str]] = None) -> 'Forward':
+            dst_port: pulumi.Input[Optional[_builtins.str]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            fwd_ip: pulumi.Input[Optional[_builtins.str]] = None,
+            fwd_port: pulumi.Input[Optional[_builtins.str]] = None,
+            log: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            port_forward_interface: pulumi.Input[Optional[_builtins.str]] = None,
+            protocol: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            src_ip: pulumi.Input[Optional[_builtins.str]] = None) -> 'Forward':
         """
         Get an existing Forward resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

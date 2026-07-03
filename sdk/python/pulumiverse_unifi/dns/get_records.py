@@ -100,7 +100,7 @@ def get_records(site: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         results=pulumi.get(__ret__, 'results'),
         site=pulumi.get(__ret__, 'site'))
-def get_records_output(site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_records_output(site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetRecordsResult]:
     """
     Retrieves information about a all DNS records.

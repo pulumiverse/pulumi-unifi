@@ -6,6 +6,29 @@ import * as utilities from "../utilities";
 
 /**
  * The `unifi.firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const vpn = unifi.firewall.getZone({
+ *     name: "Vpn",
+ * });
+ * const gateway = unifi.firewall.getZone({
+ *     name: "Gateway",
+ * });
+ * const internal = unifi.firewall.getZone({
+ *     name: "Internal",
+ * });
+ * const external = unifi.firewall.getZone({
+ *     name: "External",
+ * });
+ * const hotspot = unifi.firewall.getZone({
+ *     name: "Hotspot",
+ * });
+ * ```
  */
 export function getZone(args: GetZoneArgs, opts?: pulumi.InvokeOptions): Promise<GetZoneResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -52,6 +75,29 @@ export interface GetZoneResult {
 }
 /**
  * The `unifi.firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const vpn = unifi.firewall.getZone({
+ *     name: "Vpn",
+ * });
+ * const gateway = unifi.firewall.getZone({
+ *     name: "Gateway",
+ * });
+ * const internal = unifi.firewall.getZone({
+ *     name: "Internal",
+ * });
+ * const external = unifi.firewall.getZone({
+ *     name: "External",
+ * });
+ * const hotspot = unifi.firewall.getZone({
+ *     name: "Hotspot",
+ * });
+ * ```
  */
 export function getZoneOutput(args: GetZoneOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetZoneResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -72,5 +118,5 @@ export interface GetZoneOutputArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

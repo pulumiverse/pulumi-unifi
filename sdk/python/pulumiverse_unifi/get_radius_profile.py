@@ -93,8 +93,8 @@ def get_radius_profile(name: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         site=pulumi.get(__ret__, 'site'))
-def get_radius_profile_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                              site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_radius_profile_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                              site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                               opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetRadiusProfileResult]:
     """
     `RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.

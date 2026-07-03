@@ -20,9 +20,10 @@ __all__ = ['NetworkOptimizationArgs', 'NetworkOptimization']
 class NetworkOptimizationArgs:
     def __init__(__self__, *,
                  enabled: pulumi.Input[_builtins.bool],
-                 site: Optional[pulumi.Input[_builtins.str]] = None):
+                 site: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a NetworkOptimization resource.
+
         :param pulumi.Input[_builtins.bool] enabled: Whether the Network Optimization is enabled.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
@@ -44,24 +45,25 @@ class NetworkOptimizationArgs:
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
 @pulumi.input_type
 class _NetworkOptimizationState:
     def __init__(__self__, *,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None):
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering NetworkOptimization resources.
+
         :param pulumi.Input[_builtins.bool] enabled: Whether the Network Optimization is enabled.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
@@ -72,26 +74,26 @@ class _NetworkOptimizationState:
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the Network Optimization is enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
@@ -101,8 +103,8 @@ class NetworkOptimization(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Manages Network Optimization settings for a UniFi site. UniFi network optimization is a feature designed to automatically enhance the performance of a UniFi network by making automatic adjustments to various settings such as channel selection, transmit power, or frequency usage
@@ -115,6 +117,7 @@ class NetworkOptimization(pulumi.CustomResource):
 
         example = unifi.setting.NetworkOptimization("example", enabled=True)
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -139,6 +142,7 @@ class NetworkOptimization(pulumi.CustomResource):
         example = unifi.setting.NetworkOptimization("example", enabled=True)
         ```
 
+
         :param str resource_name: The name of the resource.
         :param NetworkOptimizationArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -154,8 +158,8 @@ class NetworkOptimization(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -179,8 +183,8 @@ class NetworkOptimization(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None) -> 'NetworkOptimization':
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'NetworkOptimization':
         """
         Get an existing NetworkOptimization resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

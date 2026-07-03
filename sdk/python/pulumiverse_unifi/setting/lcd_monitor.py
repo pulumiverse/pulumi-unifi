@@ -20,13 +20,14 @@ __all__ = ['LcdMonitorArgs', 'LcdMonitor']
 class LcdMonitorArgs:
     def __init__(__self__, *,
                  enabled: pulumi.Input[_builtins.bool],
-                 brightness: Optional[pulumi.Input[_builtins.int]] = None,
-                 idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 sync: Optional[pulumi.Input[_builtins.bool]] = None,
-                 touch_event: Optional[pulumi.Input[_builtins.bool]] = None):
+                 brightness: pulumi.Input[Optional[_builtins.int]] = None,
+                 idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 sync: pulumi.Input[Optional[_builtins.bool]] = None,
+                 touch_event: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a LcdMonitor resource.
+
         :param pulumi.Input[_builtins.bool] enabled: Whether the LCD display is enabled.
         :param pulumi.Input[_builtins.int] brightness: The brightness level of the LCD display. Valid values are 1-100.
         :param pulumi.Input[_builtins.int] idle_timeout: The time in seconds after which the display turns off when idle. Valid values are 10-3600.
@@ -60,76 +61,77 @@ class LcdMonitorArgs:
 
     @_builtins.property
     @pulumi.getter
-    def brightness(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def brightness(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The brightness level of the LCD display. Valid values are 1-100.
         """
         return pulumi.get(self, "brightness")
 
     @brightness.setter
-    def brightness(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def brightness(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "brightness", value)
 
     @_builtins.property
     @pulumi.getter(name="idleTimeout")
-    def idle_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def idle_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The time in seconds after which the display turns off when idle. Valid values are 10-3600.
         """
         return pulumi.get(self, "idle_timeout")
 
     @idle_timeout.setter
-    def idle_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def idle_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "idle_timeout", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def sync(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def sync(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to synchronize display settings across multiple devices.
         """
         return pulumi.get(self, "sync")
 
     @sync.setter
-    def sync(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def sync(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "sync", value)
 
     @_builtins.property
     @pulumi.getter(name="touchEvent")
-    def touch_event(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def touch_event(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether touch interactions with the display are enabled.
         """
         return pulumi.get(self, "touch_event")
 
     @touch_event.setter
-    def touch_event(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def touch_event(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "touch_event", value)
 
 
 @pulumi.input_type
 class _LcdMonitorState:
     def __init__(__self__, *,
-                 brightness: Optional[pulumi.Input[_builtins.int]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 sync: Optional[pulumi.Input[_builtins.bool]] = None,
-                 touch_event: Optional[pulumi.Input[_builtins.bool]] = None):
+                 brightness: pulumi.Input[Optional[_builtins.int]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 sync: pulumi.Input[Optional[_builtins.bool]] = None,
+                 touch_event: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering LcdMonitor resources.
+
         :param pulumi.Input[_builtins.int] brightness: The brightness level of the LCD display. Valid values are 1-100.
         :param pulumi.Input[_builtins.bool] enabled: Whether the LCD display is enabled.
         :param pulumi.Input[_builtins.int] idle_timeout: The time in seconds after which the display turns off when idle. Valid values are 10-3600.
@@ -152,74 +154,74 @@ class _LcdMonitorState:
 
     @_builtins.property
     @pulumi.getter
-    def brightness(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def brightness(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The brightness level of the LCD display. Valid values are 1-100.
         """
         return pulumi.get(self, "brightness")
 
     @brightness.setter
-    def brightness(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def brightness(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "brightness", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether the LCD display is enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="idleTimeout")
-    def idle_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def idle_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The time in seconds after which the display turns off when idle. Valid values are 10-3600.
         """
         return pulumi.get(self, "idle_timeout")
 
     @idle_timeout.setter
-    def idle_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def idle_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "idle_timeout", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def sync(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def sync(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to synchronize display settings across multiple devices.
         """
         return pulumi.get(self, "sync")
 
     @sync.setter
-    def sync(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def sync(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "sync", value)
 
     @_builtins.property
     @pulumi.getter(name="touchEvent")
-    def touch_event(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def touch_event(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether touch interactions with the display are enabled.
         """
         return pulumi.get(self, "touch_event")
 
     @touch_event.setter
-    def touch_event(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def touch_event(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "touch_event", value)
 
 
@@ -229,15 +231,16 @@ class LcdMonitor(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 brightness: Optional[pulumi.Input[_builtins.int]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 sync: Optional[pulumi.Input[_builtins.bool]] = None,
-                 touch_event: Optional[pulumi.Input[_builtins.bool]] = None,
+                 brightness: pulumi.Input[Optional[_builtins.int]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 sync: pulumi.Input[Optional[_builtins.bool]] = None,
+                 touch_event: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         Manages LCD Monitor (LCM) settings for UniFi devices with built-in displays, such as the UniFi Dream Machine Pro (UDM Pro) and UniFi Network Video Recorder (UNVR).
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -257,6 +260,7 @@ class LcdMonitor(pulumi.CustomResource):
         """
         Manages LCD Monitor (LCM) settings for UniFi devices with built-in displays, such as the UniFi Dream Machine Pro (UDM Pro) and UniFi Network Video Recorder (UNVR).
 
+
         :param str resource_name: The name of the resource.
         :param LcdMonitorArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -272,12 +276,12 @@ class LcdMonitor(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 brightness: Optional[pulumi.Input[_builtins.int]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 sync: Optional[pulumi.Input[_builtins.bool]] = None,
-                 touch_event: Optional[pulumi.Input[_builtins.bool]] = None,
+                 brightness: pulumi.Input[Optional[_builtins.int]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 sync: pulumi.Input[Optional[_builtins.bool]] = None,
+                 touch_event: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -305,12 +309,12 @@ class LcdMonitor(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            brightness: Optional[pulumi.Input[_builtins.int]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            sync: Optional[pulumi.Input[_builtins.bool]] = None,
-            touch_event: Optional[pulumi.Input[_builtins.bool]] = None) -> 'LcdMonitor':
+            brightness: pulumi.Input[Optional[_builtins.int]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            sync: pulumi.Input[Optional[_builtins.bool]] = None,
+            touch_event: pulumi.Input[Optional[_builtins.bool]] = None) -> 'LcdMonitor':
         """
         Get an existing LcdMonitor resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

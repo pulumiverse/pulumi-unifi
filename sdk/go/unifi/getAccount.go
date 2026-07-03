@@ -36,7 +36,7 @@ type LookupAccountResult struct {
 	Id string `pulumi:"id"`
 	// The name of the account to look up
 	Name string `pulumi:"name"`
-	// ID of the network for this account
+	// The ID of the UniFi network configuration (the controller's `networkconfId`) associated with this account. This is distinct from the `vlan` attribute, which is the 802.1Q VLAN ID delivered via RADIUS.
 	NetworkId string `pulumi:"networkId"`
 	// The password of the account.
 	Password string `pulumi:"password"`
@@ -46,6 +46,8 @@ type LookupAccountResult struct {
 	TunnelMediumType int `pulumi:"tunnelMediumType"`
 	// See RFC2868 section 3.1
 	TunnelType int `pulumi:"tunnelType"`
+	// The 802.1Q VLAN ID assigned to clients authenticating with this account via RADIUS dynamic VLAN assignment. `0` means no VLAN is assigned.
+	Vlan int `pulumi:"vlan"`
 }
 
 func LookupAccountOutput(ctx *pulumi.Context, args LookupAccountOutputArgs, opts ...pulumi.InvokeOption) LookupAccountResultOutput {
@@ -94,7 +96,7 @@ func (o LookupAccountResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccountResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// ID of the network for this account
+// The ID of the UniFi network configuration (the controller's `networkconfId`) associated with this account. This is distinct from the `vlan` attribute, which is the 802.1Q VLAN ID delivered via RADIUS.
 func (o LookupAccountResultOutput) NetworkId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccountResult) string { return v.NetworkId }).(pulumi.StringOutput)
 }
@@ -117,6 +119,11 @@ func (o LookupAccountResultOutput) TunnelMediumType() pulumi.IntOutput {
 // See RFC2868 section 3.1
 func (o LookupAccountResultOutput) TunnelType() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupAccountResult) int { return v.TunnelType }).(pulumi.IntOutput)
+}
+
+// The 802.1Q VLAN ID assigned to clients authenticating with this account via RADIUS dynamic VLAN assignment. `0` means no VLAN is assigned.
+func (o LookupAccountResultOutput) Vlan() pulumi.IntOutput {
+	return o.ApplyT(func(v LookupAccountResult) int { return v.Vlan }).(pulumi.IntOutput)
 }
 
 func init() {

@@ -197,9 +197,9 @@ def get_record(name: Optional[_builtins.str] = None,
         type=pulumi.get(__ret__, 'type'),
         value=pulumi.get(__ret__, 'value'),
         weight=pulumi.get(__ret__, 'weight'))
-def get_record_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                      site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                      value: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_record_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                      site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                      value: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                       opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetRecordResult]:
     """
     Retrieves information about a specific DNS record configured in your UniFi network. This data source allows you to look up DNS records by either their name or record content. It's particularly useful for validating existing DNS configurations or referencing DNS records in other resources.

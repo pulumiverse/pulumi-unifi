@@ -13,6 +13,324 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type EtherLightingNetworkOverride struct {
+	// LED color as a 6-digit RGB hex string without `#` (e.g. `ff6c14`).
+	ColorHex string `pulumi:"colorHex"`
+	// ID of the network/VLAN this color applies to (e.g. `unifi_network.iot.id`).
+	NetworkId string `pulumi:"networkId"`
+}
+
+// EtherLightingNetworkOverrideInput is an input type that accepts EtherLightingNetworkOverrideArgs and EtherLightingNetworkOverrideOutput values.
+// You can construct a concrete instance of `EtherLightingNetworkOverrideInput` via:
+//
+//	EtherLightingNetworkOverrideArgs{...}
+type EtherLightingNetworkOverrideInput interface {
+	pulumi.Input
+
+	ToEtherLightingNetworkOverrideOutput() EtherLightingNetworkOverrideOutput
+	ToEtherLightingNetworkOverrideOutputWithContext(context.Context) EtherLightingNetworkOverrideOutput
+}
+
+type EtherLightingNetworkOverrideArgs struct {
+	// LED color as a 6-digit RGB hex string without `#` (e.g. `ff6c14`).
+	ColorHex pulumi.StringInput `pulumi:"colorHex"`
+	// ID of the network/VLAN this color applies to (e.g. `unifi_network.iot.id`).
+	NetworkId pulumi.StringInput `pulumi:"networkId"`
+}
+
+func (EtherLightingNetworkOverrideArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EtherLightingNetworkOverride)(nil)).Elem()
+}
+
+func (i EtherLightingNetworkOverrideArgs) ToEtherLightingNetworkOverrideOutput() EtherLightingNetworkOverrideOutput {
+	return i.ToEtherLightingNetworkOverrideOutputWithContext(context.Background())
+}
+
+func (i EtherLightingNetworkOverrideArgs) ToEtherLightingNetworkOverrideOutputWithContext(ctx context.Context) EtherLightingNetworkOverrideOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EtherLightingNetworkOverrideOutput)
+}
+
+// EtherLightingNetworkOverrideArrayInput is an input type that accepts EtherLightingNetworkOverrideArray and EtherLightingNetworkOverrideArrayOutput values.
+// You can construct a concrete instance of `EtherLightingNetworkOverrideArrayInput` via:
+//
+//	EtherLightingNetworkOverrideArray{ EtherLightingNetworkOverrideArgs{...} }
+type EtherLightingNetworkOverrideArrayInput interface {
+	pulumi.Input
+
+	ToEtherLightingNetworkOverrideArrayOutput() EtherLightingNetworkOverrideArrayOutput
+	ToEtherLightingNetworkOverrideArrayOutputWithContext(context.Context) EtherLightingNetworkOverrideArrayOutput
+}
+
+type EtherLightingNetworkOverrideArray []EtherLightingNetworkOverrideInput
+
+func (EtherLightingNetworkOverrideArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EtherLightingNetworkOverride)(nil)).Elem()
+}
+
+func (i EtherLightingNetworkOverrideArray) ToEtherLightingNetworkOverrideArrayOutput() EtherLightingNetworkOverrideArrayOutput {
+	return i.ToEtherLightingNetworkOverrideArrayOutputWithContext(context.Background())
+}
+
+func (i EtherLightingNetworkOverrideArray) ToEtherLightingNetworkOverrideArrayOutputWithContext(ctx context.Context) EtherLightingNetworkOverrideArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EtherLightingNetworkOverrideArrayOutput)
+}
+
+type EtherLightingNetworkOverrideOutput struct{ *pulumi.OutputState }
+
+func (EtherLightingNetworkOverrideOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EtherLightingNetworkOverride)(nil)).Elem()
+}
+
+func (o EtherLightingNetworkOverrideOutput) ToEtherLightingNetworkOverrideOutput() EtherLightingNetworkOverrideOutput {
+	return o
+}
+
+func (o EtherLightingNetworkOverrideOutput) ToEtherLightingNetworkOverrideOutputWithContext(ctx context.Context) EtherLightingNetworkOverrideOutput {
+	return o
+}
+
+// LED color as a 6-digit RGB hex string without `#` (e.g. `ff6c14`).
+func (o EtherLightingNetworkOverrideOutput) ColorHex() pulumi.StringOutput {
+	return o.ApplyT(func(v EtherLightingNetworkOverride) string { return v.ColorHex }).(pulumi.StringOutput)
+}
+
+// ID of the network/VLAN this color applies to (e.g. `unifi_network.iot.id`).
+func (o EtherLightingNetworkOverrideOutput) NetworkId() pulumi.StringOutput {
+	return o.ApplyT(func(v EtherLightingNetworkOverride) string { return v.NetworkId }).(pulumi.StringOutput)
+}
+
+type EtherLightingNetworkOverrideArrayOutput struct{ *pulumi.OutputState }
+
+func (EtherLightingNetworkOverrideArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EtherLightingNetworkOverride)(nil)).Elem()
+}
+
+func (o EtherLightingNetworkOverrideArrayOutput) ToEtherLightingNetworkOverrideArrayOutput() EtherLightingNetworkOverrideArrayOutput {
+	return o
+}
+
+func (o EtherLightingNetworkOverrideArrayOutput) ToEtherLightingNetworkOverrideArrayOutputWithContext(ctx context.Context) EtherLightingNetworkOverrideArrayOutput {
+	return o
+}
+
+func (o EtherLightingNetworkOverrideArrayOutput) Index(i pulumi.IntInput) EtherLightingNetworkOverrideOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EtherLightingNetworkOverride {
+		return vs[0].([]EtherLightingNetworkOverride)[vs[1].(int)]
+	}).(EtherLightingNetworkOverrideOutput)
+}
+
+type EtherLightingSpeedOverride struct {
+	// LED color as a 6-digit RGB hex string without `#` (e.g. `ffc107`).
+	ColorHex string `pulumi:"colorHex"`
+	// Link-speed class this color applies to.
+	Speed string `pulumi:"speed"`
+}
+
+// EtherLightingSpeedOverrideInput is an input type that accepts EtherLightingSpeedOverrideArgs and EtherLightingSpeedOverrideOutput values.
+// You can construct a concrete instance of `EtherLightingSpeedOverrideInput` via:
+//
+//	EtherLightingSpeedOverrideArgs{...}
+type EtherLightingSpeedOverrideInput interface {
+	pulumi.Input
+
+	ToEtherLightingSpeedOverrideOutput() EtherLightingSpeedOverrideOutput
+	ToEtherLightingSpeedOverrideOutputWithContext(context.Context) EtherLightingSpeedOverrideOutput
+}
+
+type EtherLightingSpeedOverrideArgs struct {
+	// LED color as a 6-digit RGB hex string without `#` (e.g. `ffc107`).
+	ColorHex pulumi.StringInput `pulumi:"colorHex"`
+	// Link-speed class this color applies to.
+	Speed pulumi.StringInput `pulumi:"speed"`
+}
+
+func (EtherLightingSpeedOverrideArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EtherLightingSpeedOverride)(nil)).Elem()
+}
+
+func (i EtherLightingSpeedOverrideArgs) ToEtherLightingSpeedOverrideOutput() EtherLightingSpeedOverrideOutput {
+	return i.ToEtherLightingSpeedOverrideOutputWithContext(context.Background())
+}
+
+func (i EtherLightingSpeedOverrideArgs) ToEtherLightingSpeedOverrideOutputWithContext(ctx context.Context) EtherLightingSpeedOverrideOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EtherLightingSpeedOverrideOutput)
+}
+
+// EtherLightingSpeedOverrideArrayInput is an input type that accepts EtherLightingSpeedOverrideArray and EtherLightingSpeedOverrideArrayOutput values.
+// You can construct a concrete instance of `EtherLightingSpeedOverrideArrayInput` via:
+//
+//	EtherLightingSpeedOverrideArray{ EtherLightingSpeedOverrideArgs{...} }
+type EtherLightingSpeedOverrideArrayInput interface {
+	pulumi.Input
+
+	ToEtherLightingSpeedOverrideArrayOutput() EtherLightingSpeedOverrideArrayOutput
+	ToEtherLightingSpeedOverrideArrayOutputWithContext(context.Context) EtherLightingSpeedOverrideArrayOutput
+}
+
+type EtherLightingSpeedOverrideArray []EtherLightingSpeedOverrideInput
+
+func (EtherLightingSpeedOverrideArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EtherLightingSpeedOverride)(nil)).Elem()
+}
+
+func (i EtherLightingSpeedOverrideArray) ToEtherLightingSpeedOverrideArrayOutput() EtherLightingSpeedOverrideArrayOutput {
+	return i.ToEtherLightingSpeedOverrideArrayOutputWithContext(context.Background())
+}
+
+func (i EtherLightingSpeedOverrideArray) ToEtherLightingSpeedOverrideArrayOutputWithContext(ctx context.Context) EtherLightingSpeedOverrideArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EtherLightingSpeedOverrideArrayOutput)
+}
+
+type EtherLightingSpeedOverrideOutput struct{ *pulumi.OutputState }
+
+func (EtherLightingSpeedOverrideOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EtherLightingSpeedOverride)(nil)).Elem()
+}
+
+func (o EtherLightingSpeedOverrideOutput) ToEtherLightingSpeedOverrideOutput() EtherLightingSpeedOverrideOutput {
+	return o
+}
+
+func (o EtherLightingSpeedOverrideOutput) ToEtherLightingSpeedOverrideOutputWithContext(ctx context.Context) EtherLightingSpeedOverrideOutput {
+	return o
+}
+
+// LED color as a 6-digit RGB hex string without `#` (e.g. `ffc107`).
+func (o EtherLightingSpeedOverrideOutput) ColorHex() pulumi.StringOutput {
+	return o.ApplyT(func(v EtherLightingSpeedOverride) string { return v.ColorHex }).(pulumi.StringOutput)
+}
+
+// Link-speed class this color applies to.
+func (o EtherLightingSpeedOverrideOutput) Speed() pulumi.StringOutput {
+	return o.ApplyT(func(v EtherLightingSpeedOverride) string { return v.Speed }).(pulumi.StringOutput)
+}
+
+type EtherLightingSpeedOverrideArrayOutput struct{ *pulumi.OutputState }
+
+func (EtherLightingSpeedOverrideArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EtherLightingSpeedOverride)(nil)).Elem()
+}
+
+func (o EtherLightingSpeedOverrideArrayOutput) ToEtherLightingSpeedOverrideArrayOutput() EtherLightingSpeedOverrideArrayOutput {
+	return o
+}
+
+func (o EtherLightingSpeedOverrideArrayOutput) ToEtherLightingSpeedOverrideArrayOutputWithContext(ctx context.Context) EtherLightingSpeedOverrideArrayOutput {
+	return o
+}
+
+func (o EtherLightingSpeedOverrideArrayOutput) Index(i pulumi.IntInput) EtherLightingSpeedOverrideOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EtherLightingSpeedOverride {
+		return vs[0].([]EtherLightingSpeedOverride)[vs[1].(int)]
+	}).(EtherLightingSpeedOverrideOutput)
+}
+
+type GlobalSwitchAclL3Isolation struct {
+	// Set of UniFi network IDs that the source network is isolated from. At least one destination network is required.
+	DestinationNetworks []string `pulumi:"destinationNetworks"`
+	// The UniFi network ID (the `id` of a `Network`) that this rule applies to. Must be unique across all entries.
+	SourceNetwork string `pulumi:"sourceNetwork"`
+}
+
+// GlobalSwitchAclL3IsolationInput is an input type that accepts GlobalSwitchAclL3IsolationArgs and GlobalSwitchAclL3IsolationOutput values.
+// You can construct a concrete instance of `GlobalSwitchAclL3IsolationInput` via:
+//
+//	GlobalSwitchAclL3IsolationArgs{...}
+type GlobalSwitchAclL3IsolationInput interface {
+	pulumi.Input
+
+	ToGlobalSwitchAclL3IsolationOutput() GlobalSwitchAclL3IsolationOutput
+	ToGlobalSwitchAclL3IsolationOutputWithContext(context.Context) GlobalSwitchAclL3IsolationOutput
+}
+
+type GlobalSwitchAclL3IsolationArgs struct {
+	// Set of UniFi network IDs that the source network is isolated from. At least one destination network is required.
+	DestinationNetworks pulumi.StringArrayInput `pulumi:"destinationNetworks"`
+	// The UniFi network ID (the `id` of a `Network`) that this rule applies to. Must be unique across all entries.
+	SourceNetwork pulumi.StringInput `pulumi:"sourceNetwork"`
+}
+
+func (GlobalSwitchAclL3IsolationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GlobalSwitchAclL3Isolation)(nil)).Elem()
+}
+
+func (i GlobalSwitchAclL3IsolationArgs) ToGlobalSwitchAclL3IsolationOutput() GlobalSwitchAclL3IsolationOutput {
+	return i.ToGlobalSwitchAclL3IsolationOutputWithContext(context.Background())
+}
+
+func (i GlobalSwitchAclL3IsolationArgs) ToGlobalSwitchAclL3IsolationOutputWithContext(ctx context.Context) GlobalSwitchAclL3IsolationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GlobalSwitchAclL3IsolationOutput)
+}
+
+// GlobalSwitchAclL3IsolationArrayInput is an input type that accepts GlobalSwitchAclL3IsolationArray and GlobalSwitchAclL3IsolationArrayOutput values.
+// You can construct a concrete instance of `GlobalSwitchAclL3IsolationArrayInput` via:
+//
+//	GlobalSwitchAclL3IsolationArray{ GlobalSwitchAclL3IsolationArgs{...} }
+type GlobalSwitchAclL3IsolationArrayInput interface {
+	pulumi.Input
+
+	ToGlobalSwitchAclL3IsolationArrayOutput() GlobalSwitchAclL3IsolationArrayOutput
+	ToGlobalSwitchAclL3IsolationArrayOutputWithContext(context.Context) GlobalSwitchAclL3IsolationArrayOutput
+}
+
+type GlobalSwitchAclL3IsolationArray []GlobalSwitchAclL3IsolationInput
+
+func (GlobalSwitchAclL3IsolationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GlobalSwitchAclL3Isolation)(nil)).Elem()
+}
+
+func (i GlobalSwitchAclL3IsolationArray) ToGlobalSwitchAclL3IsolationArrayOutput() GlobalSwitchAclL3IsolationArrayOutput {
+	return i.ToGlobalSwitchAclL3IsolationArrayOutputWithContext(context.Background())
+}
+
+func (i GlobalSwitchAclL3IsolationArray) ToGlobalSwitchAclL3IsolationArrayOutputWithContext(ctx context.Context) GlobalSwitchAclL3IsolationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GlobalSwitchAclL3IsolationArrayOutput)
+}
+
+type GlobalSwitchAclL3IsolationOutput struct{ *pulumi.OutputState }
+
+func (GlobalSwitchAclL3IsolationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GlobalSwitchAclL3Isolation)(nil)).Elem()
+}
+
+func (o GlobalSwitchAclL3IsolationOutput) ToGlobalSwitchAclL3IsolationOutput() GlobalSwitchAclL3IsolationOutput {
+	return o
+}
+
+func (o GlobalSwitchAclL3IsolationOutput) ToGlobalSwitchAclL3IsolationOutputWithContext(ctx context.Context) GlobalSwitchAclL3IsolationOutput {
+	return o
+}
+
+// Set of UniFi network IDs that the source network is isolated from. At least one destination network is required.
+func (o GlobalSwitchAclL3IsolationOutput) DestinationNetworks() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GlobalSwitchAclL3Isolation) []string { return v.DestinationNetworks }).(pulumi.StringArrayOutput)
+}
+
+// The UniFi network ID (the `id` of a `Network`) that this rule applies to. Must be unique across all entries.
+func (o GlobalSwitchAclL3IsolationOutput) SourceNetwork() pulumi.StringOutput {
+	return o.ApplyT(func(v GlobalSwitchAclL3Isolation) string { return v.SourceNetwork }).(pulumi.StringOutput)
+}
+
+type GlobalSwitchAclL3IsolationArrayOutput struct{ *pulumi.OutputState }
+
+func (GlobalSwitchAclL3IsolationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GlobalSwitchAclL3Isolation)(nil)).Elem()
+}
+
+func (o GlobalSwitchAclL3IsolationArrayOutput) ToGlobalSwitchAclL3IsolationArrayOutput() GlobalSwitchAclL3IsolationArrayOutput {
+	return o
+}
+
+func (o GlobalSwitchAclL3IsolationArrayOutput) ToGlobalSwitchAclL3IsolationArrayOutputWithContext(ctx context.Context) GlobalSwitchAclL3IsolationArrayOutput {
+	return o
+}
+
+func (o GlobalSwitchAclL3IsolationArrayOutput) Index(i pulumi.IntInput) GlobalSwitchAclL3IsolationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GlobalSwitchAclL3Isolation {
+		return vs[0].([]GlobalSwitchAclL3Isolation)[vs[1].(int)]
+	}).(GlobalSwitchAclL3IsolationOutput)
+}
+
 type GuestAccessAuthorize struct {
 	// Authorize.net login ID for authentication.
 	LoginId string `pulumi:"loginId"`
@@ -4940,6 +5258,12 @@ func (o USGUpnpPtrOutput) WanInterface() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EtherLightingNetworkOverrideInput)(nil)).Elem(), EtherLightingNetworkOverrideArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EtherLightingNetworkOverrideArrayInput)(nil)).Elem(), EtherLightingNetworkOverrideArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EtherLightingSpeedOverrideInput)(nil)).Elem(), EtherLightingSpeedOverrideArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EtherLightingSpeedOverrideArrayInput)(nil)).Elem(), EtherLightingSpeedOverrideArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GlobalSwitchAclL3IsolationInput)(nil)).Elem(), GlobalSwitchAclL3IsolationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GlobalSwitchAclL3IsolationArrayInput)(nil)).Elem(), GlobalSwitchAclL3IsolationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessAuthorizeInput)(nil)).Elem(), GuestAccessAuthorizeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessAuthorizePtrInput)(nil)).Elem(), GuestAccessAuthorizeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessFacebookInput)(nil)).Elem(), GuestAccessFacebookArgs{})
@@ -4990,6 +5314,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*USGTcpTimeoutsPtrInput)(nil)).Elem(), USGTcpTimeoutsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*USGUpnpInput)(nil)).Elem(), USGUpnpArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*USGUpnpPtrInput)(nil)).Elem(), USGUpnpArgs{})
+	pulumi.RegisterOutputType(EtherLightingNetworkOverrideOutput{})
+	pulumi.RegisterOutputType(EtherLightingNetworkOverrideArrayOutput{})
+	pulumi.RegisterOutputType(EtherLightingSpeedOverrideOutput{})
+	pulumi.RegisterOutputType(EtherLightingSpeedOverrideArrayOutput{})
+	pulumi.RegisterOutputType(GlobalSwitchAclL3IsolationOutput{})
+	pulumi.RegisterOutputType(GlobalSwitchAclL3IsolationArrayOutput{})
 	pulumi.RegisterOutputType(GuestAccessAuthorizeOutput{})
 	pulumi.RegisterOutputType(GuestAccessAuthorizePtrOutput{})
 	pulumi.RegisterOutputType(GuestAccessFacebookOutput{})

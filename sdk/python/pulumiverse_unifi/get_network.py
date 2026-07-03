@@ -26,13 +26,16 @@ class GetNetworkResult:
     """
     A collection of values returned by getNetwork.
     """
-    def __init__(__self__, dhcp_dns=None, dhcp_enabled=None, dhcp_lease=None, dhcp_start=None, dhcp_stop=None, dhcp_v6_dns=None, dhcp_v6_dns_auto=None, dhcp_v6_enabled=None, dhcp_v6_lease=None, dhcp_v6_start=None, dhcp_v6_stop=None, dhcpd_boot_enabled=None, dhcpd_boot_filename=None, dhcpd_boot_server=None, domain_name=None, id=None, igmp_snooping=None, ipv6_interface_type=None, ipv6_pd_interface=None, ipv6_pd_prefixid=None, ipv6_pd_start=None, ipv6_pd_stop=None, ipv6_ra_enable=None, ipv6_ra_preferred_lifetime=None, ipv6_ra_priority=None, ipv6_ra_valid_lifetime=None, ipv6_static_subnet=None, multicast_dns=None, name=None, network_group=None, purpose=None, site=None, subnet=None, vlan_id=None, wan_dhcp_v6_pd_size=None, wan_dns=None, wan_egress_qos=None, wan_gateway=None, wan_gateway_v6=None, wan_ip=None, wan_ipv6=None, wan_netmask=None, wan_networkgroup=None, wan_prefixlen=None, wan_type=None, wan_type_v6=None, wan_username=None, x_wan_password=None):
+    def __init__(__self__, dhcp_dns=None, dhcp_enabled=None, dhcp_guarding=None, dhcp_lease=None, dhcp_start=None, dhcp_stop=None, dhcp_v6_dns=None, dhcp_v6_dns_auto=None, dhcp_v6_enabled=None, dhcp_v6_lease=None, dhcp_v6_start=None, dhcp_v6_stop=None, dhcpd_boot_enabled=None, dhcpd_boot_filename=None, dhcpd_boot_server=None, dhcpd_gateway=None, dhcpd_gateway_enabled=None, domain_name=None, firewall_zone_id=None, id=None, igmp_snooping=None, ipv6_interface_type=None, ipv6_pd_interface=None, ipv6_pd_prefixid=None, ipv6_pd_start=None, ipv6_pd_stop=None, ipv6_ra_enable=None, ipv6_ra_preferred_lifetime=None, ipv6_ra_priority=None, ipv6_ra_valid_lifetime=None, ipv6_static_subnet=None, multicast_dns=None, name=None, network_group=None, purpose=None, site=None, subnet=None, vlan_id=None, wan_dhcp_v6_pd_size=None, wan_dns=None, wan_egress_qos=None, wan_gateway=None, wan_gateway_v6=None, wan_ip=None, wan_ipv6=None, wan_netmask=None, wan_networkgroup=None, wan_prefixlen=None, wan_type=None, wan_type_v6=None, wan_username=None, x_wan_password=None):
         if dhcp_dns and not isinstance(dhcp_dns, list):
             raise TypeError("Expected argument 'dhcp_dns' to be a list")
         pulumi.set(__self__, "dhcp_dns", dhcp_dns)
         if dhcp_enabled and not isinstance(dhcp_enabled, bool):
             raise TypeError("Expected argument 'dhcp_enabled' to be a bool")
         pulumi.set(__self__, "dhcp_enabled", dhcp_enabled)
+        if dhcp_guarding and not isinstance(dhcp_guarding, bool):
+            raise TypeError("Expected argument 'dhcp_guarding' to be a bool")
+        pulumi.set(__self__, "dhcp_guarding", dhcp_guarding)
         if dhcp_lease and not isinstance(dhcp_lease, int):
             raise TypeError("Expected argument 'dhcp_lease' to be a int")
         pulumi.set(__self__, "dhcp_lease", dhcp_lease)
@@ -69,9 +72,18 @@ class GetNetworkResult:
         if dhcpd_boot_server and not isinstance(dhcpd_boot_server, str):
             raise TypeError("Expected argument 'dhcpd_boot_server' to be a str")
         pulumi.set(__self__, "dhcpd_boot_server", dhcpd_boot_server)
+        if dhcpd_gateway and not isinstance(dhcpd_gateway, str):
+            raise TypeError("Expected argument 'dhcpd_gateway' to be a str")
+        pulumi.set(__self__, "dhcpd_gateway", dhcpd_gateway)
+        if dhcpd_gateway_enabled and not isinstance(dhcpd_gateway_enabled, bool):
+            raise TypeError("Expected argument 'dhcpd_gateway_enabled' to be a bool")
+        pulumi.set(__self__, "dhcpd_gateway_enabled", dhcpd_gateway_enabled)
         if domain_name and not isinstance(domain_name, str):
             raise TypeError("Expected argument 'domain_name' to be a str")
         pulumi.set(__self__, "domain_name", domain_name)
+        if firewall_zone_id and not isinstance(firewall_zone_id, str):
+            raise TypeError("Expected argument 'firewall_zone_id' to be a str")
+        pulumi.set(__self__, "firewall_zone_id", firewall_zone_id)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -189,6 +201,14 @@ class GetNetworkResult:
         return pulumi.get(self, "dhcp_enabled")
 
     @_builtins.property
+    @pulumi.getter(name="dhcpGuarding")
+    def dhcp_guarding(self) -> _builtins.bool:
+        """
+        Specifies whether DHCP Guarding (rogue/untrusted DHCP server protection) is enabled or not.
+        """
+        return pulumi.get(self, "dhcp_guarding")
+
+    @_builtins.property
     @pulumi.getter(name="dhcpLease")
     def dhcp_lease(self) -> _builtins.int:
         """
@@ -285,12 +305,36 @@ class GetNetworkResult:
         return pulumi.get(self, "dhcpd_boot_server")
 
     @_builtins.property
+    @pulumi.getter(name="dhcpdGateway")
+    def dhcpd_gateway(self) -> _builtins.str:
+        """
+        The IPv4 default gateway advertised to DHCP clients when the override is enabled.
+        """
+        return pulumi.get(self, "dhcpd_gateway")
+
+    @_builtins.property
+    @pulumi.getter(name="dhcpdGatewayEnabled")
+    def dhcpd_gateway_enabled(self) -> _builtins.bool:
+        """
+        Whether the DHCP default gateway is manually overridden (true) or auto (false).
+        """
+        return pulumi.get(self, "dhcpd_gateway_enabled")
+
+    @_builtins.property
     @pulumi.getter(name="domainName")
     def domain_name(self) -> _builtins.str:
         """
         The domain name of this network.
         """
         return pulumi.get(self, "domain_name")
+
+    @_builtins.property
+    @pulumi.getter(name="firewallZoneId")
+    def firewall_zone_id(self) -> _builtins.str:
+        """
+        The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. Only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled; empty otherwise. The zone ID is site-scoped.
+        """
+        return pulumi.get(self, "firewall_zone_id")
 
     @_builtins.property
     @pulumi.getter
@@ -312,7 +356,7 @@ class GetNetworkResult:
     @pulumi.getter(name="ipv6InterfaceType")
     def ipv6_interface_type(self) -> _builtins.str:
         """
-        Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
+        Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, `single_network`, or `none`.
         """
         return pulumi.get(self, "ipv6_interface_type")
 
@@ -565,6 +609,7 @@ class AwaitableGetNetworkResult(GetNetworkResult):
         return GetNetworkResult(
             dhcp_dns=self.dhcp_dns,
             dhcp_enabled=self.dhcp_enabled,
+            dhcp_guarding=self.dhcp_guarding,
             dhcp_lease=self.dhcp_lease,
             dhcp_start=self.dhcp_start,
             dhcp_stop=self.dhcp_stop,
@@ -577,7 +622,10 @@ class AwaitableGetNetworkResult(GetNetworkResult):
             dhcpd_boot_enabled=self.dhcpd_boot_enabled,
             dhcpd_boot_filename=self.dhcpd_boot_filename,
             dhcpd_boot_server=self.dhcpd_boot_server,
+            dhcpd_gateway=self.dhcpd_gateway,
+            dhcpd_gateway_enabled=self.dhcpd_gateway_enabled,
             domain_name=self.domain_name,
+            firewall_zone_id=self.firewall_zone_id,
             id=self.id,
             igmp_snooping=self.igmp_snooping,
             ipv6_interface_type=self.ipv6_interface_type,
@@ -648,6 +696,7 @@ def get_network(id: Optional[_builtins.str] = None,
     return AwaitableGetNetworkResult(
         dhcp_dns=pulumi.get(__ret__, 'dhcp_dns'),
         dhcp_enabled=pulumi.get(__ret__, 'dhcp_enabled'),
+        dhcp_guarding=pulumi.get(__ret__, 'dhcp_guarding'),
         dhcp_lease=pulumi.get(__ret__, 'dhcp_lease'),
         dhcp_start=pulumi.get(__ret__, 'dhcp_start'),
         dhcp_stop=pulumi.get(__ret__, 'dhcp_stop'),
@@ -660,7 +709,10 @@ def get_network(id: Optional[_builtins.str] = None,
         dhcpd_boot_enabled=pulumi.get(__ret__, 'dhcpd_boot_enabled'),
         dhcpd_boot_filename=pulumi.get(__ret__, 'dhcpd_boot_filename'),
         dhcpd_boot_server=pulumi.get(__ret__, 'dhcpd_boot_server'),
+        dhcpd_gateway=pulumi.get(__ret__, 'dhcpd_gateway'),
+        dhcpd_gateway_enabled=pulumi.get(__ret__, 'dhcpd_gateway_enabled'),
         domain_name=pulumi.get(__ret__, 'domain_name'),
+        firewall_zone_id=pulumi.get(__ret__, 'firewall_zone_id'),
         id=pulumi.get(__ret__, 'id'),
         igmp_snooping=pulumi.get(__ret__, 'igmp_snooping'),
         ipv6_interface_type=pulumi.get(__ret__, 'ipv6_interface_type'),
@@ -694,9 +746,9 @@ def get_network(id: Optional[_builtins.str] = None,
         wan_type_v6=pulumi.get(__ret__, 'wan_type_v6'),
         wan_username=pulumi.get(__ret__, 'wan_username'),
         x_wan_password=pulumi.get(__ret__, 'x_wan_password'))
-def get_network_output(id: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                       name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                       site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_network_output(id: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                       name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                       site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetNetworkResult]:
     """
     `Network` data source can be used to retrieve settings for a network by name or ID.
@@ -728,6 +780,7 @@ def get_network_output(id: Optional[pulumi.Input[Optional[_builtins.str]]] = Non
     return __ret__.apply(lambda __response__: GetNetworkResult(
         dhcp_dns=pulumi.get(__response__, 'dhcp_dns'),
         dhcp_enabled=pulumi.get(__response__, 'dhcp_enabled'),
+        dhcp_guarding=pulumi.get(__response__, 'dhcp_guarding'),
         dhcp_lease=pulumi.get(__response__, 'dhcp_lease'),
         dhcp_start=pulumi.get(__response__, 'dhcp_start'),
         dhcp_stop=pulumi.get(__response__, 'dhcp_stop'),
@@ -740,7 +793,10 @@ def get_network_output(id: Optional[pulumi.Input[Optional[_builtins.str]]] = Non
         dhcpd_boot_enabled=pulumi.get(__response__, 'dhcpd_boot_enabled'),
         dhcpd_boot_filename=pulumi.get(__response__, 'dhcpd_boot_filename'),
         dhcpd_boot_server=pulumi.get(__response__, 'dhcpd_boot_server'),
+        dhcpd_gateway=pulumi.get(__response__, 'dhcpd_gateway'),
+        dhcpd_gateway_enabled=pulumi.get(__response__, 'dhcpd_gateway_enabled'),
         domain_name=pulumi.get(__response__, 'domain_name'),
+        firewall_zone_id=pulumi.get(__response__, 'firewall_zone_id'),
         id=pulumi.get(__response__, 'id'),
         igmp_snooping=pulumi.get(__response__, 'igmp_snooping'),
         ipv6_interface_type=pulumi.get(__response__, 'ipv6_interface_type'),

@@ -15,11 +15,85 @@ else:
 from . import _utilities
 
 __all__ = [
+    'DeviceEtherLighting',
     'DevicePortOverride',
+    'DeviceRadio',
     'RadiusProfileAcctServer',
     'RadiusProfileAuthServer',
     'WlanSchedule',
 ]
+
+@pulumi.output_type
+class DeviceEtherLighting(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ledMode":
+            suggest = "led_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeviceEtherLighting. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeviceEtherLighting.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeviceEtherLighting.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 behavior: Optional[_builtins.str] = None,
+                 brightness: Optional[_builtins.int] = None,
+                 led_mode: Optional[_builtins.str] = None,
+                 mode: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str behavior: LED animation: `steady` or `breath`.
+        :param _builtins.int brightness: LED brightness, 1-100.
+        :param _builtins.str led_mode: `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
+        :param _builtins.str mode: Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
+        """
+        if behavior is not None:
+            pulumi.set(__self__, "behavior", behavior)
+        if brightness is not None:
+            pulumi.set(__self__, "brightness", brightness)
+        if led_mode is not None:
+            pulumi.set(__self__, "led_mode", led_mode)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+
+    @_builtins.property
+    @pulumi.getter
+    def behavior(self) -> Optional[_builtins.str]:
+        """
+        LED animation: `steady` or `breath`.
+        """
+        return pulumi.get(self, "behavior")
+
+    @_builtins.property
+    @pulumi.getter
+    def brightness(self) -> Optional[_builtins.int]:
+        """
+        LED brightness, 1-100.
+        """
+        return pulumi.get(self, "brightness")
+
+    @_builtins.property
+    @pulumi.getter(name="ledMode")
+    def led_mode(self) -> Optional[_builtins.str]:
+        """
+        `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
+        """
+        return pulumi.get(self, "led_mode")
+
+    @_builtins.property
+    @pulumi.getter
+    def mode(self) -> Optional[_builtins.str]:
+        """
+        Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
+        """
+        return pulumi.get(self, "mode")
+
 
 @pulumi.output_type
 class DevicePortOverride(dict):
@@ -28,12 +102,22 @@ class DevicePortOverride(dict):
         suggest = None
         if key == "aggregateNumPorts":
             suggest = "aggregate_num_ports"
+        elif key == "excludedNetworkIds":
+            suggest = "excluded_network_ids"
+        elif key == "nativeNetworkconfId":
+            suggest = "native_networkconf_id"
         elif key == "opMode":
             suggest = "op_mode"
         elif key == "poeMode":
             suggest = "poe_mode"
         elif key == "portProfileId":
             suggest = "port_profile_id"
+        elif key == "settingPreference":
+            suggest = "setting_preference"
+        elif key == "taggedVlanMgmt":
+            suggest = "tagged_vlan_mgmt"
+        elif key == "voiceNetworkconfId":
+            suggest = "voice_networkconf_id"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in DevicePortOverride. Access the value via the '{suggest}' property getter instead.")
@@ -49,10 +133,16 @@ class DevicePortOverride(dict):
     def __init__(__self__, *,
                  number: _builtins.int,
                  aggregate_num_ports: Optional[_builtins.int] = None,
+                 excluded_network_ids: Optional[Sequence[_builtins.str]] = None,
+                 forward: Optional[_builtins.str] = None,
                  name: Optional[_builtins.str] = None,
+                 native_networkconf_id: Optional[_builtins.str] = None,
                  op_mode: Optional[_builtins.str] = None,
                  poe_mode: Optional[_builtins.str] = None,
-                 port_profile_id: Optional[_builtins.str] = None):
+                 port_profile_id: Optional[_builtins.str] = None,
+                 setting_preference: Optional[_builtins.str] = None,
+                 tagged_vlan_mgmt: Optional[_builtins.str] = None,
+                 voice_networkconf_id: Optional[_builtins.str] = None):
         """
         :param _builtins.int number: The physical port number on the switch to configure.
         :param _builtins.int aggregate_num_ports: The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
@@ -60,11 +150,25 @@ class DevicePortOverride(dict):
                * Setting up high-availability connections
                * Connecting to servers requiring more bandwidth
                Note: All ports in the LAG must be sequential and have matching configurations.
+        :param Sequence[_builtins.str] excluded_network_ids: Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
+        :param _builtins.str forward: VLAN forwarding mode for the port. Valid values are:
+                 * `all` - Forward all VLANs (trunk port)
+                 * `native` - Only forward untagged traffic (access port)
+                 * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+                 * `disabled` - Disable VLAN forwarding
+               
+               This attribute has NO default: leaving it unset keeps the port's existing forwarding behavior (the value is computed from the controller). Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
         :param _builtins.str name: A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
                  * 'Uplink to Core Switch'
                  * 'Conference Room AP'
                  * 'Server LACP Group 1'
                  * 'VoIP Phone Port'
+        :param _builtins.str native_networkconf_id: The ID of the network to use as the native (untagged) network on this port. This is typically used for:
+               * Access ports where devices need untagged access
+               * Trunk ports to specify the native VLAN
+               * Management networks for network devices
+               
+               Computed when not set, so the controller's current value (which it may auto-populate on a port) is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
         :param _builtins.str op_mode: The operating mode of the port. Valid values are:
                  * `switch` - Normal switching mode (default)
                    - Standard port operation for connecting devices
@@ -89,18 +193,40 @@ class DevicePortOverride(dict):
                  - For non-PoE devices
                  - To prevent unwanted power delivery
         :param _builtins.str port_profile_id: The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
+        :param _builtins.str setting_preference: Whether the port's settings are taken from a profile (`auto`) or set per-port (`manual`). Valid values are `auto` and `manual`. Per-port VLAN overrides (`native_networkconf_id`, `tagged_vlan_mgmt`, `forward`, `excluded_network_ids`) generally require `setting_preference = "manual"` to persist on the controller; with `auto` the controller may revert inline overrides to profile/auto behavior. Setting this to `manual` also overrides any `port_profile_id` on the same port. Computed when not set, so the value the controller attaches to the port is preserved without producing a diff.
+        :param _builtins.str tagged_vlan_mgmt: VLAN tagging behavior for the port. Valid values are:
+               * `auto` - Automatically handle VLAN tags (recommended)
+               * `block_all` - Block all VLAN tagged traffic
+               * `custom` - Custom VLAN configuration (use with `forward = "customize"` and `excluded_network_ids`)
+               
+               Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+        :param _builtins.str voice_networkconf_id: The ID of the network to use for Voice over IP (VoIP) traffic on this port, for automatic voice-VLAN assignment in conjunction with LLDP-MED.
+               
+               Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
         """
         pulumi.set(__self__, "number", number)
         if aggregate_num_ports is not None:
             pulumi.set(__self__, "aggregate_num_ports", aggregate_num_ports)
+        if excluded_network_ids is not None:
+            pulumi.set(__self__, "excluded_network_ids", excluded_network_ids)
+        if forward is not None:
+            pulumi.set(__self__, "forward", forward)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if native_networkconf_id is not None:
+            pulumi.set(__self__, "native_networkconf_id", native_networkconf_id)
         if op_mode is not None:
             pulumi.set(__self__, "op_mode", op_mode)
         if poe_mode is not None:
             pulumi.set(__self__, "poe_mode", poe_mode)
         if port_profile_id is not None:
             pulumi.set(__self__, "port_profile_id", port_profile_id)
+        if setting_preference is not None:
+            pulumi.set(__self__, "setting_preference", setting_preference)
+        if tagged_vlan_mgmt is not None:
+            pulumi.set(__self__, "tagged_vlan_mgmt", tagged_vlan_mgmt)
+        if voice_networkconf_id is not None:
+            pulumi.set(__self__, "voice_networkconf_id", voice_networkconf_id)
 
     @_builtins.property
     @pulumi.getter
@@ -123,6 +249,28 @@ class DevicePortOverride(dict):
         return pulumi.get(self, "aggregate_num_ports")
 
     @_builtins.property
+    @pulumi.getter(name="excludedNetworkIds")
+    def excluded_network_ids(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
+        """
+        return pulumi.get(self, "excluded_network_ids")
+
+    @_builtins.property
+    @pulumi.getter
+    def forward(self) -> Optional[_builtins.str]:
+        """
+        VLAN forwarding mode for the port. Valid values are:
+          * `all` - Forward all VLANs (trunk port)
+          * `native` - Only forward untagged traffic (access port)
+          * `customize` - Forward selected VLANs (use with `excluded_network_ids`)
+          * `disabled` - Disable VLAN forwarding
+
+        This attribute has NO default: leaving it unset keeps the port's existing forwarding behavior (the value is computed from the controller). Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+        """
+        return pulumi.get(self, "forward")
+
+    @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
         """
@@ -133,6 +281,19 @@ class DevicePortOverride(dict):
           * 'VoIP Phone Port'
         """
         return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter(name="nativeNetworkconfId")
+    def native_networkconf_id(self) -> Optional[_builtins.str]:
+        """
+        The ID of the network to use as the native (untagged) network on this port. This is typically used for:
+        * Access ports where devices need untagged access
+        * Trunk ports to specify the native VLAN
+        * Management networks for network devices
+
+        Computed when not set, so the controller's current value (which it may auto-populate on a port) is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+        """
+        return pulumi.get(self, "native_networkconf_id")
 
     @_builtins.property
     @pulumi.getter(name="opMode")
@@ -178,6 +339,150 @@ class DevicePortOverride(dict):
         The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
         """
         return pulumi.get(self, "port_profile_id")
+
+    @_builtins.property
+    @pulumi.getter(name="settingPreference")
+    def setting_preference(self) -> Optional[_builtins.str]:
+        """
+        Whether the port's settings are taken from a profile (`auto`) or set per-port (`manual`). Valid values are `auto` and `manual`. Per-port VLAN overrides (`native_networkconf_id`, `tagged_vlan_mgmt`, `forward`, `excluded_network_ids`) generally require `setting_preference = "manual"` to persist on the controller; with `auto` the controller may revert inline overrides to profile/auto behavior. Setting this to `manual` also overrides any `port_profile_id` on the same port. Computed when not set, so the value the controller attaches to the port is preserved without producing a diff.
+        """
+        return pulumi.get(self, "setting_preference")
+
+    @_builtins.property
+    @pulumi.getter(name="taggedVlanMgmt")
+    def tagged_vlan_mgmt(self) -> Optional[_builtins.str]:
+        """
+        VLAN tagging behavior for the port. Valid values are:
+        * `auto` - Automatically handle VLAN tags (recommended)
+        * `block_all` - Block all VLAN tagged traffic
+        * `custom` - Custom VLAN configuration (use with `forward = "customize"` and `excluded_network_ids`)
+
+        Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+        """
+        return pulumi.get(self, "tagged_vlan_mgmt")
+
+    @_builtins.property
+    @pulumi.getter(name="voiceNetworkconfId")
+    def voice_networkconf_id(self) -> Optional[_builtins.str]:
+        """
+        The ID of the network to use for Voice over IP (VoIP) traffic on this port, for automatic voice-VLAN assignment in conjunction with LLDP-MED.
+
+        Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+        """
+        return pulumi.get(self, "voice_networkconf_id")
+
+
+@pulumi.output_type
+class DeviceRadio(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minRssi":
+            suggest = "min_rssi"
+        elif key == "minRssiEnabled":
+            suggest = "min_rssi_enabled"
+        elif key == "txPower":
+            suggest = "tx_power"
+        elif key == "txPowerMode":
+            suggest = "tx_power_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeviceRadio. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeviceRadio.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeviceRadio.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: _builtins.str,
+                 channel: Optional[_builtins.str] = None,
+                 ht: Optional[_builtins.int] = None,
+                 min_rssi: Optional[_builtins.int] = None,
+                 min_rssi_enabled: Optional[_builtins.bool] = None,
+                 tx_power: Optional[_builtins.str] = None,
+                 tx_power_mode: Optional[_builtins.str] = None):
+        """
+        :param _builtins.str name: The radio band this block configures: `ng` (2.4GHz), `na` (5GHz), or `6e` (6GHz).
+        :param _builtins.str channel: The channel for this radio (band-specific), or `auto` to let the controller choose.
+        :param _builtins.int ht: Channel width in MHz for this radio (e.g. 20, 40, 80, 160, 320).
+        :param _builtins.int min_rssi: Minimum RSSI in dBm (negative) below which clients are disconnected, when `min_rssi_enabled` is true.
+        :param _builtins.bool min_rssi_enabled: Whether the minimum-RSSI client-disconnect threshold is enabled on this radio. Applied together with `min_rssi`.
+        :param _builtins.str tx_power: Custom transmit power in dBm, used when `tx_power_mode = "custom"`; otherwise leave unset.
+        :param _builtins.str tx_power_mode: Transmit-power mode: `auto`, `low`, `medium`, `high`, `custom`, or `disabled`. `disabled` turns the radio off (e.g. to suppress an unused 2.4GHz band on an in-wall AP).
+        """
+        pulumi.set(__self__, "name", name)
+        if channel is not None:
+            pulumi.set(__self__, "channel", channel)
+        if ht is not None:
+            pulumi.set(__self__, "ht", ht)
+        if min_rssi is not None:
+            pulumi.set(__self__, "min_rssi", min_rssi)
+        if min_rssi_enabled is not None:
+            pulumi.set(__self__, "min_rssi_enabled", min_rssi_enabled)
+        if tx_power is not None:
+            pulumi.set(__self__, "tx_power", tx_power)
+        if tx_power_mode is not None:
+            pulumi.set(__self__, "tx_power_mode", tx_power_mode)
+
+    @_builtins.property
+    @pulumi.getter
+    def name(self) -> _builtins.str:
+        """
+        The radio band this block configures: `ng` (2.4GHz), `na` (5GHz), or `6e` (6GHz).
+        """
+        return pulumi.get(self, "name")
+
+    @_builtins.property
+    @pulumi.getter
+    def channel(self) -> Optional[_builtins.str]:
+        """
+        The channel for this radio (band-specific), or `auto` to let the controller choose.
+        """
+        return pulumi.get(self, "channel")
+
+    @_builtins.property
+    @pulumi.getter
+    def ht(self) -> Optional[_builtins.int]:
+        """
+        Channel width in MHz for this radio (e.g. 20, 40, 80, 160, 320).
+        """
+        return pulumi.get(self, "ht")
+
+    @_builtins.property
+    @pulumi.getter(name="minRssi")
+    def min_rssi(self) -> Optional[_builtins.int]:
+        """
+        Minimum RSSI in dBm (negative) below which clients are disconnected, when `min_rssi_enabled` is true.
+        """
+        return pulumi.get(self, "min_rssi")
+
+    @_builtins.property
+    @pulumi.getter(name="minRssiEnabled")
+    def min_rssi_enabled(self) -> Optional[_builtins.bool]:
+        """
+        Whether the minimum-RSSI client-disconnect threshold is enabled on this radio. Applied together with `min_rssi`.
+        """
+        return pulumi.get(self, "min_rssi_enabled")
+
+    @_builtins.property
+    @pulumi.getter(name="txPower")
+    def tx_power(self) -> Optional[_builtins.str]:
+        """
+        Custom transmit power in dBm, used when `tx_power_mode = "custom"`; otherwise leave unset.
+        """
+        return pulumi.get(self, "tx_power")
+
+    @_builtins.property
+    @pulumi.getter(name="txPowerMode")
+    def tx_power_mode(self) -> Optional[_builtins.str]:
+        """
+        Transmit-power mode: `auto`, `low`, `medium`, `high`, `custom`, or `disabled`. `disabled` turns the radio off (e.g. to suppress an unused 2.4GHz band on an in-wall AP).
+        """
+        return pulumi.get(self, "tx_power_mode")
 
 
 @pulumi.output_type

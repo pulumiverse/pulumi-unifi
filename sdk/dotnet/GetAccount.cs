@@ -85,7 +85,7 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// ID of the network for this account
+        /// The ID of the UniFi network configuration (the controller's `NetworkconfId`) associated with this account. This is distinct from the `Vlan` attribute, which is the 802.1Q VLAN ID delivered via RADIUS.
         /// </summary>
         public readonly string NetworkId;
         /// <summary>
@@ -104,6 +104,10 @@ namespace Pulumiverse.Unifi
         /// See RFC2868 section 3.1
         /// </summary>
         public readonly int TunnelType;
+        /// <summary>
+        /// The 802.1Q VLAN ID assigned to clients authenticating with this account via RADIUS dynamic VLAN assignment. `0` means no VLAN is assigned.
+        /// </summary>
+        public readonly int Vlan;
 
         [OutputConstructor]
         private GetAccountResult(
@@ -119,7 +123,9 @@ namespace Pulumiverse.Unifi
 
             int tunnelMediumType,
 
-            int tunnelType)
+            int tunnelType,
+
+            int vlan)
         {
             Id = id;
             Name = name;
@@ -128,6 +134,7 @@ namespace Pulumiverse.Unifi
             Site = site;
             TunnelMediumType = tunnelMediumType;
             TunnelType = tunnelType;
+            Vlan = vlan;
         }
     }
 }

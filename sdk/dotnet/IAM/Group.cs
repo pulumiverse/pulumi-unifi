@@ -50,6 +50,8 @@ namespace Pulumiverse.Unifi.IAM
     /// 
     /// ## Import
     /// 
+    /// The `pulumi import` command can be used, for example:
+    /// 
     /// import using the ID
     /// 
     /// ```sh

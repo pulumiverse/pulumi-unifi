@@ -20,16 +20,18 @@ __all__ = ['AccountArgs', 'Account']
 class AccountArgs:
     def __init__(__self__, *,
                  password: pulumi.Input[_builtins.str],
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 tunnel_medium_type: Optional[pulumi.Input[_builtins.int]] = None,
-                 tunnel_type: Optional[pulumi.Input[_builtins.int]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 tunnel_medium_type: pulumi.Input[Optional[_builtins.int]] = None,
+                 tunnel_type: pulumi.Input[Optional[_builtins.int]] = None,
+                 vlan: pulumi.Input[Optional[_builtins.int]] = None):
         """
         The set of arguments for constructing a Account resource.
+
         :param pulumi.Input[_builtins.str] password: The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
-        :param pulumi.Input[_builtins.str] network_id: The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        :param pulumi.Input[_builtins.str] network_id: The ID of a UniFi network configuration (the controller's `networkconf_id`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.int] tunnel_medium_type: The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
                  * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
@@ -43,6 +45,7 @@ class AccountArgs:
                  * `9` - Point-to-Point Protocol (L2TP)
                
                Only change this if you need specific tunneling behavior.
+        :param pulumi.Input[_builtins.int] vlan: The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnel_type`/`tunnel_medium_type`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
         """
         pulumi.set(__self__, "password", password)
         if name is not None:
@@ -55,6 +58,8 @@ class AccountArgs:
             pulumi.set(__self__, "tunnel_medium_type", tunnel_medium_type)
         if tunnel_type is not None:
             pulumi.set(__self__, "tunnel_type", tunnel_type)
+        if vlan is not None:
+            pulumi.set(__self__, "vlan", vlan)
 
     @_builtins.property
     @pulumi.getter
@@ -70,43 +75,43 @@ class AccountArgs:
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="networkId")
-    def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        The ID of a UniFi network configuration (the controller's `networkconf_id`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         """
         return pulumi.get(self, "network_id")
 
     @network_id.setter
-    def network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "network_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="tunnelMediumType")
-    def tunnel_medium_type(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def tunnel_medium_type(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
           * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
@@ -118,12 +123,12 @@ class AccountArgs:
         return pulumi.get(self, "tunnel_medium_type")
 
     @tunnel_medium_type.setter
-    def tunnel_medium_type(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def tunnel_medium_type(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "tunnel_medium_type", value)
 
     @_builtins.property
     @pulumi.getter(name="tunnelType")
-    def tunnel_type(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def tunnel_type(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
           * `13` - VLAN (default)
@@ -135,23 +140,37 @@ class AccountArgs:
         return pulumi.get(self, "tunnel_type")
 
     @tunnel_type.setter
-    def tunnel_type(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def tunnel_type(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "tunnel_type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def vlan(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnel_type`/`tunnel_medium_type`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+        """
+        return pulumi.get(self, "vlan")
+
+    @vlan.setter
+    def vlan(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "vlan", value)
 
 
 @pulumi.input_type
 class _AccountState:
     def __init__(__self__, *,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 password: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 tunnel_medium_type: Optional[pulumi.Input[_builtins.int]] = None,
-                 tunnel_type: Optional[pulumi.Input[_builtins.int]] = None):
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 password: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 tunnel_medium_type: pulumi.Input[Optional[_builtins.int]] = None,
+                 tunnel_type: pulumi.Input[Optional[_builtins.int]] = None,
+                 vlan: pulumi.Input[Optional[_builtins.int]] = None):
         """
         Input properties used for looking up and filtering Account resources.
+
         :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
-        :param pulumi.Input[_builtins.str] network_id: The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        :param pulumi.Input[_builtins.str] network_id: The ID of a UniFi network configuration (the controller's `networkconf_id`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         :param pulumi.Input[_builtins.str] password: The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.int] tunnel_medium_type: The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
@@ -166,6 +185,7 @@ class _AccountState:
                  * `9` - Point-to-Point Protocol (L2TP)
                
                Only change this if you need specific tunneling behavior.
+        :param pulumi.Input[_builtins.int] vlan: The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnel_type`/`tunnel_medium_type`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -179,58 +199,60 @@ class _AccountState:
             pulumi.set(__self__, "tunnel_medium_type", tunnel_medium_type)
         if tunnel_type is not None:
             pulumi.set(__self__, "tunnel_type", tunnel_type)
+        if vlan is not None:
+            pulumi.set(__self__, "vlan", vlan)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="networkId")
-    def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        The ID of a UniFi network configuration (the controller's `networkconf_id`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         """
         return pulumi.get(self, "network_id")
 
     @network_id.setter
-    def network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "network_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def password(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def password(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         """
         return pulumi.get(self, "password")
 
     @password.setter
-    def password(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def password(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "password", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="tunnelMediumType")
-    def tunnel_medium_type(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def tunnel_medium_type(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
           * `6` - 802 (includes Ethernet, Token Ring, FDDI) (default)
@@ -242,12 +264,12 @@ class _AccountState:
         return pulumi.get(self, "tunnel_medium_type")
 
     @tunnel_medium_type.setter
-    def tunnel_medium_type(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def tunnel_medium_type(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "tunnel_medium_type", value)
 
     @_builtins.property
     @pulumi.getter(name="tunnelType")
-    def tunnel_type(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def tunnel_type(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         The RADIUS tunnel type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.1). Common values:
           * `13` - VLAN (default)
@@ -259,8 +281,20 @@ class _AccountState:
         return pulumi.get(self, "tunnel_type")
 
     @tunnel_type.setter
-    def tunnel_type(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def tunnel_type(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "tunnel_type", value)
+
+    @_builtins.property
+    @pulumi.getter
+    def vlan(self) -> pulumi.Input[Optional[_builtins.int]]:
+        """
+        The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnel_type`/`tunnel_medium_type`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+        """
+        return pulumi.get(self, "vlan")
+
+    @vlan.setter
+    def vlan(self, value: pulumi.Input[Optional[_builtins.int]]):
+        pulumi.set(self, "vlan", value)
 
 
 @pulumi.type_token("unifi:index/account:Account")
@@ -269,12 +303,13 @@ class Account(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 password: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 tunnel_medium_type: Optional[pulumi.Input[_builtins.int]] = None,
-                 tunnel_type: Optional[pulumi.Input[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 password: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 tunnel_medium_type: pulumi.Input[Optional[_builtins.int]] = None,
+                 tunnel_type: pulumi.Input[Optional[_builtins.int]] = None,
+                 vlan: pulumi.Input[Optional[_builtins.int]] = None,
                  __props__=None):
         """
         The `Account` resource manages RADIUS user accounts in the UniFi controller's built-in RADIUS server.
@@ -283,25 +318,27 @@ class Account(pulumi.CustomResource):
           * WPA2/WPA3-Enterprise wireless authentication
           * 802.1X wired authentication
           * MAC-based device authentication
-          * VLAN assignment through RADIUS attributes
+          * Dynamic VLAN assignment through RADIUS attributes (see the `vlan` attribute)
 
         Important Notes:
         1. For MAC-based authentication:
            * Use the device's MAC address as both username and password
            * Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
         2. VLAN Assignment:
-           * If no VLAN is specified in the profile, clients will use the network's untagged VLAN
-           * VLAN assignment uses standard RADIUS tunnel attributes
+           * Set the `vlan` attribute to the 802.1Q VLAN ID the controller should assign to authenticated clients
+           * VLAN assignment is delivered using the standard RADIUS tunnel attributes (`tunnel_type`/`tunnel_medium_type`)
+           * If no VLAN is specified, clients will use the network's untagged VLAN
 
         Limitations:
           * MAC-based authentication works only for wireless and wired clients
           * L2TP remote access VPN is not supported with MAC authentication
           * Accounts must be unique within a site
 
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
-        :param pulumi.Input[_builtins.str] network_id: The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        :param pulumi.Input[_builtins.str] network_id: The ID of a UniFi network configuration (the controller's `networkconf_id`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         :param pulumi.Input[_builtins.str] password: The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.int] tunnel_medium_type: The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
@@ -316,6 +353,7 @@ class Account(pulumi.CustomResource):
                  * `9` - Point-to-Point Protocol (L2TP)
                
                Only change this if you need specific tunneling behavior.
+        :param pulumi.Input[_builtins.int] vlan: The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnel_type`/`tunnel_medium_type`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
         """
         ...
     @overload
@@ -330,20 +368,22 @@ class Account(pulumi.CustomResource):
           * WPA2/WPA3-Enterprise wireless authentication
           * 802.1X wired authentication
           * MAC-based device authentication
-          * VLAN assignment through RADIUS attributes
+          * Dynamic VLAN assignment through RADIUS attributes (see the `vlan` attribute)
 
         Important Notes:
         1. For MAC-based authentication:
            * Use the device's MAC address as both username and password
            * Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
         2. VLAN Assignment:
-           * If no VLAN is specified in the profile, clients will use the network's untagged VLAN
-           * VLAN assignment uses standard RADIUS tunnel attributes
+           * Set the `vlan` attribute to the 802.1Q VLAN ID the controller should assign to authenticated clients
+           * VLAN assignment is delivered using the standard RADIUS tunnel attributes (`tunnel_type`/`tunnel_medium_type`)
+           * If no VLAN is specified, clients will use the network's untagged VLAN
 
         Limitations:
           * MAC-based authentication works only for wireless and wired clients
           * L2TP remote access VPN is not supported with MAC authentication
           * Accounts must be unique within a site
+
 
         :param str resource_name: The name of the resource.
         :param AccountArgs args: The arguments to use to populate this resource's properties.
@@ -360,12 +400,13 @@ class Account(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 password: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 tunnel_medium_type: Optional[pulumi.Input[_builtins.int]] = None,
-                 tunnel_type: Optional[pulumi.Input[_builtins.int]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 password: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 tunnel_medium_type: pulumi.Input[Optional[_builtins.int]] = None,
+                 tunnel_type: pulumi.Input[Optional[_builtins.int]] = None,
+                 vlan: pulumi.Input[Optional[_builtins.int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -383,6 +424,7 @@ class Account(pulumi.CustomResource):
             __props__.__dict__["site"] = site
             __props__.__dict__["tunnel_medium_type"] = tunnel_medium_type
             __props__.__dict__["tunnel_type"] = tunnel_type
+            __props__.__dict__["vlan"] = vlan
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["password"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Account, __self__).__init__(
@@ -395,12 +437,13 @@ class Account(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            network_id: Optional[pulumi.Input[_builtins.str]] = None,
-            password: Optional[pulumi.Input[_builtins.str]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            tunnel_medium_type: Optional[pulumi.Input[_builtins.int]] = None,
-            tunnel_type: Optional[pulumi.Input[_builtins.int]] = None) -> 'Account':
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            network_id: pulumi.Input[Optional[_builtins.str]] = None,
+            password: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            tunnel_medium_type: pulumi.Input[Optional[_builtins.int]] = None,
+            tunnel_type: pulumi.Input[Optional[_builtins.int]] = None,
+            vlan: pulumi.Input[Optional[_builtins.int]] = None) -> 'Account':
         """
         Get an existing Account resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -409,7 +452,7 @@ class Account(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
-        :param pulumi.Input[_builtins.str] network_id: The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        :param pulumi.Input[_builtins.str] network_id: The ID of a UniFi network configuration (the controller's `networkconf_id`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         :param pulumi.Input[_builtins.str] password: The password for this RADIUS account. For MAC-based authentication, this must match the username (the MAC address). For regular users, this should be a secure password following your organization's password policies.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this RADIUS account should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.int] tunnel_medium_type: The RADIUS tunnel medium type attribute ([RFC 2868](https://tools.ietf.org/html/rfc2868), section 3.2). Common values:
@@ -424,6 +467,7 @@ class Account(pulumi.CustomResource):
                  * `9` - Point-to-Point Protocol (L2TP)
                
                Only change this if you need specific tunneling behavior.
+        :param pulumi.Input[_builtins.int] vlan: The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnel_type`/`tunnel_medium_type`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -435,6 +479,7 @@ class Account(pulumi.CustomResource):
         __props__.__dict__["site"] = site
         __props__.__dict__["tunnel_medium_type"] = tunnel_medium_type
         __props__.__dict__["tunnel_type"] = tunnel_type
+        __props__.__dict__["vlan"] = vlan
         return Account(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
@@ -449,7 +494,7 @@ class Account(pulumi.CustomResource):
     @pulumi.getter(name="networkId")
     def network_id(self) -> pulumi.Output[Optional[_builtins.str]]:
         """
-        The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        The ID of a UniFi network configuration (the controller's `networkconf_id`) to associate with this account. This is a reference to a network object and is distinct from the `vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         """
         return pulumi.get(self, "network_id")
 
@@ -494,4 +539,12 @@ class Account(pulumi.CustomResource):
         Only change this if you need specific tunneling behavior.
         """
         return pulumi.get(self, "tunnel_type")
+
+    @_builtins.property
+    @pulumi.getter
+    def vlan(self) -> pulumi.Output[Optional[_builtins.int]]:
+        """
+        The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`tunnel_type`/`tunnel_medium_type`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+        """
+        return pulumi.get(self, "vlan")
 

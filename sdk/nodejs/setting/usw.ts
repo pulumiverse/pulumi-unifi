@@ -88,11 +88,11 @@ export interface UswState {
     /**
      * Whether DHCP snooping is enabled. DHCP snooping is a security feature that filters untrusted DHCP messages and builds a binding database of valid hosts.
      */
-    dhcpSnoop?: pulumi.Input<boolean>;
+    dhcpSnoop?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -106,5 +106,5 @@ export interface UswArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

@@ -62,6 +62,16 @@ namespace Pulumiverse.Unifi
             set => _apiUrl.Set(value);
         }
 
+        private static readonly __Value<int?> _httpMaxRetries = new __Value<int?>(() => __config.GetInt32("httpMaxRetries"));
+        /// <summary>
+        /// Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
+        /// </summary>
+        public static int? HttpMaxRetries
+        {
+            get => _httpMaxRetries.Get();
+            set => _httpMaxRetries.Set(value);
+        }
+
         private static readonly __Value<string?> _password = new __Value<string?>(() => __config.Get("password") ?? Utilities.GetEnv("UNIFI_PASSWORD"));
         /// <summary>
         /// Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.

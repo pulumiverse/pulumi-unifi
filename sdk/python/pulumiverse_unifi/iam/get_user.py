@@ -232,8 +232,8 @@ def get_user(mac: Optional[_builtins.str] = None,
         note=pulumi.get(__ret__, 'note'),
         site=pulumi.get(__ret__, 'site'),
         user_group_id=pulumi.get(__ret__, 'user_group_id'))
-def get_user_output(mac: Optional[pulumi.Input[_builtins.str]] = None,
-                    site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_user_output(mac: pulumi.Input[Optional[_builtins.str]] = None,
+                    site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                     opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetUserResult]:
     """
     `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.

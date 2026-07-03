@@ -11,7 +11,7 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `getApGroup` data source can be used to retrieve the ID for an AP group by name.
+// The `ApGroup` data source can be used to retrieve the ID for an AP group by name.
 //
 // ## Example Usage
 //
@@ -27,7 +27,7 @@ import (
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := unifi.GetApGroup(ctx, &unifi.GetApGroupArgs{}, nil)
+//			_, err := unifi.GetApGroup(ctx, &unifi.LookupApGroupArgs{}, nil)
 //			if err != nil {
 //				return err
 //			}
@@ -36,9 +36,9 @@ import (
 //	}
 //
 // ```
-func GetApGroup(ctx *pulumi.Context, args *GetApGroupArgs, opts ...pulumi.InvokeOption) (*GetApGroupResult, error) {
+func LookupApGroup(ctx *pulumi.Context, args *LookupApGroupArgs, opts ...pulumi.InvokeOption) (*LookupApGroupResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
-	var rv GetApGroupResult
+	var rv LookupApGroupResult
 	err := ctx.Invoke("unifi:index/getApGroup:getApGroup", args, &rv, opts...)
 	if err != nil {
 		return nil, err
@@ -47,74 +47,74 @@ func GetApGroup(ctx *pulumi.Context, args *GetApGroupArgs, opts ...pulumi.Invoke
 }
 
 // A collection of arguments for invoking getApGroup.
-type GetApGroupArgs struct {
+type LookupApGroupArgs struct {
 	// The name of the AP group to look up, leave blank to look up the default AP group.
 	Name *string `pulumi:"name"`
-	// The name of the site the AP group is associated with.
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getApGroup.
-type GetApGroupResult struct {
-	// The ID of this AP group.
+type LookupApGroupResult struct {
+	// The unique identifier of this resource.
 	Id string `pulumi:"id"`
 	// The name of the AP group to look up, leave blank to look up the default AP group.
 	Name *string `pulumi:"name"`
-	// The name of the site the AP group is associated with.
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site string `pulumi:"site"`
 }
 
-func GetApGroupOutput(ctx *pulumi.Context, args GetApGroupOutputArgs, opts ...pulumi.InvokeOption) GetApGroupResultOutput {
+func LookupApGroupOutput(ctx *pulumi.Context, args LookupApGroupOutputArgs, opts ...pulumi.InvokeOption) LookupApGroupResultOutput {
 	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (GetApGroupResultOutput, error) {
-			args := v.(GetApGroupArgs)
+		ApplyT(func(v interface{}) (LookupApGroupResultOutput, error) {
+			args := v.(LookupApGroupArgs)
 			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("unifi:index/getApGroup:getApGroup", args, GetApGroupResultOutput{}, options).(GetApGroupResultOutput), nil
-		}).(GetApGroupResultOutput)
+			return ctx.InvokeOutput("unifi:index/getApGroup:getApGroup", args, LookupApGroupResultOutput{}, options).(LookupApGroupResultOutput), nil
+		}).(LookupApGroupResultOutput)
 }
 
 // A collection of arguments for invoking getApGroup.
-type GetApGroupOutputArgs struct {
+type LookupApGroupOutputArgs struct {
 	// The name of the AP group to look up, leave blank to look up the default AP group.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The name of the site the AP group is associated with.
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
-func (GetApGroupOutputArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetApGroupArgs)(nil)).Elem()
+func (LookupApGroupOutputArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupApGroupArgs)(nil)).Elem()
 }
 
 // A collection of values returned by getApGroup.
-type GetApGroupResultOutput struct{ *pulumi.OutputState }
+type LookupApGroupResultOutput struct{ *pulumi.OutputState }
 
-func (GetApGroupResultOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetApGroupResult)(nil)).Elem()
+func (LookupApGroupResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LookupApGroupResult)(nil)).Elem()
 }
 
-func (o GetApGroupResultOutput) ToGetApGroupResultOutput() GetApGroupResultOutput {
+func (o LookupApGroupResultOutput) ToLookupApGroupResultOutput() LookupApGroupResultOutput {
 	return o
 }
 
-func (o GetApGroupResultOutput) ToGetApGroupResultOutputWithContext(ctx context.Context) GetApGroupResultOutput {
+func (o LookupApGroupResultOutput) ToLookupApGroupResultOutputWithContext(ctx context.Context) LookupApGroupResultOutput {
 	return o
 }
 
-// The ID of this AP group.
-func (o GetApGroupResultOutput) Id() pulumi.StringOutput {
-	return o.ApplyT(func(v GetApGroupResult) string { return v.Id }).(pulumi.StringOutput)
+// The unique identifier of this resource.
+func (o LookupApGroupResultOutput) Id() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupApGroupResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
 // The name of the AP group to look up, leave blank to look up the default AP group.
-func (o GetApGroupResultOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetApGroupResult) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o LookupApGroupResultOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LookupApGroupResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// The name of the site the AP group is associated with.
-func (o GetApGroupResultOutput) Site() pulumi.StringOutput {
-	return o.ApplyT(func(v GetApGroupResult) string { return v.Site }).(pulumi.StringOutput)
+// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+func (o LookupApGroupResultOutput) Site() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupApGroupResult) string { return v.Site }).(pulumi.StringOutput)
 }
 
 func init() {
-	pulumi.RegisterOutputType(GetApGroupResultOutput{})
+	pulumi.RegisterOutputType(LookupApGroupResultOutput{})
 }

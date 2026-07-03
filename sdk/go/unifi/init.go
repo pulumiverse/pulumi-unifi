@@ -23,6 +23,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "unifi:index/account:Account":
 		r = &Account{}
+	case "unifi:index/apGroup:ApGroup":
+		r = &ApGroup{}
 	case "unifi:index/device:Device":
 		r = &Device{}
 	case "unifi:index/dynamicDNS:DynamicDNS":
@@ -71,6 +73,11 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"unifi",
 		"index/account",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"index/apGroup",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

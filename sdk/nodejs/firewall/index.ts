@@ -30,6 +30,11 @@ export type ZonePolicy = import("./zonePolicy").ZonePolicy;
 export const ZonePolicy: typeof import("./zonePolicy").ZonePolicy = null as any;
 utilities.lazyLoad(exports, ["ZonePolicy"], () => require("./zonePolicy"));
 
+export { ZonePolicyOrderArgs, ZonePolicyOrderState } from "./zonePolicyOrder";
+export type ZonePolicyOrder = import("./zonePolicyOrder").ZonePolicyOrder;
+export const ZonePolicyOrder: typeof import("./zonePolicyOrder").ZonePolicyOrder = null as any;
+utilities.lazyLoad(exports, ["ZonePolicyOrder"], () => require("./zonePolicyOrder"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -43,6 +48,8 @@ const _module = {
                 return new Zone(name, <any>undefined, { urn })
             case "unifi:firewall/zonePolicy:ZonePolicy":
                 return new ZonePolicy(name, <any>undefined, { urn })
+            case "unifi:firewall/zonePolicyOrder:ZonePolicyOrder":
+                return new ZonePolicyOrder(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
@@ -52,3 +59,4 @@ pulumi.runtime.registerResourceModule("unifi", "firewall/group", _module)
 pulumi.runtime.registerResourceModule("unifi", "firewall/rule", _module)
 pulumi.runtime.registerResourceModule("unifi", "firewall/zone", _module)
 pulumi.runtime.registerResourceModule("unifi", "firewall/zonePolicy", _module)
+pulumi.runtime.registerResourceModule("unifi", "firewall/zonePolicyOrder", _module)

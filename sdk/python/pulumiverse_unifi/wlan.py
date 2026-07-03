@@ -23,33 +23,35 @@ class WlanArgs:
     def __init__(__self__, *,
                  security: pulumi.Input[_builtins.str],
                  user_group_id: pulumi.Input[_builtins.str],
-                 ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 bss_transition: Optional[pulumi.Input[_builtins.bool]] = None,
-                 fast_roaming_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 hide_ssid: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_guest: Optional[pulumi.Input[_builtins.bool]] = None,
-                 l2_isolation: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mac_filter_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mac_filter_lists: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 mac_filter_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 minimum_data_rate2g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-                 minimum_data_rate5g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-                 multicast_enhance: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 no2ghz_oui: Optional[pulumi.Input[_builtins.bool]] = None,
-                 passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-                 pmf_mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 proxy_arp: Optional[pulumi.Input[_builtins.bool]] = None,
-                 radius_profile_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 schedules: Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 uapsd: Optional[pulumi.Input[_builtins.bool]] = None,
-                 wlan_band: Optional[pulumi.Input[_builtins.str]] = None,
-                 wpa3_support: Optional[pulumi.Input[_builtins.bool]] = None,
-                 wpa3_transition: Optional[pulumi.Input[_builtins.bool]] = None):
+                 ap_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 bss_transition: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fast_roaming_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 hide_ssid: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_guest: pulumi.Input[Optional[_builtins.bool]] = None,
+                 l2_isolation: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mac_filter_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mac_filter_lists: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 mac_filter_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 minimum_data_rate2g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+                 minimum_data_rate5g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+                 multicast_enhance: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 no2ghz_oui: pulumi.Input[Optional[_builtins.bool]] = None,
+                 passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+                 pmf_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 proxy_arp: pulumi.Input[Optional[_builtins.bool]] = None,
+                 radius_profile_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 schedules: pulumi.Input[Optional[Sequence[pulumi.Input['WlanScheduleArgs']]]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 uapsd: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wlan_band: pulumi.Input[Optional[_builtins.str]] = None,
+                 wlan_bands: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 wpa3_support: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wpa3_transition: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Wlan resource.
+
         :param pulumi.Input[_builtins.str] security: The security protocol for the wireless network. Valid values are:
                  * `wpapsk` - WPA Personal (PSK) with WPA2/WPA3 options
                  * `wpaeap` - WPA Enterprise (802.1x)
@@ -82,10 +84,13 @@ class WlanArgs:
         :param pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]] schedules: Time-based access control configuration for the wireless network. Allows automatic enabling/disabling of the network on specified schedules.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the wireless network should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.bool] uapsd: Enable Unscheduled Automatic Power Save Delivery to improve battery life for mobile devices.
-        :param pulumi.Input[_builtins.str] wlan_band: Radio band selection. Valid values:
-                 * `both` - Both 2.4GHz and 5GHz (default)
+        :param pulumi.Input[_builtins.str] wlan_band: Radio band selection (legacy single-band field). Valid values:
+                 * `both` - Both 2.4GHz and 5GHz
                  * `2g` - 2.4GHz only
                  * `5g` - 5GHz only
+               
+               Cannot express a 6GHz selection — use `wlan_bands` for that. When neither this nor `wlan_bands` is set, the controller's default (all supported bands) applies.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wlan_bands: Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlan_band` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlan_band` field is derived from it and `setting_preference` is forced to `manual`, matching UniFi UI behavior.
         :param pulumi.Input[_builtins.bool] wpa3_support: Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
         :param pulumi.Input[_builtins.bool] wpa3_transition: Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3_support` to be true.
         """
@@ -137,6 +142,8 @@ class WlanArgs:
             pulumi.set(__self__, "uapsd", uapsd)
         if wlan_band is not None:
             pulumi.set(__self__, "wlan_band", wlan_band)
+        if wlan_bands is not None:
+            pulumi.set(__self__, "wlan_bands", wlan_bands)
         if wpa3_support is not None:
             pulumi.set(__self__, "wpa3_support", wpa3_support)
         if wpa3_transition is not None:
@@ -171,103 +178,103 @@ class WlanArgs:
 
     @_builtins.property
     @pulumi.getter(name="apGroupIds")
-    def ap_group_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def ap_group_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         IDs of the AP groups that should broadcast this SSID. Used to control which access points broadcast this network.
         """
         return pulumi.get(self, "ap_group_ids")
 
     @ap_group_ids.setter
-    def ap_group_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def ap_group_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "ap_group_ids", value)
 
     @_builtins.property
     @pulumi.getter(name="bssTransition")
-    def bss_transition(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def bss_transition(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable BSS Transition Management to help clients roam between APs more efficiently.
         """
         return pulumi.get(self, "bss_transition")
 
     @bss_transition.setter
-    def bss_transition(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def bss_transition(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "bss_transition", value)
 
     @_builtins.property
     @pulumi.getter(name="fastRoamingEnabled")
-    def fast_roaming_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def fast_roaming_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable 802.11r Fast BSS Transition for seamless roaming between APs. Requires client device support.
         """
         return pulumi.get(self, "fast_roaming_enabled")
 
     @fast_roaming_enabled.setter
-    def fast_roaming_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def fast_roaming_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "fast_roaming_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="hideSsid")
-    def hide_ssid(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def hide_ssid(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When enabled, the access points will not broadcast the network name (SSID). Clients will need to manually enter the SSID to connect.
         """
         return pulumi.get(self, "hide_ssid")
 
     @hide_ssid.setter
-    def hide_ssid(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def hide_ssid(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "hide_ssid", value)
 
     @_builtins.property
     @pulumi.getter(name="isGuest")
-    def is_guest(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_guest(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Mark this as a guest network. Guest networks are isolated from other networks and can have special restrictions like captive portals.
         """
         return pulumi.get(self, "is_guest")
 
     @is_guest.setter
-    def is_guest(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_guest(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_guest", value)
 
     @_builtins.property
     @pulumi.getter(name="l2Isolation")
-    def l2_isolation(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def l2_isolation(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Isolates wireless clients from each other at layer 2 (ethernet) level. When enabled, devices on this WLAN cannot communicate directly with each other, improving security especially for guest networks or IoT devices. Each client can only communicate with the gateway/router.
         """
         return pulumi.get(self, "l2_isolation")
 
     @l2_isolation.setter
-    def l2_isolation(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def l2_isolation(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "l2_isolation", value)
 
     @_builtins.property
     @pulumi.getter(name="macFilterEnabled")
-    def mac_filter_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def mac_filter_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable MAC address filtering to control network access based on client MAC addresses. Works in conjunction with `mac_filter_list` and `mac_filter_policy`.
         """
         return pulumi.get(self, "mac_filter_enabled")
 
     @mac_filter_enabled.setter
-    def mac_filter_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def mac_filter_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "mac_filter_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="macFilterLists")
-    def mac_filter_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def mac_filter_lists(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of MAC addresses to filter in XX:XX:XX:XX:XX:XX format. Only applied when `mac_filter_enabled` is true. MAC addresses are case-insensitive.
         """
         return pulumi.get(self, "mac_filter_lists")
 
     @mac_filter_lists.setter
-    def mac_filter_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def mac_filter_lists(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "mac_filter_lists", value)
 
     @_builtins.property
     @pulumi.getter(name="macFilterPolicy")
-    def mac_filter_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mac_filter_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         MAC address filter policy. Valid values are:
           * `allow` - Only allow listed MAC addresses
@@ -276,96 +283,96 @@ class WlanArgs:
         return pulumi.get(self, "mac_filter_policy")
 
     @mac_filter_policy.setter
-    def mac_filter_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mac_filter_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mac_filter_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="minimumDataRate2gKbps")
-    def minimum_data_rate2g_kbps(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def minimum_data_rate2g_kbps(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimum data rate for 2.4GHz devices in Kbps. Use `0` to disable. Valid values: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`
         """
         return pulumi.get(self, "minimum_data_rate2g_kbps")
 
     @minimum_data_rate2g_kbps.setter
-    def minimum_data_rate2g_kbps(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def minimum_data_rate2g_kbps(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "minimum_data_rate2g_kbps", value)
 
     @_builtins.property
     @pulumi.getter(name="minimumDataRate5gKbps")
-    def minimum_data_rate5g_kbps(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def minimum_data_rate5g_kbps(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimum data rate for 5GHz devices in Kbps. Use `0` to disable. Valid values: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`
         """
         return pulumi.get(self, "minimum_data_rate5g_kbps")
 
     @minimum_data_rate5g_kbps.setter
-    def minimum_data_rate5g_kbps(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def minimum_data_rate5g_kbps(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "minimum_data_rate5g_kbps", value)
 
     @_builtins.property
     @pulumi.getter(name="multicastEnhance")
-    def multicast_enhance(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def multicast_enhance(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable multicast enhancement to convert multicast traffic to unicast for better reliability and performance, especially for applications like video streaming.
         """
         return pulumi.get(self, "multicast_enhance")
 
     @multicast_enhance.setter
-    def multicast_enhance(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def multicast_enhance(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "multicast_enhance", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The SSID (network name) that will be broadcast by the access points. Must be between 1 and 32 characters long.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="networkId")
-    def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the network (VLAN) for this SSID. Used to assign the WLAN to a specific network segment.
         """
         return pulumi.get(self, "network_id")
 
     @network_id.setter
-    def network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "network_id", value)
 
     @_builtins.property
     @pulumi.getter(name="no2ghzOui")
-    def no2ghz_oui(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def no2ghz_oui(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When enabled, devices from specific manufacturers (identified by their OUI - Organizationally Unique Identifier) will be prevented from connecting on 2.4GHz and forced to use 5GHz. This improves overall network performance by ensuring capable devices use the less congested 5GHz band. Common examples include newer smartphones and laptops.
         """
         return pulumi.get(self, "no2ghz_oui")
 
     @no2ghz_oui.setter
-    def no2ghz_oui(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def no2ghz_oui(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "no2ghz_oui", value)
 
     @_builtins.property
     @pulumi.getter
-    def passphrase(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def passphrase(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The WPA pre-shared key (password) for the network. Required when security is not set to `open`.
         """
         return pulumi.get(self, "passphrase")
 
     @passphrase.setter
-    def passphrase(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def passphrase(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "passphrase", value)
 
     @_builtins.property
     @pulumi.getter(name="pmfMode")
-    def pmf_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pmf_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Protected Management Frames (PMF) mode. It cannot be disabled if using WPA3. Valid values are:
           * `required` - All clients must support PMF (required for WPA3)
@@ -375,141 +382,157 @@ class WlanArgs:
         return pulumi.get(self, "pmf_mode")
 
     @pmf_mode.setter
-    def pmf_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pmf_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pmf_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="proxyArp")
-    def proxy_arp(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def proxy_arp(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable ARP proxy on this WLAN. When enabled, the UniFi controller will respond to ARP requests on behalf of clients, reducing broadcast traffic and potentially improving network performance. This is particularly useful in high-density wireless environments.
         """
         return pulumi.get(self, "proxy_arp")
 
     @proxy_arp.setter
-    def proxy_arp(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def proxy_arp(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "proxy_arp", value)
 
     @_builtins.property
     @pulumi.getter(name="radiusProfileId")
-    def radius_profile_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def radius_profile_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the RADIUS profile to use for WPA Enterprise authentication (when security is 'wpaeap'). Reference existing profiles using the `RadiusProfile` data source.
         """
         return pulumi.get(self, "radius_profile_id")
 
     @radius_profile_id.setter
-    def radius_profile_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def radius_profile_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "radius_profile_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def schedules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]]:
+    def schedules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['WlanScheduleArgs']]]]:
         """
         Time-based access control configuration for the wireless network. Allows automatic enabling/disabling of the network on specified schedules.
         """
         return pulumi.get(self, "schedules")
 
     @schedules.setter
-    def schedules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]]):
+    def schedules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['WlanScheduleArgs']]]]):
         pulumi.set(self, "schedules", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where the wireless network should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def uapsd(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def uapsd(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable Unscheduled Automatic Power Save Delivery to improve battery life for mobile devices.
         """
         return pulumi.get(self, "uapsd")
 
     @uapsd.setter
-    def uapsd(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def uapsd(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "uapsd", value)
 
     @_builtins.property
     @pulumi.getter(name="wlanBand")
-    def wlan_band(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wlan_band(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Radio band selection. Valid values:
-          * `both` - Both 2.4GHz and 5GHz (default)
+        Radio band selection (legacy single-band field). Valid values:
+          * `both` - Both 2.4GHz and 5GHz
           * `2g` - 2.4GHz only
           * `5g` - 5GHz only
+
+        Cannot express a 6GHz selection — use `wlan_bands` for that. When neither this nor `wlan_bands` is set, the controller's default (all supported bands) applies.
         """
         return pulumi.get(self, "wlan_band")
 
     @wlan_band.setter
-    def wlan_band(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wlan_band(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wlan_band", value)
 
     @_builtins.property
+    @pulumi.getter(name="wlanBands")
+    def wlan_bands(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlan_band` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlan_band` field is derived from it and `setting_preference` is forced to `manual`, matching UniFi UI behavior.
+        """
+        return pulumi.get(self, "wlan_bands")
+
+    @wlan_bands.setter
+    def wlan_bands(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "wlan_bands", value)
+
+    @_builtins.property
     @pulumi.getter(name="wpa3Support")
-    def wpa3_support(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def wpa3_support(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
         """
         return pulumi.get(self, "wpa3_support")
 
     @wpa3_support.setter
-    def wpa3_support(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def wpa3_support(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "wpa3_support", value)
 
     @_builtins.property
     @pulumi.getter(name="wpa3Transition")
-    def wpa3_transition(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def wpa3_transition(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3_support` to be true.
         """
         return pulumi.get(self, "wpa3_transition")
 
     @wpa3_transition.setter
-    def wpa3_transition(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def wpa3_transition(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "wpa3_transition", value)
 
 
 @pulumi.input_type
 class _WlanState:
     def __init__(__self__, *,
-                 ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 bss_transition: Optional[pulumi.Input[_builtins.bool]] = None,
-                 fast_roaming_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 hide_ssid: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_guest: Optional[pulumi.Input[_builtins.bool]] = None,
-                 l2_isolation: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mac_filter_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mac_filter_lists: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 mac_filter_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 minimum_data_rate2g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-                 minimum_data_rate5g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-                 multicast_enhance: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 no2ghz_oui: Optional[pulumi.Input[_builtins.bool]] = None,
-                 passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-                 pmf_mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 proxy_arp: Optional[pulumi.Input[_builtins.bool]] = None,
-                 radius_profile_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 schedules: Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]] = None,
-                 security: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 uapsd: Optional[pulumi.Input[_builtins.bool]] = None,
-                 user_group_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 wlan_band: Optional[pulumi.Input[_builtins.str]] = None,
-                 wpa3_support: Optional[pulumi.Input[_builtins.bool]] = None,
-                 wpa3_transition: Optional[pulumi.Input[_builtins.bool]] = None):
+                 ap_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 bss_transition: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fast_roaming_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 hide_ssid: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_guest: pulumi.Input[Optional[_builtins.bool]] = None,
+                 l2_isolation: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mac_filter_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mac_filter_lists: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 mac_filter_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 minimum_data_rate2g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+                 minimum_data_rate5g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+                 multicast_enhance: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 no2ghz_oui: pulumi.Input[Optional[_builtins.bool]] = None,
+                 passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+                 pmf_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 proxy_arp: pulumi.Input[Optional[_builtins.bool]] = None,
+                 radius_profile_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 schedules: pulumi.Input[Optional[Sequence[pulumi.Input['WlanScheduleArgs']]]] = None,
+                 security: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 uapsd: pulumi.Input[Optional[_builtins.bool]] = None,
+                 user_group_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 wlan_band: pulumi.Input[Optional[_builtins.str]] = None,
+                 wlan_bands: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 wpa3_support: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wpa3_transition: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering Wlan resources.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] ap_group_ids: IDs of the AP groups that should broadcast this SSID. Used to control which access points broadcast this network.
         :param pulumi.Input[_builtins.bool] bss_transition: Enable BSS Transition Management to help clients roam between APs more efficiently.
         :param pulumi.Input[_builtins.bool] fast_roaming_enabled: Enable 802.11r Fast BSS Transition for seamless roaming between APs. Requires client device support.
@@ -542,10 +565,13 @@ class _WlanState:
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the wireless network should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.bool] uapsd: Enable Unscheduled Automatic Power Save Delivery to improve battery life for mobile devices.
         :param pulumi.Input[_builtins.str] user_group_id: The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
-        :param pulumi.Input[_builtins.str] wlan_band: Radio band selection. Valid values:
-                 * `both` - Both 2.4GHz and 5GHz (default)
+        :param pulumi.Input[_builtins.str] wlan_band: Radio band selection (legacy single-band field). Valid values:
+                 * `both` - Both 2.4GHz and 5GHz
                  * `2g` - 2.4GHz only
                  * `5g` - 5GHz only
+               
+               Cannot express a 6GHz selection — use `wlan_bands` for that. When neither this nor `wlan_bands` is set, the controller's default (all supported bands) applies.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wlan_bands: Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlan_band` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlan_band` field is derived from it and `setting_preference` is forced to `manual`, matching UniFi UI behavior.
         :param pulumi.Input[_builtins.bool] wpa3_support: Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
         :param pulumi.Input[_builtins.bool] wpa3_transition: Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3_support` to be true.
         """
@@ -599,6 +625,8 @@ class _WlanState:
             pulumi.set(__self__, "user_group_id", user_group_id)
         if wlan_band is not None:
             pulumi.set(__self__, "wlan_band", wlan_band)
+        if wlan_bands is not None:
+            pulumi.set(__self__, "wlan_bands", wlan_bands)
         if wpa3_support is not None:
             pulumi.set(__self__, "wpa3_support", wpa3_support)
         if wpa3_transition is not None:
@@ -606,103 +634,103 @@ class _WlanState:
 
     @_builtins.property
     @pulumi.getter(name="apGroupIds")
-    def ap_group_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def ap_group_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         IDs of the AP groups that should broadcast this SSID. Used to control which access points broadcast this network.
         """
         return pulumi.get(self, "ap_group_ids")
 
     @ap_group_ids.setter
-    def ap_group_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def ap_group_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "ap_group_ids", value)
 
     @_builtins.property
     @pulumi.getter(name="bssTransition")
-    def bss_transition(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def bss_transition(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable BSS Transition Management to help clients roam between APs more efficiently.
         """
         return pulumi.get(self, "bss_transition")
 
     @bss_transition.setter
-    def bss_transition(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def bss_transition(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "bss_transition", value)
 
     @_builtins.property
     @pulumi.getter(name="fastRoamingEnabled")
-    def fast_roaming_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def fast_roaming_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable 802.11r Fast BSS Transition for seamless roaming between APs. Requires client device support.
         """
         return pulumi.get(self, "fast_roaming_enabled")
 
     @fast_roaming_enabled.setter
-    def fast_roaming_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def fast_roaming_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "fast_roaming_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="hideSsid")
-    def hide_ssid(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def hide_ssid(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When enabled, the access points will not broadcast the network name (SSID). Clients will need to manually enter the SSID to connect.
         """
         return pulumi.get(self, "hide_ssid")
 
     @hide_ssid.setter
-    def hide_ssid(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def hide_ssid(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "hide_ssid", value)
 
     @_builtins.property
     @pulumi.getter(name="isGuest")
-    def is_guest(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def is_guest(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Mark this as a guest network. Guest networks are isolated from other networks and can have special restrictions like captive portals.
         """
         return pulumi.get(self, "is_guest")
 
     @is_guest.setter
-    def is_guest(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def is_guest(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "is_guest", value)
 
     @_builtins.property
     @pulumi.getter(name="l2Isolation")
-    def l2_isolation(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def l2_isolation(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Isolates wireless clients from each other at layer 2 (ethernet) level. When enabled, devices on this WLAN cannot communicate directly with each other, improving security especially for guest networks or IoT devices. Each client can only communicate with the gateway/router.
         """
         return pulumi.get(self, "l2_isolation")
 
     @l2_isolation.setter
-    def l2_isolation(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def l2_isolation(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "l2_isolation", value)
 
     @_builtins.property
     @pulumi.getter(name="macFilterEnabled")
-    def mac_filter_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def mac_filter_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable MAC address filtering to control network access based on client MAC addresses. Works in conjunction with `mac_filter_list` and `mac_filter_policy`.
         """
         return pulumi.get(self, "mac_filter_enabled")
 
     @mac_filter_enabled.setter
-    def mac_filter_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def mac_filter_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "mac_filter_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="macFilterLists")
-    def mac_filter_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def mac_filter_lists(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of MAC addresses to filter in XX:XX:XX:XX:XX:XX format. Only applied when `mac_filter_enabled` is true. MAC addresses are case-insensitive.
         """
         return pulumi.get(self, "mac_filter_lists")
 
     @mac_filter_lists.setter
-    def mac_filter_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def mac_filter_lists(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "mac_filter_lists", value)
 
     @_builtins.property
     @pulumi.getter(name="macFilterPolicy")
-    def mac_filter_policy(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mac_filter_policy(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         MAC address filter policy. Valid values are:
           * `allow` - Only allow listed MAC addresses
@@ -711,96 +739,96 @@ class _WlanState:
         return pulumi.get(self, "mac_filter_policy")
 
     @mac_filter_policy.setter
-    def mac_filter_policy(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mac_filter_policy(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mac_filter_policy", value)
 
     @_builtins.property
     @pulumi.getter(name="minimumDataRate2gKbps")
-    def minimum_data_rate2g_kbps(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def minimum_data_rate2g_kbps(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimum data rate for 2.4GHz devices in Kbps. Use `0` to disable. Valid values: `1000`, `2000`, `5500`, `6000`, `9000`, `11000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`
         """
         return pulumi.get(self, "minimum_data_rate2g_kbps")
 
     @minimum_data_rate2g_kbps.setter
-    def minimum_data_rate2g_kbps(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def minimum_data_rate2g_kbps(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "minimum_data_rate2g_kbps", value)
 
     @_builtins.property
     @pulumi.getter(name="minimumDataRate5gKbps")
-    def minimum_data_rate5g_kbps(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def minimum_data_rate5g_kbps(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Minimum data rate for 5GHz devices in Kbps. Use `0` to disable. Valid values: `6000`, `9000`, `12000`, `18000`, `24000`, `36000`, `48000`,  and `54000`
         """
         return pulumi.get(self, "minimum_data_rate5g_kbps")
 
     @minimum_data_rate5g_kbps.setter
-    def minimum_data_rate5g_kbps(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def minimum_data_rate5g_kbps(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "minimum_data_rate5g_kbps", value)
 
     @_builtins.property
     @pulumi.getter(name="multicastEnhance")
-    def multicast_enhance(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def multicast_enhance(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable multicast enhancement to convert multicast traffic to unicast for better reliability and performance, especially for applications like video streaming.
         """
         return pulumi.get(self, "multicast_enhance")
 
     @multicast_enhance.setter
-    def multicast_enhance(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def multicast_enhance(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "multicast_enhance", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The SSID (network name) that will be broadcast by the access points. Must be between 1 and 32 characters long.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="networkId")
-    def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the network (VLAN) for this SSID. Used to assign the WLAN to a specific network segment.
         """
         return pulumi.get(self, "network_id")
 
     @network_id.setter
-    def network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "network_id", value)
 
     @_builtins.property
     @pulumi.getter(name="no2ghzOui")
-    def no2ghz_oui(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def no2ghz_oui(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When enabled, devices from specific manufacturers (identified by their OUI - Organizationally Unique Identifier) will be prevented from connecting on 2.4GHz and forced to use 5GHz. This improves overall network performance by ensuring capable devices use the less congested 5GHz band. Common examples include newer smartphones and laptops.
         """
         return pulumi.get(self, "no2ghz_oui")
 
     @no2ghz_oui.setter
-    def no2ghz_oui(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def no2ghz_oui(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "no2ghz_oui", value)
 
     @_builtins.property
     @pulumi.getter
-    def passphrase(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def passphrase(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The WPA pre-shared key (password) for the network. Required when security is not set to `open`.
         """
         return pulumi.get(self, "passphrase")
 
     @passphrase.setter
-    def passphrase(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def passphrase(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "passphrase", value)
 
     @_builtins.property
     @pulumi.getter(name="pmfMode")
-    def pmf_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def pmf_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Protected Management Frames (PMF) mode. It cannot be disabled if using WPA3. Valid values are:
           * `required` - All clients must support PMF (required for WPA3)
@@ -810,48 +838,48 @@ class _WlanState:
         return pulumi.get(self, "pmf_mode")
 
     @pmf_mode.setter
-    def pmf_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def pmf_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "pmf_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="proxyArp")
-    def proxy_arp(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def proxy_arp(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable ARP proxy on this WLAN. When enabled, the UniFi controller will respond to ARP requests on behalf of clients, reducing broadcast traffic and potentially improving network performance. This is particularly useful in high-density wireless environments.
         """
         return pulumi.get(self, "proxy_arp")
 
     @proxy_arp.setter
-    def proxy_arp(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def proxy_arp(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "proxy_arp", value)
 
     @_builtins.property
     @pulumi.getter(name="radiusProfileId")
-    def radius_profile_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def radius_profile_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         ID of the RADIUS profile to use for WPA Enterprise authentication (when security is 'wpaeap'). Reference existing profiles using the `RadiusProfile` data source.
         """
         return pulumi.get(self, "radius_profile_id")
 
     @radius_profile_id.setter
-    def radius_profile_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def radius_profile_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "radius_profile_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def schedules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]]:
+    def schedules(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['WlanScheduleArgs']]]]:
         """
         Time-based access control configuration for the wireless network. Allows automatic enabling/disabling of the network on specified schedules.
         """
         return pulumi.get(self, "schedules")
 
     @schedules.setter
-    def schedules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['WlanScheduleArgs']]]]):
+    def schedules(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['WlanScheduleArgs']]]]):
         pulumi.set(self, "schedules", value)
 
     @_builtins.property
     @pulumi.getter
-    def security(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def security(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The security protocol for the wireless network. Valid values are:
           * `wpapsk` - WPA Personal (PSK) with WPA2/WPA3 options
@@ -861,82 +889,96 @@ class _WlanState:
         return pulumi.get(self, "security")
 
     @security.setter
-    def security(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def security(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "security", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where the wireless network should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def uapsd(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def uapsd(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable Unscheduled Automatic Power Save Delivery to improve battery life for mobile devices.
         """
         return pulumi.get(self, "uapsd")
 
     @uapsd.setter
-    def uapsd(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def uapsd(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "uapsd", value)
 
     @_builtins.property
     @pulumi.getter(name="userGroupId")
-    def user_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def user_group_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
         """
         return pulumi.get(self, "user_group_id")
 
     @user_group_id.setter
-    def user_group_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def user_group_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "user_group_id", value)
 
     @_builtins.property
     @pulumi.getter(name="wlanBand")
-    def wlan_band(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def wlan_band(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
-        Radio band selection. Valid values:
-          * `both` - Both 2.4GHz and 5GHz (default)
+        Radio band selection (legacy single-band field). Valid values:
+          * `both` - Both 2.4GHz and 5GHz
           * `2g` - 2.4GHz only
           * `5g` - 5GHz only
+
+        Cannot express a 6GHz selection — use `wlan_bands` for that. When neither this nor `wlan_bands` is set, the controller's default (all supported bands) applies.
         """
         return pulumi.get(self, "wlan_band")
 
     @wlan_band.setter
-    def wlan_band(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def wlan_band(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "wlan_band", value)
 
     @_builtins.property
+    @pulumi.getter(name="wlanBands")
+    def wlan_bands(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+        """
+        Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlan_band` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlan_band` field is derived from it and `setting_preference` is forced to `manual`, matching UniFi UI behavior.
+        """
+        return pulumi.get(self, "wlan_bands")
+
+    @wlan_bands.setter
+    def wlan_bands(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+        pulumi.set(self, "wlan_bands", value)
+
+    @_builtins.property
     @pulumi.getter(name="wpa3Support")
-    def wpa3_support(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def wpa3_support(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
         """
         return pulumi.get(self, "wpa3_support")
 
     @wpa3_support.setter
-    def wpa3_support(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def wpa3_support(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "wpa3_support", value)
 
     @_builtins.property
     @pulumi.getter(name="wpa3Transition")
-    def wpa3_transition(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def wpa3_transition(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3_support` to be true.
         """
         return pulumi.get(self, "wpa3_transition")
 
     @wpa3_transition.setter
-    def wpa3_transition(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def wpa3_transition(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "wpa3_transition", value)
 
 
@@ -946,33 +988,34 @@ class Wlan(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 bss_transition: Optional[pulumi.Input[_builtins.bool]] = None,
-                 fast_roaming_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 hide_ssid: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_guest: Optional[pulumi.Input[_builtins.bool]] = None,
-                 l2_isolation: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mac_filter_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mac_filter_lists: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 mac_filter_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 minimum_data_rate2g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-                 minimum_data_rate5g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-                 multicast_enhance: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 no2ghz_oui: Optional[pulumi.Input[_builtins.bool]] = None,
-                 passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-                 pmf_mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 proxy_arp: Optional[pulumi.Input[_builtins.bool]] = None,
-                 radius_profile_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 schedules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
-                 security: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 uapsd: Optional[pulumi.Input[_builtins.bool]] = None,
-                 user_group_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 wlan_band: Optional[pulumi.Input[_builtins.str]] = None,
-                 wpa3_support: Optional[pulumi.Input[_builtins.bool]] = None,
-                 wpa3_transition: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ap_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 bss_transition: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fast_roaming_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 hide_ssid: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_guest: pulumi.Input[Optional[_builtins.bool]] = None,
+                 l2_isolation: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mac_filter_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mac_filter_lists: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 mac_filter_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 minimum_data_rate2g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+                 minimum_data_rate5g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+                 multicast_enhance: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 no2ghz_oui: pulumi.Input[Optional[_builtins.bool]] = None,
+                 passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+                 pmf_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 proxy_arp: pulumi.Input[Optional[_builtins.bool]] = None,
+                 radius_profile_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 schedules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
+                 security: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 uapsd: pulumi.Input[Optional[_builtins.bool]] = None,
+                 user_group_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 wlan_band: pulumi.Input[Optional[_builtins.str]] = None,
+                 wlan_bands: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 wpa3_support: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wpa3_transition: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         The `Wlan` resource manages wireless networks (SSIDs) on UniFi access points.
@@ -998,7 +1041,7 @@ class Wlan(pulumi.CustomResource):
             name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
-            vlan_id=vlan_id,
+            vlan_id=int(vlan_id),
             dhcp_start="10.0.0.6",
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
@@ -1016,6 +1059,8 @@ class Wlan(pulumi.CustomResource):
 
         ## Import
 
+        The `pulumi import` command can be used, for example:
+
         import from provider configured site
 
         ```sh
@@ -1027,6 +1072,7 @@ class Wlan(pulumi.CustomResource):
         ```sh
         $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1062,10 +1108,13 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the wireless network should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.bool] uapsd: Enable Unscheduled Automatic Power Save Delivery to improve battery life for mobile devices.
         :param pulumi.Input[_builtins.str] user_group_id: The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
-        :param pulumi.Input[_builtins.str] wlan_band: Radio band selection. Valid values:
-                 * `both` - Both 2.4GHz and 5GHz (default)
+        :param pulumi.Input[_builtins.str] wlan_band: Radio band selection (legacy single-band field). Valid values:
+                 * `both` - Both 2.4GHz and 5GHz
                  * `2g` - 2.4GHz only
                  * `5g` - 5GHz only
+               
+               Cannot express a 6GHz selection — use `wlan_bands` for that. When neither this nor `wlan_bands` is set, the controller's default (all supported bands) applies.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wlan_bands: Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlan_band` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlan_band` field is derived from it and `setting_preference` is forced to `manual`, matching UniFi UI behavior.
         :param pulumi.Input[_builtins.bool] wpa3_support: Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
         :param pulumi.Input[_builtins.bool] wpa3_transition: Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3_support` to be true.
         """
@@ -1099,7 +1148,7 @@ class Wlan(pulumi.CustomResource):
             name="wifi-vlan",
             purpose="corporate",
             subnet="10.0.0.1/24",
-            vlan_id=vlan_id,
+            vlan_id=int(vlan_id),
             dhcp_start="10.0.0.6",
             dhcp_stop="10.0.0.254",
             dhcp_enabled=True)
@@ -1117,6 +1166,8 @@ class Wlan(pulumi.CustomResource):
 
         ## Import
 
+        The `pulumi import` command can be used, for example:
+
         import from provider configured site
 
         ```sh
@@ -1128,6 +1179,7 @@ class Wlan(pulumi.CustomResource):
         ```sh
         $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
         ```
+
 
         :param str resource_name: The name of the resource.
         :param WlanArgs args: The arguments to use to populate this resource's properties.
@@ -1144,33 +1196,34 @@ class Wlan(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 bss_transition: Optional[pulumi.Input[_builtins.bool]] = None,
-                 fast_roaming_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 hide_ssid: Optional[pulumi.Input[_builtins.bool]] = None,
-                 is_guest: Optional[pulumi.Input[_builtins.bool]] = None,
-                 l2_isolation: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mac_filter_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 mac_filter_lists: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 mac_filter_policy: Optional[pulumi.Input[_builtins.str]] = None,
-                 minimum_data_rate2g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-                 minimum_data_rate5g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-                 multicast_enhance: Optional[pulumi.Input[_builtins.bool]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 no2ghz_oui: Optional[pulumi.Input[_builtins.bool]] = None,
-                 passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-                 pmf_mode: Optional[pulumi.Input[_builtins.str]] = None,
-                 proxy_arp: Optional[pulumi.Input[_builtins.bool]] = None,
-                 radius_profile_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 schedules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
-                 security: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 uapsd: Optional[pulumi.Input[_builtins.bool]] = None,
-                 user_group_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 wlan_band: Optional[pulumi.Input[_builtins.str]] = None,
-                 wpa3_support: Optional[pulumi.Input[_builtins.bool]] = None,
-                 wpa3_transition: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ap_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 bss_transition: pulumi.Input[Optional[_builtins.bool]] = None,
+                 fast_roaming_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 hide_ssid: pulumi.Input[Optional[_builtins.bool]] = None,
+                 is_guest: pulumi.Input[Optional[_builtins.bool]] = None,
+                 l2_isolation: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mac_filter_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 mac_filter_lists: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 mac_filter_policy: pulumi.Input[Optional[_builtins.str]] = None,
+                 minimum_data_rate2g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+                 minimum_data_rate5g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+                 multicast_enhance: pulumi.Input[Optional[_builtins.bool]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 no2ghz_oui: pulumi.Input[Optional[_builtins.bool]] = None,
+                 passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+                 pmf_mode: pulumi.Input[Optional[_builtins.str]] = None,
+                 proxy_arp: pulumi.Input[Optional[_builtins.bool]] = None,
+                 radius_profile_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 schedules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
+                 security: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 uapsd: pulumi.Input[Optional[_builtins.bool]] = None,
+                 user_group_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 wlan_band: pulumi.Input[Optional[_builtins.str]] = None,
+                 wlan_bands: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 wpa3_support: pulumi.Input[Optional[_builtins.bool]] = None,
+                 wpa3_transition: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1209,6 +1262,7 @@ class Wlan(pulumi.CustomResource):
                 raise TypeError("Missing required property 'user_group_id'")
             __props__.__dict__["user_group_id"] = user_group_id
             __props__.__dict__["wlan_band"] = wlan_band
+            __props__.__dict__["wlan_bands"] = wlan_bands
             __props__.__dict__["wpa3_support"] = wpa3_support
             __props__.__dict__["wpa3_transition"] = wpa3_transition
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["passphrase"])
@@ -1223,33 +1277,34 @@ class Wlan(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            ap_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            bss_transition: Optional[pulumi.Input[_builtins.bool]] = None,
-            fast_roaming_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            hide_ssid: Optional[pulumi.Input[_builtins.bool]] = None,
-            is_guest: Optional[pulumi.Input[_builtins.bool]] = None,
-            l2_isolation: Optional[pulumi.Input[_builtins.bool]] = None,
-            mac_filter_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            mac_filter_lists: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            mac_filter_policy: Optional[pulumi.Input[_builtins.str]] = None,
-            minimum_data_rate2g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-            minimum_data_rate5g_kbps: Optional[pulumi.Input[_builtins.int]] = None,
-            multicast_enhance: Optional[pulumi.Input[_builtins.bool]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            network_id: Optional[pulumi.Input[_builtins.str]] = None,
-            no2ghz_oui: Optional[pulumi.Input[_builtins.bool]] = None,
-            passphrase: Optional[pulumi.Input[_builtins.str]] = None,
-            pmf_mode: Optional[pulumi.Input[_builtins.str]] = None,
-            proxy_arp: Optional[pulumi.Input[_builtins.bool]] = None,
-            radius_profile_id: Optional[pulumi.Input[_builtins.str]] = None,
-            schedules: Optional[pulumi.Input[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
-            security: Optional[pulumi.Input[_builtins.str]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            uapsd: Optional[pulumi.Input[_builtins.bool]] = None,
-            user_group_id: Optional[pulumi.Input[_builtins.str]] = None,
-            wlan_band: Optional[pulumi.Input[_builtins.str]] = None,
-            wpa3_support: Optional[pulumi.Input[_builtins.bool]] = None,
-            wpa3_transition: Optional[pulumi.Input[_builtins.bool]] = None) -> 'Wlan':
+            ap_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            bss_transition: pulumi.Input[Optional[_builtins.bool]] = None,
+            fast_roaming_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            hide_ssid: pulumi.Input[Optional[_builtins.bool]] = None,
+            is_guest: pulumi.Input[Optional[_builtins.bool]] = None,
+            l2_isolation: pulumi.Input[Optional[_builtins.bool]] = None,
+            mac_filter_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            mac_filter_lists: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            mac_filter_policy: pulumi.Input[Optional[_builtins.str]] = None,
+            minimum_data_rate2g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+            minimum_data_rate5g_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+            multicast_enhance: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            network_id: pulumi.Input[Optional[_builtins.str]] = None,
+            no2ghz_oui: pulumi.Input[Optional[_builtins.bool]] = None,
+            passphrase: pulumi.Input[Optional[_builtins.str]] = None,
+            pmf_mode: pulumi.Input[Optional[_builtins.str]] = None,
+            proxy_arp: pulumi.Input[Optional[_builtins.bool]] = None,
+            radius_profile_id: pulumi.Input[Optional[_builtins.str]] = None,
+            schedules: pulumi.Input[Optional[Sequence[pulumi.Input[Union['WlanScheduleArgs', 'WlanScheduleArgsDict']]]]] = None,
+            security: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            uapsd: pulumi.Input[Optional[_builtins.bool]] = None,
+            user_group_id: pulumi.Input[Optional[_builtins.str]] = None,
+            wlan_band: pulumi.Input[Optional[_builtins.str]] = None,
+            wlan_bands: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            wpa3_support: pulumi.Input[Optional[_builtins.bool]] = None,
+            wpa3_transition: pulumi.Input[Optional[_builtins.bool]] = None) -> 'Wlan':
         """
         Get an existing Wlan resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1289,10 +1344,13 @@ class Wlan(pulumi.CustomResource):
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the wireless network should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.bool] uapsd: Enable Unscheduled Automatic Power Save Delivery to improve battery life for mobile devices.
         :param pulumi.Input[_builtins.str] user_group_id: The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
-        :param pulumi.Input[_builtins.str] wlan_band: Radio band selection. Valid values:
-                 * `both` - Both 2.4GHz and 5GHz (default)
+        :param pulumi.Input[_builtins.str] wlan_band: Radio band selection (legacy single-band field). Valid values:
+                 * `both` - Both 2.4GHz and 5GHz
                  * `2g` - 2.4GHz only
                  * `5g` - 5GHz only
+               
+               Cannot express a 6GHz selection — use `wlan_bands` for that. When neither this nor `wlan_bands` is set, the controller's default (all supported bands) applies.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] wlan_bands: Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlan_band` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlan_band` field is derived from it and `setting_preference` is forced to `manual`, matching UniFi UI behavior.
         :param pulumi.Input[_builtins.bool] wpa3_support: Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
         :param pulumi.Input[_builtins.bool] wpa3_transition: Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3_support` to be true.
         """
@@ -1325,6 +1383,7 @@ class Wlan(pulumi.CustomResource):
         __props__.__dict__["uapsd"] = uapsd
         __props__.__dict__["user_group_id"] = user_group_id
         __props__.__dict__["wlan_band"] = wlan_band
+        __props__.__dict__["wlan_bands"] = wlan_bands
         __props__.__dict__["wpa3_support"] = wpa3_support
         __props__.__dict__["wpa3_transition"] = wpa3_transition
         return Wlan(resource_name, opts=opts, __props__=__props__)
@@ -1531,14 +1590,24 @@ class Wlan(pulumi.CustomResource):
 
     @_builtins.property
     @pulumi.getter(name="wlanBand")
-    def wlan_band(self) -> pulumi.Output[Optional[_builtins.str]]:
+    def wlan_band(self) -> pulumi.Output[_builtins.str]:
         """
-        Radio band selection. Valid values:
-          * `both` - Both 2.4GHz and 5GHz (default)
+        Radio band selection (legacy single-band field). Valid values:
+          * `both` - Both 2.4GHz and 5GHz
           * `2g` - 2.4GHz only
           * `5g` - 5GHz only
+
+        Cannot express a 6GHz selection — use `wlan_bands` for that. When neither this nor `wlan_bands` is set, the controller's default (all supported bands) applies.
         """
         return pulumi.get(self, "wlan_band")
+
+    @_builtins.property
+    @pulumi.getter(name="wlanBands")
+    def wlan_bands(self) -> pulumi.Output[Sequence[_builtins.str]]:
+        """
+        Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlan_band` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlan_band` field is derived from it and `setting_preference` is forced to `manual`, matching UniFi UI behavior.
+        """
+        return pulumi.get(self, "wlan_bands")
 
     @_builtins.property
     @pulumi.getter(name="wpa3Support")

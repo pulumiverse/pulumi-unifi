@@ -23,6 +23,30 @@ namespace Pulumiverse.Unifi.Inputs
         [Input("aggregateNumPorts")]
         public Input<int>? AggregateNumPorts { get; set; }
 
+        [Input("excludedNetworkIds")]
+        private InputList<string>? _excludedNetworkIds;
+
+        /// <summary>
+        /// Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
+        /// </summary>
+        public InputList<string> ExcludedNetworkIds
+        {
+            get => _excludedNetworkIds ?? (_excludedNetworkIds = new InputList<string>());
+            set => _excludedNetworkIds = value;
+        }
+
+        /// <summary>
+        /// VLAN forwarding mode for the port. Valid values are:
+        ///   * `All` - Forward all VLANs (trunk port)
+        ///   * `Native` - Only forward untagged traffic (access port)
+        ///   * `Customize` - Forward selected VLANs (use with `ExcludedNetworkIds`)
+        ///   * `Disabled` - Disable VLAN forwarding
+        /// 
+        /// This attribute has NO default: leaving it unset keeps the port's existing forwarding behavior (the value is computed from the controller). Note: the underlying field uses `Omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+        /// </summary>
+        [Input("forward")]
+        public Input<string>? Forward { get; set; }
+
         /// <summary>
         /// A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
         ///   * 'Uplink to Core Switch'
@@ -32,6 +56,17 @@ namespace Pulumiverse.Unifi.Inputs
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
+
+        /// <summary>
+        /// The ID of the network to use as the native (untagged) network on this port. This is typically used for:
+        /// * Access ports where devices need untagged access
+        /// * Trunk ports to specify the native VLAN
+        /// * Management networks for network devices
+        /// 
+        /// Computed when not set, so the controller's current value (which it may auto-populate on a port) is preserved without producing a diff. Note: the underlying field uses `Omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+        /// </summary>
+        [Input("nativeNetworkconfId")]
+        public Input<string>? NativeNetworkconfId { get; set; }
 
         /// <summary>
         /// The physical port number on the switch to configure.
@@ -77,6 +112,31 @@ namespace Pulumiverse.Unifi.Inputs
         /// </summary>
         [Input("portProfileId")]
         public Input<string>? PortProfileId { get; set; }
+
+        /// <summary>
+        /// Whether the port's settings are taken from a profile (`Auto`) or set per-port (`Manual`). Valid values are `Auto` and `Manual`. Per-port VLAN overrides (`NativeNetworkconfId`, `TaggedVlanMgmt`, `Forward`, `ExcludedNetworkIds`) generally require `SettingPreference = "manual"` to persist on the controller; with `Auto` the controller may revert inline overrides to profile/auto behavior. Setting this to `Manual` also overrides any `PortProfileId` on the same port. Computed when not set, so the value the controller attaches to the port is preserved without producing a diff.
+        /// </summary>
+        [Input("settingPreference")]
+        public Input<string>? SettingPreference { get; set; }
+
+        /// <summary>
+        /// VLAN tagging behavior for the port. Valid values are:
+        /// * `Auto` - Automatically handle VLAN tags (recommended)
+        /// * `BlockAll` - Block all VLAN tagged traffic
+        /// * `Custom` - Custom VLAN configuration (use with `forward = "customize"` and `ExcludedNetworkIds`)
+        /// 
+        /// Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `Omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+        /// </summary>
+        [Input("taggedVlanMgmt")]
+        public Input<string>? TaggedVlanMgmt { get; set; }
+
+        /// <summary>
+        /// The ID of the network to use for Voice over IP (VoIP) traffic on this port, for automatic voice-VLAN assignment in conjunction with LLDP-MED.
+        /// 
+        /// Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `Omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+        /// </summary>
+        [Input("voiceNetworkconfId")]
+        public Input<string>? VoiceNetworkconfId { get; set; }
 
         public DevicePortOverrideGetArgs()
         {

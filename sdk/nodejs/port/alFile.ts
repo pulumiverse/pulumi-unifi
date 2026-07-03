@@ -126,35 +126,35 @@ export interface AlFileState {
     /**
      * MIME type of the file.
      */
-    contentType?: pulumi.Input<string>;
+    contentType?: pulumi.Input<string | undefined>;
     /**
      * Path to the file on the local filesystem to upload to the UniFi controller. The file must exist and be readable.
      */
-    filePath?: pulumi.Input<string>;
+    filePath?: pulumi.Input<string | undefined>;
     /**
      * Size of the file in bytes.
      */
-    fileSize?: pulumi.Input<number>;
+    fileSize?: pulumi.Input<number | undefined>;
     /**
      * Name of the file as stored in the UniFi controller.
      */
-    filename?: pulumi.Input<string>;
+    filename?: pulumi.Input<string | undefined>;
     /**
      * Timestamp when the file was last modified.
      */
-    lastModified?: pulumi.Input<number>;
+    lastModified?: pulumi.Input<number | undefined>;
     /**
      * MD5 hash of the file content.
      */
-    md5?: pulumi.Input<string>;
+    md5?: pulumi.Input<string | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * URL where the file can be accessed on the UniFi controller.
      */
-    url?: pulumi.Input<string>;
+    url?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -168,5 +168,5 @@ export interface AlFileArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

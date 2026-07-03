@@ -66,9 +66,9 @@ export interface GetRadiusProfileOutputArgs {
     /**
      * The name of the RADIUS profile to look up. Defaults to `Default`.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The name of the site the RADIUS profile is associated with.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

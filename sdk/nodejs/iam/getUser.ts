@@ -130,5 +130,5 @@ export interface GetUserOutputArgs {
     /**
      * The name of the site the user is associated with.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

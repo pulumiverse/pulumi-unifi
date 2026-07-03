@@ -26,7 +26,7 @@ import * as utilities from "./utilities";
  *     name: "poe",
  *     forward: "customize",
  *     nativeNetworkconfId: nativeNetworkId,
- *     taggedNetworkconfIds: [someVlanNetworkId],
+ *     excludedNetworkIds: [someVlanNetworkId],
  *     poeMode: "auto",
  * });
  * const us24Poe = new unifi.Device("us_24_poe", {
@@ -42,6 +42,21 @@ import * as utilities from "./utilities";
  *             number: 2,
  *             name: "disabled",
  *             portProfileId: disabled.then(disabled => disabled.id),
+ *         },
+ *         {
+ *             number: 3,
+ *             name: "access vlan",
+ *             forward: "customize",
+ *             nativeNetworkconfId: nativeNetworkId,
+ *             settingPreference: "manual",
+ *         },
+ *         {
+ *             number: 4,
+ *             name: "trunk except guest",
+ *             forward: "customize",
+ *             taggedVlanMgmt: "custom",
+ *             excludedNetworkIds: [someVlanNetworkId],
+ *             settingPreference: "manual",
  *         },
  *         {
  *             number: 11,
@@ -93,6 +108,10 @@ export class Device extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly disabled: pulumi.Output<boolean>;
     /**
+     * Etherlighting configuration for switches with per-port LEDs (e.g. USW Pro Max). `mode = "network"` colors each port's LED by the VLAN/network it serves (per-network colors come from the site-level Etherlighting palette); `mode = "speed"` colors by link speed. Only the fields you set are written — unset fields keep their controller-side values (read-modify-write overlay). Devices without Etherlighting hardware ignore this object.
+     */
+    declare public readonly etherLighting: pulumi.Output<outputs.DeviceEtherLighting | undefined>;
+    /**
      * Whether to forget (un-adopt) the device when this resource is destroyed. When true:
      * * The device will be removed from the controller
      * * The device will need to be readopted to be managed again
@@ -116,6 +135,7 @@ export class Device extends pulumi.CustomResource {
      * A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
      *   * Port names and labels for easy identification
      *   * Port profiles for VLAN and security settings
+     *   * Per-port native (untagged) and tagged VLAN behavior, inline, without authoring a `unifi.port.Profile`
      *   * Operating modes for special functions
      *
      * Common use cases include:
@@ -123,12 +143,26 @@ export class Device extends pulumi.CustomResource {
      *   * Configuring PoE settings for powered devices
      *   * Creating mirrored ports for network monitoring
      *   * Setting up link aggregation between switches or servers
+     *
+     * **Warning:** the controller stores port overrides as a single array on the device and the provider replaces the entire array on every apply. Any port whose override is set outside Terraform (e.g. via the UniFi UI or another tool) and is NOT declared here will have its override reset to the controller default on the next apply. Declare every port you want overridden.
+     *
+     * **Tagged-VLAN model:** there is no positive "allowed VLANs" list. With `forward = "customize"`, tagged traffic is *all* networks **minus** the ones listed in `excludedNetworkIds`, so an empty `excludedNetworkIds` means "trunk everything", not "trunk nothing".
      */
     declare public readonly portOverrides: pulumi.Output<outputs.DevicePortOverride[] | undefined>;
+    /**
+     * Per-band radio configuration for access points. Each block configures ONE band (`ng` = 2.4GHz, `na` = 5GHz, `6e` = 6GHz). Only the bands you declare are managed — undeclared bands are left untouched (the provider read-modify-writes the device's full radio table to preserve them, so declaring just one band will not wipe the others). Common uses: disable a band (`txPowerMode = "disabled"`), pin a channel/width, or set a minimum-RSSI client kick. Applies to access points; has no effect on switches.
+     *
+     * Note: like other device fields, only non-zero values are written, so a field cannot be set back to its zero value through Terraform — manage by overriding with explicit non-zero values.
+     */
+    declare public readonly radios: pulumi.Output<outputs.DeviceRadio[] | undefined>;
     /**
      * The name of the UniFi site where the device is located. If not specified, the default site will be used.
      */
     declare public readonly site: pulumi.Output<string>;
+    /**
+     * Whether per-port VLAN configuration is enabled on the device. Required for `portOverride` blocks with VLAN-tagging profiles (e.g. an IoT-VLAN `portProfileId`) to actually take effect on access points that expose passthrough Ethernet ports (UAP-UHDIW and similar in-wall units). Switches honor port profile VLAN bindings unconditionally; APs ignore them unless this flag is true. Note: the underlying field uses `omitempty` so setting this to `false` has no effect — once enabled on a device, it can only be disabled via the UI.
+     */
+    declare public readonly switchVlanEnabled: pulumi.Output<boolean>;
 
     /**
      * Create a Device resource with the given unique name, arguments, and options.
@@ -145,19 +179,25 @@ export class Device extends pulumi.CustomResource {
             const state = argsOrState as DeviceState | undefined;
             resourceInputs["allowAdoption"] = state?.allowAdoption;
             resourceInputs["disabled"] = state?.disabled;
+            resourceInputs["etherLighting"] = state?.etherLighting;
             resourceInputs["forgetOnDestroy"] = state?.forgetOnDestroy;
             resourceInputs["mac"] = state?.mac;
             resourceInputs["name"] = state?.name;
             resourceInputs["portOverrides"] = state?.portOverrides;
+            resourceInputs["radios"] = state?.radios;
             resourceInputs["site"] = state?.site;
+            resourceInputs["switchVlanEnabled"] = state?.switchVlanEnabled;
         } else {
             const args = argsOrState as DeviceArgs | undefined;
             resourceInputs["allowAdoption"] = args?.allowAdoption;
+            resourceInputs["etherLighting"] = args?.etherLighting;
             resourceInputs["forgetOnDestroy"] = args?.forgetOnDestroy;
             resourceInputs["mac"] = args?.mac;
             resourceInputs["name"] = args?.name;
             resourceInputs["portOverrides"] = args?.portOverrides;
+            resourceInputs["radios"] = args?.radios;
             resourceInputs["site"] = args?.site;
+            resourceInputs["switchVlanEnabled"] = args?.switchVlanEnabled;
             resourceInputs["disabled"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -176,11 +216,15 @@ export interface DeviceState {
      * * Device must be accessible on the network
      * Set to false if you want to manage adoption manually.
      */
-    allowAdoption?: pulumi.Input<boolean>;
+    allowAdoption?: pulumi.Input<boolean | undefined>;
     /**
      * Whether the device is administratively disabled. When true, the device will not forward traffic or provide services.
      */
-    disabled?: pulumi.Input<boolean>;
+    disabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * Etherlighting configuration for switches with per-port LEDs (e.g. USW Pro Max). `mode = "network"` colors each port's LED by the VLAN/network it serves (per-network colors come from the site-level Etherlighting palette); `mode = "speed"` colors by link speed. Only the fields you set are written — unset fields keep their controller-side values (read-modify-write overlay). Devices without Etherlighting hardware ignore this object.
+     */
+    etherLighting?: pulumi.Input<inputs.DeviceEtherLighting | undefined>;
     /**
      * Whether to forget (un-adopt) the device when this resource is destroyed. When true:
      * * The device will be removed from the controller
@@ -188,11 +232,11 @@ export interface DeviceState {
      * * Device configuration will be reset
      * Set to false to keep the device adopted when removing from Terraform management.
      */
-    forgetOnDestroy?: pulumi.Input<boolean>;
+    forgetOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
      * The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
      */
-    mac?: pulumi.Input<string>;
+    mac?: pulumi.Input<string | undefined>;
     /**
      * A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
      * * 'Office-AP-1' for an access point
@@ -200,11 +244,12 @@ export interface DeviceState {
      * * 'Main-Gateway' for a gateway
      * Choose descriptive names that indicate location and purpose.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
      *   * Port names and labels for easy identification
      *   * Port profiles for VLAN and security settings
+     *   * Per-port native (untagged) and tagged VLAN behavior, inline, without authoring a `unifi.port.Profile`
      *   * Operating modes for special functions
      *
      * Common use cases include:
@@ -212,12 +257,26 @@ export interface DeviceState {
      *   * Configuring PoE settings for powered devices
      *   * Creating mirrored ports for network monitoring
      *   * Setting up link aggregation between switches or servers
+     *
+     * **Warning:** the controller stores port overrides as a single array on the device and the provider replaces the entire array on every apply. Any port whose override is set outside Terraform (e.g. via the UniFi UI or another tool) and is NOT declared here will have its override reset to the controller default on the next apply. Declare every port you want overridden.
+     *
+     * **Tagged-VLAN model:** there is no positive "allowed VLANs" list. With `forward = "customize"`, tagged traffic is *all* networks **minus** the ones listed in `excludedNetworkIds`, so an empty `excludedNetworkIds` means "trunk everything", not "trunk nothing".
      */
-    portOverrides?: pulumi.Input<pulumi.Input<inputs.DevicePortOverride>[]>;
+    portOverrides?: pulumi.Input<pulumi.Input<inputs.DevicePortOverride>[] | undefined>;
+    /**
+     * Per-band radio configuration for access points. Each block configures ONE band (`ng` = 2.4GHz, `na` = 5GHz, `6e` = 6GHz). Only the bands you declare are managed — undeclared bands are left untouched (the provider read-modify-writes the device's full radio table to preserve them, so declaring just one band will not wipe the others). Common uses: disable a band (`txPowerMode = "disabled"`), pin a channel/width, or set a minimum-RSSI client kick. Applies to access points; has no effect on switches.
+     *
+     * Note: like other device fields, only non-zero values are written, so a field cannot be set back to its zero value through Terraform — manage by overriding with explicit non-zero values.
+     */
+    radios?: pulumi.Input<pulumi.Input<inputs.DeviceRadio>[] | undefined>;
     /**
      * The name of the UniFi site where the device is located. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
+    /**
+     * Whether per-port VLAN configuration is enabled on the device. Required for `portOverride` blocks with VLAN-tagging profiles (e.g. an IoT-VLAN `portProfileId`) to actually take effect on access points that expose passthrough Ethernet ports (UAP-UHDIW and similar in-wall units). Switches honor port profile VLAN bindings unconditionally; APs ignore them unless this flag is true. Note: the underlying field uses `omitempty` so setting this to `false` has no effect — once enabled on a device, it can only be disabled via the UI.
+     */
+    switchVlanEnabled?: pulumi.Input<boolean | undefined>;
 }
 
 /**
@@ -231,7 +290,11 @@ export interface DeviceArgs {
      * * Device must be accessible on the network
      * Set to false if you want to manage adoption manually.
      */
-    allowAdoption?: pulumi.Input<boolean>;
+    allowAdoption?: pulumi.Input<boolean | undefined>;
+    /**
+     * Etherlighting configuration for switches with per-port LEDs (e.g. USW Pro Max). `mode = "network"` colors each port's LED by the VLAN/network it serves (per-network colors come from the site-level Etherlighting palette); `mode = "speed"` colors by link speed. Only the fields you set are written — unset fields keep their controller-side values (read-modify-write overlay). Devices without Etherlighting hardware ignore this object.
+     */
+    etherLighting?: pulumi.Input<inputs.DeviceEtherLighting | undefined>;
     /**
      * Whether to forget (un-adopt) the device when this resource is destroyed. When true:
      * * The device will be removed from the controller
@@ -239,11 +302,11 @@ export interface DeviceArgs {
      * * Device configuration will be reset
      * Set to false to keep the device adopted when removing from Terraform management.
      */
-    forgetOnDestroy?: pulumi.Input<boolean>;
+    forgetOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
      * The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
      */
-    mac?: pulumi.Input<string>;
+    mac?: pulumi.Input<string | undefined>;
     /**
      * A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
      * * 'Office-AP-1' for an access point
@@ -251,11 +314,12 @@ export interface DeviceArgs {
      * * 'Main-Gateway' for a gateway
      * Choose descriptive names that indicate location and purpose.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
      *   * Port names and labels for easy identification
      *   * Port profiles for VLAN and security settings
+     *   * Per-port native (untagged) and tagged VLAN behavior, inline, without authoring a `unifi.port.Profile`
      *   * Operating modes for special functions
      *
      * Common use cases include:
@@ -263,10 +327,24 @@ export interface DeviceArgs {
      *   * Configuring PoE settings for powered devices
      *   * Creating mirrored ports for network monitoring
      *   * Setting up link aggregation between switches or servers
+     *
+     * **Warning:** the controller stores port overrides as a single array on the device and the provider replaces the entire array on every apply. Any port whose override is set outside Terraform (e.g. via the UniFi UI or another tool) and is NOT declared here will have its override reset to the controller default on the next apply. Declare every port you want overridden.
+     *
+     * **Tagged-VLAN model:** there is no positive "allowed VLANs" list. With `forward = "customize"`, tagged traffic is *all* networks **minus** the ones listed in `excludedNetworkIds`, so an empty `excludedNetworkIds` means "trunk everything", not "trunk nothing".
      */
-    portOverrides?: pulumi.Input<pulumi.Input<inputs.DevicePortOverride>[]>;
+    portOverrides?: pulumi.Input<pulumi.Input<inputs.DevicePortOverride>[] | undefined>;
+    /**
+     * Per-band radio configuration for access points. Each block configures ONE band (`ng` = 2.4GHz, `na` = 5GHz, `6e` = 6GHz). Only the bands you declare are managed — undeclared bands are left untouched (the provider read-modify-writes the device's full radio table to preserve them, so declaring just one band will not wipe the others). Common uses: disable a band (`txPowerMode = "disabled"`), pin a channel/width, or set a minimum-RSSI client kick. Applies to access points; has no effect on switches.
+     *
+     * Note: like other device fields, only non-zero values are written, so a field cannot be set back to its zero value through Terraform — manage by overriding with explicit non-zero values.
+     */
+    radios?: pulumi.Input<pulumi.Input<inputs.DeviceRadio>[] | undefined>;
     /**
      * The name of the UniFi site where the device is located. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
+    /**
+     * Whether per-port VLAN configuration is enabled on the device. Required for `portOverride` blocks with VLAN-tagging profiles (e.g. an IoT-VLAN `portProfileId`) to actually take effect on access points that expose passthrough Ethernet ports (UAP-UHDIW and similar in-wall units). Switches honor port profile VLAN bindings unconditionally; APs ignore them unless this flag is true. Note: the underlying field uses `omitempty` so setting this to `false` has no effect — once enabled on a device, it can only be disabled via the UI.
+     */
+    switchVlanEnabled?: pulumi.Input<boolean | undefined>;
 }

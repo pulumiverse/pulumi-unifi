@@ -37,7 +37,7 @@ namespace Pulumiverse.Unifi
     ///         Name = "poe",
     ///         Forward = "customize",
     ///         NativeNetworkconfId = nativeNetworkId,
-    ///         TaggedNetworkconfIds = new[]
+    ///         ExcludedNetworkIds = new[]
     ///         {
     ///             someVlanNetworkId,
     ///         },
@@ -61,6 +61,26 @@ namespace Pulumiverse.Unifi
     ///                 Number = 2,
     ///                 Name = "disabled",
     ///                 PortProfileId = disabled.Apply(getProfileResult =&gt; getProfileResult.Id),
+    ///             },
+    ///             new Unifi.Inputs.DevicePortOverrideArgs
+    ///             {
+    ///                 Number = 3,
+    ///                 Name = "access vlan",
+    ///                 Forward = "customize",
+    ///                 NativeNetworkconfId = nativeNetworkId,
+    ///                 SettingPreference = "manual",
+    ///             },
+    ///             new Unifi.Inputs.DevicePortOverrideArgs
+    ///             {
+    ///                 Number = 4,
+    ///                 Name = "trunk except guest",
+    ///                 Forward = "customize",
+    ///                 TaggedVlanMgmt = "custom",
+    ///                 ExcludedNetworkIds = new[]
+    ///                 {
+    ///                     someVlanNetworkId,
+    ///                 },
+    ///                 SettingPreference = "manual",
     ///             },
     ///             new Unifi.Inputs.DevicePortOverrideArgs
     ///             {
@@ -94,6 +114,12 @@ namespace Pulumiverse.Unifi
         public Output<bool> Disabled { get; private set; } = null!;
 
         /// <summary>
+        /// Etherlighting configuration for switches with per-port LEDs (e.g. USW Pro Max). `mode = "network"` colors each port's LED by the VLAN/network it serves (per-network colors come from the site-level Etherlighting palette); `mode = "speed"` colors by link speed. Only the fields you set are written — unset fields keep their controller-side values (read-modify-write overlay). Devices without Etherlighting hardware ignore this object.
+        /// </summary>
+        [Output("etherLighting")]
+        public Output<Outputs.DeviceEtherLighting?> EtherLighting { get; private set; } = null!;
+
+        /// <summary>
         /// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
         /// * The device will be removed from the controller
         /// * The device will need to be readopted to be managed again
@@ -123,6 +149,7 @@ namespace Pulumiverse.Unifi
         /// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
         ///   * Port names and labels for easy identification
         ///   * Port profiles for VLAN and security settings
+        ///   * Per-port native (untagged) and tagged VLAN behavior, inline, without authoring a `unifi.port.Profile`
         ///   * Operating modes for special functions
         /// 
         /// Common use cases include:
@@ -130,15 +157,33 @@ namespace Pulumiverse.Unifi
         ///   * Configuring PoE settings for powered devices
         ///   * Creating mirrored ports for network monitoring
         ///   * Setting up link aggregation between switches or servers
+        /// 
+        /// **Warning:** the controller stores port overrides as a single array on the device and the provider replaces the entire array on every apply. Any port whose override is set outside Terraform (e.g. via the UniFi UI or another tool) and is NOT declared here will have its override reset to the controller default on the next apply. Declare every port you want overridden.
+        /// 
+        /// **Tagged-VLAN model:** there is no positive "allowed VLANs" list. With `forward = "customize"`, tagged traffic is *all* networks **minus** the ones listed in `ExcludedNetworkIds`, so an empty `ExcludedNetworkIds` means "trunk everything", not "trunk nothing".
         /// </summary>
         [Output("portOverrides")]
         public Output<ImmutableArray<Outputs.DevicePortOverride>> PortOverrides { get; private set; } = null!;
+
+        /// <summary>
+        /// Per-band radio configuration for access points. Each block configures ONE band (`Ng` = 2.4GHz, `Na` = 5GHz, `6e` = 6GHz). Only the bands you declare are managed — undeclared bands are left untouched (the provider read-modify-writes the device's full radio table to preserve them, so declaring just one band will not wipe the others). Common uses: disable a band (`TxPowerMode = "disabled"`), pin a channel/width, or set a minimum-RSSI client kick. Applies to access points; has no effect on switches.
+        /// 
+        /// Note: like other device fields, only non-zero values are written, so a field cannot be set back to its zero value through Terraform — manage by overriding with explicit non-zero values.
+        /// </summary>
+        [Output("radios")]
+        public Output<ImmutableArray<Outputs.DeviceRadio>> Radios { get; private set; } = null!;
 
         /// <summary>
         /// The name of the UniFi site where the device is located. If not specified, the default site will be used.
         /// </summary>
         [Output("site")]
         public Output<string> Site { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether per-port VLAN configuration is enabled on the device. Required for `PortOverride` blocks with VLAN-tagging profiles (e.g. an IoT-VLAN `PortProfileId`) to actually take effect on access points that expose passthrough Ethernet ports (UAP-UHDIW and similar in-wall units). Switches honor port profile VLAN bindings unconditionally; APs ignore them unless this flag is true. Note: the underlying field uses `Omitempty` so setting this to `False` has no effect — once enabled on a device, it can only be disabled via the UI.
+        /// </summary>
+        [Output("switchVlanEnabled")]
+        public Output<bool> SwitchVlanEnabled { get; private set; } = null!;
 
 
         /// <summary>
@@ -198,6 +243,12 @@ namespace Pulumiverse.Unifi
         public Input<bool>? AllowAdoption { get; set; }
 
         /// <summary>
+        /// Etherlighting configuration for switches with per-port LEDs (e.g. USW Pro Max). `mode = "network"` colors each port's LED by the VLAN/network it serves (per-network colors come from the site-level Etherlighting palette); `mode = "speed"` colors by link speed. Only the fields you set are written — unset fields keep their controller-side values (read-modify-write overlay). Devices without Etherlighting hardware ignore this object.
+        /// </summary>
+        [Input("etherLighting")]
+        public Input<Inputs.DeviceEtherLightingArgs>? EtherLighting { get; set; }
+
+        /// <summary>
         /// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
         /// * The device will be removed from the controller
         /// * The device will need to be readopted to be managed again
@@ -230,6 +281,7 @@ namespace Pulumiverse.Unifi
         /// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
         ///   * Port names and labels for easy identification
         ///   * Port profiles for VLAN and security settings
+        ///   * Per-port native (untagged) and tagged VLAN behavior, inline, without authoring a `unifi.port.Profile`
         ///   * Operating modes for special functions
         /// 
         /// Common use cases include:
@@ -237,6 +289,10 @@ namespace Pulumiverse.Unifi
         ///   * Configuring PoE settings for powered devices
         ///   * Creating mirrored ports for network monitoring
         ///   * Setting up link aggregation between switches or servers
+        /// 
+        /// **Warning:** the controller stores port overrides as a single array on the device and the provider replaces the entire array on every apply. Any port whose override is set outside Terraform (e.g. via the UniFi UI or another tool) and is NOT declared here will have its override reset to the controller default on the next apply. Declare every port you want overridden.
+        /// 
+        /// **Tagged-VLAN model:** there is no positive "allowed VLANs" list. With `forward = "customize"`, tagged traffic is *all* networks **minus** the ones listed in `ExcludedNetworkIds`, so an empty `ExcludedNetworkIds` means "trunk everything", not "trunk nothing".
         /// </summary>
         public InputList<Inputs.DevicePortOverrideArgs> PortOverrides
         {
@@ -244,11 +300,31 @@ namespace Pulumiverse.Unifi
             set => _portOverrides = value;
         }
 
+        [Input("radios")]
+        private InputList<Inputs.DeviceRadioArgs>? _radios;
+
+        /// <summary>
+        /// Per-band radio configuration for access points. Each block configures ONE band (`Ng` = 2.4GHz, `Na` = 5GHz, `6e` = 6GHz). Only the bands you declare are managed — undeclared bands are left untouched (the provider read-modify-writes the device's full radio table to preserve them, so declaring just one band will not wipe the others). Common uses: disable a band (`TxPowerMode = "disabled"`), pin a channel/width, or set a minimum-RSSI client kick. Applies to access points; has no effect on switches.
+        /// 
+        /// Note: like other device fields, only non-zero values are written, so a field cannot be set back to its zero value through Terraform — manage by overriding with explicit non-zero values.
+        /// </summary>
+        public InputList<Inputs.DeviceRadioArgs> Radios
+        {
+            get => _radios ?? (_radios = new InputList<Inputs.DeviceRadioArgs>());
+            set => _radios = value;
+        }
+
         /// <summary>
         /// The name of the UniFi site where the device is located. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
+
+        /// <summary>
+        /// Whether per-port VLAN configuration is enabled on the device. Required for `PortOverride` blocks with VLAN-tagging profiles (e.g. an IoT-VLAN `PortProfileId`) to actually take effect on access points that expose passthrough Ethernet ports (UAP-UHDIW and similar in-wall units). Switches honor port profile VLAN bindings unconditionally; APs ignore them unless this flag is true. Note: the underlying field uses `Omitempty` so setting this to `False` has no effect — once enabled on a device, it can only be disabled via the UI.
+        /// </summary>
+        [Input("switchVlanEnabled")]
+        public Input<bool>? SwitchVlanEnabled { get; set; }
 
         public DeviceArgs()
         {
@@ -273,6 +349,12 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("disabled")]
         public Input<bool>? Disabled { get; set; }
+
+        /// <summary>
+        /// Etherlighting configuration for switches with per-port LEDs (e.g. USW Pro Max). `mode = "network"` colors each port's LED by the VLAN/network it serves (per-network colors come from the site-level Etherlighting palette); `mode = "speed"` colors by link speed. Only the fields you set are written — unset fields keep their controller-side values (read-modify-write overlay). Devices without Etherlighting hardware ignore this object.
+        /// </summary>
+        [Input("etherLighting")]
+        public Input<Inputs.DeviceEtherLightingGetArgs>? EtherLighting { get; set; }
 
         /// <summary>
         /// Whether to forget (un-adopt) the device when this resource is destroyed. When true:
@@ -307,6 +389,7 @@ namespace Pulumiverse.Unifi
         /// A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
         ///   * Port names and labels for easy identification
         ///   * Port profiles for VLAN and security settings
+        ///   * Per-port native (untagged) and tagged VLAN behavior, inline, without authoring a `unifi.port.Profile`
         ///   * Operating modes for special functions
         /// 
         /// Common use cases include:
@@ -314,6 +397,10 @@ namespace Pulumiverse.Unifi
         ///   * Configuring PoE settings for powered devices
         ///   * Creating mirrored ports for network monitoring
         ///   * Setting up link aggregation between switches or servers
+        /// 
+        /// **Warning:** the controller stores port overrides as a single array on the device and the provider replaces the entire array on every apply. Any port whose override is set outside Terraform (e.g. via the UniFi UI or another tool) and is NOT declared here will have its override reset to the controller default on the next apply. Declare every port you want overridden.
+        /// 
+        /// **Tagged-VLAN model:** there is no positive "allowed VLANs" list. With `forward = "customize"`, tagged traffic is *all* networks **minus** the ones listed in `ExcludedNetworkIds`, so an empty `ExcludedNetworkIds` means "trunk everything", not "trunk nothing".
         /// </summary>
         public InputList<Inputs.DevicePortOverrideGetArgs> PortOverrides
         {
@@ -321,11 +408,31 @@ namespace Pulumiverse.Unifi
             set => _portOverrides = value;
         }
 
+        [Input("radios")]
+        private InputList<Inputs.DeviceRadioGetArgs>? _radios;
+
+        /// <summary>
+        /// Per-band radio configuration for access points. Each block configures ONE band (`Ng` = 2.4GHz, `Na` = 5GHz, `6e` = 6GHz). Only the bands you declare are managed — undeclared bands are left untouched (the provider read-modify-writes the device's full radio table to preserve them, so declaring just one band will not wipe the others). Common uses: disable a band (`TxPowerMode = "disabled"`), pin a channel/width, or set a minimum-RSSI client kick. Applies to access points; has no effect on switches.
+        /// 
+        /// Note: like other device fields, only non-zero values are written, so a field cannot be set back to its zero value through Terraform — manage by overriding with explicit non-zero values.
+        /// </summary>
+        public InputList<Inputs.DeviceRadioGetArgs> Radios
+        {
+            get => _radios ?? (_radios = new InputList<Inputs.DeviceRadioGetArgs>());
+            set => _radios = value;
+        }
+
         /// <summary>
         /// The name of the UniFi site where the device is located. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
+
+        /// <summary>
+        /// Whether per-port VLAN configuration is enabled on the device. Required for `PortOverride` blocks with VLAN-tagging profiles (e.g. an IoT-VLAN `PortProfileId`) to actually take effect on access points that expose passthrough Ethernet ports (UAP-UHDIW and similar in-wall units). Switches honor port profile VLAN bindings unconditionally; APs ignore them unless this flag is true. Note: the underlying field uses `Omitempty` so setting this to `False` has no effect — once enabled on a device, it can only be disabled via the UI.
+        /// </summary>
+        [Input("switchVlanEnabled")]
+        public Input<bool>? SwitchVlanEnabled { get; set; }
 
         public DeviceState()
         {

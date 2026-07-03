@@ -39,7 +39,7 @@ import (
 //			if param := cfg.GetFloat64("vlanId"); param != 0 {
 //				vlanId = param
 //			}
-//			_default, err := unifi.GetApGroup(ctx, &unifi.GetApGroupArgs{}, nil)
+//			_default, err := unifi.GetApGroup(ctx, &unifi.LookupApGroupArgs{}, nil)
 //			if err != nil {
 //				return err
 //			}
@@ -82,6 +82,8 @@ import (
 // ```
 //
 // ## Import
+//
+// The `pulumi import` command can be used, for example:
 //
 // import from provider configured site
 //
@@ -153,11 +155,15 @@ type Wlan struct {
 	Uapsd pulumi.BoolPtrOutput `pulumi:"uapsd"`
 	// The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
 	UserGroupId pulumi.StringOutput `pulumi:"userGroupId"`
-	// Radio band selection. Valid values:
-	//   * `both` - Both 2.4GHz and 5GHz (default)
+	// Radio band selection (legacy single-band field). Valid values:
+	//   * `both` - Both 2.4GHz and 5GHz
 	//   * `2g` - 2.4GHz only
 	//   * `5g` - 5GHz only
-	WlanBand pulumi.StringPtrOutput `pulumi:"wlanBand"`
+	//
+	// Cannot express a 6GHz selection — use `wlanBands` for that. When neither this nor `wlanBands` is set, the controller's default (all supported bands) applies.
+	WlanBand pulumi.StringOutput `pulumi:"wlanBand"`
+	// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlanBand` field is derived from it and `settingPreference` is forced to `manual`, matching UniFi UI behavior.
+	WlanBands pulumi.StringArrayOutput `pulumi:"wlanBands"`
 	// Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
 	Wpa3Support pulumi.BoolPtrOutput `pulumi:"wpa3Support"`
 	// Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3Support` to be true.
@@ -263,11 +269,15 @@ type wlanState struct {
 	Uapsd *bool `pulumi:"uapsd"`
 	// The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
 	UserGroupId *string `pulumi:"userGroupId"`
-	// Radio band selection. Valid values:
-	//   * `both` - Both 2.4GHz and 5GHz (default)
+	// Radio band selection (legacy single-band field). Valid values:
+	//   * `both` - Both 2.4GHz and 5GHz
 	//   * `2g` - 2.4GHz only
 	//   * `5g` - 5GHz only
+	//
+	// Cannot express a 6GHz selection — use `wlanBands` for that. When neither this nor `wlanBands` is set, the controller's default (all supported bands) applies.
 	WlanBand *string `pulumi:"wlanBand"`
+	// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlanBand` field is derived from it and `settingPreference` is forced to `manual`, matching UniFi UI behavior.
+	WlanBands []string `pulumi:"wlanBands"`
 	// Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
 	Wpa3Support *bool `pulumi:"wpa3Support"`
 	// Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3Support` to be true.
@@ -331,11 +341,15 @@ type WlanState struct {
 	Uapsd pulumi.BoolPtrInput
 	// The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
 	UserGroupId pulumi.StringPtrInput
-	// Radio band selection. Valid values:
-	//   * `both` - Both 2.4GHz and 5GHz (default)
+	// Radio band selection (legacy single-band field). Valid values:
+	//   * `both` - Both 2.4GHz and 5GHz
 	//   * `2g` - 2.4GHz only
 	//   * `5g` - 5GHz only
+	//
+	// Cannot express a 6GHz selection — use `wlanBands` for that. When neither this nor `wlanBands` is set, the controller's default (all supported bands) applies.
 	WlanBand pulumi.StringPtrInput
+	// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlanBand` field is derived from it and `settingPreference` is forced to `manual`, matching UniFi UI behavior.
+	WlanBands pulumi.StringArrayInput
 	// Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
 	Wpa3Support pulumi.BoolPtrInput
 	// Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3Support` to be true.
@@ -403,11 +417,15 @@ type wlanArgs struct {
 	Uapsd *bool `pulumi:"uapsd"`
 	// The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
 	UserGroupId string `pulumi:"userGroupId"`
-	// Radio band selection. Valid values:
-	//   * `both` - Both 2.4GHz and 5GHz (default)
+	// Radio band selection (legacy single-band field). Valid values:
+	//   * `both` - Both 2.4GHz and 5GHz
 	//   * `2g` - 2.4GHz only
 	//   * `5g` - 5GHz only
+	//
+	// Cannot express a 6GHz selection — use `wlanBands` for that. When neither this nor `wlanBands` is set, the controller's default (all supported bands) applies.
 	WlanBand *string `pulumi:"wlanBand"`
+	// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlanBand` field is derived from it and `settingPreference` is forced to `manual`, matching UniFi UI behavior.
+	WlanBands []string `pulumi:"wlanBands"`
 	// Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
 	Wpa3Support *bool `pulumi:"wpa3Support"`
 	// Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3Support` to be true.
@@ -472,11 +490,15 @@ type WlanArgs struct {
 	Uapsd pulumi.BoolPtrInput
 	// The ID of the user group that defines the rate limiting and firewall rules for clients on this network.
 	UserGroupId pulumi.StringInput
-	// Radio band selection. Valid values:
-	//   * `both` - Both 2.4GHz and 5GHz (default)
+	// Radio band selection (legacy single-band field). Valid values:
+	//   * `both` - Both 2.4GHz and 5GHz
 	//   * `2g` - 2.4GHz only
 	//   * `5g` - 5GHz only
+	//
+	// Cannot express a 6GHz selection — use `wlanBands` for that. When neither this nor `wlanBands` is set, the controller's default (all supported bands) applies.
 	WlanBand pulumi.StringPtrInput
+	// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlanBand` field is derived from it and `settingPreference` is forced to `manual`, matching UniFi UI behavior.
+	WlanBands pulumi.StringArrayInput
 	// Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.
 	Wpa3Support pulumi.BoolPtrInput
 	// Enable WPA3 transition mode, which allows both WPA2 and WPA3 clients to connect. This provides backward compatibility while gradually transitioning to WPA3. Requires security to be set to `wpapsk` and `wpa3Support` to be true.
@@ -698,12 +720,19 @@ func (o WlanOutput) UserGroupId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Wlan) pulumi.StringOutput { return v.UserGroupId }).(pulumi.StringOutput)
 }
 
-// Radio band selection. Valid values:
-//   - `both` - Both 2.4GHz and 5GHz (default)
+// Radio band selection (legacy single-band field). Valid values:
+//   - `both` - Both 2.4GHz and 5GHz
 //   - `2g` - 2.4GHz only
 //   - `5g` - 5GHz only
-func (o WlanOutput) WlanBand() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Wlan) pulumi.StringPtrOutput { return v.WlanBand }).(pulumi.StringPtrOutput)
+//
+// Cannot express a 6GHz selection — use `wlanBands` for that. When neither this nor `wlanBands` is set, the controller's default (all supported bands) applies.
+func (o WlanOutput) WlanBand() pulumi.StringOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringOutput { return v.WlanBand }).(pulumi.StringOutput)
+}
+
+// Radio bands to broadcast this SSID on (modern multi-band field, supersedes `wlanBand` and supports 6GHz). Valid values for each element: `2g`, `5g`, `6g`. Note that 6GHz requires WPA3 (or WPA3 transition mode) and a 6GHz-capable access point. When set, the legacy `wlanBand` field is derived from it and `settingPreference` is forced to `manual`, matching UniFi UI behavior.
+func (o WlanOutput) WlanBands() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Wlan) pulumi.StringArrayOutput { return v.WlanBands }).(pulumi.StringArrayOutput)
 }
 
 // Enable WPA3 security protocol. Requires security to be set to `wpapsk` and PMF mode to be enabled. WPA3 provides enhanced security features over WPA2.

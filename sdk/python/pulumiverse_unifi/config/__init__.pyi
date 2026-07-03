@@ -29,6 +29,11 @@ apiUrl: Optional[str]
 URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
 """
 
+httpMaxRetries: Optional[int]
+"""
+Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
+"""
+
 password: Optional[str]
 """
 Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.

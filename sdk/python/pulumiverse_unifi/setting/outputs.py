@@ -16,6 +16,9 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
+    'EtherLightingNetworkOverride',
+    'EtherLightingSpeedOverride',
+    'GlobalSwitchAclL3Isolation',
     'GuestAccessAuthorize',
     'GuestAccessFacebook',
     'GuestAccessFacebookWifi',
@@ -42,6 +45,148 @@ __all__ = [
     'USGTcpTimeouts',
     'USGUpnp',
 ]
+
+@pulumi.output_type
+class EtherLightingNetworkOverride(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "colorHex":
+            suggest = "color_hex"
+        elif key == "networkId":
+            suggest = "network_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EtherLightingNetworkOverride. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EtherLightingNetworkOverride.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EtherLightingNetworkOverride.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 color_hex: _builtins.str,
+                 network_id: _builtins.str):
+        """
+        :param _builtins.str color_hex: LED color as a 6-digit RGB hex string without `#` (e.g. `ff6c14`).
+        :param _builtins.str network_id: ID of the network/VLAN this color applies to (e.g. `unifi_network.iot.id`).
+        """
+        pulumi.set(__self__, "color_hex", color_hex)
+        pulumi.set(__self__, "network_id", network_id)
+
+    @_builtins.property
+    @pulumi.getter(name="colorHex")
+    def color_hex(self) -> _builtins.str:
+        """
+        LED color as a 6-digit RGB hex string without `#` (e.g. `ff6c14`).
+        """
+        return pulumi.get(self, "color_hex")
+
+    @_builtins.property
+    @pulumi.getter(name="networkId")
+    def network_id(self) -> _builtins.str:
+        """
+        ID of the network/VLAN this color applies to (e.g. `unifi_network.iot.id`).
+        """
+        return pulumi.get(self, "network_id")
+
+
+@pulumi.output_type
+class EtherLightingSpeedOverride(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "colorHex":
+            suggest = "color_hex"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EtherLightingSpeedOverride. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EtherLightingSpeedOverride.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EtherLightingSpeedOverride.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 color_hex: _builtins.str,
+                 speed: _builtins.str):
+        """
+        :param _builtins.str color_hex: LED color as a 6-digit RGB hex string without `#` (e.g. `ffc107`).
+        :param _builtins.str speed: Link-speed class this color applies to.
+        """
+        pulumi.set(__self__, "color_hex", color_hex)
+        pulumi.set(__self__, "speed", speed)
+
+    @_builtins.property
+    @pulumi.getter(name="colorHex")
+    def color_hex(self) -> _builtins.str:
+        """
+        LED color as a 6-digit RGB hex string without `#` (e.g. `ffc107`).
+        """
+        return pulumi.get(self, "color_hex")
+
+    @_builtins.property
+    @pulumi.getter
+    def speed(self) -> _builtins.str:
+        """
+        Link-speed class this color applies to.
+        """
+        return pulumi.get(self, "speed")
+
+
+@pulumi.output_type
+class GlobalSwitchAclL3Isolation(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "destinationNetworks":
+            suggest = "destination_networks"
+        elif key == "sourceNetwork":
+            suggest = "source_network"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in GlobalSwitchAclL3Isolation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        GlobalSwitchAclL3Isolation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        GlobalSwitchAclL3Isolation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 destination_networks: Sequence[_builtins.str],
+                 source_network: _builtins.str):
+        """
+        :param Sequence[_builtins.str] destination_networks: Set of UniFi network IDs that the source network is isolated from. At least one destination network is required.
+        :param _builtins.str source_network: The UniFi network ID (the `id` of a `Network`) that this rule applies to. Must be unique across all entries.
+        """
+        pulumi.set(__self__, "destination_networks", destination_networks)
+        pulumi.set(__self__, "source_network", source_network)
+
+    @_builtins.property
+    @pulumi.getter(name="destinationNetworks")
+    def destination_networks(self) -> Sequence[_builtins.str]:
+        """
+        Set of UniFi network IDs that the source network is isolated from. At least one destination network is required.
+        """
+        return pulumi.get(self, "destination_networks")
+
+    @_builtins.property
+    @pulumi.getter(name="sourceNetwork")
+    def source_network(self) -> _builtins.str:
+        """
+        The UniFi network ID (the `id` of a `Network`) that this rule applies to. Must be unique across all entries.
+        """
+        return pulumi.get(self, "source_network")
+
 
 @pulumi.output_type
 class GuestAccessAuthorize(dict):

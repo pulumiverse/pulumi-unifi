@@ -7,6 +7,7 @@ from . import _utilities
 import typing
 # Export this package's modules as members:
 from .account import *
+from .ap_group import *
 from .device import *
 from .dynamic_dns import *
 from .get_account import *
@@ -89,6 +90,14 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
+  "mod": "firewall/zonePolicyOrder",
+  "fqn": "pulumiverse_unifi.firewall",
+  "classes": {
+   "unifi:firewall/zonePolicyOrder:ZonePolicyOrder": "ZonePolicyOrder"
+  }
+ },
+ {
+  "pkg": "unifi",
   "mod": "iam/group",
   "fqn": "pulumiverse_unifi.iam",
   "classes": {
@@ -109,6 +118,14 @@ _utilities.register(
   "fqn": "pulumiverse_unifi",
   "classes": {
    "unifi:index/account:Account": "Account"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "index/apGroup",
+  "fqn": "pulumiverse_unifi",
+  "classes": {
+   "unifi:index/apGroup:ApGroup": "ApGroup"
   }
  },
  {
@@ -201,6 +218,14 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
+  "mod": "setting/connectivity",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/connectivity:Connectivity": "Connectivity"
+  }
+ },
+ {
+  "pkg": "unifi",
   "mod": "setting/country",
   "fqn": "pulumiverse_unifi.setting",
   "classes": {
@@ -213,6 +238,22 @@ _utilities.register(
   "fqn": "pulumiverse_unifi.setting",
   "classes": {
    "unifi:setting/dpi:Dpi": "Dpi"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/etherLighting",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/etherLighting:EtherLighting": "EtherLighting"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/globalSwitch",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/globalSwitch:GlobalSwitch": "GlobalSwitch"
   }
  },
  {

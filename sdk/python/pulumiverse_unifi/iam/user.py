@@ -20,19 +20,20 @@ __all__ = ['UserArgs', 'User']
 class UserArgs:
     def __init__(__self__, *,
                  mac: pulumi.Input[_builtins.str],
-                 allow_existing: Optional[pulumi.Input[_builtins.bool]] = None,
-                 blocked: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dev_id_override: Optional[pulumi.Input[_builtins.int]] = None,
-                 fixed_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 local_dns_record: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 note: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
-                 user_group_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 allow_existing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 blocked: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dev_id_override: pulumi.Input[Optional[_builtins.int]] = None,
+                 fixed_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 local_dns_record: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 note: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
+                 user_group_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a User resource.
+
         :param pulumi.Input[_builtins.str] mac: The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
         :param pulumi.Input[_builtins.bool] allow_existing: Allow this resource to take over management of an existing user in the UniFi controller. When true:
                  * The resource can manage users that were automatically created when devices connected
@@ -89,7 +90,7 @@ class UserArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowExisting")
-    def allow_existing(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def allow_existing(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Allow this resource to take over management of an existing user in the UniFi controller. When true:
           * The resource can manage users that were automatically created when devices connected
@@ -101,149 +102,150 @@ class UserArgs:
         return pulumi.get(self, "allow_existing")
 
     @allow_existing.setter
-    def allow_existing(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def allow_existing(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_existing", value)
 
     @_builtins.property
     @pulumi.getter
-    def blocked(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def blocked(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         """
         return pulumi.get(self, "blocked")
 
     @blocked.setter
-    def blocked(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def blocked(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "blocked", value)
 
     @_builtins.property
     @pulumi.getter(name="devIdOverride")
-    def dev_id_override(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def dev_id_override(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Override the device fingerprint.
         """
         return pulumi.get(self, "dev_id_override")
 
     @dev_id_override.setter
-    def dev_id_override(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def dev_id_override(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "dev_id_override", value)
 
     @_builtins.property
     @pulumi.getter(name="fixedIp")
-    def fixed_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def fixed_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         """
         return pulumi.get(self, "fixed_ip")
 
     @fixed_ip.setter
-    def fixed_ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def fixed_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "fixed_ip", value)
 
     @_builtins.property
     @pulumi.getter(name="localDnsRecord")
-    def local_dns_record(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def local_dns_record(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
         """
         return pulumi.get(self, "local_dns_record")
 
     @local_dns_record.setter
-    def local_dns_record(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def local_dns_record(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "local_dns_record", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="networkId")
-    def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
         """
         return pulumi.get(self, "network_id")
 
     @network_id.setter
-    def network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "network_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def note(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def note(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
         """
         return pulumi.get(self, "note")
 
     @note.setter
-    def note(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def note(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "note", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="skipForgetOnDestroy")
-    def skip_forget_on_destroy(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_forget_on_destroy(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
         """
         return pulumi.get(self, "skip_forget_on_destroy")
 
     @skip_forget_on_destroy.setter
-    def skip_forget_on_destroy(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_forget_on_destroy(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_forget_on_destroy", value)
 
     @_builtins.property
     @pulumi.getter(name="userGroupId")
-    def user_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def user_group_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         return pulumi.get(self, "user_group_id")
 
     @user_group_id.setter
-    def user_group_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def user_group_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "user_group_id", value)
 
 
 @pulumi.input_type
 class _UserState:
     def __init__(__self__, *,
-                 allow_existing: Optional[pulumi.Input[_builtins.bool]] = None,
-                 blocked: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dev_id_override: Optional[pulumi.Input[_builtins.int]] = None,
-                 fixed_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 hostname: Optional[pulumi.Input[_builtins.str]] = None,
-                 ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 local_dns_record: Optional[pulumi.Input[_builtins.str]] = None,
-                 mac: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 note: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
-                 user_group_id: Optional[pulumi.Input[_builtins.str]] = None):
+                 allow_existing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 blocked: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dev_id_override: pulumi.Input[Optional[_builtins.int]] = None,
+                 fixed_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 hostname: pulumi.Input[Optional[_builtins.str]] = None,
+                 ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 local_dns_record: pulumi.Input[Optional[_builtins.str]] = None,
+                 mac: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 note: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
+                 user_group_id: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering User resources.
+
         :param pulumi.Input[_builtins.bool] allow_existing: Allow this resource to take over management of an existing user in the UniFi controller. When true:
                  * The resource can manage users that were automatically created when devices connected
                  * Existing settings will be overwritten with the values specified in this resource
@@ -295,7 +297,7 @@ class _UserState:
 
     @_builtins.property
     @pulumi.getter(name="allowExisting")
-    def allow_existing(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def allow_existing(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Allow this resource to take over management of an existing user in the UniFi controller. When true:
           * The resource can manage users that were automatically created when devices connected
@@ -307,163 +309,163 @@ class _UserState:
         return pulumi.get(self, "allow_existing")
 
     @allow_existing.setter
-    def allow_existing(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def allow_existing(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "allow_existing", value)
 
     @_builtins.property
     @pulumi.getter
-    def blocked(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def blocked(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When true, this client will be blocked from accessing the network. Useful for temporarily or permanently restricting network access for specific devices.
         """
         return pulumi.get(self, "blocked")
 
     @blocked.setter
-    def blocked(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def blocked(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "blocked", value)
 
     @_builtins.property
     @pulumi.getter(name="devIdOverride")
-    def dev_id_override(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def dev_id_override(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Override the device fingerprint.
         """
         return pulumi.get(self, "dev_id_override")
 
     @dev_id_override.setter
-    def dev_id_override(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def dev_id_override(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "dev_id_override", value)
 
     @_builtins.property
     @pulumi.getter(name="fixedIp")
-    def fixed_ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def fixed_ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A static IPv4 address to assign to this client. Ensure this IP is within the client's network range and not already assigned to another device.
         """
         return pulumi.get(self, "fixed_ip")
 
     @fixed_ip.setter
-    def fixed_ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def fixed_ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "fixed_ip", value)
 
     @_builtins.property
     @pulumi.getter
-    def hostname(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def hostname(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The hostname of the user.
         """
         return pulumi.get(self, "hostname")
 
     @hostname.setter
-    def hostname(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def hostname(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "hostname", value)
 
     @_builtins.property
     @pulumi.getter
-    def ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The IP address of the user.
         """
         return pulumi.get(self, "ip")
 
     @ip.setter
-    def ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ip", value)
 
     @_builtins.property
     @pulumi.getter(name="localDnsRecord")
-    def local_dns_record(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def local_dns_record(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A local DNS hostname for this client. When set, other devices on the network can resolve this name to the client's IP address (e.g., 'printer.local', 'nas.home.arpa'). Such DNS record is automatically added to controller's DNS records.
         """
         return pulumi.get(self, "local_dns_record")
 
     @local_dns_record.setter
-    def local_dns_record(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def local_dns_record(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "local_dns_record", value)
 
     @_builtins.property
     @pulumi.getter
-    def mac(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def mac(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The MAC address of the device/client. This is used as the unique identifier and cannot be changed after creation. Must be a valid MAC address format (e.g., '00:11:22:33:44:55'). MAC addresses are case-insensitive.
         """
         return pulumi.get(self, "mac")
 
     @mac.setter
-    def mac(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def mac(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "mac", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         A friendly name for the device/client. This helps identify the device in the UniFi interface (eg. 'Living Room TV', 'John's Laptop').
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="networkId")
-    def network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the network this client should be associated with. This is particularly important when using VLANs or multiple networks.
         """
         return pulumi.get(self, "network_id")
 
     @network_id.setter
-    def network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "network_id", value)
 
     @_builtins.property
     @pulumi.getter
-    def note(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def note(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Additional information about the client that you want to record (e.g., 'Company asset tag #12345', 'Guest device - expires 2024-03-01').
         """
         return pulumi.get(self, "note")
 
     @note.setter
-    def note(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def note(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "note", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this user should be managed. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="skipForgetOnDestroy")
-    def skip_forget_on_destroy(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def skip_forget_on_destroy(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         When false (default), the client will be 'forgotten' by the controller when this resource is destroyed. Set to true to keep the client's history in the controller after the resource is removed from Terraform.
         """
         return pulumi.get(self, "skip_forget_on_destroy")
 
     @skip_forget_on_destroy.setter
-    def skip_forget_on_destroy(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def skip_forget_on_destroy(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "skip_forget_on_destroy", value)
 
     @_builtins.property
     @pulumi.getter(name="userGroupId")
-    def user_group_id(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def user_group_id(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The ID of the user group this client belongs to. User groups can be used to apply common settings and restrictions to multiple clients.
         """
         return pulumi.get(self, "user_group_id")
 
     @user_group_id.setter
-    def user_group_id(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def user_group_id(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "user_group_id", value)
 
 
@@ -473,18 +475,18 @@ class User(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_existing: Optional[pulumi.Input[_builtins.bool]] = None,
-                 blocked: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dev_id_override: Optional[pulumi.Input[_builtins.int]] = None,
-                 fixed_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 local_dns_record: Optional[pulumi.Input[_builtins.str]] = None,
-                 mac: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 note: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
-                 user_group_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_existing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 blocked: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dev_id_override: pulumi.Input[Optional[_builtins.int]] = None,
+                 fixed_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 local_dns_record: pulumi.Input[Optional[_builtins.str]] = None,
+                 mac: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 note: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
+                 user_group_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         The `iam.User` resource manages network clients in the UniFi controller, which are identified by their unique MAC addresses.
@@ -519,6 +521,7 @@ class User(pulumi.CustomResource):
             fixed_ip="10.0.0.50",
             network_id=my_vlan["id"])
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -580,6 +583,7 @@ class User(pulumi.CustomResource):
             network_id=my_vlan["id"])
         ```
 
+
         :param str resource_name: The name of the resource.
         :param UserArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -595,18 +599,18 @@ class User(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_existing: Optional[pulumi.Input[_builtins.bool]] = None,
-                 blocked: Optional[pulumi.Input[_builtins.bool]] = None,
-                 dev_id_override: Optional[pulumi.Input[_builtins.int]] = None,
-                 fixed_ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 local_dns_record: Optional[pulumi.Input[_builtins.str]] = None,
-                 mac: Optional[pulumi.Input[_builtins.str]] = None,
-                 name: Optional[pulumi.Input[_builtins.str]] = None,
-                 network_id: Optional[pulumi.Input[_builtins.str]] = None,
-                 note: Optional[pulumi.Input[_builtins.str]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 skip_forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
-                 user_group_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 allow_existing: pulumi.Input[Optional[_builtins.bool]] = None,
+                 blocked: pulumi.Input[Optional[_builtins.bool]] = None,
+                 dev_id_override: pulumi.Input[Optional[_builtins.int]] = None,
+                 fixed_ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 local_dns_record: pulumi.Input[Optional[_builtins.str]] = None,
+                 mac: pulumi.Input[Optional[_builtins.str]] = None,
+                 name: pulumi.Input[Optional[_builtins.str]] = None,
+                 network_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 note: pulumi.Input[Optional[_builtins.str]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 skip_forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
+                 user_group_id: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -642,20 +646,20 @@ class User(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            allow_existing: Optional[pulumi.Input[_builtins.bool]] = None,
-            blocked: Optional[pulumi.Input[_builtins.bool]] = None,
-            dev_id_override: Optional[pulumi.Input[_builtins.int]] = None,
-            fixed_ip: Optional[pulumi.Input[_builtins.str]] = None,
-            hostname: Optional[pulumi.Input[_builtins.str]] = None,
-            ip: Optional[pulumi.Input[_builtins.str]] = None,
-            local_dns_record: Optional[pulumi.Input[_builtins.str]] = None,
-            mac: Optional[pulumi.Input[_builtins.str]] = None,
-            name: Optional[pulumi.Input[_builtins.str]] = None,
-            network_id: Optional[pulumi.Input[_builtins.str]] = None,
-            note: Optional[pulumi.Input[_builtins.str]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            skip_forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
-            user_group_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'User':
+            allow_existing: pulumi.Input[Optional[_builtins.bool]] = None,
+            blocked: pulumi.Input[Optional[_builtins.bool]] = None,
+            dev_id_override: pulumi.Input[Optional[_builtins.int]] = None,
+            fixed_ip: pulumi.Input[Optional[_builtins.str]] = None,
+            hostname: pulumi.Input[Optional[_builtins.str]] = None,
+            ip: pulumi.Input[Optional[_builtins.str]] = None,
+            local_dns_record: pulumi.Input[Optional[_builtins.str]] = None,
+            mac: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            network_id: pulumi.Input[Optional[_builtins.str]] = None,
+            note: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            skip_forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
+            user_group_id: pulumi.Input[Optional[_builtins.str]] = None) -> 'User':
         """
         Get an existing User resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

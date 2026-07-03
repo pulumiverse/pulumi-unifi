@@ -103,27 +103,27 @@ export interface LcdMonitorState {
     /**
      * The brightness level of the LCD display. Valid values are 1-100.
      */
-    brightness?: pulumi.Input<number>;
+    brightness?: pulumi.Input<number | undefined>;
     /**
      * Whether the LCD display is enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * The time in seconds after which the display turns off when idle. Valid values are 10-3600.
      */
-    idleTimeout?: pulumi.Input<number>;
+    idleTimeout?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Whether to synchronize display settings across multiple devices.
      */
-    sync?: pulumi.Input<boolean>;
+    sync?: pulumi.Input<boolean | undefined>;
     /**
      * Whether touch interactions with the display are enabled.
      */
-    touchEvent?: pulumi.Input<boolean>;
+    touchEvent?: pulumi.Input<boolean | undefined>;
 }
 
 /**
@@ -133,7 +133,7 @@ export interface LcdMonitorArgs {
     /**
      * The brightness level of the LCD display. Valid values are 1-100.
      */
-    brightness?: pulumi.Input<number>;
+    brightness?: pulumi.Input<number | undefined>;
     /**
      * Whether the LCD display is enabled.
      */
@@ -141,17 +141,17 @@ export interface LcdMonitorArgs {
     /**
      * The time in seconds after which the display turns off when idle. Valid values are 10-3600.
      */
-    idleTimeout?: pulumi.Input<number>;
+    idleTimeout?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Whether to synchronize display settings across multiple devices.
      */
-    sync?: pulumi.Input<boolean>;
+    sync?: pulumi.Input<boolean | undefined>;
     /**
      * Whether touch interactions with the display are enabled.
      */
-    touchEvent?: pulumi.Input<boolean>;
+    touchEvent?: pulumi.Input<boolean | undefined>;
 }

@@ -100,6 +100,8 @@ type Profile struct {
 	//   * Use 'all' for uplink ports or connections to VLAN-aware devices
 	//   * Use 'native' for end-user devices or simple network connections
 	//   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+	//
+	// > **Note:** For an access port configured only with `nativeNetworkconfId` the controller normalizes the stored mode to `customize`. With the default value of `native` this currently results in a non-failing perpetual diff (`~ forward = "customize" > "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
 	Forward pulumi.StringPtrOutput `pulumi:"forward"`
 	// Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
 	FullDuplex pulumi.BoolPtrOutput `pulumi:"fullDuplex"`
@@ -313,6 +315,8 @@ type profileState struct {
 	//   * Use 'all' for uplink ports or connections to VLAN-aware devices
 	//   * Use 'native' for end-user devices or simple network connections
 	//   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+	//
+	// > **Note:** For an access port configured only with `nativeNetworkconfId` the controller normalizes the stored mode to `customize`. With the default value of `native` this currently results in a non-failing perpetual diff (`~ forward = "customize" > "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
 	Forward *string `pulumi:"forward"`
 	// Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
 	FullDuplex *bool `pulumi:"fullDuplex"`
@@ -497,6 +501,8 @@ type ProfileState struct {
 	//   * Use 'all' for uplink ports or connections to VLAN-aware devices
 	//   * Use 'native' for end-user devices or simple network connections
 	//   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+	//
+	// > **Note:** For an access port configured only with `nativeNetworkconfId` the controller normalizes the stored mode to `customize`. With the default value of `native` this currently results in a non-failing perpetual diff (`~ forward = "customize" > "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
 	Forward pulumi.StringPtrInput
 	// Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
 	FullDuplex pulumi.BoolPtrInput
@@ -685,6 +691,8 @@ type profileArgs struct {
 	//   * Use 'all' for uplink ports or connections to VLAN-aware devices
 	//   * Use 'native' for end-user devices or simple network connections
 	//   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+	//
+	// > **Note:** For an access port configured only with `nativeNetworkconfId` the controller normalizes the stored mode to `customize`. With the default value of `native` this currently results in a non-failing perpetual diff (`~ forward = "customize" > "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
 	Forward *string `pulumi:"forward"`
 	// Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
 	FullDuplex *bool `pulumi:"fullDuplex"`
@@ -870,6 +878,8 @@ type ProfileArgs struct {
 	//   * Use 'all' for uplink ports or connections to VLAN-aware devices
 	//   * Use 'native' for end-user devices or simple network connections
 	//   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+	//
+	// > **Note:** For an access port configured only with `nativeNetworkconfId` the controller normalizes the stored mode to `customize`. With the default value of `native` this currently results in a non-failing perpetual diff (`~ forward = "customize" > "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
 	Forward pulumi.StringPtrInput
 	// Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
 	FullDuplex pulumi.BoolPtrInput
@@ -1158,6 +1168,8 @@ func (o ProfileOutput) ExcludedNetworkIds() pulumi.StringArrayOutput {
 //   - Use 'all' for uplink ports or connections to VLAN-aware devices
 //   - Use 'native' for end-user devices or simple network connections
 //   - Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+//
+// > **Note:** For an access port configured only with `nativeNetworkconfId` the controller normalizes the stored mode to `customize`. With the default value of `native` this currently results in a non-failing perpetual diff (`~ forward = "customize" > "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
 func (o ProfileOutput) Forward() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Profile) pulumi.StringPtrOutput { return v.Forward }).(pulumi.StringPtrOutput)
 }

@@ -13,7 +13,7 @@ namespace Pulumiverse.Unifi
     public static class GetApGroup
     {
         /// <summary>
-        /// `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
+        /// The `unifi.ApGroup` data source can be used to retrieve the ID for an AP group by name.
         /// 
         /// ## Example Usage
         /// 
@@ -34,7 +34,7 @@ namespace Pulumiverse.Unifi
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
+        /// The `unifi.ApGroup` data source can be used to retrieve the ID for an AP group by name.
         /// 
         /// ## Example Usage
         /// 
@@ -55,7 +55,7 @@ namespace Pulumiverse.Unifi
             => global::Pulumi.Deployment.Instance.Invoke<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupInvokeArgs(), options.WithDefaults());
 
         /// <summary>
-        /// `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
+        /// The `unifi.ApGroup` data source can be used to retrieve the ID for an AP group by name.
         /// 
         /// ## Example Usage
         /// 
@@ -86,7 +86,7 @@ namespace Pulumiverse.Unifi
         public string? Name { get; set; }
 
         /// <summary>
-        /// The name of the site the AP group is associated with.
+        /// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public string? Site { get; set; }
@@ -106,7 +106,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The name of the site the AP group is associated with.
+        /// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         /// </summary>
         [Input("site")]
         public Input<string>? Site { get; set; }
@@ -122,7 +122,7 @@ namespace Pulumiverse.Unifi
     public sealed class GetApGroupResult
     {
         /// <summary>
-        /// The ID of this AP group.
+        /// The unique identifier of this resource.
         /// </summary>
         public readonly string Id;
         /// <summary>
@@ -130,7 +130,7 @@ namespace Pulumiverse.Unifi
         /// </summary>
         public readonly string? Name;
         /// <summary>
-        /// The name of the site the AP group is associated with.
+        /// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         /// </summary>
         public readonly string Site;
 

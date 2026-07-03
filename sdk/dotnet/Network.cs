@@ -60,10 +60,48 @@ namespace Pulumiverse.Unifi
     ///         XWanPassword = "password",
     ///     });
     /// 
+    ///     // Zone-Based Firewall (UniFi OS 9.x): pin a network to a firewall zone from the
+    ///     // network side. Use EITHER this `firewall_zone_id` lever OR the zone-side
+    ///     // `unifi_firewall_zone.networks` argument for a given network — not both, or the two
+    ///     // resources will fight over the association.
+    ///     var iot = new Unifi.Firewall.Zone("iot", new()
+    ///     {
+    ///         Name = "iot",
+    ///     });
+    /// 
+    ///     var iotNetwork = new Unifi.Network("iot", new()
+    ///     {
+    ///         Name = "iot-vlan",
+    ///         Purpose = "corporate",
+    ///         Subnet = "10.0.20.1/24",
+    ///         VlanId = 20,
+    ///         FirewallZoneId = iot.Id,
+    ///     });
+    /// 
+    ///     // Override the DHCP-advertised default gateway. By default UniFi advertises the
+    ///     // network's own interface IP as the gateway (DHCP option 3); setting
+    ///     // `dhcpd_gateway_enabled = true` switches that to "manual" and hands clients the
+    ///     // address in `dhcpd_gateway` instead. Here clients are pointed at a Tailscale
+    ///     // subnet-router node (10.0.30.10) so their traffic can reach a remote tailnet.
+    ///     var tailscaleLan = new Unifi.Network("tailscale_lan", new()
+    ///     {
+    ///         Name = "tailscale-lan",
+    ///         Purpose = "corporate",
+    ///         Subnet = "10.0.30.1/24",
+    ///         VlanId = 30,
+    ///         DhcpStart = "10.0.30.100",
+    ///         DhcpStop = "10.0.30.254",
+    ///         DhcpEnabled = true,
+    ///         DhcpdGatewayEnabled = true,
+    ///         DhcpdGateway = "10.0.30.10",
+    ///     });
+    /// 
     /// });
     /// ```
     /// 
     /// ## Import
+    /// 
+    /// The `pulumi import` command can be used, for example:
     /// 
     /// import from provider configured site
     /// 
@@ -104,6 +142,24 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Output("dhcpEnabled")]
         public Output<bool?> DhcpEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+        /// * Drops DHCP offers/acknowledgements from servers other than the trusted one
+        /// * Protects clients from rogue or misconfigured DHCP servers
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        /// </summary>
+        [Output("dhcpGuarding")]
+        public Output<bool> DhcpGuarding { get; private set; } = null!;
+
+        /// <summary>
+        /// List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `DhcpGuarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+        /// 
+        /// Like `DhcpGuarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
+        /// </summary>
+        [Output("dhcpGuardingTrustedServers")]
+        public Output<ImmutableArray<string>> DhcpGuardingTrustedServers { get; private set; } = null!;
 
         /// <summary>
         /// The DHCP lease time in seconds. Common values:
@@ -182,16 +238,20 @@ namespace Pulumiverse.Unifi
         /// <summary>
         /// The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         /// Must be a valid IPv6 address within your allocated IPv6 subnet.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `DhcpV6Enabled`/`Ipv6InterfaceType` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Output("dhcpV6Start")]
-        public Output<string?> DhcpV6Start { get; private set; } = null!;
+        public Output<string> DhcpV6Start { get; private set; } = null!;
 
         /// <summary>
         /// The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         /// Must be after DhcpV6Start in the IPv6 address space.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `DhcpV6Enabled`/`Ipv6InterfaceType` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Output("dhcpV6Stop")]
-        public Output<string?> DhcpV6Stop { get; private set; } = null!;
+        public Output<string> DhcpV6Stop { get; private set; } = null!;
 
         /// <summary>
         /// Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
@@ -221,6 +281,24 @@ namespace Pulumiverse.Unifi
         public Output<string?> DhcpdBootServer { get; private set; } = null!;
 
         /// <summary>
+        /// The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `DhcpdGatewayEnabled` is `True`. Typically an address inside this network's `Subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `DhcpdGatewayEnabled = true` to manage the override from Terraform.
+        /// </summary>
+        [Output("dhcpdGateway")]
+        public Output<string> DhcpdGateway { get; private set; } = null!;
+
+        /// <summary>
+        /// Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `False` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `True` to advertise the address in `DhcpdGateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `True`, `DhcpdGateway` is required.
+        /// 
+        /// Only meaningful when this network runs the UniFi DHCP server (`DhcpEnabled = true` and `DhcpRelayEnabled = false`) with an address range (`DhcpStart`/`DhcpStop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `Wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
+        /// </summary>
+        [Output("dhcpdGatewayEnabled")]
+        public Output<bool> DhcpdGatewayEnabled { get; private set; } = null!;
+
+        /// <summary>
         /// The domain name for this network. Examples:
         /// * 'corp.example.com' - For corporate networks
         /// * 'guest.example.com' - For guest networks
@@ -239,6 +317,20 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
+
+        /// <summary>
+        /// The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+        /// 
+        /// This attribute is `Optional` + `Computed`:
+        /// * Leave it **unset** to preserve whatever zone the controller (or a `unifi.firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+        /// * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+        /// 
+        /// On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+        /// 
+        /// To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
+        /// </summary>
+        [Output("firewallZoneId")]
+        public Output<string> FirewallZoneId { get; private set; } = null!;
 
         /// <summary>
         /// Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
@@ -264,8 +356,9 @@ namespace Pulumiverse.Unifi
         /// * `None` - IPv6 disabled (default)
         /// * `Static` - Static IPv6 addressing
         /// * `Pd` - Prefix Delegation from upstream
+        /// * `SingleNetwork` - Share a delegated IPv6 prefix with a single LAN
         /// 
-        /// Choose based on your IPv6 deployment strategy and ISP capabilities.
+        /// Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `SingleNetwork` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `SingleNetwork` network may not be fully configurable.
         /// </summary>
         [Output("ipv6InterfaceType")]
         public Output<string?> Ipv6InterfaceType { get; private set; } = null!;
@@ -275,9 +368,11 @@ namespace Pulumiverse.Unifi
         /// * `Wan` - Primary WAN interface
         /// * `Wan2` - Secondary WAN interface
         /// Only applicable when `Ipv6InterfaceType` is 'pd'.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Output("ipv6PdInterface")]
-        public Output<string?> Ipv6PdInterface { get; private set; } = null!;
+        public Output<string> Ipv6PdInterface { get; private set; } = null!;
 
         /// <summary>
         /// The IPv6 Prefix ID for Prefix Delegation. Used to:
@@ -292,17 +387,21 @@ namespace Pulumiverse.Unifi
         /// The starting IPv6 address for Prefix Delegation range.
         /// Only used when `Ipv6InterfaceType` is 'pd'.
         /// Must be within the delegated prefix range.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Output("ipv6PdStart")]
-        public Output<string?> Ipv6PdStart { get; private set; } = null!;
+        public Output<string> Ipv6PdStart { get; private set; } = null!;
 
         /// <summary>
         /// The ending IPv6 address for Prefix Delegation range.
         /// Only used when `Ipv6InterfaceType` is 'pd'.
         /// Must be after `Ipv6PdStart` within the delegated prefix.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Output("ipv6PdStop")]
-        public Output<string?> Ipv6PdStop { get; private set; } = null!;
+        public Output<string> Ipv6PdStop { get; private set; } = null!;
 
         /// <summary>
         /// Enables IPv6 Router Advertisements (RA). When enabled:
@@ -328,9 +427,11 @@ namespace Pulumiverse.Unifi
         /// * `Medium` - Standard priority
         /// * `Low` - For backup or secondary networks
         /// Affects router selection when multiple IPv6 routers exist.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `Ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Output("ipv6RaPriority")]
-        public Output<string?> Ipv6RaPriority { get; private set; } = null!;
+        public Output<string> Ipv6RaPriority { get; private set; } = null!;
 
         /// <summary>
         /// The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
@@ -345,9 +446,11 @@ namespace Pulumiverse.Unifi
         /// The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
         /// Only applicable when `Ipv6InterfaceType` is 'static'.
         /// Must be a valid IPv6 subnet allocated to your organization.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Output("ipv6StaticSubnet")]
-        public Output<string?> Ipv6StaticSubnet { get; private set; } = null!;
+        public Output<string> Ipv6StaticSubnet { get; private set; } = null!;
 
         /// <summary>
         /// Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
@@ -371,10 +474,10 @@ namespace Pulumiverse.Unifi
         public Output<string?> NetworkGroup { get; private set; } = null!;
 
         /// <summary>
-        /// Enables network isolation. When enabled:
-        /// * Prevents communication between clients on this network
-        /// * Each client can only communicate with the gateway
-        /// * Commonly used for guest networks or IoT devices
+        /// Isolates this network from other local networks/VLANs on the site. When enabled:
+        /// * Hosts on this network cannot route to or from other local networks on the site
+        /// * Gateway and internet access are retained (internet access is subject to `InternetAccessEnabled`)
+        /// * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         /// </summary>
         [Output("networkIsolationEnabled")]
         public Output<bool?> NetworkIsolationEnabled { get; private set; } = null!;
@@ -385,6 +488,7 @@ namespace Pulumiverse.Unifi
         /// * `Guest` - Isolated network for guest access with limited permissions
         /// * `Wan` - External network connection (WAN uplink)
         /// * `vlan-only` - VLAN network without DHCP services
+        /// * `vpn-client` - Site-to-site VPN client connection (see the `VpnType` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         /// </summary>
         [Output("purpose")]
         public Output<string> Purpose { get; private set; } = null!;
@@ -402,6 +506,18 @@ namespace Pulumiverse.Unifi
         public Output<string?> Subnet { get; private set; } = null!;
 
         /// <summary>
+        /// The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `VpnClientDefaultRoute` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        [Output("uidVpnCustomRoutings")]
+        public Output<ImmutableArray<string>> UidVpnCustomRoutings { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+        /// </summary>
+        [Output("upnpLanEnabled")]
+        public Output<bool> UpnpLanEnabled { get; private set; } = null!;
+
+        /// <summary>
         /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
         /// * 1-4094: Standard VLAN range for network segmentation
         /// * 0: Untagged/native VLAN
@@ -409,6 +525,24 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Output("vlanId")]
         public Output<int?> VlanId { get; private set; } = null!;
+
+        /// <summary>
+        /// When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `UidVpnCustomRouting` are routed through the tunnel. Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        [Output("vpnClientDefaultRoute")]
+        public Output<bool?> VpnClientDefaultRoute { get; private set; } = null!;
+
+        /// <summary>
+        /// When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        [Output("vpnClientPullDns")]
+        public Output<bool?> VpnClientPullDns { get; private set; } = null!;
+
+        /// <summary>
+        /// The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `Purpose` is 'vpn-client'. A `wireguard-client` network also requires `Subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `DhcpDns` (interface DNS); the controller rejects the create without them.
+        /// </summary>
+        [Output("vpnType")]
+        public Output<string?> VpnType { get; private set; } = null!;
 
         /// <summary>
         /// The IPv6 prefix size to request from ISP. Must be between 48 and 64.
@@ -524,6 +658,54 @@ namespace Pulumiverse.Unifi
         public Output<string?> WanUsername { get; private set; } = null!;
 
         /// <summary>
+        /// How the WireGuard VPN client peer is configured. Currently only `Manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("wireguardClientMode")]
+        public Output<string?> WireguardClientMode { get; private set; } = null!;
+
+        /// <summary>
+        /// The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("wireguardClientPeerIp")]
+        public Output<string?> WireguardClientPeerIp { get; private set; } = null!;
+
+        /// <summary>
+        /// The remote WireGuard server's listen port (e.g. 51820). Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("wireguardClientPeerPort")]
+        public Output<int?> WireguardClientPeerPort { get; private set; } = null!;
+
+        /// <summary>
+        /// The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("wireguardClientPeerPublicKey")]
+        public Output<string?> WireguardClientPeerPublicKey { get; private set; } = null!;
+
+        /// <summary>
+        /// An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("wireguardClientPresharedKey")]
+        public Output<string> WireguardClientPresharedKey { get; private set; } = null!;
+
+        /// <summary>
+        /// Whether a WireGuard pre-shared key is used with the peer. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("wireguardClientPresharedKeyEnabled")]
+        public Output<bool?> WireguardClientPresharedKeyEnabled { get; private set; } = null!;
+
+        /// <summary>
+        /// The WAN interface the WireGuard tunnel egresses from. One of `Wan` or `Wan2`. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("wireguardInterface")]
+        public Output<string?> WireguardInterface { get; private set; } = null!;
+
+        /// <summary>
+        /// The gateway's own WireGuard public key for this VPN client. The controller does not return it, so the provider derives it from the private key (Curve25519). Add this key as a peer on the remote WireGuard server. Only set when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("wireguardPublicKey")]
+        public Output<string> WireguardPublicKey { get; private set; } = null!;
+
+        /// <summary>
         /// Password for WAN authentication.
         /// * Required for PPPoE connections
         /// * May be needed for some ISP configurations
@@ -531,6 +713,12 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Output("xWanPassword")]
         public Output<string?> XWanPassword { get; private set; } = null!;
+
+        /// <summary>
+        /// The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `WireguardPublicKey`. Keep this value secret. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Output("xWireguardPrivateKey")]
+        public Output<string> XWireguardPrivateKey { get; private set; } = null!;
 
 
         /// <summary>
@@ -556,6 +744,11 @@ namespace Pulumiverse.Unifi
             {
                 Version = Utilities.Version,
                 PluginDownloadURL = "github://api.github.com/pulumiverse",
+                AdditionalSecretOutputs =
+                {
+                    "wireguardClientPresharedKey",
+                    "xWireguardPrivateKey",
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.
@@ -605,6 +798,30 @@ namespace Pulumiverse.Unifi
         public Input<bool>? DhcpEnabled { get; set; }
 
         /// <summary>
+        /// Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+        /// * Drops DHCP offers/acknowledgements from servers other than the trusted one
+        /// * Protects clients from rogue or misconfigured DHCP servers
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        /// </summary>
+        [Input("dhcpGuarding")]
+        public Input<bool>? DhcpGuarding { get; set; }
+
+        [Input("dhcpGuardingTrustedServers")]
+        private InputList<string>? _dhcpGuardingTrustedServers;
+
+        /// <summary>
+        /// List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `DhcpGuarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+        /// 
+        /// Like `DhcpGuarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
+        /// </summary>
+        public InputList<string> DhcpGuardingTrustedServers
+        {
+            get => _dhcpGuardingTrustedServers ?? (_dhcpGuardingTrustedServers = new InputList<string>());
+            set => _dhcpGuardingTrustedServers = value;
+        }
+
+        /// <summary>
         /// The DHCP lease time in seconds. Common values:
         /// * 86400 (1 day) - Default, suitable for most networks
         /// * 3600 (1 hour) - For testing or temporary networks
@@ -687,6 +904,8 @@ namespace Pulumiverse.Unifi
         /// <summary>
         /// The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         /// Must be a valid IPv6 address within your allocated IPv6 subnet.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `DhcpV6Enabled`/`Ipv6InterfaceType` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("dhcpV6Start")]
         public Input<string>? DhcpV6Start { get; set; }
@@ -694,6 +913,8 @@ namespace Pulumiverse.Unifi
         /// <summary>
         /// The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         /// Must be after DhcpV6Start in the IPv6 address space.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `DhcpV6Enabled`/`Ipv6InterfaceType` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("dhcpV6Stop")]
         public Input<string>? DhcpV6Stop { get; set; }
@@ -726,6 +947,24 @@ namespace Pulumiverse.Unifi
         public Input<string>? DhcpdBootServer { get; set; }
 
         /// <summary>
+        /// The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `DhcpdGatewayEnabled` is `True`. Typically an address inside this network's `Subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `DhcpdGatewayEnabled = true` to manage the override from Terraform.
+        /// </summary>
+        [Input("dhcpdGateway")]
+        public Input<string>? DhcpdGateway { get; set; }
+
+        /// <summary>
+        /// Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `False` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `True` to advertise the address in `DhcpdGateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `True`, `DhcpdGateway` is required.
+        /// 
+        /// Only meaningful when this network runs the UniFi DHCP server (`DhcpEnabled = true` and `DhcpRelayEnabled = false`) with an address range (`DhcpStart`/`DhcpStop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `Wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
+        /// </summary>
+        [Input("dhcpdGatewayEnabled")]
+        public Input<bool>? DhcpdGatewayEnabled { get; set; }
+
+        /// <summary>
         /// The domain name for this network. Examples:
         /// * 'corp.example.com' - For corporate networks
         /// * 'guest.example.com' - For guest networks
@@ -744,6 +983,20 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
+
+        /// <summary>
+        /// The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+        /// 
+        /// This attribute is `Optional` + `Computed`:
+        /// * Leave it **unset** to preserve whatever zone the controller (or a `unifi.firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+        /// * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+        /// 
+        /// On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+        /// 
+        /// To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
+        /// </summary>
+        [Input("firewallZoneId")]
+        public Input<string>? FirewallZoneId { get; set; }
 
         /// <summary>
         /// Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
@@ -769,8 +1022,9 @@ namespace Pulumiverse.Unifi
         /// * `None` - IPv6 disabled (default)
         /// * `Static` - Static IPv6 addressing
         /// * `Pd` - Prefix Delegation from upstream
+        /// * `SingleNetwork` - Share a delegated IPv6 prefix with a single LAN
         /// 
-        /// Choose based on your IPv6 deployment strategy and ISP capabilities.
+        /// Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `SingleNetwork` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `SingleNetwork` network may not be fully configurable.
         /// </summary>
         [Input("ipv6InterfaceType")]
         public Input<string>? Ipv6InterfaceType { get; set; }
@@ -780,6 +1034,8 @@ namespace Pulumiverse.Unifi
         /// * `Wan` - Primary WAN interface
         /// * `Wan2` - Secondary WAN interface
         /// Only applicable when `Ipv6InterfaceType` is 'pd'.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6PdInterface")]
         public Input<string>? Ipv6PdInterface { get; set; }
@@ -797,6 +1053,8 @@ namespace Pulumiverse.Unifi
         /// The starting IPv6 address for Prefix Delegation range.
         /// Only used when `Ipv6InterfaceType` is 'pd'.
         /// Must be within the delegated prefix range.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6PdStart")]
         public Input<string>? Ipv6PdStart { get; set; }
@@ -805,6 +1063,8 @@ namespace Pulumiverse.Unifi
         /// The ending IPv6 address for Prefix Delegation range.
         /// Only used when `Ipv6InterfaceType` is 'pd'.
         /// Must be after `Ipv6PdStart` within the delegated prefix.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6PdStop")]
         public Input<string>? Ipv6PdStop { get; set; }
@@ -833,6 +1093,8 @@ namespace Pulumiverse.Unifi
         /// * `Medium` - Standard priority
         /// * `Low` - For backup or secondary networks
         /// Affects router selection when multiple IPv6 routers exist.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `Ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6RaPriority")]
         public Input<string>? Ipv6RaPriority { get; set; }
@@ -850,6 +1112,8 @@ namespace Pulumiverse.Unifi
         /// The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
         /// Only applicable when `Ipv6InterfaceType` is 'static'.
         /// Must be a valid IPv6 subnet allocated to your organization.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6StaticSubnet")]
         public Input<string>? Ipv6StaticSubnet { get; set; }
@@ -876,10 +1140,10 @@ namespace Pulumiverse.Unifi
         public Input<string>? NetworkGroup { get; set; }
 
         /// <summary>
-        /// Enables network isolation. When enabled:
-        /// * Prevents communication between clients on this network
-        /// * Each client can only communicate with the gateway
-        /// * Commonly used for guest networks or IoT devices
+        /// Isolates this network from other local networks/VLANs on the site. When enabled:
+        /// * Hosts on this network cannot route to or from other local networks on the site
+        /// * Gateway and internet access are retained (internet access is subject to `InternetAccessEnabled`)
+        /// * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         /// </summary>
         [Input("networkIsolationEnabled")]
         public Input<bool>? NetworkIsolationEnabled { get; set; }
@@ -890,6 +1154,7 @@ namespace Pulumiverse.Unifi
         /// * `Guest` - Isolated network for guest access with limited permissions
         /// * `Wan` - External network connection (WAN uplink)
         /// * `vlan-only` - VLAN network without DHCP services
+        /// * `vpn-client` - Site-to-site VPN client connection (see the `VpnType` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         /// </summary>
         [Input("purpose", required: true)]
         public Input<string> Purpose { get; set; } = null!;
@@ -906,6 +1171,24 @@ namespace Pulumiverse.Unifi
         [Input("subnet")]
         public Input<string>? Subnet { get; set; }
 
+        [Input("uidVpnCustomRoutings")]
+        private InputList<string>? _uidVpnCustomRoutings;
+
+        /// <summary>
+        /// The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `VpnClientDefaultRoute` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        public InputList<string> UidVpnCustomRoutings
+        {
+            get => _uidVpnCustomRoutings ?? (_uidVpnCustomRoutings = new InputList<string>());
+            set => _uidVpnCustomRoutings = value;
+        }
+
+        /// <summary>
+        /// Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+        /// </summary>
+        [Input("upnpLanEnabled")]
+        public Input<bool>? UpnpLanEnabled { get; set; }
+
         /// <summary>
         /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
         /// * 1-4094: Standard VLAN range for network segmentation
@@ -914,6 +1197,24 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("vlanId")]
         public Input<int>? VlanId { get; set; }
+
+        /// <summary>
+        /// When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `UidVpnCustomRouting` are routed through the tunnel. Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        [Input("vpnClientDefaultRoute")]
+        public Input<bool>? VpnClientDefaultRoute { get; set; }
+
+        /// <summary>
+        /// When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        [Input("vpnClientPullDns")]
+        public Input<bool>? VpnClientPullDns { get; set; }
+
+        /// <summary>
+        /// The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `Purpose` is 'vpn-client'. A `wireguard-client` network also requires `Subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `DhcpDns` (interface DNS); the controller rejects the create without them.
+        /// </summary>
+        [Input("vpnType")]
+        public Input<string>? VpnType { get; set; }
 
         /// <summary>
         /// The IPv6 prefix size to request from ISP. Must be between 48 and 64.
@@ -1035,6 +1336,58 @@ namespace Pulumiverse.Unifi
         public Input<string>? WanUsername { get; set; }
 
         /// <summary>
+        /// How the WireGuard VPN client peer is configured. Currently only `Manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientMode")]
+        public Input<string>? WireguardClientMode { get; set; }
+
+        /// <summary>
+        /// The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientPeerIp")]
+        public Input<string>? WireguardClientPeerIp { get; set; }
+
+        /// <summary>
+        /// The remote WireGuard server's listen port (e.g. 51820). Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientPeerPort")]
+        public Input<int>? WireguardClientPeerPort { get; set; }
+
+        /// <summary>
+        /// The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientPeerPublicKey")]
+        public Input<string>? WireguardClientPeerPublicKey { get; set; }
+
+        [Input("wireguardClientPresharedKey")]
+        private Input<string>? _wireguardClientPresharedKey;
+
+        /// <summary>
+        /// An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        public Input<string>? WireguardClientPresharedKey
+        {
+            get => _wireguardClientPresharedKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _wireguardClientPresharedKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// Whether a WireGuard pre-shared key is used with the peer. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientPresharedKeyEnabled")]
+        public Input<bool>? WireguardClientPresharedKeyEnabled { get; set; }
+
+        /// <summary>
+        /// The WAN interface the WireGuard tunnel egresses from. One of `Wan` or `Wan2`. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardInterface")]
+        public Input<string>? WireguardInterface { get; set; }
+
+        /// <summary>
         /// Password for WAN authentication.
         /// * Required for PPPoE connections
         /// * May be needed for some ISP configurations
@@ -1042,6 +1395,22 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("xWanPassword")]
         public Input<string>? XWanPassword { get; set; }
+
+        [Input("xWireguardPrivateKey")]
+        private Input<string>? _xWireguardPrivateKey;
+
+        /// <summary>
+        /// The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `WireguardPublicKey`. Keep this value secret. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        public Input<string>? XWireguardPrivateKey
+        {
+            get => _xWireguardPrivateKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _xWireguardPrivateKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public NetworkArgs()
         {
@@ -1077,6 +1446,30 @@ namespace Pulumiverse.Unifi
         public Input<bool>? DhcpEnabled { get; set; }
 
         /// <summary>
+        /// Enables DHCP Guarding for this network, blocking DHCP server responses from untrusted/rogue sources so only the trusted DHCP server can hand out leases. When enabled:
+        /// * Drops DHCP offers/acknowledgements from servers other than the trusted one
+        /// * Protects clients from rogue or misconfigured DHCP servers
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value enabled in the UI is preserved), rather than being reset. Set it explicitly to manage the value from Terraform.
+        /// </summary>
+        [Input("dhcpGuarding")]
+        public Input<bool>? DhcpGuarding { get; set; }
+
+        [Input("dhcpGuardingTrustedServers")]
+        private InputList<string>? _dhcpGuardingTrustedServers;
+
+        /// <summary>
+        /// List of trusted DHCP server IPv4 addresses for DHCP Guarding. When `DhcpGuarding` is enabled the controller drops DHCP offers from every server except those listed here, so at least one address is required whenever guarding is on (for a network served by the UniFi gateway's own DHCP server this is typically the network's gateway IP). Maximum 3 servers can be specified.
+        /// 
+        /// Like `DhcpGuarding`, this attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a list configured in the UI is preserved rather than cleared). Set it explicitly to manage the trusted servers from Terraform.
+        /// </summary>
+        public InputList<string> DhcpGuardingTrustedServers
+        {
+            get => _dhcpGuardingTrustedServers ?? (_dhcpGuardingTrustedServers = new InputList<string>());
+            set => _dhcpGuardingTrustedServers = value;
+        }
+
+        /// <summary>
         /// The DHCP lease time in seconds. Common values:
         /// * 86400 (1 day) - Default, suitable for most networks
         /// * 3600 (1 hour) - For testing or temporary networks
@@ -1159,6 +1552,8 @@ namespace Pulumiverse.Unifi
         /// <summary>
         /// The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         /// Must be a valid IPv6 address within your allocated IPv6 subnet.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `DhcpV6Enabled`/`Ipv6InterfaceType` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("dhcpV6Start")]
         public Input<string>? DhcpV6Start { get; set; }
@@ -1166,6 +1561,8 @@ namespace Pulumiverse.Unifi
         /// <summary>
         /// The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
         /// Must be after DhcpV6Start in the IPv6 address space.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn DHCPv6 off with `DhcpV6Enabled`/`Ipv6InterfaceType` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("dhcpV6Stop")]
         public Input<string>? DhcpV6Stop { get; set; }
@@ -1198,6 +1595,24 @@ namespace Pulumiverse.Unifi
         public Input<string>? DhcpdBootServer { get; set; }
 
         /// <summary>
+        /// The IPv4 default gateway to advertise to this network's DHCP clients (DHCP option 3) when `DhcpdGatewayEnabled` is `True`. Typically an address inside this network's `Subnet`; an off-subnet address (e.g. a 100.64.0.0/10 Tailscale CGNAT address) passes validation here but may be rejected by the controller at apply. IPv4 only — there is no IPv6 default-gateway override.
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted it inherits the current value reported by the controller (so a manually-set gateway, or a value the controller echoes in auto mode, does not show as drift). Set it together with `DhcpdGatewayEnabled = true` to manage the override from Terraform.
+        /// </summary>
+        [Input("dhcpdGateway")]
+        public Input<string>? DhcpdGateway { get; set; }
+
+        /// <summary>
+        /// Controls whether the default gateway advertised to this network's DHCP clients is selected automatically or set manually — equivalent to switching the network's default gateway from automatic to a manually specified address in the UniFi UI (the exact control label and location vary across controller versions). When `False` (automatic, the default) the controller advertises the network's own interface IP as the gateway via DHCP option 3. Set this to `True` to advertise the address in `DhcpdGateway` instead — useful for pointing clients at a custom next hop such as a VPN/subnet-router node (e.g. Tailscale).
+        /// 
+        /// This attribute is `Optional` and `Computed`: when omitted from configuration it inherits the current value reported by the controller (so a value set in the UI is preserved) rather than being reset. When `True`, `DhcpdGateway` is required.
+        /// 
+        /// Only meaningful when this network runs the UniFi DHCP server (`DhcpEnabled = true` and `DhcpRelayEnabled = false`) with an address range (`DhcpStart`/`DhcpStop`) configured — the override is DHCP option 3 and the controller rejects a manual gateway with no pool to hand out. It has no effect on `Wan` or `vlan-only` networks. Note: on some controller versions the network must also be in manual configuration mode (toggled in the UniFi UI) before a manually-specified gateway is honored.
+        /// </summary>
+        [Input("dhcpdGatewayEnabled")]
+        public Input<bool>? DhcpdGatewayEnabled { get; set; }
+
+        /// <summary>
         /// The domain name for this network. Examples:
         /// * 'corp.example.com' - For corporate networks
         /// * 'guest.example.com' - For guest networks
@@ -1216,6 +1631,20 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
+
+        /// <summary>
+        /// The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. This is only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled. The zone ID is **site-scoped**: an ID from a different site is rejected or silently dropped by the controller.
+        /// 
+        /// This attribute is `Optional` + `Computed`:
+        /// * Leave it **unset** to preserve whatever zone the controller (or a `unifi.firewall.Zone` resource) has assigned. The provider never sends the field when it is not configured, so it cannot clobber a zone managed elsewhere.
+        /// * **Set** it to explicitly pin or move this network to a specific zone — choose the zone appropriate for the network's purpose (e.g. Internal, External, Guest).
+        /// 
+        /// On read the controller-assigned zone is always populated, so drift is detectable and `terraform import` round-trips cleanly. Note the standard `Optional`+`Computed` "sticky value" semantics: once set and later removed from configuration the value persists in state rather than reverting, and removing it does **not** un-zone the network.
+        /// 
+        /// To manage zone membership from the zone side instead, use `unifi_firewall_zone.networks`. Do not manage the same network-to-zone association from both sides.
+        /// </summary>
+        [Input("firewallZoneId")]
+        public Input<string>? FirewallZoneId { get; set; }
 
         /// <summary>
         /// Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
@@ -1241,8 +1670,9 @@ namespace Pulumiverse.Unifi
         /// * `None` - IPv6 disabled (default)
         /// * `Static` - Static IPv6 addressing
         /// * `Pd` - Prefix Delegation from upstream
+        /// * `SingleNetwork` - Share a delegated IPv6 prefix with a single LAN
         /// 
-        /// Choose based on your IPv6 deployment strategy and ISP capabilities.
+        /// Choose based on your IPv6 deployment strategy and ISP capabilities. Note: `SingleNetwork` has companion controller settings (the single-network interface/LAN binding) that this provider does not yet expose, so a bare `SingleNetwork` network may not be fully configurable.
         /// </summary>
         [Input("ipv6InterfaceType")]
         public Input<string>? Ipv6InterfaceType { get; set; }
@@ -1252,6 +1682,8 @@ namespace Pulumiverse.Unifi
         /// * `Wan` - Primary WAN interface
         /// * `Wan2` - Secondary WAN interface
         /// Only applicable when `Ipv6InterfaceType` is 'pd'.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6PdInterface")]
         public Input<string>? Ipv6PdInterface { get; set; }
@@ -1269,6 +1701,8 @@ namespace Pulumiverse.Unifi
         /// The starting IPv6 address for Prefix Delegation range.
         /// Only used when `Ipv6InterfaceType` is 'pd'.
         /// Must be within the delegated prefix range.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6PdStart")]
         public Input<string>? Ipv6PdStart { get; set; }
@@ -1277,6 +1711,8 @@ namespace Pulumiverse.Unifi
         /// The ending IPv6 address for Prefix Delegation range.
         /// Only used when `Ipv6InterfaceType` is 'pd'.
         /// Must be after `Ipv6PdStart` within the delegated prefix.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6PdStop")]
         public Input<string>? Ipv6PdStop { get; set; }
@@ -1305,6 +1741,8 @@ namespace Pulumiverse.Unifi
         /// * `Medium` - Standard priority
         /// * `Low` - For backup or secondary networks
         /// Affects router selection when multiple IPv6 routers exist.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `Ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6RaPriority")]
         public Input<string>? Ipv6RaPriority { get; set; }
@@ -1322,6 +1760,8 @@ namespace Pulumiverse.Unifi
         /// The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
         /// Only applicable when `Ipv6InterfaceType` is 'static'.
         /// Must be a valid IPv6 subnet allocated to your organization.
+        /// 
+        /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'static' to disable static IPv6 instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
         [Input("ipv6StaticSubnet")]
         public Input<string>? Ipv6StaticSubnet { get; set; }
@@ -1348,10 +1788,10 @@ namespace Pulumiverse.Unifi
         public Input<string>? NetworkGroup { get; set; }
 
         /// <summary>
-        /// Enables network isolation. When enabled:
-        /// * Prevents communication between clients on this network
-        /// * Each client can only communicate with the gateway
-        /// * Commonly used for guest networks or IoT devices
+        /// Isolates this network from other local networks/VLANs on the site. When enabled:
+        /// * Hosts on this network cannot route to or from other local networks on the site
+        /// * Gateway and internet access are retained (internet access is subject to `InternetAccessEnabled`)
+        /// * This is a routing/firewall option for network-to-network isolation, distinct from per-client (WLAN) isolation
         /// </summary>
         [Input("networkIsolationEnabled")]
         public Input<bool>? NetworkIsolationEnabled { get; set; }
@@ -1362,6 +1802,7 @@ namespace Pulumiverse.Unifi
         /// * `Guest` - Isolated network for guest access with limited permissions
         /// * `Wan` - External network connection (WAN uplink)
         /// * `vlan-only` - VLAN network without DHCP services
+        /// * `vpn-client` - Site-to-site VPN client connection (see the `VpnType` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
         /// </summary>
         [Input("purpose")]
         public Input<string>? Purpose { get; set; }
@@ -1378,6 +1819,24 @@ namespace Pulumiverse.Unifi
         [Input("subnet")]
         public Input<string>? Subnet { get; set; }
 
+        [Input("uidVpnCustomRoutings")]
+        private InputList<string>? _uidVpnCustomRoutings;
+
+        /// <summary>
+        /// The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `VpnClientDefaultRoute` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        public InputList<string> UidVpnCustomRoutings
+        {
+            get => _uidVpnCustomRoutings ?? (_uidVpnCustomRoutings = new InputList<string>());
+            set => _uidVpnCustomRoutings = value;
+        }
+
+        /// <summary>
+        /// Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+        /// </summary>
+        [Input("upnpLanEnabled")]
+        public Input<bool>? UpnpLanEnabled { get; set; }
+
         /// <summary>
         /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
         /// * 1-4094: Standard VLAN range for network segmentation
@@ -1386,6 +1845,24 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("vlanId")]
         public Input<int>? VlanId { get; set; }
+
+        /// <summary>
+        /// When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `UidVpnCustomRouting` are routed through the tunnel. Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        [Input("vpnClientDefaultRoute")]
+        public Input<bool>? VpnClientDefaultRoute { get; set; }
+
+        /// <summary>
+        /// When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `Purpose` is 'vpn-client'.
+        /// </summary>
+        [Input("vpnClientPullDns")]
+        public Input<bool>? VpnClientPullDns { get; set; }
+
+        /// <summary>
+        /// The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `Purpose` is 'vpn-client'. A `wireguard-client` network also requires `Subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `DhcpDns` (interface DNS); the controller rejects the create without them.
+        /// </summary>
+        [Input("vpnType")]
+        public Input<string>? VpnType { get; set; }
 
         /// <summary>
         /// The IPv6 prefix size to request from ISP. Must be between 48 and 64.
@@ -1507,6 +1984,64 @@ namespace Pulumiverse.Unifi
         public Input<string>? WanUsername { get; set; }
 
         /// <summary>
+        /// How the WireGuard VPN client peer is configured. Currently only `Manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientMode")]
+        public Input<string>? WireguardClientMode { get; set; }
+
+        /// <summary>
+        /// The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientPeerIp")]
+        public Input<string>? WireguardClientPeerIp { get; set; }
+
+        /// <summary>
+        /// The remote WireGuard server's listen port (e.g. 51820). Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientPeerPort")]
+        public Input<int>? WireguardClientPeerPort { get; set; }
+
+        /// <summary>
+        /// The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientPeerPublicKey")]
+        public Input<string>? WireguardClientPeerPublicKey { get; set; }
+
+        [Input("wireguardClientPresharedKey")]
+        private Input<string>? _wireguardClientPresharedKey;
+
+        /// <summary>
+        /// An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        public Input<string>? WireguardClientPresharedKey
+        {
+            get => _wireguardClientPresharedKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _wireguardClientPresharedKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        /// <summary>
+        /// Whether a WireGuard pre-shared key is used with the peer. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardClientPresharedKeyEnabled")]
+        public Input<bool>? WireguardClientPresharedKeyEnabled { get; set; }
+
+        /// <summary>
+        /// The WAN interface the WireGuard tunnel egresses from. One of `Wan` or `Wan2`. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardInterface")]
+        public Input<string>? WireguardInterface { get; set; }
+
+        /// <summary>
+        /// The gateway's own WireGuard public key for this VPN client. The controller does not return it, so the provider derives it from the private key (Curve25519). Add this key as a peer on the remote WireGuard server. Only set when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        [Input("wireguardPublicKey")]
+        public Input<string>? WireguardPublicKey { get; set; }
+
+        /// <summary>
         /// Password for WAN authentication.
         /// * Required for PPPoE connections
         /// * May be needed for some ISP configurations
@@ -1514,6 +2049,22 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("xWanPassword")]
         public Input<string>? XWanPassword { get; set; }
+
+        [Input("xWireguardPrivateKey")]
+        private Input<string>? _xWireguardPrivateKey;
+
+        /// <summary>
+        /// The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `WireguardPublicKey`. Keep this value secret. Only applicable when `VpnType` is 'wireguard-client'.
+        /// </summary>
+        public Input<string>? XWireguardPrivateKey
+        {
+            get => _xWireguardPrivateKey;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _xWireguardPrivateKey = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public NetworkState()
         {

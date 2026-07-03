@@ -68,9 +68,9 @@ export interface GetGroupOutputArgs {
     /**
      * The name of the user group to look up. Defaults to `Default`.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The name of the site the user group is associated with.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

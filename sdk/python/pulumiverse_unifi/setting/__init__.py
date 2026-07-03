@@ -7,8 +7,11 @@ from .. import _utilities
 import typing
 # Export this package's modules as members:
 from .auto_speedtest import *
+from .connectivity import *
 from .country import *
 from .dpi import *
+from .ether_lighting import *
+from .global_switch import *
 from .guest_access import *
 from .ips import *
 from .lcd_monitor import *

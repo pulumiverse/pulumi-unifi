@@ -13,6 +13,200 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type DeviceEtherLighting struct {
+	// LED animation: `steady` or `breath`.
+	Behavior *string `pulumi:"behavior"`
+	// LED brightness, 1-100.
+	Brightness *int `pulumi:"brightness"`
+	// `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
+	LedMode *string `pulumi:"ledMode"`
+	// Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
+	Mode *string `pulumi:"mode"`
+}
+
+// DeviceEtherLightingInput is an input type that accepts DeviceEtherLightingArgs and DeviceEtherLightingOutput values.
+// You can construct a concrete instance of `DeviceEtherLightingInput` via:
+//
+//	DeviceEtherLightingArgs{...}
+type DeviceEtherLightingInput interface {
+	pulumi.Input
+
+	ToDeviceEtherLightingOutput() DeviceEtherLightingOutput
+	ToDeviceEtherLightingOutputWithContext(context.Context) DeviceEtherLightingOutput
+}
+
+type DeviceEtherLightingArgs struct {
+	// LED animation: `steady` or `breath`.
+	Behavior pulumi.StringPtrInput `pulumi:"behavior"`
+	// LED brightness, 1-100.
+	Brightness pulumi.IntPtrInput `pulumi:"brightness"`
+	// `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
+	LedMode pulumi.StringPtrInput `pulumi:"ledMode"`
+	// Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
+	Mode pulumi.StringPtrInput `pulumi:"mode"`
+}
+
+func (DeviceEtherLightingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceEtherLighting)(nil)).Elem()
+}
+
+func (i DeviceEtherLightingArgs) ToDeviceEtherLightingOutput() DeviceEtherLightingOutput {
+	return i.ToDeviceEtherLightingOutputWithContext(context.Background())
+}
+
+func (i DeviceEtherLightingArgs) ToDeviceEtherLightingOutputWithContext(ctx context.Context) DeviceEtherLightingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceEtherLightingOutput)
+}
+
+func (i DeviceEtherLightingArgs) ToDeviceEtherLightingPtrOutput() DeviceEtherLightingPtrOutput {
+	return i.ToDeviceEtherLightingPtrOutputWithContext(context.Background())
+}
+
+func (i DeviceEtherLightingArgs) ToDeviceEtherLightingPtrOutputWithContext(ctx context.Context) DeviceEtherLightingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceEtherLightingOutput).ToDeviceEtherLightingPtrOutputWithContext(ctx)
+}
+
+// DeviceEtherLightingPtrInput is an input type that accepts DeviceEtherLightingArgs, DeviceEtherLightingPtr and DeviceEtherLightingPtrOutput values.
+// You can construct a concrete instance of `DeviceEtherLightingPtrInput` via:
+//
+//	        DeviceEtherLightingArgs{...}
+//
+//	or:
+//
+//	        nil
+type DeviceEtherLightingPtrInput interface {
+	pulumi.Input
+
+	ToDeviceEtherLightingPtrOutput() DeviceEtherLightingPtrOutput
+	ToDeviceEtherLightingPtrOutputWithContext(context.Context) DeviceEtherLightingPtrOutput
+}
+
+type deviceEtherLightingPtrType DeviceEtherLightingArgs
+
+func DeviceEtherLightingPtr(v *DeviceEtherLightingArgs) DeviceEtherLightingPtrInput {
+	return (*deviceEtherLightingPtrType)(v)
+}
+
+func (*deviceEtherLightingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceEtherLighting)(nil)).Elem()
+}
+
+func (i *deviceEtherLightingPtrType) ToDeviceEtherLightingPtrOutput() DeviceEtherLightingPtrOutput {
+	return i.ToDeviceEtherLightingPtrOutputWithContext(context.Background())
+}
+
+func (i *deviceEtherLightingPtrType) ToDeviceEtherLightingPtrOutputWithContext(ctx context.Context) DeviceEtherLightingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceEtherLightingPtrOutput)
+}
+
+type DeviceEtherLightingOutput struct{ *pulumi.OutputState }
+
+func (DeviceEtherLightingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceEtherLighting)(nil)).Elem()
+}
+
+func (o DeviceEtherLightingOutput) ToDeviceEtherLightingOutput() DeviceEtherLightingOutput {
+	return o
+}
+
+func (o DeviceEtherLightingOutput) ToDeviceEtherLightingOutputWithContext(ctx context.Context) DeviceEtherLightingOutput {
+	return o
+}
+
+func (o DeviceEtherLightingOutput) ToDeviceEtherLightingPtrOutput() DeviceEtherLightingPtrOutput {
+	return o.ToDeviceEtherLightingPtrOutputWithContext(context.Background())
+}
+
+func (o DeviceEtherLightingOutput) ToDeviceEtherLightingPtrOutputWithContext(ctx context.Context) DeviceEtherLightingPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeviceEtherLighting) *DeviceEtherLighting {
+		return &v
+	}).(DeviceEtherLightingPtrOutput)
+}
+
+// LED animation: `steady` or `breath`.
+func (o DeviceEtherLightingOutput) Behavior() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceEtherLighting) *string { return v.Behavior }).(pulumi.StringPtrOutput)
+}
+
+// LED brightness, 1-100.
+func (o DeviceEtherLightingOutput) Brightness() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeviceEtherLighting) *int { return v.Brightness }).(pulumi.IntPtrOutput)
+}
+
+// `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
+func (o DeviceEtherLightingOutput) LedMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceEtherLighting) *string { return v.LedMode }).(pulumi.StringPtrOutput)
+}
+
+// Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
+func (o DeviceEtherLightingOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceEtherLighting) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+type DeviceEtherLightingPtrOutput struct{ *pulumi.OutputState }
+
+func (DeviceEtherLightingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DeviceEtherLighting)(nil)).Elem()
+}
+
+func (o DeviceEtherLightingPtrOutput) ToDeviceEtherLightingPtrOutput() DeviceEtherLightingPtrOutput {
+	return o
+}
+
+func (o DeviceEtherLightingPtrOutput) ToDeviceEtherLightingPtrOutputWithContext(ctx context.Context) DeviceEtherLightingPtrOutput {
+	return o
+}
+
+func (o DeviceEtherLightingPtrOutput) Elem() DeviceEtherLightingOutput {
+	return o.ApplyT(func(v *DeviceEtherLighting) DeviceEtherLighting {
+		if v != nil {
+			return *v
+		}
+		var ret DeviceEtherLighting
+		return ret
+	}).(DeviceEtherLightingOutput)
+}
+
+// LED animation: `steady` or `breath`.
+func (o DeviceEtherLightingPtrOutput) Behavior() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceEtherLighting) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Behavior
+	}).(pulumi.StringPtrOutput)
+}
+
+// LED brightness, 1-100.
+func (o DeviceEtherLightingPtrOutput) Brightness() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *DeviceEtherLighting) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Brightness
+	}).(pulumi.IntPtrOutput)
+}
+
+// `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
+func (o DeviceEtherLightingPtrOutput) LedMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceEtherLighting) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LedMode
+	}).(pulumi.StringPtrOutput)
+}
+
+// Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
+func (o DeviceEtherLightingPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeviceEtherLighting) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
 type DevicePortOverride struct {
 	// The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
 	// * Creating switch-to-switch uplinks for increased bandwidth
@@ -20,12 +214,29 @@ type DevicePortOverride struct {
 	// * Connecting to servers requiring more bandwidth
 	//   Note: All ports in the LAG must be sequential and have matching configurations.
 	AggregateNumPorts *int `pulumi:"aggregateNumPorts"`
+	// Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
+	ExcludedNetworkIds []string `pulumi:"excludedNetworkIds"`
+	// VLAN forwarding mode for the port. Valid values are:
+	//   * `all` - Forward all VLANs (trunk port)
+	//   * `native` - Only forward untagged traffic (access port)
+	//   * `customize` - Forward selected VLANs (use with `excludedNetworkIds`)
+	//   * `disabled` - Disable VLAN forwarding
+	//
+	// This attribute has NO default: leaving it unset keeps the port's existing forwarding behavior (the value is computed from the controller). Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+	Forward *string `pulumi:"forward"`
 	// A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
 	//   * 'Uplink to Core Switch'
 	//   * 'Conference Room AP'
 	//   * 'Server LACP Group 1'
 	//   * 'VoIP Phone Port'
 	Name *string `pulumi:"name"`
+	// The ID of the network to use as the native (untagged) network on this port. This is typically used for:
+	// * Access ports where devices need untagged access
+	// * Trunk ports to specify the native VLAN
+	// * Management networks for network devices
+	//
+	// Computed when not set, so the controller's current value (which it may auto-populate on a port) is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+	NativeNetworkconfId *string `pulumi:"nativeNetworkconfId"`
 	// The physical port number on the switch to configure.
 	Number int `pulumi:"number"`
 	// The operating mode of the port. Valid values are:
@@ -55,6 +266,19 @@ type DevicePortOverride struct {
 	PoeMode *string `pulumi:"poeMode"`
 	// The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
 	PortProfileId *string `pulumi:"portProfileId"`
+	// Whether the port's settings are taken from a profile (`auto`) or set per-port (`manual`). Valid values are `auto` and `manual`. Per-port VLAN overrides (`nativeNetworkconfId`, `taggedVlanMgmt`, `forward`, `excludedNetworkIds`) generally require `settingPreference = "manual"` to persist on the controller; with `auto` the controller may revert inline overrides to profile/auto behavior. Setting this to `manual` also overrides any `portProfileId` on the same port. Computed when not set, so the value the controller attaches to the port is preserved without producing a diff.
+	SettingPreference *string `pulumi:"settingPreference"`
+	// VLAN tagging behavior for the port. Valid values are:
+	// * `auto` - Automatically handle VLAN tags (recommended)
+	// * `blockAll` - Block all VLAN tagged traffic
+	// * `custom` - Custom VLAN configuration (use with `forward = "customize"` and `excludedNetworkIds`)
+	//
+	// Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+	TaggedVlanMgmt *string `pulumi:"taggedVlanMgmt"`
+	// The ID of the network to use for Voice over IP (VoIP) traffic on this port, for automatic voice-VLAN assignment in conjunction with LLDP-MED.
+	//
+	// Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+	VoiceNetworkconfId *string `pulumi:"voiceNetworkconfId"`
 }
 
 // DevicePortOverrideInput is an input type that accepts DevicePortOverrideArgs and DevicePortOverrideOutput values.
@@ -75,12 +299,29 @@ type DevicePortOverrideArgs struct {
 	// * Connecting to servers requiring more bandwidth
 	//   Note: All ports in the LAG must be sequential and have matching configurations.
 	AggregateNumPorts pulumi.IntPtrInput `pulumi:"aggregateNumPorts"`
+	// Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
+	ExcludedNetworkIds pulumi.StringArrayInput `pulumi:"excludedNetworkIds"`
+	// VLAN forwarding mode for the port. Valid values are:
+	//   * `all` - Forward all VLANs (trunk port)
+	//   * `native` - Only forward untagged traffic (access port)
+	//   * `customize` - Forward selected VLANs (use with `excludedNetworkIds`)
+	//   * `disabled` - Disable VLAN forwarding
+	//
+	// This attribute has NO default: leaving it unset keeps the port's existing forwarding behavior (the value is computed from the controller). Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+	Forward pulumi.StringPtrInput `pulumi:"forward"`
 	// A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
 	//   * 'Uplink to Core Switch'
 	//   * 'Conference Room AP'
 	//   * 'Server LACP Group 1'
 	//   * 'VoIP Phone Port'
 	Name pulumi.StringPtrInput `pulumi:"name"`
+	// The ID of the network to use as the native (untagged) network on this port. This is typically used for:
+	// * Access ports where devices need untagged access
+	// * Trunk ports to specify the native VLAN
+	// * Management networks for network devices
+	//
+	// Computed when not set, so the controller's current value (which it may auto-populate on a port) is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+	NativeNetworkconfId pulumi.StringPtrInput `pulumi:"nativeNetworkconfId"`
 	// The physical port number on the switch to configure.
 	Number pulumi.IntInput `pulumi:"number"`
 	// The operating mode of the port. Valid values are:
@@ -110,6 +351,19 @@ type DevicePortOverrideArgs struct {
 	PoeMode pulumi.StringPtrInput `pulumi:"poeMode"`
 	// The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
 	PortProfileId pulumi.StringPtrInput `pulumi:"portProfileId"`
+	// Whether the port's settings are taken from a profile (`auto`) or set per-port (`manual`). Valid values are `auto` and `manual`. Per-port VLAN overrides (`nativeNetworkconfId`, `taggedVlanMgmt`, `forward`, `excludedNetworkIds`) generally require `settingPreference = "manual"` to persist on the controller; with `auto` the controller may revert inline overrides to profile/auto behavior. Setting this to `manual` also overrides any `portProfileId` on the same port. Computed when not set, so the value the controller attaches to the port is preserved without producing a diff.
+	SettingPreference pulumi.StringPtrInput `pulumi:"settingPreference"`
+	// VLAN tagging behavior for the port. Valid values are:
+	// * `auto` - Automatically handle VLAN tags (recommended)
+	// * `blockAll` - Block all VLAN tagged traffic
+	// * `custom` - Custom VLAN configuration (use with `forward = "customize"` and `excludedNetworkIds`)
+	//
+	// Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+	TaggedVlanMgmt pulumi.StringPtrInput `pulumi:"taggedVlanMgmt"`
+	// The ID of the network to use for Voice over IP (VoIP) traffic on this port, for automatic voice-VLAN assignment in conjunction with LLDP-MED.
+	//
+	// Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+	VoiceNetworkconfId pulumi.StringPtrInput `pulumi:"voiceNetworkconfId"`
 }
 
 func (DevicePortOverrideArgs) ElementType() reflect.Type {
@@ -172,6 +426,22 @@ func (o DevicePortOverrideOutput) AggregateNumPorts() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DevicePortOverride) *int { return v.AggregateNumPorts }).(pulumi.IntPtrOutput)
 }
 
+// Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
+func (o DevicePortOverrideOutput) ExcludedNetworkIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v DevicePortOverride) []string { return v.ExcludedNetworkIds }).(pulumi.StringArrayOutput)
+}
+
+// VLAN forwarding mode for the port. Valid values are:
+//   - `all` - Forward all VLANs (trunk port)
+//   - `native` - Only forward untagged traffic (access port)
+//   - `customize` - Forward selected VLANs (use with `excludedNetworkIds`)
+//   - `disabled` - Disable VLAN forwarding
+//
+// This attribute has NO default: leaving it unset keeps the port's existing forwarding behavior (the value is computed from the controller). Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+func (o DevicePortOverrideOutput) Forward() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DevicePortOverride) *string { return v.Forward }).(pulumi.StringPtrOutput)
+}
+
 // A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
 //   - 'Uplink to Core Switch'
 //   - 'Conference Room AP'
@@ -179,6 +449,16 @@ func (o DevicePortOverrideOutput) AggregateNumPorts() pulumi.IntPtrOutput {
 //   - 'VoIP Phone Port'
 func (o DevicePortOverrideOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DevicePortOverride) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// The ID of the network to use as the native (untagged) network on this port. This is typically used for:
+// * Access ports where devices need untagged access
+// * Trunk ports to specify the native VLAN
+// * Management networks for network devices
+//
+// Computed when not set, so the controller's current value (which it may auto-populate on a port) is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+func (o DevicePortOverrideOutput) NativeNetworkconfId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DevicePortOverride) *string { return v.NativeNetworkconfId }).(pulumi.StringPtrOutput)
 }
 
 // The physical port number on the switch to configure.
@@ -225,6 +505,28 @@ func (o DevicePortOverrideOutput) PortProfileId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DevicePortOverride) *string { return v.PortProfileId }).(pulumi.StringPtrOutput)
 }
 
+// Whether the port's settings are taken from a profile (`auto`) or set per-port (`manual`). Valid values are `auto` and `manual`. Per-port VLAN overrides (`nativeNetworkconfId`, `taggedVlanMgmt`, `forward`, `excludedNetworkIds`) generally require `settingPreference = "manual"` to persist on the controller; with `auto` the controller may revert inline overrides to profile/auto behavior. Setting this to `manual` also overrides any `portProfileId` on the same port. Computed when not set, so the value the controller attaches to the port is preserved without producing a diff.
+func (o DevicePortOverrideOutput) SettingPreference() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DevicePortOverride) *string { return v.SettingPreference }).(pulumi.StringPtrOutput)
+}
+
+// VLAN tagging behavior for the port. Valid values are:
+// * `auto` - Automatically handle VLAN tags (recommended)
+// * `blockAll` - Block all VLAN tagged traffic
+// * `custom` - Custom VLAN configuration (use with `forward = "customize"` and `excludedNetworkIds`)
+//
+// Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+func (o DevicePortOverrideOutput) TaggedVlanMgmt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DevicePortOverride) *string { return v.TaggedVlanMgmt }).(pulumi.StringPtrOutput)
+}
+
+// The ID of the network to use for Voice over IP (VoIP) traffic on this port, for automatic voice-VLAN assignment in conjunction with LLDP-MED.
+//
+// Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+func (o DevicePortOverrideOutput) VoiceNetworkconfId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DevicePortOverride) *string { return v.VoiceNetworkconfId }).(pulumi.StringPtrOutput)
+}
+
 type DevicePortOverrideArrayOutput struct{ *pulumi.OutputState }
 
 func (DevicePortOverrideArrayOutput) ElementType() reflect.Type {
@@ -243,6 +545,157 @@ func (o DevicePortOverrideArrayOutput) Index(i pulumi.IntInput) DevicePortOverri
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DevicePortOverride {
 		return vs[0].([]DevicePortOverride)[vs[1].(int)]
 	}).(DevicePortOverrideOutput)
+}
+
+type DeviceRadio struct {
+	// The channel for this radio (band-specific), or `auto` to let the controller choose.
+	Channel *string `pulumi:"channel"`
+	// Channel width in MHz for this radio (e.g. 20, 40, 80, 160, 320).
+	Ht *int `pulumi:"ht"`
+	// Minimum RSSI in dBm (negative) below which clients are disconnected, when `minRssiEnabled` is true.
+	MinRssi *int `pulumi:"minRssi"`
+	// Whether the minimum-RSSI client-disconnect threshold is enabled on this radio. Applied together with `minRssi`.
+	MinRssiEnabled *bool `pulumi:"minRssiEnabled"`
+	// The radio band this block configures: `ng` (2.4GHz), `na` (5GHz), or `6e` (6GHz).
+	Name string `pulumi:"name"`
+	// Custom transmit power in dBm, used when `txPowerMode = "custom"`; otherwise leave unset.
+	TxPower *string `pulumi:"txPower"`
+	// Transmit-power mode: `auto`, `low`, `medium`, `high`, `custom`, or `disabled`. `disabled` turns the radio off (e.g. to suppress an unused 2.4GHz band on an in-wall AP).
+	TxPowerMode *string `pulumi:"txPowerMode"`
+}
+
+// DeviceRadioInput is an input type that accepts DeviceRadioArgs and DeviceRadioOutput values.
+// You can construct a concrete instance of `DeviceRadioInput` via:
+//
+//	DeviceRadioArgs{...}
+type DeviceRadioInput interface {
+	pulumi.Input
+
+	ToDeviceRadioOutput() DeviceRadioOutput
+	ToDeviceRadioOutputWithContext(context.Context) DeviceRadioOutput
+}
+
+type DeviceRadioArgs struct {
+	// The channel for this radio (band-specific), or `auto` to let the controller choose.
+	Channel pulumi.StringPtrInput `pulumi:"channel"`
+	// Channel width in MHz for this radio (e.g. 20, 40, 80, 160, 320).
+	Ht pulumi.IntPtrInput `pulumi:"ht"`
+	// Minimum RSSI in dBm (negative) below which clients are disconnected, when `minRssiEnabled` is true.
+	MinRssi pulumi.IntPtrInput `pulumi:"minRssi"`
+	// Whether the minimum-RSSI client-disconnect threshold is enabled on this radio. Applied together with `minRssi`.
+	MinRssiEnabled pulumi.BoolPtrInput `pulumi:"minRssiEnabled"`
+	// The radio band this block configures: `ng` (2.4GHz), `na` (5GHz), or `6e` (6GHz).
+	Name pulumi.StringInput `pulumi:"name"`
+	// Custom transmit power in dBm, used when `txPowerMode = "custom"`; otherwise leave unset.
+	TxPower pulumi.StringPtrInput `pulumi:"txPower"`
+	// Transmit-power mode: `auto`, `low`, `medium`, `high`, `custom`, or `disabled`. `disabled` turns the radio off (e.g. to suppress an unused 2.4GHz band on an in-wall AP).
+	TxPowerMode pulumi.StringPtrInput `pulumi:"txPowerMode"`
+}
+
+func (DeviceRadioArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceRadio)(nil)).Elem()
+}
+
+func (i DeviceRadioArgs) ToDeviceRadioOutput() DeviceRadioOutput {
+	return i.ToDeviceRadioOutputWithContext(context.Background())
+}
+
+func (i DeviceRadioArgs) ToDeviceRadioOutputWithContext(ctx context.Context) DeviceRadioOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceRadioOutput)
+}
+
+// DeviceRadioArrayInput is an input type that accepts DeviceRadioArray and DeviceRadioArrayOutput values.
+// You can construct a concrete instance of `DeviceRadioArrayInput` via:
+//
+//	DeviceRadioArray{ DeviceRadioArgs{...} }
+type DeviceRadioArrayInput interface {
+	pulumi.Input
+
+	ToDeviceRadioArrayOutput() DeviceRadioArrayOutput
+	ToDeviceRadioArrayOutputWithContext(context.Context) DeviceRadioArrayOutput
+}
+
+type DeviceRadioArray []DeviceRadioInput
+
+func (DeviceRadioArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceRadio)(nil)).Elem()
+}
+
+func (i DeviceRadioArray) ToDeviceRadioArrayOutput() DeviceRadioArrayOutput {
+	return i.ToDeviceRadioArrayOutputWithContext(context.Background())
+}
+
+func (i DeviceRadioArray) ToDeviceRadioArrayOutputWithContext(ctx context.Context) DeviceRadioArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DeviceRadioArrayOutput)
+}
+
+type DeviceRadioOutput struct{ *pulumi.OutputState }
+
+func (DeviceRadioOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DeviceRadio)(nil)).Elem()
+}
+
+func (o DeviceRadioOutput) ToDeviceRadioOutput() DeviceRadioOutput {
+	return o
+}
+
+func (o DeviceRadioOutput) ToDeviceRadioOutputWithContext(ctx context.Context) DeviceRadioOutput {
+	return o
+}
+
+// The channel for this radio (band-specific), or `auto` to let the controller choose.
+func (o DeviceRadioOutput) Channel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceRadio) *string { return v.Channel }).(pulumi.StringPtrOutput)
+}
+
+// Channel width in MHz for this radio (e.g. 20, 40, 80, 160, 320).
+func (o DeviceRadioOutput) Ht() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeviceRadio) *int { return v.Ht }).(pulumi.IntPtrOutput)
+}
+
+// Minimum RSSI in dBm (negative) below which clients are disconnected, when `minRssiEnabled` is true.
+func (o DeviceRadioOutput) MinRssi() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v DeviceRadio) *int { return v.MinRssi }).(pulumi.IntPtrOutput)
+}
+
+// Whether the minimum-RSSI client-disconnect threshold is enabled on this radio. Applied together with `minRssi`.
+func (o DeviceRadioOutput) MinRssiEnabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v DeviceRadio) *bool { return v.MinRssiEnabled }).(pulumi.BoolPtrOutput)
+}
+
+// The radio band this block configures: `ng` (2.4GHz), `na` (5GHz), or `6e` (6GHz).
+func (o DeviceRadioOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v DeviceRadio) string { return v.Name }).(pulumi.StringOutput)
+}
+
+// Custom transmit power in dBm, used when `txPowerMode = "custom"`; otherwise leave unset.
+func (o DeviceRadioOutput) TxPower() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceRadio) *string { return v.TxPower }).(pulumi.StringPtrOutput)
+}
+
+// Transmit-power mode: `auto`, `low`, `medium`, `high`, `custom`, or `disabled`. `disabled` turns the radio off (e.g. to suppress an unused 2.4GHz band on an in-wall AP).
+func (o DeviceRadioOutput) TxPowerMode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DeviceRadio) *string { return v.TxPowerMode }).(pulumi.StringPtrOutput)
+}
+
+type DeviceRadioArrayOutput struct{ *pulumi.OutputState }
+
+func (DeviceRadioArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]DeviceRadio)(nil)).Elem()
+}
+
+func (o DeviceRadioArrayOutput) ToDeviceRadioArrayOutput() DeviceRadioArrayOutput {
+	return o
+}
+
+func (o DeviceRadioArrayOutput) ToDeviceRadioArrayOutputWithContext(ctx context.Context) DeviceRadioArrayOutput {
+	return o
+}
+
+func (o DeviceRadioArrayOutput) Index(i pulumi.IntInput) DeviceRadioOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DeviceRadio {
+		return vs[0].([]DeviceRadio)[vs[1].(int)]
+	}).(DeviceRadioOutput)
 }
 
 type RadiusProfileAcctServer struct {
@@ -609,16 +1062,24 @@ func (o WlanScheduleArrayOutput) Index(i pulumi.IntInput) WlanScheduleOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceEtherLightingInput)(nil)).Elem(), DeviceEtherLightingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceEtherLightingPtrInput)(nil)).Elem(), DeviceEtherLightingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePortOverrideInput)(nil)).Elem(), DevicePortOverrideArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DevicePortOverrideArrayInput)(nil)).Elem(), DevicePortOverrideArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceRadioInput)(nil)).Elem(), DeviceRadioArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeviceRadioArrayInput)(nil)).Elem(), DeviceRadioArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RadiusProfileAcctServerInput)(nil)).Elem(), RadiusProfileAcctServerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RadiusProfileAcctServerArrayInput)(nil)).Elem(), RadiusProfileAcctServerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RadiusProfileAuthServerInput)(nil)).Elem(), RadiusProfileAuthServerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RadiusProfileAuthServerArrayInput)(nil)).Elem(), RadiusProfileAuthServerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WlanScheduleInput)(nil)).Elem(), WlanScheduleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WlanScheduleArrayInput)(nil)).Elem(), WlanScheduleArray{})
+	pulumi.RegisterOutputType(DeviceEtherLightingOutput{})
+	pulumi.RegisterOutputType(DeviceEtherLightingPtrOutput{})
 	pulumi.RegisterOutputType(DevicePortOverrideOutput{})
 	pulumi.RegisterOutputType(DevicePortOverrideArrayOutput{})
+	pulumi.RegisterOutputType(DeviceRadioOutput{})
+	pulumi.RegisterOutputType(DeviceRadioArrayOutput{})
 	pulumi.RegisterOutputType(RadiusProfileAcctServerOutput{})
 	pulumi.RegisterOutputType(RadiusProfileAcctServerArrayOutput{})
 	pulumi.RegisterOutputType(RadiusProfileAuthServerOutput{})

@@ -17,15 +17,16 @@ namespace Pulumiverse.Unifi
     ///   * WPA2/WPA3-Enterprise wireless authentication
     ///   * 802.1X wired authentication
     ///   * MAC-based device authentication
-    ///   * VLAN assignment through RADIUS attributes
+    ///   * Dynamic VLAN assignment through RADIUS attributes (see the `Vlan` attribute)
     /// 
     /// Important Notes:
     /// 1. For MAC-based authentication:
     ///    * Use the device's MAC address as both username and password
     ///    * Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
     /// 2. VLAN Assignment:
-    ///    * If no VLAN is specified in the profile, clients will use the network's untagged VLAN
-    ///    * VLAN assignment uses standard RADIUS tunnel attributes
+    ///    * Set the `Vlan` attribute to the 802.1Q VLAN ID the controller should assign to authenticated clients
+    ///    * VLAN assignment is delivered using the standard RADIUS tunnel attributes (`TunnelType`/`TunnelMediumType`)
+    ///    * If no VLAN is specified, clients will use the network's untagged VLAN
     /// 
     /// Limitations:
     ///   * MAC-based authentication works only for wireless and wired clients
@@ -42,7 +43,7 @@ namespace Pulumiverse.Unifi
         public Output<string> Name { get; private set; } = null!;
 
         /// <summary>
-        /// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        /// The ID of a UniFi network configuration (the controller's `NetworkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `Vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         /// </summary>
         [Output("networkId")]
         public Output<string?> NetworkId { get; private set; } = null!;
@@ -80,6 +81,12 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Output("tunnelType")]
         public Output<int?> TunnelType { get; private set; } = null!;
+
+        /// <summary>
+        /// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`TunnelType`/`TunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+        /// </summary>
+        [Output("vlan")]
+        public Output<int?> Vlan { get; private set; } = null!;
 
 
         /// <summary>
@@ -139,7 +146,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        /// The ID of a UniFi network configuration (the controller's `NetworkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `Vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         /// </summary>
         [Input("networkId")]
         public Input<string>? NetworkId { get; set; }
@@ -188,6 +195,12 @@ namespace Pulumiverse.Unifi
         [Input("tunnelType")]
         public Input<int>? TunnelType { get; set; }
 
+        /// <summary>
+        /// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`TunnelType`/`TunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+        /// </summary>
+        [Input("vlan")]
+        public Input<int>? Vlan { get; set; }
+
         public AccountArgs()
         {
         }
@@ -203,7 +216,7 @@ namespace Pulumiverse.Unifi
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// The ID of the network (VLAN) to assign to clients authenticating with this account. This is used in conjunction with the tunnel attributes to provide VLAN assignment via RADIUS.
+        /// The ID of a UniFi network configuration (the controller's `NetworkconfId`) to associate with this account. This is a reference to a network object and is distinct from the `Vlan` attribute, which sets the 802.1Q VLAN ID delivered via RADIUS.
         /// </summary>
         [Input("networkId")]
         public Input<string>? NetworkId { get; set; }
@@ -251,6 +264,12 @@ namespace Pulumiverse.Unifi
         /// </summary>
         [Input("tunnelType")]
         public Input<int>? TunnelType { get; set; }
+
+        /// <summary>
+        /// The 802.1Q VLAN ID to assign to clients authenticating with this account, used for RADIUS dynamic VLAN assignment. It is delivered together with the tunnel attributes (`TunnelType`/`TunnelMediumType`). Omitting this attribute means no VLAN is assigned; if a VLAN was set out-of-band (e.g. in the controller UI), omitting it here removes it on the next apply.
+        /// </summary>
+        [Input("vlan")]
+        public Input<int>? Vlan { get; set; }
 
         public AccountState()
         {

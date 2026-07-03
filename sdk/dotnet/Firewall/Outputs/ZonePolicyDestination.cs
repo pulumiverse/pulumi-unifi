@@ -35,9 +35,17 @@ namespace Pulumiverse.Unifi.Firewall.Outputs
         /// </summary>
         public readonly bool? MatchOppositeIps;
         /// <summary>
+        /// Whether to match opposite networks.
+        /// </summary>
+        public readonly bool? MatchOppositeNetworks;
+        /// <summary>
         /// Whether to match opposite ports.
         /// </summary>
         public readonly bool? MatchOppositePorts;
+        /// <summary>
+        /// List of network IDs.
+        /// </summary>
+        public readonly ImmutableArray<string> NetworkIds;
         /// <summary>
         /// Source port.
         /// </summary>
@@ -71,7 +79,11 @@ namespace Pulumiverse.Unifi.Firewall.Outputs
 
             bool? matchOppositeIps,
 
+            bool? matchOppositeNetworks,
+
             bool? matchOppositePorts,
+
+            ImmutableArray<string> networkIds,
 
             int? port,
 
@@ -88,7 +100,9 @@ namespace Pulumiverse.Unifi.Firewall.Outputs
             IpGroupId = ipGroupId;
             Ips = ips;
             MatchOppositeIps = matchOppositeIps;
+            MatchOppositeNetworks = matchOppositeNetworks;
             MatchOppositePorts = matchOppositePorts;
+            NetworkIds = networkIds;
             Port = port;
             PortGroupId = portGroupId;
             Regions = regions;

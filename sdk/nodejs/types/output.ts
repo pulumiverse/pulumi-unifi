@@ -5,6 +5,25 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface DeviceEtherLighting {
+    /**
+     * LED animation: `steady` or `breath`.
+     */
+    behavior: string;
+    /**
+     * LED brightness, 1-100.
+     */
+    brightness: number;
+    /**
+     * `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
+     */
+    ledMode: string;
+    /**
+     * Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
+     */
+    mode: string;
+}
+
 export interface DevicePortOverride {
     /**
      * The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
@@ -15,6 +34,20 @@ export interface DevicePortOverride {
      */
     aggregateNumPorts?: number;
     /**
+     * Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
+     */
+    excludedNetworkIds: string[];
+    /**
+     * VLAN forwarding mode for the port. Valid values are:
+     *   * `all` - Forward all VLANs (trunk port)
+     *   * `native` - Only forward untagged traffic (access port)
+     *   * `customize` - Forward selected VLANs (use with `excludedNetworkIds`)
+     *   * `disabled` - Disable VLAN forwarding
+     *
+     * This attribute has NO default: leaving it unset keeps the port's existing forwarding behavior (the value is computed from the controller). Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+     */
+    forward: string;
+    /**
      * A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
      *   * 'Uplink to Core Switch'
      *   * 'Conference Room AP'
@@ -22,6 +55,15 @@ export interface DevicePortOverride {
      *   * 'VoIP Phone Port'
      */
     name?: string;
+    /**
+     * The ID of the network to use as the native (untagged) network on this port. This is typically used for:
+     * * Access ports where devices need untagged access
+     * * Trunk ports to specify the native VLAN
+     * * Management networks for network devices
+     *
+     * Computed when not set, so the controller's current value (which it may auto-populate on a port) is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+     */
+    nativeNetworkconfId: string;
     /**
      * The physical port number on the switch to configure.
      */
@@ -59,6 +101,56 @@ export interface DevicePortOverride {
      * The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
      */
     portProfileId?: string;
+    /**
+     * Whether the port's settings are taken from a profile (`auto`) or set per-port (`manual`). Valid values are `auto` and `manual`. Per-port VLAN overrides (`nativeNetworkconfId`, `taggedVlanMgmt`, `forward`, `excludedNetworkIds`) generally require `settingPreference = "manual"` to persist on the controller; with `auto` the controller may revert inline overrides to profile/auto behavior. Setting this to `manual` also overrides any `portProfileId` on the same port. Computed when not set, so the value the controller attaches to the port is preserved without producing a diff.
+     */
+    settingPreference: string;
+    /**
+     * VLAN tagging behavior for the port. Valid values are:
+     * * `auto` - Automatically handle VLAN tags (recommended)
+     * * `blockAll` - Block all VLAN tagged traffic
+     * * `custom` - Custom VLAN configuration (use with `forward = "customize"` and `excludedNetworkIds`)
+     *
+     * Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
+     */
+    taggedVlanMgmt: string;
+    /**
+     * The ID of the network to use for Voice over IP (VoIP) traffic on this port, for automatic voice-VLAN assignment in conjunction with LLDP-MED.
+     *
+     * Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
+     */
+    voiceNetworkconfId: string;
+}
+
+export interface DeviceRadio {
+    /**
+     * The channel for this radio (band-specific), or `auto` to let the controller choose.
+     */
+    channel: string;
+    /**
+     * Channel width in MHz for this radio (e.g. 20, 40, 80, 160, 320).
+     */
+    ht: number;
+    /**
+     * Minimum RSSI in dBm (negative) below which clients are disconnected, when `minRssiEnabled` is true.
+     */
+    minRssi: number;
+    /**
+     * Whether the minimum-RSSI client-disconnect threshold is enabled on this radio. Applied together with `minRssi`.
+     */
+    minRssiEnabled: boolean;
+    /**
+     * The radio band this block configures: `ng` (2.4GHz), `na` (5GHz), or `6e` (6GHz).
+     */
+    name: string;
+    /**
+     * Custom transmit power in dBm, used when `txPowerMode = "custom"`; otherwise leave unset.
+     */
+    txPower: string;
+    /**
+     * Transmit-power mode: `auto`, `low`, `medium`, `high`, `custom`, or `disabled`. `disabled` turns the radio off (e.g. to suppress an unused 2.4GHz band on an in-wall AP).
+     */
+    txPowerMode: string;
 }
 
 export interface RadiusProfileAcctServer {
@@ -183,9 +275,17 @@ export namespace firewall {
          */
         matchOppositeIps: boolean;
         /**
+         * Whether to match opposite networks.
+         */
+        matchOppositeNetworks: boolean;
+        /**
          * Whether to match opposite ports.
          */
         matchOppositePorts: boolean;
+        /**
+         * List of network IDs.
+         */
+        networkIds?: string[];
         /**
          * Source port.
          */
@@ -297,6 +397,39 @@ export namespace firewall {
 }
 
 export namespace setting {
+    export interface EtherLightingNetworkOverride {
+        /**
+         * LED color as a 6-digit RGB hex string without `#` (e.g. `ff6c14`).
+         */
+        colorHex: string;
+        /**
+         * ID of the network/VLAN this color applies to (e.g. `unifi_network.iot.id`).
+         */
+        networkId: string;
+    }
+
+    export interface EtherLightingSpeedOverride {
+        /**
+         * LED color as a 6-digit RGB hex string without `#` (e.g. `ffc107`).
+         */
+        colorHex: string;
+        /**
+         * Link-speed class this color applies to.
+         */
+        speed: string;
+    }
+
+    export interface GlobalSwitchAclL3Isolation {
+        /**
+         * Set of UniFi network IDs that the source network is isolated from. At least one destination network is required.
+         */
+        destinationNetworks: string[];
+        /**
+         * The UniFi network ID (the `id` of a `unifi.Network`) that this rule applies to. Must be unique across all entries.
+         */
+        sourceNetwork: string;
+    }
+
     export interface GuestAccessAuthorize {
         /**
          * Authorize.net login ID for authentication.

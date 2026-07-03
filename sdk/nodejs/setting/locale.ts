@@ -88,11 +88,11 @@ export interface LocaleState {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Timezone for the UniFi controller, e.g., `America/Los_Angeles`
      */
-    timezone?: pulumi.Input<string>;
+    timezone?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -102,7 +102,7 @@ export interface LocaleArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Timezone for the UniFi controller, e.g., `America/Los_Angeles`
      */

@@ -54,6 +54,8 @@ import (
 //
 // ## Import
 //
+// The `pulumi import` command can be used, for example:
+//
 // import using the ID from the controller API/UI
 //
 // ```sh

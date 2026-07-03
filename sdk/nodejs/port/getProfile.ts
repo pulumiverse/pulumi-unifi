@@ -84,9 +84,9 @@ export interface GetProfileOutputArgs {
     /**
      * The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

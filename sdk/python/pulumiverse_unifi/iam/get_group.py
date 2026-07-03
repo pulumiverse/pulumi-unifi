@@ -113,8 +113,8 @@ def get_group(name: Optional[_builtins.str] = None,
         qos_rate_max_down=pulumi.get(__ret__, 'qos_rate_max_down'),
         qos_rate_max_up=pulumi.get(__ret__, 'qos_rate_max_up'),
         site=pulumi.get(__ret__, 'site'))
-def get_group_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                     site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_group_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                     site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                      opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetGroupResult]:
     """
     `iam.Group` data source can be used to retrieve the ID for a user group by name.

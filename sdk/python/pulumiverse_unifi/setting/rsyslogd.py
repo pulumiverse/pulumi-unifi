@@ -20,19 +20,20 @@ __all__ = ['RsyslogdArgs', 'Rsyslogd']
 class RsyslogdArgs:
     def __init__(__self__, *,
                  enabled: pulumi.Input[_builtins.bool],
-                 contents: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 debug: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 log_all_contents: Optional[pulumi.Input[_builtins.bool]] = None,
-                 netconsole_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 netconsole_host: Optional[pulumi.Input[_builtins.str]] = None,
-                 netconsole_port: Optional[pulumi.Input[_builtins.int]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 this_controller: Optional[pulumi.Input[_builtins.bool]] = None,
-                 this_controller_encrypted_only: Optional[pulumi.Input[_builtins.bool]] = None):
+                 contents: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 debug: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 log_all_contents: pulumi.Input[Optional[_builtins.bool]] = None,
+                 netconsole_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 netconsole_host: pulumi.Input[Optional[_builtins.str]] = None,
+                 netconsole_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 this_controller: pulumi.Input[Optional[_builtins.bool]] = None,
+                 this_controller_encrypted_only: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Rsyslogd resource.
+
         :param pulumi.Input[_builtins.bool] enabled: Whether remote syslog is enabled.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         :param pulumi.Input[_builtins.bool] debug: Whether debug logging is enabled.
@@ -84,154 +85,155 @@ class RsyslogdArgs:
 
     @_builtins.property
     @pulumi.getter
-    def contents(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def contents(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         """
         return pulumi.get(self, "contents")
 
     @contents.setter
-    def contents(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def contents(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "contents", value)
 
     @_builtins.property
     @pulumi.getter
-    def debug(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def debug(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether debug logging is enabled.
         """
         return pulumi.get(self, "debug")
 
     @debug.setter
-    def debug(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def debug(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "debug", value)
 
     @_builtins.property
     @pulumi.getter
-    def ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         IP address of the remote syslog server.
         """
         return pulumi.get(self, "ip")
 
     @ip.setter
-    def ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ip", value)
 
     @_builtins.property
     @pulumi.getter(name="logAllContents")
-    def log_all_contents(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def log_all_contents(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to log all content types.
         """
         return pulumi.get(self, "log_all_contents")
 
     @log_all_contents.setter
-    def log_all_contents(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def log_all_contents(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "log_all_contents", value)
 
     @_builtins.property
     @pulumi.getter(name="netconsoleEnabled")
-    def netconsole_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def netconsole_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether netconsole logging is enabled.
         """
         return pulumi.get(self, "netconsole_enabled")
 
     @netconsole_enabled.setter
-    def netconsole_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def netconsole_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "netconsole_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="netconsoleHost")
-    def netconsole_host(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def netconsole_host(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Hostname or IP address of the netconsole server.
         """
         return pulumi.get(self, "netconsole_host")
 
     @netconsole_host.setter
-    def netconsole_host(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def netconsole_host(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "netconsole_host", value)
 
     @_builtins.property
     @pulumi.getter(name="netconsolePort")
-    def netconsole_port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def netconsole_port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Port number for the netconsole server. Valid values: 1-65535.
         """
         return pulumi.get(self, "netconsole_port")
 
     @netconsole_port.setter
-    def netconsole_port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def netconsole_port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "netconsole_port", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Port number for the remote syslog server. Valid values: 1-65535.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "port", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="thisController")
-    def this_controller(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def this_controller(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to use this controller as the syslog server.
         """
         return pulumi.get(self, "this_controller")
 
     @this_controller.setter
-    def this_controller(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def this_controller(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "this_controller", value)
 
     @_builtins.property
     @pulumi.getter(name="thisControllerEncryptedOnly")
-    def this_controller_encrypted_only(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def this_controller_encrypted_only(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to only use encrypted connections to this controller for syslog.
         """
         return pulumi.get(self, "this_controller_encrypted_only")
 
     @this_controller_encrypted_only.setter
-    def this_controller_encrypted_only(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def this_controller_encrypted_only(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "this_controller_encrypted_only", value)
 
 
 @pulumi.input_type
 class _RsyslogdState:
     def __init__(__self__, *,
-                 contents: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 debug: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 log_all_contents: Optional[pulumi.Input[_builtins.bool]] = None,
-                 netconsole_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 netconsole_host: Optional[pulumi.Input[_builtins.str]] = None,
-                 netconsole_port: Optional[pulumi.Input[_builtins.int]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 this_controller: Optional[pulumi.Input[_builtins.bool]] = None,
-                 this_controller_encrypted_only: Optional[pulumi.Input[_builtins.bool]] = None):
+                 contents: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 debug: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 log_all_contents: pulumi.Input[Optional[_builtins.bool]] = None,
+                 netconsole_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 netconsole_host: pulumi.Input[Optional[_builtins.str]] = None,
+                 netconsole_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 this_controller: pulumi.Input[Optional[_builtins.bool]] = None,
+                 this_controller_encrypted_only: pulumi.Input[Optional[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering Rsyslogd resources.
+
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         :param pulumi.Input[_builtins.bool] debug: Whether debug logging is enabled.
         :param pulumi.Input[_builtins.bool] enabled: Whether remote syslog is enabled.
@@ -272,146 +274,146 @@ class _RsyslogdState:
 
     @_builtins.property
     @pulumi.getter
-    def contents(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
+    def contents(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         """
         return pulumi.get(self, "contents")
 
     @contents.setter
-    def contents(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
+    def contents(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "contents", value)
 
     @_builtins.property
     @pulumi.getter
-    def debug(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def debug(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether debug logging is enabled.
         """
         return pulumi.get(self, "debug")
 
     @debug.setter
-    def debug(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def debug(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "debug", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether remote syslog is enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def ip(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def ip(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         IP address of the remote syslog server.
         """
         return pulumi.get(self, "ip")
 
     @ip.setter
-    def ip(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def ip(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "ip", value)
 
     @_builtins.property
     @pulumi.getter(name="logAllContents")
-    def log_all_contents(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def log_all_contents(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to log all content types.
         """
         return pulumi.get(self, "log_all_contents")
 
     @log_all_contents.setter
-    def log_all_contents(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def log_all_contents(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "log_all_contents", value)
 
     @_builtins.property
     @pulumi.getter(name="netconsoleEnabled")
-    def netconsole_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def netconsole_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether netconsole logging is enabled.
         """
         return pulumi.get(self, "netconsole_enabled")
 
     @netconsole_enabled.setter
-    def netconsole_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def netconsole_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "netconsole_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="netconsoleHost")
-    def netconsole_host(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def netconsole_host(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         Hostname or IP address of the netconsole server.
         """
         return pulumi.get(self, "netconsole_host")
 
     @netconsole_host.setter
-    def netconsole_host(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def netconsole_host(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "netconsole_host", value)
 
     @_builtins.property
     @pulumi.getter(name="netconsolePort")
-    def netconsole_port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def netconsole_port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Port number for the netconsole server. Valid values: 1-65535.
         """
         return pulumi.get(self, "netconsole_port")
 
     @netconsole_port.setter
-    def netconsole_port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def netconsole_port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "netconsole_port", value)
 
     @_builtins.property
     @pulumi.getter
-    def port(self) -> Optional[pulumi.Input[_builtins.int]]:
+    def port(self) -> pulumi.Input[Optional[_builtins.int]]:
         """
         Port number for the remote syslog server. Valid values: 1-65535.
         """
         return pulumi.get(self, "port")
 
     @port.setter
-    def port(self, value: Optional[pulumi.Input[_builtins.int]]):
+    def port(self, value: pulumi.Input[Optional[_builtins.int]]):
         pulumi.set(self, "port", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="thisController")
-    def this_controller(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def this_controller(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to use this controller as the syslog server.
         """
         return pulumi.get(self, "this_controller")
 
     @this_controller.setter
-    def this_controller(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def this_controller(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "this_controller", value)
 
     @_builtins.property
     @pulumi.getter(name="thisControllerEncryptedOnly")
-    def this_controller_encrypted_only(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def this_controller_encrypted_only(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether to only use encrypted connections to this controller for syslog.
         """
         return pulumi.get(self, "this_controller_encrypted_only")
 
     @this_controller_encrypted_only.setter
-    def this_controller_encrypted_only(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def this_controller_encrypted_only(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "this_controller_encrypted_only", value)
 
 
@@ -421,18 +423,18 @@ class Rsyslogd(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 contents: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 debug: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 log_all_contents: Optional[pulumi.Input[_builtins.bool]] = None,
-                 netconsole_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 netconsole_host: Optional[pulumi.Input[_builtins.str]] = None,
-                 netconsole_port: Optional[pulumi.Input[_builtins.int]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 this_controller: Optional[pulumi.Input[_builtins.bool]] = None,
-                 this_controller_encrypted_only: Optional[pulumi.Input[_builtins.bool]] = None,
+                 contents: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 debug: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 log_all_contents: pulumi.Input[Optional[_builtins.bool]] = None,
+                 netconsole_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 netconsole_host: pulumi.Input[Optional[_builtins.str]] = None,
+                 netconsole_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 this_controller: pulumi.Input[Optional[_builtins.bool]] = None,
+                 this_controller_encrypted_only: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         """
         Manages Remote Syslog (rsyslogd) settings for UniFi devices. Controller version 8.5 or later is required.
@@ -457,6 +459,7 @@ class Rsyslogd(pulumi.CustomResource):
             netconsole_host="192.168.1.150",
             netconsole_port=1514)
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -503,6 +506,7 @@ class Rsyslogd(pulumi.CustomResource):
             netconsole_port=1514)
         ```
 
+
         :param str resource_name: The name of the resource.
         :param RsyslogdArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -518,18 +522,18 @@ class Rsyslogd(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 contents: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 debug: Optional[pulumi.Input[_builtins.bool]] = None,
-                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 ip: Optional[pulumi.Input[_builtins.str]] = None,
-                 log_all_contents: Optional[pulumi.Input[_builtins.bool]] = None,
-                 netconsole_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-                 netconsole_host: Optional[pulumi.Input[_builtins.str]] = None,
-                 netconsole_port: Optional[pulumi.Input[_builtins.int]] = None,
-                 port: Optional[pulumi.Input[_builtins.int]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
-                 this_controller: Optional[pulumi.Input[_builtins.bool]] = None,
-                 this_controller_encrypted_only: Optional[pulumi.Input[_builtins.bool]] = None,
+                 contents: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 debug: pulumi.Input[Optional[_builtins.bool]] = None,
+                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 ip: pulumi.Input[Optional[_builtins.str]] = None,
+                 log_all_contents: pulumi.Input[Optional[_builtins.bool]] = None,
+                 netconsole_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 netconsole_host: pulumi.Input[Optional[_builtins.str]] = None,
+                 netconsole_port: pulumi.Input[Optional[_builtins.int]] = None,
+                 port: pulumi.Input[Optional[_builtins.int]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 this_controller: pulumi.Input[Optional[_builtins.bool]] = None,
+                 this_controller_encrypted_only: pulumi.Input[Optional[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -563,18 +567,18 @@ class Rsyslogd(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            contents: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            debug: Optional[pulumi.Input[_builtins.bool]] = None,
-            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            ip: Optional[pulumi.Input[_builtins.str]] = None,
-            log_all_contents: Optional[pulumi.Input[_builtins.bool]] = None,
-            netconsole_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
-            netconsole_host: Optional[pulumi.Input[_builtins.str]] = None,
-            netconsole_port: Optional[pulumi.Input[_builtins.int]] = None,
-            port: Optional[pulumi.Input[_builtins.int]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None,
-            this_controller: Optional[pulumi.Input[_builtins.bool]] = None,
-            this_controller_encrypted_only: Optional[pulumi.Input[_builtins.bool]] = None) -> 'Rsyslogd':
+            contents: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            debug: pulumi.Input[Optional[_builtins.bool]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            ip: pulumi.Input[Optional[_builtins.str]] = None,
+            log_all_contents: pulumi.Input[Optional[_builtins.bool]] = None,
+            netconsole_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            netconsole_host: pulumi.Input[Optional[_builtins.str]] = None,
+            netconsole_port: pulumi.Input[Optional[_builtins.int]] = None,
+            port: pulumi.Input[Optional[_builtins.int]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            this_controller: pulumi.Input[Optional[_builtins.bool]] = None,
+            this_controller_encrypted_only: pulumi.Input[Optional[_builtins.bool]] = None) -> 'Rsyslogd':
         """
         Get an existing Rsyslogd resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

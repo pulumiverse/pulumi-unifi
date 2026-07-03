@@ -12,6 +12,56 @@ import (
 )
 
 // The `firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/firewall"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "Vpn",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "Gateway",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "Internal",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "External",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "Hotspot",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupZone(ctx *pulumi.Context, args *LookupZoneArgs, opts ...pulumi.InvokeOption) (*LookupZoneResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupZoneResult

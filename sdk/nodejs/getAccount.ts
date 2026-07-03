@@ -42,7 +42,7 @@ export interface GetAccountResult {
      */
     readonly name: string;
     /**
-     * ID of the network for this account
+     * The ID of the UniFi network configuration (the controller's `networkconfId`) associated with this account. This is distinct from the `vlan` attribute, which is the 802.1Q VLAN ID delivered via RADIUS.
      */
     readonly networkId: string;
     /**
@@ -61,6 +61,10 @@ export interface GetAccountResult {
      * See RFC2868 section 3.1
      */
     readonly tunnelType: number;
+    /**
+     * The 802.1Q VLAN ID assigned to clients authenticating with this account via RADIUS dynamic VLAN assignment. `0` means no VLAN is assigned.
+     */
+    readonly vlan: number;
 }
 /**
  * unifi_account data source can be used to retrieve RADIUS user accounts
@@ -84,5 +88,5 @@ export interface GetAccountOutputArgs {
     /**
      * The name of the site the account is associated with.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

@@ -14,7 +14,7 @@ import (
 
 // The `firewall.ZonePolicy` resource manages firewall policies between zones in the UniFi controller. This resource allows you to create, update, and delete policies that define allowed or blocked traffic between zones.
 //
-// !> This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+// > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
 //
 // ## Example Usage
 //
@@ -117,6 +117,8 @@ import (
 //
 // ## Import
 //
+// The `pulumi import` command can be used, for example:
+//
 // import from provider configured site
 //
 // ```sh
@@ -145,7 +147,7 @@ type ZonePolicy struct {
 	Destination ZonePolicyDestinationOutput `pulumi:"destination"`
 	// Enable the policy
 	Enabled pulumi.BoolOutput `pulumi:"enabled"`
-	// Priority index for the policy.
+	// Priority index for the policy. This value is assigned by the UniFi controller and cannot be set directly. To control policy ordering, use the `firewall.ZonePolicyOrder` resource (planned for future release).
 	Index pulumi.IntOutput `pulumi:"index"`
 	// Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
 	IpVersion pulumi.StringOutput `pulumi:"ipVersion"`
@@ -220,7 +222,7 @@ type zonePolicyState struct {
 	Destination *ZonePolicyDestination `pulumi:"destination"`
 	// Enable the policy
 	Enabled *bool `pulumi:"enabled"`
-	// Priority index for the policy.
+	// Priority index for the policy. This value is assigned by the UniFi controller and cannot be set directly. To control policy ordering, use the `firewall.ZonePolicyOrder` resource (planned for future release).
 	Index *int `pulumi:"index"`
 	// Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
 	IpVersion *string `pulumi:"ipVersion"`
@@ -257,7 +259,7 @@ type ZonePolicyState struct {
 	Destination ZonePolicyDestinationPtrInput
 	// Enable the policy
 	Enabled pulumi.BoolPtrInput
-	// Priority index for the policy.
+	// Priority index for the policy. This value is assigned by the UniFi controller and cannot be set directly. To control policy ordering, use the `firewall.ZonePolicyOrder` resource (planned for future release).
 	Index pulumi.IntPtrInput
 	// Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
 	IpVersion pulumi.StringPtrInput
@@ -298,8 +300,6 @@ type zonePolicyArgs struct {
 	Destination ZonePolicyDestination `pulumi:"destination"`
 	// Enable the policy
 	Enabled *bool `pulumi:"enabled"`
-	// Priority index for the policy.
-	Index *int `pulumi:"index"`
 	// Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
 	IpVersion *string `pulumi:"ipVersion"`
 	// Enable to generate syslog entries when traffic is matched.
@@ -336,8 +336,6 @@ type ZonePolicyArgs struct {
 	Destination ZonePolicyDestinationInput
 	// Enable the policy
 	Enabled pulumi.BoolPtrInput
-	// Priority index for the policy.
-	Index pulumi.IntPtrInput
 	// Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
 	IpVersion pulumi.StringPtrInput
 	// Enable to generate syslog entries when traffic is matched.
@@ -480,7 +478,7 @@ func (o ZonePolicyOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *ZonePolicy) pulumi.BoolOutput { return v.Enabled }).(pulumi.BoolOutput)
 }
 
-// Priority index for the policy.
+// Priority index for the policy. This value is assigned by the UniFi controller and cannot be set directly. To control policy ordering, use the `firewall.ZonePolicyOrder` resource (planned for future release).
 func (o ZonePolicyOutput) Index() pulumi.IntOutput {
 	return o.ApplyT(func(v *ZonePolicy) pulumi.IntOutput { return v.Index }).(pulumi.IntOutput)
 }

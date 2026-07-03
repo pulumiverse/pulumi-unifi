@@ -102,8 +102,8 @@ def get_profile(name: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         site=pulumi.get(__ret__, 'site'))
-def get_profile_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                       site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_profile_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                       site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetProfileResult]:
     """
     `port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.

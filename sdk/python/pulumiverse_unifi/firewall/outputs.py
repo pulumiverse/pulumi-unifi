@@ -35,8 +35,12 @@ class ZonePolicyDestination(dict):
             suggest = "ip_group_id"
         elif key == "matchOppositeIps":
             suggest = "match_opposite_ips"
+        elif key == "matchOppositeNetworks":
+            suggest = "match_opposite_networks"
         elif key == "matchOppositePorts":
             suggest = "match_opposite_ports"
+        elif key == "networkIds":
+            suggest = "network_ids"
         elif key == "portGroupId":
             suggest = "port_group_id"
         elif key == "webDomains":
@@ -60,7 +64,9 @@ class ZonePolicyDestination(dict):
                  ip_group_id: Optional[_builtins.str] = None,
                  ips: Optional[Sequence[_builtins.str]] = None,
                  match_opposite_ips: Optional[_builtins.bool] = None,
+                 match_opposite_networks: Optional[_builtins.bool] = None,
                  match_opposite_ports: Optional[_builtins.bool] = None,
+                 network_ids: Optional[Sequence[_builtins.str]] = None,
                  port: Optional[_builtins.int] = None,
                  port_group_id: Optional[_builtins.str] = None,
                  regions: Optional[Sequence[_builtins.str]] = None,
@@ -72,7 +78,9 @@ class ZonePolicyDestination(dict):
         :param _builtins.str ip_group_id: ID of the source IP group.
         :param Sequence[_builtins.str] ips: List of source IPs.
         :param _builtins.bool match_opposite_ips: Whether to match opposite IPs.
+        :param _builtins.bool match_opposite_networks: Whether to match opposite networks.
         :param _builtins.bool match_opposite_ports: Whether to match opposite ports.
+        :param Sequence[_builtins.str] network_ids: List of network IDs.
         :param _builtins.int port: Source port.
         :param _builtins.str port_group_id: ID of the source port group.
         :param Sequence[_builtins.str] regions: List of regions.
@@ -89,8 +97,12 @@ class ZonePolicyDestination(dict):
             pulumi.set(__self__, "ips", ips)
         if match_opposite_ips is not None:
             pulumi.set(__self__, "match_opposite_ips", match_opposite_ips)
+        if match_opposite_networks is not None:
+            pulumi.set(__self__, "match_opposite_networks", match_opposite_networks)
         if match_opposite_ports is not None:
             pulumi.set(__self__, "match_opposite_ports", match_opposite_ports)
+        if network_ids is not None:
+            pulumi.set(__self__, "network_ids", network_ids)
         if port is not None:
             pulumi.set(__self__, "port", port)
         if port_group_id is not None:
@@ -149,12 +161,28 @@ class ZonePolicyDestination(dict):
         return pulumi.get(self, "match_opposite_ips")
 
     @_builtins.property
+    @pulumi.getter(name="matchOppositeNetworks")
+    def match_opposite_networks(self) -> Optional[_builtins.bool]:
+        """
+        Whether to match opposite networks.
+        """
+        return pulumi.get(self, "match_opposite_networks")
+
+    @_builtins.property
     @pulumi.getter(name="matchOppositePorts")
     def match_opposite_ports(self) -> Optional[_builtins.bool]:
         """
         Whether to match opposite ports.
         """
         return pulumi.get(self, "match_opposite_ports")
+
+    @_builtins.property
+    @pulumi.getter(name="networkIds")
+    def network_ids(self) -> Optional[Sequence[_builtins.str]]:
+        """
+        List of network IDs.
+        """
+        return pulumi.get(self, "network_ids")
 
     @_builtins.property
     @pulumi.getter

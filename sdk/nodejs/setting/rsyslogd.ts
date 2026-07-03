@@ -161,51 +161,51 @@ export interface RsyslogdState {
     /**
      * List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
      */
-    contents?: pulumi.Input<pulumi.Input<string>[]>;
+    contents?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Whether debug logging is enabled.
      */
-    debug?: pulumi.Input<boolean>;
+    debug?: pulumi.Input<boolean | undefined>;
     /**
      * Whether remote syslog is enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * IP address of the remote syslog server.
      */
-    ip?: pulumi.Input<string>;
+    ip?: pulumi.Input<string | undefined>;
     /**
      * Whether to log all content types.
      */
-    logAllContents?: pulumi.Input<boolean>;
+    logAllContents?: pulumi.Input<boolean | undefined>;
     /**
      * Whether netconsole logging is enabled.
      */
-    netconsoleEnabled?: pulumi.Input<boolean>;
+    netconsoleEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Hostname or IP address of the netconsole server.
      */
-    netconsoleHost?: pulumi.Input<string>;
+    netconsoleHost?: pulumi.Input<string | undefined>;
     /**
      * Port number for the netconsole server. Valid values: 1-65535.
      */
-    netconsolePort?: pulumi.Input<number>;
+    netconsolePort?: pulumi.Input<number | undefined>;
     /**
      * Port number for the remote syslog server. Valid values: 1-65535.
      */
-    port?: pulumi.Input<number>;
+    port?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Whether to use this controller as the syslog server.
      */
-    thisController?: pulumi.Input<boolean>;
+    thisController?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to only use encrypted connections to this controller for syslog.
      */
-    thisControllerEncryptedOnly?: pulumi.Input<boolean>;
+    thisControllerEncryptedOnly?: pulumi.Input<boolean | undefined>;
 }
 
 /**
@@ -215,11 +215,11 @@ export interface RsyslogdArgs {
     /**
      * List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
      */
-    contents?: pulumi.Input<pulumi.Input<string>[]>;
+    contents?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Whether debug logging is enabled.
      */
-    debug?: pulumi.Input<boolean>;
+    debug?: pulumi.Input<boolean | undefined>;
     /**
      * Whether remote syslog is enabled.
      */
@@ -227,37 +227,37 @@ export interface RsyslogdArgs {
     /**
      * IP address of the remote syslog server.
      */
-    ip?: pulumi.Input<string>;
+    ip?: pulumi.Input<string | undefined>;
     /**
      * Whether to log all content types.
      */
-    logAllContents?: pulumi.Input<boolean>;
+    logAllContents?: pulumi.Input<boolean | undefined>;
     /**
      * Whether netconsole logging is enabled.
      */
-    netconsoleEnabled?: pulumi.Input<boolean>;
+    netconsoleEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Hostname or IP address of the netconsole server.
      */
-    netconsoleHost?: pulumi.Input<string>;
+    netconsoleHost?: pulumi.Input<string | undefined>;
     /**
      * Port number for the netconsole server. Valid values: 1-65535.
      */
-    netconsolePort?: pulumi.Input<number>;
+    netconsolePort?: pulumi.Input<number | undefined>;
     /**
      * Port number for the remote syslog server. Valid values: 1-65535.
      */
-    port?: pulumi.Input<number>;
+    port?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Whether to use this controller as the syslog server.
      */
-    thisController?: pulumi.Input<boolean>;
+    thisController?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to only use encrypted connections to this controller for syslog.
      */
-    thisControllerEncryptedOnly?: pulumi.Input<boolean>;
+    thisControllerEncryptedOnly?: pulumi.Input<boolean | undefined>;
 }

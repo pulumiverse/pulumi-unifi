@@ -99,15 +99,15 @@ export interface AutoSpeedtestState {
     /**
      * Cron expression defining the schedule for automatic speedtests.
      */
-    cron?: pulumi.Input<string>;
+    cron?: pulumi.Input<string | undefined>;
     /**
      * Whether the automatic speedtest is enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -117,7 +117,7 @@ export interface AutoSpeedtestArgs {
     /**
      * Cron expression defining the schedule for automatic speedtests.
      */
-    cron?: pulumi.Input<string>;
+    cron?: pulumi.Input<string | undefined>;
     /**
      * Whether the automatic speedtest is enabled.
      */
@@ -125,5 +125,5 @@ export interface AutoSpeedtestArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

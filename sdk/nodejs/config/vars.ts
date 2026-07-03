@@ -41,6 +41,17 @@ Object.defineProperty(exports, "apiUrl", {
 });
 
 /**
+ * Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
+ */
+export declare const httpMaxRetries: number | undefined;
+Object.defineProperty(exports, "httpMaxRetries", {
+    get() {
+        return __config.getObject<number>("httpMaxRetries");
+    },
+    enumerable: true,
+});
+
+/**
  * Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
  */
 export declare const password: string | undefined;

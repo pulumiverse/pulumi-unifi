@@ -29,7 +29,7 @@ import (
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
 //			// retrieve network data by unifi network name
-//			_, err := unifi.LookupNetwork(ctx, &unifi.LookupNetworkArgs{
+//			_, err := unifi.GetNetwork(ctx, &unifi.LookupNetworkArgs{
 //				Name: pulumi.StringRef("Default"),
 //			}, nil)
 //			if err != nil {
@@ -42,7 +42,7 @@ import (
 //			if err != nil {
 //				return err
 //			}
-//			_, err = unifi.LookupNetwork(ctx, &unifi.LookupNetworkArgs{
+//			_, err = unifi.GetNetwork(ctx, &unifi.LookupNetworkArgs{
 //				Id: pulumi.StringRef(myDevice.NetworkId),
 //			}, nil)
 //			if err != nil {
@@ -79,6 +79,8 @@ type LookupNetworkResult struct {
 	DhcpDns []string `pulumi:"dhcpDns"`
 	// whether DHCP is enabled or not on this network.
 	DhcpEnabled bool `pulumi:"dhcpEnabled"`
+	// Specifies whether DHCP Guarding (rogue/untrusted DHCP server protection) is enabled or not.
+	DhcpGuarding bool `pulumi:"dhcpGuarding"`
 	// lease time for DHCP addresses.
 	DhcpLease int `pulumi:"dhcpLease"`
 	// The IPv4 address where the DHCP range of addresses starts.
@@ -103,13 +105,19 @@ type LookupNetworkResult struct {
 	DhcpdBootFilename string `pulumi:"dhcpdBootFilename"`
 	// IPv4 address of a TFTP server to network boot from.
 	DhcpdBootServer string `pulumi:"dhcpdBootServer"`
+	// The IPv4 default gateway advertised to DHCP clients when the override is enabled.
+	DhcpdGateway string `pulumi:"dhcpdGateway"`
+	// Whether the DHCP default gateway is manually overridden (true) or auto (false).
+	DhcpdGatewayEnabled bool `pulumi:"dhcpdGatewayEnabled"`
 	// The domain name of this network.
 	DomainName string `pulumi:"domainName"`
+	// The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. Only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled; empty otherwise. The zone ID is site-scoped.
+	FirewallZoneId string `pulumi:"firewallZoneId"`
 	// The ID of the network.
 	Id string `pulumi:"id"`
 	// Specifies whether IGMP snooping is enabled or not.
 	IgmpSnooping bool `pulumi:"igmpSnooping"`
-	// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
+	// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, `singleNetwork`, or `none`.
 	Ipv6InterfaceType string `pulumi:"ipv6InterfaceType"`
 	// Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
 	Ipv6PdInterface string `pulumi:"ipv6PdInterface"`
@@ -221,6 +229,11 @@ func (o LookupNetworkResultOutput) DhcpEnabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupNetworkResult) bool { return v.DhcpEnabled }).(pulumi.BoolOutput)
 }
 
+// Specifies whether DHCP Guarding (rogue/untrusted DHCP server protection) is enabled or not.
+func (o LookupNetworkResultOutput) DhcpGuarding() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupNetworkResult) bool { return v.DhcpGuarding }).(pulumi.BoolOutput)
+}
+
 // lease time for DHCP addresses.
 func (o LookupNetworkResultOutput) DhcpLease() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupNetworkResult) int { return v.DhcpLease }).(pulumi.IntOutput)
@@ -281,9 +294,24 @@ func (o LookupNetworkResultOutput) DhcpdBootServer() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.DhcpdBootServer }).(pulumi.StringOutput)
 }
 
+// The IPv4 default gateway advertised to DHCP clients when the override is enabled.
+func (o LookupNetworkResultOutput) DhcpdGateway() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupNetworkResult) string { return v.DhcpdGateway }).(pulumi.StringOutput)
+}
+
+// Whether the DHCP default gateway is manually overridden (true) or auto (false).
+func (o LookupNetworkResultOutput) DhcpdGatewayEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v LookupNetworkResult) bool { return v.DhcpdGatewayEnabled }).(pulumi.BoolOutput)
+}
+
 // The domain name of this network.
 func (o LookupNetworkResultOutput) DomainName() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.DomainName }).(pulumi.StringOutput)
+}
+
+// The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. Only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled; empty otherwise. The zone ID is site-scoped.
+func (o LookupNetworkResultOutput) FirewallZoneId() pulumi.StringOutput {
+	return o.ApplyT(func(v LookupNetworkResult) string { return v.FirewallZoneId }).(pulumi.StringOutput)
 }
 
 // The ID of the network.
@@ -296,7 +324,7 @@ func (o LookupNetworkResultOutput) IgmpSnooping() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupNetworkResult) bool { return v.IgmpSnooping }).(pulumi.BoolOutput)
 }
 
-// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, or `none`.
+// Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, `singleNetwork`, or `none`.
 func (o LookupNetworkResultOutput) Ipv6InterfaceType() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupNetworkResult) string { return v.Ipv6InterfaceType }).(pulumi.StringOutput)
 }

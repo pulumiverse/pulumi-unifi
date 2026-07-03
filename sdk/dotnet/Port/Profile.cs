@@ -112,6 +112,8 @@ namespace Pulumiverse.Unifi.Port
         ///   * Use 'all' for uplink ports or connections to VLAN-aware devices
         ///   * Use 'native' for end-user devices or simple network connections
         ///   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+        /// 
+        /// &gt; **Note:** For an access port configured only with `NativeNetworkconfId` the controller normalizes the stored mode to `Customize`. With the default value of `Native` this currently results in a non-failing perpetual diff (`~ forward = "customize" &gt; "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
         /// </summary>
         [Output("forward")]
         public Output<string?> Forward { get; private set; } = null!;
@@ -490,6 +492,8 @@ namespace Pulumiverse.Unifi.Port
         ///   * Use 'all' for uplink ports or connections to VLAN-aware devices
         ///   * Use 'native' for end-user devices or simple network connections
         ///   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+        /// 
+        /// &gt; **Note:** For an access port configured only with `NativeNetworkconfId` the controller normalizes the stored mode to `Customize`. With the default value of `Native` this currently results in a non-failing perpetual diff (`~ forward = "customize" &gt; "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
         /// </summary>
         [Input("forward")]
         public Input<string>? Forward { get; set; }
@@ -835,6 +839,8 @@ namespace Pulumiverse.Unifi.Port
         ///   * Use 'all' for uplink ports or connections to VLAN-aware devices
         ///   * Use 'native' for end-user devices or simple network connections
         ///   * Use 'customize' to create a selective trunk port (e.g., for a server needing access to specific VLANs)
+        /// 
+        /// &gt; **Note:** For an access port configured only with `NativeNetworkconfId` the controller normalizes the stored mode to `Customize`. With the default value of `Native` this currently results in a non-failing perpetual diff (`~ forward = "customize" &gt; "native"`) on every plan. To avoid it, set `forward = "customize"` explicitly. See issue #98.
         /// </summary>
         [Input("forward")]
         public Input<string>? Forward { get; set; }

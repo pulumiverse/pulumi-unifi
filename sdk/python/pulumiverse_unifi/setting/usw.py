@@ -20,9 +20,10 @@ __all__ = ['UswArgs', 'Usw']
 class UswArgs:
     def __init__(__self__, *,
                  dhcp_snoop: pulumi.Input[_builtins.bool],
-                 site: Optional[pulumi.Input[_builtins.str]] = None):
+                 site: pulumi.Input[Optional[_builtins.str]] = None):
         """
         The set of arguments for constructing a Usw resource.
+
         :param pulumi.Input[_builtins.bool] dhcp_snoop: Whether DHCP snooping is enabled. DHCP snooping is a security feature that filters untrusted DHCP messages and builds a binding database of valid hosts.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
@@ -44,24 +45,25 @@ class UswArgs:
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
 @pulumi.input_type
 class _UswState:
     def __init__(__self__, *,
-                 dhcp_snoop: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None):
+                 dhcp_snoop: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Usw resources.
+
         :param pulumi.Input[_builtins.bool] dhcp_snoop: Whether DHCP snooping is enabled. DHCP snooping is a security feature that filters untrusted DHCP messages and builds a binding database of valid hosts.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
@@ -72,26 +74,26 @@ class _UswState:
 
     @_builtins.property
     @pulumi.getter(name="dhcpSnoop")
-    def dhcp_snoop(self) -> Optional[pulumi.Input[_builtins.bool]]:
+    def dhcp_snoop(self) -> pulumi.Input[Optional[_builtins.bool]]:
         """
         Whether DHCP snooping is enabled. DHCP snooping is a security feature that filters untrusted DHCP messages and builds a binding database of valid hosts.
         """
         return pulumi.get(self, "dhcp_snoop")
 
     @dhcp_snoop.setter
-    def dhcp_snoop(self, value: Optional[pulumi.Input[_builtins.bool]]):
+    def dhcp_snoop(self, value: pulumi.Input[Optional[_builtins.bool]]):
         pulumi.set(self, "dhcp_snoop", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
+    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
+    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
@@ -101,8 +103,8 @@ class Usw(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 dhcp_snoop: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 dhcp_snoop: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
         Manages UniFi Switch (USW) settings for a UniFi site. These settings control global switch behaviors such as DHCP snooping.
@@ -115,6 +117,7 @@ class Usw(pulumi.CustomResource):
 
         example = unifi.setting.Usw("example", dhcp_snoop=True)
         ```
+
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -139,6 +142,7 @@ class Usw(pulumi.CustomResource):
         example = unifi.setting.Usw("example", dhcp_snoop=True)
         ```
 
+
         :param str resource_name: The name of the resource.
         :param UswArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -154,8 +158,8 @@ class Usw(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 dhcp_snoop: Optional[pulumi.Input[_builtins.bool]] = None,
-                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 dhcp_snoop: pulumi.Input[Optional[_builtins.bool]] = None,
+                 site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -179,8 +183,8 @@ class Usw(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            dhcp_snoop: Optional[pulumi.Input[_builtins.bool]] = None,
-            site: Optional[pulumi.Input[_builtins.str]] = None) -> 'Usw':
+            dhcp_snoop: pulumi.Input[Optional[_builtins.bool]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'Usw':
         """
         Get an existing Usw resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

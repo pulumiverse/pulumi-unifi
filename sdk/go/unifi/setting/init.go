@@ -23,10 +23,16 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "unifi:setting/autoSpeedtest:AutoSpeedtest":
 		r = &AutoSpeedtest{}
+	case "unifi:setting/connectivity:Connectivity":
+		r = &Connectivity{}
 	case "unifi:setting/country:Country":
 		r = &Country{}
 	case "unifi:setting/dpi:Dpi":
 		r = &Dpi{}
+	case "unifi:setting/etherLighting:EtherLighting":
+		r = &EtherLighting{}
+	case "unifi:setting/globalSwitch:GlobalSwitch":
+		r = &GlobalSwitch{}
 	case "unifi:setting/guestAccess:GuestAccess":
 		r = &GuestAccess{}
 	case "unifi:setting/ips:Ips":
@@ -75,12 +81,27 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"unifi",
+		"setting/connectivity",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
 		"setting/country",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"unifi",
 		"setting/dpi",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/etherLighting",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"unifi",
+		"setting/globalSwitch",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

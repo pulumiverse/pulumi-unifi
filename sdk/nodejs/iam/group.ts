@@ -37,6 +37,8 @@ import * as utilities from "../utilities";
  *
  * ## Import
  *
+ * The `pulumi import` command can be used, for example:
+ *
  * import using the ID
  *
  * ```sh
@@ -124,19 +126,19 @@ export interface GroupState {
     /**
      * A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
      */
-    qosRateMaxDown?: pulumi.Input<number>;
+    qosRateMaxDown?: pulumi.Input<number | undefined>;
     /**
      * The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
      */
-    qosRateMaxUp?: pulumi.Input<number>;
+    qosRateMaxUp?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -146,17 +148,17 @@ export interface GroupArgs {
     /**
      * A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
      */
-    qosRateMaxDown?: pulumi.Input<number>;
+    qosRateMaxDown?: pulumi.Input<number | undefined>;
     /**
      * The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
      */
-    qosRateMaxUp?: pulumi.Input<number>;
+    qosRateMaxUp?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

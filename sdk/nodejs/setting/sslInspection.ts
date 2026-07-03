@@ -88,11 +88,11 @@ export interface SslInspectionState {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * The mode of SSL inspection. Valid values are: `off`, `simple`, or `advanced`.
      */
-    state?: pulumi.Input<string>;
+    state?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -102,7 +102,7 @@ export interface SslInspectionArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * The mode of SSL inspection. Valid values are: `off`, `simple`, or `advanced`.
      */

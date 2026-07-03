@@ -60,6 +60,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["allowInsecure"] = pulumi.output((args?.allowInsecure) ?? utilities.getEnvBoolean("UNIFI_INSECURE")).apply(JSON.stringify);
             resourceInputs["apiKey"] = args?.apiKey ? pulumi.secret(args.apiKey) : undefined;
             resourceInputs["apiUrl"] = (args?.apiUrl) ?? utilities.getEnv("UNIFI_API");
+            resourceInputs["httpMaxRetries"] = pulumi.output(args?.httpMaxRetries).apply(JSON.stringify);
             resourceInputs["password"] = (args?.password ? pulumi.secret(args.password) : undefined) ?? utilities.getEnv("UNIFI_PASSWORD");
             resourceInputs["site"] = (args?.site) ?? utilities.getEnv("UNIFI_SITE");
             resourceInputs["username"] = (args?.username) ?? utilities.getEnv("UNIFI_USERNAME");
@@ -87,27 +88,31 @@ export interface ProviderArgs {
     /**
      * Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
      */
-    allowInsecure?: pulumi.Input<boolean>;
+    allowInsecure?: pulumi.Input<boolean | undefined>;
     /**
      * API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
      */
-    apiKey?: pulumi.Input<string>;
+    apiKey?: pulumi.Input<string | undefined>;
     /**
      * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
      */
-    apiUrl?: pulumi.Input<string>;
+    apiUrl?: pulumi.Input<string | undefined>;
+    /**
+     * Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
+     */
+    httpMaxRetries?: pulumi.Input<number | undefined>;
     /**
      * Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
      */
-    password?: pulumi.Input<string>;
+    password?: pulumi.Input<string | undefined>;
     /**
      * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
      */
-    username?: pulumi.Input<string>;
+    username?: pulumi.Input<string | undefined>;
 }
 
 export namespace Provider {
