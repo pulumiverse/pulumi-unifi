@@ -21,7 +21,7 @@ import * as utilities from "./utilities";
  *
  * const config = new pulumi.Config();
  * const vlanId = config.getNumber("vlanId") || 10;
- * const _default = unifi.getApGroup({});
+ * const _default = unifi.ap.getGroup({});
  * const defaultGetGroup = unifi.iam.getGroup({});
  * const vlan = new unifi.Network("vlan", {
  *     name: "wifi-vlan",

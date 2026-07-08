@@ -7,7 +7,6 @@ from . import _utilities
 import typing
 # Export this package's modules as members:
 from .account import *
-from .ap_group import *
 from .device import *
 from .dynamic_dns import *
 from .get_account import *
@@ -25,6 +24,8 @@ from . import outputs
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
+    import pulumiverse_unifi.ap as __ap
+    ap = __ap
     import pulumiverse_unifi.config as __config
     config = __config
     import pulumiverse_unifi.dns as __dns
@@ -38,6 +39,7 @@ if typing.TYPE_CHECKING:
     import pulumiverse_unifi.setting as __setting
     setting = __setting
 else:
+    ap = _utilities.lazy_import('pulumiverse_unifi.ap')
     config = _utilities.lazy_import('pulumiverse_unifi.config')
     dns = _utilities.lazy_import('pulumiverse_unifi.dns')
     firewall = _utilities.lazy_import('pulumiverse_unifi.firewall')
@@ -48,6 +50,14 @@ else:
 _utilities.register(
     resource_modules="""
 [
+ {
+  "pkg": "unifi",
+  "mod": "ap/group",
+  "fqn": "pulumiverse_unifi.ap",
+  "classes": {
+   "unifi:ap/group:Group": "Group"
+  }
+ },
  {
   "pkg": "unifi",
   "mod": "dns/record",
@@ -118,14 +128,6 @@ _utilities.register(
   "fqn": "pulumiverse_unifi",
   "classes": {
    "unifi:index/account:Account": "Account"
-  }
- },
- {
-  "pkg": "unifi",
-  "mod": "index/apGroup",
-  "fqn": "pulumiverse_unifi",
-  "classes": {
-   "unifi:index/apGroup:ApGroup": "ApGroup"
   }
  },
  {

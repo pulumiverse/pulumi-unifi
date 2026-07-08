@@ -1035,7 +1035,7 @@ class Wlan(pulumi.CustomResource):
         vlan_id = config.get_float("vlanId")
         if vlan_id is None:
             vlan_id = 10
-        default = unifi.get_ap_group()
+        default = unifi.ap.get_group()
         default_get_group = unifi.iam.get_group()
         vlan = unifi.Network("vlan",
             name="wifi-vlan",
@@ -1142,7 +1142,7 @@ class Wlan(pulumi.CustomResource):
         vlan_id = config.get_float("vlanId")
         if vlan_id is None:
             vlan_id = 10
-        default = unifi.get_ap_group()
+        default = unifi.ap.get_group()
         default_get_group = unifi.iam.get_group()
         vlan = unifi.Network("vlan",
             name="wifi-vlan",

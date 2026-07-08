@@ -12,18 +12,18 @@ if sys.version_info >= (3, 11):
     from typing import NotRequired, TypedDict, TypeAlias
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
-from . import _utilities
+from .. import _utilities
 
-__all__ = ['ApGroupArgs', 'ApGroup']
+__all__ = ['GroupArgs', 'Group']
 
 @pulumi.input_type
-class ApGroupArgs:
+class GroupArgs:
     def __init__(__self__, *,
                  device_macs: pulumi.Input[Sequence[pulumi.Input[_builtins.str]]],
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  site: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        The set of arguments for constructing a ApGroup resource.
+        The set of arguments for constructing a Group resource.
 
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] device_macs: Set of AP device MAC addresses to include in this AP group. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written.
         :param pulumi.Input[_builtins.str] name: The name of the AP group.
@@ -73,13 +73,13 @@ class ApGroupArgs:
 
 
 @pulumi.input_type
-class _ApGroupState:
+class _GroupState:
     def __init__(__self__, *,
                  device_macs: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
                  site: pulumi.Input[Optional[_builtins.str]] = None):
         """
-        Input properties used for looking up and filtering ApGroup resources.
+        Input properties used for looking up and filtering Group resources.
 
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] device_macs: Set of AP device MAC addresses to include in this AP group. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written.
         :param pulumi.Input[_builtins.str] name: The name of the AP group.
@@ -129,8 +129,8 @@ class _ApGroupState:
         pulumi.set(self, "site", value)
 
 
-@pulumi.type_token("unifi:index/apGroup:ApGroup")
-class ApGroup(pulumi.CustomResource):
+@pulumi.type_token("unifi:ap/group:Group")
+class Group(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
@@ -140,7 +140,7 @@ class ApGroup(pulumi.CustomResource):
                  site: pulumi.Input[Optional[_builtins.str]] = None,
                  __props__=None):
         """
-        The `ApGroup` resource manages Access Point groups in the UniFi controller.
+        The `ap.Group` resource manages Access Point groups in the UniFi controller.
 
         AP groups allow you to organize and manage multiple access points together. This resource allows you to create, update, and delete AP groups.
 
@@ -150,7 +150,7 @@ class ApGroup(pulumi.CustomResource):
         import pulumi
         import pulumiverse_unifi as unifi
 
-        example = unifi.ApGroup("example",
+        example = unifi.ap.Group("example",
             name="my-ap-group",
             device_macs=["00:11:22:33:44:55"])
         ```
@@ -162,13 +162,13 @@ class ApGroup(pulumi.CustomResource):
         import from provider configured site
 
         ```sh
-        $ pulumi import unifi:index/apGroup:ApGroup example 5dc28e5e9106d105bdc87217
+        $ pulumi import unifi:ap/group:Group example 5dc28e5e9106d105bdc87217
         ```
 
         import from another site
 
         ```sh
-        $ pulumi import unifi:index/apGroup:ApGroup example another-site:5dc28e5e9106d105bdc87217
+        $ pulumi import unifi:ap/group:Group example another-site:5dc28e5e9106d105bdc87217
         ```
 
 
@@ -182,10 +182,10 @@ class ApGroup(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: ApGroupArgs,
+                 args: GroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        The `ApGroup` resource manages Access Point groups in the UniFi controller.
+        The `ap.Group` resource manages Access Point groups in the UniFi controller.
 
         AP groups allow you to organize and manage multiple access points together. This resource allows you to create, update, and delete AP groups.
 
@@ -195,7 +195,7 @@ class ApGroup(pulumi.CustomResource):
         import pulumi
         import pulumiverse_unifi as unifi
 
-        example = unifi.ApGroup("example",
+        example = unifi.ap.Group("example",
             name="my-ap-group",
             device_macs=["00:11:22:33:44:55"])
         ```
@@ -207,23 +207,23 @@ class ApGroup(pulumi.CustomResource):
         import from provider configured site
 
         ```sh
-        $ pulumi import unifi:index/apGroup:ApGroup example 5dc28e5e9106d105bdc87217
+        $ pulumi import unifi:ap/group:Group example 5dc28e5e9106d105bdc87217
         ```
 
         import from another site
 
         ```sh
-        $ pulumi import unifi:index/apGroup:ApGroup example another-site:5dc28e5e9106d105bdc87217
+        $ pulumi import unifi:ap/group:Group example another-site:5dc28e5e9106d105bdc87217
         ```
 
 
         :param str resource_name: The name of the resource.
-        :param ApGroupArgs args: The arguments to use to populate this resource's properties.
+        :param GroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(ApGroupArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(GroupArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -242,15 +242,15 @@ class ApGroup(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = ApGroupArgs.__new__(ApGroupArgs)
+            __props__ = GroupArgs.__new__(GroupArgs)
 
             if device_macs is None and not opts.urn:
                 raise TypeError("Missing required property 'device_macs'")
             __props__.__dict__["device_macs"] = device_macs
             __props__.__dict__["name"] = name
             __props__.__dict__["site"] = site
-        super(ApGroup, __self__).__init__(
-            'unifi:index/apGroup:ApGroup',
+        super(Group, __self__).__init__(
+            'unifi:ap/group:Group',
             resource_name,
             __props__,
             opts)
@@ -261,9 +261,9 @@ class ApGroup(pulumi.CustomResource):
             opts: Optional[pulumi.ResourceOptions] = None,
             device_macs: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
             name: pulumi.Input[Optional[_builtins.str]] = None,
-            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'ApGroup':
+            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'Group':
         """
-        Get an existing ApGroup resource's state with the given name, id, and optional extra
+        Get an existing Group resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
 
         :param str resource_name: The unique name of the resulting resource.
@@ -275,12 +275,12 @@ class ApGroup(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = _ApGroupState.__new__(_ApGroupState)
+        __props__ = _GroupState.__new__(_GroupState)
 
         __props__.__dict__["device_macs"] = device_macs
         __props__.__dict__["name"] = name
         __props__.__dict__["site"] = site
-        return ApGroup(resource_name, opts=opts, __props__=__props__)
+        return Group(resource_name, opts=opts, __props__=__props__)
 
     @_builtins.property
     @pulumi.getter(name="deviceMacs")

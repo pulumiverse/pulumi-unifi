@@ -12,21 +12,19 @@ if sys.version_info >= (3, 11):
     from typing import NotRequired, TypedDict, TypeAlias
 else:
     from typing_extensions import NotRequired, TypedDict, TypeAlias
-from . import _utilities
+from .. import _utilities
 
 __all__ = [
-    'GetApGroupResult',
-    'AwaitableGetApGroupResult',
-    'get_ap_group',
-    'get_ap_group_output',
+    'GetGroupResult',
+    'AwaitableGetGroupResult',
+    'get_group',
+    'get_group_output',
 ]
 
-warnings.warn("""unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup""", DeprecationWarning)
-
 @pulumi.output_type
-class GetApGroupResult:
+class GetGroupResult:
     """
-    A collection of values returned by getApGroup.
+    A collection of values returned by getGroup.
     """
     def __init__(__self__, id=None, name=None, site=None):
         if id and not isinstance(id, str):
@@ -64,20 +62,20 @@ class GetApGroupResult:
         return pulumi.get(self, "site")
 
 
-class AwaitableGetApGroupResult(GetApGroupResult):
+class AwaitableGetGroupResult(GetGroupResult):
     # pylint: disable=using-constant-test
     def __await__(self):
         if False:
             yield self
-        return GetApGroupResult(
+        return GetGroupResult(
             id=self.id,
             name=self.name,
             site=self.site)
 
 
-def get_ap_group(name: Optional[_builtins.str] = None,
-                 site: Optional[_builtins.str] = None,
-                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetApGroupResult:
+def get_group(name: Optional[_builtins.str] = None,
+              site: Optional[_builtins.str] = None,
+              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetGroupResult:
     """
     The `ap.Group` data source can be used to retrieve the ID for an AP group by name.
 
@@ -94,20 +92,19 @@ def get_ap_group(name: Optional[_builtins.str] = None,
     :param _builtins.str name: The name of the AP group to look up, leave blank to look up the default AP group.
     :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
     """
-    pulumi.log.warn("""get_ap_group is deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup""")
     __args__ = dict()
     __args__['name'] = name
     __args__['site'] = site
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke('unifi:index/getApGroup:getApGroup', __args__, opts=opts, typ=GetApGroupResult).value
+    __ret__ = pulumi.runtime.invoke('unifi:ap/getGroup:getGroup', __args__, opts=opts, typ=GetGroupResult).value
 
-    return AwaitableGetApGroupResult(
+    return AwaitableGetGroupResult(
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         site=pulumi.get(__ret__, 'site'))
-def get_ap_group_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
-                        site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
-                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetApGroupResult]:
+def get_group_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                     site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                     opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetGroupResult]:
     """
     The `ap.Group` data source can be used to retrieve the ID for an AP group by name.
 
@@ -124,13 +121,12 @@ def get_ap_group_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = 
     :param _builtins.str name: The name of the AP group to look up, leave blank to look up the default AP group.
     :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
     """
-    pulumi.log.warn("""get_ap_group is deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup""")
     __args__ = dict()
     __args__['name'] = name
     __args__['site'] = site
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
-    __ret__ = pulumi.runtime.invoke_output('unifi:index/getApGroup:getApGroup', __args__, opts=opts, typ=GetApGroupResult)
-    return __ret__.apply(lambda __response__: GetApGroupResult(
+    __ret__ = pulumi.runtime.invoke_output('unifi:ap/getGroup:getGroup', __args__, opts=opts, typ=GetGroupResult)
+    return __ret__.apply(lambda __response__: GetGroupResult(
         id=pulumi.get(__response__, 'id'),
         name=pulumi.get(__response__, 'name'),
         site=pulumi.get(__response__, 'site')))

@@ -49,6 +49,7 @@ const (
 	portMod     = "Port"
 	settingMod  = "Setting"
 	iamMod      = "IAM"
+	apMod       = "Ap"
 )
 
 var namespaceMap = map[string]string{
@@ -57,6 +58,7 @@ var namespaceMap = map[string]string{
 	"port":     portMod,
 	"setting":  settingMod,
 	"iam":      iamMod,
+	"ap":       apMod,
 }
 
 // unifiMember manufactures a type token for the IBM package and the given module, file name, and type.
@@ -268,6 +270,7 @@ func Provider() tfbridge.ProviderInfo {
 				"port":     strings.ToLower(portMod),
 				"setting":  strings.ToLower(settingMod),
 				"user":     strings.ToLower(iamMod),
+				"ap":       strings.ToLower(apMod),
 			},
 			tks.MakeStandard(mainPkg),
 		),

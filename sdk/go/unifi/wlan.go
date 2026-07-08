@@ -28,6 +28,7 @@ import (
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/ap"
 //	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"
 //
 // )
@@ -39,7 +40,7 @@ import (
 //			if param := cfg.GetFloat64("vlanId"); param != 0 {
 //				vlanId = param
 //			}
-//			_default, err := unifi.GetApGroup(ctx, &unifi.LookupApGroupArgs{}, nil)
+//			_default, err := ap.LookupGroup(ctx, &ap.LookupGroupArgs{}, nil)
 //			if err != nil {
 //				return err
 //			}

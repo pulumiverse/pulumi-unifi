@@ -29,7 +29,7 @@ namespace Pulumiverse.Unifi
     /// {
     ///     var config = new Config();
     ///     var vlanId = config.GetDouble("vlanId") ?? 10;
-    ///     var @default = Unifi.GetApGroup.Invoke();
+    ///     var @default = Unifi.Ap.GetGroup.Invoke();
     /// 
     ///     var defaultGetGroup = Unifi.IAM.GetGroup.Invoke();
     /// 
@@ -55,7 +55,7 @@ namespace Pulumiverse.Unifi
     ///         NetworkId = vlan.Id,
     ///         ApGroupIds = new[]
     ///         {
-    ///             @default.Apply(@default =&gt; @default.Apply(getApGroupResult =&gt; getApGroupResult.Id)),
+    ///             @default.Apply(@default =&gt; @default.Apply(getGroupResult =&gt; getGroupResult.Id)),
     ///         },
     ///         UserGroupId = defaultGetGroup.Apply(getGroupResult =&gt; getGroupResult.Id),
     ///     });

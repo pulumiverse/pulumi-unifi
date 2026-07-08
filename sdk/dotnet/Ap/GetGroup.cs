@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace Pulumiverse.Unifi
+namespace Pulumiverse.Unifi.Ap
 {
-    [Obsolete(@"unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup")]
-    public static class GetApGroup
+    public static class GetGroup
     {
         /// <summary>
         /// The `unifi.ap.Group` data source can be used to retrieve the ID for an AP group by name.
@@ -31,8 +30,8 @@ namespace Pulumiverse.Unifi
         /// });
         /// ```
         /// </summary>
-        public static Task<GetApGroupResult> InvokeAsync(GetApGroupArgs? args = null, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.InvokeAsync<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupArgs(), options.WithDefaults());
+        public static Task<GetGroupResult> InvokeAsync(GetGroupArgs? args = null, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetGroupResult>("unifi:ap/getGroup:getGroup", args ?? new GetGroupArgs(), options.WithDefaults());
 
         /// <summary>
         /// The `unifi.ap.Group` data source can be used to retrieve the ID for an AP group by name.
@@ -52,8 +51,8 @@ namespace Pulumiverse.Unifi
         /// });
         /// ```
         /// </summary>
-        public static Output<GetApGroupResult> Invoke(GetApGroupInvokeArgs? args = null, InvokeOptions? options = null)
-            => global::Pulumi.Deployment.Instance.Invoke<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupInvokeArgs(), options.WithDefaults());
+        public static Output<GetGroupResult> Invoke(GetGroupInvokeArgs? args = null, InvokeOptions? options = null)
+            => global::Pulumi.Deployment.Instance.Invoke<GetGroupResult>("unifi:ap/getGroup:getGroup", args ?? new GetGroupInvokeArgs(), options.WithDefaults());
 
         /// <summary>
         /// The `unifi.ap.Group` data source can be used to retrieve the ID for an AP group by name.
@@ -73,12 +72,12 @@ namespace Pulumiverse.Unifi
         /// });
         /// ```
         /// </summary>
-        public static Output<GetApGroupResult> Invoke(GetApGroupInvokeArgs args, InvokeOutputOptions options)
-            => global::Pulumi.Deployment.Instance.Invoke<GetApGroupResult>("unifi:index/getApGroup:getApGroup", args ?? new GetApGroupInvokeArgs(), options.WithDefaults());
+        public static Output<GetGroupResult> Invoke(GetGroupInvokeArgs args, InvokeOutputOptions options)
+            => global::Pulumi.Deployment.Instance.Invoke<GetGroupResult>("unifi:ap/getGroup:getGroup", args ?? new GetGroupInvokeArgs(), options.WithDefaults());
     }
 
 
-    public sealed class GetApGroupArgs : global::Pulumi.InvokeArgs
+    public sealed class GetGroupArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name of the AP group to look up, leave blank to look up the default AP group.
@@ -92,13 +91,13 @@ namespace Pulumiverse.Unifi
         [Input("site")]
         public string? Site { get; set; }
 
-        public GetApGroupArgs()
+        public GetGroupArgs()
         {
         }
-        public static new GetApGroupArgs Empty => new GetApGroupArgs();
+        public static new GetGroupArgs Empty => new GetGroupArgs();
     }
 
-    public sealed class GetApGroupInvokeArgs : global::Pulumi.InvokeArgs
+    public sealed class GetGroupInvokeArgs : global::Pulumi.InvokeArgs
     {
         /// <summary>
         /// The name of the AP group to look up, leave blank to look up the default AP group.
@@ -112,15 +111,15 @@ namespace Pulumiverse.Unifi
         [Input("site")]
         public Input<string>? Site { get; set; }
 
-        public GetApGroupInvokeArgs()
+        public GetGroupInvokeArgs()
         {
         }
-        public static new GetApGroupInvokeArgs Empty => new GetApGroupInvokeArgs();
+        public static new GetGroupInvokeArgs Empty => new GetGroupInvokeArgs();
     }
 
 
     [OutputType]
-    public sealed class GetApGroupResult
+    public sealed class GetGroupResult
     {
         /// <summary>
         /// The unique identifier of this resource.
@@ -136,7 +135,7 @@ namespace Pulumiverse.Unifi
         public readonly string Site;
 
         [OutputConstructor]
-        private GetApGroupResult(
+        private GetGroupResult(
             string id,
 
             string? name,

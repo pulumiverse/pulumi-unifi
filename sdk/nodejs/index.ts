@@ -10,11 +10,6 @@ export type Account = import("./account").Account;
 export const Account: typeof import("./account").Account = null as any;
 utilities.lazyLoad(exports, ["Account"], () => require("./account"));
 
-export { ApGroupArgs, ApGroupState } from "./apGroup";
-export type ApGroup = import("./apGroup").ApGroup;
-export const ApGroup: typeof import("./apGroup").ApGroup = null as any;
-utilities.lazyLoad(exports, ["ApGroup"], () => require("./apGroup"));
-
 export { DeviceArgs, DeviceState } from "./device";
 export type Device = import("./device").Device;
 export const Device: typeof import("./device").Device = null as any;
@@ -75,6 +70,7 @@ utilities.lazyLoad(exports, ["Wlan"], () => require("./wlan"));
 
 
 // Export sub-modules:
+import * as ap from "./ap";
 import * as config from "./config";
 import * as dns from "./dns";
 import * as firewall from "./firewall";
@@ -84,6 +80,7 @@ import * as setting from "./setting";
 import * as types from "./types";
 
 export {
+    ap,
     config,
     dns,
     firewall,
@@ -99,8 +96,6 @@ const _module = {
         switch (type) {
             case "unifi:index/account:Account":
                 return new Account(name, <any>undefined, { urn })
-            case "unifi:index/apGroup:ApGroup":
-                return new ApGroup(name, <any>undefined, { urn })
             case "unifi:index/device:Device":
                 return new Device(name, <any>undefined, { urn })
             case "unifi:index/dynamicDNS:DynamicDNS":
@@ -121,7 +116,6 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("unifi", "index/account", _module)
-pulumi.runtime.registerResourceModule("unifi", "index/apGroup", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/device", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/dynamicDNS", _module)
 pulumi.runtime.registerResourceModule("unifi", "index/network", _module)

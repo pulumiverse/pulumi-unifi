@@ -2,7 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as utilities from "./utilities";
+import * as utilities from "../utilities";
 
 /**
  * The `unifi.ap.Group` data source can be used to retrieve the ID for an AP group by name.
@@ -16,21 +16,19 @@ import * as utilities from "./utilities";
  * const _default = unifi.ap.getGroup({});
  * ```
  */
-/** @deprecated unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup */
-export function getApGroup(args?: GetApGroupArgs, opts?: pulumi.InvokeOptions): Promise<GetApGroupResult> {
-    pulumi.log.warn("getApGroup is deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup")
+export function getGroup(args?: GetGroupArgs, opts?: pulumi.InvokeOptions): Promise<GetGroupResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
-    return pulumi.runtime.invoke("unifi:index/getApGroup:getApGroup", {
+    return pulumi.runtime.invoke("unifi:ap/getGroup:getGroup", {
         "name": args.name,
         "site": args.site,
     }, opts);
 }
 
 /**
- * A collection of arguments for invoking getApGroup.
+ * A collection of arguments for invoking getGroup.
  */
-export interface GetApGroupArgs {
+export interface GetGroupArgs {
     /**
      * The name of the AP group to look up, leave blank to look up the default AP group.
      */
@@ -42,9 +40,9 @@ export interface GetApGroupArgs {
 }
 
 /**
- * A collection of values returned by getApGroup.
+ * A collection of values returned by getGroup.
  */
-export interface GetApGroupResult {
+export interface GetGroupResult {
     /**
      * The unique identifier of this resource.
      */
@@ -70,21 +68,19 @@ export interface GetApGroupResult {
  * const _default = unifi.ap.getGroup({});
  * ```
  */
-/** @deprecated unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup */
-export function getApGroupOutput(args?: GetApGroupOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetApGroupResult> {
-    pulumi.log.warn("getApGroup is deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup")
+export function getGroupOutput(args?: GetGroupOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetGroupResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
-    return pulumi.runtime.invokeOutput("unifi:index/getApGroup:getApGroup", {
+    return pulumi.runtime.invokeOutput("unifi:ap/getGroup:getGroup", {
         "name": args.name,
         "site": args.site,
     }, opts);
 }
 
 /**
- * A collection of arguments for invoking getApGroup.
+ * A collection of arguments for invoking getGroup.
  */
-export interface GetApGroupOutputArgs {
+export interface GetGroupOutputArgs {
     /**
      * The name of the AP group to look up, leave blank to look up the default AP group.
      */

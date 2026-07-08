@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using Pulumi.Serialization;
 using Pulumi;
 
-namespace Pulumiverse.Unifi
+namespace Pulumiverse.Unifi.Ap
 {
     /// <summary>
-    /// The `unifi.ApGroup` resource manages Access Point groups in the UniFi controller.
+    /// The `unifi.ap.Group` resource manages Access Point groups in the UniFi controller.
     /// 
     /// AP groups allow you to organize and manage multiple access points together. This resource allows you to create, update, and delete AP groups.
     /// 
@@ -25,7 +25,7 @@ namespace Pulumiverse.Unifi
     /// 
     /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     var example = new Unifi.ApGroup("example", new()
+    ///     var example = new Unifi.Ap.Group("example", new()
     ///     {
     ///         Name = "my-ap-group",
     ///         DeviceMacs = new[]
@@ -44,17 +44,17 @@ namespace Pulumiverse.Unifi
     /// import from provider configured site
     /// 
     /// ```sh
-    /// $ pulumi import unifi:index/apGroup:ApGroup example 5dc28e5e9106d105bdc87217
+    /// $ pulumi import unifi:ap/group:Group example 5dc28e5e9106d105bdc87217
     /// ```
     /// 
     /// import from another site
     /// 
     /// ```sh
-    /// $ pulumi import unifi:index/apGroup:ApGroup example another-site:5dc28e5e9106d105bdc87217
+    /// $ pulumi import unifi:ap/group:Group example another-site:5dc28e5e9106d105bdc87217
     /// ```
     /// </summary>
-    [UnifiResourceType("unifi:index/apGroup:ApGroup")]
-    public partial class ApGroup : global::Pulumi.CustomResource
+    [UnifiResourceType("unifi:ap/group:Group")]
+    public partial class Group : global::Pulumi.CustomResource
     {
         /// <summary>
         /// Set of AP device MAC addresses to include in this AP group. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written.
@@ -76,19 +76,19 @@ namespace Pulumiverse.Unifi
 
 
         /// <summary>
-        /// Create a ApGroup resource with the given unique name, arguments, and options.
+        /// Create a Group resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public ApGroup(string name, ApGroupArgs args, CustomResourceOptions? options = null)
-            : base("unifi:index/apGroup:ApGroup", name, args ?? new ApGroupArgs(), MakeResourceOptions(options, ""))
+        public Group(string name, GroupArgs args, CustomResourceOptions? options = null)
+            : base("unifi:ap/group:Group", name, args ?? new GroupArgs(), MakeResourceOptions(options, ""))
         {
         }
 
-        private ApGroup(string name, Input<string> id, ApGroupState? state = null, CustomResourceOptions? options = null)
-            : base("unifi:index/apGroup:ApGroup", name, state, MakeResourceOptions(options, id))
+        private Group(string name, Input<string> id, GroupState? state = null, CustomResourceOptions? options = null)
+            : base("unifi:ap/group:Group", name, state, MakeResourceOptions(options, id))
         {
         }
 
@@ -105,7 +105,7 @@ namespace Pulumiverse.Unifi
             return merged;
         }
         /// <summary>
-        /// Get an existing ApGroup resource's state with the given name, ID, and optional extra
+        /// Get an existing Group resource's state with the given name, ID, and optional extra
         /// properties used to qualify the lookup.
         /// </summary>
         ///
@@ -113,13 +113,13 @@ namespace Pulumiverse.Unifi
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="state">Any extra arguments used during the lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static ApGroup Get(string name, Input<string> id, ApGroupState? state = null, CustomResourceOptions? options = null)
+        public static Group Get(string name, Input<string> id, GroupState? state = null, CustomResourceOptions? options = null)
         {
-            return new ApGroup(name, id, state, options);
+            return new Group(name, id, state, options);
         }
     }
 
-    public sealed class ApGroupArgs : global::Pulumi.ResourceArgs
+    public sealed class GroupArgs : global::Pulumi.ResourceArgs
     {
         [Input("deviceMacs", required: true)]
         private InputList<string>? _deviceMacs;
@@ -145,13 +145,13 @@ namespace Pulumiverse.Unifi
         [Input("site")]
         public Input<string>? Site { get; set; }
 
-        public ApGroupArgs()
+        public GroupArgs()
         {
         }
-        public static new ApGroupArgs Empty => new ApGroupArgs();
+        public static new GroupArgs Empty => new GroupArgs();
     }
 
-    public sealed class ApGroupState : global::Pulumi.ResourceArgs
+    public sealed class GroupState : global::Pulumi.ResourceArgs
     {
         [Input("deviceMacs")]
         private InputList<string>? _deviceMacs;
@@ -177,9 +177,9 @@ namespace Pulumiverse.Unifi
         [Input("site")]
         public Input<string>? Site { get; set; }
 
-        public ApGroupState()
+        public GroupState()
         {
         }
-        public static new ApGroupState Empty => new ApGroupState();
+        public static new GroupState Empty => new GroupState();
     }
 }

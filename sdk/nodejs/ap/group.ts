@@ -2,10 +2,10 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as utilities from "./utilities";
+import * as utilities from "../utilities";
 
 /**
- * The `unifi.ApGroup` resource manages Access Point groups in the UniFi controller.
+ * The `unifi.ap.Group` resource manages Access Point groups in the UniFi controller.
  *
  * AP groups allow you to organize and manage multiple access points together. This resource allows you to create, update, and delete AP groups.
  *
@@ -15,7 +15,7 @@ import * as utilities from "./utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as unifi from "@pulumiverse/unifi";
  *
- * const example = new unifi.ApGroup("example", {
+ * const example = new unifi.ap.Group("example", {
  *     name: "my-ap-group",
  *     deviceMacs: ["00:11:22:33:44:55"],
  * });
@@ -28,18 +28,18 @@ import * as utilities from "./utilities";
  * import from provider configured site
  *
  * ```sh
- * $ pulumi import unifi:index/apGroup:ApGroup example 5dc28e5e9106d105bdc87217
+ * $ pulumi import unifi:ap/group:Group example 5dc28e5e9106d105bdc87217
  * ```
  *
  * import from another site
  *
  * ```sh
- * $ pulumi import unifi:index/apGroup:ApGroup example another-site:5dc28e5e9106d105bdc87217
+ * $ pulumi import unifi:ap/group:Group example another-site:5dc28e5e9106d105bdc87217
  * ```
  */
-export class ApGroup extends pulumi.CustomResource {
+export class Group extends pulumi.CustomResource {
     /**
-     * Get an existing ApGroup resource's state with the given name, ID, and optional extra
+     * Get an existing Group resource's state with the given name, ID, and optional extra
      * properties used to qualify the lookup.
      *
      * @param name The _unique_ name of the resulting resource.
@@ -47,22 +47,22 @@ export class ApGroup extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
-    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: ApGroupState, opts?: pulumi.CustomResourceOptions): ApGroup {
-        return new ApGroup(name, <any>state, { ...opts, id: id });
+    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: GroupState, opts?: pulumi.CustomResourceOptions): Group {
+        return new Group(name, <any>state, { ...opts, id: id });
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:index/apGroup:ApGroup';
+    public static readonly __pulumiType = 'unifi:ap/group:Group';
 
     /**
-     * Returns true if the given object is an instance of ApGroup.  This is designed to work even
+     * Returns true if the given object is an instance of Group.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is ApGroup {
+    public static isInstance(obj: any): obj is Group {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === ApGroup.__pulumiType;
+        return obj['__pulumiType'] === Group.__pulumiType;
     }
 
     /**
@@ -79,23 +79,23 @@ export class ApGroup extends pulumi.CustomResource {
     declare public readonly site: pulumi.Output<string>;
 
     /**
-     * Create a ApGroup resource with the given unique name, arguments, and options.
+     * Create a Group resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: ApGroupArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: ApGroupArgs | ApGroupState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: GroupArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: GroupArgs | GroupState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
-            const state = argsOrState as ApGroupState | undefined;
+            const state = argsOrState as GroupState | undefined;
             resourceInputs["deviceMacs"] = state?.deviceMacs;
             resourceInputs["name"] = state?.name;
             resourceInputs["site"] = state?.site;
         } else {
-            const args = argsOrState as ApGroupArgs | undefined;
+            const args = argsOrState as GroupArgs | undefined;
             if (args?.deviceMacs === undefined && !opts.urn) {
                 throw new Error("Missing required property 'deviceMacs'");
             }
@@ -104,14 +104,14 @@ export class ApGroup extends pulumi.CustomResource {
             resourceInputs["site"] = args?.site;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        super(ApGroup.__pulumiType, name, resourceInputs, opts);
+        super(Group.__pulumiType, name, resourceInputs, opts);
     }
 }
 
 /**
- * Input properties used for looking up and filtering ApGroup resources.
+ * Input properties used for looking up and filtering Group resources.
  */
-export interface ApGroupState {
+export interface GroupState {
     /**
      * Set of AP device MAC addresses to include in this AP group. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written.
      */
@@ -127,9 +127,9 @@ export interface ApGroupState {
 }
 
 /**
- * The set of arguments for constructing a ApGroup resource.
+ * The set of arguments for constructing a Group resource.
  */
-export interface ApGroupArgs {
+export interface GroupArgs {
     /**
      * Set of AP device MAC addresses to include in this AP group. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written.
      */

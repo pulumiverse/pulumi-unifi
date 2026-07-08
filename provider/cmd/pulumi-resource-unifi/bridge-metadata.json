@@ -5,7 +5,7 @@
                 "current": "unifi:index/account:Account"
             },
             "unifi_ap_group": {
-                "current": "unifi:index/apGroup:ApGroup",
+                "current": "unifi:ap/group:Group",
                 "fields": {
                     "device_macs": {
                         "maxItemsOne": false
@@ -380,7 +380,14 @@
                 "current": "unifi:index/getAccount:getAccount"
             },
             "unifi_ap_group": {
-                "current": "unifi:index/getApGroup:getApGroup"
+                "current": "unifi:ap/getGroup:getGroup",
+                "past": [
+                    {
+                        "name": "unifi:index/getApGroup:getApGroup",
+                        "inCodegen": true,
+                        "majorVersion": 0
+                    }
+                ]
             },
             "unifi_dns_record": {
                 "current": "unifi:dns/getRecord:getRecord"
@@ -429,7 +436,15 @@
             }
         }
     },
-    "auto-settings": {},
+    "auto-settings": {
+        "datasources": {
+            "unifi_ap_group": {
+                "renames": [
+                    "unifi:index/getApGroup:getApGroup"
+                ]
+            }
+        }
+    },
     "default-resource-schema-fixups": {
         "resources": {
             "unifi_ap_group": {},
@@ -461,6 +476,7 @@
     },
     "mux": {
         "resources": {
+            "unifi:ap/group:Group": 1,
             "unifi:dns/record:Record": 1,
             "unifi:firewall/group:Group": 0,
             "unifi:firewall/rule:Rule": 0,
@@ -470,7 +486,6 @@
             "unifi:iam/group:Group": 0,
             "unifi:iam/user:User": 0,
             "unifi:index/account:Account": 0,
-            "unifi:index/apGroup:ApGroup": 1,
             "unifi:index/device:Device": 0,
             "unifi:index/dynamicDNS:DynamicDNS": 0,
             "unifi:index/network:Network": 0,
@@ -503,6 +518,7 @@
             "unifi:setting/usw:Usw": 1
         },
         "functions": {
+            "unifi:ap/getGroup:getGroup": 1,
             "unifi:dns/getRecord:getRecord": 1,
             "unifi:dns/getRecords:getRecords": 1,
             "unifi:firewall/getZone:getZone": 1,
