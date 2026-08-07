@@ -39,9 +39,10 @@ import (
 
 // all the token components used below.
 const (
+	providerName = "unifi"
 	// This variable controls the default name of the package in the package
 	// registries for nodejs and python:
-	mainPkg = "unifi"
+	mainPkg = providerName
 	// modules:
 	mainMod     = "index" // the unifi module
 	dnsMod      = "Dns"
@@ -114,9 +115,11 @@ func Provider() tfbridge.ProviderInfo {
 	)
 
 	// Create a Pulumi provider mapping
+	const recordProperty = "record"
+	const valueName = "value"
 	prov := tfbridge.ProviderInfo{
 		P:    p,
-		Name: "unifi",
+		Name: providerName,
 		// DisplayName is a way to be able to change the casing of the provider
 		// name when being displayed on the Pulumi registry
 		DisplayName: "Unifi",
@@ -183,8 +186,8 @@ func Provider() tfbridge.ProviderInfo {
 			"unifi_user":        {Tok: unifiResource(iamMod, "User")},
 			"unifi_dns_record": {
 				Fields: map[string]*tfbridge.SchemaInfo{
-					"record": {
-						Name: "value",
+					recordProperty: {
+						Name: valueName,
 					},
 				},
 			},
@@ -193,8 +196,8 @@ func Provider() tfbridge.ProviderInfo {
 			"unifi_user": {Tok: unifiDataSource(iamMod, "getUser")},
 			"unifi_dns_record": {
 				Fields: map[string]*tfbridge.SchemaInfo{
-					"record": {
-						Name: "value",
+					recordProperty: {
+						Name: valueName,
 					},
 				},
 			},
@@ -203,8 +206,8 @@ func Provider() tfbridge.ProviderInfo {
 					"result": {
 						Elem: &tfbridge.SchemaInfo{
 							Fields: map[string]*tfbridge.SchemaInfo{
-								"record": {
-									Name: "value",
+								recordProperty: {
+									Name: valueName,
 								},
 							},
 						},
