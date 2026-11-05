@@ -617,6 +617,36 @@ class Rsyslogd(pulumi.CustomResource):
         __props__.__dict__["this_controller_encrypted_only"] = this_controller_encrypted_only
         return Rsyslogd(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            contents: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            debug: pulumi.Input[Optional[_builtins.bool]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            ip: pulumi.Input[Optional[_builtins.str]] = None,
+            log_all_contents: pulumi.Input[Optional[_builtins.bool]] = None,
+            netconsole_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            netconsole_host: pulumi.Input[Optional[_builtins.str]] = None,
+            netconsole_port: pulumi.Input[Optional[_builtins.int]] = None,
+            port: pulumi.Input[Optional[_builtins.int]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            this_controller: pulumi.Input[Optional[_builtins.bool]] = None,
+            this_controller_encrypted_only: pulumi.Input[Optional[_builtins.bool]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["contents"] = contents
+        __props__["debug"] = debug
+        __props__["enabled"] = enabled
+        __props__["ip"] = ip
+        __props__["logAllContents"] = log_all_contents
+        __props__["netconsoleEnabled"] = netconsole_enabled
+        __props__["netconsoleHost"] = netconsole_host
+        __props__["netconsolePort"] = netconsole_port
+        __props__["port"] = port
+        __props__["site"] = site
+        __props__["thisController"] = this_controller
+        __props__["thisControllerEncryptedOnly"] = this_controller_encrypted_only
+        return pulumi.runtime.exists_resource(None, 'unifi:setting/rsyslogd:Rsyslogd', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def contents(self) -> pulumi.Output[Sequence[_builtins.str]]:

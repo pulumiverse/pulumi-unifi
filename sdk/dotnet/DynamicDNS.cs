@@ -88,7 +88,7 @@ namespace Pulumiverse.Unifi
         ///   * `Dyndns` - DynDNS service
         ///   * `Noip` - No-IP service
         ///   * `Duckdns` - Duck DNS service
-        /// Check your UniFi controller for the complete list of supported providers.
+        ///     Check your UniFi controller for the complete list of supported providers.
         /// </summary>
         [Output("service")]
         public Output<string> Service { get; private set; } = null!;
@@ -197,7 +197,7 @@ namespace Pulumiverse.Unifi
         ///   * `Dyndns` - DynDNS service
         ///   * `Noip` - No-IP service
         ///   * `Duckdns` - Duck DNS service
-        /// Check your UniFi controller for the complete list of supported providers.
+        ///     Check your UniFi controller for the complete list of supported providers.
         /// </summary>
         [Input("service", required: true)]
         public Input<string> Service { get; set; } = null!;
@@ -263,7 +263,7 @@ namespace Pulumiverse.Unifi
         ///   * `Dyndns` - DynDNS service
         ///   * `Noip` - No-IP service
         ///   * `Duckdns` - Duck DNS service
-        /// Check your UniFi controller for the complete list of supported providers.
+        ///     Check your UniFi controller for the complete list of supported providers.
         /// </summary>
         [Input("service")]
         public Input<string>? Service { get; set; }

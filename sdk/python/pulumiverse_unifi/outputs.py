@@ -149,7 +149,7 @@ class DevicePortOverride(dict):
                * Creating switch-to-switch uplinks for increased bandwidth
                * Setting up high-availability connections
                * Connecting to servers requiring more bandwidth
-               Note: All ports in the LAG must be sequential and have matching configurations.
+                 Note: All ports in the LAG must be sequential and have matching configurations.
         :param Sequence[_builtins.str] excluded_network_ids: Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
         :param _builtins.str forward: VLAN forwarding mode for the port. Valid values are:
                  * `all` - Forward all VLANs (trunk port)
@@ -244,7 +244,7 @@ class DevicePortOverride(dict):
         * Creating switch-to-switch uplinks for increased bandwidth
         * Setting up high-availability connections
         * Connecting to servers requiring more bandwidth
-        Note: All ports in the LAG must be sequential and have matching configurations.
+          Note: All ports in the LAG must be sequential and have matching configurations.
         """
         return pulumi.get(self, "aggregate_num_ports")
 

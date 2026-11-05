@@ -136,6 +136,12 @@ func (AlFileState) ElementType() reflect.Type {
 	return reflect.TypeOf((*alFileState)(nil)).Elem()
 }
 
+// AlFileExists checks whether an existing AlFile resource with the given ID exists.
+func AlFileExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AlFileState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:port/alFile:AlFile", id, state, "", opts...)
+}
+
 type alFileArgs struct {
 	// Path to the file on the local filesystem to upload to the UniFi controller. The file must exist and be readable.
 	FilePath string `pulumi:"filePath"`

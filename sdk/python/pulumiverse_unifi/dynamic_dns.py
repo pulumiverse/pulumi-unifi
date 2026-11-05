@@ -34,7 +34,7 @@ class DynamicDNSArgs:
                  * `dyndns` - DynDNS service
                  * `noip` - No-IP service
                  * `duckdns` - Duck DNS service
-               Check your UniFi controller for the complete list of supported providers.
+                   Check your UniFi controller for the complete list of supported providers.
         :param pulumi.Input[_builtins.str] interface: The WAN interface to use for the dynamic DNS updates. Valid values are:
                  * `wan` - Primary WAN interface (default)
                  * `wan2` - Secondary WAN interface
@@ -76,7 +76,7 @@ class DynamicDNSArgs:
           * `dyndns` - DynDNS service
           * `noip` - No-IP service
           * `duckdns` - Duck DNS service
-        Check your UniFi controller for the complete list of supported providers.
+            Check your UniFi controller for the complete list of supported providers.
         """
         return pulumi.get(self, "service")
 
@@ -171,7 +171,7 @@ class _DynamicDNSState:
                  * `dyndns` - DynDNS service
                  * `noip` - No-IP service
                  * `duckdns` - Duck DNS service
-               Check your UniFi controller for the complete list of supported providers.
+                   Check your UniFi controller for the complete list of supported providers.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         if host_name is not None:
@@ -259,7 +259,7 @@ class _DynamicDNSState:
           * `dyndns` - DynDNS service
           * `noip` - No-IP service
           * `duckdns` - Duck DNS service
-        Check your UniFi controller for the complete list of supported providers.
+            Check your UniFi controller for the complete list of supported providers.
         """
         return pulumi.get(self, "service")
 
@@ -338,7 +338,7 @@ class DynamicDNS(pulumi.CustomResource):
                  * `dyndns` - DynDNS service
                  * `noip` - No-IP service
                  * `duckdns` - Duck DNS service
-               Check your UniFi controller for the complete list of supported providers.
+                   Check your UniFi controller for the complete list of supported providers.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         ...
@@ -457,7 +457,7 @@ class DynamicDNS(pulumi.CustomResource):
                  * `dyndns` - DynDNS service
                  * `noip` - No-IP service
                  * `duckdns` - Duck DNS service
-               Check your UniFi controller for the complete list of supported providers.
+                   Check your UniFi controller for the complete list of supported providers.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the dynamic DNS configuration should be created. If not specified, the default site will be used.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -472,6 +472,26 @@ class DynamicDNS(pulumi.CustomResource):
         __props__.__dict__["service"] = service
         __props__.__dict__["site"] = site
         return DynamicDNS(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            host_name: pulumi.Input[Optional[_builtins.str]] = None,
+            interface: pulumi.Input[Optional[_builtins.str]] = None,
+            login: pulumi.Input[Optional[_builtins.str]] = None,
+            password: pulumi.Input[Optional[_builtins.str]] = None,
+            server: pulumi.Input[Optional[_builtins.str]] = None,
+            service: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["hostName"] = host_name
+        __props__["interface"] = interface
+        __props__["login"] = login
+        __props__["password"] = password
+        __props__["server"] = server
+        __props__["service"] = service
+        __props__["site"] = site
+        return pulumi.runtime.exists_resource(None, 'unifi:index/dynamicDNS:DynamicDNS', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter(name="hostName")
@@ -523,7 +543,7 @@ class DynamicDNS(pulumi.CustomResource):
           * `dyndns` - DynDNS service
           * `noip` - No-IP service
           * `duckdns` - Duck DNS service
-        Check your UniFi controller for the complete list of supported providers.
+            Check your UniFi controller for the complete list of supported providers.
         """
         return pulumi.get(self, "service")
 

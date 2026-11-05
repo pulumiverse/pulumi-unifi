@@ -153,6 +153,12 @@ func (RadiusState) ElementType() reflect.Type {
 	return reflect.TypeOf((*radiusState)(nil)).Elem()
 }
 
+// RadiusExists checks whether an existing Radius resource with the given ID exists.
+func RadiusExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *RadiusState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/radius:Radius", id, state, "", opts...)
+}
+
 type radiusArgs struct {
 	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
 	AccountingEnabled *bool `pulumi:"accountingEnabled"`

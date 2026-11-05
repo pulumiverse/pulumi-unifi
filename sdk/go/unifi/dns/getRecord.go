@@ -89,12 +89,8 @@ type LookupRecordResult struct {
 }
 
 func LookupRecordOutput(ctx *pulumi.Context, args LookupRecordOutputArgs, opts ...pulumi.InvokeOption) LookupRecordResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (LookupRecordResultOutput, error) {
-			args := v.(LookupRecordArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("unifi:dns/getRecord:getRecord", args, LookupRecordResultOutput{}, options).(LookupRecordResultOutput), nil
-		}).(LookupRecordResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("unifi:dns/getRecord:getRecord", args, LookupRecordResultOutput{}, options).(LookupRecordResultOutput)
 }
 
 // A collection of arguments for invoking getRecord.

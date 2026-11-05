@@ -157,6 +157,12 @@ func (RadiusProfileState) ElementType() reflect.Type {
 	return reflect.TypeOf((*radiusProfileState)(nil)).Elem()
 }
 
+// RadiusProfileExists checks whether an existing RadiusProfile resource with the given ID exists.
+func RadiusProfileExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *RadiusProfileState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:index/radiusProfile:RadiusProfile", id, state, "", opts...)
+}
+
 type radiusProfileArgs struct {
 	// Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
 	AccountingEnabled *bool `pulumi:"accountingEnabled"`

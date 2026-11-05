@@ -212,6 +212,12 @@ func (IpsState) ElementType() reflect.Type {
 	return reflect.TypeOf((*ipsState)(nil)).Elem()
 }
 
+// IpsExists checks whether an existing Ips resource with the given ID exists.
+func IpsExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *IpsState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/ips:Ips", id, state, "", opts...)
+}
+
 type ipsArgs struct {
 	// List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
 	AdBlockedNetworks []string `pulumi:"adBlockedNetworks"`

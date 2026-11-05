@@ -127,6 +127,12 @@ func (SiteState) ElementType() reflect.Type {
 	return reflect.TypeOf((*siteState)(nil)).Elem()
 }
 
+// SiteExists checks whether an existing Site resource with the given ID exists.
+func SiteExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SiteState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:index/site:Site", id, state, "", opts...)
+}
+
 type siteArgs struct {
 	// A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
 	Description string `pulumi:"description"`

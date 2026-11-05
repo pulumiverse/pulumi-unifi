@@ -39,7 +39,7 @@ namespace Pulumiverse.Unifi.Port
     ///         Name = "wifi-vlan",
     ///         Purpose = "corporate",
     ///         Subnet = "10.0.0.1/24",
-    ///         VlanId = vlanId,
+    ///         VlanId = (int)vlanId,
     ///         DhcpStart = "10.0.0.6",
     ///         DhcpStop = "10.0.0.254",
     ///         DhcpEnabled = true,
@@ -192,7 +192,7 @@ namespace Pulumiverse.Unifi.Port
         /// * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
         /// * Unique per device
         /// * Verified to belong to authorized devices
-        /// Only effective when PortSecurityEnabled is true
+        ///   Only effective when PortSecurityEnabled is true
         /// </summary>
         [Output("portSecurityMacAddresses")]
         public Output<ImmutableArray<string>> PortSecurityMacAddresses { get; private set; } = null!;
@@ -202,7 +202,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Low-priority background traffic
         /// * Bulk data transfers
         /// * Non-time-sensitive applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Output("priorityQueue1Level")]
         public Output<int?> PriorityQueue1Level { get; private set; } = null!;
@@ -212,7 +212,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Standard user traffic
         /// * Web browsing and email
         /// * General business applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Output("priorityQueue2Level")]
         public Output<int?> PriorityQueue2Level { get; private set; } = null!;
@@ -222,7 +222,7 @@ namespace Pulumiverse.Unifi.Port
         /// * High-priority traffic
         /// * Voice and video conferencing
         /// * Time-sensitive applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Output("priorityQueue3Level")]
         public Output<int?> PriorityQueue3Level { get; private set; } = null!;
@@ -232,7 +232,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Highest priority traffic
         /// * Critical real-time applications
         /// * Emergency communications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Output("priorityQueue4Level")]
         public Output<int?> PriorityQueue4Level { get; private set; } = null!;
@@ -251,7 +251,7 @@ namespace Pulumiverse.Unifi.Port
         /// * 2500 - 2.5 Gbps (Multi-Gigabit)
         /// * 5000 - 5 Gbps (Multi-Gigabit)
         /// * 10000 - 10 Gbps (10 Gigabit)
-        /// Only used when autoneg is false
+        ///   Only used when autoneg is false
         /// </summary>
         [Output("speed")]
         public Output<int?> Speed { get; private set; } = null!;
@@ -261,7 +261,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits broadcast traffic to prevent network flooding
         /// * Protects against broadcast storms
         /// * Helps maintain network stability
-        /// Use with StormctrlBcastRate to set threshold
+        ///   Use with StormctrlBcastRate to set threshold
         /// </summary>
         [Output("stormctrlBcastEnabled")]
         public Output<bool?> StormctrlBcastEnabled { get; private set; } = null!;
@@ -277,7 +277,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control broadcast traffic levels
         /// * Prevent network congestion
         /// * Balance between necessary broadcasts and network protection
-        /// Only effective when `StormctrlBcastEnabled` is true
+        ///   Only effective when `StormctrlBcastEnabled` is true
         /// </summary>
         [Output("stormctrlBcastRate")]
         public Output<int?> StormctrlBcastRate { get; private set; } = null!;
@@ -287,7 +287,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits multicast traffic to prevent network flooding
         /// * Important for networks with multicast applications
         /// * Helps maintain quality of service
-        /// Use with `StormctrlMcastRate` to set threshold
+        ///   Use with `StormctrlMcastRate` to set threshold
         /// </summary>
         [Output("stormctrlMcastEnabled")]
         public Output<bool?> StormctrlMcastEnabled { get; private set; } = null!;
@@ -303,7 +303,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control multicast traffic levels
         /// * Ensure bandwidth for critical multicast services
         /// * Prevent multicast traffic from overwhelming the network
-        /// Only effective when StormctrlMcastEnabled is true
+        ///   Only effective when StormctrlMcastEnabled is true
         /// </summary>
         [Output("stormctrlMcastRate")]
         public Output<int?> StormctrlMcastRate { get; private set; } = null!;
@@ -319,7 +319,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits unknown unicast traffic to prevent flooding
         /// * Protects against MAC spoofing attacks
         /// * Helps maintain network performance
-        /// Use with StormctrlUcastRate to set threshold
+        ///   Use with StormctrlUcastRate to set threshold
         /// </summary>
         [Output("stormctrlUcastEnabled")]
         public Output<bool?> StormctrlUcastEnabled { get; private set; } = null!;
@@ -335,7 +335,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control unknown unicast traffic levels
         /// * Prevent network saturation from unknown destinations
         /// * Balance security with network usability
-        /// Only effective when StormctrlUcastEnabled is true
+        ///   Only effective when StormctrlUcastEnabled is true
         /// </summary>
         [Output("stormctrlUcastRate")]
         public Output<int?> StormctrlUcastRate { get; private set; } = null!;
@@ -575,7 +575,7 @@ namespace Pulumiverse.Unifi.Port
         /// * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
         /// * Unique per device
         /// * Verified to belong to authorized devices
-        /// Only effective when PortSecurityEnabled is true
+        ///   Only effective when PortSecurityEnabled is true
         /// </summary>
         public InputList<string> PortSecurityMacAddresses
         {
@@ -588,7 +588,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Low-priority background traffic
         /// * Bulk data transfers
         /// * Non-time-sensitive applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue1Level")]
         public Input<int>? PriorityQueue1Level { get; set; }
@@ -598,7 +598,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Standard user traffic
         /// * Web browsing and email
         /// * General business applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue2Level")]
         public Input<int>? PriorityQueue2Level { get; set; }
@@ -608,7 +608,7 @@ namespace Pulumiverse.Unifi.Port
         /// * High-priority traffic
         /// * Voice and video conferencing
         /// * Time-sensitive applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue3Level")]
         public Input<int>? PriorityQueue3Level { get; set; }
@@ -618,7 +618,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Highest priority traffic
         /// * Critical real-time applications
         /// * Emergency communications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue4Level")]
         public Input<int>? PriorityQueue4Level { get; set; }
@@ -637,7 +637,7 @@ namespace Pulumiverse.Unifi.Port
         /// * 2500 - 2.5 Gbps (Multi-Gigabit)
         /// * 5000 - 5 Gbps (Multi-Gigabit)
         /// * 10000 - 10 Gbps (10 Gigabit)
-        /// Only used when autoneg is false
+        ///   Only used when autoneg is false
         /// </summary>
         [Input("speed")]
         public Input<int>? Speed { get; set; }
@@ -647,7 +647,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits broadcast traffic to prevent network flooding
         /// * Protects against broadcast storms
         /// * Helps maintain network stability
-        /// Use with StormctrlBcastRate to set threshold
+        ///   Use with StormctrlBcastRate to set threshold
         /// </summary>
         [Input("stormctrlBcastEnabled")]
         public Input<bool>? StormctrlBcastEnabled { get; set; }
@@ -663,7 +663,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control broadcast traffic levels
         /// * Prevent network congestion
         /// * Balance between necessary broadcasts and network protection
-        /// Only effective when `StormctrlBcastEnabled` is true
+        ///   Only effective when `StormctrlBcastEnabled` is true
         /// </summary>
         [Input("stormctrlBcastRate")]
         public Input<int>? StormctrlBcastRate { get; set; }
@@ -673,7 +673,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits multicast traffic to prevent network flooding
         /// * Important for networks with multicast applications
         /// * Helps maintain quality of service
-        /// Use with `StormctrlMcastRate` to set threshold
+        ///   Use with `StormctrlMcastRate` to set threshold
         /// </summary>
         [Input("stormctrlMcastEnabled")]
         public Input<bool>? StormctrlMcastEnabled { get; set; }
@@ -689,7 +689,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control multicast traffic levels
         /// * Ensure bandwidth for critical multicast services
         /// * Prevent multicast traffic from overwhelming the network
-        /// Only effective when StormctrlMcastEnabled is true
+        ///   Only effective when StormctrlMcastEnabled is true
         /// </summary>
         [Input("stormctrlMcastRate")]
         public Input<int>? StormctrlMcastRate { get; set; }
@@ -705,7 +705,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits unknown unicast traffic to prevent flooding
         /// * Protects against MAC spoofing attacks
         /// * Helps maintain network performance
-        /// Use with StormctrlUcastRate to set threshold
+        ///   Use with StormctrlUcastRate to set threshold
         /// </summary>
         [Input("stormctrlUcastEnabled")]
         public Input<bool>? StormctrlUcastEnabled { get; set; }
@@ -721,7 +721,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control unknown unicast traffic levels
         /// * Prevent network saturation from unknown destinations
         /// * Balance security with network usability
-        /// Only effective when StormctrlUcastEnabled is true
+        ///   Only effective when StormctrlUcastEnabled is true
         /// </summary>
         [Input("stormctrlUcastRate")]
         public Input<int>? StormctrlUcastRate { get; set; }
@@ -922,7 +922,7 @@ namespace Pulumiverse.Unifi.Port
         /// * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
         /// * Unique per device
         /// * Verified to belong to authorized devices
-        /// Only effective when PortSecurityEnabled is true
+        ///   Only effective when PortSecurityEnabled is true
         /// </summary>
         public InputList<string> PortSecurityMacAddresses
         {
@@ -935,7 +935,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Low-priority background traffic
         /// * Bulk data transfers
         /// * Non-time-sensitive applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue1Level")]
         public Input<int>? PriorityQueue1Level { get; set; }
@@ -945,7 +945,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Standard user traffic
         /// * Web browsing and email
         /// * General business applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue2Level")]
         public Input<int>? PriorityQueue2Level { get; set; }
@@ -955,7 +955,7 @@ namespace Pulumiverse.Unifi.Port
         /// * High-priority traffic
         /// * Voice and video conferencing
         /// * Time-sensitive applications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue3Level")]
         public Input<int>? PriorityQueue3Level { get; set; }
@@ -965,7 +965,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Highest priority traffic
         /// * Critical real-time applications
         /// * Emergency communications
-        /// Higher values give more bandwidth to this queue
+        ///   Higher values give more bandwidth to this queue
         /// </summary>
         [Input("priorityQueue4Level")]
         public Input<int>? PriorityQueue4Level { get; set; }
@@ -984,7 +984,7 @@ namespace Pulumiverse.Unifi.Port
         /// * 2500 - 2.5 Gbps (Multi-Gigabit)
         /// * 5000 - 5 Gbps (Multi-Gigabit)
         /// * 10000 - 10 Gbps (10 Gigabit)
-        /// Only used when autoneg is false
+        ///   Only used when autoneg is false
         /// </summary>
         [Input("speed")]
         public Input<int>? Speed { get; set; }
@@ -994,7 +994,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits broadcast traffic to prevent network flooding
         /// * Protects against broadcast storms
         /// * Helps maintain network stability
-        /// Use with StormctrlBcastRate to set threshold
+        ///   Use with StormctrlBcastRate to set threshold
         /// </summary>
         [Input("stormctrlBcastEnabled")]
         public Input<bool>? StormctrlBcastEnabled { get; set; }
@@ -1010,7 +1010,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control broadcast traffic levels
         /// * Prevent network congestion
         /// * Balance between necessary broadcasts and network protection
-        /// Only effective when `StormctrlBcastEnabled` is true
+        ///   Only effective when `StormctrlBcastEnabled` is true
         /// </summary>
         [Input("stormctrlBcastRate")]
         public Input<int>? StormctrlBcastRate { get; set; }
@@ -1020,7 +1020,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits multicast traffic to prevent network flooding
         /// * Important for networks with multicast applications
         /// * Helps maintain quality of service
-        /// Use with `StormctrlMcastRate` to set threshold
+        ///   Use with `StormctrlMcastRate` to set threshold
         /// </summary>
         [Input("stormctrlMcastEnabled")]
         public Input<bool>? StormctrlMcastEnabled { get; set; }
@@ -1036,7 +1036,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control multicast traffic levels
         /// * Ensure bandwidth for critical multicast services
         /// * Prevent multicast traffic from overwhelming the network
-        /// Only effective when StormctrlMcastEnabled is true
+        ///   Only effective when StormctrlMcastEnabled is true
         /// </summary>
         [Input("stormctrlMcastRate")]
         public Input<int>? StormctrlMcastRate { get; set; }
@@ -1052,7 +1052,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Limits unknown unicast traffic to prevent flooding
         /// * Protects against MAC spoofing attacks
         /// * Helps maintain network performance
-        /// Use with StormctrlUcastRate to set threshold
+        ///   Use with StormctrlUcastRate to set threshold
         /// </summary>
         [Input("stormctrlUcastEnabled")]
         public Input<bool>? StormctrlUcastEnabled { get; set; }
@@ -1068,7 +1068,7 @@ namespace Pulumiverse.Unifi.Port
         /// * Control unknown unicast traffic levels
         /// * Prevent network saturation from unknown destinations
         /// * Balance security with network usability
-        /// Only effective when StormctrlUcastEnabled is true
+        ///   Only effective when StormctrlUcastEnabled is true
         /// </summary>
         [Input("stormctrlUcastRate")]
         public Input<int>? StormctrlUcastRate { get; set; }

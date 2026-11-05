@@ -64,6 +64,17 @@ export class GlobalSwitch extends pulumi.CustomResource {
         return new GlobalSwitch(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing GlobalSwitch resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: GlobalSwitchState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("unifi:setting/globalSwitch:GlobalSwitch", id, <any>state || {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'unifi:setting/globalSwitch:GlobalSwitch';
 

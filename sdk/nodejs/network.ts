@@ -112,6 +112,17 @@ export class Network extends pulumi.CustomResource {
         return new Network(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing Network resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: NetworkState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("unifi:index/network:Network", id, <any>state || {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'unifi:index/network:Network';
 
@@ -131,7 +142,7 @@ export class Network extends pulumi.CustomResource {
      * * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
      * * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
      * * Use internal DNS servers for corporate networks
-     * Maximum 4 servers can be specified.
+     *   Maximum 4 servers can be specified.
      */
     declare public readonly dhcpDns: pulumi.Output<string[] | undefined>;
     /**
@@ -174,28 +185,28 @@ export class Network extends pulumi.CustomResource {
      * The starting IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
      * * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
-     * Ensure this address is within the network's subnet.
+     *   Ensure this address is within the network's subnet.
      */
     declare public readonly dhcpStart: pulumi.Output<string | undefined>;
     /**
      * The ending IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
      * * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
-     * Must be greater than dhcpStart and within the network's subnet.
+     *   Must be greater than dhcpStart and within the network's subnet.
      */
     declare public readonly dhcpStop: pulumi.Output<string | undefined>;
     /**
      * List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
      * * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
      * * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
-     * Only used when dhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
+     *   Only used when dhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
      */
     declare public readonly dhcpV6Dns: pulumi.Output<string[] | undefined>;
     /**
      * Controls DNS server source for DHCPv6 clients:
      * * true - Use upstream DNS servers (recommended)
      * * false - Use manually specified servers from dhcpV6Dns
-     * Default is true for easier management.
+     *   Default is true for easier management.
      */
     declare public readonly dhcpV6DnsAuto: pulumi.Output<boolean | undefined>;
     /**
@@ -210,7 +221,7 @@ export class Network extends pulumi.CustomResource {
      * * 86400 (1 day) - Default setting
      * * 3600 (1 hour) - For testing
      * * 604800 (1 week) - For stable networks
-     * Typically longer than IPv4 DHCP leases.
+     *   Typically longer than IPv4 DHCP leases.
      */
     declare public readonly dhcpV6Lease: pulumi.Output<number | undefined>;
     /**
@@ -267,7 +278,7 @@ export class Network extends pulumi.CustomResource {
      * * 'corp.example.com' - For corporate networks
      * * 'guest.example.com' - For guest networks
      * * 'iot.example.com' - For IoT networks
-     * Used for internal DNS resolution and DHCP options.
+     *   Used for internal DNS resolution and DHCP options.
      */
     declare public readonly domainName: pulumi.Output<string | undefined>;
     /**
@@ -275,7 +286,7 @@ export class Network extends pulumi.CustomResource {
      * * Network will not be available to clients
      * * DHCP services will be stopped
      * * Existing clients will be disconnected
-     * Useful for temporary network maintenance or security measures.
+     *   Useful for temporary network maintenance or security measures.
      */
     declare public readonly enabled: pulumi.Output<boolean | undefined>;
     /**
@@ -295,7 +306,7 @@ export class Network extends pulumi.CustomResource {
      * * Optimizes multicast traffic flow
      * * Reduces network congestion
      * * Improves performance for multicast applications (e.g., IPTV)
-     * Recommended for networks with multicast traffic.
+     *   Recommended for networks with multicast traffic.
      */
     declare public readonly igmpSnooping: pulumi.Output<boolean | undefined>;
     /**
@@ -319,7 +330,7 @@ export class Network extends pulumi.CustomResource {
      * The WAN interface to use for IPv6 Prefix Delegation. Options:
      * * `wan` - Primary WAN interface
      * * `wan2` - Secondary WAN interface
-     * Only applicable when `ipv6InterfaceType` is 'pd'.
+     *   Only applicable when `ipv6InterfaceType` is 'pd'.
      *
      * This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
      */
@@ -328,7 +339,7 @@ export class Network extends pulumi.CustomResource {
      * The IPv6 Prefix ID for Prefix Delegation. Used to:
      * * Differentiate multiple delegated prefixes
      * * Create unique subnets from the delegated prefix
-     * Typically a hexadecimal value (e.g., '0', '1', 'a1').
+     *   Typically a hexadecimal value (e.g., '0', '1', 'a1').
      */
     declare public readonly ipv6PdPrefixid: pulumi.Output<string | undefined>;
     /**
@@ -366,7 +377,7 @@ export class Network extends pulumi.CustomResource {
      * * `high` - Preferred for primary networks
      * * `medium` - Standard priority
      * * `low` - For backup or secondary networks
-     * Affects router selection when multiple IPv6 routers exist.
+     *   Affects router selection when multiple IPv6 routers exist.
      *
      * This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
      */
@@ -437,7 +448,7 @@ export class Network extends pulumi.CustomResource {
      * The VLAN ID for this network. Valid range is 0-4096. Common uses:
      * * 1-4094: Standard VLAN range for network segmentation
      * * 0: Untagged/native VLAN
-     * * >4094: Reserved for special purposes
+     * * > 4094: Reserved for special purposes
      */
     declare public readonly vlanId: pulumi.Output<number | undefined>;
     /**
@@ -469,7 +480,7 @@ export class Network extends pulumi.CustomResource {
      * * 0 (default) - Best effort
      * * 1-4 - Increasing priority
      * * 5-7 - Highest priority, use sparingly
-     * Higher values get preferential treatment.
+     *   Higher values get preferential treatment.
      */
     declare public readonly wanEgressQos: pulumi.Output<number | undefined>;
     /**
@@ -507,7 +518,7 @@ export class Network extends pulumi.CustomResource {
      * * `WAN` - Primary WAN interface
      * * `WAN2` - Secondary WAN interface
      * * `WAN_LTE_FAILOVER` - LTE backup connection
-     * Used for dual WAN and failover configurations.
+     *   Used for dual WAN and failover configurations.
      */
     declare public readonly wanNetworkgroup: pulumi.Output<string | undefined>;
     /**
@@ -521,7 +532,7 @@ export class Network extends pulumi.CustomResource {
      * * `static` - Static IP configuration
      * * `dhcp` - Dynamic IP from ISP
      * * `pppoe` - PPPoE connection (common for DSL)
-     * Choose based on your ISP's requirements.
+     *   Choose based on your ISP's requirements.
      */
     declare public readonly wanType: pulumi.Output<string | undefined>;
     /**
@@ -529,7 +540,7 @@ export class Network extends pulumi.CustomResource {
      * * `disabled` - IPv6 disabled
      * * `static` - Static IPv6 configuration
      * * `dhcpv6` - Dynamic IPv6 from ISP
-     * Choose based on your ISP's requirements.
+     *   Choose based on your ISP's requirements.
      */
     declare public readonly wanTypeV6: pulumi.Output<string | undefined>;
     /**
@@ -758,7 +769,7 @@ export interface NetworkState {
      * * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
      * * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
      * * Use internal DNS servers for corporate networks
-     * Maximum 4 servers can be specified.
+     *   Maximum 4 servers can be specified.
      */
     dhcpDns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
@@ -801,28 +812,28 @@ export interface NetworkState {
      * The starting IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
      * * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
-     * Ensure this address is within the network's subnet.
+     *   Ensure this address is within the network's subnet.
      */
     dhcpStart?: pulumi.Input<string | undefined>;
     /**
      * The ending IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
      * * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
-     * Must be greater than dhcpStart and within the network's subnet.
+     *   Must be greater than dhcpStart and within the network's subnet.
      */
     dhcpStop?: pulumi.Input<string | undefined>;
     /**
      * List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
      * * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
      * * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
-     * Only used when dhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
+     *   Only used when dhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
      */
     dhcpV6Dns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Controls DNS server source for DHCPv6 clients:
      * * true - Use upstream DNS servers (recommended)
      * * false - Use manually specified servers from dhcpV6Dns
-     * Default is true for easier management.
+     *   Default is true for easier management.
      */
     dhcpV6DnsAuto?: pulumi.Input<boolean | undefined>;
     /**
@@ -837,7 +848,7 @@ export interface NetworkState {
      * * 86400 (1 day) - Default setting
      * * 3600 (1 hour) - For testing
      * * 604800 (1 week) - For stable networks
-     * Typically longer than IPv4 DHCP leases.
+     *   Typically longer than IPv4 DHCP leases.
      */
     dhcpV6Lease?: pulumi.Input<number | undefined>;
     /**
@@ -894,7 +905,7 @@ export interface NetworkState {
      * * 'corp.example.com' - For corporate networks
      * * 'guest.example.com' - For guest networks
      * * 'iot.example.com' - For IoT networks
-     * Used for internal DNS resolution and DHCP options.
+     *   Used for internal DNS resolution and DHCP options.
      */
     domainName?: pulumi.Input<string | undefined>;
     /**
@@ -902,7 +913,7 @@ export interface NetworkState {
      * * Network will not be available to clients
      * * DHCP services will be stopped
      * * Existing clients will be disconnected
-     * Useful for temporary network maintenance or security measures.
+     *   Useful for temporary network maintenance or security measures.
      */
     enabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -922,7 +933,7 @@ export interface NetworkState {
      * * Optimizes multicast traffic flow
      * * Reduces network congestion
      * * Improves performance for multicast applications (e.g., IPTV)
-     * Recommended for networks with multicast traffic.
+     *   Recommended for networks with multicast traffic.
      */
     igmpSnooping?: pulumi.Input<boolean | undefined>;
     /**
@@ -946,7 +957,7 @@ export interface NetworkState {
      * The WAN interface to use for IPv6 Prefix Delegation. Options:
      * * `wan` - Primary WAN interface
      * * `wan2` - Secondary WAN interface
-     * Only applicable when `ipv6InterfaceType` is 'pd'.
+     *   Only applicable when `ipv6InterfaceType` is 'pd'.
      *
      * This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
      */
@@ -955,7 +966,7 @@ export interface NetworkState {
      * The IPv6 Prefix ID for Prefix Delegation. Used to:
      * * Differentiate multiple delegated prefixes
      * * Create unique subnets from the delegated prefix
-     * Typically a hexadecimal value (e.g., '0', '1', 'a1').
+     *   Typically a hexadecimal value (e.g., '0', '1', 'a1').
      */
     ipv6PdPrefixid?: pulumi.Input<string | undefined>;
     /**
@@ -993,7 +1004,7 @@ export interface NetworkState {
      * * `high` - Preferred for primary networks
      * * `medium` - Standard priority
      * * `low` - For backup or secondary networks
-     * Affects router selection when multiple IPv6 routers exist.
+     *   Affects router selection when multiple IPv6 routers exist.
      *
      * This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
      */
@@ -1064,7 +1075,7 @@ export interface NetworkState {
      * The VLAN ID for this network. Valid range is 0-4096. Common uses:
      * * 1-4094: Standard VLAN range for network segmentation
      * * 0: Untagged/native VLAN
-     * * >4094: Reserved for special purposes
+     * * > 4094: Reserved for special purposes
      */
     vlanId?: pulumi.Input<number | undefined>;
     /**
@@ -1096,7 +1107,7 @@ export interface NetworkState {
      * * 0 (default) - Best effort
      * * 1-4 - Increasing priority
      * * 5-7 - Highest priority, use sparingly
-     * Higher values get preferential treatment.
+     *   Higher values get preferential treatment.
      */
     wanEgressQos?: pulumi.Input<number | undefined>;
     /**
@@ -1134,7 +1145,7 @@ export interface NetworkState {
      * * `WAN` - Primary WAN interface
      * * `WAN2` - Secondary WAN interface
      * * `WAN_LTE_FAILOVER` - LTE backup connection
-     * Used for dual WAN and failover configurations.
+     *   Used for dual WAN and failover configurations.
      */
     wanNetworkgroup?: pulumi.Input<string | undefined>;
     /**
@@ -1148,7 +1159,7 @@ export interface NetworkState {
      * * `static` - Static IP configuration
      * * `dhcp` - Dynamic IP from ISP
      * * `pppoe` - PPPoE connection (common for DSL)
-     * Choose based on your ISP's requirements.
+     *   Choose based on your ISP's requirements.
      */
     wanType?: pulumi.Input<string | undefined>;
     /**
@@ -1156,7 +1167,7 @@ export interface NetworkState {
      * * `disabled` - IPv6 disabled
      * * `static` - Static IPv6 configuration
      * * `dhcpv6` - Dynamic IPv6 from ISP
-     * Choose based on your ISP's requirements.
+     *   Choose based on your ISP's requirements.
      */
     wanTypeV6?: pulumi.Input<string | undefined>;
     /**
@@ -1220,7 +1231,7 @@ export interface NetworkArgs {
      * * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
      * * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
      * * Use internal DNS servers for corporate networks
-     * Maximum 4 servers can be specified.
+     *   Maximum 4 servers can be specified.
      */
     dhcpDns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
@@ -1263,28 +1274,28 @@ export interface NetworkArgs {
      * The starting IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
      * * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
-     * Ensure this address is within the network's subnet.
+     *   Ensure this address is within the network's subnet.
      */
     dhcpStart?: pulumi.Input<string | undefined>;
     /**
      * The ending IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
      * * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
-     * Must be greater than dhcpStart and within the network's subnet.
+     *   Must be greater than dhcpStart and within the network's subnet.
      */
     dhcpStop?: pulumi.Input<string | undefined>;
     /**
      * List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
      * * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
      * * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
-     * Only used when dhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
+     *   Only used when dhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
      */
     dhcpV6Dns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Controls DNS server source for DHCPv6 clients:
      * * true - Use upstream DNS servers (recommended)
      * * false - Use manually specified servers from dhcpV6Dns
-     * Default is true for easier management.
+     *   Default is true for easier management.
      */
     dhcpV6DnsAuto?: pulumi.Input<boolean | undefined>;
     /**
@@ -1299,7 +1310,7 @@ export interface NetworkArgs {
      * * 86400 (1 day) - Default setting
      * * 3600 (1 hour) - For testing
      * * 604800 (1 week) - For stable networks
-     * Typically longer than IPv4 DHCP leases.
+     *   Typically longer than IPv4 DHCP leases.
      */
     dhcpV6Lease?: pulumi.Input<number | undefined>;
     /**
@@ -1356,7 +1367,7 @@ export interface NetworkArgs {
      * * 'corp.example.com' - For corporate networks
      * * 'guest.example.com' - For guest networks
      * * 'iot.example.com' - For IoT networks
-     * Used for internal DNS resolution and DHCP options.
+     *   Used for internal DNS resolution and DHCP options.
      */
     domainName?: pulumi.Input<string | undefined>;
     /**
@@ -1364,7 +1375,7 @@ export interface NetworkArgs {
      * * Network will not be available to clients
      * * DHCP services will be stopped
      * * Existing clients will be disconnected
-     * Useful for temporary network maintenance or security measures.
+     *   Useful for temporary network maintenance or security measures.
      */
     enabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -1384,7 +1395,7 @@ export interface NetworkArgs {
      * * Optimizes multicast traffic flow
      * * Reduces network congestion
      * * Improves performance for multicast applications (e.g., IPTV)
-     * Recommended for networks with multicast traffic.
+     *   Recommended for networks with multicast traffic.
      */
     igmpSnooping?: pulumi.Input<boolean | undefined>;
     /**
@@ -1408,7 +1419,7 @@ export interface NetworkArgs {
      * The WAN interface to use for IPv6 Prefix Delegation. Options:
      * * `wan` - Primary WAN interface
      * * `wan2` - Secondary WAN interface
-     * Only applicable when `ipv6InterfaceType` is 'pd'.
+     *   Only applicable when `ipv6InterfaceType` is 'pd'.
      *
      * This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
      */
@@ -1417,7 +1428,7 @@ export interface NetworkArgs {
      * The IPv6 Prefix ID for Prefix Delegation. Used to:
      * * Differentiate multiple delegated prefixes
      * * Create unique subnets from the delegated prefix
-     * Typically a hexadecimal value (e.g., '0', '1', 'a1').
+     *   Typically a hexadecimal value (e.g., '0', '1', 'a1').
      */
     ipv6PdPrefixid?: pulumi.Input<string | undefined>;
     /**
@@ -1455,7 +1466,7 @@ export interface NetworkArgs {
      * * `high` - Preferred for primary networks
      * * `medium` - Standard priority
      * * `low` - For backup or secondary networks
-     * Affects router selection when multiple IPv6 routers exist.
+     *   Affects router selection when multiple IPv6 routers exist.
      *
      * This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
      */
@@ -1526,7 +1537,7 @@ export interface NetworkArgs {
      * The VLAN ID for this network. Valid range is 0-4096. Common uses:
      * * 1-4094: Standard VLAN range for network segmentation
      * * 0: Untagged/native VLAN
-     * * >4094: Reserved for special purposes
+     * * > 4094: Reserved for special purposes
      */
     vlanId?: pulumi.Input<number | undefined>;
     /**
@@ -1558,7 +1569,7 @@ export interface NetworkArgs {
      * * 0 (default) - Best effort
      * * 1-4 - Increasing priority
      * * 5-7 - Highest priority, use sparingly
-     * Higher values get preferential treatment.
+     *   Higher values get preferential treatment.
      */
     wanEgressQos?: pulumi.Input<number | undefined>;
     /**
@@ -1596,7 +1607,7 @@ export interface NetworkArgs {
      * * `WAN` - Primary WAN interface
      * * `WAN2` - Secondary WAN interface
      * * `WAN_LTE_FAILOVER` - LTE backup connection
-     * Used for dual WAN and failover configurations.
+     *   Used for dual WAN and failover configurations.
      */
     wanNetworkgroup?: pulumi.Input<string | undefined>;
     /**
@@ -1610,7 +1621,7 @@ export interface NetworkArgs {
      * * `static` - Static IP configuration
      * * `dhcp` - Dynamic IP from ISP
      * * `pppoe` - PPPoE connection (common for DSL)
-     * Choose based on your ISP's requirements.
+     *   Choose based on your ISP's requirements.
      */
     wanType?: pulumi.Input<string | undefined>;
     /**
@@ -1618,7 +1629,7 @@ export interface NetworkArgs {
      * * `disabled` - IPv6 disabled
      * * `static` - Static IPv6 configuration
      * * `dhcpv6` - Dynamic IPv6 from ISP
-     * Choose based on your ISP's requirements.
+     *   Choose based on your ISP's requirements.
      */
     wanTypeV6?: pulumi.Input<string | undefined>;
     /**

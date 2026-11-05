@@ -285,6 +285,12 @@ func (ZonePolicyState) ElementType() reflect.Type {
 	return reflect.TypeOf((*zonePolicyState)(nil)).Elem()
 }
 
+// ZonePolicyExists checks whether an existing ZonePolicy resource with the given ID exists.
+func ZonePolicyExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ZonePolicyState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:firewall/zonePolicy:ZonePolicy", id, state, "", opts...)
+}
+
 type zonePolicyArgs struct {
 	// Determines which action to take on matching traffic. Must be one of `BLOCK`, `ALLOW`, or `REJECT`.
 	Action string `pulumi:"action"`

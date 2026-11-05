@@ -67,12 +67,8 @@ type GetApGroupResult struct {
 }
 
 func GetApGroupOutput(ctx *pulumi.Context, args GetApGroupOutputArgs, opts ...pulumi.InvokeOption) GetApGroupResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (GetApGroupResultOutput, error) {
-			args := v.(GetApGroupArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("unifi:index/getApGroup:getApGroup", args, GetApGroupResultOutput{}, options).(GetApGroupResultOutput), nil
-		}).(GetApGroupResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("unifi:index/getApGroup:getApGroup", args, GetApGroupResultOutput{}, options).(GetApGroupResultOutput)
 }
 
 // A collection of arguments for invoking getApGroup.

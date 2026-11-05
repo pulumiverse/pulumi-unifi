@@ -149,6 +149,12 @@ func (GlobalSwitchState) ElementType() reflect.Type {
 	return reflect.TypeOf((*globalSwitchState)(nil)).Elem()
 }
 
+// GlobalSwitchExists checks whether an existing GlobalSwitch resource with the given ID exists.
+func GlobalSwitchExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *GlobalSwitchState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/globalSwitch:GlobalSwitch", id, state, "", opts...)
+}
+
 type globalSwitchArgs struct {
 	// Set of device identifiers to isolate (the controller's **Device Isolation** control). Each element is sent to the controller verbatim, with no validation or normalization: the UniFi `globalSwitch` API does not constrain this field's format, so supply the identifiers exactly as the controller expects them (refer to the controller UI). Reordering has no effect (this is an unordered set). At least one element is required when set; the value cannot be cleared and is retained even if the attribute is later removed.
 	AclDeviceIsolations []string `pulumi:"aclDeviceIsolations"`

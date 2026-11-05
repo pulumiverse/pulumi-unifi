@@ -707,6 +707,40 @@ class User(pulumi.CustomResource):
         __props__.__dict__["user_group_id"] = user_group_id
         return User(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            allow_existing: pulumi.Input[Optional[_builtins.bool]] = None,
+            blocked: pulumi.Input[Optional[_builtins.bool]] = None,
+            dev_id_override: pulumi.Input[Optional[_builtins.int]] = None,
+            fixed_ip: pulumi.Input[Optional[_builtins.str]] = None,
+            hostname: pulumi.Input[Optional[_builtins.str]] = None,
+            ip: pulumi.Input[Optional[_builtins.str]] = None,
+            local_dns_record: pulumi.Input[Optional[_builtins.str]] = None,
+            mac: pulumi.Input[Optional[_builtins.str]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            network_id: pulumi.Input[Optional[_builtins.str]] = None,
+            note: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            skip_forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
+            user_group_id: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["allowExisting"] = allow_existing
+        __props__["blocked"] = blocked
+        __props__["devIdOverride"] = dev_id_override
+        __props__["fixedIp"] = fixed_ip
+        __props__["hostname"] = hostname
+        __props__["ip"] = ip
+        __props__["localDnsRecord"] = local_dns_record
+        __props__["mac"] = mac
+        __props__["name"] = name
+        __props__["networkId"] = network_id
+        __props__["note"] = note
+        __props__["site"] = site
+        __props__["skipForgetOnDestroy"] = skip_forget_on_destroy
+        __props__["userGroupId"] = user_group_id
+        return pulumi.runtime.exists_resource(None, 'unifi:iam/user:User', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="allowExisting")
     def allow_existing(self) -> pulumi.Output[Optional[_builtins.bool]]:

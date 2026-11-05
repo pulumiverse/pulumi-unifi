@@ -96,6 +96,12 @@ func (LcdMonitorState) ElementType() reflect.Type {
 	return reflect.TypeOf((*lcdMonitorState)(nil)).Elem()
 }
 
+// LcdMonitorExists checks whether an existing LcdMonitor resource with the given ID exists.
+func LcdMonitorExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *LcdMonitorState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/lcdMonitor:LcdMonitor", id, state, "", opts...)
+}
+
 type lcdMonitorArgs struct {
 	// The brightness level of the LCD display. Valid values are 1-100.
 	Brightness *int `pulumi:"brightness"`

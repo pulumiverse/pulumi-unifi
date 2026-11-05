@@ -98,6 +98,12 @@ func (ConnectivityState) ElementType() reflect.Type {
 	return reflect.TypeOf((*connectivityState)(nil)).Elem()
 }
 
+// ConnectivityExists checks whether an existing Connectivity resource with the given ID exists.
+func ConnectivityExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ConnectivityState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/connectivity:Connectivity", id, state, "", opts...)
+}
+
 type connectivityArgs struct {
 	// Whether wireless meshing is enabled for the site.
 	Enabled bool `pulumi:"enabled"`

@@ -284,6 +284,12 @@ func (DeviceState) ElementType() reflect.Type {
 	return reflect.TypeOf((*deviceState)(nil)).Elem()
 }
 
+// DeviceExists checks whether an existing Device resource with the given ID exists.
+func DeviceExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *DeviceState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:index/device:Device", id, state, "", opts...)
+}
+
 type deviceArgs struct {
 	// Whether to automatically adopt the device when creating this resource. When true:
 	// * The controller will attempt to adopt the device

@@ -105,6 +105,12 @@ func (TeleportState) ElementType() reflect.Type {
 	return reflect.TypeOf((*teleportState)(nil)).Elem()
 }
 
+// TeleportExists checks whether an existing Teleport resource with the given ID exists.
+func TeleportExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *TeleportState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/teleport:Teleport", id, state, "", opts...)
+}
+
 type teleportArgs struct {
 	// Whether Teleport is enabled.
 	Enabled bool `pulumi:"enabled"`

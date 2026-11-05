@@ -138,9 +138,9 @@ class EtherLighting(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 network_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict']]]]] = None,
+                 network_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict', 'outputs.EtherLightingNetworkOverride']]]]] = None,
                  site: pulumi.Input[Optional[_builtins.str]] = None,
-                 speed_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict']]]]] = None,
+                 speed_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict', 'outputs.EtherLightingSpeedOverride']]]]] = None,
                  __props__=None):
         """
         Manages the site-level Etherlighting palette — the colors that switches with per-port LEDs (USW Pro Max line) use when a device's `ether_lighting` block selects a scheme. `network_overrides` assigns a color per network/VLAN (used by `mode = "network"`); `speed_overrides` assigns a color per link-speed class (used by `mode = "speed"`). Overrides take precedence over the controller's built-in default palette; networks or speeds without an override keep their default color. NOTE: the controller silently drops any override whose color equals that network's built-in default — declare only colors that actually differ from the defaults, or the entry will not round-trip.
@@ -148,9 +148,9 @@ class EtherLighting(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict']]]] network_overrides: Per-network LED colors, used when a device's Etherlighting `mode` is `network`.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict', 'outputs.EtherLightingNetworkOverride']]]] network_overrides: Per-network LED colors, used when a device's Etherlighting `mode` is `network`.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict']]]] speed_overrides: Per-link-speed LED colors, used when a device's Etherlighting `mode` is `speed`.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict', 'outputs.EtherLightingSpeedOverride']]]] speed_overrides: Per-link-speed LED colors, used when a device's Etherlighting `mode` is `speed`.
         """
         ...
     @overload
@@ -177,9 +177,9 @@ class EtherLighting(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 network_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict']]]]] = None,
+                 network_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict', 'outputs.EtherLightingNetworkOverride']]]]] = None,
                  site: pulumi.Input[Optional[_builtins.str]] = None,
-                 speed_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict']]]]] = None,
+                 speed_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict', 'outputs.EtherLightingSpeedOverride']]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -202,9 +202,9 @@ class EtherLighting(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            network_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict']]]]] = None,
+            network_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict', 'outputs.EtherLightingNetworkOverride']]]]] = None,
             site: pulumi.Input[Optional[_builtins.str]] = None,
-            speed_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict']]]]] = None) -> 'EtherLighting':
+            speed_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict', 'outputs.EtherLightingSpeedOverride']]]]] = None) -> 'EtherLighting':
         """
         Get an existing EtherLighting resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -212,9 +212,9 @@ class EtherLighting(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict']]]] network_overrides: Per-network LED colors, used when a device's Etherlighting `mode` is `network`.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict', 'outputs.EtherLightingNetworkOverride']]]] network_overrides: Per-network LED colors, used when a device's Etherlighting `mode` is `network`.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict']]]] speed_overrides: Per-link-speed LED colors, used when a device's Etherlighting `mode` is `speed`.
+        :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict', 'outputs.EtherLightingSpeedOverride']]]] speed_overrides: Per-link-speed LED colors, used when a device's Etherlighting `mode` is `speed`.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -224,6 +224,18 @@ class EtherLighting(pulumi.CustomResource):
         __props__.__dict__["site"] = site
         __props__.__dict__["speed_overrides"] = speed_overrides
         return EtherLighting(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            network_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict', 'outputs.EtherLightingNetworkOverride']]]]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            speed_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict', 'outputs.EtherLightingSpeedOverride']]]]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["networkOverrides"] = network_overrides
+        __props__["site"] = site
+        __props__["speedOverrides"] = speed_overrides
+        return pulumi.runtime.exists_resource(None, 'unifi:setting/etherLighting:EtherLighting', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter(name="networkOverrides")

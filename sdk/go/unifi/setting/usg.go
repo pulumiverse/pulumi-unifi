@@ -431,6 +431,12 @@ func (USGState) ElementType() reflect.Type {
 	return reflect.TypeOf((*usgState)(nil)).Elem()
 }
 
+// USGExists checks whether an existing USG resource with the given ID exists.
+func USGExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *USGState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/uSG:USG", id, state, "", opts...)
+}
+
 type usgArgs struct {
 	// The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
 	ArpCacheBaseReachable *int `pulumi:"arpCacheBaseReachable"`

@@ -1668,6 +1668,70 @@ class Rule(pulumi.CustomResource):
         __props__.__dict__["state_related"] = state_related
         return Rule(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            action: pulumi.Input[Optional[_builtins.str]] = None,
+            dst_address: pulumi.Input[Optional[_builtins.str]] = None,
+            dst_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
+            dst_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            dst_network_id: pulumi.Input[Optional[_builtins.str]] = None,
+            dst_network_type: pulumi.Input[Optional[_builtins.str]] = None,
+            dst_port: pulumi.Input[Optional[_builtins.str]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            icmp_typename: pulumi.Input[Optional[_builtins.str]] = None,
+            icmp_v6_typename: pulumi.Input[Optional[_builtins.str]] = None,
+            ip_sec: pulumi.Input[Optional[_builtins.str]] = None,
+            logging: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            protocol: pulumi.Input[Optional[_builtins.str]] = None,
+            protocol_v6: pulumi.Input[Optional[_builtins.str]] = None,
+            rule_index: pulumi.Input[Optional[_builtins.int]] = None,
+            ruleset: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            src_address: pulumi.Input[Optional[_builtins.str]] = None,
+            src_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
+            src_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            src_mac: pulumi.Input[Optional[_builtins.str]] = None,
+            src_network_id: pulumi.Input[Optional[_builtins.str]] = None,
+            src_network_type: pulumi.Input[Optional[_builtins.str]] = None,
+            src_port: pulumi.Input[Optional[_builtins.str]] = None,
+            state_established: pulumi.Input[Optional[_builtins.bool]] = None,
+            state_invalid: pulumi.Input[Optional[_builtins.bool]] = None,
+            state_new: pulumi.Input[Optional[_builtins.bool]] = None,
+            state_related: pulumi.Input[Optional[_builtins.bool]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["action"] = action
+        __props__["dstAddress"] = dst_address
+        __props__["dstAddressIpv6"] = dst_address_ipv6
+        __props__["dstFirewallGroupIds"] = dst_firewall_group_ids
+        __props__["dstNetworkId"] = dst_network_id
+        __props__["dstNetworkType"] = dst_network_type
+        __props__["dstPort"] = dst_port
+        __props__["enabled"] = enabled
+        __props__["icmpTypename"] = icmp_typename
+        __props__["icmpV6Typename"] = icmp_v6_typename
+        __props__["ipSec"] = ip_sec
+        __props__["logging"] = logging
+        __props__["name"] = name
+        __props__["protocol"] = protocol
+        __props__["protocolV6"] = protocol_v6
+        __props__["ruleIndex"] = rule_index
+        __props__["ruleset"] = ruleset
+        __props__["site"] = site
+        __props__["srcAddress"] = src_address
+        __props__["srcAddressIpv6"] = src_address_ipv6
+        __props__["srcFirewallGroupIds"] = src_firewall_group_ids
+        __props__["srcMac"] = src_mac
+        __props__["srcNetworkId"] = src_network_id
+        __props__["srcNetworkType"] = src_network_type
+        __props__["srcPort"] = src_port
+        __props__["stateEstablished"] = state_established
+        __props__["stateInvalid"] = state_invalid
+        __props__["stateNew"] = state_new
+        __props__["stateRelated"] = state_related
+        return pulumi.runtime.exists_resource(None, 'unifi:firewall/rule:Rule', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def action(self) -> pulumi.Output[_builtins.str]:

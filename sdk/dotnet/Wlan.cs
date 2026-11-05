@@ -38,7 +38,7 @@ namespace Pulumiverse.Unifi
     ///         Name = "wifi-vlan",
     ///         Purpose = "corporate",
     ///         Subnet = "10.0.0.1/24",
-    ///         VlanId = vlanId,
+    ///         VlanId = (int)vlanId,
     ///         DhcpStart = "10.0.0.6",
     ///         DhcpStop = "10.0.0.254",
     ///         DhcpEnabled = true,

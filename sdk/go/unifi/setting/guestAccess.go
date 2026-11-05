@@ -425,6 +425,12 @@ func (GuestAccessState) ElementType() reflect.Type {
 	return reflect.TypeOf((*guestAccessState)(nil)).Elem()
 }
 
+// GuestAccessExists checks whether an existing GuestAccess resource with the given ID exists.
+func GuestAccessExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *GuestAccessState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/guestAccess:GuestAccess", id, state, "", opts...)
+}
+
 type guestAccessArgs struct {
 	// Subnet allowed for guest access.
 	AllowedSubnet *string `pulumi:"allowedSubnet"`

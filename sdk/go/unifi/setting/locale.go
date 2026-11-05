@@ -98,6 +98,12 @@ func (LocaleState) ElementType() reflect.Type {
 	return reflect.TypeOf((*localeState)(nil)).Elem()
 }
 
+// LocaleExists checks whether an existing Locale resource with the given ID exists.
+func LocaleExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *LocaleState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/locale:Locale", id, state, "", opts...)
+}
+
 type localeArgs struct {
 	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`

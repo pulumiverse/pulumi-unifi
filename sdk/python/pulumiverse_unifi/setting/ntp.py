@@ -372,6 +372,24 @@ class Ntp(pulumi.CustomResource):
         __props__.__dict__["site"] = site
         return Ntp(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            mode: pulumi.Input[Optional[_builtins.str]] = None,
+            ntp_server1: pulumi.Input[Optional[_builtins.str]] = None,
+            ntp_server2: pulumi.Input[Optional[_builtins.str]] = None,
+            ntp_server3: pulumi.Input[Optional[_builtins.str]] = None,
+            ntp_server4: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["mode"] = mode
+        __props__["ntpServer1"] = ntp_server1
+        __props__["ntpServer2"] = ntp_server2
+        __props__["ntpServer3"] = ntp_server3
+        __props__["ntpServer4"] = ntp_server4
+        __props__["site"] = site
+        return pulumi.runtime.exists_resource(None, 'unifi:setting/ntp:Ntp', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def mode(self) -> pulumi.Output[_builtins.str]:

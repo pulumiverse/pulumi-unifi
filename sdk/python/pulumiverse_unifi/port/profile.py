@@ -111,27 +111,27 @@ class ProfileArgs:
                * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
                * Unique per device
                * Verified to belong to authorized devices
-               Only effective when port_security_enabled is true
+                 Only effective when port_security_enabled is true
         :param pulumi.Input[_builtins.int] priority_queue1_level: Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
                * Low-priority background traffic
                * Bulk data transfers
                * Non-time-sensitive applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue2_level: Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
                * Standard user traffic
                * Web browsing and email
                * General business applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue3_level: Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
                * High-priority traffic
                * Voice and video conferencing
                * Time-sensitive applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue4_level: Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
                * Highest priority traffic
                * Critical real-time applications
                * Emergency communications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.int] speed: Port speed in Mbps when auto-negotiation is disabled. Common values:
                * 10 - 10 Mbps (legacy devices)
@@ -140,41 +140,41 @@ class ProfileArgs:
                * 2500 - 2.5 Gbps (Multi-Gigabit)
                * 5000 - 5 Gbps (Multi-Gigabit)
                * 10000 - 10 Gbps (10 Gigabit)
-               Only used when autoneg is false
+                 Only used when autoneg is false
         :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast storm control. When enabled:
                * Limits broadcast traffic to prevent network flooding
                * Protects against broadcast storms
                * Helps maintain network stability
-               Use with stormctrl_bcast_rate to set threshold
+                 Use with stormctrl_bcast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_bcast_level: The broadcast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
                * Control broadcast traffic levels
                * Prevent network congestion
                * Balance between necessary broadcasts and network protection
-               Only effective when `stormctrl_bcast_enabled` is true
+                 Only effective when `stormctrl_bcast_enabled` is true
         :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast storm control. When enabled:
                * Limits multicast traffic to prevent network flooding
                * Important for networks with multicast applications
                * Helps maintain quality of service
-               Use with `stormctrl_mcast_rate` to set threshold
+                 Use with `stormctrl_mcast_rate` to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_mcast_level: The multicast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
                * Control multicast traffic levels
                * Ensure bandwidth for critical multicast services
                * Prevent multicast traffic from overwhelming the network
-               Only effective when stormctrl_mcast_enabled is true
+                 Only effective when stormctrl_mcast_enabled is true
         :param pulumi.Input[_builtins.str] stormctrl_type: The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
         :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast storm control. When enabled:
                * Limits unknown unicast traffic to prevent flooding
                * Protects against MAC spoofing attacks
                * Helps maintain network performance
-               Use with stormctrl_ucast_rate to set threshold
+                 Use with stormctrl_ucast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_ucast_level: The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
                * Control unknown unicast traffic levels
                * Prevent network saturation from unknown destinations
                * Balance security with network usability
-               Only effective when stormctrl_ucast_enabled is true
+                 Only effective when stormctrl_ucast_enabled is true
         :param pulumi.Input[_builtins.bool] stp_port_mode: Spanning Tree Protocol (STP) configuration for the port. When enabled:
                * Prevents network loops in switch-to-switch connections
                * Provides automatic failover in redundant topologies
@@ -512,7 +512,7 @@ class ProfileArgs:
         * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
         * Unique per device
         * Verified to belong to authorized devices
-        Only effective when port_security_enabled is true
+          Only effective when port_security_enabled is true
         """
         return pulumi.get(self, "port_security_mac_addresses")
 
@@ -528,7 +528,7 @@ class ProfileArgs:
         * Low-priority background traffic
         * Bulk data transfers
         * Non-time-sensitive applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue1_level")
 
@@ -544,7 +544,7 @@ class ProfileArgs:
         * Standard user traffic
         * Web browsing and email
         * General business applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue2_level")
 
@@ -560,7 +560,7 @@ class ProfileArgs:
         * High-priority traffic
         * Voice and video conferencing
         * Time-sensitive applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue3_level")
 
@@ -576,7 +576,7 @@ class ProfileArgs:
         * Highest priority traffic
         * Critical real-time applications
         * Emergency communications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue4_level")
 
@@ -607,7 +607,7 @@ class ProfileArgs:
         * 2500 - 2.5 Gbps (Multi-Gigabit)
         * 5000 - 5 Gbps (Multi-Gigabit)
         * 10000 - 10 Gbps (10 Gigabit)
-        Only used when autoneg is false
+          Only used when autoneg is false
         """
         return pulumi.get(self, "speed")
 
@@ -623,7 +623,7 @@ class ProfileArgs:
         * Limits broadcast traffic to prevent network flooding
         * Protects against broadcast storms
         * Helps maintain network stability
-        Use with stormctrl_bcast_rate to set threshold
+          Use with stormctrl_bcast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_bcast_enabled")
 
@@ -651,7 +651,7 @@ class ProfileArgs:
         * Control broadcast traffic levels
         * Prevent network congestion
         * Balance between necessary broadcasts and network protection
-        Only effective when `stormctrl_bcast_enabled` is true
+          Only effective when `stormctrl_bcast_enabled` is true
         """
         return pulumi.get(self, "stormctrl_bcast_rate")
 
@@ -667,7 +667,7 @@ class ProfileArgs:
         * Limits multicast traffic to prevent network flooding
         * Important for networks with multicast applications
         * Helps maintain quality of service
-        Use with `stormctrl_mcast_rate` to set threshold
+          Use with `stormctrl_mcast_rate` to set threshold
         """
         return pulumi.get(self, "stormctrl_mcast_enabled")
 
@@ -695,7 +695,7 @@ class ProfileArgs:
         * Control multicast traffic levels
         * Ensure bandwidth for critical multicast services
         * Prevent multicast traffic from overwhelming the network
-        Only effective when stormctrl_mcast_enabled is true
+          Only effective when stormctrl_mcast_enabled is true
         """
         return pulumi.get(self, "stormctrl_mcast_rate")
 
@@ -723,7 +723,7 @@ class ProfileArgs:
         * Limits unknown unicast traffic to prevent flooding
         * Protects against MAC spoofing attacks
         * Helps maintain network performance
-        Use with stormctrl_ucast_rate to set threshold
+          Use with stormctrl_ucast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_ucast_enabled")
 
@@ -751,7 +751,7 @@ class ProfileArgs:
         * Control unknown unicast traffic levels
         * Prevent network saturation from unknown destinations
         * Balance security with network usability
-        Only effective when stormctrl_ucast_enabled is true
+          Only effective when stormctrl_ucast_enabled is true
         """
         return pulumi.get(self, "stormctrl_ucast_rate")
 
@@ -918,27 +918,27 @@ class _ProfileState:
                * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
                * Unique per device
                * Verified to belong to authorized devices
-               Only effective when port_security_enabled is true
+                 Only effective when port_security_enabled is true
         :param pulumi.Input[_builtins.int] priority_queue1_level: Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
                * Low-priority background traffic
                * Bulk data transfers
                * Non-time-sensitive applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue2_level: Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
                * Standard user traffic
                * Web browsing and email
                * General business applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue3_level: Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
                * High-priority traffic
                * Voice and video conferencing
                * Time-sensitive applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue4_level: Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
                * Highest priority traffic
                * Critical real-time applications
                * Emergency communications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.int] speed: Port speed in Mbps when auto-negotiation is disabled. Common values:
                * 10 - 10 Mbps (legacy devices)
@@ -947,41 +947,41 @@ class _ProfileState:
                * 2500 - 2.5 Gbps (Multi-Gigabit)
                * 5000 - 5 Gbps (Multi-Gigabit)
                * 10000 - 10 Gbps (10 Gigabit)
-               Only used when autoneg is false
+                 Only used when autoneg is false
         :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast storm control. When enabled:
                * Limits broadcast traffic to prevent network flooding
                * Protects against broadcast storms
                * Helps maintain network stability
-               Use with stormctrl_bcast_rate to set threshold
+                 Use with stormctrl_bcast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_bcast_level: The broadcast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
                * Control broadcast traffic levels
                * Prevent network congestion
                * Balance between necessary broadcasts and network protection
-               Only effective when `stormctrl_bcast_enabled` is true
+                 Only effective when `stormctrl_bcast_enabled` is true
         :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast storm control. When enabled:
                * Limits multicast traffic to prevent network flooding
                * Important for networks with multicast applications
                * Helps maintain quality of service
-               Use with `stormctrl_mcast_rate` to set threshold
+                 Use with `stormctrl_mcast_rate` to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_mcast_level: The multicast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
                * Control multicast traffic levels
                * Ensure bandwidth for critical multicast services
                * Prevent multicast traffic from overwhelming the network
-               Only effective when stormctrl_mcast_enabled is true
+                 Only effective when stormctrl_mcast_enabled is true
         :param pulumi.Input[_builtins.str] stormctrl_type: The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
         :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast storm control. When enabled:
                * Limits unknown unicast traffic to prevent flooding
                * Protects against MAC spoofing attacks
                * Helps maintain network performance
-               Use with stormctrl_ucast_rate to set threshold
+                 Use with stormctrl_ucast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_ucast_level: The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
                * Control unknown unicast traffic levels
                * Prevent network saturation from unknown destinations
                * Balance security with network usability
-               Only effective when stormctrl_ucast_enabled is true
+                 Only effective when stormctrl_ucast_enabled is true
         :param pulumi.Input[_builtins.bool] stp_port_mode: Spanning Tree Protocol (STP) configuration for the port. When enabled:
                * Prevents network loops in switch-to-switch connections
                * Provides automatic failover in redundant topologies
@@ -1319,7 +1319,7 @@ class _ProfileState:
         * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
         * Unique per device
         * Verified to belong to authorized devices
-        Only effective when port_security_enabled is true
+          Only effective when port_security_enabled is true
         """
         return pulumi.get(self, "port_security_mac_addresses")
 
@@ -1335,7 +1335,7 @@ class _ProfileState:
         * Low-priority background traffic
         * Bulk data transfers
         * Non-time-sensitive applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue1_level")
 
@@ -1351,7 +1351,7 @@ class _ProfileState:
         * Standard user traffic
         * Web browsing and email
         * General business applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue2_level")
 
@@ -1367,7 +1367,7 @@ class _ProfileState:
         * High-priority traffic
         * Voice and video conferencing
         * Time-sensitive applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue3_level")
 
@@ -1383,7 +1383,7 @@ class _ProfileState:
         * Highest priority traffic
         * Critical real-time applications
         * Emergency communications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue4_level")
 
@@ -1414,7 +1414,7 @@ class _ProfileState:
         * 2500 - 2.5 Gbps (Multi-Gigabit)
         * 5000 - 5 Gbps (Multi-Gigabit)
         * 10000 - 10 Gbps (10 Gigabit)
-        Only used when autoneg is false
+          Only used when autoneg is false
         """
         return pulumi.get(self, "speed")
 
@@ -1430,7 +1430,7 @@ class _ProfileState:
         * Limits broadcast traffic to prevent network flooding
         * Protects against broadcast storms
         * Helps maintain network stability
-        Use with stormctrl_bcast_rate to set threshold
+          Use with stormctrl_bcast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_bcast_enabled")
 
@@ -1458,7 +1458,7 @@ class _ProfileState:
         * Control broadcast traffic levels
         * Prevent network congestion
         * Balance between necessary broadcasts and network protection
-        Only effective when `stormctrl_bcast_enabled` is true
+          Only effective when `stormctrl_bcast_enabled` is true
         """
         return pulumi.get(self, "stormctrl_bcast_rate")
 
@@ -1474,7 +1474,7 @@ class _ProfileState:
         * Limits multicast traffic to prevent network flooding
         * Important for networks with multicast applications
         * Helps maintain quality of service
-        Use with `stormctrl_mcast_rate` to set threshold
+          Use with `stormctrl_mcast_rate` to set threshold
         """
         return pulumi.get(self, "stormctrl_mcast_enabled")
 
@@ -1502,7 +1502,7 @@ class _ProfileState:
         * Control multicast traffic levels
         * Ensure bandwidth for critical multicast services
         * Prevent multicast traffic from overwhelming the network
-        Only effective when stormctrl_mcast_enabled is true
+          Only effective when stormctrl_mcast_enabled is true
         """
         return pulumi.get(self, "stormctrl_mcast_rate")
 
@@ -1530,7 +1530,7 @@ class _ProfileState:
         * Limits unknown unicast traffic to prevent flooding
         * Protects against MAC spoofing attacks
         * Helps maintain network performance
-        Use with stormctrl_ucast_rate to set threshold
+          Use with stormctrl_ucast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_ucast_enabled")
 
@@ -1558,7 +1558,7 @@ class _ProfileState:
         * Control unknown unicast traffic levels
         * Prevent network saturation from unknown destinations
         * Balance security with network usability
-        Only effective when stormctrl_ucast_enabled is true
+          Only effective when stormctrl_ucast_enabled is true
         """
         return pulumi.get(self, "stormctrl_ucast_rate")
 
@@ -1765,27 +1765,27 @@ class Profile(pulumi.CustomResource):
                * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
                * Unique per device
                * Verified to belong to authorized devices
-               Only effective when port_security_enabled is true
+                 Only effective when port_security_enabled is true
         :param pulumi.Input[_builtins.int] priority_queue1_level: Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
                * Low-priority background traffic
                * Bulk data transfers
                * Non-time-sensitive applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue2_level: Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
                * Standard user traffic
                * Web browsing and email
                * General business applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue3_level: Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
                * High-priority traffic
                * Voice and video conferencing
                * Time-sensitive applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue4_level: Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
                * Highest priority traffic
                * Critical real-time applications
                * Emergency communications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.int] speed: Port speed in Mbps when auto-negotiation is disabled. Common values:
                * 10 - 10 Mbps (legacy devices)
@@ -1794,41 +1794,41 @@ class Profile(pulumi.CustomResource):
                * 2500 - 2.5 Gbps (Multi-Gigabit)
                * 5000 - 5 Gbps (Multi-Gigabit)
                * 10000 - 10 Gbps (10 Gigabit)
-               Only used when autoneg is false
+                 Only used when autoneg is false
         :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast storm control. When enabled:
                * Limits broadcast traffic to prevent network flooding
                * Protects against broadcast storms
                * Helps maintain network stability
-               Use with stormctrl_bcast_rate to set threshold
+                 Use with stormctrl_bcast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_bcast_level: The broadcast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
                * Control broadcast traffic levels
                * Prevent network congestion
                * Balance between necessary broadcasts and network protection
-               Only effective when `stormctrl_bcast_enabled` is true
+                 Only effective when `stormctrl_bcast_enabled` is true
         :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast storm control. When enabled:
                * Limits multicast traffic to prevent network flooding
                * Important for networks with multicast applications
                * Helps maintain quality of service
-               Use with `stormctrl_mcast_rate` to set threshold
+                 Use with `stormctrl_mcast_rate` to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_mcast_level: The multicast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
                * Control multicast traffic levels
                * Ensure bandwidth for critical multicast services
                * Prevent multicast traffic from overwhelming the network
-               Only effective when stormctrl_mcast_enabled is true
+                 Only effective when stormctrl_mcast_enabled is true
         :param pulumi.Input[_builtins.str] stormctrl_type: The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
         :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast storm control. When enabled:
                * Limits unknown unicast traffic to prevent flooding
                * Protects against MAC spoofing attacks
                * Helps maintain network performance
-               Use with stormctrl_ucast_rate to set threshold
+                 Use with stormctrl_ucast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_ucast_level: The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
                * Control unknown unicast traffic levels
                * Prevent network saturation from unknown destinations
                * Balance security with network usability
-               Only effective when stormctrl_ucast_enabled is true
+                 Only effective when stormctrl_ucast_enabled is true
         :param pulumi.Input[_builtins.bool] stp_port_mode: Spanning Tree Protocol (STP) configuration for the port. When enabled:
                * Prevents network loops in switch-to-switch connections
                * Provides automatic failover in redundant topologies
@@ -2105,27 +2105,27 @@ class Profile(pulumi.CustomResource):
                * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
                * Unique per device
                * Verified to belong to authorized devices
-               Only effective when port_security_enabled is true
+                 Only effective when port_security_enabled is true
         :param pulumi.Input[_builtins.int] priority_queue1_level: Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
                * Low-priority background traffic
                * Bulk data transfers
                * Non-time-sensitive applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue2_level: Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
                * Standard user traffic
                * Web browsing and email
                * General business applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue3_level: Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
                * High-priority traffic
                * Voice and video conferencing
                * Time-sensitive applications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.int] priority_queue4_level: Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
                * Highest priority traffic
                * Critical real-time applications
                * Emergency communications
-               Higher values give more bandwidth to this queue
+                 Higher values give more bandwidth to this queue
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         :param pulumi.Input[_builtins.int] speed: Port speed in Mbps when auto-negotiation is disabled. Common values:
                * 10 - 10 Mbps (legacy devices)
@@ -2134,41 +2134,41 @@ class Profile(pulumi.CustomResource):
                * 2500 - 2.5 Gbps (Multi-Gigabit)
                * 5000 - 5 Gbps (Multi-Gigabit)
                * 10000 - 10 Gbps (10 Gigabit)
-               Only used when autoneg is false
+                 Only used when autoneg is false
         :param pulumi.Input[_builtins.bool] stormctrl_bcast_enabled: Enable broadcast storm control. When enabled:
                * Limits broadcast traffic to prevent network flooding
                * Protects against broadcast storms
                * Helps maintain network stability
-               Use with stormctrl_bcast_rate to set threshold
+                 Use with stormctrl_bcast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_bcast_level: The broadcast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_bcast_rate: Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
                * Control broadcast traffic levels
                * Prevent network congestion
                * Balance between necessary broadcasts and network protection
-               Only effective when `stormctrl_bcast_enabled` is true
+                 Only effective when `stormctrl_bcast_enabled` is true
         :param pulumi.Input[_builtins.bool] stormctrl_mcast_enabled: Enable multicast storm control. When enabled:
                * Limits multicast traffic to prevent network flooding
                * Important for networks with multicast applications
                * Helps maintain quality of service
-               Use with `stormctrl_mcast_rate` to set threshold
+                 Use with `stormctrl_mcast_rate` to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_mcast_level: The multicast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_mcast_rate: Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
                * Control multicast traffic levels
                * Ensure bandwidth for critical multicast services
                * Prevent multicast traffic from overwhelming the network
-               Only effective when stormctrl_mcast_enabled is true
+                 Only effective when stormctrl_mcast_enabled is true
         :param pulumi.Input[_builtins.str] stormctrl_type: The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
         :param pulumi.Input[_builtins.bool] stormctrl_ucast_enabled: Enable unknown unicast storm control. When enabled:
                * Limits unknown unicast traffic to prevent flooding
                * Protects against MAC spoofing attacks
                * Helps maintain network performance
-               Use with stormctrl_ucast_rate to set threshold
+                 Use with stormctrl_ucast_rate to set threshold
         :param pulumi.Input[_builtins.int] stormctrl_ucast_level: The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
         :param pulumi.Input[_builtins.int] stormctrl_ucast_rate: Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
                * Control unknown unicast traffic levels
                * Prevent network saturation from unknown destinations
                * Balance security with network usability
-               Only effective when stormctrl_ucast_enabled is true
+                 Only effective when stormctrl_ucast_enabled is true
         :param pulumi.Input[_builtins.bool] stp_port_mode: Spanning Tree Protocol (STP) configuration for the port. When enabled:
                * Prevents network loops in switch-to-switch connections
                * Provides automatic failover in redundant topologies
@@ -2241,6 +2241,84 @@ class Profile(pulumi.CustomResource):
         __props__.__dict__["tagged_vlan_mgmt"] = tagged_vlan_mgmt
         __props__.__dict__["voice_networkconf_id"] = voice_networkconf_id
         return Profile(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            autoneg: pulumi.Input[Optional[_builtins.bool]] = None,
+            dot1x_ctrl: pulumi.Input[Optional[_builtins.str]] = None,
+            dot1x_idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
+            egress_rate_limit_kbps: pulumi.Input[Optional[_builtins.int]] = None,
+            egress_rate_limit_kbps_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            excluded_network_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            forward: pulumi.Input[Optional[_builtins.str]] = None,
+            full_duplex: pulumi.Input[Optional[_builtins.bool]] = None,
+            isolation: pulumi.Input[Optional[_builtins.bool]] = None,
+            lldpmed_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            lldpmed_notify_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            native_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None,
+            op_mode: pulumi.Input[Optional[_builtins.str]] = None,
+            poe_mode: pulumi.Input[Optional[_builtins.str]] = None,
+            port_security_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            port_security_mac_addresses: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            priority_queue1_level: pulumi.Input[Optional[_builtins.int]] = None,
+            priority_queue2_level: pulumi.Input[Optional[_builtins.int]] = None,
+            priority_queue3_level: pulumi.Input[Optional[_builtins.int]] = None,
+            priority_queue4_level: pulumi.Input[Optional[_builtins.int]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            speed: pulumi.Input[Optional[_builtins.int]] = None,
+            stormctrl_bcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            stormctrl_bcast_level: pulumi.Input[Optional[_builtins.int]] = None,
+            stormctrl_bcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
+            stormctrl_mcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            stormctrl_mcast_level: pulumi.Input[Optional[_builtins.int]] = None,
+            stormctrl_mcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
+            stormctrl_type: pulumi.Input[Optional[_builtins.str]] = None,
+            stormctrl_ucast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            stormctrl_ucast_level: pulumi.Input[Optional[_builtins.int]] = None,
+            stormctrl_ucast_rate: pulumi.Input[Optional[_builtins.int]] = None,
+            stp_port_mode: pulumi.Input[Optional[_builtins.bool]] = None,
+            tagged_vlan_mgmt: pulumi.Input[Optional[_builtins.str]] = None,
+            voice_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["autoneg"] = autoneg
+        __props__["dot1xCtrl"] = dot1x_ctrl
+        __props__["dot1xIdleTimeout"] = dot1x_idle_timeout
+        __props__["egressRateLimitKbps"] = egress_rate_limit_kbps
+        __props__["egressRateLimitKbpsEnabled"] = egress_rate_limit_kbps_enabled
+        __props__["excludedNetworkIds"] = excluded_network_ids
+        __props__["forward"] = forward
+        __props__["fullDuplex"] = full_duplex
+        __props__["isolation"] = isolation
+        __props__["lldpmedEnabled"] = lldpmed_enabled
+        __props__["lldpmedNotifyEnabled"] = lldpmed_notify_enabled
+        __props__["name"] = name
+        __props__["nativeNetworkconfId"] = native_networkconf_id
+        __props__["opMode"] = op_mode
+        __props__["poeMode"] = poe_mode
+        __props__["portSecurityEnabled"] = port_security_enabled
+        __props__["portSecurityMacAddresses"] = port_security_mac_addresses
+        __props__["priorityQueue1Level"] = priority_queue1_level
+        __props__["priorityQueue2Level"] = priority_queue2_level
+        __props__["priorityQueue3Level"] = priority_queue3_level
+        __props__["priorityQueue4Level"] = priority_queue4_level
+        __props__["site"] = site
+        __props__["speed"] = speed
+        __props__["stormctrlBcastEnabled"] = stormctrl_bcast_enabled
+        __props__["stormctrlBcastLevel"] = stormctrl_bcast_level
+        __props__["stormctrlBcastRate"] = stormctrl_bcast_rate
+        __props__["stormctrlMcastEnabled"] = stormctrl_mcast_enabled
+        __props__["stormctrlMcastLevel"] = stormctrl_mcast_level
+        __props__["stormctrlMcastRate"] = stormctrl_mcast_rate
+        __props__["stormctrlType"] = stormctrl_type
+        __props__["stormctrlUcastEnabled"] = stormctrl_ucast_enabled
+        __props__["stormctrlUcastLevel"] = stormctrl_ucast_level
+        __props__["stormctrlUcastRate"] = stormctrl_ucast_rate
+        __props__["stpPortMode"] = stp_port_mode
+        __props__["taggedVlanMgmt"] = tagged_vlan_mgmt
+        __props__["voiceNetworkconfId"] = voice_networkconf_id
+        return pulumi.runtime.exists_resource(None, 'unifi:port/profile:Profile', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter
@@ -2411,7 +2489,7 @@ class Profile(pulumi.CustomResource):
         * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
         * Unique per device
         * Verified to belong to authorized devices
-        Only effective when port_security_enabled is true
+          Only effective when port_security_enabled is true
         """
         return pulumi.get(self, "port_security_mac_addresses")
 
@@ -2423,7 +2501,7 @@ class Profile(pulumi.CustomResource):
         * Low-priority background traffic
         * Bulk data transfers
         * Non-time-sensitive applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue1_level")
 
@@ -2435,7 +2513,7 @@ class Profile(pulumi.CustomResource):
         * Standard user traffic
         * Web browsing and email
         * General business applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue2_level")
 
@@ -2447,7 +2525,7 @@ class Profile(pulumi.CustomResource):
         * High-priority traffic
         * Voice and video conferencing
         * Time-sensitive applications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue3_level")
 
@@ -2459,7 +2537,7 @@ class Profile(pulumi.CustomResource):
         * Highest priority traffic
         * Critical real-time applications
         * Emergency communications
-        Higher values give more bandwidth to this queue
+          Higher values give more bandwidth to this queue
         """
         return pulumi.get(self, "priority_queue4_level")
 
@@ -2482,7 +2560,7 @@ class Profile(pulumi.CustomResource):
         * 2500 - 2.5 Gbps (Multi-Gigabit)
         * 5000 - 5 Gbps (Multi-Gigabit)
         * 10000 - 10 Gbps (10 Gigabit)
-        Only used when autoneg is false
+          Only used when autoneg is false
         """
         return pulumi.get(self, "speed")
 
@@ -2494,7 +2572,7 @@ class Profile(pulumi.CustomResource):
         * Limits broadcast traffic to prevent network flooding
         * Protects against broadcast storms
         * Helps maintain network stability
-        Use with stormctrl_bcast_rate to set threshold
+          Use with stormctrl_bcast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_bcast_enabled")
 
@@ -2514,7 +2592,7 @@ class Profile(pulumi.CustomResource):
         * Control broadcast traffic levels
         * Prevent network congestion
         * Balance between necessary broadcasts and network protection
-        Only effective when `stormctrl_bcast_enabled` is true
+          Only effective when `stormctrl_bcast_enabled` is true
         """
         return pulumi.get(self, "stormctrl_bcast_rate")
 
@@ -2526,7 +2604,7 @@ class Profile(pulumi.CustomResource):
         * Limits multicast traffic to prevent network flooding
         * Important for networks with multicast applications
         * Helps maintain quality of service
-        Use with `stormctrl_mcast_rate` to set threshold
+          Use with `stormctrl_mcast_rate` to set threshold
         """
         return pulumi.get(self, "stormctrl_mcast_enabled")
 
@@ -2546,7 +2624,7 @@ class Profile(pulumi.CustomResource):
         * Control multicast traffic levels
         * Ensure bandwidth for critical multicast services
         * Prevent multicast traffic from overwhelming the network
-        Only effective when stormctrl_mcast_enabled is true
+          Only effective when stormctrl_mcast_enabled is true
         """
         return pulumi.get(self, "stormctrl_mcast_rate")
 
@@ -2566,7 +2644,7 @@ class Profile(pulumi.CustomResource):
         * Limits unknown unicast traffic to prevent flooding
         * Protects against MAC spoofing attacks
         * Helps maintain network performance
-        Use with stormctrl_ucast_rate to set threshold
+          Use with stormctrl_ucast_rate to set threshold
         """
         return pulumi.get(self, "stormctrl_ucast_enabled")
 
@@ -2586,7 +2664,7 @@ class Profile(pulumi.CustomResource):
         * Control unknown unicast traffic levels
         * Prevent network saturation from unknown destinations
         * Balance security with network usability
-        Only effective when stormctrl_ucast_enabled is true
+          Only effective when stormctrl_ucast_enabled is true
         """
         return pulumi.get(self, "stormctrl_ucast_rate")
 

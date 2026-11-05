@@ -169,6 +169,12 @@ func (RsyslogdState) ElementType() reflect.Type {
 	return reflect.TypeOf((*rsyslogdState)(nil)).Elem()
 }
 
+// RsyslogdExists checks whether an existing Rsyslogd resource with the given ID exists.
+func RsyslogdExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *RsyslogdState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/rsyslogd:Rsyslogd", id, state, "", opts...)
+}
+
 type rsyslogdArgs struct {
 	// List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
 	Contents []string `pulumi:"contents"`

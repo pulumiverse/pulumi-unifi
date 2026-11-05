@@ -107,6 +107,12 @@ func (AutoSpeedtestState) ElementType() reflect.Type {
 	return reflect.TypeOf((*autoSpeedtestState)(nil)).Elem()
 }
 
+// AutoSpeedtestExists checks whether an existing AutoSpeedtest resource with the given ID exists.
+func AutoSpeedtestExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *AutoSpeedtestState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/autoSpeedtest:AutoSpeedtest", id, state, "", opts...)
+}
+
 type autoSpeedtestArgs struct {
 	// Cron expression defining the schedule for automatic speedtests.
 	Cron *string `pulumi:"cron"`

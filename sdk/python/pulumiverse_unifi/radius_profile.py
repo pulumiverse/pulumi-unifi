@@ -427,8 +427,8 @@ class RadiusProfile(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
-                 auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
+                 acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict', 'outputs.RadiusProfileAcctServer']]]]] = None,
+                 auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict', 'outputs.RadiusProfileAuthServer']]]]] = None,
                  interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
                  interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
@@ -456,11 +456,11 @@ class RadiusProfile(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict', 'outputs.RadiusProfileAcctServer']]]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
                  * IP address of the RADIUS server
                  * Port number (default: 1813)
                  * Shared secret for secure communication
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]] auth_servers: List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict', 'outputs.RadiusProfileAuthServer']]]] auth_servers: List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
                  * IP address of the RADIUS server
                  * Shared secret for secure communication
         :param pulumi.Input[_builtins.bool] interim_update_enabled: Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
@@ -512,8 +512,8 @@ class RadiusProfile(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
-                 auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
+                 acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict', 'outputs.RadiusProfileAcctServer']]]]] = None,
+                 auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict', 'outputs.RadiusProfileAuthServer']]]]] = None,
                  interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
                  interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
                  name: pulumi.Input[Optional[_builtins.str]] = None,
@@ -553,8 +553,8 @@ class RadiusProfile(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]]] = None,
-            auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]]] = None,
+            acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict', 'outputs.RadiusProfileAcctServer']]]]] = None,
+            auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict', 'outputs.RadiusProfileAuthServer']]]]] = None,
             interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
             interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
             name: pulumi.Input[Optional[_builtins.str]] = None,
@@ -571,11 +571,11 @@ class RadiusProfile(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict']]]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict', 'outputs.RadiusProfileAcctServer']]]] acct_servers: List of RADIUS accounting servers to use with this profile. Accounting servers track session data like connection time and data usage. Each server requires:
                  * IP address of the RADIUS server
                  * Port number (default: 1813)
                  * Shared secret for secure communication
-        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict']]]] auth_servers: List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
+        :param pulumi.Input[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict', 'outputs.RadiusProfileAuthServer']]]] auth_servers: List of RADIUS authentication servers to use with this profile. Multiple servers provide failover - if the first server is unreachable, the system will try the next server in the list. Each server requires:
                  * IP address of the RADIUS server
                  * Shared secret for secure communication
         :param pulumi.Input[_builtins.bool] interim_update_enabled: Enable periodic updates during active sessions. This allows tracking of ongoing session data like bandwidth usage.
@@ -606,6 +606,34 @@ class RadiusProfile(pulumi.CustomResource):
         __props__.__dict__["vlan_enabled"] = vlan_enabled
         __props__.__dict__["vlan_wlan_mode"] = vlan_wlan_mode
         return RadiusProfile(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            acct_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAcctServerArgs', 'RadiusProfileAcctServerArgsDict', 'outputs.RadiusProfileAcctServer']]]]] = None,
+            auth_servers: pulumi.Input[Optional[Sequence[pulumi.Input[Union['RadiusProfileAuthServerArgs', 'RadiusProfileAuthServerArgsDict', 'outputs.RadiusProfileAuthServer']]]]] = None,
+            interim_update_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            use_usg_acct_server: pulumi.Input[Optional[_builtins.bool]] = None,
+            use_usg_auth_server: pulumi.Input[Optional[_builtins.bool]] = None,
+            vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            vlan_wlan_mode: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["accountingEnabled"] = accounting_enabled
+        __props__["acctServers"] = acct_servers
+        __props__["authServers"] = auth_servers
+        __props__["interimUpdateEnabled"] = interim_update_enabled
+        __props__["interimUpdateInterval"] = interim_update_interval
+        __props__["name"] = name
+        __props__["site"] = site
+        __props__["useUsgAcctServer"] = use_usg_acct_server
+        __props__["useUsgAuthServer"] = use_usg_auth_server
+        __props__["vlanEnabled"] = vlan_enabled
+        __props__["vlanWlanMode"] = vlan_wlan_mode
+        return pulumi.runtime.exists_resource(None, 'unifi:index/radiusProfile:RadiusProfile', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter(name="accountingEnabled")

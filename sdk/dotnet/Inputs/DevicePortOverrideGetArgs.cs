@@ -18,7 +18,7 @@ namespace Pulumiverse.Unifi.Inputs
         /// * Creating switch-to-switch uplinks for increased bandwidth
         /// * Setting up high-availability connections
         /// * Connecting to servers requiring more bandwidth
-        /// Note: All ports in the LAG must be sequential and have matching configurations.
+        ///   Note: All ports in the LAG must be sequential and have matching configurations.
         /// </summary>
         [Input("aggregateNumPorts")]
         public Input<int>? AggregateNumPorts { get; set; }

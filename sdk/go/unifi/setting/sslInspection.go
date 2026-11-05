@@ -98,6 +98,12 @@ func (SslInspectionState) ElementType() reflect.Type {
 	return reflect.TypeOf((*sslInspectionState)(nil)).Elem()
 }
 
+// SslInspectionExists checks whether an existing SslInspection resource with the given ID exists.
+func SslInspectionExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *SslInspectionState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/sslInspection:SslInspection", id, state, "", opts...)
+}
+
 type sslInspectionArgs struct {
 	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`

@@ -102,7 +102,7 @@ namespace Pulumiverse.Unifi
         /// * The controller will attempt to adopt the device
         /// * Device must be in a pending adoption state
         /// * Device must be accessible on the network
-        /// Set to false if you want to manage adoption manually.
+        ///   Set to false if you want to manage adoption manually.
         /// </summary>
         [Output("allowAdoption")]
         public Output<bool?> AllowAdoption { get; private set; } = null!;
@@ -124,7 +124,7 @@ namespace Pulumiverse.Unifi
         /// * The device will be removed from the controller
         /// * The device will need to be readopted to be managed again
         /// * Device configuration will be reset
-        /// Set to false to keep the device adopted when removing from Terraform management.
+        ///   Set to false to keep the device adopted when removing from Terraform management.
         /// </summary>
         [Output("forgetOnDestroy")]
         public Output<bool?> ForgetOnDestroy { get; private set; } = null!;
@@ -140,7 +140,7 @@ namespace Pulumiverse.Unifi
         /// * 'Office-AP-1' for an access point
         /// * 'Core-Switch-01' for a switch
         /// * 'Main-Gateway' for a gateway
-        /// Choose descriptive names that indicate location and purpose.
+        ///   Choose descriptive names that indicate location and purpose.
         /// </summary>
         [Output("name")]
         public Output<string> Name { get; private set; } = null!;
@@ -237,7 +237,7 @@ namespace Pulumiverse.Unifi
         /// * The controller will attempt to adopt the device
         /// * Device must be in a pending adoption state
         /// * Device must be accessible on the network
-        /// Set to false if you want to manage adoption manually.
+        ///   Set to false if you want to manage adoption manually.
         /// </summary>
         [Input("allowAdoption")]
         public Input<bool>? AllowAdoption { get; set; }
@@ -253,7 +253,7 @@ namespace Pulumiverse.Unifi
         /// * The device will be removed from the controller
         /// * The device will need to be readopted to be managed again
         /// * Device configuration will be reset
-        /// Set to false to keep the device adopted when removing from Terraform management.
+        ///   Set to false to keep the device adopted when removing from Terraform management.
         /// </summary>
         [Input("forgetOnDestroy")]
         public Input<bool>? ForgetOnDestroy { get; set; }
@@ -269,7 +269,7 @@ namespace Pulumiverse.Unifi
         /// * 'Office-AP-1' for an access point
         /// * 'Core-Switch-01' for a switch
         /// * 'Main-Gateway' for a gateway
-        /// Choose descriptive names that indicate location and purpose.
+        ///   Choose descriptive names that indicate location and purpose.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
@@ -339,7 +339,7 @@ namespace Pulumiverse.Unifi
         /// * The controller will attempt to adopt the device
         /// * Device must be in a pending adoption state
         /// * Device must be accessible on the network
-        /// Set to false if you want to manage adoption manually.
+        ///   Set to false if you want to manage adoption manually.
         /// </summary>
         [Input("allowAdoption")]
         public Input<bool>? AllowAdoption { get; set; }
@@ -361,7 +361,7 @@ namespace Pulumiverse.Unifi
         /// * The device will be removed from the controller
         /// * The device will need to be readopted to be managed again
         /// * Device configuration will be reset
-        /// Set to false to keep the device adopted when removing from Terraform management.
+        ///   Set to false to keep the device adopted when removing from Terraform management.
         /// </summary>
         [Input("forgetOnDestroy")]
         public Input<bool>? ForgetOnDestroy { get; set; }
@@ -377,7 +377,7 @@ namespace Pulumiverse.Unifi
         /// * 'Office-AP-1' for an access point
         /// * 'Core-Switch-01' for a switch
         /// * 'Main-Gateway' for a gateway
-        /// Choose descriptive names that indicate location and purpose.
+        ///   Choose descriptive names that indicate location and purpose.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }

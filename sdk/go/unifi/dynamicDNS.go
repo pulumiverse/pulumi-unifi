@@ -173,6 +173,12 @@ func (DynamicDNSState) ElementType() reflect.Type {
 	return reflect.TypeOf((*dynamicDNSState)(nil)).Elem()
 }
 
+// DynamicDNSExists checks whether an existing DynamicDNS resource with the given ID exists.
+func DynamicDNSExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *DynamicDNSState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:index/dynamicDNS:DynamicDNS", id, state, "", opts...)
+}
+
 type dynamicDNSArgs struct {
 	// The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
 	HostName string `pulumi:"hostName"`

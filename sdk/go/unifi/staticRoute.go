@@ -183,6 +183,12 @@ func (StaticRouteState) ElementType() reflect.Type {
 	return reflect.TypeOf((*staticRouteState)(nil)).Elem()
 }
 
+// StaticRouteExists checks whether an existing StaticRoute resource with the given ID exists.
+func StaticRouteExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *StaticRouteState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:index/staticRoute:StaticRoute", id, state, "", opts...)
+}
+
 type staticRouteArgs struct {
 	// The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
 	Distance int `pulumi:"distance"`
