@@ -41,10 +41,6 @@ export interface GetRecordsArgs {
  */
 export interface GetRecordsResult {
     /**
-     * The provider-assigned unique ID for this managed resource.
-     */
-    readonly id: string;
-    /**
      * The list of DNS records.
      */
     readonly results: outputs.dns.GetRecordsResult[];

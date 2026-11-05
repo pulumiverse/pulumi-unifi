@@ -54,8 +54,6 @@ type LookupRecordsArgs struct {
 
 // A collection of values returned by getRecords.
 type LookupRecordsResult struct {
-	// The provider-assigned unique ID for this managed resource.
-	Id string `pulumi:"id"`
 	// The list of DNS records.
 	Results []GetRecordsResult `pulumi:"results"`
 	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
@@ -63,12 +61,8 @@ type LookupRecordsResult struct {
 }
 
 func LookupRecordsOutput(ctx *pulumi.Context, args LookupRecordsOutputArgs, opts ...pulumi.InvokeOption) LookupRecordsResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (LookupRecordsResultOutput, error) {
-			args := v.(LookupRecordsArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("unifi:dns/getRecords:getRecords", args, LookupRecordsResultOutput{}, options).(LookupRecordsResultOutput), nil
-		}).(LookupRecordsResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("unifi:dns/getRecords:getRecords", args, LookupRecordsResultOutput{}, options).(LookupRecordsResultOutput)
 }
 
 // A collection of arguments for invoking getRecords.
@@ -94,11 +88,6 @@ func (o LookupRecordsResultOutput) ToLookupRecordsResultOutput() LookupRecordsRe
 
 func (o LookupRecordsResultOutput) ToLookupRecordsResultOutputWithContext(ctx context.Context) LookupRecordsResultOutput {
 	return o
-}
-
-// The provider-assigned unique ID for this managed resource.
-func (o LookupRecordsResultOutput) Id() pulumi.StringOutput {
-	return o.ApplyT(func(v LookupRecordsResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
 // The list of DNS records.

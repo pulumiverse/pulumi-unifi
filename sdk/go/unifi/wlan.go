@@ -361,6 +361,12 @@ func (WlanState) ElementType() reflect.Type {
 	return reflect.TypeOf((*wlanState)(nil)).Elem()
 }
 
+// WlanExists checks whether an existing Wlan resource with the given ID exists.
+func WlanExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *WlanState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:index/wlan:Wlan", id, state, "", opts...)
+}
+
 type wlanArgs struct {
 	// IDs of the AP groups that should broadcast this SSID. Used to control which access points broadcast this network.
 	ApGroupIds []string `pulumi:"apGroupIds"`

@@ -41,12 +41,8 @@ type LookupRadiusProfileResult struct {
 }
 
 func LookupRadiusProfileOutput(ctx *pulumi.Context, args LookupRadiusProfileOutputArgs, opts ...pulumi.InvokeOption) LookupRadiusProfileResultOutput {
-	return pulumi.ToOutputWithContext(ctx.Context(), args).
-		ApplyT(func(v interface{}) (LookupRadiusProfileResultOutput, error) {
-			args := v.(LookupRadiusProfileArgs)
-			options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
-			return ctx.InvokeOutput("unifi:index/getRadiusProfile:getRadiusProfile", args, LookupRadiusProfileResultOutput{}, options).(LookupRadiusProfileResultOutput), nil
-		}).(LookupRadiusProfileResultOutput)
+	options := pulumi.InvokeOutputOptions{InvokeOptions: internal.PkgInvokeDefaultOpts(opts)}
+	return ctx.InvokeOutput("unifi:index/getRadiusProfile:getRadiusProfile", args, LookupRadiusProfileResultOutput{}, options).(LookupRadiusProfileResultOutput)
 }
 
 // A collection of arguments for invoking getRadiusProfile.

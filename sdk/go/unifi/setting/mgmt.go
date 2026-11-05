@@ -237,6 +237,12 @@ func (MgmtState) ElementType() reflect.Type {
 	return reflect.TypeOf((*mgmtState)(nil)).Elem()
 }
 
+// MgmtExists checks whether an existing Mgmt resource with the given ID exists.
+func MgmtExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MgmtState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/mgmt:Mgmt", id, state, "", opts...)
+}
+
 type mgmtArgs struct {
 	// Enable advanced features for UniFi devices at this site.
 	AdvancedFeatureEnabled *bool `pulumi:"advancedFeatureEnabled"`

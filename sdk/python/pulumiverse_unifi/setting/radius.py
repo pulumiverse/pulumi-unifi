@@ -472,6 +472,28 @@ class Radius(pulumi.CustomResource):
         __props__.__dict__["tunneled_reply"] = tunneled_reply
         return Radius(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            accounting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            accounting_port: pulumi.Input[Optional[_builtins.int]] = None,
+            auth_port: pulumi.Input[Optional[_builtins.int]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            interim_update_interval: pulumi.Input[Optional[_builtins.int]] = None,
+            secret: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            tunneled_reply: pulumi.Input[Optional[_builtins.bool]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["accountingEnabled"] = accounting_enabled
+        __props__["accountingPort"] = accounting_port
+        __props__["authPort"] = auth_port
+        __props__["enabled"] = enabled
+        __props__["interimUpdateInterval"] = interim_update_interval
+        __props__["secret"] = secret
+        __props__["site"] = site
+        __props__["tunneledReply"] = tunneled_reply
+        return pulumi.runtime.exists_resource(None, 'unifi:setting/radius:Radius', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="accountingEnabled")
     def accounting_enabled(self) -> pulumi.Output[Optional[_builtins.bool]]:

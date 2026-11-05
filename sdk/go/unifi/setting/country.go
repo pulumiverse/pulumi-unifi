@@ -104,6 +104,12 @@ func (CountryState) ElementType() reflect.Type {
 	return reflect.TypeOf((*countryState)(nil)).Elem()
 }
 
+// CountryExists checks whether an existing Country resource with the given ID exists.
+func CountryExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *CountryState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/country:Country", id, state, "", opts...)
+}
+
 type countryArgs struct {
 	// The country code to set for the UniFi site. The country code must be a valid ISO 3166-1 alpha-2 code.
 	Code string `pulumi:"code"`

@@ -554,6 +554,32 @@ class Forward(pulumi.CustomResource):
         __props__.__dict__["src_ip"] = src_ip
         return Forward(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            dst_port: pulumi.Input[Optional[_builtins.str]] = None,
+            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+            fwd_ip: pulumi.Input[Optional[_builtins.str]] = None,
+            fwd_port: pulumi.Input[Optional[_builtins.str]] = None,
+            log: pulumi.Input[Optional[_builtins.bool]] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            port_forward_interface: pulumi.Input[Optional[_builtins.str]] = None,
+            protocol: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            src_ip: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["dstPort"] = dst_port
+        __props__["enabled"] = enabled
+        __props__["fwdIp"] = fwd_ip
+        __props__["fwdPort"] = fwd_port
+        __props__["log"] = log
+        __props__["name"] = name
+        __props__["portForwardInterface"] = port_forward_interface
+        __props__["protocol"] = protocol
+        __props__["site"] = site
+        __props__["srcIp"] = src_ip
+        return pulumi.runtime.exists_resource(None, 'unifi:port/forward:Forward', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="dstPort")
     def dst_port(self) -> pulumi.Output[Optional[_builtins.str]]:

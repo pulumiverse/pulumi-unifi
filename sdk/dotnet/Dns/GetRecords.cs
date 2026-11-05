@@ -110,10 +110,6 @@ namespace Pulumiverse.Unifi.Dns
     public sealed class GetRecordsResult
     {
         /// <summary>
-        /// The provider-assigned unique ID for this managed resource.
-        /// </summary>
-        public readonly string Id;
-        /// <summary>
         /// The list of DNS records.
         /// </summary>
         public readonly ImmutableArray<Outputs.GetRecordsResultResult> Results;
@@ -124,13 +120,10 @@ namespace Pulumiverse.Unifi.Dns
 
         [OutputConstructor]
         private GetRecordsResult(
-            string id,
-
             ImmutableArray<Outputs.GetRecordsResultResult> results,
 
             string site)
         {
-            Id = id;
             Results = results;
             Site = site;
         }

@@ -98,6 +98,12 @@ func (MagicSiteToSiteVpnState) ElementType() reflect.Type {
 	return reflect.TypeOf((*magicSiteToSiteVpnState)(nil)).Elem()
 }
 
+// MagicSiteToSiteVpnExists checks whether an existing MagicSiteToSiteVpn resource with the given ID exists.
+func MagicSiteToSiteVpnExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *MagicSiteToSiteVpnState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/magicSiteToSiteVpn:MagicSiteToSiteVpn", id, state, "", opts...)
+}
+
 type magicSiteToSiteVpnArgs struct {
 	// Whether the Magic Site to Site VPN is enabled.
 	Enabled bool `pulumi:"enabled"`

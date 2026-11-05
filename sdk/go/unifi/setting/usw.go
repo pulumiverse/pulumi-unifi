@@ -98,6 +98,12 @@ func (UswState) ElementType() reflect.Type {
 	return reflect.TypeOf((*uswState)(nil)).Elem()
 }
 
+// UswExists checks whether an existing Usw resource with the given ID exists.
+func UswExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *UswState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/usw:Usw", id, state, "", opts...)
+}
+
 type uswArgs struct {
 	// Whether DHCP snooping is enabled. DHCP snooping is a security feature that filters untrusted DHCP messages and builds a binding database of valid hosts.
 	DhcpSnoop bool `pulumi:"dhcpSnoop"`

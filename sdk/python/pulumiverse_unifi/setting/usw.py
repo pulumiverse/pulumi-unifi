@@ -203,6 +203,16 @@ class Usw(pulumi.CustomResource):
         __props__.__dict__["site"] = site
         return Usw(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            dhcp_snoop: pulumi.Input[Optional[_builtins.bool]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["dhcpSnoop"] = dhcp_snoop
+        __props__["site"] = site
+        return pulumi.runtime.exists_resource(None, 'unifi:setting/usw:Usw', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="dhcpSnoop")
     def dhcp_snoop(self) -> pulumi.Output[_builtins.bool]:

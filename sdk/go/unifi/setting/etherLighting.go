@@ -74,6 +74,12 @@ func (EtherLightingState) ElementType() reflect.Type {
 	return reflect.TypeOf((*etherLightingState)(nil)).Elem()
 }
 
+// EtherLightingExists checks whether an existing EtherLighting resource with the given ID exists.
+func EtherLightingExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *EtherLightingState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/etherLighting:EtherLighting", id, state, "", opts...)
+}
+
 type etherLightingArgs struct {
 	// Per-network LED colors, used when a device's Etherlighting `mode` is `network`.
 	NetworkOverrides []EtherLightingNetworkOverride `pulumi:"networkOverrides"`

@@ -81,6 +81,17 @@ export class Device extends pulumi.CustomResource {
         return new Device(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing Device resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: DeviceState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("unifi:index/device:Device", id, <any>state || {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'unifi:index/device:Device';
 
@@ -100,7 +111,7 @@ export class Device extends pulumi.CustomResource {
      * * The controller will attempt to adopt the device
      * * Device must be in a pending adoption state
      * * Device must be accessible on the network
-     * Set to false if you want to manage adoption manually.
+     *   Set to false if you want to manage adoption manually.
      */
     declare public readonly allowAdoption: pulumi.Output<boolean | undefined>;
     /**
@@ -116,7 +127,7 @@ export class Device extends pulumi.CustomResource {
      * * The device will be removed from the controller
      * * The device will need to be readopted to be managed again
      * * Device configuration will be reset
-     * Set to false to keep the device adopted when removing from Terraform management.
+     *   Set to false to keep the device adopted when removing from Terraform management.
      */
     declare public readonly forgetOnDestroy: pulumi.Output<boolean | undefined>;
     /**
@@ -128,7 +139,7 @@ export class Device extends pulumi.CustomResource {
      * * 'Office-AP-1' for an access point
      * * 'Core-Switch-01' for a switch
      * * 'Main-Gateway' for a gateway
-     * Choose descriptive names that indicate location and purpose.
+     *   Choose descriptive names that indicate location and purpose.
      */
     declare public readonly name: pulumi.Output<string>;
     /**
@@ -214,7 +225,7 @@ export interface DeviceState {
      * * The controller will attempt to adopt the device
      * * Device must be in a pending adoption state
      * * Device must be accessible on the network
-     * Set to false if you want to manage adoption manually.
+     *   Set to false if you want to manage adoption manually.
      */
     allowAdoption?: pulumi.Input<boolean | undefined>;
     /**
@@ -230,7 +241,7 @@ export interface DeviceState {
      * * The device will be removed from the controller
      * * The device will need to be readopted to be managed again
      * * Device configuration will be reset
-     * Set to false to keep the device adopted when removing from Terraform management.
+     *   Set to false to keep the device adopted when removing from Terraform management.
      */
     forgetOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
@@ -242,7 +253,7 @@ export interface DeviceState {
      * * 'Office-AP-1' for an access point
      * * 'Core-Switch-01' for a switch
      * * 'Main-Gateway' for a gateway
-     * Choose descriptive names that indicate location and purpose.
+     *   Choose descriptive names that indicate location and purpose.
      */
     name?: pulumi.Input<string | undefined>;
     /**
@@ -288,7 +299,7 @@ export interface DeviceArgs {
      * * The controller will attempt to adopt the device
      * * Device must be in a pending adoption state
      * * Device must be accessible on the network
-     * Set to false if you want to manage adoption manually.
+     *   Set to false if you want to manage adoption manually.
      */
     allowAdoption?: pulumi.Input<boolean | undefined>;
     /**
@@ -300,7 +311,7 @@ export interface DeviceArgs {
      * * The device will be removed from the controller
      * * The device will need to be readopted to be managed again
      * * Device configuration will be reset
-     * Set to false to keep the device adopted when removing from Terraform management.
+     *   Set to false to keep the device adopted when removing from Terraform management.
      */
     forgetOnDestroy?: pulumi.Input<boolean | undefined>;
     /**
@@ -312,7 +323,7 @@ export interface DeviceArgs {
      * * 'Office-AP-1' for an access point
      * * 'Core-Switch-01' for a switch
      * * 'Main-Gateway' for a gateway
-     * Choose descriptive names that indicate location and purpose.
+     *   Choose descriptive names that indicate location and purpose.
      */
     name?: pulumi.Input<string | undefined>;
     /**

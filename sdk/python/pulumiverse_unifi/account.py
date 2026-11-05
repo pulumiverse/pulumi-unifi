@@ -482,6 +482,26 @@ class Account(pulumi.CustomResource):
         __props__.__dict__["vlan"] = vlan
         return Account(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            name: pulumi.Input[Optional[_builtins.str]] = None,
+            network_id: pulumi.Input[Optional[_builtins.str]] = None,
+            password: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            tunnel_medium_type: pulumi.Input[Optional[_builtins.int]] = None,
+            tunnel_type: pulumi.Input[Optional[_builtins.int]] = None,
+            vlan: pulumi.Input[Optional[_builtins.int]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["name"] = name
+        __props__["networkId"] = network_id
+        __props__["password"] = password
+        __props__["site"] = site
+        __props__["tunnelMediumType"] = tunnel_medium_type
+        __props__["tunnelType"] = tunnel_type
+        __props__["vlan"] = vlan
+        return pulumi.runtime.exists_resource(None, 'unifi:index/account:Account', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter
     def name(self) -> pulumi.Output[_builtins.str]:

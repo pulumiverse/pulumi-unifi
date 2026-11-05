@@ -54,6 +54,17 @@ export class Profile extends pulumi.CustomResource {
         return new Profile(name, <any>state, { ...opts, id: id });
     }
 
+    /**
+     * Check whether an existing Profile resource with the given ID exists.
+     *
+     * @param id The _unique_ provider ID of the resource to check.
+     * @param state Any extra arguments used during the lookup.
+     * @param opts Optional settings to control the behavior of the CustomResource.
+     */
+    public static exists(id: pulumi.Input<string>, state?: ProfileState, opts?: pulumi.CustomResourceOptions): pulumi.Output<boolean> {
+        return pulumi.runtime.existsResource("unifi:port/profile:Profile", id, <any>state || {}, { ...opts }, undefined);
+    }
+
     /** @internal */
     public static readonly __pulumiType = 'unifi:port/profile:Profile';
 
@@ -170,7 +181,7 @@ export class Profile extends pulumi.CustomResource {
      * * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
      * * Unique per device
      * * Verified to belong to authorized devices
-     * Only effective when portSecurityEnabled is true
+     *   Only effective when portSecurityEnabled is true
      */
     declare public readonly portSecurityMacAddresses: pulumi.Output<string[] | undefined>;
     /**
@@ -178,7 +189,7 @@ export class Profile extends pulumi.CustomResource {
      * * Low-priority background traffic
      * * Bulk data transfers
      * * Non-time-sensitive applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     declare public readonly priorityQueue1Level: pulumi.Output<number | undefined>;
     /**
@@ -186,7 +197,7 @@ export class Profile extends pulumi.CustomResource {
      * * Standard user traffic
      * * Web browsing and email
      * * General business applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     declare public readonly priorityQueue2Level: pulumi.Output<number | undefined>;
     /**
@@ -194,7 +205,7 @@ export class Profile extends pulumi.CustomResource {
      * * High-priority traffic
      * * Voice and video conferencing
      * * Time-sensitive applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     declare public readonly priorityQueue3Level: pulumi.Output<number | undefined>;
     /**
@@ -202,7 +213,7 @@ export class Profile extends pulumi.CustomResource {
      * * Highest priority traffic
      * * Critical real-time applications
      * * Emergency communications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     declare public readonly priorityQueue4Level: pulumi.Output<number | undefined>;
     /**
@@ -217,7 +228,7 @@ export class Profile extends pulumi.CustomResource {
      * * 2500 - 2.5 Gbps (Multi-Gigabit)
      * * 5000 - 5 Gbps (Multi-Gigabit)
      * * 10000 - 10 Gbps (10 Gigabit)
-     * Only used when autoneg is false
+     *   Only used when autoneg is false
      */
     declare public readonly speed: pulumi.Output<number | undefined>;
     /**
@@ -225,7 +236,7 @@ export class Profile extends pulumi.CustomResource {
      * * Limits broadcast traffic to prevent network flooding
      * * Protects against broadcast storms
      * * Helps maintain network stability
-     * Use with stormctrlBcastRate to set threshold
+     *   Use with stormctrlBcastRate to set threshold
      */
     declare public readonly stormctrlBcastEnabled: pulumi.Output<boolean | undefined>;
     /**
@@ -237,7 +248,7 @@ export class Profile extends pulumi.CustomResource {
      * * Control broadcast traffic levels
      * * Prevent network congestion
      * * Balance between necessary broadcasts and network protection
-     * Only effective when `stormctrlBcastEnabled` is true
+     *   Only effective when `stormctrlBcastEnabled` is true
      */
     declare public readonly stormctrlBcastRate: pulumi.Output<number | undefined>;
     /**
@@ -245,7 +256,7 @@ export class Profile extends pulumi.CustomResource {
      * * Limits multicast traffic to prevent network flooding
      * * Important for networks with multicast applications
      * * Helps maintain quality of service
-     * Use with `stormctrlMcastRate` to set threshold
+     *   Use with `stormctrlMcastRate` to set threshold
      */
     declare public readonly stormctrlMcastEnabled: pulumi.Output<boolean | undefined>;
     /**
@@ -257,7 +268,7 @@ export class Profile extends pulumi.CustomResource {
      * * Control multicast traffic levels
      * * Ensure bandwidth for critical multicast services
      * * Prevent multicast traffic from overwhelming the network
-     * Only effective when stormctrlMcastEnabled is true
+     *   Only effective when stormctrlMcastEnabled is true
      */
     declare public readonly stormctrlMcastRate: pulumi.Output<number | undefined>;
     /**
@@ -269,7 +280,7 @@ export class Profile extends pulumi.CustomResource {
      * * Limits unknown unicast traffic to prevent flooding
      * * Protects against MAC spoofing attacks
      * * Helps maintain network performance
-     * Use with stormctrlUcastRate to set threshold
+     *   Use with stormctrlUcastRate to set threshold
      */
     declare public readonly stormctrlUcastEnabled: pulumi.Output<boolean | undefined>;
     /**
@@ -281,7 +292,7 @@ export class Profile extends pulumi.CustomResource {
      * * Control unknown unicast traffic levels
      * * Prevent network saturation from unknown destinations
      * * Balance security with network usability
-     * Only effective when stormctrlUcastEnabled is true
+     *   Only effective when stormctrlUcastEnabled is true
      */
     declare public readonly stormctrlUcastRate: pulumi.Output<number | undefined>;
     /**
@@ -523,7 +534,7 @@ export interface ProfileState {
      * * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
      * * Unique per device
      * * Verified to belong to authorized devices
-     * Only effective when portSecurityEnabled is true
+     *   Only effective when portSecurityEnabled is true
      */
     portSecurityMacAddresses?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
@@ -531,7 +542,7 @@ export interface ProfileState {
      * * Low-priority background traffic
      * * Bulk data transfers
      * * Non-time-sensitive applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     priorityQueue1Level?: pulumi.Input<number | undefined>;
     /**
@@ -539,7 +550,7 @@ export interface ProfileState {
      * * Standard user traffic
      * * Web browsing and email
      * * General business applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     priorityQueue2Level?: pulumi.Input<number | undefined>;
     /**
@@ -547,7 +558,7 @@ export interface ProfileState {
      * * High-priority traffic
      * * Voice and video conferencing
      * * Time-sensitive applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     priorityQueue3Level?: pulumi.Input<number | undefined>;
     /**
@@ -555,7 +566,7 @@ export interface ProfileState {
      * * Highest priority traffic
      * * Critical real-time applications
      * * Emergency communications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     priorityQueue4Level?: pulumi.Input<number | undefined>;
     /**
@@ -570,7 +581,7 @@ export interface ProfileState {
      * * 2500 - 2.5 Gbps (Multi-Gigabit)
      * * 5000 - 5 Gbps (Multi-Gigabit)
      * * 10000 - 10 Gbps (10 Gigabit)
-     * Only used when autoneg is false
+     *   Only used when autoneg is false
      */
     speed?: pulumi.Input<number | undefined>;
     /**
@@ -578,7 +589,7 @@ export interface ProfileState {
      * * Limits broadcast traffic to prevent network flooding
      * * Protects against broadcast storms
      * * Helps maintain network stability
-     * Use with stormctrlBcastRate to set threshold
+     *   Use with stormctrlBcastRate to set threshold
      */
     stormctrlBcastEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -590,7 +601,7 @@ export interface ProfileState {
      * * Control broadcast traffic levels
      * * Prevent network congestion
      * * Balance between necessary broadcasts and network protection
-     * Only effective when `stormctrlBcastEnabled` is true
+     *   Only effective when `stormctrlBcastEnabled` is true
      */
     stormctrlBcastRate?: pulumi.Input<number | undefined>;
     /**
@@ -598,7 +609,7 @@ export interface ProfileState {
      * * Limits multicast traffic to prevent network flooding
      * * Important for networks with multicast applications
      * * Helps maintain quality of service
-     * Use with `stormctrlMcastRate` to set threshold
+     *   Use with `stormctrlMcastRate` to set threshold
      */
     stormctrlMcastEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -610,7 +621,7 @@ export interface ProfileState {
      * * Control multicast traffic levels
      * * Ensure bandwidth for critical multicast services
      * * Prevent multicast traffic from overwhelming the network
-     * Only effective when stormctrlMcastEnabled is true
+     *   Only effective when stormctrlMcastEnabled is true
      */
     stormctrlMcastRate?: pulumi.Input<number | undefined>;
     /**
@@ -622,7 +633,7 @@ export interface ProfileState {
      * * Limits unknown unicast traffic to prevent flooding
      * * Protects against MAC spoofing attacks
      * * Helps maintain network performance
-     * Use with stormctrlUcastRate to set threshold
+     *   Use with stormctrlUcastRate to set threshold
      */
     stormctrlUcastEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -634,7 +645,7 @@ export interface ProfileState {
      * * Control unknown unicast traffic levels
      * * Prevent network saturation from unknown destinations
      * * Balance security with network usability
-     * Only effective when stormctrlUcastEnabled is true
+     *   Only effective when stormctrlUcastEnabled is true
      */
     stormctrlUcastRate?: pulumi.Input<number | undefined>;
     /**
@@ -784,7 +795,7 @@ export interface ProfileArgs {
      * * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
      * * Unique per device
      * * Verified to belong to authorized devices
-     * Only effective when portSecurityEnabled is true
+     *   Only effective when portSecurityEnabled is true
      */
     portSecurityMacAddresses?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
@@ -792,7 +803,7 @@ export interface ProfileArgs {
      * * Low-priority background traffic
      * * Bulk data transfers
      * * Non-time-sensitive applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     priorityQueue1Level?: pulumi.Input<number | undefined>;
     /**
@@ -800,7 +811,7 @@ export interface ProfileArgs {
      * * Standard user traffic
      * * Web browsing and email
      * * General business applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     priorityQueue2Level?: pulumi.Input<number | undefined>;
     /**
@@ -808,7 +819,7 @@ export interface ProfileArgs {
      * * High-priority traffic
      * * Voice and video conferencing
      * * Time-sensitive applications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     priorityQueue3Level?: pulumi.Input<number | undefined>;
     /**
@@ -816,7 +827,7 @@ export interface ProfileArgs {
      * * Highest priority traffic
      * * Critical real-time applications
      * * Emergency communications
-     * Higher values give more bandwidth to this queue
+     *   Higher values give more bandwidth to this queue
      */
     priorityQueue4Level?: pulumi.Input<number | undefined>;
     /**
@@ -831,7 +842,7 @@ export interface ProfileArgs {
      * * 2500 - 2.5 Gbps (Multi-Gigabit)
      * * 5000 - 5 Gbps (Multi-Gigabit)
      * * 10000 - 10 Gbps (10 Gigabit)
-     * Only used when autoneg is false
+     *   Only used when autoneg is false
      */
     speed?: pulumi.Input<number | undefined>;
     /**
@@ -839,7 +850,7 @@ export interface ProfileArgs {
      * * Limits broadcast traffic to prevent network flooding
      * * Protects against broadcast storms
      * * Helps maintain network stability
-     * Use with stormctrlBcastRate to set threshold
+     *   Use with stormctrlBcastRate to set threshold
      */
     stormctrlBcastEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -851,7 +862,7 @@ export interface ProfileArgs {
      * * Control broadcast traffic levels
      * * Prevent network congestion
      * * Balance between necessary broadcasts and network protection
-     * Only effective when `stormctrlBcastEnabled` is true
+     *   Only effective when `stormctrlBcastEnabled` is true
      */
     stormctrlBcastRate?: pulumi.Input<number | undefined>;
     /**
@@ -859,7 +870,7 @@ export interface ProfileArgs {
      * * Limits multicast traffic to prevent network flooding
      * * Important for networks with multicast applications
      * * Helps maintain quality of service
-     * Use with `stormctrlMcastRate` to set threshold
+     *   Use with `stormctrlMcastRate` to set threshold
      */
     stormctrlMcastEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -871,7 +882,7 @@ export interface ProfileArgs {
      * * Control multicast traffic levels
      * * Ensure bandwidth for critical multicast services
      * * Prevent multicast traffic from overwhelming the network
-     * Only effective when stormctrlMcastEnabled is true
+     *   Only effective when stormctrlMcastEnabled is true
      */
     stormctrlMcastRate?: pulumi.Input<number | undefined>;
     /**
@@ -883,7 +894,7 @@ export interface ProfileArgs {
      * * Limits unknown unicast traffic to prevent flooding
      * * Protects against MAC spoofing attacks
      * * Helps maintain network performance
-     * Use with stormctrlUcastRate to set threshold
+     *   Use with stormctrlUcastRate to set threshold
      */
     stormctrlUcastEnabled?: pulumi.Input<boolean | undefined>;
     /**
@@ -895,7 +906,7 @@ export interface ProfileArgs {
      * * Control unknown unicast traffic levels
      * * Prevent network saturation from unknown destinations
      * * Balance security with network usability
-     * Only effective when stormctrlUcastEnabled is true
+     *   Only effective when stormctrlUcastEnabled is true
      */
     stormctrlUcastRate?: pulumi.Input<number | undefined>;
     /**

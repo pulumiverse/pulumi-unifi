@@ -202,6 +202,12 @@ func (ZonePolicyOrderState) ElementType() reflect.Type {
 	return reflect.TypeOf((*zonePolicyOrderState)(nil)).Elem()
 }
 
+// ZonePolicyOrderExists checks whether an existing ZonePolicyOrder resource with the given ID exists.
+func ZonePolicyOrderExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ZonePolicyOrderState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:firewall/zonePolicyOrder:ZonePolicyOrder", id, state, "", opts...)
+}
+
 type zonePolicyOrderArgs struct {
 	// Ordered IDs of custom `firewall.ZonePolicy` policies that run AFTER the predefined (built-in) policies for this zone pair. Order within the list is significant. Omit this attribute when it is unused rather than setting it to an empty list (`[]`).
 	AfterPredefinedIds []string `pulumi:"afterPredefinedIds"`

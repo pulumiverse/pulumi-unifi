@@ -108,6 +108,12 @@ func (DpiState) ElementType() reflect.Type {
 	return reflect.TypeOf((*dpiState)(nil)).Elem()
 }
 
+// DpiExists checks whether an existing Dpi resource with the given ID exists.
+func DpiExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *DpiState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:setting/dpi:Dpi", id, state, "", opts...)
+}
+
 type dpiArgs struct {
 	// Whether Deep Packet Inspection is enabled.
 	Enabled bool `pulumi:"enabled"`

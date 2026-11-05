@@ -433,6 +433,22 @@ class ZonePolicyOrder(pulumi.CustomResource):
         __props__.__dict__["source_zone_id"] = source_zone_id
         return ZonePolicyOrder(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            after_predefined_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            before_predefined_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            destination_zone_id: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            source_zone_id: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["afterPredefinedIds"] = after_predefined_ids
+        __props__["beforePredefinedIds"] = before_predefined_ids
+        __props__["destinationZoneId"] = destination_zone_id
+        __props__["site"] = site
+        __props__["sourceZoneId"] = source_zone_id
+        return pulumi.runtime.exists_resource(None, 'unifi:firewall/zonePolicyOrder:ZonePolicyOrder', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="afterPredefinedIds")
     def after_predefined_ids(self) -> pulumi.Output[Optional[Sequence[_builtins.str]]]:

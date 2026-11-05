@@ -147,6 +147,12 @@ func (ForwardState) ElementType() reflect.Type {
 	return reflect.TypeOf((*forwardState)(nil)).Elem()
 }
 
+// ForwardExists checks whether an existing Forward resource with the given ID exists.
+func ForwardExists(ctx *pulumi.Context,
+	id pulumi.StringInput, state *ForwardState, opts ...pulumi.ResourceOption) pulumi.BoolOutput {
+	return ctx.ExistsResource("unifi:port/forward:Forward", id, state, "", opts...)
+}
+
 type forwardArgs struct {
 	// The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
 	DstPort *string `pulumi:"dstPort"`

@@ -327,6 +327,28 @@ class AlFile(pulumi.CustomResource):
         __props__.__dict__["url"] = url
         return AlFile(resource_name, opts=opts, __props__=__props__)
 
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            content_type: pulumi.Input[Optional[_builtins.str]] = None,
+            file_path: pulumi.Input[Optional[_builtins.str]] = None,
+            file_size: pulumi.Input[Optional[_builtins.int]] = None,
+            filename: pulumi.Input[Optional[_builtins.str]] = None,
+            last_modified: pulumi.Input[Optional[_builtins.int]] = None,
+            md5: pulumi.Input[Optional[_builtins.str]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            url: pulumi.Input[Optional[_builtins.str]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["contentType"] = content_type
+        __props__["filePath"] = file_path
+        __props__["fileSize"] = file_size
+        __props__["filename"] = filename
+        __props__["lastModified"] = last_modified
+        __props__["md5"] = md5
+        __props__["site"] = site
+        __props__["url"] = url
+        return pulumi.runtime.exists_resource(None, 'unifi:port/alFile:AlFile', id, __props__, opts or pulumi.ResourceOptions())
+
     @_builtins.property
     @pulumi.getter(name="contentType")
     def content_type(self) -> pulumi.Output[_builtins.str]:

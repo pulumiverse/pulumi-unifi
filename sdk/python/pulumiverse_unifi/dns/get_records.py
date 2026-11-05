@@ -27,24 +27,13 @@ class GetRecordsResult:
     """
     A collection of values returned by getRecords.
     """
-    def __init__(__self__, id=None, results=None, site=None):
-        if id and not isinstance(id, str):
-            raise TypeError("Expected argument 'id' to be a str")
-        pulumi.set(__self__, "id", id)
+    def __init__(__self__, results=None, site=None):
         if results and not isinstance(results, list):
             raise TypeError("Expected argument 'results' to be a list")
         pulumi.set(__self__, "results", results)
         if site and not isinstance(site, str):
             raise TypeError("Expected argument 'site' to be a str")
         pulumi.set(__self__, "site", site)
-
-    @_builtins.property
-    @pulumi.getter
-    def id(self) -> _builtins.str:
-        """
-        The provider-assigned unique ID for this managed resource.
-        """
-        return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
@@ -69,7 +58,6 @@ class AwaitableGetRecordsResult(GetRecordsResult):
         if False:
             yield self
         return GetRecordsResult(
-            id=self.id,
             results=self.results,
             site=self.site)
 
@@ -97,7 +85,6 @@ def get_records(site: Optional[_builtins.str] = None,
     __ret__ = pulumi.runtime.invoke('unifi:dns/getRecords:getRecords', __args__, opts=opts, typ=GetRecordsResult).value
 
     return AwaitableGetRecordsResult(
-        id=pulumi.get(__ret__, 'id'),
         results=pulumi.get(__ret__, 'results'),
         site=pulumi.get(__ret__, 'site'))
 def get_records_output(site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
@@ -122,6 +109,5 @@ def get_records_output(site: pulumi.Input[Optional[Optional[_builtins.str]]] = N
     opts = pulumi.InvokeOutputOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
     __ret__ = pulumi.runtime.invoke_output('unifi:dns/getRecords:getRecords', __args__, opts=opts, typ=GetRecordsResult)
     return __ret__.apply(lambda __response__: GetRecordsResult(
-        id=pulumi.get(__response__, 'id'),
         results=pulumi.get(__response__, 'results'),
         site=pulumi.get(__response__, 'site')))

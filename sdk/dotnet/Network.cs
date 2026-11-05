@@ -42,7 +42,7 @@ namespace Pulumiverse.Unifi
     ///         Name = "wifi-vlan",
     ///         Purpose = "corporate",
     ///         Subnet = "10.0.0.1/24",
-    ///         VlanId = vlanId,
+    ///         VlanId = (int)vlanId,
     ///         DhcpStart = "10.0.0.6",
     ///         DhcpStop = "10.0.0.254",
     ///         DhcpEnabled = true,
@@ -129,7 +129,7 @@ namespace Pulumiverse.Unifi
         /// * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
         /// * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
         /// * Use internal DNS servers for corporate networks
-        /// Maximum 4 servers can be specified.
+        ///   Maximum 4 servers can be specified.
         /// </summary>
         [Output("dhcpDns")]
         public Output<ImmutableArray<string>> DhcpDns { get; private set; } = null!;
@@ -184,7 +184,7 @@ namespace Pulumiverse.Unifi
         /// The starting IPv4 address of the DHCP range. Examples:
         /// * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
         /// * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
-        /// Ensure this address is within the network's subnet.
+        ///   Ensure this address is within the network's subnet.
         /// </summary>
         [Output("dhcpStart")]
         public Output<string?> DhcpStart { get; private set; } = null!;
@@ -193,7 +193,7 @@ namespace Pulumiverse.Unifi
         /// The ending IPv4 address of the DHCP range. Examples:
         /// * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
         /// * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
-        /// Must be greater than DhcpStart and within the network's subnet.
+        ///   Must be greater than DhcpStart and within the network's subnet.
         /// </summary>
         [Output("dhcpStop")]
         public Output<string?> DhcpStop { get; private set; } = null!;
@@ -202,7 +202,7 @@ namespace Pulumiverse.Unifi
         /// List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
         /// * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
         /// * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
-        /// Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
+        ///   Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
         /// </summary>
         [Output("dhcpV6Dns")]
         public Output<ImmutableArray<string>> DhcpV6Dns { get; private set; } = null!;
@@ -211,7 +211,7 @@ namespace Pulumiverse.Unifi
         /// Controls DNS server source for DHCPv6 clients:
         /// * true - Use upstream DNS servers (recommended)
         /// * false - Use manually specified servers from DhcpV6Dns
-        /// Default is true for easier management.
+        ///   Default is true for easier management.
         /// </summary>
         [Output("dhcpV6DnsAuto")]
         public Output<bool?> DhcpV6DnsAuto { get; private set; } = null!;
@@ -230,7 +230,7 @@ namespace Pulumiverse.Unifi
         /// * 86400 (1 day) - Default setting
         /// * 3600 (1 hour) - For testing
         /// * 604800 (1 week) - For stable networks
-        /// Typically longer than IPv4 DHCP leases.
+        ///   Typically longer than IPv4 DHCP leases.
         /// </summary>
         [Output("dhcpV6Lease")]
         public Output<int?> DhcpV6Lease { get; private set; } = null!;
@@ -303,7 +303,7 @@ namespace Pulumiverse.Unifi
         /// * 'corp.example.com' - For corporate networks
         /// * 'guest.example.com' - For guest networks
         /// * 'iot.example.com' - For IoT networks
-        /// Used for internal DNS resolution and DHCP options.
+        ///   Used for internal DNS resolution and DHCP options.
         /// </summary>
         [Output("domainName")]
         public Output<string?> DomainName { get; private set; } = null!;
@@ -313,7 +313,7 @@ namespace Pulumiverse.Unifi
         /// * Network will not be available to clients
         /// * DHCP services will be stopped
         /// * Existing clients will be disconnected
-        /// Useful for temporary network maintenance or security measures.
+        ///   Useful for temporary network maintenance or security measures.
         /// </summary>
         [Output("enabled")]
         public Output<bool?> Enabled { get; private set; } = null!;
@@ -337,7 +337,7 @@ namespace Pulumiverse.Unifi
         /// * Optimizes multicast traffic flow
         /// * Reduces network congestion
         /// * Improves performance for multicast applications (e.g., IPTV)
-        /// Recommended for networks with multicast traffic.
+        ///   Recommended for networks with multicast traffic.
         /// </summary>
         [Output("igmpSnooping")]
         public Output<bool?> IgmpSnooping { get; private set; } = null!;
@@ -367,7 +367,7 @@ namespace Pulumiverse.Unifi
         /// The WAN interface to use for IPv6 Prefix Delegation. Options:
         /// * `Wan` - Primary WAN interface
         /// * `Wan2` - Secondary WAN interface
-        /// Only applicable when `Ipv6InterfaceType` is 'pd'.
+        ///   Only applicable when `Ipv6InterfaceType` is 'pd'.
         /// 
         /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
@@ -378,7 +378,7 @@ namespace Pulumiverse.Unifi
         /// The IPv6 Prefix ID for Prefix Delegation. Used to:
         /// * Differentiate multiple delegated prefixes
         /// * Create unique subnets from the delegated prefix
-        /// Typically a hexadecimal value (e.g., '0', '1', 'a1').
+        ///   Typically a hexadecimal value (e.g., '0', '1', 'a1').
         /// </summary>
         [Output("ipv6PdPrefixid")]
         public Output<string?> Ipv6PdPrefixid { get; private set; } = null!;
@@ -426,7 +426,7 @@ namespace Pulumiverse.Unifi
         /// * `High` - Preferred for primary networks
         /// * `Medium` - Standard priority
         /// * `Low` - For backup or secondary networks
-        /// Affects router selection when multiple IPv6 routers exist.
+        ///   Affects router selection when multiple IPv6 routers exist.
         /// 
         /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `Ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
@@ -521,7 +521,7 @@ namespace Pulumiverse.Unifi
         /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
         /// * 1-4094: Standard VLAN range for network segmentation
         /// * 0: Untagged/native VLAN
-        /// * &gt;4094: Reserved for special purposes
+        /// * &gt; 4094: Reserved for special purposes
         /// </summary>
         [Output("vlanId")]
         public Output<int?> VlanId { get; private set; } = null!;
@@ -565,7 +565,7 @@ namespace Pulumiverse.Unifi
         /// * 0 (default) - Best effort
         /// * 1-4 - Increasing priority
         /// * 5-7 - Highest priority, use sparingly
-        /// Higher values get preferential treatment.
+        ///   Higher values get preferential treatment.
         /// </summary>
         [Output("wanEgressQos")]
         public Output<int?> WanEgressQos { get; private set; } = null!;
@@ -615,7 +615,7 @@ namespace Pulumiverse.Unifi
         /// * `WAN` - Primary WAN interface
         /// * `WAN2` - Secondary WAN interface
         /// * `WAN_LTE_FAILOVER` - LTE backup connection
-        /// Used for dual WAN and failover configurations.
+        ///   Used for dual WAN and failover configurations.
         /// </summary>
         [Output("wanNetworkgroup")]
         public Output<string?> WanNetworkgroup { get; private set; } = null!;
@@ -633,7 +633,7 @@ namespace Pulumiverse.Unifi
         /// * `Static` - Static IP configuration
         /// * `Dhcp` - Dynamic IP from ISP
         /// * `Pppoe` - PPPoE connection (common for DSL)
-        /// Choose based on your ISP's requirements.
+        ///   Choose based on your ISP's requirements.
         /// </summary>
         [Output("wanType")]
         public Output<string?> WanType { get; private set; } = null!;
@@ -643,7 +643,7 @@ namespace Pulumiverse.Unifi
         /// * `Disabled` - IPv6 disabled
         /// * `Static` - Static IPv6 configuration
         /// * `Dhcpv6` - Dynamic IPv6 from ISP
-        /// Choose based on your ISP's requirements.
+        ///   Choose based on your ISP's requirements.
         /// </summary>
         [Output("wanTypeV6")]
         public Output<string?> WanTypeV6 { get; private set; } = null!;
@@ -780,7 +780,7 @@ namespace Pulumiverse.Unifi
         /// * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
         /// * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
         /// * Use internal DNS servers for corporate networks
-        /// Maximum 4 servers can be specified.
+        ///   Maximum 4 servers can be specified.
         /// </summary>
         public InputList<string> DhcpDns
         {
@@ -844,7 +844,7 @@ namespace Pulumiverse.Unifi
         /// The starting IPv4 address of the DHCP range. Examples:
         /// * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
         /// * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
-        /// Ensure this address is within the network's subnet.
+        ///   Ensure this address is within the network's subnet.
         /// </summary>
         [Input("dhcpStart")]
         public Input<string>? DhcpStart { get; set; }
@@ -853,7 +853,7 @@ namespace Pulumiverse.Unifi
         /// The ending IPv4 address of the DHCP range. Examples:
         /// * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
         /// * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
-        /// Must be greater than DhcpStart and within the network's subnet.
+        ///   Must be greater than DhcpStart and within the network's subnet.
         /// </summary>
         [Input("dhcpStop")]
         public Input<string>? DhcpStop { get; set; }
@@ -865,7 +865,7 @@ namespace Pulumiverse.Unifi
         /// List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
         /// * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
         /// * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
-        /// Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
+        ///   Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
         /// </summary>
         public InputList<string> DhcpV6Dns
         {
@@ -877,7 +877,7 @@ namespace Pulumiverse.Unifi
         /// Controls DNS server source for DHCPv6 clients:
         /// * true - Use upstream DNS servers (recommended)
         /// * false - Use manually specified servers from DhcpV6Dns
-        /// Default is true for easier management.
+        ///   Default is true for easier management.
         /// </summary>
         [Input("dhcpV6DnsAuto")]
         public Input<bool>? DhcpV6DnsAuto { get; set; }
@@ -896,7 +896,7 @@ namespace Pulumiverse.Unifi
         /// * 86400 (1 day) - Default setting
         /// * 3600 (1 hour) - For testing
         /// * 604800 (1 week) - For stable networks
-        /// Typically longer than IPv4 DHCP leases.
+        ///   Typically longer than IPv4 DHCP leases.
         /// </summary>
         [Input("dhcpV6Lease")]
         public Input<int>? DhcpV6Lease { get; set; }
@@ -969,7 +969,7 @@ namespace Pulumiverse.Unifi
         /// * 'corp.example.com' - For corporate networks
         /// * 'guest.example.com' - For guest networks
         /// * 'iot.example.com' - For IoT networks
-        /// Used for internal DNS resolution and DHCP options.
+        ///   Used for internal DNS resolution and DHCP options.
         /// </summary>
         [Input("domainName")]
         public Input<string>? DomainName { get; set; }
@@ -979,7 +979,7 @@ namespace Pulumiverse.Unifi
         /// * Network will not be available to clients
         /// * DHCP services will be stopped
         /// * Existing clients will be disconnected
-        /// Useful for temporary network maintenance or security measures.
+        ///   Useful for temporary network maintenance or security measures.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -1003,7 +1003,7 @@ namespace Pulumiverse.Unifi
         /// * Optimizes multicast traffic flow
         /// * Reduces network congestion
         /// * Improves performance for multicast applications (e.g., IPTV)
-        /// Recommended for networks with multicast traffic.
+        ///   Recommended for networks with multicast traffic.
         /// </summary>
         [Input("igmpSnooping")]
         public Input<bool>? IgmpSnooping { get; set; }
@@ -1033,7 +1033,7 @@ namespace Pulumiverse.Unifi
         /// The WAN interface to use for IPv6 Prefix Delegation. Options:
         /// * `Wan` - Primary WAN interface
         /// * `Wan2` - Secondary WAN interface
-        /// Only applicable when `Ipv6InterfaceType` is 'pd'.
+        ///   Only applicable when `Ipv6InterfaceType` is 'pd'.
         /// 
         /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
@@ -1044,7 +1044,7 @@ namespace Pulumiverse.Unifi
         /// The IPv6 Prefix ID for Prefix Delegation. Used to:
         /// * Differentiate multiple delegated prefixes
         /// * Create unique subnets from the delegated prefix
-        /// Typically a hexadecimal value (e.g., '0', '1', 'a1').
+        ///   Typically a hexadecimal value (e.g., '0', '1', 'a1').
         /// </summary>
         [Input("ipv6PdPrefixid")]
         public Input<string>? Ipv6PdPrefixid { get; set; }
@@ -1092,7 +1092,7 @@ namespace Pulumiverse.Unifi
         /// * `High` - Preferred for primary networks
         /// * `Medium` - Standard priority
         /// * `Low` - For backup or secondary networks
-        /// Affects router selection when multiple IPv6 routers exist.
+        ///   Affects router selection when multiple IPv6 routers exist.
         /// 
         /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `Ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
@@ -1193,7 +1193,7 @@ namespace Pulumiverse.Unifi
         /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
         /// * 1-4094: Standard VLAN range for network segmentation
         /// * 0: Untagged/native VLAN
-        /// * &gt;4094: Reserved for special purposes
+        /// * &gt; 4094: Reserved for special purposes
         /// </summary>
         [Input("vlanId")]
         public Input<int>? VlanId { get; set; }
@@ -1243,7 +1243,7 @@ namespace Pulumiverse.Unifi
         /// * 0 (default) - Best effort
         /// * 1-4 - Increasing priority
         /// * 5-7 - Highest priority, use sparingly
-        /// Higher values get preferential treatment.
+        ///   Higher values get preferential treatment.
         /// </summary>
         [Input("wanEgressQos")]
         public Input<int>? WanEgressQos { get; set; }
@@ -1293,7 +1293,7 @@ namespace Pulumiverse.Unifi
         /// * `WAN` - Primary WAN interface
         /// * `WAN2` - Secondary WAN interface
         /// * `WAN_LTE_FAILOVER` - LTE backup connection
-        /// Used for dual WAN and failover configurations.
+        ///   Used for dual WAN and failover configurations.
         /// </summary>
         [Input("wanNetworkgroup")]
         public Input<string>? WanNetworkgroup { get; set; }
@@ -1311,7 +1311,7 @@ namespace Pulumiverse.Unifi
         /// * `Static` - Static IP configuration
         /// * `Dhcp` - Dynamic IP from ISP
         /// * `Pppoe` - PPPoE connection (common for DSL)
-        /// Choose based on your ISP's requirements.
+        ///   Choose based on your ISP's requirements.
         /// </summary>
         [Input("wanType")]
         public Input<string>? WanType { get; set; }
@@ -1321,7 +1321,7 @@ namespace Pulumiverse.Unifi
         /// * `Disabled` - IPv6 disabled
         /// * `Static` - Static IPv6 configuration
         /// * `Dhcpv6` - Dynamic IPv6 from ISP
-        /// Choose based on your ISP's requirements.
+        ///   Choose based on your ISP's requirements.
         /// </summary>
         [Input("wanTypeV6")]
         public Input<string>? WanTypeV6 { get; set; }
@@ -1428,7 +1428,7 @@ namespace Pulumiverse.Unifi
         /// * Use ['8.8.8.8', '8.8.4.4'] for Google DNS
         /// * Use ['1.1.1.1', '1.0.0.1'] for Cloudflare DNS
         /// * Use internal DNS servers for corporate networks
-        /// Maximum 4 servers can be specified.
+        ///   Maximum 4 servers can be specified.
         /// </summary>
         public InputList<string> DhcpDns
         {
@@ -1492,7 +1492,7 @@ namespace Pulumiverse.Unifi
         /// The starting IPv4 address of the DHCP range. Examples:
         /// * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
         /// * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
-        /// Ensure this address is within the network's subnet.
+        ///   Ensure this address is within the network's subnet.
         /// </summary>
         [Input("dhcpStart")]
         public Input<string>? DhcpStart { get; set; }
@@ -1501,7 +1501,7 @@ namespace Pulumiverse.Unifi
         /// The ending IPv4 address of the DHCP range. Examples:
         /// * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
         /// * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
-        /// Must be greater than DhcpStart and within the network's subnet.
+        ///   Must be greater than DhcpStart and within the network's subnet.
         /// </summary>
         [Input("dhcpStop")]
         public Input<string>? DhcpStop { get; set; }
@@ -1513,7 +1513,7 @@ namespace Pulumiverse.Unifi
         /// List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
         /// * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
         /// * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
-        /// Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
+        ///   Only used when DhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
         /// </summary>
         public InputList<string> DhcpV6Dns
         {
@@ -1525,7 +1525,7 @@ namespace Pulumiverse.Unifi
         /// Controls DNS server source for DHCPv6 clients:
         /// * true - Use upstream DNS servers (recommended)
         /// * false - Use manually specified servers from DhcpV6Dns
-        /// Default is true for easier management.
+        ///   Default is true for easier management.
         /// </summary>
         [Input("dhcpV6DnsAuto")]
         public Input<bool>? DhcpV6DnsAuto { get; set; }
@@ -1544,7 +1544,7 @@ namespace Pulumiverse.Unifi
         /// * 86400 (1 day) - Default setting
         /// * 3600 (1 hour) - For testing
         /// * 604800 (1 week) - For stable networks
-        /// Typically longer than IPv4 DHCP leases.
+        ///   Typically longer than IPv4 DHCP leases.
         /// </summary>
         [Input("dhcpV6Lease")]
         public Input<int>? DhcpV6Lease { get; set; }
@@ -1617,7 +1617,7 @@ namespace Pulumiverse.Unifi
         /// * 'corp.example.com' - For corporate networks
         /// * 'guest.example.com' - For guest networks
         /// * 'iot.example.com' - For IoT networks
-        /// Used for internal DNS resolution and DHCP options.
+        ///   Used for internal DNS resolution and DHCP options.
         /// </summary>
         [Input("domainName")]
         public Input<string>? DomainName { get; set; }
@@ -1627,7 +1627,7 @@ namespace Pulumiverse.Unifi
         /// * Network will not be available to clients
         /// * DHCP services will be stopped
         /// * Existing clients will be disconnected
-        /// Useful for temporary network maintenance or security measures.
+        ///   Useful for temporary network maintenance or security measures.
         /// </summary>
         [Input("enabled")]
         public Input<bool>? Enabled { get; set; }
@@ -1651,7 +1651,7 @@ namespace Pulumiverse.Unifi
         /// * Optimizes multicast traffic flow
         /// * Reduces network congestion
         /// * Improves performance for multicast applications (e.g., IPTV)
-        /// Recommended for networks with multicast traffic.
+        ///   Recommended for networks with multicast traffic.
         /// </summary>
         [Input("igmpSnooping")]
         public Input<bool>? IgmpSnooping { get; set; }
@@ -1681,7 +1681,7 @@ namespace Pulumiverse.Unifi
         /// The WAN interface to use for IPv6 Prefix Delegation. Options:
         /// * `Wan` - Primary WAN interface
         /// * `Wan2` - Secondary WAN interface
-        /// Only applicable when `Ipv6InterfaceType` is 'pd'.
+        ///   Only applicable when `Ipv6InterfaceType` is 'pd'.
         /// 
         /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; switch `Ipv6InterfaceType` away from 'pd' to disable Prefix Delegation instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
@@ -1692,7 +1692,7 @@ namespace Pulumiverse.Unifi
         /// The IPv6 Prefix ID for Prefix Delegation. Used to:
         /// * Differentiate multiple delegated prefixes
         /// * Create unique subnets from the delegated prefix
-        /// Typically a hexadecimal value (e.g., '0', '1', 'a1').
+        ///   Typically a hexadecimal value (e.g., '0', '1', 'a1').
         /// </summary>
         [Input("ipv6PdPrefixid")]
         public Input<string>? Ipv6PdPrefixid { get; set; }
@@ -1740,7 +1740,7 @@ namespace Pulumiverse.Unifi
         /// * `High` - Preferred for primary networks
         /// * `Medium` - Standard priority
         /// * `Low` - For backup or secondary networks
-        /// Affects router selection when multiple IPv6 routers exist.
+        ///   Affects router selection when multiple IPv6 routers exist.
         /// 
         /// This attribute is `Optional` + `Computed`: when omitted from configuration it inherits the current value reported by the controller, so a value configured in the UI (or read in via `terraform import`) is preserved rather than planned for removal. Note the standard `Optional`+`Computed` "sticky value" semantics — once the controller has a value, removing the attribute from configuration leaves that value in place rather than clearing it (the provider serializes this field with `Omitempty`, so an empty value is never sent). There is therefore no way to clear it by deleting it from configuration; turn Router Advertisements off with `Ipv6RaEnable` instead. Set it explicitly to manage the value from Terraform.
         /// </summary>
@@ -1841,7 +1841,7 @@ namespace Pulumiverse.Unifi
         /// The VLAN ID for this network. Valid range is 0-4096. Common uses:
         /// * 1-4094: Standard VLAN range for network segmentation
         /// * 0: Untagged/native VLAN
-        /// * &gt;4094: Reserved for special purposes
+        /// * &gt; 4094: Reserved for special purposes
         /// </summary>
         [Input("vlanId")]
         public Input<int>? VlanId { get; set; }
@@ -1891,7 +1891,7 @@ namespace Pulumiverse.Unifi
         /// * 0 (default) - Best effort
         /// * 1-4 - Increasing priority
         /// * 5-7 - Highest priority, use sparingly
-        /// Higher values get preferential treatment.
+        ///   Higher values get preferential treatment.
         /// </summary>
         [Input("wanEgressQos")]
         public Input<int>? WanEgressQos { get; set; }
@@ -1941,7 +1941,7 @@ namespace Pulumiverse.Unifi
         /// * `WAN` - Primary WAN interface
         /// * `WAN2` - Secondary WAN interface
         /// * `WAN_LTE_FAILOVER` - LTE backup connection
-        /// Used for dual WAN and failover configurations.
+        ///   Used for dual WAN and failover configurations.
         /// </summary>
         [Input("wanNetworkgroup")]
         public Input<string>? WanNetworkgroup { get; set; }
@@ -1959,7 +1959,7 @@ namespace Pulumiverse.Unifi
         /// * `Static` - Static IP configuration
         /// * `Dhcp` - Dynamic IP from ISP
         /// * `Pppoe` - PPPoE connection (common for DSL)
-        /// Choose based on your ISP's requirements.
+        ///   Choose based on your ISP's requirements.
         /// </summary>
         [Input("wanType")]
         public Input<string>? WanType { get; set; }
@@ -1969,7 +1969,7 @@ namespace Pulumiverse.Unifi
         /// * `Disabled` - IPv6 disabled
         /// * `Static` - Static IPv6 configuration
         /// * `Dhcpv6` - Dynamic IPv6 from ISP
-        /// Choose based on your ISP's requirements.
+        ///   Choose based on your ISP's requirements.
         /// </summary>
         [Input("wanTypeV6")]
         public Input<string>? WanTypeV6 { get; set; }

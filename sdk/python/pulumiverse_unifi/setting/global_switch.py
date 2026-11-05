@@ -171,7 +171,7 @@ class GlobalSwitch(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  acl_device_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 acl_l3_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict']]]]] = None,
+                 acl_l3_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict', 'outputs.GlobalSwitchAclL3Isolation']]]]] = None,
                  site: pulumi.Input[Optional[_builtins.str]] = None,
                  switch_exclusions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
@@ -220,7 +220,7 @@ class GlobalSwitch(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] acl_device_isolations: Set of device identifiers to isolate (the controller's **Device Isolation** control). Each element is sent to the controller verbatim, with no validation or normalization: the UniFi `global_switch` API does not constrain this field's format, so supply the identifiers exactly as the controller expects them (refer to the controller UI). Reordering has no effect (this is an unordered set). At least one element is required when set; the value cannot be cleared and is retained even if the attribute is later removed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict']]]] acl_l3_isolations: Set of layer-3 (network-to-network) isolation rules. Each entry isolates a source network from a set of destination networks. All values are UniFi network IDs (the `id` of a `Network` resource), not network names or CIDRs. Reordering has no effect (unordered set).
+        :param pulumi.Input[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict', 'outputs.GlobalSwitchAclL3Isolation']]]] acl_l3_isolations: Set of layer-3 (network-to-network) isolation rules. Each entry isolates a source network from a set of destination networks. All values are UniFi network IDs (the `id` of a `Network` resource), not network names or CIDRs. Reordering has no effect (unordered set).
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] switch_exclusions: Set of switch MAC addresses excluded from isolation enforcement. Each element must be the MAC address of a switch that is already adopted/managed by the controller; the controller rejects MACs that do not correspond to a known switch. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written. At least one element is required when set; the value cannot be cleared and is retained even if the attribute is later removed.
         """
@@ -288,7 +288,7 @@ class GlobalSwitch(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  acl_device_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 acl_l3_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict']]]]] = None,
+                 acl_l3_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict', 'outputs.GlobalSwitchAclL3Isolation']]]]] = None,
                  site: pulumi.Input[Optional[_builtins.str]] = None,
                  switch_exclusions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
@@ -315,7 +315,7 @@ class GlobalSwitch(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             acl_device_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            acl_l3_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict']]]]] = None,
+            acl_l3_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict', 'outputs.GlobalSwitchAclL3Isolation']]]]] = None,
             site: pulumi.Input[Optional[_builtins.str]] = None,
             switch_exclusions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None) -> 'GlobalSwitch':
         """
@@ -326,7 +326,7 @@ class GlobalSwitch(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] acl_device_isolations: Set of device identifiers to isolate (the controller's **Device Isolation** control). Each element is sent to the controller verbatim, with no validation or normalization: the UniFi `global_switch` API does not constrain this field's format, so supply the identifiers exactly as the controller expects them (refer to the controller UI). Reordering has no effect (this is an unordered set). At least one element is required when set; the value cannot be cleared and is retained even if the attribute is later removed.
-        :param pulumi.Input[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict']]]] acl_l3_isolations: Set of layer-3 (network-to-network) isolation rules. Each entry isolates a source network from a set of destination networks. All values are UniFi network IDs (the `id` of a `Network` resource), not network names or CIDRs. Reordering has no effect (unordered set).
+        :param pulumi.Input[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict', 'outputs.GlobalSwitchAclL3Isolation']]]] acl_l3_isolations: Set of layer-3 (network-to-network) isolation rules. Each entry isolates a source network from a set of destination networks. All values are UniFi network IDs (the `id` of a `Network` resource), not network names or CIDRs. Reordering has no effect (unordered set).
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] switch_exclusions: Set of switch MAC addresses excluded from isolation enforcement. Each element must be the MAC address of a switch that is already adopted/managed by the controller; the controller rejects MACs that do not correspond to a known switch. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written. At least one element is required when set; the value cannot be cleared and is retained even if the attribute is later removed.
         """
@@ -339,6 +339,20 @@ class GlobalSwitch(pulumi.CustomResource):
         __props__.__dict__["site"] = site
         __props__.__dict__["switch_exclusions"] = switch_exclusions
         return GlobalSwitch(resource_name, opts=opts, __props__=__props__)
+
+    @staticmethod
+    def exists(id: pulumi.Input[str],
+            opts: Optional[pulumi.ResourceOptions] = None,
+            acl_device_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            acl_l3_isolations: pulumi.Input[Optional[Sequence[pulumi.Input[Union['GlobalSwitchAclL3IsolationArgs', 'GlobalSwitchAclL3IsolationArgsDict', 'outputs.GlobalSwitchAclL3Isolation']]]]] = None,
+            site: pulumi.Input[Optional[_builtins.str]] = None,
+            switch_exclusions: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None) -> pulumi.Output[bool]:
+        __props__: dict = {}
+        __props__["aclDeviceIsolations"] = acl_device_isolations
+        __props__["aclL3Isolations"] = acl_l3_isolations
+        __props__["site"] = site
+        __props__["switchExclusions"] = switch_exclusions
+        return pulumi.runtime.exists_resource(None, 'unifi:setting/globalSwitch:GlobalSwitch', id, __props__, opts or pulumi.ResourceOptions())
 
     @_builtins.property
     @pulumi.getter(name="aclDeviceIsolations")
